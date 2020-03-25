@@ -1,10 +1,12 @@
 {
-  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "typeRoots": [
-      "./node_modules/@types",
-      "./types/"
-    ],
+    "target": "ES5",
+    "module": "commonjs",
+    "lib": ["es2017", "dom"],    
+    "typeRoots": ["@types", "packages/common/types", "node_modules/@types"],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,  
+    "skipLibCheck": true,
     "jsx": "react-native"
   },
   "include": [
