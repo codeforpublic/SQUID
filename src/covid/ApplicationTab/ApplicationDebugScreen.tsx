@@ -72,7 +72,7 @@ export const ApplicationDebugScreen = ({ navigation }) => {
         data: applicationList[0],
         headers: applicationList[0]?.map(app => {
           return {
-            'X-Squid-Apps': app.id + '.' + app.userKey,
+            'X-FightCovid19-Apps': app.id + '.' + app.userKey,
           }
         }),
         loading: applicationList[1],

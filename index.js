@@ -18,7 +18,7 @@ global.BackgroundGeolocation = BackgroundGeolocation;
 
 import BackgroundFetch from "react-native-background-fetch";
 
-AppRegistry.registerComponent('ImHere', () => App);
+AppRegistry.registerComponent('FightCovid19', () => App);
 
 /**
 * BackgroundGeolocation Headless JS task.
