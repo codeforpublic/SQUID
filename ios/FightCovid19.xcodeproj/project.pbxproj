@@ -5,9 +5,8 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* ImHereTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ImHereTests.m */; };
+		00E356F31AD99517003FC87E /* FightCovid19Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FightCovid19Tests.m */; };
 		05F0DC7D215A492BA2BF38DB /* (null) in Resources */ = {isa = PBXBuildFile; };
 		081C5DCBAF7747F29143A7B2 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		08893D91E8324F20A1CB7B99 /* Prompt-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0924E0AA06284895947A9058 /* Prompt-ExtraBold.ttf */; };
@@ -24,7 +23,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
-		2DCD954D1E0B4F2C00145EB5 /* ImHereTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ImHereTests.m */; };
+		2DCD954D1E0B4F2C00145EB5 /* FightCovid19Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FightCovid19Tests.m */; };
 		307C8B58159647B7928EF803 /* Prompt-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F6E9B653B044F4FA57E152F /* Prompt-ThinItalic.ttf */; };
 		3ED53526BC8045809EFADEEF /* (null) in Resources */ = {isa = PBXBuildFile; };
 		3FD7302BFC714FC8B4FD38C7 /* Prompt-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 775792EF0A3F478E979586E4 /* Prompt-ExtraLightItalic.ttf */; };
@@ -40,7 +39,7 @@
 		99ECEB03AC804ABD9CEB0E85 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		A0FAD7A3E7E64112A5B2FC3F /* Prompt-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7882F728D05D4C1E92C77C02 /* Prompt-BlackItalic.ttf */; };
 		ADB4F028F5C44E0FBB866170 /* Prompt-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 437322D981D2467BA31FC7FD /* Prompt-ExtraLight.ttf */; };
-		B4669962E2DE800A477E7034 /* libPods-Squid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFD13135D063CB2AF1642B7E /* libPods-Squid.a */; };
+		B4669962E2DE800A477E7034 /* libPods-FightCovid19.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFD13135D063CB2AF1642B7E /* libPods-FightCovid19.a */; };
 		B85CF3C06DDE463FB58A9D3A /* Prompt-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F5543A345A54E0796816BBF /* Prompt-MediumItalic.ttf */; };
 		BC81F525AE454F1A852B2534 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		CEB9E88018834E95A877D93B /* (null) in Resources */ = {isa = PBXBuildFile; };
@@ -64,41 +63,41 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = ImHere;
+			remoteInfo = FightCovid19;
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "ImHere-tvOS";
+			remoteInfo = "FightCovid19-tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* ImHereTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImHereTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* FightCovid19Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FightCovid19Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* ImHereTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImHereTests.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* FightCovid19Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FightCovid19Tests.m; sourceTree = "<group>"; };
 		0924E0AA06284895947A9058 /* Prompt-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-ExtraBold.ttf"; path = "../assets/fonts/Prompt-ExtraBold.ttf"; sourceTree = "<group>"; };
 		0FDBC3A7DB8E4AA5AAC44D89 /* Prompt-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-BoldItalic.ttf"; path = "../assets/fonts/Prompt-BoldItalic.ttf"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* Squid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Squid.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ImHere/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ImHere/AppDelegate.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* FightCovid19.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FightCovid19.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = FightCovid19/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = FightCovid19/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ImHere/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ImHere/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ImHere/main.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = FightCovid19/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = FightCovid19/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = FightCovid19/main.m; sourceTree = "<group>"; };
 		17E1D3226CB74158A6A1C6EC /* Prompt-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-ExtraBoldItalic.ttf"; path = "../assets/fonts/Prompt-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
-		1C082E5CD493754C79D27915 /* Pods-Squid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Squid.release.xcconfig"; path = "Pods/Target Support Files/Pods-Squid/Pods-Squid.release.xcconfig"; sourceTree = "<group>"; };
+		1C082E5CD493754C79D27915 /* Pods-FightCovid19.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FightCovid19.release.xcconfig"; path = "Pods/Target Support Files/Pods-FightCovid19/Pods-FightCovid19.release.xcconfig"; sourceTree = "<group>"; };
 		1C613A4702724DCEA75DE99B /* Prompt-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-Black.ttf"; path = "../assets/fonts/Prompt-Black.ttf"; sourceTree = "<group>"; };
 		2A5A2CDAFEC2486EA4268877 /* Prompt-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-SemiBoldItalic.ttf"; path = "../assets/fonts/Prompt-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
-		2C560D9E35F5B687BFB4C020 /* Pods-ImHere.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImHere.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImHere/Pods-ImHere.release.xcconfig"; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* ImHere-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ImHere-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* ImHere-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ImHere-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C560D9E35F5B687BFB4C020 /* Pods-FightCovid19.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FightCovid19.release.xcconfig"; path = "Pods/Target Support Files/Pods-FightCovid19/Pods-FightCovid19.release.xcconfig"; sourceTree = "<group>"; };
+		2D02E47B1E0B4A5D006451C7 /* FightCovid19-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FightCovid19-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* FightCovid19-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FightCovid19-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F6E9B653B044F4FA57E152F /* Prompt-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-ThinItalic.ttf"; path = "../assets/fonts/Prompt-ThinItalic.ttf"; sourceTree = "<group>"; };
-		34D30D4613263368EC35BA01 /* Pods-ImHere.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImHere.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImHere/Pods-ImHere.debug.xcconfig"; sourceTree = "<group>"; };
+		34D30D4613263368EC35BA01 /* Pods-FightCovid19.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FightCovid19.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FightCovid19/Pods-FightCovid19.debug.xcconfig"; sourceTree = "<group>"; };
 		3F5543A345A54E0796816BBF /* Prompt-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-MediumItalic.ttf"; path = "../assets/fonts/Prompt-MediumItalic.ttf"; sourceTree = "<group>"; };
 		437322D981D2467BA31FC7FD /* Prompt-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-ExtraLight.ttf"; path = "../assets/fonts/Prompt-ExtraLight.ttf"; sourceTree = "<group>"; };
 		4DD441D0C38B4FF8B5740C5D /* Prompt-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-Thin.ttf"; path = "../assets/fonts/Prompt-Thin.ttf"; sourceTree = "<group>"; };
@@ -110,8 +109,8 @@
 		7882F728D05D4C1E92C77C02 /* Prompt-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-BlackItalic.ttf"; path = "../assets/fonts/Prompt-BlackItalic.ttf"; sourceTree = "<group>"; };
 		839C411C23084F93008AF109 /* RNBackgroundFetch+AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RNBackgroundFetch+AppDelegate.m"; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch/RNBackgroundFetch+AppDelegate.m"; sourceTree = "<group>"; };
 		98138CBE0C1C42268A70FD98 /* Prompt-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-Italic.ttf"; path = "../assets/fonts/Prompt-Italic.ttf"; sourceTree = "<group>"; };
-		AC3B637179884E92FD6A084B /* Pods-Squid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Squid.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Squid/Pods-Squid.debug.xcconfig"; sourceTree = "<group>"; };
-		AFD13135D063CB2AF1642B7E /* libPods-Squid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Squid.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC3B637179884E92FD6A084B /* Pods-FightCovid19.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FightCovid19.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FightCovid19/Pods-FightCovid19.debug.xcconfig"; sourceTree = "<group>"; };
+		AFD13135D063CB2AF1642B7E /* libPods-FightCovid19.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FightCovid19.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1DC8D8810EF48428CC97DA6 /* Prompt-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-Light.ttf"; path = "../assets/fonts/Prompt-Light.ttf"; sourceTree = "<group>"; };
 		D9790A306A14407D95088CA1 /* Prompt-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-LightItalic.ttf"; path = "../assets/fonts/Prompt-LightItalic.ttf"; sourceTree = "<group>"; };
 		F27A3CF1E48C46D6BE032711 /* Prompt-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-SemiBold.ttf"; path = "../assets/fonts/Prompt-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -129,7 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4669962E2DE800A477E7034 /* libPods-Squid.a in Frameworks */,
+				B4669962E2DE800A477E7034 /* libPods-FightCovid19.a in Frameworks */,
 				9061E0BAF85344DF89EE3628 /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -152,13 +151,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* ImHereTests */ = {
+		00E356EF1AD99517003FC87E /* FightCovid19Tests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* ImHereTests.m */,
+				00E356F21AD99517003FC87E /* FightCovid19Tests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = ImHereTests;
+			path = FightCovid19Tests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -169,7 +168,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* ImHere */ = {
+		13B07FAE1A68108700A75B9A /* FightCovid19 */ = {
 			isa = PBXGroup;
 			children = (
 				839C411C23084F93008AF109 /* RNBackgroundFetch+AppDelegate.m */,
@@ -181,16 +180,16 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = ImHere;
+			name = FightCovid19;
 			sourceTree = "<group>";
 		};
 		2201A91E10FF9F9FE4862E82 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				34D30D4613263368EC35BA01 /* Pods-ImHere.debug.xcconfig */,
-				2C560D9E35F5B687BFB4C020 /* Pods-ImHere.release.xcconfig */,
-				AC3B637179884E92FD6A084B /* Pods-Squid.debug.xcconfig */,
-				1C082E5CD493754C79D27915 /* Pods-Squid.release.xcconfig */,
+				34D30D4613263368EC35BA01 /* Pods-FightCovid19.debug.xcconfig */,
+				2C560D9E35F5B687BFB4C020 /* Pods-FightCovid19.release.xcconfig */,
+				AC3B637179884E92FD6A084B /* Pods-FightCovid19.debug.xcconfig */,
+				1C082E5CD493754C79D27915 /* Pods-FightCovid19.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -199,7 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				AFD13135D063CB2AF1642B7E /* libPods-Squid.a */,
+				AFD13135D063CB2AF1642B7E /* libPods-FightCovid19.a */,
 				59734E132FCC4616AE67D544 /* libz.tbd */,
 			);
 			name = Frameworks;
@@ -247,9 +246,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* ImHere */,
+				13B07FAE1A68108700A75B9A /* FightCovid19 */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* ImHereTests */,
+				00E356EF1AD99517003FC87E /* FightCovid19Tests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				2201A91E10FF9F9FE4862E82 /* Pods */,
@@ -264,20 +263,28 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* Squid.app */,
-				00E356EE1AD99517003FC87E /* ImHereTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* ImHere-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* ImHere-tvOSTests.xctest */,
+				13B07F961A680F5B00A75B9A /* FightCovid19.app */,
+				00E356EE1AD99517003FC87E /* FightCovid19Tests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* FightCovid19-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* FightCovid19-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B4FD892014C1494F89C7A0D8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			path = Application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* ImHereTests */ = {
+		00E356ED1AD99517003FC87E /* FightCovid19Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ImHereTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "FightCovid19Tests" */;
 			buildPhases = (
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
@@ -288,14 +295,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = ImHereTests;
-			productName = ImHereTests;
-			productReference = 00E356EE1AD99517003FC87E /* ImHereTests.xctest */;
+			name = FightCovid19Tests;
+			productName = FightCovid19Tests;
+			productReference = 00E356EE1AD99517003FC87E /* FightCovid19Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* Squid */ = {
+		13B07F861A680F5B00A75B9A /* FightCovid19 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Squid" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "FightCovid19" */;
 			buildPhases = (
 				C348553810805325C154C607 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
@@ -310,14 +317,14 @@
 			);
 			dependencies = (
 			);
-			name = Squid;
+			name = FightCovid19;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* Squid.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* FightCovid19.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* ImHere-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* FightCovid19-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ImHere-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "FightCovid19-tvOS" */;
 			buildPhases = (
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -328,14 +335,14 @@
 			);
 			dependencies = (
 			);
-			name = "ImHere-tvOS";
-			productName = "ImHere-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* ImHere-tvOS.app */;
+			name = "FightCovid19-tvOS";
+			productName = "FightCovid19-tvOS";
+			productReference = 2D02E47B1E0B4A5D006451C7 /* FightCovid19-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* ImHere-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* FightCovid19-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ImHere-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "FightCovid19-tvOSTests" */;
 			buildPhases = (
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
@@ -346,9 +353,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "ImHere-tvOSTests";
-			productName = "ImHere-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* ImHere-tvOSTests.xctest */;
+			name = "FightCovid19-tvOSTests";
+			productName = "FightCovid19-tvOSTests";
+			productReference = 2D02E4901E0B4A5D006451C7 /* FightCovid19-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -379,7 +386,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "ImHere" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "FightCovid19" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -393,10 +400,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* Squid */,
-				00E356ED1AD99517003FC87E /* ImHereTests */,
-				2D02E47A1E0B4A5D006451C7 /* ImHere-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* ImHere-tvOSTests */,
+				13B07F861A680F5B00A75B9A /* FightCovid19 */,
+				00E356ED1AD99517003FC87E /* FightCovid19Tests */,
+				2D02E47A1E0B4A5D006451C7 /* FightCovid19-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* FightCovid19-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -537,7 +544,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Squid/Pods-Squid-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-FightCovid19/Pods-FightCovid19-resources.sh",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -576,7 +583,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Squid/Pods-Squid-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FightCovid19/Pods-FightCovid19-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C348553810805325C154C607 /* [CP] Check Pods Manifest.lock */ = {
@@ -590,7 +597,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Squid-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-FightCovid19-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -604,7 +611,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* ImHereTests.m in Sources */,
+				00E356F31AD99517003FC87E /* FightCovid19Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,7 +638,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DCD954D1E0B4F2C00145EB5 /* ImHereTests.m in Sources */,
+				2DCD954D1E0B4F2C00145EB5 /* FightCovid19Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,12 +647,12 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* Squid */;
+			target = 13B07F861A680F5B00A75B9A /* FightCovid19 */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* ImHere-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* FightCovid19-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -657,7 +664,7 @@
 				13B07FB21A68108700A75B9A /* Base */,
 			);
 			name = LaunchScreen.xib;
-			path = ImHere;
+			path = FightCovid19;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -699,7 +706,7 @@
 					"\"${PODS_ROOT}/Headers/Public/glog\"",
 					"\"${PODS_ROOT}/Headers/Public/yoga\"",
 				);
-				INFOPLIST_FILE = ImHereTests/Info.plist;
+				INFOPLIST_FILE = FightCovid19Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -713,7 +720,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImHere.app/ImHere";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FightCovid19.app/FightCovid19";
 			};
 			name = Debug;
 		};
@@ -751,7 +758,7 @@
 					"\"${PODS_ROOT}/Headers/Public/glog\"",
 					"\"${PODS_ROOT}/Headers/Public/yoga\"",
 				);
-				INFOPLIST_FILE = ImHereTests/Info.plist;
+				INFOPLIST_FILE = FightCovid19Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -765,13 +772,13 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImHere.app/ImHere";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FightCovid19.app/FightCovid19";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AC3B637179884E92FD6A084B /* Pods-Squid.debug.xcconfig */;
+			baseConfigurationReference = AC3B637179884E92FD6A084B /* Pods-FightCovid19.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -781,7 +788,7 @@
 				DEVELOPMENT_TEAM = 3Y5XD2242T;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = ImHere/Info.plist;
+				INFOPLIST_FILE = FightCovid19/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.1.3;
 				OTHER_LDFLAGS = (
@@ -790,7 +797,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.codeforpublic.fightcovid19;
-				PRODUCT_NAME = Squid;
+				PRODUCT_NAME = FightCovid19;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -798,7 +805,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C082E5CD493754C79D27915 /* Pods-Squid.release.xcconfig */;
+			baseConfigurationReference = 1C082E5CD493754C79D27915 /* Pods-FightCovid19.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -808,7 +815,7 @@
 				DEVELOPMENT_TEAM = 3Y5XD2242T;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = ImHere/Info.plist;
+				INFOPLIST_FILE = FightCovid19/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.1.3;
 				OTHER_LDFLAGS = (
@@ -817,7 +824,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.codeforpublic.fightcovid19;
-				PRODUCT_NAME = Squid;
+				PRODUCT_NAME = FightCovid19;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -840,7 +847,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/cocoa-lumberjack/CocoaLumberjack/**",
 				);
-				INFOPLIST_FILE = "ImHere-tvOS/Info.plist";
+				INFOPLIST_FILE = "FightCovid19-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -850,7 +857,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ImHere-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.FightCovid19-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -875,7 +882,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/cocoa-lumberjack/CocoaLumberjack/**",
 				);
-				INFOPLIST_FILE = "ImHere-tvOS/Info.plist";
+				INFOPLIST_FILE = "FightCovid19-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -885,7 +892,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ImHere-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.FightCovid19-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -909,7 +916,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/cocoa-lumberjack/CocoaLumberjack/**",
 				);
-				INFOPLIST_FILE = "ImHere-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "FightCovid19-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -919,10 +926,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ImHere-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.FightCovid19-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImHere-tvOS.app/ImHere-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FightCovid19-tvOS.app/FightCovid19-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
@@ -943,7 +950,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/cocoa-lumberjack/CocoaLumberjack/**",
 				);
-				INFOPLIST_FILE = "ImHere-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "FightCovid19-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -953,10 +960,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ImHere-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.FightCovid19-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImHere-tvOS.app/ImHere-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FightCovid19-tvOS.app/FightCovid19-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
@@ -1065,7 +1072,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ImHereTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "FightCovid19Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -1074,7 +1081,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Squid" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "FightCovid19" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1083,7 +1090,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ImHere-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "FightCovid19-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -1092,7 +1099,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "ImHere-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "FightCovid19-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -1101,7 +1108,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "ImHere" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "FightCovid19" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
