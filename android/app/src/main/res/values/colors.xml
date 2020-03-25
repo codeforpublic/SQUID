@@ -1,0 +1,6 @@
+<resources>
+    <color name="white">#FFF</color>
+    <color name="red">#F00</color>
+    <color name="colorPrimary">#303342</color>
+    <color name="app_bg">#303342</color>
+</resources>
