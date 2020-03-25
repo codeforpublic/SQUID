@@ -1,0 +1,99 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.codeforpublic.fightcovid19">
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <permission
+        android:name="com.codeforpublic.fightcovid19.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.codeforpublic.fightcovid19.permission.C2D_MESSAGE" />
+    <!-- < Only if you're using GCM or localNotificationSchedule() > -->
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+
+    <!-- 2/3 [RELEASE:ADD] Add these in release -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:node="remove" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove"/>
+
+    <application
+      android:name=".MainApplication"
+      android:label="@string/app_name"
+      android:usesCleartextTraffic="true"
+      android:icon="@mipmap/ic_launcher"
+      android:allowBackup="false"
+      android:theme="@style/AppTheme">
+       <activity
+          android:name=".SplashActivity"
+          android:theme="@style/SplashTheme"
+          android:label="@string/app_name">
+          <intent-filter>
+              <action android:name="android.intent.action.MAIN" />
+              <category android:name="android.intent.category.LAUNCHER" />
+              
+          </intent-filter>          
+        </activity>
+        <activity
+        android:name=".MainActivity"
+        android:label="@string/app_name"
+        android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+        android:windowSoftInputMode="adjustResize"
+        android:exported="true"
+        >
+        <intent-filter android:label="filter_react_native">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="fightcovid19" android:host="app"/>
+            </intent-filter>
+        </activity>
+      <!-- 3/3 [RELEASE:REMOVE] Remove for release
+      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+      -->
+
+      <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCINS2dyuBipK8MZzOQnzyKdrS2I1_b5I4"/>
+
+      <meta-data android:name="com.transistorsoft.locationmanager.license" android:value="b7bb6e01ec9504c45820a10086fc2d4a92b2b225ad7e534f15280c46f724469d" />
+      <meta-data android:name="com.transistorsoft.locationmanager.ENCRYPTION_PASSWORD" android:value="transistorsoft" />
+
+      <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_name"
+                android:value="MyChannel"/>
+      <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_description"
+                  android:value="YOUR NOTIFICATION CHANNEL DESCRIPTION"/>
+      <!-- Change the resource name to your App's accent color - or any other color you want -->
+      <meta-data  android:name="com.dieam.reactnativepushnotification.notification_color"
+                  android:resource="@android:color/white"/>
+
+      <!-- < Only if you're using GCM or localNotificationSchedule() > -->
+      <receiver
+          android:name="com.google.android.gms.gcm.GcmReceiver"
+          android:exported="true"
+          android:permission="com.google.android.c2dm.permission.SEND" >
+          <intent-filter>
+              <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+              <category android:name="com.codeforpublic.fightcovid19" />
+          </intent-filter>
+      </receiver>
+      <!-- < Only if you're using GCM or localNotificationSchedule() > -->
+
+      <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationPublisher" />
+      <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationBootEventReceiver">
+          <intent-filter>
+              <action android:name="android.intent.action.BOOT_COMPLETED" />
+          </intent-filter>
+      </receiver>
+      <service android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationRegistrationService"/>
+
+      <!-- < Only if you're using GCM or localNotificationSchedule() > -->
+      <service
+          android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerServiceGcm"
+          android:exported="false" >
+          <intent-filter>
+              <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+          </intent-filter>
+      </service>
+    </application>
+
+</manifest>
