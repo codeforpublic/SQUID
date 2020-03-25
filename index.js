@@ -8,7 +8,7 @@ import BackgroundGeolocation from "./src/react-native-background-geolocation";
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
-    dsn: "https://63f054d3b61f42f49dbb4d78e6c15fe7@sentry.io/4943027"
+    dsn: "https://9ba1ba3df3174145b8d276c9d84b6b52@sentry.io/5175128"
   })
 }
 
