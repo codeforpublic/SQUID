@@ -32,7 +32,7 @@ export const AgreementPolicy = () => {
         </View>
         <View style={styles.content}>
           <ScrollView
-            contentContainerStyle={{ flexGrow: 1, backgroundColor: 'white' }}
+            contentContainerStyle={{ flexGrow: 1, backgroundColor: 'white', borderColor: COLORS.GRAY_2, borderWidth: 1, borderRadius: 4 }}
           >
             <View style={{ flexDirection: 'column', padding: 16 }}>
               <Text style={styles.agreement}>
