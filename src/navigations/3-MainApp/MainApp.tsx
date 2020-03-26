@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  Image,
 } from 'react-native'
 import { CircularProgressAvatar } from '../../components/CircularProgressAvatar'
 import AntdIcon from 'react-native-vector-icons/AntDesign'
@@ -59,95 +60,148 @@ export const MainApp = () => {
     <WhiteBackground>
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" />
+        <Text
+          style={{
+            fontFamily: FONT_FAMILY,
+            fontSize: 20,
+            alignSelf: 'center',
+            color: COLORS.PRIMARY_DARK,
+            marginVertical: 16,
+          }}
+        >
+          ข้อมูลของฉัน
+        </Text>
         <View
           style={{
             alignItems: 'center',
-            marginVertical: 16,
             position: 'relative',
           }}
         >
-          <TouchableOpacity
-            style={{ position: 'absolute', right: 24, top: 0 }}
-            onPress={() => {
-              navigation.navigate('QRCodeScan')
-            }}
-          >
-            <AntdIcon name="scan1" color={COLORS.PRIMARY_LIGHT} size={32} />
-          </TouchableOpacity>
           <CircularProgressAvatar
             image={faceURI ? { uri: faceURI } : ''}
             color={STATUS_COLORS.green}
             progress={(score / MAX_SCORE) * 100}
           />
         </View>
+        <Text
+          style={{
+            fontFamily: FONT_FAMILY,
+            fontSize: 14,
+            alignSelf: 'center',
+            color: COLORS.GRAY_2,
+            marginVertical: 16,
+          }}
+        >
+          ข้อมูลวันที่ 26 มี.ค. 2563 16:45 น.
+        </Text>
         <View
           style={{
-            paddingHorizontal: 24,
-            flex: 1,
+            flexDirection: 'row',
+            paddingHorizontal: 16,
+            paddingBottom: 16,
+            borderBottomColor: COLORS.GRAY_1,
+            borderBottomWidth: 1,
+            borderStyle: 'solid',
           }}
         >
           <View
             style={{
+              flex: 1,
               flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'flex-end',
+              paddingHorizontal: 16,
+              alignItems: 'center',
+              borderRightColor: COLORS.GRAY_1,
+              borderRightWidth: 1,
+              borderStyle: 'solid',
             }}
           >
-            <Text
+            <Image
+              source={require('../../assets/covid.png')}
+              style={{ width: 24, height: 24 }}
+            />
+            <View
               style={{
-                color: COLORS.WHITE,
-                fontFamily: FONT_FAMILY,
-                fontStyle: 'normal',
-                fontSize: 16,
-              }}
-            >
-              คะแนน
-            </Text>
-            <Text
-              style={{
-                color: COLORS.GRAY_2,
-                fontFamily: FONT_FAMILY,
-                fontStyle: 'normal',
-                fontSize: 16,
+                flex: 1,
+                alignItems: 'flex-start',
+                flexDirection: 'column',
+                marginLeft: 16,
               }}
             >
               <Text
                 style={{
-                  color: STATUS_COLORS.green,
                   fontFamily: FONT_FAMILY,
-                  fontStyle: 'normal',
-                  fontSize: 32,
-                  fontWeight: 'bold',
+                  fontSize: 12,
+                  color: COLORS.GRAY_2,
                 }}
               >
-                {score}
-              </Text>{' '}
-              / {MAX_SCORE}
-            </Text>
+                ความเสี่ยง
+              </Text>
+              <Text
+                style={{
+                  fontFamily: FONT_FAMILY,
+                  fontSize: 16,
+                  color: COLORS.PRIMARY_DARK,
+                }}
+              >
+                ความเสี่ยงต่ำ
+              </Text>
+            </View>
           </View>
-          <Text
+          <View
             style={{
-              color: COLORS.GRAY_2,
-              fontFamily: FONT_FAMILY,
-              fontStyle: 'normal',
-              fontSize: 16,
+              flex: 1,
+              flexDirection: 'row',
+              paddingHorizontal: 16,
+              alignItems: 'center',
             }}
           >
-            คะแนนของคุุณจะลดลงหากคุณเดินทางไปในพื้นที่เสี่ยง
-          </Text>
+            <Image
+              source={require('../../assets/home.png')}
+              style={{ width: 24, height: 24 }}
+            />
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+                flexDirection: 'column',
+                marginLeft: 16,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: FONT_FAMILY,
+                  fontSize: 12,
+                  color: COLORS.GRAY_2,
+                }}
+              >
+                คะแนน
+              </Text>
+              <Text
+                style={{
+                  fontFamily: FONT_FAMILY,
+                  fontSize: 16,
+                  color: COLORS.PRIMARY_DARK,
+                }}
+              >
+                <Text
+                  style={{
+                    color: STATUS_COLORS.green,
+                  }}
+                >
+                  {score}
+                </Text>{' '}
+                / {MAX_SCORE}
+              </Text>
+            </View>
+          </View>
         </View>
-        <View style={{ alignItems: 'center', marginBottom: 60 }}>
-          <Text
-            style={{
-              color: COLORS.WHITE,
-              fontFamily: FONT_FAMILY,
-              fontStyle: 'normal',
-              fontSize: 16,
-              marginBottom: 24,
-            }}
-          >
-            QR ของฉัน
-          </Text>
+        <View
+          style={{
+            alignItems: 'center',
+            flex: 1,
+            justifyContent: 'center',
+          }}
+        >
           <CovidQRCode data={covidData} bgColor={COLORS.WHITE} />
         </View>
       </SafeAreaView>
