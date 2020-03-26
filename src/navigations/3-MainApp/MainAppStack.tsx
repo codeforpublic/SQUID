@@ -1,14 +1,15 @@
 import React from 'react'
 import { createStackNavigator } from 'react-navigation'
-import { MockScreen } from '../MockScreen'
 import { MainApp } from './MainApp'
+import { QRCodeScan } from './QRCodeScan'
+import { QRCodeResult } from './QRCodeResult'
 
 
 export const MainAppStack = createStackNavigator(
   {
     MainApp,
-    QRCodeScan: () => <MockScreen title="แสกน QR" />,
-    QRCodeResult: () => <MockScreen title="QR Result" />,
+    QRCodeScan,
+    QRCodeResult,
   },
   {
     headerMode: "none"

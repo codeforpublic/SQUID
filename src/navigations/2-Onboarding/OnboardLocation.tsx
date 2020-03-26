@@ -20,7 +20,7 @@ const ACTIVITY_PERMISSION = Platform.select({
   android: PERMISSIONS.ANDROID.ACTIVITY_RECOGNITION,
 })
 
-export const OnboardLocationPermission = () => {
+export const OnboardLocation = () => {
   const navigation = useNavigation()
 
   const [locationPerm, setLocationPerm] = useState('checking')
