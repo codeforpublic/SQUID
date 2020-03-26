@@ -40,10 +40,13 @@ target 'FightCovid19' do
   # Permissions
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways.podspec"
   pod 'Permission-Motion', :path => "#{permissions_path}/Motion.podspec"
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"
 
   use_native_modules!
 
   
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
 end
 
 

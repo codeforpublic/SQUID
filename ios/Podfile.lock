@@ -25,6 +25,8 @@ PODS:
   - glog (0.3.5)
   - JWT (3.0.0-beta.11):
     - Base64 (~> 1.1.2)
+  - Permission-Camera (2.0.10):
+    - RNPermissions
   - Permission-LocationAlways (2.0.10):
     - RNPermissions
   - Permission-Motion (2.0.10):
@@ -295,6 +297,7 @@ DEPENDENCIES:
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - Permission-Camera (from `../node_modules/react-native-permissions/ios/Camera.podspec`)
   - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways.podspec`)
   - Permission-Motion (from `../node_modules/react-native-permissions/ios/Motion.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
@@ -360,6 +363,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  Permission-Camera:
+    :path: "../node_modules/react-native-permissions/ios/Camera.podspec"
   Permission-LocationAlways:
     :path: "../node_modules/react-native-permissions/ios/LocationAlways.podspec"
   Permission-Motion:
@@ -455,6 +460,7 @@ SPEC CHECKSUMS:
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   JWT: 05028b9624591bba9681bb57df2c5f95fa258bad
+  Permission-Camera: a8f6007d17b02ed8a2d6bac1c37c2fd5df9b4e8a
   Permission-LocationAlways: 738e3b24333d52c87361804bb0a1641de014c405
   Permission-Motion: 6d251146daf1102ebe143a2618adc18946353ad2
   RCTRequired: b153add4da6e7dbc44aebf93f3cf4fcae392ddf1
@@ -499,6 +505,6 @@ SPEC CHECKSUMS:
   Sentry: 14bdd673870e8cf64932b149fad5bbbf39a9b390
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: ae85bc7ce54d3778f9b32e5758741238a2a7f6a7
+PODFILE CHECKSUM: 0c11c834ced7fc971b6e3604d3c1634167963291
 
 COCOAPODS: 1.9.1
