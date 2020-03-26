@@ -32,13 +32,13 @@ export const AuthOTP = () => {
   console.log('phone', phone)
 
   return (
-    <MyBackground>
+    <MyBackground variant="light">
       <SafeAreaView style={styles.container}>
         <KeyboardAvoidingView
           behavior="padding"
           style={{ flex: 1, width: '100%' }}
         >
-          <StatusBar barStyle="light-content" />
+          <StatusBar barStyle="dark-content" />
           <View style={{ padding: 16 }}>
             <BackButton />
           </View>
@@ -88,7 +88,7 @@ export const AuthOTP = () => {
                 marginTop: 32,
               }}
             >
-              <AntIcon name="reload1" size={24} color={COLORS.PRIMARY_LIGHT} />
+              <AntIcon name="reload1" size={24} color={COLORS.PRIMARY_DARK} />
               <Text style={styles.text}>ส่งรหัสใหม่</Text>
             </TouchableOpacity>
           </View>
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 32,
     marginLeft: 8,
-    color: COLORS.PRIMARY_LIGHT,
+    color: COLORS.PRIMARY_DARK,
   },
   title: {
     fontFamily: FONT_FAMILY,
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
-    color: COLORS.PRIMARY_LIGHT,
+    color: COLORS.PRIMARY_DARK,
     textAlign: 'center',
   },
   errorText: {
