@@ -5,17 +5,26 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { COLORS } from '../../styles'
 import { Title, Subtitle, Header } from '../../components/Base'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { decodeJWT } from '../../utils/jwt'
 
-export const QRCodeScan = () => {
+export const QRCodeScan = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.background}>
       <QRCodeScanner
         showMarker
         onRead={(e) => {
-          console.log('data', e, e.data)
+          const decoded = e.data? decodeJWT(e?.data): null
+          console.log('decoded', decoded)
+          if (!decoded?.color) {
+            alert('ข้อมูลไม่ถูกต้อง')
+            return
+          }
+          navigation.navigate('QRCodeResult', {
+            data: decoded
+          })
         }}
         reactivate
-        reactivateTimeout={3} //Use this to configure how long it should take before the QRCodeScanner should reactivate.
+        reactivateTimeout={5} //Use this to configure how long it should take before the QRCodeScanner should reactivate.
         containerStyle={styles.background}
         topContent={
           <Header>
