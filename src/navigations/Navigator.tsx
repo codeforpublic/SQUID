@@ -40,11 +40,11 @@ const Root = ({ navigation }) => {
         key: null,
       })
       navigation.dispatch(action)
-      if (REDIRECT_PAGE) {
-        setTimeout(() => {
-          navigation.navigate(REDIRECT_PAGE, REDIRECT_PARAMS)
-        }, 500)
-      }
+      // if (REDIRECT_PAGE) {
+      //   setTimeout(() => {
+      //     navigation.navigate(REDIRECT_PAGE, REDIRECT_PARAMS)
+      //   }, 500)
+      // }
     }
     redirect()
   }, [])
