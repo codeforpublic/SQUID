@@ -76,6 +76,7 @@ const RiskLabel = ({ label, color }) => {
 
 export const QRCodeResult = ({ data, onRescan }: { data: QRData, onRescan: (e: any) => any }) => {  
   const { iat, color, age, gender } = data
+  console.log('QRCodeResult iat', iat)
   const createdAt = moment(iat * 1000)
     .locale('th')    
     
@@ -103,7 +104,7 @@ export const QRCodeResult = ({ data, onRescan }: { data: QRData, onRescan: (e: a
           <RiskLabel label={LABELS[color]} color={STATUS_COLORS[color]} />
         </Content>
         <Footer>
-          <DateLabel>ข้อมูลวันที่ {createdAt.format('DD MMM YYYY HH:mm น.')}</DateLabel>
+          {createdAt? <DateLabel>ข้อมูลวันที่ {createdAt.format('DD MMM YYYY HH:mm น.')}</DateLabel>: void 0}
           <PrimaryButton title={'สแกนใหม่อีกครั้ง'} onPress={onRescan} />
         </Footer>
       </SafeAreaView>
