@@ -1,5 +1,6 @@
 import * as UserInfo from './userInfo.state'
 import * as Application from './application.state'
+import * as User from './user.state'
 
 interface State {
   initialState?: Object
@@ -12,13 +13,13 @@ const extractMigrate = (states: State[]): Function[] => {
   return states.map(state => state.migrate).filter(Boolean)
 }
 
-const resolveState = (states: State[]) => {  
+const resolveState = (states: State[]) => {
   let defaults = {}
   let resolvers = {
     Query: {},
     Mutation: {},
   }
-  for (let state of states) {    
+  for (let state of states) {
     if (state.initialState) {
       defaults = { ...defaults, ...state.initialState }
     }
@@ -44,13 +45,11 @@ const resolveState = (states: State[]) => {
 export const clientState = resolveState([
   UserInfo.apolloState,
   Application.apolloState,
+  User.apolloState,
 ])
 
 export const migrateState = async (props: any) => {
-  const fns = extractMigrate([
-    UserInfo.apolloState,
-    Application.apolloState,
-  ])
+  const fns = extractMigrate([UserInfo.apolloState, Application.apolloState])
   for (let fn of fns) {
     await fn(props)
   }

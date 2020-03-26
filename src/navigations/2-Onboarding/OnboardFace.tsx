@@ -11,6 +11,8 @@ import { Title, Subtitle, Header } from '../../components/Base'
 import { PrimaryButton } from '../../components/Button'
 import { useNavigation } from 'react-navigation-hooks'
 import { BackButton } from '../../components/BackButton'
+import { useMutation } from '@apollo/react-hooks'
+import { gql } from 'apollo-boost'
 
 const SelfieCaptureGuideline = () => {
   return (
@@ -36,7 +38,14 @@ const FaceGuideline = styled.View`
   aspect-ratio: 1;
 `
 
+const MUTATE_USER = gql`
+  mutation($image: String) {
+    updateUser(data: { image: $image }) @client
+  }
+`
+
 export const OnboardFace = () => {
+  const [mutate] = useMutation(MUTATE_USER)
   const [openCamera, setOpenCamera] = useState(false)
   const [uri, setURI] = useState<string | null>(null)
   const onCapture = async (camera: RNCamera) => {
@@ -73,7 +82,10 @@ export const OnboardFace = () => {
         <View style={styles.footer}>
           <PrimaryButton
             title={'ถัดไป'}
-            onPress={() => navigation.navigate('OnboardLocation')}
+            onPress={async () => {
+              await mutate({ variables: { image: uri } })
+              navigation.navigate('OnboardLocation')
+            }}
             disabled={!uri}
           />
         </View>
