@@ -63,9 +63,9 @@ export const OnboardFace = () => {
     )
   }
   return (
-    <MyBackground>
+    <MyBackground variant="light">
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="dark-content" />
         <Header>
           <Title>รูปถ่ายหน้าตรง</Title>
           <Subtitle>เห็นหน้าชัดเจน</Subtitle>          

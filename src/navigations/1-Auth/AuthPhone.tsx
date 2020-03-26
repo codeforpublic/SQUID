@@ -27,13 +27,13 @@ export const AuthPhone = () => {
   const isValidPhone = useMemo(() => phone.match(/^[0-9]{10}$/), [phone])
 
   return (
-    <MyBackground>
+    <MyBackground variant="light">
       <SafeAreaView style={styles.container}>
         <KeyboardAvoidingView
           behavior="padding"
           style={{ flex: 1, width: '100%' }}
         >
-          <StatusBar barStyle="light-content" />
+          <StatusBar barStyle="dark-content" />
           <View style={{ padding: 16 }}>
             <BackButton />
           </View>
@@ -48,6 +48,8 @@ export const AuthPhone = () => {
               placeholder="เบอร์โทรศัพท์ของคุณ"
               inputContainerStyle={{
                 backgroundColor: COLORS.WHITE,
+                borderWidth: 1,
+                borderColor: COLORS.GRAY_2,
                 borderRadius: 4,
               }}
               maxLength={10}
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
-    color: COLORS.PRIMARY_LIGHT,
+    color: COLORS.PRIMARY_DARK,
     textAlign: 'center',
   },
   errorText: {
