@@ -8,7 +8,7 @@ export const BackButton = () => {
   const navigation = useNavigation()
   return (
     <TouchableOpacity onPress={() => navigation.pop()}>
-      <Icon name="chevron-thin-left" size={24} color={COLORS.PRIMARY_LIGHT} />
+      <Icon name="chevron-thin-left" size={24} color={COLORS.PRIMARY_DARK} />
     </TouchableOpacity>
   )
 }

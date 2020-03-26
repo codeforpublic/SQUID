@@ -20,9 +20,9 @@ export const AgreementPolicy = () => {
   const navigation = useNavigation()
   const [agree, setAgree] = useState(false)
   return (
-    <MyBackground>
+    <MyBackground variant="light">
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="dark-content" />
         <View style={{ padding: 16 }}>
           <BackButton/>
         </View>
@@ -32,7 +32,7 @@ export const AgreementPolicy = () => {
         </View>
         <View style={styles.content}>
           <ScrollView
-            contentContainerStyle={{ flexGrow: 1, backgroundColor: 'white' }}
+            contentContainerStyle={{ flexGrow: 1, backgroundColor: 'white', borderColor: COLORS.GRAY_2, borderWidth: 1, borderRadius: 4 }}
           >
             <View style={{ flexDirection: 'column', padding: 16 }}>
               <Text style={styles.agreement}>
@@ -64,8 +64,8 @@ export const AgreementPolicy = () => {
           }}
           checked={agree}
           onPress={() => setAgree(!agree)}
-          checkedColor={COLORS.ORANGE}
-          textStyle={{ color: COLORS.PRIMARY_LIGHT, fontSize: 16 }}
+          checkedColor={COLORS.BLUE}
+          textStyle={{ color: COLORS.PRIMARY_DARK, fontSize: 16 }}
         />
         <View style={styles.footer}>
           <PrimaryButton
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
-    color: COLORS.PRIMARY_LIGHT,
+    color: COLORS.PRIMARY_DARK,
     textAlign: 'center',
   },
 

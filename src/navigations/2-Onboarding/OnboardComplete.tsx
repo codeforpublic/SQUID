@@ -18,9 +18,9 @@ export const OnboardComplete = () => {
   const navigation = useNavigation()
   const resetTo = useResetTo()
   return (
-    <MyBackground>
+    <MyBackground variant="light">
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="dark-content" />
         <View style={{ height: 56 }}></View>
         <View style={styles.header}>
           <Text style={styles.title}>{STRING.TITLE}</Text>
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
-    color: COLORS.PRIMARY_LIGHT,
+    color: COLORS.PRIMARY_DARK,
     textAlign: 'center',
   },
   subtitle: {

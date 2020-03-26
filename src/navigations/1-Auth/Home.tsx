@@ -13,13 +13,13 @@ import { NavigationActions, StackActions } from 'react-navigation'
 
 export const Home = ({ navigation }) => {
   return (
-      <MyBackground variant="home">
+      <MyBackground variant="light">
         <View
           style={{
             ...StyleSheet.absoluteFillObject,
           }}
         >
-          <StatusBar barStyle="light-content" />
+          <StatusBar barStyle="dark-content" />
           <View style={styles.content}>
             <Image
               source={require('../../assets/Logo.png')}            
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 44,
     textAlign: 'center',
-    color: COLORS.GRAY_1,
+    color: COLORS.PRIMARY_DARK,
   },
   description: {
     marginTop: 20,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 25,
     textAlign: 'center',
-    color: COLORS.GRAY_1,
+    color: COLORS.PRIMARY_DARK,
   },
   button: {},
 })

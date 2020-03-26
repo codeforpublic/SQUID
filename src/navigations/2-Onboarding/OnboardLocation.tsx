@@ -71,13 +71,13 @@ export const OnboardLocation = () => {
   }
 
   return (
-    <MyBackground variant="dark">
+    <MyBackground variant="light">
       <View
         style={{
           flex: 1,
         }}
       >
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="dark-content" />
         <View
           style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
         >
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     fontSize: 29,
     lineHeight: 44,
     textAlign: 'left',
-    color: COLORS.WHITE,
+    color: COLORS.PRIMARY_DARK,
     width: 310,
   },
   description: {
@@ -128,6 +128,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 26,
     textAlign: 'left',
-    color: COLORS.WHITE,
+    color: COLORS.PRIMARY_DARK,
   },
 })
