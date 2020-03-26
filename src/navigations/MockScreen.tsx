@@ -6,6 +6,7 @@ import SafeAreaView from 'react-native-safe-area-view'
 import { useNavigation } from 'react-navigation-hooks'
 import { PrimaryButton } from '../components/Button'
 import { MyBackground } from '../covid/MyBackground'
+import { Title } from '../components/Base'
 
 export const MockScreen = ({
   title,
@@ -26,7 +27,7 @@ export const MockScreen = ({
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="light-content" />
         <View style={styles.header}>
-          <Text style={styles.title}>{title}</Text>
+          <Title>{title}</Title>
         </View>
         <View style={styles.content}>{content}</View>
         {(nextScreen || onNext) && (
