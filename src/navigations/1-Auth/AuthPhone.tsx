@@ -11,6 +11,7 @@ import {
   ScrollView,
   StyleSheet,
   Alert,
+  KeyboardAvoidingView,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
 import { PrimaryButton } from '../../components/Button'
@@ -24,53 +25,63 @@ export const AuthPhone = () => {
   const { showSpinner, hide } = useHUD()
   const [phone, setPhone] = useState('')
   const isValidPhone = useMemo(() => phone.match(/^[0-9]{10}$/), [phone])
+
   return (
     <MyBackground>
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="light-content" />
-        <View style={{ padding: 16 }}>
-          <BackButton />
-        </View>
-        <View style={styles.header}>
-          <Text style={styles.title}>กรอกเบอร์โทรศัพท์</Text>
-          <Text style={styles.subtitle}>เพื่อรับรหัสผ่านจาก SMS</Text>
-        </View>
-        <View style={styles.content}>
-          <Input
-            onChangeText={text => setPhone(text)}
-            value={phone}
-            placeholder="เบอร์โทรศัพท์ของคุณ"
-            inputContainerStyle={{
-              backgroundColor: COLORS.WHITE,
-              borderRadius: 4,
-            }}
-            maxLength={10}
-            keyboardType={'phone-pad'}
-            inputStyle={{ textAlign: 'center' }}
-            errorMessage={
-              phone && !isValidPhone
-                ? 'เบอร์โทรศัพท์จะต้องเป็นตัวเลข 10 หลัก'
-                : null
-            }
-          />
-        </View>
-        <View style={styles.footer}>
-          <PrimaryButton
-            disabled={!isValidPhone}
-            title={'ถัดไป'}
-            onPress={async () => {
-              showSpinner()
-              try {
-                await requestOTP(phone)
-                hide()
-                navigation.navigate({ routeName: 'AuthOTP', params: { phone } })                
-              } catch (err) {
-                Alert.alert('เกิดข้อผิดพลาด')
-                hide()
+        <KeyboardAvoidingView
+          behavior="padding"
+          style={{ flex: 1, width: '100%' }}
+        >
+          <StatusBar barStyle="light-content" />
+          <View style={{ padding: 16 }}>
+            <BackButton />
+          </View>
+          <View style={styles.header}>
+            <Text style={styles.title}>กรอกเบอร์โทรศัพท์</Text>
+            <Text style={styles.subtitle}>เพื่อรับรหัสผ่านจาก SMS</Text>
+          </View>
+          <View style={styles.content}>
+            <Input
+              onChangeText={text => setPhone(text)}
+              value={phone}
+              placeholder="เบอร์โทรศัพท์ของคุณ"
+              inputContainerStyle={{
+                backgroundColor: COLORS.WHITE,
+                borderRadius: 4,
+              }}
+              maxLength={10}
+              keyboardType={'phone-pad'}
+              inputStyle={{ textAlign: 'center' }}
+              errorMessage={
+                phone && !isValidPhone
+                  ? 'เบอร์โทรศัพท์จะต้องเป็นตัวเลข 10 หลัก'
+                  : null
               }
-            }}
-          />
-        </View>
+            />
+          </View>
+          <View style={styles.footer}>
+            <PrimaryButton
+              disabled={!isValidPhone}
+              title={'ถัดไป'}
+              onPress={async () => {
+                showSpinner()
+                try {
+                  await requestOTP(phone)
+                  hide()
+                  navigation.navigate({
+                    routeName: 'AuthOTP',
+                    params: { phone },
+                  })
+                } catch (err) {
+                  console.log(err)
+                  Alert.alert('เกิดข้อผิดพลาด')
+                  hide()
+                }
+              }}
+            />
+          </View>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </MyBackground>
   )
