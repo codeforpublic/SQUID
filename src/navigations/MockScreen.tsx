@@ -1,29 +1,50 @@
 import React from 'react'
 import { View, StyleSheet, Text, StatusBar } from 'react-native'
 import { COLORS, FONT_FAMILY } from '../styles'
-import SafeAreaView from 'react-native-safe-area-view';
+import SafeAreaView from 'react-native-safe-area-view'
 
 import { useNavigation } from 'react-navigation-hooks'
 import { PrimaryButton } from '../components/Button'
-import { MyBackground } from '../covid/MyBackground';
+import { MyBackground } from '../covid/MyBackground'
+import { Title } from '../components/Base'
 
-export const MockScreen = ({ title, content, nextScreen }: { title: string, content?: React.ReactChild | React.ReactChildren, nextScreen?: string }) => {
+export const MockScreen = ({
+  title,
+  content,
+  nextScreen,
+  onNext,
+  disabledNext,
+}: {
+  title: string
+  content?: React.ReactChild | React.ReactChildren
+  nextScreen?: string
+  disabledNext?: boolean
+  onNext?: (e: any) => any
+}) => {
   const navigation = useNavigation()
   return (
     <MyBackground>
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="light-content" />
         <View style={styles.header}>
-          <Text style={styles.title}>{title}</Text>
+          <Title>{title}</Title>
         </View>
-        <View style={styles.content}>
-          {content}
-        </View>
-        {nextScreen && <View style={styles.footer}>
-          <PrimaryButton title={"ถัดไป"} onPress={() => {
-            navigation.navigate(nextScreen)
-          }} />
-        </View>}
+        <View style={styles.content}>{content}</View>
+        {(nextScreen || onNext) && (
+          <View style={styles.footer}>
+            <PrimaryButton
+              title={'ถัดไป'}
+              onPress={
+                onNext
+                  ? onNext
+                  : () => {
+                      navigation.navigate(nextScreen)
+                    }
+              }
+              disabled={disabledNext}
+            />
+          </View>
+        )}
       </SafeAreaView>
     </MyBackground>
   )
@@ -55,6 +76,6 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: 'center',
-    marginBottom: 12
-  }
+    marginBottom: 12,
+  },
 })
