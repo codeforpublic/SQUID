@@ -26,7 +26,7 @@ export const QRCodeScan = ({ navigation }) => {
           }}
           onRead={e => {
             const decoded = e.data ? decodeJWT(e?.data) : null
-            console.log('e', e, decoded)
+            console.log('e', decoded, decoded.iat)
             if (!decoded?.color) {
               alert('ข้อมูลไม่ถูกต้อง')
               return
