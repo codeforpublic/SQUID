@@ -14,6 +14,8 @@ import {
 import { CircularProgressAvatar } from '../../components/CircularProgressAvatar'
 import AntdIcon from 'react-native-vector-icons/AntDesign'
 import { useNavigation } from 'react-navigation-hooks'
+import { gql } from 'apollo-boost'
+import { useQuery } from '@apollo/react-hooks'
 // const QRCode =
 
 const STATUS_COLORS = {
@@ -31,9 +33,19 @@ const covidData: QRData = {
   gender: 'M', // M | F
   age: 25,
 }
+
+const GET_USER = gql`
+  query {
+    user @client {
+      image
+    }
+  }
+`
 export const MainApp = () => {
   const navigation = useNavigation()
   const score = 900
+  const { data } = useQuery(GET_USER)
+  console.log({ data }, 123)
   return (
     <MyBackground>
       <SafeAreaView style={styles.container}>
@@ -45,14 +57,17 @@ export const MainApp = () => {
             position: 'relative',
           }}
         >
-          <TouchableOpacity style={{ position: 'absolute', right: 24, top: 0 }} onPress={() => {
-            navigation.navigate('QRCodeScan')
-          }}>
+          <TouchableOpacity
+            style={{ position: 'absolute', right: 24, top: 0 }}
+            onPress={() => {
+              navigation.navigate('QRCodeScan')
+            }}
+          >
             <AntdIcon name="scan1" color={COLORS.PRIMARY_LIGHT} size={32} />
           </TouchableOpacity>
           <CircularProgressAvatar
             text="เสี่ยงน้อย"
-            image=""
+            image={{ uri: data.user.image }}
             color={STATUS_COLORS.green}
             progress={(score / MAX_SCORE) * 100}
           />
