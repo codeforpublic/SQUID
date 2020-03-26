@@ -1,5 +1,5 @@
 import jwtDecode from 'jwt-decode'
-import jwtPure from "react-native-pure-jwt"
+import jwtPure from 'react-native-pure-jwt'
 
 export const decodeJWT = token => {
   try {
@@ -10,8 +10,8 @@ export const decodeJWT = token => {
   }
 }
 
-export const encodeJWT = (data) => {
-  return jwtPure.sign(data, 'fight-covid-19', {
-    alg: "HS256"
+export const encodeJWT = data => {
+  return jwtPure.sign({ ...data, iat: Date.now() }, 'fight-covid-19', {
+    alg: 'HS256',
   })
 }
