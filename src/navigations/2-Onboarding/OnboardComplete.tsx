@@ -20,7 +20,7 @@ export const OnboardComplete = () => {
   return (
     <MyBackground>
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="dark-content" />
         <View style={{ height: 56 }}></View>
         <View style={styles.header}>
           <Text style={styles.title}>{STRING.TITLE}</Text>

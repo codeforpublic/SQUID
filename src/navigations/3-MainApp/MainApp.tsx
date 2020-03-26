@@ -57,7 +57,7 @@ export const MainApp = () => {
   return (
     <MyBackground>
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="dark-content" />
         <View
           style={{
             alignItems: 'center',
