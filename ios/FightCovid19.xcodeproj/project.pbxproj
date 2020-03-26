@@ -488,7 +488,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.codeforpublic.fightcovid19;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codeforpublic.squid;
 				PRODUCT_NAME = FightCovid19;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -515,7 +515,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.codeforpublic.fightcovid19;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codeforpublic.squid;
 				PRODUCT_NAME = FightCovid19;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
