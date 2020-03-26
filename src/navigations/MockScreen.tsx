@@ -23,7 +23,7 @@ export const MockScreen = ({
 }) => {
   const navigation = useNavigation()
   return (
-    <MyBackground>
+    <MyBackground variant="light">
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" />
         <View style={styles.header}>

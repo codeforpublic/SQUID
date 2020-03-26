@@ -16,10 +16,11 @@ const isOnboarded = async () => {
   return AsyncStorage.getItem('is-passed-onboarding')
 }
 const isRegistered = async () => {
-  return false
-  // return AsyncStorage.getItem('registered')
+  // return false
+  return AsyncStorage.getItem('registered')
 }
-const REDIRECT_PAGE = 'OnboardFace'
+const REDIRECT_PAGE = 'QRCodeScan'
+const REDIRECT_PARAMS = { data: { color: 'green', age: 25, gender: 'M', iat: 1585235348 } }
 
 const Root = ({ navigation }) => {
   useEffect(() => {
@@ -39,11 +40,11 @@ const Root = ({ navigation }) => {
         key: null,
       })
       navigation.dispatch(action)
-      // if (REDIRECT_PAGE) {
-      //   setTimeout(() => {
-      //     navigation.navigate(REDIRECT_PAGE)
-      //   }, 500)
-      // }
+      if (REDIRECT_PAGE) {
+        setTimeout(() => {
+          navigation.navigate(REDIRECT_PAGE, REDIRECT_PARAMS)
+        }, 500)
+      }
     }
     redirect()
   }, [])

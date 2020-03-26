@@ -9,7 +9,6 @@ export const MainAppStack = createStackNavigator(
   {
     MainApp,
     QRCodeScan,
-    QRCodeResult,
   },
   {
     headerMode: "none"

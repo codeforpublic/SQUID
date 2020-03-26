@@ -75,7 +75,7 @@ export const MainApp = () => {
           </TouchableOpacity>
           <CircularProgressAvatar
             text="เสี่ยงน้อย"
-            image={faceURI? { uri: faceURI }: ''}
+            image={faceURI? { uri: faceURI }: void 0}
             color={STATUS_COLORS.green}
             progress={(score / MAX_SCORE) * 100}
           />
