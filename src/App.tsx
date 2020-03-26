@@ -23,7 +23,11 @@ const AppContainer = createAppContainer(Navigator)
 // checkApollo(ApolloProvider)
 export default class App extends React.Component {
   _navigator: NavigationContainerComponent | null
-  state: { startedTracked: boolean, loaded: boolean, activateCallback?: Function }
+  state: {
+    startedTracked: boolean
+    loaded: boolean
+    activateCallback?: Function
+  }
   constructor(props) {
     super(props)
     this._navigator = null
@@ -67,7 +71,7 @@ export default class App extends React.Component {
       }),
     ])
     await migrateState(apolloClient)
-    
+
     if (result === 'success') {
       this.setState({ startedTracked: true })
     }
@@ -81,7 +85,7 @@ export default class App extends React.Component {
   render() {
     if (!this.state.loaded) {
       return null
-    } 
+    }
     return (
       <SafeAreaProvider>
         <ApolloProvider client={apolloClient}>

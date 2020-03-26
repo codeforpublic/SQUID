@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import { MockScreen } from '../MockScreen'
 import { Avatar } from 'react-native-elements'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Camera, TakePictureResponse, RNCamera } from '../../components/Camera'
 import { COLORS } from '../../styles'
 import styled, { css } from '@emotion/native'
 import { MyBackground } from '../../covid/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StatusBar, View, StyleSheet } from 'react-native'
+import { StatusBar, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Title, Subtitle, Header } from '../../components/Base'
 import { PrimaryButton } from '../../components/Button'
 import { useNavigation } from 'react-navigation-hooks'
@@ -48,7 +47,7 @@ export const OnboardFace = () => {
   const navigation = useNavigation()
   if (openCamera) {
     return (
-      <Camera onCapture={onCapture} type="front">
+      <Camera onCapture={onCapture} defaultType="front">
         <SelfieCaptureGuideline />
       </Camera>
     )
@@ -57,11 +56,11 @@ export const OnboardFace = () => {
     <MyBackground>
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="light-content" />
-        <Header>          
+        <Header>
           <Title>รูปถ่ายหน้าตรง</Title>
           <Subtitle>เห็นหน้าชัดเจน</Subtitle>
           <View style={{ position: 'absolute', top: 16, left: 16 }}>
-            <BackButton/>
+            <BackButton />
           </View>
         </Header>
         <View style={styles.content}>
