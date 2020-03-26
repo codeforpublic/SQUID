@@ -1,4 +1,4 @@
-package com.codeforpublic.fightcovid19;
+package com.codeforpublic.squid;
 
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen;
