@@ -16,22 +16,18 @@ import { COLORS, FONT_FAMILY } from '../../styles'
 import { PrimaryButton } from '../../components/Button'
 import OtpInputs from 'react-native-otp-inputs'
 import AntIcon from 'react-native-vector-icons/AntDesign'
+import { BackButton } from '../../components/BackButton'
 
 export const AuthOTP = () => {
   const navigation = useNavigation()
   const [otp, setOtp] = useState('')
+  
   return (
     <MyBackground>
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="light-content" />
         <View style={{ padding: 16 }}>
-          <TouchableWithoutFeedback onPress={() => navigation.pop()}>
-            <Icon
-              name="chevron-thin-left"
-              size={24}
-              color={COLORS.PRIMARY_LIGHT}
-            />
-          </TouchableWithoutFeedback>
+          <BackButton/>
         </View>
         <View style={styles.header}>
           <Text style={styles.title}>กรอกรหัสจาก SMS</Text>
