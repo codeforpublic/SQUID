@@ -71,7 +71,7 @@ export const OnboardLocation = () => {
   }
 
   return (
-    <MyBackground variant="dark">
+    <MyBackground variant="light">
       <View
         style={{
           flex: 1,
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     fontSize: 29,
     lineHeight: 44,
     textAlign: 'left',
-    color: COLORS.WHITE,
+    color: COLORS.PRIMARY_DARK,
     width: 310,
   },
   description: {
@@ -128,6 +128,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 26,
     textAlign: 'left',
-    color: COLORS.WHITE,
+    color: COLORS.PRIMARY_DARK,
   },
 })

@@ -63,7 +63,7 @@ export const OnboardFace = () => {
     )
   }
   return (
-    <MyBackground>
+    <MyBackground variant="light">
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" />
         <Header>
