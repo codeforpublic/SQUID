@@ -1,12 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.codeforpublic.fightcovid19">
+    package="com.codeforpublic.squid">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <permission
-        android:name="com.codeforpublic.fightcovid19.permission.C2D_MESSAGE"
+        android:name="com.codeforpublic.squid.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.codeforpublic.fightcovid19.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.codeforpublic.squid.permission.C2D_MESSAGE" />
     <!-- < Only if you're using GCM or localNotificationSchedule() > -->
 
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -81,7 +81,7 @@
           android:permission="com.google.android.c2dm.permission.SEND" >
           <intent-filter>
               <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-              <category android:name="com.codeforpublic.fightcovid19" />
+              <category android:name="com.codeforpublic.squid" />
           </intent-filter>
       </receiver>
       <!-- < Only if you're using GCM or localNotificationSchedule() > -->

@@ -132,7 +132,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.codeforpublic.fightcovid19"
+        applicationId "com.codeforpublic.squid"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 100
