@@ -49,7 +49,7 @@ export const CircularProgressAvatar = ({
           tintColorSecondary={color}
           backgroundColor={COLORS.GRAY_1}
           arcSweepAngle={360}
-          rotation={30}
+          rotation={0}
           lineCap="round"
         />
         <View style={styles.imageWrapper}>
@@ -62,7 +62,7 @@ export const CircularProgressAvatar = ({
                 borderRadius: Math.floor(((78 / 100) * circularWidth) / 2),
               }}
             />
-          )  : CustomComponent ? (
+          ) : CustomComponent ? (
             <CustomComponent
               style={{
                 width: Math.floor((78 / 100) * width),
