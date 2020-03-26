@@ -12,18 +12,18 @@ import { AuthStack } from './1-Auth/AuthStack'
 import { OnboardingStack } from './2-Onboarding/OnboardingStack'
 import { MainAppStack } from './3-MainApp/MainAppStack'
 
-const isOnboarded = async () => {  
+const isOnboarded = async () => {
   return false
 }
-const isRegistered = async () => {  
+const isRegistered = async () => {
   return AsyncStorage.getItem('registered')
 }
-const REDIRECT_PAGE = 'OnboardFace'
+const REDIRECT_PAGE = 'MainApp'
 
 const Root = ({ navigation }) => {
   useEffect(() => {
     isRegistered().then(registered => {
-      const page =  registered? 'MainApp' : isOnboarded? 'Auth': 'Onboarding'
+      const page = registered ? 'MainApp' : isOnboarded ? 'Auth' : 'Onboarding'
 
       const action = StackActions.reset({
         index: 0,
@@ -56,10 +56,10 @@ export default createStackNavigator(
     },
     Onboarding: {
       screen: OnboardingStack,
-    },    
+    },
     MainApp: {
       screen: MainAppStack,
-    }
+    },
   },
   {
     initialRouteName: 'Root',

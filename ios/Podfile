@@ -44,6 +44,8 @@ target 'FightCovid19' do
   use_native_modules!
 
   
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
 end
 
 
