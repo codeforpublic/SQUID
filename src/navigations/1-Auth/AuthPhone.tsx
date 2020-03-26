@@ -18,7 +18,7 @@ import { Input } from 'react-native-elements'
 export const AuthPhone = () => {
   const navigation = useNavigation()
   const [phone, setPhone] = useState('')
-  const isValidPhone = useMemo(() => phone.match(/^[0-9]{10}$/), [])
+  const isValidPhone = useMemo(() => phone.match(/^[0-9]{10}$/), [phone])
   return (
     <MyBackground>
       <SafeAreaView style={styles.container}>
@@ -45,6 +45,7 @@ export const AuthPhone = () => {
               backgroundColor: COLORS.WHITE,
               borderRadius: 4,
             }}
+            maxLength={10}
             keyboardType={'phone-pad'}
             inputStyle={{ textAlign: 'center' }}
             errorMessage={
@@ -59,7 +60,7 @@ export const AuthPhone = () => {
             disabled={!isValidPhone}
             title={'ถัดไป'}
             onPress={() => {
-              navigation.navigate('AuthOTP')
+              navigation.navigate({ routeName: 'AuthOTP', params: { phone } })
             }}
           />
         </View>
