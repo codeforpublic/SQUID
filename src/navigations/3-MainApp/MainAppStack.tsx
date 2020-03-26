@@ -1,15 +1,14 @@
 import React from 'react'
 import { createStackNavigator } from 'react-navigation'
 import { MockScreen } from '../MockScreen'
+import { MainApp } from './MainApp'
 
-/*
-  handle deeplink
-  fightcovid19://app/:appId
-*/
+
 export const MainAppStack = createStackNavigator(
   {
-    MainApp: () => <MockScreen title="หยุดเชื้อ เพื่อชาติ" />,
+    MainApp,
     QRCodeScan: () => <MockScreen title="แสกน QR" />,
+    QRCodeResult: () => <MockScreen title="QR Result" />,
   },
   {
     headerMode: "none"

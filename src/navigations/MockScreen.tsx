@@ -7,7 +7,7 @@ import { useNavigation } from 'react-navigation-hooks'
 import { PrimaryButton } from '../components/Button'
 import { MyBackground } from '../covid/MyBackground';
 
-export const MockScreen = ({ title, nextScreen }: { title: string, nextScreen?: string }) => {
+export const MockScreen = ({ title, content, nextScreen }: { title: string, content?: React.ReactChild | React.ReactChildren, nextScreen?: string }) => {
   const navigation = useNavigation()
   return (
     <MyBackground>
@@ -17,7 +17,7 @@ export const MockScreen = ({ title, nextScreen }: { title: string, nextScreen?: 
           <Text style={styles.title}>{title}</Text>
         </View>
         <View style={styles.content}>
-
+          {content}
         </View>
         {nextScreen && <View style={styles.footer}>
           <PrimaryButton title={"ถัดไป"} onPress={() => {
