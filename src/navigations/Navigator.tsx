@@ -18,12 +18,13 @@ const isOnboarded = async () => {
 const isRegistered = async () => {
   return AsyncStorage.getItem('registered')
 }
-const REDIRECT_PAGE = 'QRCodeScan'
+const REDIRECT_PAGE = 'OnboardFace'
 
 const Root = ({ navigation }) => {
   useEffect(() => {
     isRegistered().then(registered => {
       const page = registered ? 'MainApp' : isOnboarded ? 'Auth' : 'Onboarding'
+      console.log('registered', registered, page)
 
       const action = StackActions.reset({
         index: 0,

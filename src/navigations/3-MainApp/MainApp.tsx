@@ -13,6 +13,7 @@ import {
 } from 'react-native'
 import { CircularProgressAvatar } from '../../components/CircularProgressAvatar'
 import AntdIcon from 'react-native-vector-icons/AntDesign'
+import { useNavigation } from 'react-navigation-hooks'
 // const QRCode =
 
 const STATUS_COLORS = {
@@ -31,6 +32,7 @@ const covidData: QRData = {
   age: 25,
 }
 export const MainApp = () => {
+  const navigation = useNavigation()
   const score = 900
   return (
     <MyBackground>
@@ -43,7 +45,9 @@ export const MainApp = () => {
             position: 'relative',
           }}
         >
-          <TouchableOpacity style={{ position: 'absolute', right: 24, top: 0 }}>
+          <TouchableOpacity style={{ position: 'absolute', right: 24, top: 0 }} onPress={() => {
+            navigation.navigate('QRCodeScan')
+          }}>
             <AntdIcon name="scan1" color={COLORS.PRIMARY_LIGHT} size={32} />
           </TouchableOpacity>
           <CircularProgressAvatar
