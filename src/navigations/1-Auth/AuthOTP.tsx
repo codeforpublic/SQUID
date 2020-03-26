@@ -17,6 +17,7 @@ import { COLORS, FONT_FAMILY } from '../../styles'
 import { PrimaryButton } from '../../components/Button'
 import OtpInputs from 'react-native-otp-inputs'
 import AntIcon from 'react-native-vector-icons/AntDesign'
+import AsyncStorage from '@react-native-community/async-storage'
 import { BackButton } from '../../components/BackButton'
 import { requestOTP } from '../../api'
 import { useHUD } from '../../HudView'
@@ -28,12 +29,13 @@ export const AuthOTP = () => {
   const [otp, setOtp] = useState('')
   console.log('phone', phone)
   
+
   return (
     <MyBackground>
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="light-content" />
         <View style={{ padding: 16 }}>
-          <BackButton/>
+          <BackButton />
         </View>
         <View style={styles.header}>
           <Text style={styles.title}>กรอกรหัสจาก SMS</Text>
@@ -90,7 +92,8 @@ export const AuthOTP = () => {
             disabled={otp.length !== 4}
             title={'ถัดไป'}
             onPress={() => {
-              navigation.navigate('OnboardingFace')
+              AsyncStorage.setItem('registered', 'success')
+              navigation.navigate('OnboardFace')
             }}
           />
         </View>

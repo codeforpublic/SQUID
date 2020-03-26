@@ -46,6 +46,7 @@ export const CircularProgressAvatar = ({
           style={{
             width: Math.floor((78 / 100) * width),
             height: Math.floor((78 / 100) * width),
+            borderRadius: Math.floor(((78 / 100) * width) / 2),
           }}
         />
       </View>

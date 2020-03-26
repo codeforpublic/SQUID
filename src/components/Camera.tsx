@@ -5,9 +5,9 @@ import { RNCamera, TakePictureResponse } from 'react-native-camera'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from 'react-navigation-hooks'
 
-import { StyleSheet, View } from 'react-native'
-import { Icon } from 'react-native-vector-icons/Icon'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import { COLORS } from '../styles'
+import Icon from 'react-native-vector-icons/EvilIcons'
 
 export type { TakePictureResponse, RNCamera }
 
@@ -36,18 +36,19 @@ const ShutterButton = styled.TouchableOpacity`
   aspect-ratio: 1;
 `
 
-export const Camera = ({ onCapture, type='front', children }: { onCapture: (camera: RNCamera) => any, type: 'front' | 'back', children }) => {
+export const Camera = ({ onCapture, defaultType='front', children }: { onCapture: (camera: RNCamera) => any, defaultType: 'front' | 'back', children }) => {
   const cameraRef = useRef()
   const handleShutter = () => {
     onCapture(cameraRef.current)
   }
+  const [cameraType, setCameraType] = useState(RNCamera.Constants.Type[defaultType])
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'black', position : 'relative'}}>
       <RNCamera
         ref={cameraRef}
         flashMode={RNCamera.Constants.FlashMode.off}
-        type={RNCamera.Constants.Type.front[type]}
+        type={cameraType}
         style={{ flex: 1, width: '100%', height: '100%' }}
         captureAudio={false}
       >
@@ -63,6 +64,12 @@ export const Camera = ({ onCapture, type='front', children }: { onCapture: (came
           </ShutterButtonInner>
         </ShutterButtonOuter>
       </View>
+      <TouchableOpacity onPress={() => {
+        setCameraType(cameraType === RNCamera.Constants.Type.front ? RNCamera.Constants.Type.back : RNCamera.Constants.Type.front)
+      }} 
+      style={{position: 'absolute', right: 16, top: 16}}>
+        <Icon name="refresh" color="white" size={48} />
+      </TouchableOpacity>
     </SafeAreaView>
   )
 }
