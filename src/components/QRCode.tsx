@@ -20,6 +20,5 @@ export const CovidQRCode = ({ data, bgColor }: { data: QRData, bgColor?: string 
   if (!encoded) {
     return null
   }
-  console.log('encoded', encoded, COLORS[data.color])
   return <QRCode value={encoded} fgColor={COLORS[data.color]} bgColor={bgColor} />
 }
