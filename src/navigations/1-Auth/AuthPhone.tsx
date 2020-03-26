@@ -14,6 +14,7 @@ import {
 import Icon from 'react-native-vector-icons/Entypo'
 import { PrimaryButton } from '../../components/Button'
 import { Input } from 'react-native-elements'
+import { BackButton } from '../../components/BackButton'
 
 export const AuthPhone = () => {
   const navigation = useNavigation()
@@ -24,13 +25,7 @@ export const AuthPhone = () => {
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="light-content" />
         <View style={{ padding: 16 }}>
-          <TouchableWithoutFeedback onPress={() => navigation.pop()}>
-            <Icon
-              name="chevron-thin-left"
-              size={24}
-              color={COLORS.PRIMARY_LIGHT}
-            />
-          </TouchableWithoutFeedback>
+          <BackButton />
         </View>
         <View style={styles.header}>
           <Text style={styles.title}>กรอกเบอร์โทรศัพท์</Text>

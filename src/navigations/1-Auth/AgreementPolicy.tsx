@@ -14,6 +14,7 @@ import { COLORS, FONT_FAMILY } from '../../styles'
 import { ScrollView } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Entypo'
 import { CheckBox } from 'react-native-elements'
+import { BackButton } from '../../components/BackButton'
 
 export const AgreementPolicy = () => {
   const navigation = useNavigation()
@@ -23,13 +24,7 @@ export const AgreementPolicy = () => {
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="light-content" />
         <View style={{ padding: 16 }}>
-          <TouchableWithoutFeedback onPress={() => navigation.pop()}>
-            <Icon
-              name="chevron-thin-left"
-              size={24}
-              color={COLORS.PRIMARY_LIGHT}
-            />
-          </TouchableWithoutFeedback>
+          <BackButton/>
         </View>
         <View style={styles.header}>
           <Text style={styles.title}>ข้อตกลงและเงื่อนไข</Text>
