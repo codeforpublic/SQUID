@@ -59,6 +59,9 @@
 	<string>เพื่อแสดงที่อยู่ปัจจุบันให้คุณ​ และคุณสามารถแบ่งปันที่อยู่ของคุณให้แก่คนอื่นได้ โดยคุณจะสามารถควบคุมการเข้าถึงและเราจะไม่ส่งข้อมูลให้ใครหากคุณไม่ให้อนุญาต</string>
 	<key>NSMotionUsageDescription</key>
 	<string>เพื่อทำให้ App ประหยัดแบตเตอร์ในการแบ่งปันข้อมูลที่อยู่ให้แก่คนอื่นมากขึ้น โดยคุณจะสามารถควบคุมการเข้าถึงและเราจะไม่ส่งข้อมูลให้ใครหากคุณไม่ให้อนุญาต</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Used to take photos</string>
+	
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
