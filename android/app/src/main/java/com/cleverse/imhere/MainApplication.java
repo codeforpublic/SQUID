@@ -1,4 +1,4 @@
-package com.codeforpublic.fightcovid19;
+package com.codeforpublic.squid;
 
 import android.app.Application;
 import android.content.Context;
