@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { MockScreen } from '../MockScreen'
 import { CovidQRCode } from '../../components/QRCode'
 import { COLORS, FONT_FAMILY } from '../../styles'
@@ -9,7 +9,7 @@ import {
   View,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
   Image,
 } from 'react-native'
 import { CircularProgressAvatar } from '../../components/CircularProgressAvatar'
@@ -44,9 +44,22 @@ const GET_USER = gql`
     }
   }
 `
+
+const mocks = [
+  { color: 'green', score: 900, risk: 'ความเสี่ยงต่ำ' },
+  { color: 'yellow', score: 500, risk: 'เฝ้าระวัง' },
+  { color: 'red', score: 200, risk: 'ความเสี่ยงสูง' },
+]
+
 export const MainApp = () => {
   const navigation = useNavigation()
-  const score = 900
+  const [mock, setMock] = useState(null)
+  const tap = useRef([])
+  useEffect(() => {
+    AsyncStorage.getItem('mock').then(color => {
+      setMock(mocks.find(mock => mock.color === color) || mocks[0])
+    })
+  }, [])
   // const { data } = useQuery(GET_USER)
   const [faceURI, setFaceURI] = useState(null)
   useEffect(() => {
@@ -55,6 +68,28 @@ export const MainApp = () => {
       setFaceURI(uri)
     })
   }, [])
+
+  const pressImage = () => {
+    const tapList = tap.current
+    console.log(tapList)
+    tapList.push(Date.now())
+    if (tapList.length > 5) {
+      tapList.splice(0, 1)
+    }
+    if (tapList[4] - tapList[0] < 2000) {
+      const nextColor =
+        mock.color === 'green'
+          ? 'yellow'
+          : mock.color === 'yellow'
+          ? 'red'
+          : 'green'
+      AsyncStorage.setItem('mock', nextColor)
+      setMock(mocks.find(mock => mock.color === nextColor) || mocks[0])
+      tapList.splice(0, 5)
+    }
+  }
+
+  if (!mock) return null
 
   return (
     <WhiteBackground>
@@ -71,18 +106,20 @@ export const MainApp = () => {
         >
           ข้อมูลของฉัน
         </Text>
-        <View
-          style={{
-            alignItems: 'center',
-            position: 'relative',
-          }}
-        >
-          <CircularProgressAvatar
-            image={faceURI? { uri: faceURI }: void 0}
-            color={STATUS_COLORS.green}
-            progress={(score / MAX_SCORE) * 100}
-          />
-        </View>
+        <TouchableWithoutFeedback onPress={pressImage}>
+          <View
+            style={{
+              alignItems: 'center',
+              position: 'relative',
+            }}
+          >
+            <CircularProgressAvatar
+              image={faceURI ? { uri: faceURI } : void 0}
+              color={STATUS_COLORS[mock.color]}
+              progress={(mock.score / MAX_SCORE) * 100}
+            />
+          </View>
+        </TouchableWithoutFeedback>
         <Text
           style={{
             fontFamily: FONT_FAMILY,
@@ -143,7 +180,7 @@ export const MainApp = () => {
                   color: COLORS.PRIMARY_DARK,
                 }}
               >
-                ความเสี่ยงต่ำ
+                {mock.risk}
               </Text>
             </View>
           </View>
@@ -185,10 +222,10 @@ export const MainApp = () => {
               >
                 <Text
                   style={{
-                    color: STATUS_COLORS.green,
+                    color: STATUS_COLORS[mock.color],
                   }}
                 >
-                  {score}
+                  {mock.score}
                 </Text>{' '}
                 / {MAX_SCORE}
               </Text>
@@ -203,7 +240,10 @@ export const MainApp = () => {
             backgroundColor: COLORS.GRAY_1,
           }}
         >
-          <CovidQRCode data={covidData} bgColor={COLORS.GRAY_1} />
+          <CovidQRCode
+            data={{ ...covidData, color: mock.color }}
+            bgColor={COLORS.GRAY_1}
+          />
         </View>
       </SafeAreaView>
     </WhiteBackground>
