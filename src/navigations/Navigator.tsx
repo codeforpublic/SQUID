@@ -16,8 +16,8 @@ const isOnboarded = async () => {
   return AsyncStorage.getItem('is-passed-onboarding')
 }
 const isRegistered = async () => {
-  return false
-  //AsyncStorage.getItem('registered')
+  // return false
+  return AsyncStorage.getItem('registered')
 }
 const REDIRECT_PAGE = 'OnboardFace'
 
