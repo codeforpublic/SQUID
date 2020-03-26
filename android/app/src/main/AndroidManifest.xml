@@ -14,9 +14,17 @@
 
 
     <!-- 2/3 [RELEASE:ADD] Add these in release -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:node="remove" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove"/>
+
+    <!-- Required -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- Include this only if you are planning to use the camera roll -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- Include this only if you are planning to use the microphone for video recording -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <application
       android:name=".MainApplication"

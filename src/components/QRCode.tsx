@@ -10,6 +10,9 @@ const COLORS = {
   DEFAULT: '#B4B5C1',
 }
 
+/*
+  issues: slow render qrcode
+*/
 export const CovidQRCode = ({ data, bgColor }: { data: QRData, bgColor?: string }) => {
   const [encoded, setEncoded] = useState(null)
   useEffect(() => {

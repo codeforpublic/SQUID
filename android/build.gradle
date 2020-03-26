@@ -1,7 +1,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    // check googlePlayService latest version here, https://developers.google.com/android/guides/setup
     ext {
+        googlePlayServicesVisionVersion = "19.0.0"
 	    googlePlayServicesLocationVersion = "17.0.0"
         googlePlayServicesVersion = "17.0.0"
         firebaseVersion = "+"
