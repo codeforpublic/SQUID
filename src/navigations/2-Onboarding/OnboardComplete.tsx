@@ -48,7 +48,7 @@ export const OnboardComplete = () => {
         </View>
         <View style={styles.footer}>
           <PrimaryButton
-            title={'ถัดไป'}
+            title={STRING.NEXT_BUTTON}
             onPress={() => {
               navigation.navigate('OnboardComplete')
             }}

@@ -3,7 +3,13 @@ import { COLORS, FONT_FAMILY } from '../../styles'
 import { useNavigation } from 'react-navigation-hooks'
 import { MyBackground } from '../../covid/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StatusBar, View, Text, StyleSheet } from 'react-native'
+import {
+  StatusBar,
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native'
 import { PrimaryButton } from '../../components/Button'
 
 const STRING = {
@@ -23,7 +29,7 @@ export const OnboardProgressing = () => {
           <Text style={styles.subtitle}>{STRING.SUB_TITLE}</Text>
         </View>
         <View style={styles.content}>
-          <Text>loading spinner</Text>
+          <ActivityIndicator size="large" color="#FFF" />
         </View>
         <View style={styles.footer}>
           <PrimaryButton
@@ -69,6 +75,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     padding: 16,
+    marginTop: 80,
   },
   footer: {
     alignItems: 'center',
