@@ -200,9 +200,10 @@ export const MainApp = () => {
             alignItems: 'center',
             flex: 1,
             justifyContent: 'center',
+            backgroundColor: COLORS.GRAY_1,
           }}
         >
-          <CovidQRCode data={covidData} bgColor={COLORS.WHITE} />
+          <CovidQRCode data={covidData} bgColor={COLORS.GRAY_1} />
         </View>
       </SafeAreaView>
     </WhiteBackground>
