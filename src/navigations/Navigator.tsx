@@ -18,6 +18,7 @@ const isOnboarded = async () => {
 const isRegistered = async () => {  
   return AsyncStorage.getItem('registered')
 }
+const REDIRECT_PAGE = 'OnboardFace'
 
 const Root = ({ navigation }) => {
   useEffect(() => {
@@ -34,6 +35,11 @@ const Root = ({ navigation }) => {
         key: null,
       })
       navigation.dispatch(action)
+      if (REDIRECT_PAGE) {
+        setTimeout(() => {
+          navigation.navigate(REDIRECT_PAGE)
+        }, 500)
+      }
     })
   }, [])
 
