@@ -1,0 +1,25 @@
+import React, { useState, useEffect, useMemo } from 'react'
+import QRCode from 'react-qr-code';
+import { encodeJWT } from '../utils/jwt'
+
+const COLORS = {
+  green: '#297D13',
+  yellow: '#D3C226',
+  orange: '#E18518',
+  red: '#D22525',
+  DEFAULT: '#B4B5C1',
+}
+
+export const CovidQRCode = ({ data, bgColor }: { data: QRData, bgColor?: string }) => {
+  const [encoded, setEncoded] = useState(null)
+  useEffect(() => {
+    encodeJWT(data).then(encoded => {
+      setEncoded(encoded)
+    })
+  }, [])
+  if (!encoded) {
+    return null
+  }
+  console.log('encoded', encoded, COLORS[data.color])
+  return <QRCode value={encoded} fgColor={COLORS[data.color]} bgColor={bgColor} />
+}
