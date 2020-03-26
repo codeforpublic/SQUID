@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { useNavigation } from 'react-navigation-hooks'
 import { MyBackground } from '../../covid/MyBackground'
@@ -19,8 +19,13 @@ const STRING = {
 
 export const OnboardProgressing = () => {
   const navigation = useNavigation()
+  useEffect(() => {
+    setTimeout(() => {
+      navigation.navigate('OnboardComplete')
+    }, 1000)
+  }, [])
   return (
-    <MyBackground>
+    <MyBackground variant="light">
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" />
         <View style={{ height: 56 }}></View>
@@ -29,15 +34,7 @@ export const OnboardProgressing = () => {
           <Text style={styles.subtitle}>{STRING.SUB_TITLE}</Text>
         </View>
         <View style={styles.content}>
-          <ActivityIndicator size="large" color="#FFF" />
-        </View>
-        <View style={styles.footer}>
-          <PrimaryButton
-            title={'ถัดไป'}
-            onPress={() => {
-              navigation.navigate('OnboardComplete')
-            }}
-          />
+          <ActivityIndicator size="large" color={COLORS.PRIMARY_DARK} />
         </View>
       </SafeAreaView>
     </MyBackground>
@@ -58,7 +55,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
-    color: COLORS.PRIMARY_LIGHT,
+    color: COLORS.PRIMARY_DARK,
     textAlign: 'center',
   },
   subtitle: {

@@ -62,9 +62,12 @@ export const AuthOTP = () => {
                 inputContainerStyles={{
                   backgroundColor: COLORS.WHITE,
                   borderRadius: 4,
+                  borderColor: COLORS.GRAY_2,
+                  borderWidth: 1,
                   flex: 1,
                   margin: 4,
                   height: 60,
+                  justifyContent: 'center'
                 }}
                 inputStyles={{ textAlign: 'center', fontSize: 32 }}
                 handleChange={code => setOtp(code)}
