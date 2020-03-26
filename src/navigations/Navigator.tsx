@@ -18,7 +18,7 @@ const isOnboarded = async () => {
 const isRegistered = async () => {  
   return AsyncStorage.getItem('registered')
 }
-const REDIRECT_PAGE = 'OnboardFace'
+const REDIRECT_PAGE = 'QRCodeScan'
 
 const Root = ({ navigation }) => {
   useEffect(() => {

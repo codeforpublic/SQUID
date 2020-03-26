@@ -6,6 +6,7 @@ import { Camera, TakePictureResponse, RNCamera } from '../../components/Camera'
 import { COLORS } from '../../styles'
 import styled, { css } from '@emotion/native'
 
+
 const SelfieCaptureGuideline = () => {
   return (
     <GuidelineContainer>
