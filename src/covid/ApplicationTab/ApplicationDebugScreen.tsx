@@ -13,7 +13,7 @@ import JSONTree from 'react-native-json-tree'
 import { FONT_FAMILY, COLORS } from '../../styles'
 import Icon from 'react-native-vector-icons/Entypo'
 import { useApplicationList } from '../../common/state/application.state'
-import { useUserInfo, UserInfoUtils } from '../../common/state/userInfo.state'
+import { useUserInfo, UserInfoUtils } from '../../common/state/user.state'
 import BackgroundGeolocation from 'react-native-background-geolocation'
 
 const theme = {
@@ -41,15 +41,16 @@ export const ApplicationDebugScreen = ({ navigation }) => {
   const applicationList = useApplicationList()
   const userInfo = useUserInfo()
   const [location, setLocation] = useState<any>([])
-  const [backgroundLocationState, setBackgroundLocationState] = useState<any>([])
-  
+  const [backgroundLocationState, setBackgroundLocationState] = useState<any>(
+    [],
+  )
+
   useEffect(() => {
     BackgroundGeolocation.getState().then(state => {
       setBackgroundLocationState(state)
     })
-    BackgroundGeolocation.onLocation(
-      location =>
-        setLocation([location].concat(location))
+    BackgroundGeolocation.onLocation(location =>
+      setLocation([location].concat(location)),
     )
     BackgroundGeolocation.getCurrentPosition({
       samples: 1,
@@ -79,11 +80,7 @@ export const ApplicationDebugScreen = ({ navigation }) => {
         error: applicationList[2],
       },
     }),
-    [
-      applicationList,
-      userInfo,
-      location,
-    ],
+    [applicationList, userInfo, location],
   )
   return (
     <MyBackground variant="dark">
@@ -117,7 +114,7 @@ export const ApplicationDebugScreen = ({ navigation }) => {
             <TouchableOpacity
               onPress={() => {
                 Share.share({
-                  message: JSON.stringify(json)
+                  message: JSON.stringify(json),
                 })
               }}
               style={{ marginRight: 10 }}

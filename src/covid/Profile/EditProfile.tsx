@@ -11,10 +11,8 @@ import {
 import { Icon } from 'react-native-elements'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
-import {
-  CampaignDataInputForm,
-} from '../ApplicationForm/AppFormMoreInfo'
-import { useUserInfo } from '../../common/state/userInfo.state'
+import { CampaignDataInputForm } from '../ApplicationForm/AppFormMoreInfo'
+import { useUserInfo } from '../../common/state/user.state'
 import { NavigationActions, StackActions } from 'react-navigation'
 import { MyBackground } from '../MyBackground'
 import { dataInputTable } from '../../common/form/data-input'

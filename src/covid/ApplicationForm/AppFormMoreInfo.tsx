@@ -13,7 +13,7 @@ import {
   ApplicationMutation,
   useApplication,
 } from '../../common/state/application.state'
-import { UserInfoMutation, useUserInfo } from '../../common/state/userInfo.state'
+import { UserInfoMutation, useUserInfo } from '../../common/state/user.state'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { DangerButton, PrimaryButton } from '../Button'
 import { DEFAULT_APPLICATION_ID } from '../const'
@@ -189,7 +189,7 @@ export const CampaignDataInputForm = ({
   let currentPermissionGroup = ''
   const InputSchema = useInputSchema(dataInputs)
   const formRef = useRef({})
-  
+
   const initialValue = dataInputs.reduce((map, obj) => {
     map[obj.id] = userInfo[obj.id] || obj.defaultValue
     return map
@@ -201,7 +201,7 @@ export const CampaignDataInputForm = ({
         'optOutCampaign',
         JSON.stringify({ timestamp: Date.now() }),
       )
-    }    
+    }
     hide()
     if (onCancel) {
       onCancel()
@@ -214,7 +214,7 @@ export const CampaignDataInputForm = ({
       onSubmit={async values => {
         try {
           showSpinner()
-          const data = await InputSchema.validate(values)          
+          const data = await InputSchema.validate(values)
           await syncUserData({
             variables: {
               data,
