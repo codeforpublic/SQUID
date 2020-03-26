@@ -1,4 +1,4 @@
-const API_URL = 'https://rlvgpp4loe.execute-api.ap-southeast-1.amazonaws.com/staging'
+const API_URL = 'https://api.staging.thaialert.com'
 
 export const requestOTP = async (phoneNumber: string) => {
   const formatNumber = phoneNumber.replace(/^0/, '+66')
