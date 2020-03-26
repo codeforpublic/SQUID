@@ -10,14 +10,18 @@ import {
   Text,
   ScrollView,
   StyleSheet,
+  Alert,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
 import { PrimaryButton } from '../../components/Button'
 import { Input } from 'react-native-elements'
 import { BackButton } from '../../components/BackButton'
+import { requestOTP } from '../../api'
+import { useHUD } from '../../HudView'
 
 export const AuthPhone = () => {
   const navigation = useNavigation()
+  const { showSpinner, hide } = useHUD()
   const [phone, setPhone] = useState('')
   const isValidPhone = useMemo(() => phone.match(/^[0-9]{10}$/), [phone])
   return (
@@ -54,8 +58,16 @@ export const AuthPhone = () => {
           <PrimaryButton
             disabled={!isValidPhone}
             title={'ถัดไป'}
-            onPress={() => {
-              navigation.navigate({ routeName: 'AuthOTP', params: { phone } })
+            onPress={async () => {
+              showSpinner()
+              try {
+                await requestOTP(phone)
+                hide()
+                navigation.navigate({ routeName: 'AuthOTP', params: { phone } })                
+              } catch (err) {
+                Alert.alert('เกิดข้อผิดพลาด')
+                hide()
+              }
             }}
           />
         </View>
