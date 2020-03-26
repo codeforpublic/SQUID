@@ -10,6 +10,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Alert,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
 import { COLORS, FONT_FAMILY } from '../../styles'
@@ -17,10 +18,15 @@ import { PrimaryButton } from '../../components/Button'
 import OtpInputs from 'react-native-otp-inputs'
 import AntIcon from 'react-native-vector-icons/AntDesign'
 import { BackButton } from '../../components/BackButton'
+import { requestOTP } from '../../api'
+import { useHUD } from '../../HudView'
 
 export const AuthOTP = () => {
+  const { showSpinner, hide } = useHUD()
   const navigation = useNavigation()
+  const phone = navigation.getParam('phone')
   const [otp, setOtp] = useState('')
+  console.log('phone', phone)
   
   return (
     <MyBackground>
@@ -59,7 +65,16 @@ export const AuthOTP = () => {
             />
           </View>
           <TouchableOpacity
-            onPress={() => console.log('renew otp')}
+            onPress={async () => {
+              showSpinner()
+              try {
+                await requestOTP(phone)
+                hide()
+              } catch (err) {
+                Alert.alert('เกิดข้อผิดพลาด')
+                hide()
+              }
+            }}
             style={{
               flexDirection: 'row',
               alignItems: 'center',
