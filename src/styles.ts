@@ -14,6 +14,7 @@ export const COLORS = {
   PURPLE: '#394CE4',
   RED: '#CB0000',
   ORANGE_2: '#E74933',
+  GREEN: '#27C269',
 }
 
 export const FONT_FAMILY = 'Prompt'
