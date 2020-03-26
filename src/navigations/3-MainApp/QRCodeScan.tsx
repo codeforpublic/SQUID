@@ -12,16 +12,16 @@ export const QRCodeScan = ({ navigation }) => {
     <SafeAreaView style={styles.background}>
       <QRCodeScanner
         showMarker
-        onRead={(e) => {
-          const decoded = e.data? decodeJWT(e?.data): null
+        onRead={e => {
+          const decoded = e.data ? decodeJWT(e?.data) : null
           console.log('decoded', decoded)
           if (!decoded?.color) {
             alert('ข้อมูลไม่ถูกต้อง')
             return
           }
-          navigation.navigate('QRCodeResult', {
-            data: decoded
-          })
+          // navigation.navigate('QRCodeResult', {
+          //   data: decoded
+          // })
         }}
         reactivate
         reactivateTimeout={5} //Use this to configure how long it should take before the QRCodeScanner should reactivate.
@@ -31,7 +31,7 @@ export const QRCodeScan = ({ navigation }) => {
             <Title>แสกน QR</Title>
             <Subtitle>เพื่อตรวจสอบความเสี่ยง</Subtitle>
           </Header>
-        } 
+        }
       />
     </SafeAreaView>
   )
@@ -40,7 +40,7 @@ export const QRCodeScan = ({ navigation }) => {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: COLORS.PRIMARY_DARK
+    backgroundColor: COLORS.PRIMARY_DARK,
   },
   centerText: {
     flex: 1,

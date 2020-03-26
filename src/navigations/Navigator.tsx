@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import { COLORS } from '../styles'
 import { AuthStack } from './1-Auth/AuthStack'
 import { OnboardingStack } from './2-Onboarding/OnboardingStack'
-import { MainAppStack } from './3-MainApp/MainAppStack'
+import { MainAppTab } from './3-MainApp/MainAppStack'
 
 const isOnboarded = async () => {
   return AsyncStorage.getItem('is-passed-onboarding')
@@ -63,7 +63,7 @@ export default createStackNavigator(
       screen: OnboardingStack,
     },
     MainApp: {
-      screen: MainAppStack,
+      screen: MainAppTab,
     },
   },
   {
