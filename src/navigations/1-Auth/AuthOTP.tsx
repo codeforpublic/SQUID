@@ -16,6 +16,7 @@ import { COLORS, FONT_FAMILY } from '../../styles'
 import { PrimaryButton } from '../../components/Button'
 import OtpInputs from 'react-native-otp-inputs'
 import AntIcon from 'react-native-vector-icons/AntDesign'
+import AsyncStorage from '@react-native-community/async-storage'
 
 export const AuthOTP = () => {
   const navigation = useNavigation()
@@ -79,7 +80,8 @@ export const AuthOTP = () => {
             disabled={otp.length !== 4}
             title={'ถัดไป'}
             onPress={() => {
-              navigation.navigate('OnboardingFace')
+              AsyncStorage.setItem('registered', 'success')
+              navigation.navigate('OnboardFace')
             }}
           />
         </View>

@@ -13,7 +13,7 @@ import { OnboardingStack } from './2-Onboarding/OnboardingStack'
 import { MainAppStack } from './3-MainApp/MainAppStack'
 
 const isOnboarded = async () => {
-  return false
+  return AsyncStorage.getItem('is-passed-onboarding')
 }
 const isRegistered = async () => {
   return AsyncStorage.getItem('registered')
@@ -22,8 +22,11 @@ const REDIRECT_PAGE = 'QRCodeScan'
 
 const Root = ({ navigation }) => {
   useEffect(() => {
-    isRegistered().then(registered => {
-      const page = registered ? 'MainApp' : isOnboarded ? 'Auth' : 'Onboarding'
+    const redirect = async () => {
+      const registered = await isRegistered()
+      const onboarded = await isOnboarded()
+      console.log({ registered, onboarded })
+      const page = registered ? (onboarded ? 'MainApp' : 'OnboardFace') : 'Auth'
 
       const action = StackActions.reset({
         index: 0,
@@ -35,12 +38,13 @@ const Root = ({ navigation }) => {
         key: null,
       })
       navigation.dispatch(action)
-      if (REDIRECT_PAGE) {
-        setTimeout(() => {
-          navigation.navigate(REDIRECT_PAGE)
-        }, 500)
-      }
-    })
+      // if (REDIRECT_PAGE) {
+      //   setTimeout(() => {
+      //     navigation.navigate(REDIRECT_PAGE)
+      //   }, 500)
+      // }
+    }
+    redirect()
   }, [])
 
   return <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }} />

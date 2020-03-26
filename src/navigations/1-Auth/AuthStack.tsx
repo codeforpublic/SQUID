@@ -17,6 +17,6 @@ export const AuthStack = createStackNavigator(
     AuthOTP,
   },
   {
-    headerMode: "none"
-  }
+    headerMode: 'none',
+  },
 )
