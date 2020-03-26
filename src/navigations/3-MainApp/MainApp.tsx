@@ -74,8 +74,7 @@ export const MainApp = () => {
             <AntdIcon name="scan1" color={COLORS.PRIMARY_LIGHT} size={32} />
           </TouchableOpacity>
           <CircularProgressAvatar
-            text="เสี่ยงน้อย"
-            image={faceURI? { uri: faceURI }: ''}
+            image={faceURI ? { uri: faceURI } : ''}
             color={STATUS_COLORS.green}
             progress={(score / MAX_SCORE) * 100}
           />

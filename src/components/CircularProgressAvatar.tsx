@@ -7,47 +7,46 @@ export const CircularProgressAvatar = ({
   image,
   progress,
   color,
-  text,
   width = Math.floor((75 / 100) * Dimensions.get('screen').width),
 }) => {
+  const circularWidth = width - 32
   return (
-    <View style={{ position: 'relative' }}>
-      <AnimatedCircularProgress
-        size={width}
-        width={12}
-        backgroundWidth={12}
-        fill={progress}
-        tintColor={color}
-        tintColorSecondary={color}
-        backgroundColor="#3d5875"
-        arcSweepAngle={300}
-        rotation={30}
-        lineCap="round"
-      />
-      <View style={styles.wrapper}>
-        <Text
-          style={{
-            fontFamily: FONT_FAMILY,
-            fontStyle: 'normal',
-            fontWeight: '600',
-            fontSize: 20,
-            lineHeight: 32,
-            marginTop: -4,
-            color,
-          }}
-        >
-          {text}
-        </Text>
-      </View>
-      <View style={styles.imageWrapper}>
-        {image? <Image
-          source={image}
-          style={{
-            width: Math.floor((78 / 100) * width),
-            height: Math.floor((78 / 100) * width),
-            borderRadius: Math.floor(((78 / 100) * width) / 2),
-          }}
-        />: null}
+    <View
+      style={{
+        padding: 16,
+        borderRadius: width / 2,
+        width,
+        height: width,
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderColor: COLORS.GRAY_2,
+      }}
+    >
+      <View style={{ position: 'relative' }}>
+        <AnimatedCircularProgress
+          size={circularWidth}
+          width={12}
+          backgroundWidth={12}
+          fill={progress}
+          tintColor={color}
+          tintColorSecondary={color}
+          backgroundColor="#3d5875"
+          arcSweepAngle={360}
+          rotation={30}
+          lineCap="round"
+        />
+        <View style={styles.imageWrapper}>
+          {image && (
+            <Image
+              source={image}
+              style={{
+                width: Math.floor((78 / 100) * circularWidth),
+                height: Math.floor((78 / 100) * circularWidth),
+                borderRadius: Math.floor(((78 / 100) * circularWidth) / 2),
+              }}
+            />
+          )}
+        </View>
       </View>
     </View>
   )
