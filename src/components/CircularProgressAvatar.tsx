@@ -7,19 +7,20 @@ export const CircularProgressAvatar = ({
   image,
   progress,
   color,
-  width = Math.floor((75 / 100) * Dimensions.get('screen').width),
+  width = Math.floor((60 / 100) * Dimensions.get('screen').width),
 }) => {
-  const circularWidth = width - 32
+  const outerPad = 11
+  const circularWidth = width - (outerPad + 1) * 2
   return (
     <View
       style={{
-        padding: 16,
-        borderRadius: width / 2,
+        padding: outerPad,
+        borderRadius: Math.floor(width / 2),
         width,
         height: width,
         borderWidth: 1,
         borderStyle: 'solid',
-        borderColor: COLORS.GRAY_2,
+        borderColor: COLORS.GRAY_1,
       }}
     >
       <View style={{ position: 'relative' }}>
@@ -30,13 +31,13 @@ export const CircularProgressAvatar = ({
           fill={progress}
           tintColor={color}
           tintColorSecondary={color}
-          backgroundColor="#3d5875"
+          backgroundColor={COLORS.GRAY_1}
           arcSweepAngle={360}
           rotation={30}
           lineCap="round"
         />
         <View style={styles.imageWrapper}>
-          {image && (
+          {image ? (
             <Image
               source={image}
               style={{
@@ -45,7 +46,7 @@ export const CircularProgressAvatar = ({
                 borderRadius: Math.floor(((78 / 100) * circularWidth) / 2),
               }}
             />
-          )}
+          ) : null}
         </View>
       </View>
     </View>

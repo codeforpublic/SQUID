@@ -17,6 +17,7 @@ import { useNavigation } from 'react-navigation-hooks'
 import { gql } from 'apollo-boost'
 import { useQuery } from '@apollo/react-hooks'
 import AsyncStorage from '@react-native-community/async-storage'
+import { WhiteBackground } from '../../components/WhiteBackground'
 // const QRCode =
 
 const STATUS_COLORS = {
@@ -55,7 +56,7 @@ export const MainApp = () => {
   }, [])
 
   return (
-    <MyBackground>
+    <WhiteBackground>
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="light-content" />
         <View
@@ -147,10 +148,10 @@ export const MainApp = () => {
           >
             QR ของฉัน
           </Text>
-          <CovidQRCode data={covidData} bgColor={COLORS.PRIMARY_DARK} />
+          <CovidQRCode data={covidData} bgColor={COLORS.WHITE} />
         </View>
       </SafeAreaView>
-    </MyBackground>
+    </WhiteBackground>
   )
 }
 
