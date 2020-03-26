@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar, View, Text, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
 import { PrimaryButton } from '../../components/Button'
+import { useResetTo } from '../../utils/navigation'
 
 const STRING = {
   TITLE: 'ลงทะเบียนสำเร็จ',
@@ -15,6 +16,7 @@ const STRING = {
 
 export const OnboardComplete = () => {
   const navigation = useNavigation()
+  const resetTo = useResetTo()
   return (
     <MyBackground>
       <SafeAreaView style={styles.container}>
@@ -50,7 +52,7 @@ export const OnboardComplete = () => {
           <PrimaryButton
             title={STRING.NEXT_BUTTON}
             onPress={() => {
-              navigation.navigate('OnboardComplete')
+              resetTo({ routeName: 'MainApp' })
             }}
           />
         </View>

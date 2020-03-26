@@ -40,14 +40,14 @@ export const CircularProgressAvatar = ({
         </Text>
       </View>
       <View style={styles.imageWrapper}>
-        <Image
-          source={image || require('../assets/mock-avatar.png')}
+        {image? <Image
+          source={image}
           style={{
             width: Math.floor((78 / 100) * width),
             height: Math.floor((78 / 100) * width),
             borderRadius: Math.floor(((78 / 100) * width) / 2),
           }}
-        />
+        />: null}
       </View>
     </View>
   )

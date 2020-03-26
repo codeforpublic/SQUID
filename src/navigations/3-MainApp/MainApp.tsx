@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { MockScreen } from '../MockScreen'
 import { CovidQRCode } from '../../components/QRCode'
 import { COLORS, FONT_FAMILY } from '../../styles'
@@ -16,6 +16,7 @@ import AntdIcon from 'react-native-vector-icons/AntDesign'
 import { useNavigation } from 'react-navigation-hooks'
 import { gql } from 'apollo-boost'
 import { useQuery } from '@apollo/react-hooks'
+import AsyncStorage from '@react-native-community/async-storage'
 // const QRCode =
 
 const STATUS_COLORS = {
@@ -44,8 +45,15 @@ const GET_USER = gql`
 export const MainApp = () => {
   const navigation = useNavigation()
   const score = 900
-  const { data } = useQuery(GET_USER)
-  console.log({ data }, 123)
+  // const { data } = useQuery(GET_USER)
+  const [faceURI, setFaceURI] = useState(null)
+  useEffect(() => {
+    AsyncStorage.getItem('faceURI').then(uri => {
+      console.log('uri', uri)
+      setFaceURI(uri)
+    })
+  }, [])
+
   return (
     <MyBackground>
       <SafeAreaView style={styles.container}>
@@ -67,7 +75,7 @@ export const MainApp = () => {
           </TouchableOpacity>
           <CircularProgressAvatar
             text="เสี่ยงน้อย"
-            image={{ uri: data.user.image }}
+            image={faceURI? { uri: faceURI }: ''}
             color={STATUS_COLORS.green}
             progress={(score / MAX_SCORE) * 100}
           />

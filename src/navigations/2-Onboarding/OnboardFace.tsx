@@ -13,6 +13,7 @@ import { useNavigation } from 'react-navigation-hooks'
 import { BackButton } from '../../components/BackButton'
 import { useMutation } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
+import AsyncStorage from '@react-native-community/async-storage'
 
 const SelfieCaptureGuideline = () => {
   return (
@@ -44,8 +45,8 @@ const MUTATE_USER = gql`
   }
 `
 
-export const OnboardFace = () => {
-  const [mutate] = useMutation(MUTATE_USER)
+export const OnboardFace = () => {  
+  // const [mutate] = useMutation(MUTATE_USER)
   const [openCamera, setOpenCamera] = useState(false)
   const [uri, setURI] = useState<string | null>(null)
   const onCapture = async (camera: RNCamera) => {
@@ -83,7 +84,9 @@ export const OnboardFace = () => {
           <PrimaryButton
             title={'ถัดไป'}
             onPress={async () => {
-              await mutate({ variables: { image: uri } })
+              console.log('uri', uri)
+              await AsyncStorage.setItem('faceURI', uri)
+              // await mutate({ variables: { image: uri } })
               navigation.navigate('OnboardLocation')
             }}
             disabled={!uri}
