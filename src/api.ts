@@ -9,7 +9,7 @@ export const requestOTP = async (phoneNumber: string) => {
       'Content-Type': 'application/json',
     }
   })
-  console.log('request otp', resp.status, await resp.json())
+  console.log('request otp', resp.status, await resp.text())
 }
 
 export const verifyOTP = async (phoneNumber: string, code: string) => {
@@ -21,6 +21,7 @@ export const verifyOTP = async (phoneNumber: string, code: string) => {
       'Content-Type': 'application/json',
     }
   })
-  const { result } = await resp.json()
+  const result = await resp.text()
+  console.log('result', result)
   return result === 'success'
 }

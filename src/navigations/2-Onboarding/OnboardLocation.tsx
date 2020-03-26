@@ -67,7 +67,7 @@ export const OnboardLocation = () => {
           flex: 1,
         }}
       >
-        <StatusBar barStyle="dark-content" />
+        <StatusBar barStyle="light-content" />
         <View
           style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
         >

@@ -58,10 +58,7 @@ export const OnboardFace = () => {
         <StatusBar barStyle="light-content" />
         <Header>
           <Title>รูปถ่ายหน้าตรง</Title>
-          <Subtitle>เห็นหน้าชัดเจน</Subtitle>
-          <View style={{ position: 'absolute', top: 16, left: 16 }}>
-            <BackButton />
-          </View>
+          <Subtitle>เห็นหน้าชัดเจน</Subtitle>          
         </Header>
         <View style={styles.content}>
           <TouchableOpacity onPress={() => setOpenCamera(true)}>

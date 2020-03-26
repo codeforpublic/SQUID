@@ -11,92 +11,107 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
+  KeyboardAvoidingView,
 } from 'react-native'
-import Icon from 'react-native-vector-icons/Entypo'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { PrimaryButton } from '../../components/Button'
 import OtpInputs from 'react-native-otp-inputs'
 import AntIcon from 'react-native-vector-icons/AntDesign'
 import AsyncStorage from '@react-native-community/async-storage'
 import { BackButton } from '../../components/BackButton'
-import { requestOTP } from '../../api'
+import { requestOTP, verifyOTP } from '../../api'
 import { useHUD } from '../../HudView'
+import { useResetTo } from '../../utils/navigation'
 
 export const AuthOTP = () => {
   const { showSpinner, hide } = useHUD()
   const navigation = useNavigation()
   const phone = navigation.getParam('phone')
   const [otp, setOtp] = useState('')
+  const resetTo = useResetTo()
   console.log('phone', phone)
-  
 
   return (
     <MyBackground>
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="light-content" />
-        <View style={{ padding: 16 }}>
-          <BackButton />
-        </View>
-        <View style={styles.header}>
-          <Text style={styles.title}>กรอกรหัสจาก SMS</Text>
-          <Text style={styles.subtitle}>
-            ส่งไปที่เบอร์ {navigation.state.params.phone}
-          </Text>
-        </View>
-        <View style={styles.content}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              width: 280,
-              maxWidth: '100%',
-            }}
-          >
-            <OtpInputs
-              keyboardType={'phone-pad'}
-              inputContainerStyles={{
-                backgroundColor: COLORS.WHITE,
-                borderRadius: 4,
-                flex: 1,
-                margin: 4,
-                height: 60,
+        <KeyboardAvoidingView
+          behavior="padding"
+          style={{ flex: 1, width: '100%' }}
+        >
+          <StatusBar barStyle="light-content" />
+          <View style={{ padding: 16 }}>
+            <BackButton />
+          </View>
+          <View style={styles.header}>
+            <Text style={styles.title}>กรอกรหัสจาก SMS</Text>
+            <Text style={styles.subtitle}>
+              ส่งไปที่เบอร์ {navigation.state.params.phone}
+            </Text>
+          </View>
+          <View style={styles.content}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                width: 280,
+                maxWidth: '100%',
               }}
-              inputStyles={{ textAlign: 'center', fontSize: 32 }}
-              handleChange={code => setOtp(code)}
-              numberOfInputs={4}
+            >
+              <OtpInputs
+                keyboardType={'phone-pad'}
+                inputContainerStyles={{
+                  backgroundColor: COLORS.WHITE,
+                  borderRadius: 4,
+                  flex: 1,
+                  margin: 4,
+                  height: 60,
+                }}
+                inputStyles={{ textAlign: 'center', fontSize: 32 }}
+                handleChange={code => setOtp(code)}
+                numberOfInputs={4}
+              />
+            </View>
+            <TouchableOpacity
+              onPress={async () => {
+                showSpinner()
+                try {
+                  await requestOTP(phone)
+                  hide()
+                } catch (err) {
+                  Alert.alert('เกิดข้อผิดพลาด')
+                  hide()
+                }
+              }}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginTop: 32,
+              }}
+            >
+              <AntIcon name="reload1" size={24} color={COLORS.PRIMARY_LIGHT} />
+              <Text style={styles.text}>ส่งรหัสใหม่</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.footer}>
+            <PrimaryButton
+              disabled={otp.length !== 4}
+              title={'ถัดไป'}
+              onPress={async () => {
+                showSpinner()
+                try {
+                  await verifyOTP(phone, otp)
+                  await new Promise((resolve, reject) => setTimeout(resolve, 300))
+                } catch (err) {
+                  // todo
+                  console.log(err)
+                }
+                hide()
+                AsyncStorage.setItem('registered', 'success')
+                resetTo({ routeName: 'Onboarding' })
+              }}
             />
           </View>
-          <TouchableOpacity
-            onPress={async () => {
-              showSpinner()
-              try {
-                await requestOTP(phone)
-                hide()
-              } catch (err) {
-                Alert.alert('เกิดข้อผิดพลาด')
-                hide()
-              }
-            }}
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginTop: 32,
-            }}
-          >
-            <AntIcon name="reload1" size={24} color={COLORS.PRIMARY_LIGHT} />
-            <Text style={styles.text}>ส่งรหัสใหม่</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.footer}>
-          <PrimaryButton
-            disabled={otp.length !== 4}
-            title={'ถัดไป'}
-            onPress={() => {
-              AsyncStorage.setItem('registered', 'success')
-              navigation.navigate('OnboardFace')
-            }}
-          />
-        </View>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </MyBackground>
   )
