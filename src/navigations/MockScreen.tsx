@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     marginBottom: 100,
   },
   footer: {
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 12
   }
 })
