@@ -9,10 +9,13 @@ import {
   TouchableWithoutFeedback,
   Text,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { PrimaryButton } from '../../components/Button'
+import OtpInputs from 'react-native-otp-inputs'
+import AntIcon from 'react-native-vector-icons/AntDesign'
 
 export const AuthOTP = () => {
   const navigation = useNavigation()
@@ -37,28 +40,46 @@ export const AuthOTP = () => {
           </Text>
         </View>
         <View style={styles.content}>
-          {/* <Input
-            onChangeText={text => setPhone(text)}
-            value={phone}
-            placeholder="เบอร์โทรศัพท์ของคุณ"
-            inputContainerStyle={{
-              backgroundColor: COLORS.WHITE,
-              borderRadius: 4,
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              width: 280,
+              maxWidth: '100%',
             }}
-            keyboardType={'phone-pad'}
-            inputStyle={{ textAlign: 'center' }}
-            errorMessage={
-              phone && !isValidPhone
-                ? 'เบอร์โทรศัพท์จะต้องเป็นตัวเลข 10 หลัก'
-                : null
-            }
-          /> */}
+          >
+            <OtpInputs
+              keyboardType={'phone-pad'}
+              inputContainerStyles={{
+                backgroundColor: COLORS.WHITE,
+                borderRadius: 4,
+                flex: 1,
+                margin: 4,
+                height: 60,
+              }}
+              inputStyles={{ textAlign: 'center', fontSize: 32 }}
+              handleChange={code => setOtp(code)}
+              numberOfInputs={4}
+            />
+          </View>
+          <TouchableOpacity
+            onPress={() => console.log('renew otp')}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginTop: 32,
+            }}
+          >
+            <AntIcon name="reload1" size={24} color={COLORS.PRIMARY_LIGHT} />
+            <Text style={styles.text}>ส่งรหัสใหม่</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.footer}>
           <PrimaryButton
+            disabled={otp.length !== 4}
             title={'ถัดไป'}
             onPress={() => {
-              navigation.navigate('AuthOTP')
+              navigation.navigate('OnboardingFace')
             }}
           />
         </View>
@@ -73,7 +94,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 32,
   },
-
+  text: {
+    fontFamily: FONT_FAMILY,
+    fontStyle: 'normal',
+    fontSize: 16,
+    lineHeight: 32,
+    marginLeft: 8,
+    color: COLORS.PRIMARY_LIGHT,
+  },
   title: {
     fontFamily: FONT_FAMILY,
     fontStyle: 'normal',
