@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/Entypo'
 import AntIcon from 'react-native-vector-icons/AntDesign'
 import { AppContext } from '../../AppContext'
 import { useHUD } from '../../HudView'
+import { StackActions, NavigationActions } from 'react-navigation'
 
 const LOCATION_PERMISSION = Platform.select({
   ios: PERMISSIONS.IOS.LOCATION_ALWAYS,
@@ -37,7 +38,16 @@ export const OnboardLocation = () => {
     console.log('perm', perms)
     if (perms[0] === 'granted' && perms[1] === 'granted') {
       appContext.activateBackgroundTracking()
-      navigation.replace('MainTab')
+      const action = StackActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({
+            routeName: 'MainApp',
+          }),
+        ],
+        key: null,
+      })
+      navigation.dispatch(action)
     } else {
       setLocationPerm(perms[0])
       setActivityPerm(perms[1])
@@ -76,7 +86,9 @@ export const OnboardLocation = () => {
             <Text style={styles.title}>ขอสิทธิเข้าถึงข้อมูล</Text>
             <Text style={styles.description}>
               <AntIcon name="checksquareo" size={18} color={COLORS.ORANGE} /> 1.
-      เราจำเป็นจะต้องเข้าถึงที่อยู่ของคุณ เพื่อส่งให้กับหน่วยงานที่คุณวางใจ โดยที่คุณสามารถยกเลิกการแชร์ข้อมูลได้ตลอดเวลา
+              เราจำเป็นจะต้องเข้าถึงที่อยู่ของคุณ
+              เพื่อส่งให้กับหน่วยงานที่คุณวางใจ
+              โดยที่คุณสามารถยกเลิกการแชร์ข้อมูลได้ตลอดเวลา
             </Text>
             <Text style={styles.description}>
               <AntIcon name="checksquareo" size={18} color={COLORS.ORANGE} /> 2.

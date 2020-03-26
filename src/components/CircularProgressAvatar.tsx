@@ -1,8 +1,7 @@
 import React from 'react'
 import { AnimatedCircularProgress } from 'react-native-circular-progress'
-import { Text, View, StyleSheet, Dimensions } from 'react-native'
+import { Text, View, StyleSheet, Dimensions, Image } from 'react-native'
 import { COLORS, FONT_FAMILY } from '../styles'
-import { Image } from 'react-native-elements'
 
 export const CircularProgressAvatar = ({
   image,

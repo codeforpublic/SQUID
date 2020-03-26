@@ -29,13 +29,13 @@ export const apolloState = {
         },
       })
       console.log('--syncUserData---')
-      
+
       const resp = await fetch(`${SQUID_API_URL}/userdata`, {
-        method: "post",
+        method: 'post',
         headers: getHeaders(cache, ['data:*']),
-        body: JSON.stringify({ userdata: UserInfoUtils.formatUserData(data) })
+        body: JSON.stringify({ userdata: UserInfoUtils.formatUserData(data) }),
       })
-      
+
       console.log('--syncUserData---', resp.status)
     },
   },
@@ -71,7 +71,7 @@ export const UserInfoMutation = {
 }
 
 export const UserInfoUtils = {
-  formatUserData: (userData: {[name: string]: any}) => {
+  formatUserData: (userData: { [name: string]: any }) => {
     return {
       ..._.mapValues(userData, d => {
         if (d === 'true') {

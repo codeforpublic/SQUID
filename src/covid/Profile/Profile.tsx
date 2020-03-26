@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import { Icon, Divider } from 'react-native-elements'
 import { COLORS, FONT_FAMILY } from '../../styles'
-import { useUserInfo } from '../../common/state/userInfo.state'
+import { useUserInfo } from '../../common/state/user.state'
 import { YESNO_QUESTIONS } from '../../common/form/data-input'
 import { MyBackground } from '../MyBackground'
 import { COUNTRIES } from '../../common/form/const'
@@ -154,7 +154,8 @@ export const Profile = ({ navigation }) => {
     community3,
   } = userInfo.data
 
-  const nationalityLabel = nationality && COUNTRIES.find((c) => c?.alpha2 === nationality)?.name
+  const nationalityLabel =
+    nationality && COUNTRIES.find(c => c?.alpha2 === nationality)?.name
 
   return (
     <MyBackground variant="dark">
@@ -233,14 +234,18 @@ export const Profile = ({ navigation }) => {
                   <View style={{ paddingHorizontal: 30 }}>
                     <Text style={styles.sectionTitle}>ติดต่อ</Text>
                     <View style={{ flexDirection: 'row' }}>
-                      {mobile? (
+                      {mobile ? (
                         <DataItem
                           style={{ marginRight: 32 }}
                           label="เบอร์ติดต่อ"
                           value={mobile}
                         />
-                      ): null}
-                      {email? <DataItem label="อีเมล" value={email} />: void 0}
+                      ) : null}
+                      {email ? (
+                        <DataItem label="อีเมล" value={email} />
+                      ) : (
+                        void 0
+                      )}
                     </View>
                   </View>
                 </>
