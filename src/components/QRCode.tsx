@@ -3,10 +3,10 @@ import QRCode from 'react-qr-code';
 import { encodeJWT, decodeJWT } from '../utils/jwt'
 
 const COLORS = {
-  green: '#297D13',
-  yellow: '#D3C226',
-  orange: '#E18518',
-  red: '#D22525',
+  green: '#56AF3E',
+  yellow: '#F3DF27',
+  orange: '#FF981E',
+  red: '#F85151',
   DEFAULT: '#B4B5C1',
 }
 
