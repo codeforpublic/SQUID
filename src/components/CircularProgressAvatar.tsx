@@ -1,7 +1,14 @@
 import React from 'react'
 import { AnimatedCircularProgress } from 'react-native-circular-progress'
-import { Text, View, StyleSheet, Dimensions, Image } from 'react-native'
-import { COLORS, FONT_FAMILY } from '../styles'
+import {
+  Text,
+  View,
+  StyleSheet,
+  Dimensions,
+  Image,
+  ImageSourcePropType,
+} from 'react-native'
+import { FONT_FAMILY } from '../styles'
 
 export const CircularProgressAvatar = ({
   image,
@@ -9,6 +16,14 @@ export const CircularProgressAvatar = ({
   color,
   text,
   width = Math.floor((75 / 100) * Dimensions.get('screen').width),
+  CustomComponent,
+}: {
+  image?: ImageSourcePropType
+  progress: number
+  color: string
+  text?: string
+  width?: number
+  CustomComponent?: any
 }) => {
   return (
     <View style={{ position: 'relative' }}>
@@ -40,14 +55,24 @@ export const CircularProgressAvatar = ({
         </Text>
       </View>
       <View style={styles.imageWrapper}>
-        {image? <Image
-          source={image}
-          style={{
-            width: Math.floor((78 / 100) * width),
-            height: Math.floor((78 / 100) * width),
-            borderRadius: Math.floor(((78 / 100) * width) / 2),
-          }}
-        />: null}
+        {image ? (
+          <Image
+            source={image}
+            style={{
+              width: Math.floor((78 / 100) * width),
+              height: Math.floor((78 / 100) * width),
+              borderRadius: Math.floor(((78 / 100) * width) / 2),
+            }}
+          />
+        ) : CustomComponent ? (
+          <CustomComponent
+            style={{
+              width: Math.floor((78 / 100) * width),
+              height: Math.floor((78 / 100) * width),
+              borderRadius: Math.floor(((78 / 100) * width) / 2),
+            }}
+          />
+        ) : null}
       </View>
     </View>
   )
