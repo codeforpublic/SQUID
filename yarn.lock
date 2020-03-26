@@ -6494,6 +6494,11 @@ react-native-maps@^0.26.1:
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.26.1.tgz#6ec316259b38d259c8974448d894bd7a23101da4"
   integrity sha512-p4VTB8YB5ZmOmDRCUpoHZkm05amZwhIo04AJMBbB9+JAR2PNNfpo0vceoWX0Mag4wnePkdzPomeWMplr/wimTg==
 
+react-native-otp-inputs@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-otp-inputs/-/react-native-otp-inputs-5.0.1.tgz#59362997a9b32c16a15dde1ede52301c304bc9b9"
+  integrity sha512-mJk6cEuJKcQtfkJOCdQHFTfIoQcz5GEVAbQ3C02UWtqHhDrfokLrnJcFapAdxthVdxx6M1g9hCSbhQ8sNwdewA==
+
 react-native-permissions@^2.0.10:
   version "2.0.10"
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.0.10.tgz#d01f5ce7cc48f99d33f2f7ed32bb70abe5ea03dd"
