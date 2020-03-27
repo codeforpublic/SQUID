@@ -14,6 +14,7 @@ import { BackButton } from '../../components/BackButton'
 import { useMutation } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 import AsyncStorage from '@react-native-community/async-storage'
+import RNFS from 'react-native-fs'
 
 const SelfieCaptureGuideline = () => {
   return (
@@ -51,7 +52,9 @@ export const OnboardFace = () => {
   const [uri, setURI] = useState<string | null>(null)
   const onCapture = async (camera: RNCamera) => {
     const data: TakePictureResponse = await camera.takePictureAsync()
-    setURI(data.uri)
+    const dataPath = RNFS.DocumentDirectoryPath + '/face.jpg'
+    await RNFS.moveFile(data.uri, dataPath)    
+    setURI(dataPath)
     setOpenCamera(false)
   }
   const navigation = useNavigation()

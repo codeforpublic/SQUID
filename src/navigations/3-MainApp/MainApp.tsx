@@ -139,17 +139,17 @@ export const MainApp = () => {
             borderBottomColor: COLORS.GRAY_1,
             borderBottomWidth: 1,
             borderStyle: 'solid',
+            justifyContent: 'center'
           }}
         >
           <View
             style={{
-              flex: 1,
               flexDirection: 'row',
               paddingHorizontal: 16,
               alignItems: 'center',
-              borderRightColor: COLORS.GRAY_1,
-              borderRightWidth: 1,
-              borderStyle: 'solid',
+              // borderRightColor: COLORS.GRAY_1,
+              // borderRightWidth: 1,
+              // borderStyle: 'solid',
             }}
           >
             <Image
@@ -158,7 +158,6 @@ export const MainApp = () => {
             />
             <View
               style={{
-                flex: 1,
                 alignItems: 'flex-start',
                 flexDirection: 'column',
                 marginLeft: 16,
@@ -184,7 +183,7 @@ export const MainApp = () => {
               </Text>
             </View>
           </View>
-          <View
+          {/* <View
             style={{
               flex: 1,
               flexDirection: 'row',
@@ -230,7 +229,7 @@ export const MainApp = () => {
                 / {MAX_SCORE}
               </Text>
             </View>
-          </View>
+          </View> */}
         </View>
         <View
           style={{

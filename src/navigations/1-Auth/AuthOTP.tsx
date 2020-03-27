@@ -109,7 +109,7 @@ export const AuthOTP = () => {
                   console.log(err)
                 }
                 hide()
-                AsyncStorage.setItem('registered', 'success')
+                AsyncStorage.setItem('isRegistered', 'success')
                 resetTo({ routeName: 'Onboarding' })
               }}
             />
