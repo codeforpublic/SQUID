@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  Image,
-  Text,
-  View,
-  StyleSheet,
-  StatusBar,
-} from 'react-native'
+import { Image, Text, View, StyleSheet, StatusBar } from 'react-native'
 import { PrimaryButton } from '../../components/Button'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
@@ -13,41 +7,34 @@ import { NavigationActions, StackActions } from 'react-navigation'
 
 export const Home = ({ navigation }) => {
   return (
-      <MyBackground variant="light">
-        <View
-          style={{
-            ...StyleSheet.absoluteFillObject,
+    <View
+      style={{
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: '#212356',
+      }}
+    >
+      <StatusBar barStyle="dark-content" />
+      <View style={styles.content}>
+        <Image source={require('../../assets/Logo.png')} resizeMode="contain" style={{width: 300}} />
+        <Text style={styles.description}>
+          หยุดเชื้อเพื่อชาติ{'\n'}
+          ป้องกันการระบาดของโรค
+        </Text>
+        <PrimaryButton
+          title="เริ่มต้น"
+          iconRight
+          icon={{
+            name: 'right',
+            type: 'antdesign',
+            color: 'white',
+            size: 18,
           }}
-        >
-          <StatusBar barStyle="dark-content" />
-          <View style={styles.content}>
-            <Image
-              source={require('../../assets/Logo.png')}            
-              resizeMode="contain"
-            />
-            <Text style={styles.title}>หยุดเชื้อ เพื่อชาติ</Text>
-            <Text style={styles.description}>
-            ด้วยความที่ตัวเองมีโอกาสเสี่ยง{"\n"}
-            เราอยากเป็นอีกแรงช่วยสังคม{"\n"}
-            ในการป้องกัน การแพร่ระบาด{"\n"}
-            และ ทำตาม พรบ โรคติดต่อ
-            </Text>
-            <PrimaryButton
-              title="เริ่มต้น"
-              iconRight
-              icon={{
-                name: 'right',
-                type: 'antdesign',
-                color: 'white',
-                size: 18,
-              }}
-              onPress={async () => {
-                navigation.navigate('AgreementPolicy')
-              }}
-            />
-          </View>
-        </View>
-      </MyBackground>      
+          onPress={async () => {
+            navigation.navigate('AgreementPolicy')
+          }}
+        />
+      </View>
+    </View>
   )
 }
 
@@ -65,7 +52,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 44,
     textAlign: 'center',
-    color: COLORS.PRIMARY_DARK,
+    color: COLORS.PRIMARY_LIGHT,
   },
   description: {
     marginTop: 20,
@@ -74,10 +61,10 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY,
     fontStyle: 'normal',
     fontWeight: 'normal',
-    fontSize: 16,
+    fontSize: 18,
     lineHeight: 25,
     textAlign: 'center',
-    color: COLORS.PRIMARY_DARK,
+    color: COLORS.PRIMARY_LIGHT,
   },
   button: {},
 })

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { MockScreen } from '../MockScreen'
 import QRCodeScanner from 'react-native-qrcode-scanner'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
 import { COLORS } from '../../styles'
 import { Title, Subtitle, Header } from '../../components/Base'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -23,6 +23,11 @@ export const QRCodeScan = ({ navigation }) => {
           showMarker
           markerStyle={{
             borderColor: COLORS.PRIMARY_LIGHT
+          }}
+          cameraStyle={{
+            marginLeft: 8,
+            marginRight: 8,
+            width: Dimensions.get('window').width - 16
           }}
           onRead={e => {
             const decoded = e.data ? decodeJWT(e?.data) : null

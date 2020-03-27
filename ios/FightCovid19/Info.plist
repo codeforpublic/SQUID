@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CodePushDeploymentKey</key>
+	<string>soNPgHlSY7mTELK-it1EsmkOP9J-lsdJ7f-5-</string>
 	<key>BACKGROUND_GEOLOCATION_ENCRYPTION_PASSWORD</key>
 	<string>transistorsoft</string>
 	<key>CFBundleDevelopmentRegion</key>
