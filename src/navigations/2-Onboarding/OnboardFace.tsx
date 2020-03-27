@@ -52,7 +52,7 @@ export const OnboardFace = () => {
   const [uri, setURI] = useState<string | null>(null)
   const onCapture = async (camera: RNCamera) => {
     const data: TakePictureResponse = await camera.takePictureAsync()
-    const dataPath = RNFS.DocumentDirectoryPath + '/face.jpg'
+    const dataPath = RNFS.DocumentDirectoryPath + `/face-${Date.now()}.jpg`
     await RNFS.moveFile(data.uri, dataPath)    
     setURI(dataPath)
     setOpenCamera(false)
