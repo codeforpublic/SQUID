@@ -15,15 +15,16 @@
                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" id="Vee-SS-sZG">
                     <rect key="frame" x="106" y="176" width="268" height="128"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" red="0.12941176470588234" green="0.13725490196078433" blue="0.33725490196078434" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.1887700558" green="0.1988449991" blue="0.2549148202" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color key="backgroundColor" red="0.18823529411764706" green="0.20000000000000001" blue="0.25490196078431371" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="508.69565217391306" y="477.45535714285711"/>
         </view>
     </objects>
     <resources>
-        <image name="Logo" width="256" height="256"/>
+        <image name="Logo" width="320" height="320"/>
     </resources>
 </document>
