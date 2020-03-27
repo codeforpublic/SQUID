@@ -17,7 +17,7 @@ const isOnboarded = async () => {
 }
 const isRegistered = async () => {
   // return false
-  return AsyncStorage.getItem('registered')
+  return AsyncStorage.getItem('isRegistered')
 }
 const REDIRECT_PAGE = 'QRCodeScan'
 const REDIRECT_PARAMS = { data: { color: 'green', age: 25, gender: 'M', iat: 1585235348 } }

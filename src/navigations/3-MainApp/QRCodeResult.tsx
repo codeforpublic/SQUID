@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigationParam } from 'react-navigation-hooks'
 import { CircularProgressAvatar } from '../../components/CircularProgressAvatar'
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, Dimensions } from 'react-native'
 import { Title, Header, Subtitle } from '../../components/Base'
 import styled from '@emotion/native'
 import { FONT_FAMILY, COLORS } from '../../styles'
@@ -64,12 +64,12 @@ const LABELS = {
   red: 'ความเสี่ยงสูงมาก',
 }
 
-const RiskLabel = ({ label, color }) => {
+const RiskLabel = ({ label, color, style }) => {
   return (
-    <View style={{ marginTop: 20, alignItems: 'center' }}>
+    <View style={{ ...style, marginTop: -10, alignItems: 'center', justifyContent: 'center' }}>
       <Image source={require('./risk_icon.png')} width={100} height={100} />
       <Subtitle style={{ marginTop: 4 }}>ความเสี่ยง</Subtitle>
-      <Title style={{ fontWeight: '600', color }}>{label}</Title>
+      <Title style={{ fontWeight: '600', color, fontSize: 24, lineHeight: 36 }}>{label}</Title>
     </View>
   )
 }
@@ -92,16 +92,18 @@ export const QRCodeResult = ({ data, onRescan }: { data: QRData, onRescan: (e: a
           <CircularProgressAvatar
             text="เสี่ยงน้อย"
             CustomComponent={({ style }) => (
-              <Score
-                style={style}
-                color={STATUS_COLORS[color]}
-                score={SCORES[color]}
-              />
+              // <Score
+              //   style={style}
+              //   color={STATUS_COLORS[color]}
+              //   score={SCORES[color]}
+              // />
+              <RiskLabel style={style} label={LABELS[color]} color={STATUS_COLORS[color]} />
             )}
             color={STATUS_COLORS[color]}
             progress={80}
+            width={Math.floor((70 / 100) * Dimensions.get('screen').width)}
           />
-          <RiskLabel label={LABELS[color]} color={STATUS_COLORS[color]} />
+          {/* <RiskLabel label={LABELS[color]} color={STATUS_COLORS[color]} /> */}
         </Content>
         <Footer>
           {createdAt? <DateLabel>ข้อมูลวันที่ {createdAt.format('DD MMM YYYY HH:mm น.')}</DateLabel>: void 0}
