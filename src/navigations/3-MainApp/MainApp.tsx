@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { MockScreen } from '../MockScreen'
 import { CovidQRCode } from '../../components/QRCode'
 import { COLORS, FONT_FAMILY } from '../../styles'
-import { MyBackground } from '../../covid/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {
   StatusBar,
@@ -13,13 +11,9 @@ import {
   Image,
 } from 'react-native'
 import { CircularProgressAvatar } from '../../components/CircularProgressAvatar'
-import AntdIcon from 'react-native-vector-icons/AntDesign'
 import { useNavigation } from 'react-navigation-hooks'
-import { gql } from 'apollo-boost'
-import { useQuery } from '@apollo/react-hooks'
 import AsyncStorage from '@react-native-community/async-storage'
 import { WhiteBackground } from '../../components/WhiteBackground'
-// const QRCode =
 
 const STATUS_COLORS = {
   green: '#27C269',
@@ -30,20 +24,6 @@ const STATUS_COLORS = {
 }
 
 const MAX_SCORE = 1000
-
-const covidData: QRData = {
-  color: 'green', // green, yellow, orange, red
-  gender: 'M', // M | F
-  age: 25,
-}
-
-const GET_USER = gql`
-  query {
-    user @client {
-      image
-    }
-  }
-`
 
 const mocks = [
   { color: 'green', score: 900, risk: 'ความเสี่ยงต่ำ' },
@@ -60,7 +40,7 @@ export const MainApp = () => {
       setMock(mocks.find(mock => mock.color === color) || mocks[0])
     })
   }, [])
-  // const { data } = useQuery(GET_USER)
+  
   const [faceURI, setFaceURI] = useState(null)
   useEffect(() => {
     AsyncStorage.getItem('faceURI').then(uri => {
@@ -68,6 +48,7 @@ export const MainApp = () => {
       setFaceURI(uri)
     })
   }, [])
+  
 
   const pressImage = () => {
     const tapList = tap.current
@@ -88,8 +69,15 @@ export const MainApp = () => {
       tapList.splice(0, 5)
     }
   }
-
+  if (!faceURI) {
+    return null
+  }
   if (!mock) return null
+  const covidData: QRData = {
+    color: mock.color, // green, yellow, orange, red
+    gender: 'M', // M | F
+    age: 25,
+  }  
 
   return (
     <WhiteBackground>
@@ -116,7 +104,7 @@ export const MainApp = () => {
             <CircularProgressAvatar
               image={faceURI ? { uri: faceURI } : void 0}
               color={STATUS_COLORS[mock.color]}
-              progress={(mock.score / MAX_SCORE) * 100}
+              progress={(mock.score / MAX_SCORE) * 100}              
             />
           </View>
         </TouchableWithoutFeedback>
@@ -240,8 +228,9 @@ export const MainApp = () => {
           }}
         >
           <CovidQRCode
-            data={{ ...covidData, color: mock.color }}
+            data={covidData}
             bgColor={COLORS.GRAY_1}
+            size={200}
           />
         </View>
       </SafeAreaView>
