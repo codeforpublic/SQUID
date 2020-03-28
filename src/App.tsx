@@ -6,7 +6,6 @@ import AsyncStorage from '@react-native-community/async-storage'
 import { createAppContainer } from 'react-navigation'
 // import Navigator from './covid/Navigator'
 import Navigator from './navigations/Navigator'
-import { BackgroundTracking } from './covid/BackgroundTracking'
 import { View, StyleSheet, Linking, Alert } from 'react-native'
 import { AppContext } from './AppContext'
 import { NavigationContainerComponent } from 'react-navigation'
@@ -18,22 +17,20 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import { CachePersistor, persistCache } from 'apollo-cache-persist'
 import { apolloClient, migrateState } from './apollo-client'
 import { userID } from './userID'
+import { backgroundTracking } from './utils/background-tracking'
 
 const AppContainer = createAppContainer(Navigator)
 
-// checkApollo(ApolloProvider)
 export default class App extends React.Component {
   _navigator: NavigationContainerComponent | null
-  state: {
-    startedTracked: boolean
+  state: {    
     loaded: boolean
     activateCallback?: Function
   }
   constructor(props) {
     super(props)
     this._navigator = null
-    this.state = {
-      startedTracked: false,
+    this.state = {      
       loaded: false,
     }
   }
@@ -53,8 +50,6 @@ export default class App extends React.Component {
     const persistor = new CachePersistor({
       cache: apolloClient.cache,
       storage: AsyncStorage,
-      // trigger: 'write',
-      // debug: true,
     })
     return persistor.purge()
   }
@@ -64,8 +59,8 @@ export default class App extends React.Component {
     }
 
     const [result] = await Promise.all([
-      userID.load(),
       AsyncStorage.getItem('is-passed-onboarding'),
+      userID.load(),
       persistCache({
         cache: apolloClient.cache,
         storage: AsyncStorage,
@@ -74,14 +69,11 @@ export default class App extends React.Component {
       }),
     ])
     await migrateState(apolloClient)
-    if (result === 'success') {
-      this.setState({ startedTracked: true })
-    }
+    await backgroundTracking.setup(result === 'success')
     SplashScreen.hide()
   }
-  activateBackgroundTracking = callback => {
-    AsyncStorage.setItem('is-passed-onboarding', 'success')
-    this.setState({ startedTracked: true, activateCallback: callback })
+  activateBackgroundTracking = () => {
+    return backgroundTracking.start()
   }
 
   render() {
@@ -97,16 +89,7 @@ export default class App extends React.Component {
                 activateBackgroundTracking: this.activateBackgroundTracking,
               }}
             >
-              <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }}>
-                {this.state.startedTracked && (
-                  <BackgroundTracking
-                    onReady={() => {
-                      if (this.state.activateCallback) {
-                        this.state.activateCallback()
-                      }
-                    }}
-                  />
-                )}
+              <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }}>                
                 <AppContainer
                   uriPrefix="fightcovid19://"
                   ref={navigator => {
