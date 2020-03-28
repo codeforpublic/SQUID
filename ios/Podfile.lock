@@ -223,6 +223,8 @@ PODS:
     - React
   - react-native-safe-area-context (0.7.3):
     - React
+  - react-native-sensitive-info (5.5.5):
+    - React
   - react-native-splash-screen (3.2.0):
     - React
   - react-native-webview (7.6.0):
@@ -325,6 +327,7 @@ DEPENDENCIES:
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-sensitive-info (from `../node_modules/react-native-sensitive-info`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -410,6 +413,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-sensitive-info:
+    :path: "../node_modules/react-native-sensitive-info"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
   react-native-webview:
@@ -493,6 +498,7 @@ SPEC CHECKSUMS:
   react-native-get-random-values: 148a42f97f2ce180a52d219144e83c278d4fe24b
   react-native-maps: 6e499eee4eabf422ba8b6f94e993cc768bf35153
   react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
+  react-native-sensitive-info: 4629b223484a08225c3eb088ff3f91b03097b5e5
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-webview: db4682f1698ab4b17a5e88f951031d203ff8aea8
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76

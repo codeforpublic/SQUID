@@ -1,5 +1,8 @@
+import SInfo from 'react-native-sensitive-info'
 import AsyncStorage from "@react-native-community/async-storage"
 import nanoid from "nanoid"
+import DeviceInfo from 'react-native-device-info';
+import { Platform } from 'react-native';
 
 const USER_DATA_KEY = '@USER_PRIVATE_DATA'
 
@@ -9,22 +12,32 @@ interface UserData {
   faceURI?: string
 }
 
+const SINFO_OPTIONS = {
+  sharedPreferencesName: 'ThaiAlert.UserPrivateData',
+  keychainService: '@ThaiAlert/UserPrivateData',
+}
+
 class UserPrivateDate {
   data: UserData
   save() {
-    return AsyncStorage.setItem(USER_DATA_KEY, JSON.stringify(this.data))
+    return SInfo.setItem(USER_DATA_KEY, JSON.stringify(this.data), SINFO_OPTIONS)
   }
   async load() {
-    const userDataString = await AsyncStorage.getItem(USER_DATA_KEY)
+    const userDataString = await SInfo.getItem(USER_DATA_KEY, SINFO_OPTIONS)
     if (userDataString) {
       this.data = JSON.parse(userDataString)
     } else {
       this.data = {
-        id: nanoid(),
-        anonymousId: nanoid()
+        id: Platform.select({
+          android: DeviceInfo.getMacAddressSync(),
+          ios: nanoid(),
+          default: nanoid()
+        }),
+        anonymousId: DeviceInfo.getUniqueId()
       }
       await this.save()
     }
+    console.log('this.data', this.data)
   }
   getId() {
     return this.data.id

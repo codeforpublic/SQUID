@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { MockScreen } from '../MockScreen'
 import { Avatar } from 'react-native-elements'
 import { Camera, TakePictureResponse, RNCamera } from '../../components/Camera'
@@ -51,7 +51,15 @@ const MUTATE_USER = gql`
 export const OnboardFace = () => {  
   const [openCamera, setOpenCamera] = useState(false)
   const [uri, setURI] = useState<string | null>(null)
-  const { showSpinner, hide } =useHUD()
+  const { showSpinner, hide } = useHUD()
+  useEffect(() => {
+    const faceURI = userPrivateData.getData('faceURI')
+    if (faceURI) {
+      RNFS.exists(faceURI).then(exists => {
+        setURI(faceURI)
+      })
+    }
+  }, [])
   const onCapture = async (camera: RNCamera) => {
     showSpinner()
     try {
@@ -95,9 +103,13 @@ export const OnboardFace = () => {
           <PrimaryButton
             title={'ถัดไป'}
             onPress={async () => {
-              const dataPath = RNFS.DocumentDirectoryPath + `/face.jpg`
-              if (await RNFS.exists(dataPath)) {
+              let dataPath = RNFS.DocumentDirectoryPath + `/face.jpg`
+              const exists = await RNFS.exists(dataPath)
+              
+              if (exists) {
+                // dataPath is not delete file immediately, so we need to change name anyway
                 await RNFS.unlink(dataPath)
+                dataPath = RNFS.DocumentDirectoryPath + `/face-${Date.now()}.jpg`
               }
               await RNFS.moveFile(uri, dataPath)
               await userPrivateData.setData('faceURI', dataPath)

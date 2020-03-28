@@ -1,6 +1,7 @@
 import { userPrivateData } from './state/userPrivateData'
 
-export const API_URL = 'https://api.staging.thaialert.com'
+// export const API_URL = 'https://api.staging.thaialert.com'
+export const API_URL = 'http://192.168.1.102:4210'
 const API_KEY = 'd6857fca1cfbeb600b399ac29f2dabf9'
 
 export const getPrivateHeaders = () => {
@@ -64,11 +65,8 @@ interface QRData {
 
 export const getQRData = async () => {
   const resp = await fetch(API_URL + `/qr`, {
-    method: 'post',
-    body: JSON.stringify({
-      anonymousId: userPrivateData.getId()
-    }),
-    headers: getPrivateHeaders(),
+    method: 'get',
+    headers: getAnonymousHeaders(),
   })
   const result: QRData = await resp.json()
   

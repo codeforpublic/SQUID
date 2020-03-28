@@ -21,6 +21,8 @@ import { requestOTP, verifyOTP } from '../../api'
 import { useHUD } from '../../HudView'
 import { useResetTo } from '../../utils/navigation'
 import { applicationState } from '../../state/app-state'
+import OTPInputView from '@twotalltotems/react-native-otp-input'
+
 
 export const AuthOTP = () => {
   const { showSpinner, hide } = useHUD()
@@ -75,21 +77,20 @@ export const AuthOTP = () => {
                 maxWidth: '100%',
               }}
             >
-              <OtpInputs
+              <OTPInputView
                 keyboardType={'phone-pad'}
-                inputContainerStyles={{
+                codeInputFieldStyle={{
                   backgroundColor: COLORS.WHITE,
                   borderRadius: 4,
                   borderColor: COLORS.GRAY_2,
                   borderWidth: 1,
-                  flex: 1,
+                  color: COLORS.PRIMARY_DARK,
                   margin: 4,
                   height: 60,
-                  justifyContent: 'center',
                 }}
-                inputStyles={{ textAlign: 'center', fontSize: 32 }}
-                handleChange={code => setOtp(code)}
-                numberOfInputs={4}
+                style={{ height: 60 }}
+                onCodeFilled={code => setOtp(code)}
+                pinCount={4}
               />
             </View>
             <TouchableOpacity
