@@ -58,7 +58,7 @@
 		00E356F21AD99517003FC87E /* FightCovid19Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FightCovid19Tests.m; sourceTree = "<group>"; };
 		0924E0AA06284895947A9058 /* Prompt-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-ExtraBold.ttf"; path = "../assets/fonts/Prompt-ExtraBold.ttf"; sourceTree = "<group>"; };
 		0FDBC3A7DB8E4AA5AAC44D89 /* Prompt-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-BoldItalic.ttf"; path = "../assets/fonts/Prompt-BoldItalic.ttf"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* FightCovid19.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FightCovid19.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* ThaiAlert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThaiAlert.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = FightCovid19/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = FightCovid19/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -216,7 +216,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* FightCovid19.app */,
+				13B07F961A680F5B00A75B9A /* ThaiAlert.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -243,7 +243,7 @@
 			);
 			name = FightCovid19;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* FightCovid19.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* ThaiAlert.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -489,7 +489,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cleverse.thaialert;
-				PRODUCT_NAME = FightCovid19;
+				PRODUCT_NAME = ThaiAlert;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -516,7 +516,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cleverse.thaialert;
-				PRODUCT_NAME = FightCovid19;
+				PRODUCT_NAME = ThaiAlert;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
