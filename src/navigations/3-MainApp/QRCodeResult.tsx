@@ -27,22 +27,6 @@ const DateLabel = styled(Text)({
   color: COLORS.GRAY_4
 })
 
-const STATUS_COLORS = {
-  green: '#27C269',
-  yellow: '#E5DB5C',
-  orange: '#E18518',
-  red: '#EC3131',
-  DEFAULT: '#B4B5C1',
-}
-
-
-const LABELS = {
-  green: 'ความเสี่ยงต่ำ',
-  orange: 'ความเสี่ยงปานกลาง',
-  yellow: 'ความเสี่ยงสูง',
-  red: 'ความเสี่ยงสูงมาก',
-}
-
 const RiskLabel = ({ label, color, style }) => {
   return (
     <View style={{ ...style, marginTop: -10, alignItems: 'center', justifyContent: 'center' }}>

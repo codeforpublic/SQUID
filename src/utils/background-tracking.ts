@@ -46,6 +46,11 @@ class BackgroundTracking {
   destroyLocations() {
     return BackgroundGeolocation.destroyLocations()
   }
+  getLocation() {
+    return BackgroundGeolocation.getCurrentPosition({
+      samples: 1
+    })
+  }
 }
 
 export const backgroundTracking = new BackgroundTracking()
