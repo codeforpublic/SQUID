@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { MockScreen } from '../MockScreen'
 import QRCodeScanner from 'react-native-qrcode-scanner'
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, StatusBarIOS, StatusBar } from 'react-native'
 import { COLORS } from '../../styles'
 import { Title, Subtitle, Header } from '../../components/Base'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -10,15 +10,27 @@ import { MyBackground } from '../../components/MyBackground'
 import { useNavigation, useIsFocused } from 'react-navigation-hooks'
 import { QRCodeResult } from './QRCodeResult'
 import { QRResult } from '../../state/qr'
+import NotificationPopup from 'react-native-push-notification-popup'
+import { QRPopupContent } from './QRPopupContent'
 
 export const QRCodeScan = ({ navigation }) => {
   const isFocused = useIsFocused()
-  const [data, setData] = useState(null)
-  if (data) {
-    return <QRCodeResult qrResult={data} onRescan={() => setData(null)} />
-  }
+  const [qrResult, setQRResult] = useState<QRResult>(null)
+  const popupRef = useRef<NotificationPopup>()
+  
+  useEffect(() => {
+    if (qrResult) {
+      popupRef.current.show({ 
+        appIconSource: require('./noti_icon.png'),
+        appTitle: 'ระดับความเสี่ยง',
+        title: qrResult.getLabel(),
+        body: `ข้อมูลวันที่ ${qrResult.getCreatedDate().format('DD MMM YYYY HH:mm น.')}`
+      })
+    }
+  }, [qrResult])
   return (
     <MyBackground variant="light">
+      <StatusBar barStyle="dark-content" backgroundColor={COLORS.PRIMARY_LIGHT} />
       <SafeAreaView style={{ flex: 1 }}>
         {isFocused? <QRCodeScanner
           showMarker
@@ -37,12 +49,12 @@ export const QRCodeScan = ({ navigation }) => {
             if (!decoded?._) {
               alert('ข้อมูลไม่ถูกต้อง')
               return
-            }
-            setData(new QRResult(decoded))
+            }            
+            setQRResult(new QRResult(decoded))
           }}
           fadeIn={false}
           reactivate
-          reactivateTimeout={5} //Use this to configure how long it should take before the QRCodeScanner should reactivate.
+          reactivateTimeout={2000} //Use this to configure how long it should take before the QRCodeScanner should reactivate.
           containerStyle={{ flex: 1 }}
           topContent={
             <Header>
@@ -51,6 +63,7 @@ export const QRCodeScan = ({ navigation }) => {
             </Header>
           }
         />: void 0}
+        <NotificationPopup ref={popupRef} renderPopupContent={(props) => <QRPopupContent {...props} qrResult={qrResult} />} />
       </SafeAreaView>
     </MyBackground>
   )

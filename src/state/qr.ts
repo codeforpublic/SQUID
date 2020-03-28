@@ -82,8 +82,10 @@ export class QRResult extends QR {
     this.annonymousId = decodedResult._[0]
     this.iat = decodedResult.iat
     this.iss = decodedResult.iss
+
+    // this.code = 'yellow'
   }
-  getCreatedDate() {
+  getCreatedDate(): moment {
     return moment(this.iat * 1000).locale('th')
   }
 }
@@ -118,4 +120,10 @@ const CODE_MAP = {
   'Y': 'yellow',
   'O': 'orange',
   'R': 'red'
+}
+const GEN_ACTION = "ล้างมือ สวมหน้ากาก หลีกเลี่ยงที่แออัด"
+const SPEC_ACTIONS = {
+  'YELLOW': "อาจเป็นโรคอื่น ถ้า 2 วัน อาการไม่ดีขึ้นให้ไปพบแพทย์",
+  "ORANGE": "เนื่องจากท่านมีประวัติเดินทางจากพื้นที่เสี่ยง ให้กักตัว 14 วัน พร้อมเฝ้าระวังอาการ ถ้ามีอาการไข้ ร่วมกับ อาการระบบทางเดินหายใจ ให้ติดต่อสถานพยาบาลทันที",
+  "RED": "ให้ติดต่อสถานพยาบาลทันที"
 }
