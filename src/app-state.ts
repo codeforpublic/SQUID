@@ -3,8 +3,8 @@ import AsyncStorage from "@react-native-community/async-storage"
 const ApplicationStateKey = '@applicationState'
 
 interface ApplicationStateData {
-  isPassedOnboarding: boolean
-  isRegistered: boolean
+  isPassedOnboarding?: boolean
+  isRegistered?: boolean
 }
 class ApplicationState {
   data: ApplicationStateData
@@ -15,6 +15,11 @@ class ApplicationState {
       this.data = {
         isPassedOnboarding: appState.isPassedOnboarding,
         isRegistered: appState.isRegistered,
+      }
+    } else {
+      this.data = {
+        isPassedOnboarding: false,
+        isRegistered: false
       }
     }
   }
