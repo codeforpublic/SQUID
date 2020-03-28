@@ -7,7 +7,6 @@ import { createAppContainer } from 'react-navigation'
 // import Navigator from './covid/Navigator'
 import Navigator from './navigations/Navigator'
 import { View, StyleSheet, Linking, Alert } from 'react-native'
-import { AppContext } from './AppContext'
 import { NavigationContainerComponent } from 'react-navigation'
 import { HUDProvider } from './HudView'
 import SplashScreen from 'react-native-splash-screen'
@@ -72,10 +71,7 @@ export default class App extends React.Component {
       applicationState.get('isPassedOnboarding')
     )
     SplashScreen.hide()
-  }
-  activateBackgroundTracking = () => {
-    return backgroundTracking.start()
-  }
+  }  
 
   render() {
     if (!this.state.loaded) {
@@ -84,21 +80,15 @@ export default class App extends React.Component {
     return (
       <SafeAreaProvider>
         <ApolloProvider client={apolloClient}>
-          <HUDProvider>
-            <AppContext.Provider
-              value={{
-                activateBackgroundTracking: this.activateBackgroundTracking,
-              }}
-            >
-              <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }}>                
-                <AppContainer
-                  uriPrefix="fightcovid19://"
-                  ref={navigator => {
-                    this._navigator = navigator
-                  }}
-                />
-              </View>
-            </AppContext.Provider>
+          <HUDProvider>          
+            <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }}>                
+              <AppContainer
+                uriPrefix="fightcovid19://"
+                ref={navigator => {
+                  this._navigator = navigator
+                }}
+              />
+            </View>
           </HUDProvider>
         </ApolloProvider>
       </SafeAreaProvider>

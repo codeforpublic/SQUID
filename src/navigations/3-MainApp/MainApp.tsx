@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { CovidQRCode } from '../../components/QRCode'
+import React from 'react'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {
@@ -12,19 +11,17 @@ import {
   ActivityIndicator,
 } from 'react-native'
 import { CircularProgressAvatar } from '../../components/CircularProgressAvatar'
-import { useNavigation } from 'react-navigation-hooks'
-import AsyncStorage from '@react-native-community/async-storage'
 import { WhiteBackground } from '../../components/WhiteBackground'
 import Sizer from 'react-native-size'
 import { userPrivateData } from '../../state/userPrivateData'
-import { useQRData } from '../../state/qr'
+import { useSelfQR } from '../../state/qr'
 
 
 const MAX_SCORE = 100
 
 export const MainApp = () => {
   const faceURI = userPrivateData.getData('faceURI')
-  const qr = useQRData()
+  const qr = useSelfQR()
   if (!qr) {
     return null
   }

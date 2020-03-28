@@ -6,7 +6,7 @@ import { COLORS } from '../../styles'
 import styled, { css } from '@emotion/native'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StatusBar, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { StatusBar, View, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import { Title, Subtitle, Header } from '../../components/Base'
 import { PrimaryButton } from '../../components/Button'
 import { useNavigation } from 'react-navigation-hooks'
@@ -16,6 +16,7 @@ import { gql } from 'apollo-boost'
 import AsyncStorage from '@react-native-community/async-storage'
 import RNFS from 'react-native-fs'
 import { userPrivateData } from '../../state/userPrivateData'
+import { useHUD } from '../../HudView'
 
 const SelfieCaptureGuideline = () => {
   return (
@@ -48,15 +49,20 @@ const MUTATE_USER = gql`
 `
 
 export const OnboardFace = () => {  
-  // const [mutate] = useMutation(MUTATE_USER)
   const [openCamera, setOpenCamera] = useState(false)
   const [uri, setURI] = useState<string | null>(null)
+  const { showSpinner, hide } =useHUD()
   const onCapture = async (camera: RNCamera) => {
-    const data: TakePictureResponse = await camera.takePictureAsync()
-    const dataPath = RNFS.DocumentDirectoryPath + `/face-${Date.now()}.jpg`
-    await RNFS.moveFile(data.uri, dataPath)    
-    setURI(dataPath)
-    setOpenCamera(false)
+    showSpinner()
+    try {
+      const data: TakePictureResponse = await camera.takePictureAsync()      
+      setURI(data.uri)
+      setOpenCamera(false)
+    } catch (err) {
+      console.log(err)
+      Alert.alert('เกิดข้อผิดพลาด')
+    }
+    hide()
   }
   const navigation = useNavigation()
   if (openCamera) {
@@ -89,8 +95,12 @@ export const OnboardFace = () => {
           <PrimaryButton
             title={'ถัดไป'}
             onPress={async () => {
-              console.log('uri', uri)
-              await userPrivateData.setData('faceURI', uri)
+              const dataPath = RNFS.DocumentDirectoryPath + `/face.jpg`
+              if (await RNFS.exists(dataPath)) {
+                await RNFS.unlink(dataPath)
+              }
+              await RNFS.moveFile(uri, dataPath)
+              await userPrivateData.setData('faceURI', dataPath)
               navigation.navigate('OnboardLocation')
             }}
             disabled={!uri}
