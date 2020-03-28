@@ -9,12 +9,13 @@ import { decodeJWT } from '../../utils/jwt'
 import { MyBackground } from '../../components/MyBackground'
 import { useNavigation, useIsFocused } from 'react-navigation-hooks'
 import { QRCodeResult } from './QRCodeResult'
+import { QRResult } from '../../state/qr'
 
 export const QRCodeScan = ({ navigation }) => {
   const isFocused = useIsFocused()
   const [data, setData] = useState(null)
   if (data) {
-    return <QRCodeResult data={data} onRescan={() => setData(null)} />
+    return <QRCodeResult qrResult={data} onRescan={() => setData(null)} />
   }
   return (
     <MyBackground variant="light">
@@ -32,13 +33,12 @@ export const QRCodeScan = ({ navigation }) => {
             overflow: 'hidden'
           }}
           onRead={e => {
-            const decoded = e.data ? decodeJWT(e?.data) : null
-            console.log('e', decoded, decoded.iat)
-            if (!decoded?.color) {
+            const decoded = e.data ? decodeJWT(e?.data) : null            
+            if (!decoded?._) {
               alert('ข้อมูลไม่ถูกต้อง')
               return
             }
-            setData(decoded)
+            setData(new QRResult(decoded))
           }}
           fadeIn={false}
           reactivate

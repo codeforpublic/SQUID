@@ -10,6 +10,7 @@ import { MyBackground } from '../../components/MyBackground'
 import { PrimaryButton } from '../../components/Button'
 import moment from 'moment-timezone'
 import 'moment/locale/th'
+import { QRResult } from '../../state/qr'
 
 const Content = styled(View)({
   flex: 1,
@@ -52,14 +53,8 @@ const RiskLabel = ({ label, color, style }) => {
   )
 }
 
-export const QRCodeResult = ({ data, onRescan }: { data: QRData, onRescan: (e: any) => any }) => {  
-  const { iat, color, age, gender } = data
-  console.log('QRCodeResult iat', iat)
-  const createdAt = moment(iat * 1000)
-    .locale('th')    
-    
-  // console.log('createdAt', createdAt)
-
+export const QRCodeResult = ({ qrResult, onRescan }: { qrResult: QRResult, onRescan: (e: any) => any }) => {  
+  // console.log('qrResult', qrResult)
   return (
     <MyBackground variant="light">
       <SafeAreaView style={{ flex: 1 }}>
@@ -70,21 +65,15 @@ export const QRCodeResult = ({ data, onRescan }: { data: QRData, onRescan: (e: a
           <CircularProgressAvatar
             text="เสี่ยงน้อย"
             CustomComponent={({ style }) => (
-              // <Score
-              //   style={style}
-              //   color={STATUS_COLORS[color]}
-              //   score={SCORES[color]}
-              // />
-              <RiskLabel style={style} label={LABELS[color]} color={STATUS_COLORS[color]} />
+              <RiskLabel style={style} label={qrResult.getLabel()} color={qrResult.getStatusColor()} />
             )}
-            color={STATUS_COLORS[color]}
+            color={qrResult.getStatusColor()}
             progress={80}
             width={Math.floor((70 / 100) * Dimensions.get('screen').width)}
           />
-          {/* <RiskLabel label={LABELS[color]} color={STATUS_COLORS[color]} /> */}
         </Content>
         <Footer>
-          {createdAt? <DateLabel>ข้อมูลวันที่ {createdAt.format('DD MMM YYYY HH:mm น.')}</DateLabel>: void 0}
+          <DateLabel>ข้อมูลวันที่ {qrResult.getCreatedDate().format('DD MMM YYYY HH:mm น.')}</DateLabel>
           <PrimaryButton title={'สแกนใหม่อีกครั้ง'} onPress={onRescan} />
         </Footer>
       </SafeAreaView>

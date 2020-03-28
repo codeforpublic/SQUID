@@ -7,9 +7,9 @@ import { FONT_FAMILY, COLORS } from '../../styles'
 import { PrimaryButton } from '../../components/Button'
 import Icon from 'react-native-vector-icons/Entypo'
 import AntIcon from 'react-native-vector-icons/AntDesign'
-import { AppContext } from '../../AppContext'
 import { useHUD } from '../../HudView'
 import { StackActions, NavigationActions } from 'react-navigation'
+import { backgroundTracking } from '../../utils/background-tracking'
 
 const LOCATION_PERMISSION = Platform.select({
   ios: PERMISSIONS.IOS.LOCATION_ALWAYS,
@@ -27,7 +27,6 @@ export const OnboardLocation = () => {
   const [locationPerm, setLocationPerm] = useState('checking')
   const [activityPerm, setActivityPerm] = useState('checking')
 
-  const appContext = useContext(AppContext)
   const { showSpinner, hide } = useHUD()
 
   const checkPerms = async () => {
@@ -35,19 +34,9 @@ export const OnboardLocation = () => {
       check(LOCATION_PERMISSION),
       check(ACTIVITY_PERMISSION),
     ])
-    console.log('perm', perms)
     if (perms[0] === 'granted' && perms[1] === 'granted') {
-      await appContext.activateBackgroundTracking()
-      const action = StackActions.reset({
-        index: 0,
-        actions: [
-          NavigationActions.navigate({
-            routeName: 'MainApp',
-          }),
-        ],
-        key: null,
-      })
-      navigation.dispatch(action)
+      await backgroundTracking.start()
+      navigation.navigate('OnboardProgressing')
     } else {
       setLocationPerm(perms[0])
       setActivityPerm(perms[1])
@@ -66,7 +55,7 @@ export const OnboardLocation = () => {
 
     hide()
 
-    appContext.activateBackgroundTracking()
+    backgroundTracking.start()
     navigation.navigate('OnboardProgressing')
   }
 
@@ -77,8 +66,7 @@ export const OnboardLocation = () => {
           flex: 1,
         }}
       >
-        <StatusBar   backgroundColor={COLORS.WHITE} 
- barStyle="dark-content" />
+        <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
         <View
           style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
         >

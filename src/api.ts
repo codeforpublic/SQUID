@@ -1,10 +1,11 @@
 import { userPrivateData } from './state/userPrivateData'
 
-export const API_URL = 'http://localhost:4210'
+export const API_URL = 'https://api.staging.thaialert.com'
+const API_KEY = 'd6857fca1cfbeb600b399ac29f2dabf9'
 
 export const getHeaders = () => {
   return {
-    'X-TH-API-Key': 'd6857fca1cfbeb600b399ac29f2dabf9',
+    'X-TH-API-Key': API_KEY,
     'X-TH-USER-ID': userPrivateData.getId(),
     'Content-Type': 'application/json',
   }
@@ -17,7 +18,6 @@ export const requestOTP = async (mobileNo: string) => {
     body: JSON.stringify({ mobileNo }),
   })
   const result = await resp.json()
-  console.log('requestOTP:' + JSON.stringify(result), result.status === 'ok')
 
   return result.status === 'ok'
 }
@@ -29,7 +29,6 @@ export const verifyOTP = async (otpCode: string) => {
     body: JSON.stringify({ otpCode }),
   })
   const result = await resp.json()
-  console.log('verifyOTP:' + JSON.stringify(result), result.status === 'ok')
 
   return result.status === 'ok'
 }

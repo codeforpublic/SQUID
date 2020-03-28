@@ -9,7 +9,7 @@ import BackgroundGeolocation from './src/react-native-background-geolocation'
 Text.defaultProps = Text.defaultProps || {}
 Text.defaultProps.allowFontScaling = false
 KeyboardAvoidingView.defaultProps.behavior =
-  Platform.Os == 'ios' ? 'padding' : null
+  Platform.OS == 'ios' ? 'padding' : null
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({

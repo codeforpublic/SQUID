@@ -1,6 +1,7 @@
 import { getQRData } from '../api'
 import { useEffect, useState } from 'react'
-
+import moment from 'moment-timezone'
+import 'moment/locale/th'
 interface QRData {
   data: {
     anonymousId: string
@@ -12,13 +13,13 @@ interface QRData {
   }
 }
 
-let _qrData: QR | null
-export const useQRData = () => {
+let _qrData: SelfQR | null
+export const useSelfQR = () => {
   const [qrData, setQRData] = useState(_qrData)
   useEffect(() => {
     const updateQR = () => {
       getQRData().then(d => {
-        _qrData = new QR(d)
+        _qrData = new SelfQR(d)
         setQRData(_qrData)
       })
     }
@@ -33,11 +34,9 @@ export const useQRData = () => {
 }
 
 class QR {
-  qrData: QRData
   code: string
-  constructor(qrData) {
-    this.qrData = qrData
-    this.code = this.qrData.data.code
+  constructor(code) {
+    this.code = code
   }
   getStatusColor() {
     return STATUS_COLORS[this.code]
@@ -51,8 +50,41 @@ class QR {
   getLabel() {
     return LABELS[this.code]
   }
+}
+
+class SelfQR extends QR {
+  qrData: QRData
+  code: string
+  constructor(qrData: QRData) {
+    super(qrData.data.code)
+    this.qrData = qrData
+  }
+  getAnonymousId() {
+    return this.qrData.data.anonymousId
+  }
   getQRImageURL() {
     return `data:${this.qrData.qr.type};base64,` + this.qrData.qr.base64
+  }
+}
+
+interface DecodedResult {
+  _: [string, 'G' | 'Y' | 'O' | 'R']
+  iat: number
+  iss: string
+}
+export class QRResult extends QR {
+  iat: number
+  code: string
+  annonymousId: string
+  iss: string
+  constructor(decodedResult: DecodedResult) {
+    super(CODE_MAP[decodedResult._[1]])
+    this.annonymousId = decodedResult._[0]
+    this.iat = decodedResult.iat
+    this.iss = decodedResult.iss
+  }
+  getCreatedDate() {
+    return moment(this.iat * 1000).locale('th')
   }
 }
 
@@ -80,4 +112,10 @@ const LABELS = {
   orange: 'ความเสี่ยงปานกลาง',
   yellow: 'ความเสี่ยงสูง',
   red: 'ความเสี่ยงสูงมาก',
+}
+const CODE_MAP = {
+  'G': 'green',
+  'Y': 'yellow',
+  'O': 'orange',
+  'R': 'red'
 }
