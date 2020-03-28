@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FightCovid19</string>
+    <string name="app_name">ThaiAlert</string>
     <string moduleConfig="true" name="CodePushDeploymentKey">Dj-nbL3cdetuaIfg30dfbuUXu54_n_MeVrPLo</string>
 </resources>
 

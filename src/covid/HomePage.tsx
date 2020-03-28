@@ -35,7 +35,7 @@ export const HomePage = ({ navigation }) => {
                 style={{ height: 80 }}
                 resizeMode="contain"
               />
-              <Text style={styles.title}>ทำไมต้อง FightCovid19 ?</Text>
+              <Text style={styles.title}>ทำไมต้อง ThaiAlert ?</Text>
               <View style={styles.description}>
                 <Text style={styles.descriptionText}>
                   ด้วยความที่ตัวเองมีโอกาสเสี่ยง

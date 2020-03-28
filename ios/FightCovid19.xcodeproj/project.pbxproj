@@ -34,7 +34,7 @@
 		99ECEB03AC804ABD9CEB0E85 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		A0FAD7A3E7E64112A5B2FC3F /* Prompt-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7882F728D05D4C1E92C77C02 /* Prompt-BlackItalic.ttf */; };
 		ADB4F028F5C44E0FBB866170 /* Prompt-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 437322D981D2467BA31FC7FD /* Prompt-ExtraLight.ttf */; };
-		B4669962E2DE800A477E7034 /* libPods-FightCovid19.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFD13135D063CB2AF1642B7E /* libPods-FightCovid19.a */; };
+		B4669962E2DE800A477E7034 /* libPods-ThaiAlert.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFD13135D063CB2AF1642B7E /* libPods-ThaiAlert.a */; };
 		B85CF3C06DDE463FB58A9D3A /* Prompt-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F5543A345A54E0796816BBF /* Prompt-MediumItalic.ttf */; };
 		BC81F525AE454F1A852B2534 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		CEB9E88018834E95A877D93B /* (null) in Resources */ = {isa = PBXBuildFile; };
@@ -55,24 +55,24 @@
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* FightCovid19Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FightCovid19Tests.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* ThaiAlertTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThaiAlertTests.m; sourceTree = "<group>"; };
 		0924E0AA06284895947A9058 /* Prompt-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-ExtraBold.ttf"; path = "../assets/fonts/Prompt-ExtraBold.ttf"; sourceTree = "<group>"; };
 		0FDBC3A7DB8E4AA5AAC44D89 /* Prompt-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-BoldItalic.ttf"; path = "../assets/fonts/Prompt-BoldItalic.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* ThaiAlert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThaiAlert.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = FightCovid19/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = FightCovid19/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ThaiAlert/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ThaiAlert/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = FightCovid19/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = FightCovid19/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = FightCovid19/main.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ThaiAlert/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ThaiAlert/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ThaiAlert/main.m; sourceTree = "<group>"; };
 		17E1D3226CB74158A6A1C6EC /* Prompt-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-ExtraBoldItalic.ttf"; path = "../assets/fonts/Prompt-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
-		1C082E5CD493754C79D27915 /* Pods-FightCovid19.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FightCovid19.release.xcconfig"; path = "Pods/Target Support Files/Pods-FightCovid19/Pods-FightCovid19.release.xcconfig"; sourceTree = "<group>"; };
+		1C082E5CD493754C79D27915 /* Pods-ThaiAlert.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThaiAlert.release.xcconfig"; path = "Pods/Target Support Files/Pods-ThaiAlert/Pods-ThaiAlert.release.xcconfig"; sourceTree = "<group>"; };
 		1C613A4702724DCEA75DE99B /* Prompt-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-Black.ttf"; path = "../assets/fonts/Prompt-Black.ttf"; sourceTree = "<group>"; };
 		2A5A2CDAFEC2486EA4268877 /* Prompt-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-SemiBoldItalic.ttf"; path = "../assets/fonts/Prompt-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
-		2C560D9E35F5B687BFB4C020 /* Pods-FightCovid19.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FightCovid19.release.xcconfig"; path = "Pods/Target Support Files/Pods-FightCovid19/Pods-FightCovid19.release.xcconfig"; sourceTree = "<group>"; };
+		2C560D9E35F5B687BFB4C020 /* Pods-ThaiAlert.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThaiAlert.release.xcconfig"; path = "Pods/Target Support Files/Pods-ThaiAlert/Pods-ThaiAlert.release.xcconfig"; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F6E9B653B044F4FA57E152F /* Prompt-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-ThinItalic.ttf"; path = "../assets/fonts/Prompt-ThinItalic.ttf"; sourceTree = "<group>"; };
-		34D30D4613263368EC35BA01 /* Pods-FightCovid19.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FightCovid19.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FightCovid19/Pods-FightCovid19.debug.xcconfig"; sourceTree = "<group>"; };
+		34D30D4613263368EC35BA01 /* Pods-ThaiAlert.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThaiAlert.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ThaiAlert/Pods-ThaiAlert.debug.xcconfig"; sourceTree = "<group>"; };
 		3F5543A345A54E0796816BBF /* Prompt-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-MediumItalic.ttf"; path = "../assets/fonts/Prompt-MediumItalic.ttf"; sourceTree = "<group>"; };
 		437322D981D2467BA31FC7FD /* Prompt-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-ExtraLight.ttf"; path = "../assets/fonts/Prompt-ExtraLight.ttf"; sourceTree = "<group>"; };
 		4DD441D0C38B4FF8B5740C5D /* Prompt-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-Thin.ttf"; path = "../assets/fonts/Prompt-Thin.ttf"; sourceTree = "<group>"; };
@@ -84,8 +84,8 @@
 		7882F728D05D4C1E92C77C02 /* Prompt-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-BlackItalic.ttf"; path = "../assets/fonts/Prompt-BlackItalic.ttf"; sourceTree = "<group>"; };
 		839C411C23084F93008AF109 /* RNBackgroundFetch+AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RNBackgroundFetch+AppDelegate.m"; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch/RNBackgroundFetch+AppDelegate.m"; sourceTree = "<group>"; };
 		98138CBE0C1C42268A70FD98 /* Prompt-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-Italic.ttf"; path = "../assets/fonts/Prompt-Italic.ttf"; sourceTree = "<group>"; };
-		AC3B637179884E92FD6A084B /* Pods-FightCovid19.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FightCovid19.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FightCovid19/Pods-FightCovid19.debug.xcconfig"; sourceTree = "<group>"; };
-		AFD13135D063CB2AF1642B7E /* libPods-FightCovid19.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FightCovid19.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC3B637179884E92FD6A084B /* Pods-ThaiAlert.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThaiAlert.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ThaiAlert/Pods-ThaiAlert.debug.xcconfig"; sourceTree = "<group>"; };
+		AFD13135D063CB2AF1642B7E /* libPods-ThaiAlert.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ThaiAlert.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1DC8D8810EF48428CC97DA6 /* Prompt-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-Light.ttf"; path = "../assets/fonts/Prompt-Light.ttf"; sourceTree = "<group>"; };
 		D9790A306A14407D95088CA1 /* Prompt-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-LightItalic.ttf"; path = "../assets/fonts/Prompt-LightItalic.ttf"; sourceTree = "<group>"; };
 		F27A3CF1E48C46D6BE032711 /* Prompt-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-SemiBold.ttf"; path = "../assets/fonts/Prompt-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -96,7 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4669962E2DE800A477E7034 /* libPods-FightCovid19.a in Frameworks */,
+				B4669962E2DE800A477E7034 /* libPods-ThaiAlert.a in Frameworks */,
 				9061E0BAF85344DF89EE3628 /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -104,13 +104,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* FightCovid19Tests */ = {
+		00E356EF1AD99517003FC87E /* ThaiAlertTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* FightCovid19Tests.m */,
+				00E356F21AD99517003FC87E /* ThaiAlertTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = FightCovid19Tests;
+			path = ThaiAlertTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -121,7 +121,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* FightCovid19 */ = {
+		13B07FAE1A68108700A75B9A /* ThaiAlert */ = {
 			isa = PBXGroup;
 			children = (
 				839C411C23084F93008AF109 /* RNBackgroundFetch+AppDelegate.m */,
@@ -133,16 +133,16 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = FightCovid19;
+			name = ThaiAlert;
 			sourceTree = "<group>";
 		};
 		2201A91E10FF9F9FE4862E82 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				34D30D4613263368EC35BA01 /* Pods-FightCovid19.debug.xcconfig */,
-				2C560D9E35F5B687BFB4C020 /* Pods-FightCovid19.release.xcconfig */,
-				AC3B637179884E92FD6A084B /* Pods-FightCovid19.debug.xcconfig */,
-				1C082E5CD493754C79D27915 /* Pods-FightCovid19.release.xcconfig */,
+				34D30D4613263368EC35BA01 /* Pods-ThaiAlert.debug.xcconfig */,
+				2C560D9E35F5B687BFB4C020 /* Pods-ThaiAlert.release.xcconfig */,
+				AC3B637179884E92FD6A084B /* Pods-ThaiAlert.debug.xcconfig */,
+				1C082E5CD493754C79D27915 /* Pods-ThaiAlert.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -151,7 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				AFD13135D063CB2AF1642B7E /* libPods-FightCovid19.a */,
+				AFD13135D063CB2AF1642B7E /* libPods-ThaiAlert.a */,
 				59734E132FCC4616AE67D544 /* libz.tbd */,
 			);
 			name = Frameworks;
@@ -199,9 +199,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* FightCovid19 */,
+				13B07FAE1A68108700A75B9A /* ThaiAlert */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* FightCovid19Tests */,
+				00E356EF1AD99517003FC87E /* ThaiAlertTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				2201A91E10FF9F9FE4862E82 /* Pods */,
@@ -224,9 +224,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		13B07F861A680F5B00A75B9A /* FightCovid19 */ = {
+		13B07F861A680F5B00A75B9A /* ThaiAlert */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "FightCovid19" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ThaiAlert" */;
 			buildPhases = (
 				C348553810805325C154C607 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
@@ -241,7 +241,7 @@
 			);
 			dependencies = (
 			);
-			name = FightCovid19;
+			name = ThaiAlert;
 			productName = "Hello World";
 			productReference = 13B07F961A680F5B00A75B9A /* ThaiAlert.app */;
 			productType = "com.apple.product-type.application";
@@ -261,7 +261,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "FightCovid19" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "ThaiAlert" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -275,7 +275,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* FightCovid19 */,
+				13B07F861A680F5B00A75B9A /* ThaiAlert */,
 			);
 		};
 /* End PBXProject section */
@@ -380,7 +380,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FightCovid19/Pods-FightCovid19-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-ThaiAlert/Pods-ThaiAlert-resources.sh",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -419,7 +419,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FightCovid19/Pods-FightCovid19-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ThaiAlert/Pods-ThaiAlert-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C348553810805325C154C607 /* [CP] Check Pods Manifest.lock */ = {
@@ -433,7 +433,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-FightCovid19-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-ThaiAlert-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -462,7 +462,7 @@
 				13B07FB21A68108700A75B9A /* Base */,
 			);
 			name = LaunchScreen.xib;
-			path = FightCovid19;
+			path = ThaiAlert;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -470,7 +470,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AC3B637179884E92FD6A084B /* Pods-FightCovid19.debug.xcconfig */;
+			baseConfigurationReference = AC3B637179884E92FD6A084B /* Pods-ThaiAlert.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -480,7 +480,7 @@
 				DEVELOPMENT_TEAM = QF457V8Y87;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = FightCovid19/Info.plist;
+				INFOPLIST_FILE = ThaiAlert/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
@@ -497,7 +497,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C082E5CD493754C79D27915 /* Pods-FightCovid19.release.xcconfig */;
+			baseConfigurationReference = 1C082E5CD493754C79D27915 /* Pods-ThaiAlert.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -507,7 +507,7 @@
 				DEVELOPMENT_TEAM = QF457V8Y87;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = FightCovid19/Info.plist;
+				INFOPLIST_FILE = ThaiAlert/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
@@ -626,7 +626,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "FightCovid19" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ThaiAlert" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -635,7 +635,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "FightCovid19" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "ThaiAlert" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

@@ -37,9 +37,9 @@ export const getHeaders = (cache: InMemoryCache, permissions: Permission[]): { [
   })
 
   const headers = {
-    // 'X-FightCovid19-User-Public-Key': '345',
+    // 'X-ThaiAlert-User-Public-Key': '345',
     'Content-Type': 'application/json',
-    'X-FightCovid19-Apps': applications.map(app => {
+    'X-ThaiAlert-Apps': applications.map(app => {
       return app.id + '.' + app.userKey
     }).join(','),
   }
@@ -49,7 +49,7 @@ export const getHeaders = (cache: InMemoryCache, permissions: Permission[]): { [
 
 export const getDataToken = async (application: Application) => {
   const headers = {
-    'X-FightCovid19-Apps': application.id + '.' + application.userKey,
+    'X-ThaiAlert-Apps': application.id + '.' + application.userKey,
   }
   const resp = await fetch(`${SQUID_API_URL}/userdata`, {
     headers,
