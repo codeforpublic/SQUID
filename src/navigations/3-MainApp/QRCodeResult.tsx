@@ -80,7 +80,7 @@ export const QRCodeResult = ({ data, onRescan }: { data: QRData, onRescan: (e: a
   const createdAt = moment(iat * 1000)
     .locale('th')    
     
-  console.log('createdAt', createdAt)
+  // console.log('createdAt', createdAt)
 
   return (
     <MyBackground variant="light">

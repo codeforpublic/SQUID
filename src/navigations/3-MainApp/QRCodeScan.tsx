@@ -27,7 +27,9 @@ export const QRCodeScan = ({ navigation }) => {
           cameraStyle={{
             marginLeft: 8,
             marginRight: 8,
-            width: Dimensions.get('window').width - 16
+            height: Dimensions.get('window').height / 2,
+            width: Dimensions.get('window').width - 16,
+            overflow: 'hidden'
           }}
           onRead={e => {
             const decoded = e.data ? decodeJWT(e?.data) : null
