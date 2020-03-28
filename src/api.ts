@@ -3,10 +3,19 @@ import { userPrivateData } from './state/userPrivateData'
 export const API_URL = 'https://api.staging.thaialert.com'
 const API_KEY = 'd6857fca1cfbeb600b399ac29f2dabf9'
 
-export const getHeaders = () => {
+export const getPrivateHeaders = () => {
   return {
     'X-TH-API-Key': API_KEY,
     'X-TH-USER-ID': userPrivateData.getId(),
+    'X-TH-ANONYMOUS-ID': userPrivateData.getAnonymousId(),
+    'Content-Type': 'application/json',
+  }
+}
+
+export const getAnonymousHeaders = () => {
+  return {
+    'X-TH-API-Key': API_KEY,
+    'X-TH-ANONYMOUS-ID': userPrivateData.getAnonymousId(),
     'Content-Type': 'application/json',
   }
 }
@@ -14,7 +23,7 @@ export const getHeaders = () => {
 export const requestOTP = async (mobileNo: string) => {
   const resp = await fetch(API_URL + `/requestOTP`, {
     method: 'post',
-    headers: getHeaders(),
+    headers: getPrivateHeaders(),
     body: JSON.stringify({ mobileNo }),
   })
   const result = await resp.json()
@@ -25,7 +34,7 @@ export const requestOTP = async (mobileNo: string) => {
 export const verifyOTP = async (otpCode: string) => {
   const resp = await fetch(API_URL + `/mobileParing`, {
     method: 'post',
-    headers: getHeaders(),
+    headers: getPrivateHeaders(),
     body: JSON.stringify({ otpCode }),
   })
   const result = await resp.json()
@@ -36,7 +45,7 @@ export const verifyOTP = async (otpCode: string) => {
 export const updateUserData = async (data: { [key: string]: any }) => {
   const resp = await fetch(API_URL + `/userdata`, {
     method: 'post',
-    headers: getHeaders(),
+    headers: getAnonymousHeaders(),
     body: JSON.stringify({ data }),
   })
   return resp.json()
@@ -59,7 +68,7 @@ export const getQRData = async () => {
     body: JSON.stringify({
       anonymousId: userPrivateData.getId()
     }),
-    headers: getHeaders(),
+    headers: getPrivateHeaders(),
   })
   const result: QRData = await resp.json()
   
