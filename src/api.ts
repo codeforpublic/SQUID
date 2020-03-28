@@ -1,4 +1,5 @@
 import { userPrivateData } from './state/userPrivateData'
+import nanoid from 'nanoid'
 
 // export const API_URL = 'https://api.staging.thaialert.com'
 export const API_URL = 'http://192.168.1.102:4210'
@@ -52,7 +53,7 @@ export const updateUserData = async (data: { [key: string]: any }) => {
   return resp.json()
 }
 
-interface QRData { 
+interface QRData {
   data: {
     anonymousId: string
     code: string
@@ -69,6 +70,22 @@ export const getQRData = async () => {
     headers: getAnonymousHeaders(),
   })
   const result: QRData = await resp.json()
-  
+
   return result
+}
+
+export const scan = async (
+  anonymousList: string[],
+  location: { latitude: number; longitude: number; accuracy: number },
+) => {
+  return fetch(API_URL + '/scan', {
+    method: 'post',
+    headers: getAnonymousHeaders(),
+    body: JSON.stringify({
+      meetId: nanoid(),
+      timestamp: new Date().toISOString(),
+      meetWithIds: anonymousList,
+      location,
+    }),
+  })
 }
