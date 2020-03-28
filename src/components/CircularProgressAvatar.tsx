@@ -15,7 +15,7 @@ export const CircularProgressAvatar = ({
   progress,
   color,
   text,
-  width = Math.floor((60 / 100) * Dimensions.get('screen').width),
+  width = Math.floor((50 / 100) * Dimensions.get('screen').width),
   CustomComponent,
 }: {
   image?: ImageSourcePropType

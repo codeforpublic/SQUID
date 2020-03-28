@@ -16,9 +16,11 @@ const COLORS = {
 export const CovidQRCode = ({
   data,
   bgColor,
+  size
 }: {
   data: QRData
   bgColor?: string
+  size?: number
 }) => {
   const [encoded, setEncoded] = useState(null)
   useEffect(() => {
@@ -31,6 +33,6 @@ export const CovidQRCode = ({
     return null
   }
   return (
-    <QRCode value={encoded} fgColor={COLORS[data.color]} bgColor={bgColor} />
+    <QRCode value={encoded} fgColor={COLORS[data.color]} bgColor={bgColor} size={size} />
   )
 }
