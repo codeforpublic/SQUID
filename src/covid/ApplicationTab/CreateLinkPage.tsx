@@ -72,7 +72,7 @@ export const CreateLinkPage = ({ navigation }) => {
           flex: 1,
         }}
       >
-        <StatusBar barStyle="light-content" />
+        <StatusBar  backgroundColor={COLORS.PRIMARY_DARK} barStyle="light-content" />
         <View style={styles.header}>
           <Text style={styles.title}>สร้าง Link</Text>
           <TouchableOpacity

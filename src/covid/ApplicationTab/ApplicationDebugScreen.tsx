@@ -89,7 +89,7 @@ export const ApplicationDebugScreen = ({ navigation }) => {
           flex: 1,
         }}
       >
-        <StatusBar barStyle="light-content" />
+        <StatusBar  backgroundColor={COLORS.PRIMARY_DARK} barStyle="light-content" />
         <View style={{ flex: 1, paddingVertical: 20 }}>
           <View
             style={{

@@ -25,7 +25,8 @@ export const MockScreen = ({
   return (
     <MyBackground variant="light">
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar   backgroundColor={COLORS.WHITE} 
+ barStyle="dark-content" />
         <View style={styles.header}>
           <Title>{title}</Title>
         </View>

@@ -27,7 +27,8 @@ export const OnboardProgressing = () => {
   return (
     <MyBackground variant="light">
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar   backgroundColor={COLORS.WHITE} 
+ barStyle="dark-content" />
         <View style={{ height: 56 }}></View>
         <View style={styles.header}>
           <Text style={styles.title}>{STRING.TITLE}</Text>

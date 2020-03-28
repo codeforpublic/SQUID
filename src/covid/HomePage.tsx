@@ -28,7 +28,7 @@ export const HomePage = ({ navigation }) => {
               ...StyleSheet.absoluteFillObject,
             }}
           >
-            <StatusBar barStyle="light-content" />
+            <StatusBar  backgroundColor={COLORS.PRIMARY_DARK} barStyle="light-content" />
             <View style={styles.content}>
               <Image
                 source={require('./Logo.png')}

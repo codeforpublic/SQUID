@@ -77,7 +77,8 @@ export const OnboardLocation = () => {
           flex: 1,
         }}
       >
-        <StatusBar barStyle="dark-content" />
+        <StatusBar   backgroundColor={COLORS.WHITE} 
+ barStyle="dark-content" />
         <View
           style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
         >
