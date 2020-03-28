@@ -6,30 +6,28 @@ import {
   StackActions,
   NavigationActions,
 } from 'react-navigation'
-import AsyncStorage from '@react-native-community/async-storage'
 import { COLORS } from '../styles'
 import { AuthStack } from './1-Auth/AuthStack'
 import { OnboardingStack } from './2-Onboarding/OnboardingStack'
 import { MainAppTab } from './3-MainApp/MainAppStack'
+import { applicationState } from '../app-state'
 
 const isOnboarded = async () => {
-  return AsyncStorage.getItem('is-passed-onboarding')
+  return applicationState.get('isPassedOnboarding')
 }
 const isRegistered = async () => {
-  // return false
-  return AsyncStorage.getItem('isRegistered')
+  return applicationState.get('isRegistered')
 }
-const REDIRECT_PAGE = 'AuthOTP'
-const REDIRECT_PARAMS = { data: { color: 'green', age: 25, gender: 'M', iat: 1585235348 } }
+
+// const REDIRECT_PAGE = 'AuthOTP'
+// const REDIRECT_PARAMS = { data: { color: 'green', age: 25, gender: 'M', iat: 1585235348 } }
 
 const Root = ({ navigation }) => {
   useEffect(() => {
     const redirect = async () => {
       const registered = await isRegistered()
-      const onboarded = await isOnboarded()
-      console.log({ registered, onboarded })
+      const onboarded = await isOnboarded()      
       const page = registered ? (onboarded ? 'MainApp' : 'Onboarding') : 'Auth'
-
       const action = StackActions.reset({
         index: 0,
         actions: [

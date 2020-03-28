@@ -11,6 +11,7 @@ import {
   ActivityIndicator,
 } from 'react-native'
 import { PrimaryButton } from '../../components/Button'
+import { applicationState } from '../../app-state'
 
 const STRING = {
   TITLE: 'กำลังดำเนินการ...',
@@ -21,6 +22,7 @@ export const OnboardProgressing = () => {
   const navigation = useNavigation()
   useEffect(() => {
     setTimeout(() => {
+      applicationState.set('isPassedOnboarding', 'success')
       navigation.navigate('OnboardComplete')
     }, 1000)
   }, [])
