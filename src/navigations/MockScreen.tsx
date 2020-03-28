@@ -5,7 +5,7 @@ import SafeAreaView from 'react-native-safe-area-view'
 
 import { useNavigation } from 'react-navigation-hooks'
 import { PrimaryButton } from '../components/Button'
-import { MyBackground } from '../covid/MyBackground'
+import { MyBackground } from '../components/MyBackground'
 import { Title } from '../components/Base'
 
 export const MockScreen = ({

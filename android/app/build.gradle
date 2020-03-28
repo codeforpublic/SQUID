@@ -125,6 +125,7 @@ android {
        javaMaxHeapSize "3g"
     }
 	compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

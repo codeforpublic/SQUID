@@ -37,7 +37,7 @@ export const OnboardLocation = () => {
     ])
     console.log('perm', perms)
     if (perms[0] === 'granted' && perms[1] === 'granted') {
-      appContext.activateBackgroundTracking()
+      await appContext.activateBackgroundTracking()
       const action = StackActions.reset({
         index: 0,
         actions: [
