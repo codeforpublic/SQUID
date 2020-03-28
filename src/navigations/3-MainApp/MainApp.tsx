@@ -82,7 +82,7 @@ export const MainApp = () => {
   return (
     <WhiteBackground>
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar barStyle="light-content" backgroundColor={COLORS.PRIMARY_DARK} />
         <Text
           style={{
             fontFamily: FONT_FAMILY,

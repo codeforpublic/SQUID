@@ -79,7 +79,8 @@ export const AppForm = () => {
           flex: 1,
         }}
       >
-        <StatusBar barStyle="dark-content" />
+        <StatusBar   backgroundColor={COLORS.WHITE} 
+ barStyle="dark-content" />
         <View style={styles.content}>
           <Logo uri={appCampaign.logo} size={200} />
           <Text style={styles.title}>ขอสิทธิเข้าถึงข้อมูล</Text>

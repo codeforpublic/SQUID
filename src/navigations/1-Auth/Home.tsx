@@ -13,9 +13,16 @@ export const Home = ({ navigation }) => {
         backgroundColor: '#212356',
       }}
     >
-      <StatusBar barStyle="dark-content" />
+      <StatusBar
+        backgroundColor={COLORS.PRIMARY_DARK}
+        barStyle="light-content"
+      />
       <View style={styles.content}>
-        <Image source={require('../../assets/Logo.png')} resizeMode="contain" style={{width: 300}} />
+        <Image
+          source={require('../../assets/Logo.png')}
+          resizeMode="contain"
+          style={{ width: 300 }}
+        />
         <Text style={styles.description}>
           หยุดเชื้อเพื่อชาติ{'\n'}
           ป้องกันการระบาดของโรค

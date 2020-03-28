@@ -164,7 +164,7 @@ export const Profile = ({ navigation }) => {
           flex: 1,
         }}
       >
-        <StatusBar barStyle="light-content" />
+        <StatusBar  backgroundColor={COLORS.PRIMARY_DARK} barStyle="light-content" />
         {!firstname ? (
           <BlankState onEditProfile={onEditProfile} />
         ) : (

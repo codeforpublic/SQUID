@@ -149,7 +149,7 @@ export const ApplicationList = ({ navigation }) => {
           flex: 1,
         }}
       >
-        <StatusBar barStyle="light-content" />
+        <StatusBar  backgroundColor={COLORS.PRIMARY_DARK} barStyle="light-content" />
         {!applications || applications.length === 0 ? (
           <BlankState onCreateLink={onCreateLink} />
         ) : (

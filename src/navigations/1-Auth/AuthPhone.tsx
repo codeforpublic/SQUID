@@ -32,7 +32,8 @@ export const AuthPhone = () => {
         <KeyboardAvoidingView          
           style={{ flex: 1, width: '100%' }}          
         >
-          <StatusBar barStyle="dark-content" />
+          <StatusBar   backgroundColor={COLORS.WHITE} 
+ barStyle="dark-content" />
           <View style={{ padding: 16 }}>
             <BackButton />
           </View>

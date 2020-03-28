@@ -96,7 +96,7 @@ export const QRTab = () => {
           flex: 1,
         }}
       >
-        <StatusBar barStyle="light-content" />
+        <StatusBar  backgroundColor={COLORS.PRIMARY_DARK} barStyle="light-content" />
         <View style={styles.header}>
           <Text style={styles.title}>QR Code ของฉัน</Text>
         </View>

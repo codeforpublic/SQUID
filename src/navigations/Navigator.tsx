@@ -28,7 +28,7 @@ const Root = ({ navigation }) => {
       const registered = await isRegistered()
       const onboarded = await isOnboarded()
       console.log({ registered, onboarded })
-      const page = registered ? (onboarded ? 'MainApp' : 'OnboardFace') : 'Auth'
+      const page = registered ? (onboarded ? 'MainApp' : 'Onboarding') : 'Auth'
 
       const action = StackActions.reset({
         index: 0,
@@ -40,11 +40,11 @@ const Root = ({ navigation }) => {
         key: null,
       })
       navigation.dispatch(action)
-      if (REDIRECT_PAGE) {
-        setTimeout(() => {
-          navigation.navigate(REDIRECT_PAGE, REDIRECT_PARAMS)
-        }, 500)
-      }
+      // if (REDIRECT_PAGE) {
+      //   setTimeout(() => {
+      //     navigation.navigate(REDIRECT_PAGE, REDIRECT_PARAMS)
+      //   }, 500)
+      // }
     }
     redirect()
   }, [])

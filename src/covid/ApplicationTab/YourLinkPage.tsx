@@ -128,7 +128,7 @@ export const YourLinkPage = ({ navigation }) => {
           flex: 1,
         }}
       >
-        <StatusBar barStyle="light-content" />
+        <StatusBar  backgroundColor={COLORS.PRIMARY_DARK} barStyle="light-content" />
         <View style={styles.header}>
           <TouchableOpacity
             hitSlop={{ top: 20, bottom: 20, left: 50, right: 20 }}
