@@ -1255,6 +1255,11 @@
     xcode "2.0.0"
     yargs "^12.0.2"
 
+"@twotalltotems/react-native-otp-input@^1.3.5":
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/@twotalltotems/react-native-otp-input/-/react-native-otp-input-1.3.5.tgz#bf0ae7a6b8819d213c563225adf405f153ac8e0b"
+  integrity sha512-zI3Avmvql94VrNbdA+x7bXcXfVVxXlGxAav3rYdpDaQs5UJx/ArpN7YZ2KuaF88HO//T4Wp1rAYse6Z8Azv7bQ==
+
 "@types/babel__core@^7.1.0":
   version "7.1.6"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.6.tgz#16ff42a5ae203c9af1c6e190ed1f30f83207b610"
@@ -6986,6 +6991,11 @@ react-native-screens@^1.0.0-alpha.22:
   integrity sha512-tOxHGQUN83MTmQB4ghoQkibqOdGiX4JQEmeyEv96MKWO/x8T2PJv84ECUos9hD3blPRQwVwSpAid1PPPhrVEaw==
   dependencies:
     debounce "^1.2.0"
+
+react-native-sensitive-info@^5.5.5:
+  version "5.5.5"
+  resolved "https://registry.yarnpkg.com/react-native-sensitive-info/-/react-native-sensitive-info-5.5.5.tgz#0559aaff6bd59b6a14d92035c032b46bd007b55f"
+  integrity sha512-ShRqvHTZnY4VYNEF+5pCBUu/2wslojY445FdA9nuH9nkVqOQRXxIGYqTRYXJ42mDLTt+KnW5hcvuAjpVVokafQ==
 
 react-native-size@^1.3.0:
   version "1.3.0"

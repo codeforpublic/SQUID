@@ -19,6 +19,8 @@ import { Input } from 'react-native-elements'
 import { BackButton } from '../../components/BackButton'
 import { requestOTP } from '../../api'
 import { useHUD } from '../../HudView'
+import { Link } from '../../components/Base'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export const AuthPhone = () => {
   const navigation = useNavigation()
@@ -39,7 +41,7 @@ export const AuthPhone = () => {
           </View>
           <View style={styles.header}>
             <Text style={styles.title}>กรอกเบอร์โทรศัพท์</Text>
-            <Text style={styles.subtitle}>เพื่อรับรหัสผ่านจาก SMS</Text>
+            <Text style={styles.subtitle}>เพื่อยืนยันตัวตนด้วย SMS</Text>
           </View>
           <View style={styles.content}>
             <Input
@@ -60,7 +62,7 @@ export const AuthPhone = () => {
                   ? 'เบอร์โทรศัพท์จะต้องเป็นตัวเลข 10 หลัก'
                   : null
               }
-            />
+            />            
           </View>
           <View style={styles.footer}>
             <PrimaryButton
@@ -69,6 +71,7 @@ export const AuthPhone = () => {
               onPress={async () => {
                 showSpinner()
                 try {
+                  console.log('phone', phone)
                   await requestOTP(phone)
                   hide()
                   navigation.navigate({
@@ -82,6 +85,9 @@ export const AuthPhone = () => {
                 }
               }}
             />
+            <TouchableOpacity>
+              <Link style={{ marginTop: 8, fontWeight: 'bold' }}>ใช้งานแบบไม่ยืนยันตัวตน ></Link>
+            </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>

@@ -19,8 +19,8 @@ const isRegistered = async () => {
   return applicationState.get('isRegistered')
 }
 
-// const REDIRECT_PAGE = 'AuthPhone'
-// const REDIRECT_PARAMS = { data: { color: 'green', age: 25, gender: 'M', iat: 1585235348 } }
+const REDIRECT_PAGE = 'AuthOTP'
+const REDIRECT_PARAMS = { data: { color: 'green', age: 25, gender: 'M', iat: 1585235348 } }
 
 const Root = ({ navigation }) => {
   useEffect(() => {

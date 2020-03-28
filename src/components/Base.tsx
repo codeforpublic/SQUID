@@ -28,3 +28,13 @@ export const Subtitle = styled(Text)({
   color: COLORS.GRAY_2,
   textAlign: 'center'
 })
+
+export const Link = styled(Text)({
+  fontFamily: FONT_FAMILY,
+  fontWeight: 'bold',
+  fontSize: 16,
+  lineHeight: 30,
+  alignItems: 'center',
+  color: COLORS.BLUE,
+  textAlign: 'center'
+})
