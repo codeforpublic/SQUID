@@ -135,8 +135,8 @@ android {
         applicationId "com.codeforpublic.squid"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 100
-        versionName "1.1.0"
+        versionCode 101
+        versionName "1.1.1"
         multiDexEnabled true
         missingDimensionStrategy 'react-native-camera', 'general' 
     }
@@ -163,7 +163,7 @@ android {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             proguardFiles "${background_geolocation.projectDir}/proguard-rules.pro"
-            // signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
             matchingFallbacks = ['release']
         }
         releaseStaging {
