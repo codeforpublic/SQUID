@@ -20,7 +20,7 @@ import { BackButton } from '../../components/BackButton'
 import { requestOTP, verifyOTP } from '../../api'
 import { useHUD } from '../../HudView'
 import { useResetTo } from '../../utils/navigation'
-import { applicationState } from '../../app-state'
+import { applicationState } from '../../state/app-state'
 
 export const AuthOTP = () => {
   const { showSpinner, hide } = useHUD()
@@ -31,17 +31,20 @@ export const AuthOTP = () => {
   const onSubmit = async () => {
     showSpinner()
     try {
-      await verifyOTP(otp)
-      await new Promise((resolve, reject) =>
-        setTimeout(resolve, 300),
-      )
+      const bool = await verifyOTP(otp)
+      if (!bool) {
+        Alert.alert('รหัสผ่านไม่ถูกต้อง')
+        hide()
+        return
+      }      
+      hide()
+      applicationState.set('isRegistered', 'success')
+      resetTo({ routeName: 'Onboarding' })
     } catch (err) {
-      // todo
       console.log(err)
-    }
-    hide()
-    applicationState.set('isRegistered', 'success')
-    resetTo({ routeName: 'Onboarding' })
+      hide()
+      Alert.alert('เกิดข้อผิดพลาด')
+    }    
   }
   useEffect(() => {
     if (otp.length === 4)  {

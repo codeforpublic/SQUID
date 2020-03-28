@@ -11,7 +11,7 @@ import {
   ActivityIndicator,
 } from 'react-native'
 import { PrimaryButton } from '../../components/Button'
-import { applicationState } from '../../app-state'
+import { applicationState } from '../../state/app-state'
 
 const STRING = {
   TITLE: 'กำลังดำเนินการ...',

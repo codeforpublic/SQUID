@@ -15,6 +15,7 @@ import { useMutation } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 import AsyncStorage from '@react-native-community/async-storage'
 import RNFS from 'react-native-fs'
+import { userPrivateData } from '../../state/userPrivateData'
 
 const SelfieCaptureGuideline = () => {
   return (
@@ -89,8 +90,7 @@ export const OnboardFace = () => {
             title={'ถัดไป'}
             onPress={async () => {
               console.log('uri', uri)
-              await AsyncStorage.setItem('faceURI', uri)
-              // await mutate({ variables: { image: uri } })
+              await userPrivateData.setData('faceURI', uri)
               navigation.navigate('OnboardLocation')
             }}
             disabled={!uri}

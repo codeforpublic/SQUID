@@ -16,6 +16,8 @@ import { useNavigation } from 'react-navigation-hooks'
 import AsyncStorage from '@react-native-community/async-storage'
 import { WhiteBackground } from '../../components/WhiteBackground'
 import Sizer from 'react-native-size'
+import { userPrivateData } from '../../state/userPrivateData'
+import { useQRData } from '../../state/qr'
 
 const STATUS_COLORS = {
   green: '#27C269',
@@ -24,67 +26,42 @@ const STATUS_COLORS = {
   red: '#EC3131',
   DEFAULT: '#B4B5C1',
 }
+const LEVELS = {
+  green: 1,
+  yellow: 2,
+  orange: 3,
+  red: 4,
+}
+const SCORES = {
+  green: 100,
+  yellow: 80,
+  orange: 50,
+  red: 30,
+}
+const LABELS = {
+  green: 'ความเสี่ยงต่ำ',
+  orange: 'ความเสี่ยงปานกลาง',
+  yellow: 'ความเสี่ยงสูง',
+  red: 'ความเสี่ยงสูงมาก',
+}
 
-const MAX_SCORE = 1000
-
-const mocks = [
-  { color: 'green', score: 900, risk: 'ความเสี่ยงต่ำ' },
-  { color: 'yellow', score: 500, risk: 'เฝ้าระวัง' },
-  { color: 'red', score: 200, risk: 'ความเสี่ยงสูง' },
-]
+const MAX_SCORE = 100
 
 export const MainApp = () => {
-  const navigation = useNavigation()
-  const [mock, setMock] = useState(null)
-  const tap = useRef([])
-  useEffect(() => {
-    AsyncStorage.getItem('mock').then(color => {
-      setMock(mocks.find(mock => mock.color === color) || mocks[0])
-    })
-  }, [])
-  
-  const [faceURI, setFaceURI] = useState(null)
-  useEffect(() => {
-    AsyncStorage.getItem('faceURI').then(uri => {
-      console.log('uri', uri)
-      setFaceURI(uri)
-    })
-  }, [])
-  
-
-  const pressImage = () => {
-    const tapList = tap.current
-    console.log(tapList)
-    tapList.push(Date.now())
-    if (tapList.length > 5) {
-      tapList.splice(0, 1)
-    }
-    if (tapList[4] - tapList[0] < 2000) {
-      const nextColor =
-        mock.color === 'green'
-          ? 'yellow'
-          : mock.color === 'yellow'
-          ? 'red'
-          : 'green'
-      AsyncStorage.setItem('mock', nextColor)
-      setMock(mocks.find(mock => mock.color === nextColor) || mocks[0])
-      tapList.splice(0, 5)
-    }
-  }
-  if (!faceURI) {
+  const faceURI = userPrivateData.getData('faceURI')
+  const qrData = useQRData()
+  if (!qrData) {
     return null
   }
-  if (!mock) return null
-  const covidData: QRData = {
-    color: mock.color, // green, yellow, orange, red
-    gender: 'M', // M | F
-    age: 25,
-  }  
+  console.log('qrData.qr.base64', 'data:image/png;base64,' + qrData.qr.base64)
 
   return (
     <WhiteBackground>
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="light-content" backgroundColor={COLORS.PRIMARY_DARK} />
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor={COLORS.PRIMARY_DARK}
+        />
         <Text
           style={{
             fontFamily: FONT_FAMILY,
@@ -96,7 +73,7 @@ export const MainApp = () => {
         >
           ข้อมูลของฉัน
         </Text>
-        <TouchableWithoutFeedback onPress={pressImage}>
+        <TouchableWithoutFeedback>
           <View
             style={{
               alignItems: 'center',
@@ -105,8 +82,8 @@ export const MainApp = () => {
           >
             <CircularProgressAvatar
               image={faceURI ? { uri: faceURI } : void 0}
-              color={STATUS_COLORS[mock.color]}
-              progress={(mock.score / MAX_SCORE) * 100}              
+              color={STATUS_COLORS[qrData.data.code]}
+              progress={(SCORES[qrData.data.code] / MAX_SCORE) * 100}
             />
           </View>
         </TouchableWithoutFeedback>
@@ -129,7 +106,7 @@ export const MainApp = () => {
             borderBottomColor: COLORS.GRAY_1,
             borderBottomWidth: 1,
             borderStyle: 'solid',
-            justifyContent: 'center'
+            justifyContent: 'center',
           }}
         >
           <View
@@ -166,7 +143,7 @@ export const MainApp = () => {
                   color: COLORS.PRIMARY_DARK,
                 }}
               >
-                {mock.risk}
+                {LABELS[qrData.data.code]}
               </Text>
             </View>
           </View>
@@ -179,13 +156,18 @@ export const MainApp = () => {
             backgroundColor: COLORS.GRAY_1,
           }}
         >
-          {({ height }) => (
-            height? <CovidQRCode
-              data={covidData}
-              bgColor={COLORS.GRAY_1}
-              size={Math.min(height - 20, 300)}
-            />: <ActivityIndicator size="large" />
-          )}
+          {({ height }) =>
+            qrData.qr.base64 && height ? (
+              <Image                
+                style={{ width: height - 20, height: height - 20 }}
+                source={{
+                  uri: 'data:image/png;base64,' + qrData.qr.base64,
+                }}
+              />
+            ) : (
+              <ActivityIndicator size="large" />
+            )
+          }
         </Sizer>
       </SafeAreaView>
     </WhiteBackground>

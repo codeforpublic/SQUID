@@ -10,7 +10,7 @@ import { COLORS } from '../styles'
 import { AuthStack } from './1-Auth/AuthStack'
 import { OnboardingStack } from './2-Onboarding/OnboardingStack'
 import { MainAppTab } from './3-MainApp/MainAppStack'
-import { applicationState } from '../app-state'
+import { applicationState } from '../state/app-state'
 
 const isOnboarded = async () => {
   return applicationState.get('isPassedOnboarding')
