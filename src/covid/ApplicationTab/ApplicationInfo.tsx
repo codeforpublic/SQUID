@@ -5,11 +5,11 @@ import {
   TouchableOpacity,
   View,
   Alert,
+  ScrollView,
   Image,
 } from 'react-native'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { ApplicationMutation } from '../../common/state/application.state'
-import { ScrollView } from 'react-native-gesture-handler'
 import { useSafeArea } from 'react-native-safe-area-context'
 import SvgUri from 'react-native-svg-uri-reborn'
 import { CheckBox, Icon } from 'react-native-elements'

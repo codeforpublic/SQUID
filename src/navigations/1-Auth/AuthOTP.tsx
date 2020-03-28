@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   Alert,
   KeyboardAvoidingView,
+  TextInput,
 } from 'react-native'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { PrimaryButton } from '../../components/Button'
@@ -35,7 +36,6 @@ export const AuthOTP = () => {
     <MyBackground variant="light">
       <SafeAreaView style={styles.container}>
         <KeyboardAvoidingView
-          behavior="padding"
           style={{ flex: 1, width: '100%' }}
         >
           <StatusBar barStyle="dark-content" />
@@ -56,8 +56,8 @@ export const AuthOTP = () => {
                 width: 280,
                 maxWidth: '100%',
               }}
-            >
-              <OtpInputs
+            >              
+               <OtpInputs
                 keyboardType={'phone-pad'}
                 inputContainerStyles={{
                   backgroundColor: COLORS.WHITE,
@@ -72,7 +72,7 @@ export const AuthOTP = () => {
                 inputStyles={{ textAlign: 'center', fontSize: 32 }}
                 handleChange={code => setOtp(code)}
                 numberOfInputs={4}
-              />
+              /> 
             </View>
             <TouchableOpacity
               onPress={async () => {

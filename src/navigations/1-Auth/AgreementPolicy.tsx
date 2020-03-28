@@ -6,12 +6,12 @@ import {
   View,
   Text,
   StyleSheet,
+  ScrollView,
   TouchableWithoutFeedback,
 } from 'react-native'
 import { PrimaryButton } from '../../components/Button'
 import { useNavigation } from 'react-navigation-hooks'
 import { COLORS, FONT_FAMILY } from '../../styles'
-import { ScrollView } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Entypo'
 import { CheckBox } from 'react-native-elements'
 import { BackButton } from '../../components/BackButton'
