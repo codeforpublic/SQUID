@@ -29,9 +29,8 @@ export const AuthPhone = () => {
   return (
     <MyBackground variant="light">
       <SafeAreaView style={styles.container}>
-        <KeyboardAvoidingView
-          behavior="padding"
-          style={{ flex: 1, width: '100%' }}
+        <KeyboardAvoidingView          
+          style={{ flex: 1, width: '100%' }}          
         >
           <StatusBar barStyle="dark-content" />
           <View style={{ padding: 16 }}>

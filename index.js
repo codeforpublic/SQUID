@@ -1,13 +1,15 @@
 import 'react-native-gesture-handler'
 import 'react-native-get-random-values'
 import * as Sentry from '@sentry/react-native'
-import { AppRegistry, Text } from 'react-native'
+import { AppRegistry, Text, KeyboardAvoidingView, Platform } from 'react-native'
 import App from './src/App'
 
 import BackgroundGeolocation from './src/react-native-background-geolocation'
 
 Text.defaultProps = Text.defaultProps || {}
 Text.defaultProps.allowFontScaling = false
+KeyboardAvoidingView.defaultProps.behavior =
+  Platform.Os == 'ios' ? 'padding' : null
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({

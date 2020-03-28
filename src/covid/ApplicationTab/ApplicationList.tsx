@@ -7,11 +7,9 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
+  ScrollView,
 } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { ScrollView } from 'react-native-gesture-handler'
-import { useSafeArea } from 'react-native-safe-area-context'
-import SvgUri from 'react-native-svg-uri-reborn'
 import {
   ApplicationUtils,
   useApplicationList,
