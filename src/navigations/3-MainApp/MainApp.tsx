@@ -9,11 +9,13 @@ import {
   Text,
   TouchableWithoutFeedback,
   Image,
+  ActivityIndicator,
 } from 'react-native'
 import { CircularProgressAvatar } from '../../components/CircularProgressAvatar'
 import { useNavigation } from 'react-navigation-hooks'
 import AsyncStorage from '@react-native-community/async-storage'
 import { WhiteBackground } from '../../components/WhiteBackground'
+import Sizer from 'react-native-size'
 
 const STATUS_COLORS = {
   green: '#27C269',
@@ -169,7 +171,7 @@ export const MainApp = () => {
             </View>
           </View>
         </View>
-        <View
+        <Sizer
           style={{
             alignItems: 'center',
             flex: 1,
@@ -177,12 +179,14 @@ export const MainApp = () => {
             backgroundColor: COLORS.GRAY_1,
           }}
         >
-          <CovidQRCode
-            data={covidData}
-            bgColor={COLORS.GRAY_1}
-            size={200}
-          />
-        </View>
+          {({ height }) => (
+            height? <CovidQRCode
+              data={covidData}
+              bgColor={COLORS.GRAY_1}
+              size={Math.min(height - 20, 300)}
+            />: <ActivityIndicator size="large" />
+          )}
+        </Sizer>
       </SafeAreaView>
     </WhiteBackground>
   )

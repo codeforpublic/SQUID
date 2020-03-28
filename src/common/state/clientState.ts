@@ -1,7 +1,3 @@
-import * as UserInfo from './userInfo.state'
-import * as Application from './application.state'
-import * as User from './user.state'
-
 interface State {
   initialState?: Object
   Mutation?: Object
@@ -43,13 +39,13 @@ const resolveState = (states: State[]) => {
 }
 
 export const clientState = resolveState([
-  UserInfo.apolloState,
-  Application.apolloState,
-  User.apolloState,
+  // UserInfo.apolloState,
+  // Application.apolloState,
+  // User.apolloState,
 ])
 
 export const migrateState = async (props: any) => {
-  const fns = extractMigrate([UserInfo.apolloState, Application.apolloState])
+  const fns = extractMigrate([])
   for (let fn of fns) {
     await fn(props)
   }

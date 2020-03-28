@@ -6987,6 +6987,11 @@ react-native-screens@^1.0.0-alpha.22:
   dependencies:
     debounce "^1.2.0"
 
+react-native-size@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-size/-/react-native-size-1.3.0.tgz#1ec780c9d59e9185f53ac8e0a122de25995889ea"
+  integrity sha512-LLiEPyF8+g2GjtpXcEIKtvuxisUcozWRHdBV8jsCKlLhDIuERGdWe/t8ivlUoLZWME6m949pC0r03Wr9Q9+hQA==
+
 react-native-snap-carousel@^3.8.4:
   version "3.8.4"
   resolved "https://registry.yarnpkg.com/react-native-snap-carousel/-/react-native-snap-carousel-3.8.4.tgz#4c749c6a714d46ed82de527233850cb5da41bc62"
