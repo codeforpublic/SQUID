@@ -1,5 +1,5 @@
 import BackgroundGeolocation from '../react-native-background-geolocation'
-import { getHeaders, API_URL } from '../api'
+import { getAnonymousHeaders, API_URL } from '../api'
 
 class BackgroundTracking {
   ready: boolean = false
@@ -19,7 +19,7 @@ class BackgroundTracking {
         stopOnTerminate: false,
         startOnBoot: true,
         foregroundService: true,        
-        headers: getHeaders(),
+        headers: getAnonymousHeaders(),
         autoSync: true,
         debug: false,
         batchSync: true,
