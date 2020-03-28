@@ -135,9 +135,6 @@ export const MainApp = () => {
               flexDirection: 'row',
               paddingHorizontal: 16,
               alignItems: 'center',
-              // borderRightColor: COLORS.GRAY_1,
-              // borderRightWidth: 1,
-              // borderStyle: 'solid',
             }}
           >
             <Image
@@ -171,53 +168,6 @@ export const MainApp = () => {
               </Text>
             </View>
           </View>
-          {/* <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              paddingHorizontal: 16,
-              alignItems: 'center',
-            }}
-          >
-            <Image
-              source={require('../../assets/home.png')}
-              style={{ width: 24, height: 24 }}
-            />
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'flex-start',
-                flexDirection: 'column',
-                marginLeft: 16,
-              }}
-            >
-              <Text
-                style={{
-                  fontFamily: FONT_FAMILY,
-                  fontSize: 12,
-                  color: COLORS.GRAY_2,
-                }}
-              >
-                คะแนน
-              </Text>
-              <Text
-                style={{
-                  fontFamily: FONT_FAMILY,
-                  fontSize: 16,
-                  color: COLORS.PRIMARY_DARK,
-                }}
-              >
-                <Text
-                  style={{
-                    color: STATUS_COLORS[mock.color],
-                  }}
-                >
-                  {mock.score}
-                </Text>{' '}
-                / {MAX_SCORE}
-              </Text>
-            </View>
-          </View> */}
         </View>
         <View
           style={{

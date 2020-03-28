@@ -1,18 +1,15 @@
 import React, { useState } from 'react'
-import { MockScreen } from '../MockScreen'
 import { useNavigation } from 'react-navigation-hooks'
-import { MyBackground } from '../../covid/MyBackground'
+import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {
   StatusBar,
   View,
-  TouchableWithoutFeedback,
   Text,
   StyleSheet,
   TouchableOpacity,
   Alert,
   KeyboardAvoidingView,
-  TextInput,
 } from 'react-native'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { PrimaryButton } from '../../components/Button'
@@ -30,16 +27,12 @@ export const AuthOTP = () => {
   const phone = navigation.getParam('phone')
   const [otp, setOtp] = useState('')
   const resetTo = useResetTo()
-  console.log('phone', phone)
 
   return (
     <MyBackground variant="light">
       <SafeAreaView style={styles.container}>
-        <KeyboardAvoidingView
-          style={{ flex: 1, width: '100%' }}
-        >
-          <StatusBar   backgroundColor={COLORS.WHITE} 
- barStyle="dark-content" />
+        <KeyboardAvoidingView style={{ flex: 1, width: '100%' }}>
+          <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
           <View style={{ padding: 16 }}>
             <BackButton />
           </View>
@@ -57,8 +50,8 @@ export const AuthOTP = () => {
                 width: 280,
                 maxWidth: '100%',
               }}
-            >              
-               <OtpInputs
+            >
+              <OtpInputs
                 keyboardType={'phone-pad'}
                 inputContainerStyles={{
                   backgroundColor: COLORS.WHITE,
@@ -68,12 +61,12 @@ export const AuthOTP = () => {
                   flex: 1,
                   margin: 4,
                   height: 60,
-                  justifyContent: 'center'
+                  justifyContent: 'center',
                 }}
                 inputStyles={{ textAlign: 'center', fontSize: 32 }}
                 handleChange={code => setOtp(code)}
                 numberOfInputs={4}
-              /> 
+              />
             </View>
             <TouchableOpacity
               onPress={async () => {
@@ -104,7 +97,9 @@ export const AuthOTP = () => {
                 showSpinner()
                 try {
                   await verifyOTP(otp)
-                  await new Promise((resolve, reject) => setTimeout(resolve, 300))
+                  await new Promise((resolve, reject) =>
+                    setTimeout(resolve, 300),
+                  )
                 } catch (err) {
                   // todo
                   console.log(err)
@@ -160,7 +155,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    // justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
   },

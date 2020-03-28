@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { useNavigation } from 'react-navigation-hooks'
-import { MyBackground } from '../../covid/MyBackground'
+import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {
   StatusBar,
