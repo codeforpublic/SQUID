@@ -16,9 +16,9 @@ import { COLORS } from './styles'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { CachePersistor, persistCache } from 'apollo-cache-persist'
 import { apolloClient, migrateState } from './apollo-client'
-import { userID } from './userID'
+import { userPrivateData } from './state/userPrivateData'
 import { backgroundTracking } from './utils/background-tracking'
-import { applicationState } from './app-state'
+import { applicationState } from './state/app-state'
 
 const AppContainer = createAppContainer(Navigator)
 
@@ -61,7 +61,7 @@ export default class App extends React.Component {
 
     await Promise.all([
       applicationState.load(),
-      userID.load(),
+      userPrivateData.load(),
       persistCache({
         cache: apolloClient.cache,
         storage: AsyncStorage,
