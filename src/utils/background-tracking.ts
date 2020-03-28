@@ -43,6 +43,9 @@ class BackgroundTracking {
     BackgroundGeolocation.removeAllListeners()
     return BackgroundGeolocation.stop()
   }
+  destroyLocations() {
+    return BackgroundGeolocation.destroyLocations()
+  }
 }
 
 export const backgroundTracking = new BackgroundTracking()

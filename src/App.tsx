@@ -45,13 +45,16 @@ export default class App extends React.Component {
       },
     )
   }
-  purgeAll() {
-    AsyncStorage.clear()
+  purgeAll() {    
     const persistor = new CachePersistor({
       cache: apolloClient.cache,
       storage: AsyncStorage,
     })
-    return persistor.purge()
+    return Promise.all([      
+      AsyncStorage.clear(),
+      backgroundTracking.destroyLocations(),
+      persistor.purge(),
+    ])
   }
   async load() {
     if (process.env.NODE_ENV !== 'production') {
