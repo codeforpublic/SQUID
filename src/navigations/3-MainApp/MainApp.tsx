@@ -19,41 +19,15 @@ import Sizer from 'react-native-size'
 import { userPrivateData } from '../../state/userPrivateData'
 import { useQRData } from '../../state/qr'
 
-const STATUS_COLORS = {
-  green: '#27C269',
-  yellow: '#E5DB5C',
-  orange: '#E18518',
-  red: '#EC3131',
-  DEFAULT: '#B4B5C1',
-}
-const LEVELS = {
-  green: 1,
-  yellow: 2,
-  orange: 3,
-  red: 4,
-}
-const SCORES = {
-  green: 100,
-  yellow: 80,
-  orange: 50,
-  red: 30,
-}
-const LABELS = {
-  green: 'ความเสี่ยงต่ำ',
-  orange: 'ความเสี่ยงปานกลาง',
-  yellow: 'ความเสี่ยงสูง',
-  red: 'ความเสี่ยงสูงมาก',
-}
 
 const MAX_SCORE = 100
 
 export const MainApp = () => {
   const faceURI = userPrivateData.getData('faceURI')
-  const qrData = useQRData()
-  if (!qrData) {
+  const qr = useQRData()
+  if (!qr) {
     return null
   }
-  console.log('qrData.qr.base64', 'data:image/png;base64,' + qrData.qr.base64)
 
   return (
     <WhiteBackground>
@@ -82,8 +56,8 @@ export const MainApp = () => {
           >
             <CircularProgressAvatar
               image={faceURI ? { uri: faceURI } : void 0}
-              color={STATUS_COLORS[qrData.data.code]}
-              progress={(SCORES[qrData.data.code] / MAX_SCORE) * 100}
+              color={qr.getStatusColor()}
+              progress={(qr.getScore() / MAX_SCORE) * 100}
             />
           </View>
         </TouchableWithoutFeedback>
@@ -143,7 +117,7 @@ export const MainApp = () => {
                   color: COLORS.PRIMARY_DARK,
                 }}
               >
-                {LABELS[qrData.data.code]}
+                {qr.getLabel()}
               </Text>
             </View>
           </View>
@@ -157,11 +131,11 @@ export const MainApp = () => {
           }}
         >
           {({ height }) =>
-            qrData.qr.base64 && height ? (
+            height ? (
               <Image                
                 style={{ width: height - 20, height: height - 20 }}
                 source={{
-                  uri: 'data:image/png;base64,' + qrData.qr.base64,
+                  uri: qr.getQRImageURL(),
                 }}
               />
             ) : (

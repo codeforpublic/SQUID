@@ -11,19 +11,6 @@ import { PrimaryButton } from '../../components/Button'
 import moment from 'moment-timezone'
 import 'moment/locale/th'
 
-const STATUS_COLORS = {
-  green: '#27C269',
-  yellow: '#E5DB5C',
-  orange: '#E18518',
-  red: '#EC3131',
-  DEFAULT: '#B4B5C1',
-}
-
-const ScoreText = styled(Text)`
-  font-weight: 600;
-  font-family: ${FONT_FAMILY};
-  font-size: 32px;
-`
 const Content = styled(View)({
   flex: 1,
   alignItems: 'center',
@@ -39,23 +26,14 @@ const DateLabel = styled(Text)({
   color: COLORS.GRAY_4
 })
 
-export const Score = ({ style, color, score }) => {
-  return (
-    <View style={[style, { justifyContent: 'center', alignItems: 'center' }]}>
-      <Title style={{ fontSize: 20, marginBottom: -10 }}>คะแนนของคุณ</Title>
-      <View style={{ display: 'flex', flexDirection: 'row' }}>
-        <ScoreText style={{ color }}>{score}</ScoreText>
-        <ScoreText>/1000</ScoreText>
-      </View>
-    </View>
-  )
+const STATUS_COLORS = {
+  green: '#27C269',
+  yellow: '#E5DB5C',
+  orange: '#E18518',
+  red: '#EC3131',
+  DEFAULT: '#B4B5C1',
 }
-const SCORES = {
-  green: 800,
-  orange: 600,
-  yellow: 400,
-  red: 200,
-}
+
 
 const LABELS = {
   green: 'ความเสี่ยงต่ำ',
