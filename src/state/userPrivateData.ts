@@ -5,6 +5,7 @@ const USER_DATA_KEY = '@USER_PRIVATE_DATA'
 
 interface UserData {
   id: string
+  anonymousId: string
   faceURI?: string
 }
 
@@ -19,13 +20,17 @@ class UserPrivateDate {
       this.data = JSON.parse(userDataString)
     } else {
       this.data = {
-        id: nanoid()
+        id: nanoid(),
+        anonymousId: nanoid()
       }
       await this.save()
     }
   }
   getId() {
     return this.data.id
+  }
+  getAnonymousId() {
+    return this.data.anonymousId
   }
   getData(key: keyof UserData) {
     return this.data[key]

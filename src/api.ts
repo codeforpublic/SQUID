@@ -1,11 +1,10 @@
 import { userPrivateData } from './state/userPrivateData'
 
-// export const API_URL = 'https://api.staging.thaialert.com'
 export const API_URL = 'http://localhost:4210'
 
 export const getHeaders = () => {
-  console.log('userId', userPrivateData.getId())
   return {
+    'X-TH-API-Key': 'd6857fca1cfbeb600b399ac29f2dabf9',
     'X-TH-USER-ID': userPrivateData.getId(),
     'Content-Type': 'application/json',
   }
@@ -58,6 +57,9 @@ interface QRData {
 export const getQRData = async () => {
   const resp = await fetch(API_URL + `/qr`, {
     method: 'post',
+    body: JSON.stringify({
+      anonymousId: userPrivateData.getId()
+    }),
     headers: getHeaders(),
   })
   const result: QRData = await resp.json()
