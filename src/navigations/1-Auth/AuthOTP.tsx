@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigation } from 'react-navigation-hooks'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -28,6 +28,26 @@ export const AuthOTP = () => {
   const phone = navigation.getParam('phone')
   const [otp, setOtp] = useState('')
   const resetTo = useResetTo()
+  const onSubmit = async () => {
+    showSpinner()
+    try {
+      await verifyOTP(otp)
+      await new Promise((resolve, reject) =>
+        setTimeout(resolve, 300),
+      )
+    } catch (err) {
+      // todo
+      console.log(err)
+    }
+    hide()
+    applicationState.set('isRegistered', 'success')
+    resetTo({ routeName: 'Onboarding' })
+  }
+  useEffect(() => {
+    if (otp.length === 4)  {
+      onSubmit()
+    }
+  }, [otp])
 
   return (
     <MyBackground variant="light">
@@ -94,21 +114,7 @@ export const AuthOTP = () => {
             <PrimaryButton
               disabled={otp.length !== 4}
               title={'ถัดไป'}
-              onPress={async () => {
-                showSpinner()
-                try {
-                  await verifyOTP(otp)
-                  await new Promise((resolve, reject) =>
-                    setTimeout(resolve, 300),
-                  )
-                } catch (err) {
-                  // todo
-                  console.log(err)
-                }
-                hide()
-                applicationState.set('isRegistered', 'success')
-                resetTo({ routeName: 'Onboarding' })
-              }}
+              onPress={onSubmit}
             />
           </View>
         </KeyboardAvoidingView>
