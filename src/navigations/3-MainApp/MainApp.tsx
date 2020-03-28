@@ -30,8 +30,8 @@ export const MainApp = () => {
     <WhiteBackground>
       <SafeAreaView style={styles.container}>
         <StatusBar
-          barStyle="light-content"
-          backgroundColor={COLORS.PRIMARY_DARK}
+          barStyle="dark-content"
+          backgroundColor={COLORS.PRIMARY_LIGHT}
         />
         <Text
           style={{

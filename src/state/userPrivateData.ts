@@ -37,7 +37,6 @@ class UserPrivateDate {
       }
       await this.save()
     }
-    console.log('this.data', this.data)
   }
   getId() {
     return this.data.id

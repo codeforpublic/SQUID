@@ -68,7 +68,7 @@ export const OnboardFace = () => {
       setOpenCamera(false)
     } catch (err) {
       console.log(err)
-      Alert.alert('เกิดข้อผิดพลาด')
+      Alert.alert('เกิดข้อผิดพลาด กรุณาลองอีกครั้ง')
     }
     hide()
   }

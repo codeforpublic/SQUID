@@ -1352,6 +1352,13 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.149.tgz#1342d63d948c6062838fbf961012f74d4e638440"
   integrity sha512-ijGqzZt/b7BfzcK9vTrS6MFljQRPn5BFWOx8oE0GYxribu6uV+aA9zZuXI1zc/etK9E8nrgdoF2+LgUw7+9tJQ==
 
+"@types/moment@^2.13.0":
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/@types/moment/-/moment-2.13.0.tgz#604ebd189bc3bc34a1548689404e61a2a4aac896"
+  integrity sha1-YE69GJvDvDShVIaJQE5hoqSqyJY=
+  dependencies:
+    moment "*"
+
 "@types/nanoid@^2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@types/nanoid/-/nanoid-2.1.0.tgz#41edfda78986e9127d0dc14de982de766f994020"
@@ -5702,7 +5709,7 @@ moment-timezone@^0.5.28:
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@^2.22.0, moment@^2.24.0:
+moment@*, "moment@>= 2.9.0", moment@^2.22.0, moment@^2.24.0:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
@@ -6909,6 +6916,13 @@ react-native-pure-jwt@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/react-native-pure-jwt/-/react-native-pure-jwt-2.1.1.tgz#9f42bceb7cd1344fa83fbe3b91f94e8303c4d543"
   integrity sha512-2G4AlRyngxv3H2NL93Mm7tIiWh3RpJhyotfqnR9UgjQTm6UdpgrDXDTsA5e4DG7pA48cW9GeGlVg/97RSWcbJw==
+
+react-native-push-notification-popup@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-push-notification-popup/-/react-native-push-notification-popup-1.4.0.tgz#917bb96666d0fd3c119276295a7360860ded003b"
+  integrity sha512-m79AdvliQNpVBtYVErUFDTu11+9I/sooUU687QuXxIfT6WLry3nyZ/784c+l3FGuPUNMPF1XDhyBukh/N7Q+iQ==
+  dependencies:
+    prop-types "^15.7.2"
 
 react-native-push-notification@^3.1.9:
   version "3.1.9"
