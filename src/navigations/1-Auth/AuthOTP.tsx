@@ -20,6 +20,7 @@ import { BackButton } from '../../components/BackButton'
 import { requestOTP, verifyOTP } from '../../api'
 import { useHUD } from '../../HudView'
 import { useResetTo } from '../../utils/navigation'
+import { applicationState } from '../../app-state'
 
 export const AuthOTP = () => {
   const { showSpinner, hide } = useHUD()
@@ -105,7 +106,7 @@ export const AuthOTP = () => {
                   console.log(err)
                 }
                 hide()
-                AsyncStorage.setItem('isRegistered', 'success')
+                applicationState.set('isRegistered', 'success')
                 resetTo({ routeName: 'Onboarding' })
               }}
             />

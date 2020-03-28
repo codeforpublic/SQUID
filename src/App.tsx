@@ -18,6 +18,7 @@ import { CachePersistor, persistCache } from 'apollo-cache-persist'
 import { apolloClient, migrateState } from './apollo-client'
 import { userID } from './userID'
 import { backgroundTracking } from './utils/background-tracking'
+import { applicationState } from './app-state'
 
 const AppContainer = createAppContainer(Navigator)
 
@@ -58,18 +59,18 @@ export default class App extends React.Component {
       // await this.purgeAll()
     }
 
-    const [result] = await Promise.all([
-      AsyncStorage.getItem('is-passed-onboarding'),
+    await Promise.all([
+      applicationState.load(),
       userID.load(),
       persistCache({
         cache: apolloClient.cache,
         storage: AsyncStorage,
-        // trigger: 'write',
-        // debug: true,
       }),
     ])
     await migrateState(apolloClient)
-    await backgroundTracking.setup(result === 'success')
+    await backgroundTracking.setup(
+      applicationState.get('isPassedOnboarding')
+    )
     SplashScreen.hide()
   }
   activateBackgroundTracking = () => {
