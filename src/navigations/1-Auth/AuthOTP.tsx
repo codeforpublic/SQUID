@@ -103,7 +103,7 @@ export const AuthOTP = () => {
               onPress={async () => {
                 showSpinner()
                 try {
-                  await verifyOTP(phone, otp)
+                  await verifyOTP(otp)
                   await new Promise((resolve, reject) => setTimeout(resolve, 300))
                 } catch (err) {
                   // todo

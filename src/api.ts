@@ -1,27 +1,38 @@
+import { userID } from './userID'
+
 const API_URL = 'https://api.staging.thaialert.com'
 
-export const requestOTP = async (phoneNumber: string) => {
-  const formatNumber = phoneNumber.replace(/^0/, '+66')
-  console.log('formatNumber', formatNumber)
-  const resp = await fetch(API_URL + `/otp?number=${formatNumber}`, {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  })
-  console.log('request otp', resp.status, await resp.text())
+export const getHeaders = () => {
+  return {
+    'X-TH-USER-ID': userID.get(),
+    'Content-Type': 'application/json',
+  }
 }
 
-export const verifyOTP = async (phoneNumber: string, code: string) => {
-  const formatNumber = phoneNumber.replace(/^0/, '+66')
-
-  const resp = await fetch(API_URL + `/otp/verify?number=${formatNumber}&code=${code}`, {
+export const requestOTP = async (mobileNo: string) => {
+  const resp = await fetch(API_URL + `/requestOTP`, {
     method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-    }
+    headers: getHeaders(),
+    body: JSON.stringify({ mobileNo })
   })
-  const result = await resp.text()
-  console.log('result', result)
-  return result === 'success'
+  return (await resp.json()).status === 'ok'
+}
+
+export const verifyOTP = async (otpCode: string) => {
+   const resp = await fetch(API_URL + `/otp/mobileParing`, {
+    method: 'post',
+    headers: getHeaders(),
+    body: JSON.stringify({ otpCode })
+  })
+
+  return (await resp.json()).status === 'ok'
+}
+
+export const updateUserData = async (data: { [key: string]: any }) => {
+  const resp = await fetch(API_URL + `/userdata`, {
+    method: 'post',
+    headers: getHeaders(),
+    body: JSON.stringify({ data })
+  })
+  return resp.json()
 }

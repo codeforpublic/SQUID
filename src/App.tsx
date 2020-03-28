@@ -17,6 +17,7 @@ import { COLORS } from './styles'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { CachePersistor, persistCache } from 'apollo-cache-persist'
 import { apolloClient, migrateState } from './apollo-client'
+import { userID } from './userID'
 
 const AppContainer = createAppContainer(Navigator)
 
@@ -61,7 +62,9 @@ export default class App extends React.Component {
     if (process.env.NODE_ENV !== 'production') {
       // await this.purgeAll()
     }
+
     const [result] = await Promise.all([
+      userID.load(),
       AsyncStorage.getItem('is-passed-onboarding'),
       persistCache({
         cache: apolloClient.cache,
@@ -71,7 +74,6 @@ export default class App extends React.Component {
       }),
     ])
     await migrateState(apolloClient)
-
     if (result === 'success') {
       this.setState({ startedTracked: true })
     }
