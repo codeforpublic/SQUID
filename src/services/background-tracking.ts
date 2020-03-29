@@ -1,21 +1,25 @@
 import BackgroundGeolocation from '../react-native-background-geolocation'
 import { getAnonymousHeaders, API_URL } from '../api'
+import { AppState } from 'react-native'
 
 class BackgroundTracking {
-  ready: boolean = false
+  private ready: boolean = false
+  private started: boolean = false
+  private appState: string = 'active'
+  private latestKnownedUpdated?: number
   async setup(startImmediately?: boolean) {
-    await BackgroundGeolocation.stop()
-
+    AppState.addEventListener('change', this.onAppStateChange)
     BackgroundGeolocation.onHttp(async response => {
       let status = response.status
       let success = response.success
       let responseText = response.responseText
       console.log('[onHttp] ', status, success, responseText)
+      this.latestKnownedUpdated = Date.now()
     })
 
     await BackgroundGeolocation.ready(
       {
-        distanceFilter: 100,
+        distanceFilter: 80,
         stopOnTerminate: false,
         startOnBoot: true,
         foregroundService: true,        
@@ -36,13 +40,22 @@ class BackgroundTracking {
       return this.start()
     }
   }
-  start() {
+  async start() {
     if (!this.ready) {
       throw new Error(`BackgroundGeolocation'ven't configure yet`)
     }
-    return BackgroundGeolocation.start()
+    if (this.started) {
+      return
+    }
+    this.started = true
+    await BackgroundGeolocation.start().catch(err => {
+      console.error(err)
+      this.started = false
+      setTimeout(() => this.start(), 10 * 10000) // auto retry
+    })    
   }
   stop() {
+    this.started = false
     BackgroundGeolocation.removeAllListeners()
     return BackgroundGeolocation.stop()
   }
@@ -53,6 +66,17 @@ class BackgroundTracking {
     return BackgroundGeolocation.getCurrentPosition({
       samples: 1
     })
+  }
+  onAppStateChange = (state) => {
+    if (!this.started) {
+      return
+    }
+    if (this.appState !== 'active' && state === 'active') {
+      if (Date.now() - this.latestKnownedUpdated > 10 * 60 * 1000) { //  at least 10 min
+        this.getLocation() // trigger location
+      }
+    }
+    this.appState = state
   }
 }
 
