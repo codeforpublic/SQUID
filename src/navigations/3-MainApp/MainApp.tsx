@@ -15,13 +15,21 @@ import { WhiteBackground } from '../../components/WhiteBackground'
 import Sizer from 'react-native-size'
 import { userPrivateData } from '../../state/userPrivateData'
 import { useSelfQR } from '../../state/qr'
+import { applicationState } from '../../state/app-state'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { Link } from '../../components/Base'
+import { useResetTo } from '../../utils/navigation'
+import { useNavigation } from 'react-navigation-hooks'
 
 
 const MAX_SCORE = 100
 
 export const MainApp = () => {
   const faceURI = userPrivateData.getData('faceURI')
+  const isVerified = applicationState.get('isRegistered')
   const qr = useSelfQR()
+  const resetTo = useResetTo()
+  const navigation = useNavigation()
   if (!qr) {
     return null
   }
@@ -140,6 +148,21 @@ export const MainApp = () => {
             )
           }
         </Sizer>
+        {isVerified? void 0: (
+          <TouchableOpacity onPress={() => {
+            applicationState.set('skipRegistration', false)
+            resetTo({
+              routeName: 'Auth'
+            })
+            setTimeout(() => {
+              navigation.navigate('AuthPhone')
+            }, 0)
+          }}>
+            <Link style={{ marginTop: 8, fontWeight: 'bold' }}>
+              ยืนยันตัวตน >
+            </Link>
+          </TouchableOpacity>
+        )}
       </SafeAreaView>
     </WhiteBackground>
   )

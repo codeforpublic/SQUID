@@ -15,8 +15,9 @@ import { applicationState } from '../state/app-state'
 const isOnboarded = async () => {
   return applicationState.get('isPassedOnboarding')
 }
-const isRegistered = async () => {
-  return applicationState.get('isRegistered')
+const isSkipRegistered = async () => {
+  console.log('isSkipRegistered', applicationState.get('isRegistered'), applicationState.get('skipRegistration'))
+  return applicationState.get('isRegistered') || applicationState.get('skipRegistration')
 }
 
 const REDIRECT_PAGE = 'AuthOTP'
@@ -25,7 +26,7 @@ const REDIRECT_PARAMS = { data: { color: 'green', age: 25, gender: 'M', iat: 158
 const Root = ({ navigation }) => {
   useEffect(() => {
     const redirect = async () => {
-      const registered = await isRegistered()
+      const registered = await isSkipRegistered()
       const onboarded = await isOnboarded()      
       const page = registered ? (onboarded ? 'MainApp' : 'Onboarding') : 'Auth'
       const action = StackActions.reset({
