@@ -55,10 +55,10 @@ export const AuthOTP = () => {
   }, [otp])
 
   return (
-    <MyBackground variant="light">
+    
       <SafeAreaView style={styles.container}>
         <KeyboardAvoidingView style={{ flex: 1, width: '100%' }}>
-          <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
+          <StatusBar backgroundColor={COLORS.PRIMARY_DARK} barStyle="light-content" />
           <View style={{ padding: 16 }}>
             <BackButton />
           </View>
@@ -84,9 +84,12 @@ export const AuthOTP = () => {
                   borderRadius: 4,
                   borderColor: COLORS.GRAY_2,
                   borderWidth: 1,
+                  fontSize: 24,
+                  fontFamily: FONT_FAMILY,
                   color: COLORS.PRIMARY_DARK,
                   margin: 4,
                   height: 60,
+                  width: 60
                 }}
                 style={{ height: 60 }}
                 onCodeFilled={code => setOtp(code)}
@@ -110,7 +113,7 @@ export const AuthOTP = () => {
                 marginTop: 32,
               }}
             >
-              <AntIcon name="reload1" size={24} color={COLORS.PRIMARY_DARK} />
+              <AntIcon name="reload1" size={24} color={COLORS.WHITE} />
               <Text style={styles.text}>ส่งรหัสใหม่</Text>
             </TouchableOpacity>
           </View>
@@ -123,12 +126,11 @@ export const AuthOTP = () => {
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>
-    </MyBackground>
   )
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: COLORS.PRIMARY_DARK },
   header: {
     alignItems: 'center',
     marginBottom: 32,
@@ -139,7 +141,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 32,
     marginLeft: 8,
-    color: COLORS.PRIMARY_DARK,
+    color: COLORS.WHITE,
   },
   title: {
     fontFamily: FONT_FAMILY,
@@ -148,7 +150,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
-    color: COLORS.PRIMARY_DARK,
+    color: COLORS.WHITE,
     textAlign: 'center',
   },
   errorText: {
@@ -168,12 +170,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     padding: 16,
-  },
-  agreement: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: COLORS.PRIMARY_DARK,
-  },
+  },  
   footer: {
     alignItems: 'center',
     marginBottom: 16,

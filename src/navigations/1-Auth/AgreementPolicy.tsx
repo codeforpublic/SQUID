@@ -19,11 +19,10 @@ import { BackButton } from '../../components/BackButton'
 export const AgreementPolicy = () => {
   const navigation = useNavigation()
   const [agree, setAgree] = useState(false)
-  return (
-    <MyBackground variant="light">
+  return (    
       <SafeAreaView style={styles.container}>
-        <StatusBar   backgroundColor={COLORS.WHITE} 
- barStyle="dark-content" />
+        <StatusBar   backgroundColor={COLORS.PRIMARY_DARK} 
+ barStyle="light-content" />
         <View style={{ padding: 16 }}>
           <BackButton/>
         </View>
@@ -65,8 +64,8 @@ export const AgreementPolicy = () => {
           }}
           checked={agree}
           onPress={() => setAgree(!agree)}
-          checkedColor={COLORS.BLUE}
-          textStyle={{ color: COLORS.PRIMARY_DARK, fontSize: 16 }}
+          checkedColor={COLORS.ORANGE}
+          textStyle={{ color: COLORS.PRIMARY_LIGHT, fontSize: 16 }}
         />
         <View style={styles.footer}>
           <PrimaryButton
@@ -78,12 +77,11 @@ export const AgreementPolicy = () => {
           />
         </View>
       </SafeAreaView>
-    </MyBackground>
   )
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: COLORS.PRIMARY_DARK },
   header: {
     alignItems: 'center',
     marginBottom: 16,
@@ -96,7 +94,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
-    color: COLORS.PRIMARY_DARK,
+    color: COLORS.PRIMARY_LIGHT,
     textAlign: 'center',
   },
 
@@ -119,7 +117,7 @@ const styles = StyleSheet.create({
   agreement: {
     fontSize: 16,
     lineHeight: 24,
-    color: COLORS.PRIMARY_DARK,
+    color: COLORS.GRAY_4,
   },
   footer: {
     alignItems: 'center',

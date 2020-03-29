@@ -27,25 +27,24 @@ export const OnboardProgressing = () => {
     }, 1000)
   }, [])
   return (
-    <MyBackground variant="light">
+    
       <SafeAreaView style={styles.container}>
-        <StatusBar   backgroundColor={COLORS.WHITE} 
- barStyle="dark-content" />
+        <StatusBar   backgroundColor={COLORS.PRIMARY_DARK} barStyle="light-content" />
         <View style={{ height: 56 }}></View>
         <View style={styles.header}>
           <Text style={styles.title}>{STRING.TITLE}</Text>
           <Text style={styles.subtitle}>{STRING.SUB_TITLE}</Text>
         </View>
         <View style={styles.content}>
-          <ActivityIndicator size="large" color={COLORS.PRIMARY_DARK} />
+          <ActivityIndicator size="large" color={COLORS.WHITE} />
         </View>
       </SafeAreaView>
-    </MyBackground>
+    
   )
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: COLORS.PRIMARY_DARK },
   header: {
     alignItems: 'center',
     marginBottom: 32,
@@ -58,7 +57,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
-    color: COLORS.PRIMARY_DARK,
+    color: COLORS.WHITE,
     textAlign: 'center',
   },
   subtitle: {
