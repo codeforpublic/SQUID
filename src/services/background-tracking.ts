@@ -1,12 +1,14 @@
 import BackgroundGeolocation from '../react-native-background-geolocation'
+import BackgroundFetch from "react-native-background-fetch"
 import { getAnonymousHeaders, API_URL } from '../api'
-import { AppState } from 'react-native'
+import { AppState, Alert, Platform } from 'react-native'
 
 class BackgroundTracking {
   private ready: boolean = false
   private started: boolean = false
   private appState: string = 'active'
   private latestKnownedUpdated?: number
+  private debug: boolean = false
   async setup(startImmediately?: boolean) {
     await this.stop()
     AppState.addEventListener('change', this.onAppStateChange)
@@ -20,7 +22,8 @@ class BackgroundTracking {
 
     await BackgroundGeolocation.ready(
       {
-        distanceFilter: 80,
+        distanceFilter: 50,
+        stationaryRadius: 50,
         stopOnTerminate: false,
         startOnBoot: true,
         foregroundService: true,        
@@ -32,6 +35,19 @@ class BackgroundTracking {
         url: API_URL + '/location',
         httpRootProperty: 'locations',
         locationsOrderDirection: 'ASC',
+        heartbeatInterval: 60 * 15,
+        // useSignificantChangesOnly: Platform.OS === 'android',
+        locationAuthorizationAlert: {
+          titleWhenNotEnabled: "กรุณาเปิด Location services ให้ ThaiAlert",
+          titleWhenOff: "กรุณาเปิด Location services ให้ ThaiAlert",
+          instructions: "เพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง หรืออยู่ในพื้นที่เสี่ยง",
+          cancelButton: "Cancel",
+          settingsButton: "Settings"
+        },
+        notification: {
+          title: "ระบบเฝ้าระวังของ ThaiAlert ทำงาน",
+          text: "คุณจะได้รับการแจ้งเตือนทันที เมื่อคุณได้ไปใกล้ชิดกับคนที่มีความเสี่ยง"
+        },
         logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
         // locationAuthorizationAlert: {
         //   titleWhenNotEnabled: :
@@ -40,8 +56,29 @@ class BackgroundTracking {
     )
     this.ready = true
     if (startImmediately) {
-      return this.start()
+      await this.start()
     }
+    BackgroundFetch.configure({
+      minimumFetchInterval: 30,
+      // Android options
+      stopOnTerminate: false,
+      startOnBoot: true,
+      requiredNetworkType: BackgroundFetch.NETWORK_TYPE_NONE, // Default
+      requiresCharging: false,      // Default
+      requiresDeviceIdle: false,    // Default
+      requiresBatteryNotLow: false, // Default
+      requiresStorageNotLow: false  // Default
+    }, async (taskId) => {
+      console.log("[js] Received background-fetch event: ", taskId);
+      if (this.started) {
+        // trigger update location
+        await this.getLocation({ triggerType: 'backgroundFetch' })
+      }
+      BackgroundFetch.finish(taskId);
+    }, (error) => {
+      console.log("[js] RNBackgroundFetch failed to start");
+    });
+
   }
   async start() {
     if (!this.ready) {
@@ -63,12 +100,18 @@ class BackgroundTracking {
     BackgroundGeolocation.removeAllListeners()
     return BackgroundGeolocation.stop()
   }
+  toggleDebug() {
+    this.debug = !this.debug
+    BackgroundGeolocation.setConfig({ debug: this.debug })
+    Alert.alert('Debug Mode:' + (this.debug? 'ON': 'OFF'))
+  }
   destroyLocations() {
     return BackgroundGeolocation.destroyLocations()
   }
-  getLocation() {
+  getLocation(extras?: any) {
     return BackgroundGeolocation.getCurrentPosition({
-      samples: 1
+      samples: 1,
+      extras
     })
   }
   onAppStateChange = (state) => {
@@ -77,7 +120,7 @@ class BackgroundTracking {
     }
     if (this.appState !== 'active' && state === 'active') {
       if (Date.now() - this.latestKnownedUpdated > 10 * 60 * 1000) { //  at least 10 min
-        this.getLocation() // trigger location
+        this.getLocation({ triggerType: 'appState' }) // trigger location
       }
     }
     this.appState = state

@@ -56,11 +56,11 @@
 	<key>NSCameraUsageDescription</key>
 	<string>ต้องการใช้ถ่ายรูปยืนยันตัวตน</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>เพื่อแสดงที่อยู่ปัจจุบันของคุณ​ และแจ้งเตือนหากคุณอยู่ในพื้นที่เสี่ยง</string>
+	<string>เพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง หรืออยู่ในพื้นที่เสี่ยง</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>เพื่อแสดงที่อยู่ปัจจุบันของคุณ​ และแจ้งเตือนหากคุณอยู่ในพื้นที่เสี่ยง</string>
+	<string>เพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง หรืออยู่ในพื้นที่เสี่ยง</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>เพื่อแสดงที่อยู่ปัจจุบันของคุณ​ และแจ้งเตือนหากคุณอยู่ในพื้นที่เสี่ยง</string>
+	<string>เพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง หรืออยู่ในพื้นที่เสี่ยง</string>
 	<key>NSMotionUsageDescription</key>
 	<string>เพื่อช่วยจับการเคลื่อนไหว และลดการเก็บข้อมูลที่ไม่จำเป็น</string>
 	<key>UIAppFonts</key>

@@ -68,9 +68,9 @@
       <meta-data android:name="com.transistorsoft.locationmanager.ENCRYPTION_PASSWORD" android:value="transistorsoft" />
 
       <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_name"
-                android:value="MyChannel"/>
+                android:value="ThaiAlert"/>
       <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_description"
-                  android:value="YOUR NOTIFICATION CHANNEL DESCRIPTION"/>
+                  android:value="คุณจะได้รับการแจ้งเตือนทันที เมื่อคุณได้ไปใกล้ชิดกับคนที่มีความเสี่ยง"/>
       <!-- Change the resource name to your App's accent color - or any other color you want -->
       <meta-data  android:name="com.dieam.reactnativepushnotification.notification_color"
                   android:resource="@android:color/white"/>

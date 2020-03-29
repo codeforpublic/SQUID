@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {
@@ -22,8 +22,11 @@ import { Link } from '../../components/Base'
 import { useResetTo } from '../../utils/navigation'
 import { useNavigation } from 'react-navigation-hooks'
 import { pushNotification } from '../../services/notification'
+import { DebugTouchable } from '../../components/DebugTouchable'
+import { backgroundTracking } from '../../services/background-tracking'
 
 const MAX_SCORE = 100
+
 
 export const MainApp = () => {
   const faceURI = userPrivateData.getData('faceURI')
@@ -31,6 +34,7 @@ export const MainApp = () => {
   const qr = useSelfQR()
   const resetTo = useResetTo()
   const navigation = useNavigation()
+  
   useEffect(() => {
     pushNotification.configure()
   }, [])
@@ -49,13 +53,17 @@ export const MainApp = () => {
           barStyle="dark-content"
           backgroundColor={COLORS.PRIMARY_LIGHT}
         />
-        <View style={{ alignItems: 'center' }}>
-          <Image
-            source={require('../../assets/logo_header.png')}
-            resizeMode="contain"
-            style={{ height: 32, marginTop: 8, marginBottom: 4 }}
-          />
-        </View>
+        <DebugTouchable onDebug={() => {
+          backgroundTracking.toggleDebug()
+        }}>
+          <View style={{ alignItems: 'center' }}>
+            <Image
+              source={require('../../assets/logo_header.png')}
+              resizeMode="contain"
+              style={{ height: 32, marginTop: 8, marginBottom: 4 }}
+            />
+          </View>
+        </DebugTouchable>
         <TouchableWithoutFeedback>
           <View
             style={{
