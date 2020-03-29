@@ -24,7 +24,6 @@ class ApplicationState {
     }
   }
   save() {
-    console.log('save ApplicationStateKey', this.data)
     return AsyncStorage.setItem(ApplicationStateKey, JSON.stringify(this.data))
   }
   set(key: keyof ApplicationStateData, value) {

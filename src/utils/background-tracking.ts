@@ -26,6 +26,9 @@ class BackgroundTracking {
         url: API_URL + '/location',
         httpRootProperty: 'locations',
         logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
+        // locationAuthorizationAlert: {
+        //   titleWhenNotEnabled: :
+        // }
       }
     )
     this.ready = true

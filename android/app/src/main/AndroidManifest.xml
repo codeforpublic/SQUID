@@ -1,12 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.codeforpublic.squid">
+    package="com.dga.thaialert.app">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <permission
-        android:name="com.codeforpublic.squid.permission.C2D_MESSAGE"
+        android:name="com.dga.thaialert.app.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.codeforpublic.squid.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.dga.thaialert.app.permission.C2D_MESSAGE" />
     <!-- < Only if you're using GCM or localNotificationSchedule() > -->
 
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -82,7 +82,7 @@
           android:permission="com.google.android.c2dm.permission.SEND" >
           <intent-filter>
               <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-              <category android:name="com.codeforpublic.squid" />
+              <category android:name="com.dga.thaialert.app" />
           </intent-filter>
       </receiver>
       <!-- < Only if you're using GCM or localNotificationSchedule() > -->

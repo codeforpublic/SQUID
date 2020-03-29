@@ -133,7 +133,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.codeforpublic.squid"
+        applicationId "com.dga.thaialert.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 101

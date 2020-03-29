@@ -1,4 +1,4 @@
-package com.codeforpublic.squid;
+package com.dga.thaialert.app;
 
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen;

@@ -1,4 +1,4 @@
-package com.codeforpublic.squid;
+package com.dga.thaialert.app;
 
 import android.content.Intent;
 import android.os.Bundle;

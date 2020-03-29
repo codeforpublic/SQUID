@@ -25,7 +25,7 @@ export const CircularProgressAvatar = ({
   width?: number
   CustomComponent?: any
 }) => {
-  const outerPad = 8
+  const outerPad = 0
   const circularWidth = width - (outerPad + 1) * 2
   return (
     <View
