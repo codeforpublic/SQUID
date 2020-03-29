@@ -9,7 +9,7 @@ const USER_DATA_KEY = '@USER_PRIVATE_DATA'
 interface UserData {
   id: string
   anonymousId: string
-  faceURI?: string
+  faceURI?: string  
 }
 
 const SINFO_OPTIONS = {

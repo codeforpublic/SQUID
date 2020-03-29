@@ -21,6 +21,8 @@ import { requestOTP } from '../../api'
 import { useHUD } from '../../HudView'
 import { Link } from '../../components/Base'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { userPrivateData } from '../../state/userPrivateData'
+import { applicationState } from '../../state/app-state'
 
 export const AuthPhone = () => {
   const navigation = useNavigation()
@@ -103,7 +105,13 @@ export const AuthPhone = () => {
               }
             }}
           />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => {
+            applicationState.set('skipRegistration', true)
+            navigation.navigate({
+              routeName: 'Onboarding',
+              params: { phone },
+            })
+          }}>
             <Link style={{ marginTop: 8, fontWeight: 'bold' }}>
               ใช้งานแบบไม่ยืนยันตัวตน >
             </Link>
