@@ -35,7 +35,11 @@ export const MainApp = () => {
     pushNotification.configure()
   }, [])
   if (!qr) {
-    return null
+    return (
+      <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    )
   }
 
   return (

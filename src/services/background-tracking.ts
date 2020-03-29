@@ -8,12 +8,13 @@ class BackgroundTracking {
   private appState: string = 'active'
   private latestKnownedUpdated?: number
   async setup(startImmediately?: boolean) {
+    await this.stop()
     AppState.addEventListener('change', this.onAppStateChange)
     BackgroundGeolocation.onHttp(async response => {
       let status = response.status
       let success = response.success
       let responseText = response.responseText
-      console.log('[onHttp] ', status, success, responseText)
+      console.log('BackgroundGeolocation [onHttp] ', status, success, responseText)
       this.latestKnownedUpdated = Date.now()
     })
 
@@ -48,6 +49,7 @@ class BackgroundTracking {
       return
     }
     this.started = true
+    console.log('BackgroundGeolocation: started')
     await BackgroundGeolocation.start().catch(err => {
       console.error(err)
       this.started = false
