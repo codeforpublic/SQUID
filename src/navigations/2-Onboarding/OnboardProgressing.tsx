@@ -12,7 +12,7 @@ import {
 } from 'react-native'
 import { PrimaryButton } from '../../components/Button'
 import { applicationState } from '../../state/app-state'
-import { pushNotification } from '../../utils/notification'
+import { pushNotification } from '../../services/notification'
 
 const STRING = {
   TITLE: 'กำลังดำเนินการ...',
