@@ -34,14 +34,12 @@ let BackgroundGeolocationHeadlessTask = async event => {
 
   switch (event.name) {
     case 'heartbeat':
-      // Use await for async tasks
-      /* DISABLED
+      // Use await for async tasks      
       let location = await BackgroundGeolocation.getCurrentPosition({
         samples: 1,
         persist: false
       });
       console.log('[BackgroundGeolocation HeadlessTask] - getCurrentPosition:', location);
-      */
       break
   }
 }
