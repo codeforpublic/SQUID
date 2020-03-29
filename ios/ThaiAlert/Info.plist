@@ -54,7 +54,7 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Used to take photos</string>
+	<string>ต้องการใช้ถ่ายรูปยืนยันตัวตน</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>เพื่อแสดงที่อยู่ปัจจุบันให้คุณ​ และคุณสามารถแบ่งปันที่อยู่ของคุณให้แก่คนอื่นได้ โดยคุณจะสามารถควบคุมการเข้าถึงและเราจะไม่ส่งข้อมูลให้ใครหากคุณไม่ให้อนุญาต</string>
 	<key>NSLocationAlwaysUsageDescription</key>

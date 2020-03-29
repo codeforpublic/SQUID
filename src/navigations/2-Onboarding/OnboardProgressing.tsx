@@ -12,6 +12,7 @@ import {
 } from 'react-native'
 import { PrimaryButton } from '../../components/Button'
 import { applicationState } from '../../state/app-state'
+import { pushNotification } from '../../utils/notification'
 
 const STRING = {
   TITLE: 'กำลังดำเนินการ...',
@@ -22,6 +23,7 @@ export const OnboardProgressing = () => {
   const navigation = useNavigation()
   useEffect(() => {
     setTimeout(() => {
+      pushNotification.configure()
       applicationState.set('isPassedOnboarding', 'success')
       navigation.navigate('OnboardComplete')
     }, 1000)
