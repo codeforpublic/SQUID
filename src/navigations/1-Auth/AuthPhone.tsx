@@ -13,7 +13,7 @@ import {
   Alert,
   KeyboardAvoidingView,
 } from 'react-native'
-import Icon from 'react-native-vector-icons/Entypo'
+import { TextInputMask } from 'react-native-masked-text'
 import { PrimaryButton } from '../../components/Button'
 import { Input } from 'react-native-elements'
 import { BackButton } from '../../components/BackButton'
@@ -26,77 +26,96 @@ export const AuthPhone = () => {
   const navigation = useNavigation()
   const { showSpinner, hide } = useHUD()
   const [phone, setPhone] = useState('')
-  const isValidPhone = useMemo(() => phone.match(/^[0-9]{10}$/), [phone])
+  const isValidPhone = useMemo(() => phone.match(/^[0-9-]{12}$/), [phone])
 
   return (
-    <MyBackground variant="light">
-      <SafeAreaView style={styles.container}>
-        <KeyboardAvoidingView          
-          style={{ flex: 1, width: '100%' }}          
-        >
-          <StatusBar   backgroundColor={COLORS.WHITE} 
- barStyle="dark-content" />
-          <View style={{ padding: 16 }}>
-            <BackButton />
-          </View>
-          <View style={styles.header}>
-            <Text style={styles.title}>กรอกเบอร์โทรศัพท์</Text>
-            <Text style={styles.subtitle}>เพื่อยืนยันตัวตนด้วย SMS</Text>
-          </View>
-          <View style={styles.content}>
-            <Input
-              onChangeText={text => setPhone(text)}
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView style={{ flex: 1, width: '100%' }}>
+        <StatusBar
+          backgroundColor={COLORS.PRIMARY_DARK}
+          barStyle="light-content"
+        />
+        <View style={{ padding: 16 }}>
+          <BackButton />
+        </View>
+        <View style={styles.header}>
+          <Text style={styles.title}>กรอกเบอร์โทรศัพท์</Text>
+          <Text style={styles.subtitle}>เพื่อยืนยันตัวตนด้วย SMS</Text>
+        </View>
+        <View style={styles.content}>
+          <View
+            style={{
+              backgroundColor: COLORS.WHITE,
+              borderWidth: 1,
+              borderColor: COLORS.GRAY_2,
+              borderRadius: 4,
+              height: 60,
+              width: '100%',
+              justifyContent: 'center'
+            }}
+          >
+            <TextInputMask
+              type="custom"
+              options={{
+                mask: "999-999-9999"
+              }}
+              onChangeText={text => {
+                setPhone(text.trim())
+              }}
               value={phone}
               placeholder="เบอร์โทรศัพท์ของคุณ"
-              inputContainerStyle={{
-                backgroundColor: COLORS.WHITE,
-                borderWidth: 1,
-                borderColor: COLORS.GRAY_2,
-                borderRadius: 4,
-              }}
-              maxLength={10}
+              // inputContainerStyle={{
+              //   backgroundColor: COLORS.WHITE,
+              //   borderWidth: 1,
+              //   borderColor: COLORS.GRAY_2,
+              //   borderRadius: 4,
+              //   height: 60,
+              // }}
+              maxLength={12}
               keyboardType={'phone-pad'}
-              inputStyle={{ textAlign: 'center' }}
-              errorMessage={
-                phone && !isValidPhone
-                  ? 'เบอร์โทรศัพท์จะต้องเป็นตัวเลข 10 หลัก'
-                  : null
-              }
-            />            
-          </View>
-          <View style={styles.footer}>
-            <PrimaryButton
-              disabled={!isValidPhone}
-              title={'ถัดไป'}
-              onPress={async () => {
-                showSpinner()
-                try {
-                  console.log('phone', phone)
-                  await requestOTP(phone)
-                  hide()
-                  navigation.navigate({
-                    routeName: 'AuthOTP',
-                    params: { phone },
-                  })
-                } catch (err) {
-                  console.log(err)
-                  Alert.alert('เกิดข้อผิดพลาด')
-                  hide()
-                }
+              style={{
+                textAlign: 'center',
+                fontSize: 20,
+                fontFamily: FONT_FAMILY,
+                letterSpacing: 5,
               }}
             />
-            <TouchableOpacity>
-              <Link style={{ marginTop: 8, fontWeight: 'bold' }}>ใช้งานแบบไม่ยืนยันตัวตน ></Link>
-            </TouchableOpacity>
           </View>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    </MyBackground>
+        </View>
+        <View style={styles.footer}>
+          <PrimaryButton
+            disabled={!isValidPhone}
+            title={'ถัดไป'}
+            onPress={async () => {
+              showSpinner()
+              try {
+                console.log('requestOTP', phone.replace(/-/g, ""))
+                await requestOTP(phone.replace(/-/g, ""))
+                hide()
+                navigation.navigate({
+                  routeName: 'AuthOTP',
+                  params: { phone },
+                })
+              } catch (err) {
+                console.log(err)
+                Alert.alert('เกิดข้อผิดพลาด')
+                hide()
+              }
+            }}
+          />
+          <TouchableOpacity>
+            <Link style={{ marginTop: 8, fontWeight: 'bold' }}>
+              ใช้งานแบบไม่ยืนยันตัวตน >
+            </Link>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: COLORS.PRIMARY_DARK },
   header: {
     alignItems: 'center',
     marginBottom: 32,
@@ -109,7 +128,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
-    color: COLORS.PRIMARY_DARK,
+    color: COLORS.PRIMARY_LIGHT,
     textAlign: 'center',
   },
   errorText: {
@@ -134,7 +153,7 @@ const styles = StyleSheet.create({
   agreement: {
     fontSize: 16,
     lineHeight: 24,
-    color: COLORS.PRIMARY_DARK,
+    color: COLORS.PRIMARY_LIGHT,
   },
   footer: {
     alignItems: 'center',

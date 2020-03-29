@@ -6,7 +6,13 @@ import { COLORS } from '../../styles'
 import styled, { css } from '@emotion/native'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StatusBar, View, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import {
+  StatusBar,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from 'react-native'
 import { Title, Subtitle, Header } from '../../components/Base'
 import { PrimaryButton } from '../../components/Button'
 import { useNavigation } from 'react-navigation-hooks'
@@ -48,7 +54,7 @@ const MUTATE_USER = gql`
   }
 `
 
-export const OnboardFace = () => {  
+export const OnboardFace = () => {
   const [openCamera, setOpenCamera] = useState(false)
   const [uri, setURI] = useState<string | null>(null)
   const { showSpinner, hide } = useHUD()
@@ -63,8 +69,19 @@ export const OnboardFace = () => {
   const onCapture = async (camera: RNCamera) => {
     showSpinner()
     try {
-      const data: TakePictureResponse = await camera.takePictureAsync()      
-      setURI(data.uri)
+      const data: TakePictureResponse = await camera.takePictureAsync()
+      let dataPath = RNFS.DocumentDirectoryPath + `/face.jpg`
+      const exists = await RNFS.exists(dataPath)
+      console.log('exists', exists)
+
+      if (exists) {
+        // dataPath is not delete file immediately, so we need to change name anyway
+        await RNFS.unlink(dataPath)
+        dataPath = RNFS.DocumentDirectoryPath + `/face-${Date.now()}.jpg`
+      }
+      await RNFS.moveFile(data.uri, dataPath)
+
+      setURI(dataPath)
       setOpenCamera(false)
     } catch (err) {
       console.log(err)
@@ -81,50 +98,41 @@ export const OnboardFace = () => {
     )
   }
   return (
-    <MyBackground variant="light">
-      <SafeAreaView style={styles.container}>
-        <StatusBar   backgroundColor={COLORS.WHITE} 
- barStyle="dark-content" />
-        <Header>
-          <Title>รูปถ่ายหน้าตรง</Title>
-          <Subtitle>เห็นหน้าชัดเจน</Subtitle>          
-        </Header>
-        <View style={styles.content}>
-          <TouchableOpacity onPress={() => setOpenCamera(true)}>
-            <Avatar
-              size={250}
-              rounded
-              source={uri ? { uri } : void 0}
-              icon={uri ? void 0 : { name: 'camera', type: 'entypo' }}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.footer}>
-          <PrimaryButton
-            title={'ถัดไป'}
-            onPress={async () => {
-              let dataPath = RNFS.DocumentDirectoryPath + `/face.jpg`
-              const exists = await RNFS.exists(dataPath)
-              
-              if (exists) {
-                // dataPath is not delete file immediately, so we need to change name anyway
-                await RNFS.unlink(dataPath)
-                dataPath = RNFS.DocumentDirectoryPath + `/face-${Date.now()}.jpg`
-              }
-              await RNFS.moveFile(uri, dataPath)
-              await userPrivateData.setData('faceURI', dataPath)
-              navigation.navigate('OnboardLocation')
-            }}
-            disabled={!uri}
+    <SafeAreaView style={styles.container}>
+      <StatusBar
+        backgroundColor={COLORS.PRIMARY_DARK}
+        barStyle="light-content"
+      />
+      <Header>
+        <Title style={{ color: COLORS.WHITE }}>รูปถ่ายหน้าตรง</Title>
+        <Subtitle>เห็นหน้าชัดเจน</Subtitle>
+      </Header>
+      <View style={styles.content}>
+        <TouchableOpacity onPress={() => setOpenCamera(true)}>
+          <Avatar
+            size={250}
+            rounded
+            source={uri ? { uri } : void 0}
+            icon={uri ? void 0 : { name: 'camera', type: 'entypo' }}
           />
-        </View>
-      </SafeAreaView>
-    </MyBackground>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.footer}>
+        <PrimaryButton
+          title={'ถัดไป'}
+          onPress={async () => {            
+            await userPrivateData.setData('faceURI', uri)
+            navigation.navigate('OnboardLocation')
+          }}
+          disabled={!uri}
+        />
+      </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: COLORS.PRIMARY_DARK },
   content: {
     flex: 1,
     justifyContent: 'center',

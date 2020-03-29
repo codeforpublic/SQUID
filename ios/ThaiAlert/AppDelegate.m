@@ -14,6 +14,7 @@
 #import <RNCPushNotificationIOS.h>
 #import <UserNotifications/UserNotifications.h>
 #import <React/RCTLinkingManager.h>
+#import "RNSplashScreen.h"  // here
 
 @implementation AppDelegate
 
@@ -51,7 +52,7 @@
   if (@available(iOS 13, *)) {
     self.window.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
 }
-
+   [RNSplashScreen show];
   return YES;
 }
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
