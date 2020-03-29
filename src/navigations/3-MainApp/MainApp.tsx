@@ -51,7 +51,7 @@ export const MainApp = () => {
             fontSize: 20,
             alignSelf: 'center',
             color: COLORS.PRIMARY_DARK,
-            marginVertical: 16,
+            marginBottom: 16,
           }}
         >
           ข้อมูลของฉัน
@@ -80,7 +80,8 @@ export const MainApp = () => {
             fontSize: 14,
             alignSelf: 'center',
             color: COLORS.GRAY_2,
-            marginVertical: 12,
+            marginTop: 12,
+            marginBottom: 8,
           }}
         >
           ข้อมูลวันที่ 26 มี.ค. 2563 16:45 น.
@@ -89,7 +90,7 @@ export const MainApp = () => {
           style={{
             flexDirection: 'row',
             paddingHorizontal: 16,
-            paddingBottom: 8,
+            paddingBottom: 6,
             borderBottomColor: COLORS.GRAY_1,
             borderBottomWidth: 1,
             borderStyle: 'solid',
@@ -111,7 +112,7 @@ export const MainApp = () => {
               style={{
                 alignItems: 'flex-start',
                 flexDirection: 'column',
-                marginLeft: 16,
+                marginLeft: 12,
               }}
             >
               <Text
@@ -127,6 +128,7 @@ export const MainApp = () => {
                 style={{
                   fontFamily: FONT_FAMILY,
                   fontSize: 16,
+                  marginTop: -4,
                   color: COLORS.PRIMARY_DARK,
                 }}
               >
@@ -143,8 +145,8 @@ export const MainApp = () => {
             backgroundColor: COLORS.GRAY_1,
           }}
         >
-          {({ height }) =>{
-            const size = height? Math.min(300, height - 20): void 0
+          {({ height }) => {
+            const size = height ? Math.min(300, height - 8) : void 0
             return size ? (
               <Image
                 style={{ width: size, height: size }}
@@ -171,7 +173,7 @@ export const MainApp = () => {
               }, 0)
             }}
           >
-            <Link style={{ marginTop: 8, fontWeight: 'bold' }}>
+            <Link style={{ marginTop: 6, fontWeight: 'bold' }}>
               ยืนยันตัวตน >
             </Link>
           </TouchableOpacity>
