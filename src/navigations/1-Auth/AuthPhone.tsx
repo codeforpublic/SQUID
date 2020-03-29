@@ -1,27 +1,22 @@
 import React, { useState, useMemo } from 'react'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { useNavigation } from 'react-navigation-hooks'
-import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {
   StatusBar,
   View,
-  TouchableWithoutFeedback,
   Text,
-  ScrollView,
   StyleSheet,
   Alert,
   KeyboardAvoidingView,
 } from 'react-native'
 import { TextInputMask } from 'react-native-masked-text'
 import { PrimaryButton } from '../../components/Button'
-import { Input } from 'react-native-elements'
 import { BackButton } from '../../components/BackButton'
 import { requestOTP } from '../../api'
 import { useHUD } from '../../HudView'
 import { Link } from '../../components/Base'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { userPrivateData } from '../../state/userPrivateData'
 import { applicationState } from '../../state/app-state'
 
 export const AuthPhone = () => {
@@ -66,13 +61,6 @@ export const AuthPhone = () => {
               }}
               value={phone}
               placeholder="เบอร์โทรศัพท์ของคุณ"
-              // inputContainerStyle={{
-              //   backgroundColor: COLORS.WHITE,
-              //   borderWidth: 1,
-              //   borderColor: COLORS.GRAY_2,
-              //   borderRadius: 4,
-              //   height: 60,
-              // }}
               maxLength={12}
               keyboardType={'phone-pad'}
               style={{
@@ -91,12 +79,11 @@ export const AuthPhone = () => {
             onPress={async () => {
               showSpinner()
               try {
-                console.log('requestOTP', phone.replace(/-/g, ""))
                 await requestOTP(phone.replace(/-/g, ""))
                 hide()
                 navigation.navigate({
                   routeName: 'AuthOTP',
-                  params: { phone },
+                  params: { phone: phone.replace(/-/g, "") },
                 })
               } catch (err) {
                 console.log(err)
