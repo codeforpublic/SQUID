@@ -79,7 +79,7 @@ export const OnboardFace = () => {
         await RNFS.unlink(dataPath)
         dataPath = RNFS.DocumentDirectoryPath + `/face-${Date.now()}.jpg`
       }
-      await RNFS.moveFile(data.uri, dataPath)
+      await RNFS.moveFile(data.uri, dataPath)      
 
       setURI(dataPath)
       setOpenCamera(false)

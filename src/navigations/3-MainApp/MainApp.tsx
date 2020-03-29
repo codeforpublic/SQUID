@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {
@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   Image,
   ActivityIndicator,
+  Dimensions,
 } from 'react-native'
 import { CircularProgressAvatar } from '../../components/CircularProgressAvatar'
 import { WhiteBackground } from '../../components/WhiteBackground'
@@ -20,7 +21,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Link } from '../../components/Base'
 import { useResetTo } from '../../utils/navigation'
 import { useNavigation } from 'react-navigation-hooks'
-
+import { pushNotification } from '../../utils/notification'
 
 const MAX_SCORE = 100
 
@@ -30,6 +31,9 @@ export const MainApp = () => {
   const qr = useSelfQR()
   const resetTo = useResetTo()
   const navigation = useNavigation()
+  useEffect(() => {
+    pushNotification.configure()
+  }, [])
   if (!qr) {
     return null
   }
@@ -63,6 +67,10 @@ export const MainApp = () => {
               image={faceURI ? { uri: faceURI } : void 0}
               color={qr.getStatusColor()}
               progress={(qr.getScore() / MAX_SCORE) * 100}
+              width={Math.min(
+                200,
+                Math.floor((25 / 100) * Dimensions.get('screen').height),
+              )}
             />
           </View>
         </TouchableWithoutFeedback>
@@ -72,7 +80,7 @@ export const MainApp = () => {
             fontSize: 14,
             alignSelf: 'center',
             color: COLORS.GRAY_2,
-            marginVertical: 16,
+            marginVertical: 12,
           }}
         >
           ข้อมูลวันที่ 26 มี.ค. 2563 16:45 น.
@@ -81,7 +89,7 @@ export const MainApp = () => {
           style={{
             flexDirection: 'row',
             paddingHorizontal: 16,
-            paddingBottom: 16,
+            paddingBottom: 8,
             borderBottomColor: COLORS.GRAY_1,
             borderBottomWidth: 1,
             borderStyle: 'solid',
@@ -135,10 +143,11 @@ export const MainApp = () => {
             backgroundColor: COLORS.GRAY_1,
           }}
         >
-          {({ height }) =>
-            height ? (
-              <Image                
-                style={{ width: height - 20, height: height - 20 }}
+          {({ height }) =>{
+            const size = height? Math.min(300, height - 20): void 0
+            return size ? (
+              <Image
+                style={{ width: size, height: size }}
                 source={{
                   uri: qr.getQRImageURL(),
                 }}
@@ -146,18 +155,22 @@ export const MainApp = () => {
             ) : (
               <ActivityIndicator size="large" />
             )
-          }
+          }}
         </Sizer>
-        {isVerified? void 0: (
-          <TouchableOpacity onPress={() => {
-            applicationState.set('skipRegistration', false)
-            resetTo({
-              routeName: 'Auth'
-            })
-            setTimeout(() => {
-              navigation.navigate('AuthPhone')
-            }, 0)
-          }}>
+        {isVerified ? (
+          void 0
+        ) : (
+          <TouchableOpacity
+            onPress={() => {
+              applicationState.set('skipRegistration', false)
+              resetTo({
+                routeName: 'Auth',
+              })
+              setTimeout(() => {
+                navigation.navigate('AuthPhone')
+              }, 0)
+            }}
+          >
             <Link style={{ marginTop: 8, fontWeight: 'bold' }}>
               ยืนยันตัวตน >
             </Link>

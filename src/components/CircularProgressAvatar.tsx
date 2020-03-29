@@ -15,7 +15,7 @@ export const CircularProgressAvatar = ({
   progress,
   color,
   text,
-  width = Math.floor((50 / 100) * Dimensions.get('screen').width),
+  width = Math.floor((30 / 100) * Dimensions.get('screen').height),
   CustomComponent,
 }: {
   image?: ImageSourcePropType
@@ -25,7 +25,7 @@ export const CircularProgressAvatar = ({
   width?: number
   CustomComponent?: any
 }) => {
-  const outerPad = 11
+  const outerPad = 8
   const circularWidth = width - (outerPad + 1) * 2
   return (
     <View
@@ -42,8 +42,8 @@ export const CircularProgressAvatar = ({
       <View style={{ position: 'relative' }}>
         <AnimatedCircularProgress
           size={circularWidth}
-          width={12}
-          backgroundWidth={12}
+          width={6}
+          backgroundWidth={6}
           fill={progress}
           tintColor={color}
           tintColorSecondary={color}
@@ -57,17 +57,17 @@ export const CircularProgressAvatar = ({
             <Image
               source={image}
               style={{
-                width: Math.floor((78 / 100) * circularWidth),
-                height: Math.floor((78 / 100) * circularWidth),
-                borderRadius: Math.floor(((78 / 100) * circularWidth) / 2),
+                width: Math.floor((90 / 100) * circularWidth),
+                height: Math.floor((90 / 100) * circularWidth),
+                borderRadius: Math.floor(((90 / 100) * circularWidth) / 2),
               }}
             />
           ) : CustomComponent ? (
             <CustomComponent
               style={{
-                width: Math.floor((78 / 100) * width),
-                height: Math.floor((78 / 100) * width),
-                borderRadius: Math.floor(((78 / 100) * width) / 2),
+                width: Math.floor((90 / 100) * width),
+                height: Math.floor((90 / 100) * width),
+                borderRadius: Math.floor(((90 / 100) * width) / 2),
               }}
             />
           ) : null}
