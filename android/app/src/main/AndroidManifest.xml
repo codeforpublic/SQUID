@@ -64,7 +64,7 @@
 
       <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCINS2dyuBipK8MZzOQnzyKdrS2I1_b5I4"/>
 
-      <meta-data android:name="com.transistorsoft.locationmanager.license" android:value="b7bb6e01ec9504c45820a10086fc2d4a92b2b225ad7e534f15280c46f724469d" />
+      <meta-data android:name="com.transistorsoft.locationmanager.license" android:value="47ab2c45c3db6e20a59e1f3d02b8d2ac8571b45e723610efbbdb601164cd2fa8" />
       <meta-data android:name="com.transistorsoft.locationmanager.ENCRYPTION_PASSWORD" android:value="transistorsoft" />
 
       <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_name"
