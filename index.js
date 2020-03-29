@@ -37,7 +37,10 @@ let BackgroundGeolocationHeadlessTask = async event => {
       // Use await for async tasks      
       let location = await BackgroundGeolocation.getCurrentPosition({
         samples: 1,
-        persist: false
+        persist: false,
+        extras: {
+          triggerType: 'headlessTask'
+        }
       });
       console.log('[BackgroundGeolocation HeadlessTask] - getCurrentPosition:', location);
       break
