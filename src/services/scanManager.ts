@@ -17,12 +17,10 @@ class ScanManager {
       prevState = state
     })
   } 
-  private startTimeout() {
-    console.log('ScanManager start timeout')
+  private startTimeout() {    
     this._it = setTimeout(() => this.upload(), 30 * 1000) // 30 sec
   }
-  add(result: QRResult): boolean {
-    console.log('ScanManager add')
+  add(result: QRResult): boolean {    
     if (this.list.find(r => r.annonymousId === result.annonymousId)) {
       return false
     }
@@ -33,8 +31,7 @@ class ScanManager {
     return true
   }
   async upload() {
-    if (this.list.length > 0) {
-      console.log('ScanManager upload', this.list.length)
+    if (this.list.length > 0) {      
       const uploadList = this.list
       this.list = []
       clearTimeout(this._it)
