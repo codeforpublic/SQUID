@@ -13,7 +13,7 @@ import { useIsFocused } from 'react-navigation-hooks'
 import { QRResult } from '../../state/qr'
 import NotificationPopup from 'react-native-push-notification-popup'
 import { QRPopupContent } from './QRPopupContent'
-import { scanManager } from '../../state/scanManager'
+import { scanManager } from '../../services/scanManager'
 
 export const QRCodeScan = ({ navigation }) => {
   const isFocused = useIsFocused()

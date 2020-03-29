@@ -21,7 +21,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Link } from '../../components/Base'
 import { useResetTo } from '../../utils/navigation'
 import { useNavigation } from 'react-navigation-hooks'
-import { pushNotification } from '../../utils/notification'
+import { pushNotification } from '../../services/notification'
 
 const MAX_SCORE = 100
 

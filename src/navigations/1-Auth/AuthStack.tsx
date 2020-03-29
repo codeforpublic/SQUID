@@ -7,7 +7,7 @@ import { AuthPhone } from './AuthPhone'
 import { AuthOTP } from './AuthOTP'
 /*
   handle deeplink
-  fightcovid19://app/:appId
+  thaialert://app/:appId
 */
 export const AuthStack = createStackNavigator(
   {

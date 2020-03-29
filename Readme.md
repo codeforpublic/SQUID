@@ -1,4 +1,4 @@
-# [Fight Covid-19]
+# [ThaiAlert]
 [![Build Status](https://build.appcenter.ms/v0.1/apps/f8d0296f-daf0-4e4f-a167-c3aaf2fbf195/branches/staging/badge)](https://appcenter.ms/orgs/ThaiAlert.id/apps/ThaiAlert-Staging/build/branches/staging)
 ## Getting Started
 

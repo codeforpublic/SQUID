@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/Entypo'
 import AntIcon from 'react-native-vector-icons/AntDesign'
 import { useHUD } from '../../HudView'
 import { StackActions, NavigationActions } from 'react-navigation'
-import { backgroundTracking } from '../../utils/background-tracking'
+import { backgroundTracking } from '../../services/background-tracking'
 
 const LOCATION_PERMISSION = Platform.select({
   ios: PERMISSIONS.IOS.LOCATION_ALWAYS,

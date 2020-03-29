@@ -1,7 +1,7 @@
 import {  AppState } from 'react-native'
-import { QRResult } from "./qr"
+import { QRResult } from "../state/qr"
 import { scan } from '../api'
-import { backgroundTracking } from '../utils/background-tracking'
+import { backgroundTracking } from './background-tracking'
 
 class ScanManager {
   list: QRResult[] = []

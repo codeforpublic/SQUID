@@ -16,7 +16,7 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import { CachePersistor, persistCache } from 'apollo-cache-persist'
 import { apolloClient, migrateState } from './apollo-client'
 import { userPrivateData } from './state/userPrivateData'
-import { backgroundTracking } from './utils/background-tracking'
+import { backgroundTracking } from './services/background-tracking'
 import { applicationState } from './state/app-state'
 
 const AppContainer = createAppContainer(Navigator)
@@ -86,7 +86,7 @@ export default class App extends React.Component {
           <HUDProvider>          
             <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }}>                
               <AppContainer
-                uriPrefix="fightcovid19://"
+                uriPrefix="thaialert://"
                 ref={navigator => {
                   this._navigator = navigator
                 }}

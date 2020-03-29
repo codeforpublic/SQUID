@@ -27,7 +27,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fightcovid19</string>
+				<string>thaialert</string>
 				<string></string>
 			</array>
 		</dict>
