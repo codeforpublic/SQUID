@@ -45,17 +45,13 @@ export const MainApp = () => {
           barStyle="dark-content"
           backgroundColor={COLORS.PRIMARY_LIGHT}
         />
-        <Text
-          style={{
-            fontFamily: FONT_FAMILY,
-            fontSize: 20,
-            alignSelf: 'center',
-            color: COLORS.PRIMARY_DARK,
-            marginBottom: 16,
-          }}
-        >
-          ข้อมูลของฉัน
-        </Text>
+        <View style={{ alignItems: 'center' }}>
+          <Image
+            source={require('../../assets/logo_header.png')}
+            resizeMode="contain"
+            style={{ height: 32, marginTop: 8, marginBottom: 4 }}
+          />
+        </View>
         <TouchableWithoutFeedback>
           <View
             style={{
@@ -129,7 +125,8 @@ export const MainApp = () => {
                   fontFamily: FONT_FAMILY,
                   fontSize: 16,
                   marginTop: -4,
-                  color: COLORS.PRIMARY_DARK,
+                  fontWeight: 'bold',
+                  color: qr.getStatusColor(),
                 }}
               >
                 {qr.getLabel()}
