@@ -1,4 +1,4 @@
-package com.dga.thaialert.app;
+package com.thaialert.app;
 
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen;
