@@ -28,8 +28,10 @@ class BackgroundTracking {
         autoSync: true,
         debug: false,
         batchSync: true,
+        maxBatchSize: 20,
         url: API_URL + '/location',
         httpRootProperty: 'locations',
+        locationsOrderDirection: 'ASC',
         logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
         // locationAuthorizationAlert: {
         //   titleWhenNotEnabled: :
