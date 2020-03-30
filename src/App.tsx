@@ -11,7 +11,7 @@ import { NavigationContainerComponent } from 'react-navigation'
 import { HUDProvider } from './HudView'
 import SplashScreen from 'react-native-splash-screen'
 import { COLORS } from './styles'
-
+import codePush from "react-native-code-push"
 import { ApolloProvider } from '@apollo/react-hooks'
 import { CachePersistor, persistCache } from 'apollo-cache-persist'
 import { apolloClient, migrateState } from './apollo-client'
@@ -21,7 +21,7 @@ import { applicationState } from './state/app-state'
 
 const AppContainer = createAppContainer(Navigator)
 
-export default class App extends React.Component {
+class App extends React.Component {
   _navigator: NavigationContainerComponent | null
   state: {    
     loaded: boolean
@@ -98,3 +98,9 @@ export default class App extends React.Component {
     )
   }
 }
+
+export default codePush({
+  // @ts-ignore
+  updateDialog: true,
+  installMode: codePush.InstallMode.IMMEDIATE
+})(App)
