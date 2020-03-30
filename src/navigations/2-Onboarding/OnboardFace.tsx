@@ -12,6 +12,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
+  Platform,
 } from 'react-native'
 import { Title, Subtitle, Header } from '../../components/Base'
 import { PrimaryButton } from '../../components/Button'
@@ -78,10 +79,15 @@ export const OnboardFace = () => {
         // dataPath is not delete file immediately, so we need to change name anyway
         await RNFS.unlink(dataPath)
         dataPath = RNFS.DocumentDirectoryPath + `/face-${Date.now()}.jpg`
+      }      
+      
+      await RNFS.moveFile(data.uri, dataPath)
+      console.log('dataPath', data.uri, dataPath)
+      if (Platform.OS === 'android') {
+        setURI('file://' + dataPath)
+      } else {
+        setURI(dataPath)
       }
-      await RNFS.moveFile(data.uri, dataPath)      
-
-      setURI(dataPath)
       setOpenCamera(false)
     } catch (err) {
       console.log(err)

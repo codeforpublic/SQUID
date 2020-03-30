@@ -9,6 +9,7 @@ import { StyleSheet, View, TouchableOpacity, StatusBar } from 'react-native'
 import { COLORS } from '../styles'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useIsFocused } from 'react-navigation-hooks'
 
 export type { TakePictureResponse, RNCamera }
 
@@ -79,7 +80,7 @@ const CameraDirectionButton = ({ setCameraType, cameraType }) => (
 
 export const Camera = ({
   onCapture,
-  defaultType = 'front',
+  defaultType = 'back',
   children,
 }: {
   onCapture: (camera: RNCamera) => any
@@ -90,6 +91,8 @@ export const Camera = ({
   const handleShutter = () => {
     onCapture(cameraRef.current)
   }
+  const isFocused = useIsFocused()
+  console.log('Camera', isFocused)
   const [cameraType, setCameraType] = useState(
     RNCamera.Constants.Type[defaultType],
   )
@@ -99,7 +102,7 @@ export const Camera = ({
     <SafeAreaView
       style={{ flex: 1, backgroundColor: 'black', position: 'relative' }}
     >
-      <RNCamera
+      {isFocused ? <RNCamera
         ref={cameraRef}
         flashMode={flashMode}
         type={cameraType}
@@ -107,7 +110,7 @@ export const Camera = ({
         captureAudio={false}
       >
         {children}
-      </RNCamera>
+      </RNCamera>: null}
       <View style={{ flexDirection: 'row' }}>
         <View
           style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}

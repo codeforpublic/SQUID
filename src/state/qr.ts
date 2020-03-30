@@ -24,7 +24,7 @@ export const useSelfQR = () => {
       })
     }
     updateQR()
-    const it = setInterval(updateQR, 2 * 60 * 1000)
+    const it = setInterval(updateQR, 1 * 60 * 1000)
     return () => {
       clearInterval(it)
     }
@@ -55,15 +55,20 @@ class QR {
 class SelfQR extends QR {
   qrData: QRData
   code: string
+  timestamp: number
   constructor(qrData: QRData) {
     super(qrData.data.code)
     this.qrData = qrData
+    this.timestamp = Date.now()
   }
   getAnonymousId() {
     return this.qrData.data.anonymousId
   }
   getQRImageURL() {
     return `data:${this.qrData.qr.type};base64,` + this.qrData.qr.base64
+  }
+  getCreatedDate(): moment {
+    return moment(this.timestamp).locale('th')
   }
 }
 
