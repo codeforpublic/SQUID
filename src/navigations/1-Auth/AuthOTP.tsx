@@ -22,6 +22,7 @@ import { useHUD } from '../../HudView'
 import { useResetTo } from '../../utils/navigation'
 import { applicationState } from '../../state/app-state'
 import OTPInputView from '@twotalltotems/react-native-otp-input'
+import { Link } from '../../components/Base'
 
 
 export const AuthOTP = () => {
@@ -123,6 +124,17 @@ export const AuthOTP = () => {
               title={'ถัดไป'}
               onPress={onSubmit}
             />
+            <TouchableOpacity onPress={() => {
+              applicationState.set('skipRegistration', true)
+              navigation.navigate({
+                routeName: 'Onboarding',
+                params: { phone },
+              })
+            }}>
+              <Link style={{ marginTop: 8, fontWeight: 'bold' }}>
+                ใช้งานแบบไม่ยืนยันตัวตน >
+              </Link>
+            </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>

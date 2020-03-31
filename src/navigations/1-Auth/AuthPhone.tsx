@@ -8,6 +8,7 @@ import {
   Text,
   StyleSheet,
   Alert,
+  TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native'
 import { TextInputMask } from 'react-native-masked-text'
@@ -16,7 +17,6 @@ import { BackButton } from '../../components/BackButton'
 import { requestOTP } from '../../api'
 import { useHUD } from '../../HudView'
 import { Link } from '../../components/Base'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import { applicationState } from '../../state/app-state'
 
 export const AuthPhone = () => {
@@ -92,17 +92,17 @@ export const AuthPhone = () => {
               }
             }}
           />
-          {/* <TouchableOpacity onPress={() => {
+          <TouchableOpacity onPress={() => {
             applicationState.set('skipRegistration', true)
             navigation.navigate({
               routeName: 'Onboarding',
               params: { phone },
-            })
-          }}>
-            <Link style={{ marginTop: 8, fontWeight: 'bold' }}>
+            })            
+          }} style={{ marginTop: 8 }}>
+            <Link style={{ fontWeight: 'bold' }}>
               ใช้งานแบบไม่ยืนยันตัวตน >
             </Link>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
