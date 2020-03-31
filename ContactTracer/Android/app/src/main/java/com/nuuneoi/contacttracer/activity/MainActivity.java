@@ -325,7 +325,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 byte[] data = result.getScanRecord().getServiceData(Constants.Service_UUID);
                 //int value = ByteUtils.byteArrayToInt(data);
                 String value = new String(data);
-                appendStatusText("***** Found Nearby Device with User ID: " + value);
+                appendStatusText("***** Found Nearby Device: " + value);
             }
         }
         @Override
