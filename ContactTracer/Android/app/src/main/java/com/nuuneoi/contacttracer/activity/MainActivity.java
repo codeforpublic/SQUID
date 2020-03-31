@@ -324,6 +324,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             for (ScanResult result : results) {
                 String value = getUserIdFromResult(result);
                 appendStatusText("***** Found Nearby Device: " + value);
+                appendStatusText("***** RSSI: " + result.getRssi());
+                appendStatusText("");
             }
         }
         @Override
@@ -331,6 +333,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onScanResult(callbackType, result);
             String value = getUserIdFromResult(result);
             appendStatusText("***** Found Nearby Device: " + value);
+            appendStatusText("***** RSSI: " + result.getRssi());
+            appendStatusText("");
         }
         @Override
         public void onScanFailed(int errorCode) {
