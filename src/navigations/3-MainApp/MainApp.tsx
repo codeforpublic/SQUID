@@ -29,7 +29,7 @@ import { backgroundTracking } from '../../services/background-tracking'
 const MAX_SCORE = 100
 
 export const MainApp = () => {
-  const faceURI = userPrivateData.getData('faceURI')
+  const faceURI = userPrivateData.getFace()
   const isVerified = applicationState.get('isRegistered')
   const qr = useSelfQR()
   const resetTo = useResetTo()

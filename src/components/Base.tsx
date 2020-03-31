@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, View } from "react-native";
-import { FONT_FAMILY, COLORS } from '../styles';
+import { StyleSheet, Text, View } from 'react-native'
+import { FONT_FAMILY, COLORS } from '../styles'
 import styled from '@emotion/native'
 
 export const Header = styled(View)({
@@ -16,7 +16,7 @@ export const Title = styled(Text)({
   alignItems: 'center',
   color: COLORS.PRIMARY_DARK,
   textAlign: 'center',
-  width: '100%'
+  width: '100%',
 })
 
 export const Subtitle = styled(Text)({
@@ -26,7 +26,7 @@ export const Subtitle = styled(Text)({
   lineHeight: 30,
   alignItems: 'center',
   color: COLORS.GRAY_2,
-  textAlign: 'center'
+  textAlign: 'center',
 })
 
 export const Link = styled(Text)({
@@ -36,5 +36,13 @@ export const Link = styled(Text)({
   lineHeight: 30,
   alignItems: 'center',
   color: COLORS.BLUE,
-  textAlign: 'center'
+  textAlign: 'center',
+})
+
+export const WhiteText = styled(Text)({
+  fontFamily: FONT_FAMILY,
+  fontStyle: 'normal',
+  fontSize: 16,
+  lineHeight: 30,
+  color: COLORS.WHITE,
 })
