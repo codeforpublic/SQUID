@@ -34,6 +34,7 @@ const MAX_SCORE = 100
 
 export const MainApp = () => {
   const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
+  console.log(faceURI)
   const isVerified = applicationState.get('isRegistered')
   const qr = useSelfQR()
   const resetTo = useResetTo()
