@@ -54,7 +54,7 @@ class UserPrivateData {
     return this.data[key]
   }
   getFace() {
-    const dataPath = RNFS.DocumentDirectoryPath + this.getData('faceURI')
+    const dataPath = `${RNFS.DocumentDirectoryPath}/${this.getData('faceURI')}`
     if (Platform.OS === 'android') {
       return 'file://' + dataPath
     }
