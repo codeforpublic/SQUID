@@ -322,23 +322,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onBatchScanResults(List<ScanResult> results) {
             super.onBatchScanResults(results);
             for (ScanResult result : results) {
-                byte[] data = result.getScanRecord().getServiceData(Constants.Service_UUID);
-                //int value = ByteUtils.byteArrayToInt(data);
-                String value = new String(data);
+                String value = getUserIdFromResult(result);
                 appendStatusText("***** Found Nearby Device: " + value);
             }
         }
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
             super.onScanResult(callbackType, result);
-            byte[] data = result.getScanRecord().getServiceData(Constants.Service_UUID);
-            //int value = ByteUtils.byteArrayToInt(data);
-            //String value = new String(data);
-            String value;
-            if (data != null)
-                value = new String(data);
-            else
-                value = result.getDevice().getName();
+            String value = getUserIdFromResult(result);
             appendStatusText("***** Found Nearby Device with User ID: " + value);
         }
         @Override
@@ -346,6 +337,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onScanFailed(errorCode);
             Toast.makeText(MainActivity.this, "Scan failed with error: " + errorCode, Toast.LENGTH_LONG)
                     .show();
+        }
+        private String getUserIdFromResult(ScanResult result) {
+            String value;
+            byte[] data = result.getScanRecord().getServiceData(Constants.Service_UUID);
+
+            if (data != null)
+                value = new String(data);
+            else
+                value = result.getDevice().getName();
+            return value;
+
         }
     }
 
