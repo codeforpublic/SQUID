@@ -29,6 +29,7 @@ import { backgroundTracking } from '../../services/background-tracking'
 import FeatureIcon from 'react-native-vector-icons/Feather'
 import { Camera } from '../../components/Camera'
 import { SelfieCaptureGuideline } from '../../components/SelfieCaptureGuideline'
+import RNFS from 'react-native-fs'
 
 const MAX_SCORE = 100
 
@@ -54,6 +55,17 @@ export const MainApp = () => {
 
   useEffect(() => {
     pushNotification.configure()
+  }, [])
+  useEffect(() => {
+    RNFS.exists(faceURI).then(exists => {
+      console.log('exists', exists)
+      if (!exists) {
+        applicationState.set('isPassedOnboarding', false)
+        resetTo({
+          routeName: 'Onboarding',
+        })
+      }
+    })
   }, [])
   // useEffect(() => {
   //   fadeAnim.setValue(0)

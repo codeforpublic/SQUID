@@ -12,6 +12,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { useIsFocused } from 'react-navigation-hooks'
 import EntypoIcon from 'react-native-vector-icons/Entypo'
 import { request, PERMISSIONS } from 'react-native-permissions'
+import { useHUD } from '../HudView'
 
 export type { TakePictureResponse, RNCamera }
 
@@ -113,12 +114,15 @@ const DEFAULT_OPTIONS = {
 //     ...DEFAULT_OPTIONS,
 //     title: 'Select Avatar',
 //   };
+//   const { showSpinner, hide } = useHUD()
 //   return (
 //   <TouchableOpacity
 //     activeOpacity={0.8}
 //     style={{ position: 'absolute', right: 0, padding: 16, alignSelf: 'center'}}
 //     onPress={async () => {
+//       showSpinner()
 //       ImagePicker.launchImageLibrary(options, (response) => {
+//         hide()
 //         console.log({ response })
 //         const uri = response.uri // TODO: Android 11 cannot use this, find alternative way
 //         onSelectImage(uri)  
@@ -184,9 +188,9 @@ export const Camera = ({
           cameraType={cameraType}
           setCameraType={setCameraType}
         />
-        {/* {onSelectImage ?         
+        {/* onSelectImage ?         
           <SelectImageButton onSelectImage={onSelectImage}/>: null
-        } */}
+         */} 
       </View>
       
     </SafeAreaView>

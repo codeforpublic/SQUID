@@ -10,19 +10,21 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 export const MainAppFaceCamera = () => {
   const navigation = useNavigation()
+  const onCapture = async uri => {
+    await userPrivateData.setFace(uri, { isTempUri: true })
+    if (navigation.state.params.setUri) {
+      navigation.state.params.setUri(uri)
+    }
+    navigation.goBack()
+  }
   return (
     <SafeAreaView style={styles.container}>
       <UpdateFaceCamera
         onClose={() => {
           navigation.goBack()
         }}
-        onCapture={async uri => {
-          await userPrivateData.setFace(uri, { isTempUri: true })
-          if (navigation.state.params.setUri) {
-            navigation.state.params.setUri(uri)
-          }
-          navigation.goBack()
-        }}
+        onCapture={onCapture}
+        onSelectImage={onCapture}
       />
     </SafeAreaView>
   )
