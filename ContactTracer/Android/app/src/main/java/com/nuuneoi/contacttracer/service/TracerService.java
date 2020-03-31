@@ -13,6 +13,11 @@ import android.bluetooth.le.AdvertiseCallback;
 import android.bluetooth.le.AdvertiseData;
 import android.bluetooth.le.AdvertiseSettings;
 import android.bluetooth.le.BluetoothLeAdvertiser;
+import android.bluetooth.le.BluetoothLeScanner;
+import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanFilter;
+import android.bluetooth.le.ScanResult;
+import android.bluetooth.le.ScanSettings;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,24 +34,29 @@ import com.nuuneoi.contacttracer.mock.User;
 import com.nuuneoi.contacttracer.mock.UserMock;
 import com.nuuneoi.contacttracer.receiver.BootCompletedReceiver;
 import com.nuuneoi.contacttracer.utils.BluetoothUtils;
-import com.nuuneoi.contacttracer.utils.ByteUtils;
 import com.nuuneoi.contacttracer.utils.Constants;
 
-import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
-public class AdvertiserService extends Service {
+public class TracerService extends Service {
 
     private static final int FOREGROUND_NOTIFICATION_ID = 20011;
 
     public static final String ADVERTISING_MESSAGE =
             "com.nuuneoi.contacttracer.advertiser_message";
-
     public static final String ADVERTISING_MESSAGE_EXTRA_MESSAGE = "message";
+
+    public static final String NEARBY_DEVICE_FOUND_MESSAGE =
+            "com.nuuneoi.contacttracer.nearbydevicefound_message";
+    public static final String NEARBY_DEVICE_FOUND_EXTRA_NAME = "name";
+    public static final String NEARBY_DEVICE_FOUND_EXTRA_RSSI = "rssi";
 
     // Bluetooth General
     private BluetoothAdapter bluetoothAdapter;
@@ -55,6 +65,16 @@ public class AdvertiserService extends Service {
     private BluetoothLeAdvertiser bluetoothLeAdvertiser;
     SampleAdvertiseCallback advertiseCallback;
 
+    // Bluetooth Scanner
+    private BluetoothLeScanner bluetoothLeScanner;
+    private SampleScanCallback scanCallback;
+    private Handler handler;
+
+    // Bluetooth max scan time in milliseconds
+    private static final long SCAN_PERIOD = 15000;
+    // Bluetooth scan interval time in milliseconds
+    private static final long SCAN_INTERVAL = 60000;
+
     // User
     User user;
 
@@ -62,8 +82,10 @@ public class AdvertiserService extends Service {
     PowerManager.WakeLock wakeLock;
 
     // Misc
-    Handler handler;
     Runnable autoRefreshTimerRunnable;
+
+    // Scanner Timer
+    Runnable scannerStartTimerRunnable;
 
     @Override
     public void onCreate() {
@@ -88,6 +110,10 @@ public class AdvertiserService extends Service {
         startAdvertising();
         startAdvertisingAutoRefresh();
 
+        initBluetoothScanner();
+        startScanning();
+        startScannerTimer();
+
         initAlarm();
     }
 
@@ -98,6 +124,10 @@ public class AdvertiserService extends Service {
         stopAdvertising();
         stopForeground(true);
         stopAdvertisingAutoRefresh();
+
+        stopScannerTimer();
+        stopScanning();
+
         super.onDestroy();
     }
 
@@ -113,7 +143,7 @@ public class AdvertiserService extends Service {
     }
 
     private void initInstances() {
-        user = new UserMock(AdvertiserService.this);
+        user = new UserMock(TracerService.this);
 
         handler = new Handler();
         autoRefreshTimerRunnable = new Runnable() {
@@ -121,6 +151,12 @@ public class AdvertiserService extends Service {
             public void run() {
                 refreshAdvertiser();
                 startAdvertisingAutoRefresh();
+            }
+        };
+        scannerStartTimerRunnable = new Runnable() {
+            @Override
+            public void run() {
+                startScanning();
             }
         };
     }
@@ -306,6 +342,135 @@ public class AdvertiserService extends Service {
         sendBroadcast(failureIntent);
     }
 
+
+    private void sendNearbyDeviceFoundMessage(CharSequence name, int rssi) {
+        Intent failureIntent = new Intent();
+        failureIntent.setAction(NEARBY_DEVICE_FOUND_MESSAGE);
+        failureIntent.putExtra(NEARBY_DEVICE_FOUND_EXTRA_NAME, name);
+        failureIntent.putExtra(NEARBY_DEVICE_FOUND_EXTRA_RSSI, rssi);
+        sendBroadcast(failureIntent);
+    }
+
+    /*********************
+     * Bluetooth Scanner *
+     *********************/
+
+    private void initBluetoothScanner() {
+        bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
+    }
+
+    /**
+     * Setup Timer to Auto Refresh Advertising
+     */
+    private void startScannerTimer() {
+        handler.postDelayed(scannerStartTimerRunnable, SCAN_INTERVAL);
+    }
+
+    /**
+     * Stop Advertising Auto Refresh Timer
+     */
+    private void stopScannerTimer() {
+        handler.removeCallbacks(scannerStartTimerRunnable);
+    }
+
+    /**
+     * Start scanning for BLE Advertisements (& set it up to stop after a set period of time).
+     */
+    public void startScanning() {
+        if (scanCallback == null) {
+            sendSignalAndLog("Start Scanning");
+
+            // Will stop the scanning after a set time.
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    stopScanning();
+                }
+            }, SCAN_PERIOD);
+            // Kick off a new scan.
+            scanCallback = new SampleScanCallback();
+            bluetoothLeScanner.startScan(buildScanFilters(), buildScanSettings(), scanCallback);
+            String toastText = getString(R.string.scan_start_toast) + " "
+                    + TimeUnit.SECONDS.convert(SCAN_PERIOD, TimeUnit.MILLISECONDS) + " "
+                    + getString(R.string.seconds);
+            //Toast.makeText(TracerService.this, toastText, Toast.LENGTH_LONG).show();
+        } else {
+            //Toast.makeText(TracerService.this, R.string.already_scanning, Toast.LENGTH_SHORT).show();
+        }
+    }
+    /**
+     * Stop scanning for BLE Advertisements.
+     */
+    public void stopScanning() {
+        sendSignalAndLog("Stop Scanning");
+
+        // Stop the scan, wipe the callback.
+        bluetoothLeScanner.stopScan(scanCallback);
+        scanCallback = null;
+        // Even if no new results, update 'last seen' times.
+        //mAdapter.notifyDataSetChanged();
+    }
+
+
+    /**
+     * Return a List of {@link ScanFilter} objects to filter by Service UUID.
+     */
+    private List<ScanFilter> buildScanFilters() {
+        List<ScanFilter> scanFilters = new ArrayList<>();
+        ScanFilter.Builder builder = new ScanFilter.Builder();
+        // Comment out the below line to see all BLE devices around you
+        builder.setServiceUuid(Constants.Service_UUID);
+        scanFilters.add(builder.build());
+        return scanFilters;
+    }
+    /**
+     * Return a {@link ScanSettings} object set to use low power (to preserve battery life).
+     */
+    private ScanSettings buildScanSettings() {
+        ScanSettings.Builder builder = new ScanSettings.Builder();
+        builder.setScanMode(ScanSettings.SCAN_MODE_LOW_POWER);
+        return builder.build();
+    }
+
+    /**
+     * Custom ScanCallback object - adds to adapter on success, displays error on failure.
+     */
+    private class SampleScanCallback extends ScanCallback {
+        @Override
+        public void onBatchScanResults(List<ScanResult> results) {
+            super.onBatchScanResults(results);
+            for (ScanResult result : results) {
+                String value = getUserIdFromResult(result);
+
+                sendNearbyDeviceFoundMessage(value, result.getRssi());
+            }
+        }
+        @Override
+        public void onScanResult(int callbackType, ScanResult result) {
+            super.onScanResult(callbackType, result);
+            String value = getUserIdFromResult(result);
+
+            sendNearbyDeviceFoundMessage(value, result.getRssi());
+        }
+        @Override
+        public void onScanFailed(int errorCode) {
+            super.onScanFailed(errorCode);
+            //Toast.makeText(TracerService.this, "Scan failed with error: " + errorCode, Toast.LENGTH_LONG)
+            //        .show();
+        }
+        private String getUserIdFromResult(ScanResult result) {
+            String value;
+            byte[] data = result.getScanRecord().getServiceData(Constants.Service_UUID);
+
+            if (data != null)
+                value = new String(data);
+            else
+                value = result.getDevice().getName();
+            return value;
+
+        }
+    }
+
     /**
      * Wake lock
      */
@@ -330,8 +495,8 @@ public class AdvertiserService extends Service {
      */
 
     private void initAlarm() {
-        Intent ll24 = new Intent(AdvertiserService.this, BootCompletedReceiver.class);
-        PendingIntent recurringLl24 = PendingIntent.getBroadcast(AdvertiserService.this, 0, ll24, PendingIntent.FLAG_CANCEL_CURRENT);
+        Intent ll24 = new Intent(TracerService.this, BootCompletedReceiver.class);
+        PendingIntent recurringLl24 = PendingIntent.getBroadcast(TracerService.this, 0, ll24, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarms = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarms.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTime().getTime(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, recurringLl24);
     }
@@ -343,7 +508,7 @@ public class AdvertiserService extends Service {
     public static boolean isRunning(Context context) {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (AdvertiserService.class.getName().equals(service.service.getClassName())) {
+            if (TracerService.class.getName().equals(service.service.getClassName())) {
                 return true;
             }
         }
