@@ -1,6 +1,7 @@
 package com.nuuneoi.contacttracer.service;
 
 import android.app.ActivityManager;
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -26,11 +27,13 @@ import com.nuuneoi.contacttracer.R;
 import com.nuuneoi.contacttracer.activity.MainActivity;
 import com.nuuneoi.contacttracer.mock.User;
 import com.nuuneoi.contacttracer.mock.UserMock;
+import com.nuuneoi.contacttracer.receiver.BootCompletedReceiver;
 import com.nuuneoi.contacttracer.utils.BluetoothUtils;
 import com.nuuneoi.contacttracer.utils.ByteUtils;
 import com.nuuneoi.contacttracer.utils.Constants;
 
 import java.nio.ByteBuffer;
+import java.util.Calendar;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -84,6 +87,8 @@ public class AdvertiserService extends Service {
 
         startAdvertising();
         startAdvertisingAutoRefresh();
+
+        initAlarm();
     }
 
     @Override
@@ -180,6 +185,7 @@ public class AdvertiserService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        super.onStartCommand(intent, flags, startId);
         return START_STICKY;
     }
 
@@ -317,6 +323,17 @@ public class AdvertiserService extends Service {
         } catch (Exception e) {
 
         }
+    }
+
+    /**
+     * Alarm for forever running
+     */
+
+    private void initAlarm() {
+        Intent ll24 = new Intent(AdvertiserService.this, BootCompletedReceiver.class);
+        PendingIntent recurringLl24 = PendingIntent.getBroadcast(AdvertiserService.this, 0, ll24, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager alarms = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarms.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTime().getTime(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, recurringLl24);
     }
 
     /**
