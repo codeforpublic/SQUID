@@ -5,7 +5,7 @@ import { RNCamera, TakePictureResponse } from 'react-native-camera'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from 'react-navigation-hooks'
 import ImagePicker from 'react-native-image-picker';
-import { StyleSheet, View, TouchableOpacity, StatusBar, NativeModules } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, StatusBar, NativeModules, Alert } from 'react-native'
 import { COLORS } from '../styles'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -119,9 +119,12 @@ const SelectImageButton = ({onSelectImage}) => {
     style={{ position: 'absolute', right: 0, padding: 16, alignSelf: 'center'}}
     onPress={async () => {
       ImagePicker.launchImageLibrary(options, (response) => {
-        console.log({ response })
-        const uri = response.uri // TODO: Android 11 cannot use this, find alternative way
-        onSelectImage(uri)  
+        if(response.error) {
+          Alert.alert('เกิดข้อผิดพลาดในการเลือกไฟล์')
+        }else{
+          const uri = response.uri 
+          onSelectImage(uri)  
+        }
       });
     }}
   >
@@ -184,9 +187,9 @@ export const Camera = ({
           cameraType={cameraType}
           setCameraType={setCameraType}
         />
-        {/* {onSelectImage ?         
+        {onSelectImage ?         
           <SelectImageButton onSelectImage={onSelectImage}/>: null
-        } */}
+        }
       </View>
       
     </SafeAreaView>

@@ -10,8 +10,8 @@ buildscript {
         removeBackgroundGeolocationDebugSoundsInRelease = false
         buildToolsVersion = "28.0.3"
         minSdkVersion = 16
-        compileSdkVersion = 29
-        targetSdkVersion = 29
+        compileSdkVersion = 28
+        targetSdkVersion = 28
         supportLibVersion = "1.0.2"
         appCompatVersion = "1.0.2"
         supportV4Version = "1.0.0"
