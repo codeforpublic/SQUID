@@ -70,11 +70,6 @@ public class TracerService extends Service {
     private SampleScanCallback scanCallback;
     private Handler handler;
 
-    // Bluetooth max scan time in milliseconds
-    private static final long SCAN_PERIOD = 15000;
-    // Bluetooth scan interval time in milliseconds
-    private static final long SCAN_INTERVAL = 60000;
-
     // User
     User user;
 
@@ -270,7 +265,7 @@ public class TracerService extends Service {
      * Setup Timer to Auto Refresh Advertising
      */
     private void startAdvertisingAutoRefresh() {
-        handler.postDelayed(autoRefreshTimerRunnable, 120000);
+        handler.postDelayed(autoRefreshTimerRunnable, Constants.ADVERTISER_REFRESH_INTERVAL);
     }
 
     /**
@@ -363,7 +358,7 @@ public class TracerService extends Service {
      * Setup Timer to Auto Refresh Advertising
      */
     private void startScannerTimer() {
-        handler.postDelayed(scannerStartTimerRunnable, SCAN_INTERVAL);
+        handler.postDelayed(scannerStartTimerRunnable, Constants.SCAN_INTERVAL);
     }
 
     /**
@@ -386,12 +381,12 @@ public class TracerService extends Service {
                 public void run() {
                     stopScanning();
                 }
-            }, SCAN_PERIOD);
+            }, Constants.SCAN_PERIOD);
             // Kick off a new scan.
             scanCallback = new SampleScanCallback();
             bluetoothLeScanner.startScan(buildScanFilters(), buildScanSettings(), scanCallback);
             String toastText = getString(R.string.scan_start_toast) + " "
-                    + TimeUnit.SECONDS.convert(SCAN_PERIOD, TimeUnit.MILLISECONDS) + " "
+                    + TimeUnit.SECONDS.convert(Constants.SCAN_PERIOD, TimeUnit.MILLISECONDS) + " "
                     + getString(R.string.seconds);
             //Toast.makeText(TracerService.this, toastText, Toast.LENGTH_LONG).show();
         } else {
