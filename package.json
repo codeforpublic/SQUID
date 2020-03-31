@@ -72,6 +72,7 @@
     "react-native-fs": "^2.16.6",
     "react-native-gesture-handler": "^1.6.0",
     "react-native-get-random-values": "^1.3.0",
+    "react-native-image-picker": "^2.3.1",
     "react-native-json-tree": "^1.2.0",
     "react-native-keyboard-aware-scrollview": "^2.1.0",
     "react-native-maps": "^0.26.1",

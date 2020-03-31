@@ -1,3 +1,4 @@
+import { RELATIVE_FACE_PATH } from './../navigations/const'
 import RNFS from 'react-native-fs'
 import SInfo from 'react-native-sensitive-info'
 import AsyncStorage from '@react-native-community/async-storage'
@@ -63,7 +64,14 @@ class UserPrivateData {
     this.data[key] = value
     return this.save()
   }
-  setFace(uri) {
+  setFace(uri, { isTempUri }) {
+    if (isTempUri) {
+      const newFilePath = `${Date.now()}-${RELATIVE_FACE_PATH}`
+      let dataPath = `${RNFS.DocumentDirectoryPath}/${newFilePath}`
+      dataPath = Platform.OS === 'android' ? `file://${dataPath}` : dataPath
+      RNFS.copyFile(uri, dataPath)
+      return this.setData('faceURI', newFilePath)
+    }
     return this.setData('faceURI', uri)
   }
 }
