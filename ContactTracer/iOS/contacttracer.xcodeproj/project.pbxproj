@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		075A694D243327A400F1D8B1 /* NanoID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075A694C243327A400F1D8B1 /* NanoID.swift */; };
 		07BF5C332431C3000016A8CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF5C322431C3000016A8CC /* AppDelegate.swift */; };
 		07BF5C352431C3000016A8CC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF5C342431C3000016A8CC /* SceneDelegate.swift */; };
 		07BF5C372431C3000016A8CC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF5C362431C3000016A8CC /* ViewController.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		075A694C243327A400F1D8B1 /* NanoID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NanoID.swift; sourceTree = "<group>"; };
 		07BF5C2F2431C3000016A8CC /* contacttracer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = contacttracer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07BF5C322431C3000016A8CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07BF5C342431C3000016A8CC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				07BF5C3B2431C3010016A8CC /* Assets.xcassets */,
 				07BF5C3D2431C3010016A8CC /* LaunchScreen.storyboard */,
 				07BF5C402431C3010016A8CC /* Info.plist */,
+				075A694C243327A400F1D8B1 /* NanoID.swift */,
 			);
 			path = contacttracer;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				075A694D243327A400F1D8B1 /* NanoID.swift in Sources */,
 				07BF5C372431C3000016A8CC /* ViewController.swift in Sources */,
 				07BF5C332431C3000016A8CC /* AppDelegate.swift in Sources */,
 				07BF5C352431C3000016A8CC /* SceneDelegate.swift in Sources */,
