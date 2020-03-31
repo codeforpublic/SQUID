@@ -4,12 +4,15 @@ import styled, { css } from '@emotion/native'
 import { RNCamera, TakePictureResponse } from 'react-native-camera'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from 'react-navigation-hooks'
-
-import { StyleSheet, View, TouchableOpacity, StatusBar } from 'react-native'
+// import ImagePicker from 'react-native-image-picker';
+import { StyleSheet, View, TouchableOpacity, StatusBar, NativeModules } from 'react-native'
 import { COLORS } from '../styles'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useIsFocused } from 'react-navigation-hooks'
+import EntypoIcon from 'react-native-vector-icons/Entypo'
+import { request, PERMISSIONS } from 'react-native-permissions'
+import { useHUD } from '../HudView'
 
 export type { TakePictureResponse, RNCamera }
 
@@ -41,7 +44,7 @@ const ShutterButton = styled.TouchableOpacity`
 const FlashButton = ({ flashMode, setFlashMode }) => (
   <TouchableOpacity
     activeOpacity={0.8}
-    style={{ position: 'absolute', left: 0, padding: 16 }}
+    style={{ position: 'absolute', right: 0, padding: 16 }}
     onPress={() => {
       const sequences = [RNCamera.Constants.FlashMode.on, RNCamera.Constants.FlashMode.auto, RNCamera.Constants.FlashMode.off]
       setFlashMode(
@@ -65,7 +68,7 @@ const FlashButton = ({ flashMode, setFlashMode }) => (
 const CameraDirectionButton = ({ setCameraType, cameraType }) => (
   <TouchableOpacity
     activeOpacity={0.8}
-    style={{ position: 'absolute', right: 0, padding: 16 }}
+    style={{ position: 'absolute', left: 0, padding: 16, alignSelf: 'center'}}
     onPress={() => {
       setCameraType(
         cameraType === RNCamera.Constants.Type.front
@@ -77,13 +80,69 @@ const CameraDirectionButton = ({ setCameraType, cameraType }) => (
     <EvilIcons name="refresh" color="white" size={48} />
   </TouchableOpacity>
 )
+const CloseButton = ({onClose}) => (
+  <TouchableOpacity
+    activeOpacity={0.8}
+    style={{ position: 'absolute', left: 0, padding: 16 }}
+    onPress={() => {
+        onClose()
+    }}
+  >
+    <EvilIcons name="close" color="white" size={48} />
+  </TouchableOpacity>
+)
+
+const DEFAULT_OPTIONS = {
+  title: 'Select a Photo',
+  cancelButtonTitle: 'Cancel',
+  takePhotoButtonTitle: 'Take Photo…',
+  chooseFromLibraryButtonTitle: 'Choose from Library…',
+  quality: 1.0,
+  allowsEditing: false,
+  permissionDenied: {
+    title: 'Permission denied',
+    text:
+      'To be able to take pictures with your camera and choose images from your library.',
+    reTryTitle: 're-try',
+    okTitle: "I'm sure",
+  },
+  tintColor: '',
+}
+
+// const SelectImageButton = ({onSelectImage}) => {
+//   const options = {
+//     ...DEFAULT_OPTIONS,
+//     title: 'Select Avatar',
+//   };
+//   const { showSpinner, hide } = useHUD()
+//   return (
+//   <TouchableOpacity
+//     activeOpacity={0.8}
+//     style={{ position: 'absolute', right: 0, padding: 16, alignSelf: 'center'}}
+//     onPress={async () => {
+//       showSpinner()
+//       ImagePicker.launchImageLibrary(options, (response) => {
+//         hide()
+//         console.log({ response })
+//         const uri = response.uri // TODO: Android 11 cannot use this, find alternative way
+//         onSelectImage(uri)  
+//       });
+//     }}
+//   >
+//     <EntypoIcon name="images" color="white" size={32} />
+//   </TouchableOpacity>
+// )}
 
 export const Camera = ({
   onCapture,
+  onClose,
+  onSelectImage,
   defaultType = 'back',
   children,
 }: {
   onCapture: (camera: RNCamera) => any
+  onSelectImage?: (uri: string) => any
+  onClose?: any
   defaultType: 'front' | 'back'
   children
 }) => {
@@ -111,25 +170,29 @@ export const Camera = ({
       >
         {children}
       </RNCamera>: null}
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{position: 'absolute', top: 0, left: 0, width: '100%'}}>
+        {onClose ? <CloseButton onClose={onClose} />: null}
+        <FlashButton flashMode={flashMode} setFlashMode={setFlashMode} />
+      </View>
+      <View style={{ flexDirection: 'row', paddingVertical: 8 }}>
         <View
           style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
         >
-          {/* <TouchableOpacity onPress={setFlashOn} style={{ flex: 1 }}>
-          <EvilIcons name={"ios-flash-off"} color="white" type="ionicon" />
-        </TouchableOpacity> */}
           <ShutterButtonOuter>
             <ShutterButtonInner>
               <ShutterButton onPress={handleShutter} />
             </ShutterButtonInner>
           </ShutterButtonOuter>
         </View>
-        <FlashButton flashMode={flashMode} setFlashMode={setFlashMode} />
         <CameraDirectionButton
           cameraType={cameraType}
           setCameraType={setCameraType}
         />
+        {/* onSelectImage ?         
+          <SelectImageButton onSelectImage={onSelectImage}/>: null
+         */} 
       </View>
+      
     </SafeAreaView>
   )
 }

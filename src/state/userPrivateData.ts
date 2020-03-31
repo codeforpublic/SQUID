@@ -1,15 +1,17 @@
+import { RELATIVE_FACE_PATH } from './../navigations/const'
+import RNFS from 'react-native-fs'
 import SInfo from 'react-native-sensitive-info'
-import AsyncStorage from "@react-native-community/async-storage"
-import nanoid from "nanoid"
-import DeviceInfo from 'react-native-device-info';
-import { Platform } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage'
+import nanoid from 'nanoid'
+import DeviceInfo from 'react-native-device-info'
+import { Platform } from 'react-native'
 
 const USER_DATA_KEY = '@USER_PRIVATE_DATA'
 
 interface UserData {
   id: string
   anonymousId: string
-  faceURI?: string  
+  faceURI?: string
 }
 
 const SINFO_OPTIONS = {
@@ -17,10 +19,14 @@ const SINFO_OPTIONS = {
   keychainService: '@ThaiAlert/UserPrivateData',
 }
 
-class UserPrivateDate {
+class UserPrivateData {
   data: UserData
   save() {
-    return SInfo.setItem(USER_DATA_KEY, JSON.stringify(this.data), SINFO_OPTIONS)
+    return SInfo.setItem(
+      USER_DATA_KEY,
+      JSON.stringify(this.data),
+      SINFO_OPTIONS,
+    )
   }
   async load() {
     const userDataString = await SInfo.getItem(USER_DATA_KEY, SINFO_OPTIONS)
@@ -31,9 +37,9 @@ class UserPrivateDate {
         id: Platform.select({
           android: DeviceInfo.getMacAddressSync(),
           ios: nanoid(),
-          default: nanoid()
+          default: nanoid(),
         }),
-        anonymousId: DeviceInfo.getUniqueId()
+        anonymousId: DeviceInfo.getUniqueId(),
       }
       await this.save()
     }
@@ -47,10 +53,27 @@ class UserPrivateDate {
   getData(key: keyof UserData) {
     return this.data[key]
   }
+  getFace() {
+    const dataPath = `${RNFS.DocumentDirectoryPath}/${this.getData('faceURI')}`
+    if (Platform.OS === 'android') {
+      return 'file://' + dataPath
+    }
+    return dataPath
+  }
   setData(key: keyof UserData, value: any) {
     this.data[key] = value
     return this.save()
   }
+  setFace(uri, { isTempUri }) {
+    if (isTempUri) {
+      const newFilePath = `${Date.now()}-${RELATIVE_FACE_PATH}`
+      let dataPath = `${RNFS.DocumentDirectoryPath}/${newFilePath}`
+      dataPath = Platform.OS === 'android' ? `file://${dataPath}` : dataPath
+      RNFS.copyFile(uri, dataPath)
+      return this.setData('faceURI', newFilePath)
+    }
+    return this.setData('faceURI', uri)
+  }
 }
 
-export const userPrivateData = new UserPrivateDate()
+export const userPrivateData = new UserPrivateData()

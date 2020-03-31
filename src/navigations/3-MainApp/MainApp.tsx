@@ -12,6 +12,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Dimensions,
+  TouchableHighlight,
 } from 'react-native'
 import { CircularProgressAvatar } from '../../components/CircularProgressAvatar'
 import { WhiteBackground } from '../../components/WhiteBackground'
@@ -25,19 +26,46 @@ import { useNavigation } from 'react-navigation-hooks'
 import { pushNotification } from '../../services/notification'
 import { DebugTouchable } from '../../components/DebugTouchable'
 import { backgroundTracking } from '../../services/background-tracking'
+import FeatureIcon from 'react-native-vector-icons/Feather'
+import { Camera } from '../../components/Camera'
+import { SelfieCaptureGuideline } from '../../components/SelfieCaptureGuideline'
+import RNFS from 'react-native-fs'
 
 const MAX_SCORE = 100
 
 export const MainApp = () => {
-  const faceURI = userPrivateData.getData('faceURI')
+  const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
+  console.log(faceURI)
   const isVerified = applicationState.get('isRegistered')
   const qr = useSelfQR()
   const resetTo = useResetTo()
   const navigation = useNavigation()
   const [fadeAnim] = useState(new Animated.Value(0))
 
+  const avatarWidth = Math.min(
+    200,
+    Math.floor((25 / 100) * Dimensions.get('screen').height),
+  )
+
+  const navigateToMainAppFaceCamera = () => {
+    navigation.navigate('MainAppFaceCamera', { setUri: setFaceURI })
+  }
+
+  const changeImageWidth = Math.floor(avatarWidth / 6)
+
   useEffect(() => {
     pushNotification.configure()
+  }, [])
+  useEffect(() => {
+    RNFS.exists(faceURI).then(exists => {
+      console.log('exists', exists)
+      if (!exists) {
+        applicationState.set('isPassedOnboarding', false)
+        resetTo({
+          routeName: 'Onboarding',
+        })
+      }
+    })
   }, [])
   // useEffect(() => {
   //   fadeAnim.setValue(0)
@@ -54,7 +82,6 @@ export const MainApp = () => {
       </View>
     )
   }
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
@@ -81,16 +108,44 @@ export const MainApp = () => {
             position: 'relative',
           }}
         >
-          <CircularProgressAvatar
-            key={qr.getCreatedDate()}
-            image={faceURI ? { uri: faceURI } : void 0}
-            color={qr.getStatusColor()}
-            progress={(qr.getScore() / MAX_SCORE) * 100}
-            width={Math.min(
-              200,
-              Math.floor((25 / 100) * Dimensions.get('screen').height),
-            )}
-          />
+          <View style={{ position: 'relative' }}>
+            <CircularProgressAvatar
+              key={qr.getCreatedDate()}
+              image={faceURI ? { uri: faceURI } : void 0}
+              color={qr.getStatusColor()}
+              progress={(qr.getScore() / MAX_SCORE) * 100}
+              width={avatarWidth}
+            />
+            <TouchableHighlight
+              activeOpacity={0.6}
+              underlayColor="#DDDDDD"
+              onPress={navigateToMainAppFaceCamera}
+              style={{
+                backgroundColor: 'white',
+                position: 'absolute',
+                width: changeImageWidth,
+                height: changeImageWidth,
+                borderRadius: Math.floor(changeImageWidth / 2),
+                alignItems: 'center',
+                justifyContent: 'center',
+                shadowColor: '#000',
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 4,
+                bottom: Math.floor((8 / 100) * avatarWidth),
+                right: Math.floor((8 / 100) * avatarWidth),
+              }}
+            >
+              <FeatureIcon
+                name="camera"
+                size={Math.floor((60 / 100) * changeImageWidth)}
+              />
+            </TouchableHighlight>
+          </View>
         </View>
       </TouchableWithoutFeedback>
       <Animated.Text

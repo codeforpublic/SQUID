@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { MockScreen } from '../MockScreen'
 import { Avatar } from 'react-native-elements'
 import { Camera, TakePictureResponse, RNCamera } from '../../components/Camera'
@@ -13,10 +13,11 @@ import {
   TouchableOpacity,
   Alert,
   Platform,
+  BackHandler,
 } from 'react-native'
-import { Title, Subtitle, Header } from '../../components/Base'
+import { Title, Subtitle, Header, WhiteText } from '../../components/Base'
 import { PrimaryButton } from '../../components/Button'
-import { useNavigation } from 'react-navigation-hooks'
+import { useNavigation, useNavigationParam } from 'react-navigation-hooks'
 import { BackButton } from '../../components/BackButton'
 import { useMutation } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
@@ -24,30 +25,9 @@ import AsyncStorage from '@react-native-community/async-storage'
 import RNFS from 'react-native-fs'
 import { userPrivateData } from '../../state/userPrivateData'
 import { useHUD } from '../../HudView'
-
-const SelfieCaptureGuideline = () => {
-  return (
-    <GuidelineContainer>
-      <FaceGuideline />
-      {/* <CardGuideline /> */}
-    </GuidelineContainer>
-  )
-}
-
-const GuidelineContainer = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-`
-
-const FaceGuideline = styled.View`
-  width: 70%;
-  border-color: ${COLORS.PRIMARY_LIGHT};
-  border-width: 2px;
-  border-radius: 500px;
-  border-style: dashed;
-  aspect-ratio: 1;
-`
+import FeatherIcon from 'react-native-vector-icons/Feather'
+import { SelfieCaptureGuideline } from '../../components/SelfieCaptureGuideline'
+import { RELATIVE_FACE_PATH } from '../const'
 
 const MUTATE_USER = gql`
   mutation($image: String) {
@@ -56,53 +36,19 @@ const MUTATE_USER = gql`
 `
 
 export const OnboardFace = () => {
-  const [openCamera, setOpenCamera] = useState(false)
-  const [uri, setURI] = useState<string | null>(null)
-  const { showSpinner, hide } = useHUD()
-  useEffect(() => {
-    const faceURI = userPrivateData.getData('faceURI')
-    if (faceURI) {
-      RNFS.exists(faceURI).then(exists => {
-        setURI(faceURI)
-      })
-    }
-  }, [])
-  const onCapture = async (camera: RNCamera) => {
-    showSpinner()
-    try {
-      const data: TakePictureResponse = await camera.takePictureAsync()
-      let dataPath = RNFS.DocumentDirectoryPath + `/face.jpg`
-      const exists = await RNFS.exists(dataPath)
-      console.log('exists', exists)
+  const [uri, setUri] = useState()
 
-      if (exists) {
-        // dataPath is not delete file immediately, so we need to change name anyway
-        await RNFS.unlink(dataPath)
-        dataPath = RNFS.DocumentDirectoryPath + `/face-${Date.now()}.jpg`
-      }      
-      
-      await RNFS.moveFile(data.uri, dataPath)
-      console.log('dataPath', data.uri, dataPath)
-      if (Platform.OS === 'android') {
-        setURI('file://' + dataPath)
-      } else {
-        setURI(dataPath)
-      }
-      setOpenCamera(false)
-    } catch (err) {
-      console.log(err)
-      Alert.alert('เกิดข้อผิดพลาด กรุณาลองอีกครั้ง')
-    }
-    hide()
-  }
   const navigation = useNavigation()
-  if (openCamera) {
-    return (
-      <Camera onCapture={onCapture} defaultType="front">
-        <SelfieCaptureGuideline />
-      </Camera>
-    )
+
+  const navigateToCamera = () => {
+    navigation.navigate('OnboardFaceCamera', { setUri })
   }
+
+  const onSubmit = async () => {
+    await userPrivateData.setFace(uri, { isTempUri: true })
+    navigation.navigate('OnboardLocation')
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
@@ -114,7 +60,7 @@ export const OnboardFace = () => {
         <Subtitle>เห็นหน้าชัดเจน</Subtitle>
       </Header>
       <View style={styles.content}>
-        <TouchableOpacity onPress={() => setOpenCamera(true)}>
+        <TouchableOpacity onPress={navigateToCamera}>
           <Avatar
             size={250}
             rounded
@@ -122,16 +68,16 @@ export const OnboardFace = () => {
             icon={uri ? void 0 : { name: 'camera', type: 'entypo' }}
           />
         </TouchableOpacity>
+        {uri && (
+          <TouchableOpacity onPress={navigateToCamera}>
+            <WhiteText style={{ marginTop: 12 }}>
+              <FeatherIcon name="camera" color="white" size={20} /> ถ่ายใหม่
+            </WhiteText>
+          </TouchableOpacity>
+        )}
       </View>
       <View style={styles.footer}>
-        <PrimaryButton
-          title={'ถัดไป'}
-          onPress={async () => {            
-            await userPrivateData.setData('faceURI', uri)
-            navigation.navigate('OnboardLocation')
-          }}
-          disabled={!uri}
-        />
+        <PrimaryButton title={'ถัดไป'} onPress={onSubmit} disabled={!uri} />
       </View>
     </SafeAreaView>
   )
