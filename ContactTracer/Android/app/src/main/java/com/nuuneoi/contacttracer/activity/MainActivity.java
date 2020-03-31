@@ -9,17 +9,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
-import android.bluetooth.le.AdvertiseCallback;
-import android.bluetooth.le.AdvertiseData;
-import android.bluetooth.le.AdvertiseSettings;
-import android.bluetooth.le.BluetoothLeAdvertiser;
-import android.bluetooth.le.BluetoothLeScanner;
-import android.bluetooth.le.ScanCallback;
-import android.bluetooth.le.ScanFilter;
-import android.bluetooth.le.ScanResult;
-import android.bluetooth.le.ScanSettings;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,13 +18,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.ParcelUuid;
-import android.text.Html;
-import android.util.Log;
-import android.view.View;
-import android.webkit.PermissionRequest;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -43,16 +26,10 @@ import android.widget.Toast;
 import com.nuuneoi.contacttracer.R;
 import com.nuuneoi.contacttracer.mock.User;
 import com.nuuneoi.contacttracer.mock.UserMock;
-import com.nuuneoi.contacttracer.service.AdvertiserService;
+import com.nuuneoi.contacttracer.service.TracerService;
 import com.nuuneoi.contacttracer.utils.BluetoothUtils;
-import com.nuuneoi.contacttracer.utils.ByteUtils;
-import com.nuuneoi.contacttracer.utils.Constants;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
     private static final String TAG = "MainActivity";
 
@@ -61,22 +38,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // Bluetooth General
     private BluetoothAdapter bluetoothAdapter;
 
-    // Bluetooth Advertiser Service
+    // Bluetooth Tracer Service Receiver
     private BroadcastReceiver advertiserMessageReceiver;
-
-    // Bluetooth Scanner
-    private BluetoothLeScanner bluetoothLeScanner;
-    private SampleScanCallback scanCallback;
-    private Handler handler;
+    private BroadcastReceiver nearbyDeviceFoundReceiver;
 
     // for bluetooth turning on request
     private static int REQUEST_ENABLE_BT = 1001;
 
-    // Bluetooth max scan time in milliseconds
-    private static final long SCAN_PERIOD = 30000;
-
     // Instances
-    Button btnStartScanning;
     TextView tvStatus;
     CheckBox cbServiceOn;
 
@@ -95,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         initInstances();
         initAdvertiserReceiver();
+        initScannerReceiver();
 
         if (!isLocationPermissionGranted()) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
@@ -139,26 +109,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
 
-        IntentFilter failureFilter = new IntentFilter(AdvertiserService.ADVERTISING_MESSAGE);
-        registerReceiver(advertiserMessageReceiver, failureFilter);
+        IntentFilter advertiserMessageFilter = new IntentFilter(TracerService.ADVERTISING_MESSAGE);
+        registerReceiver(advertiserMessageReceiver, advertiserMessageFilter);
+
+        IntentFilter nearbyDeviceFoundFilter = new IntentFilter(TracerService.NEARBY_DEVICE_FOUND_MESSAGE);
+        registerReceiver(nearbyDeviceFoundReceiver, nearbyDeviceFoundFilter);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        unregisterReceiver(nearbyDeviceFoundReceiver);
         unregisterReceiver(advertiserMessageReceiver);
     }
 
     private void initInstances() {
         tvStatus = (TextView) findViewById(R.id.tvStatus);
 
-        btnStartScanning = (Button) findViewById(R.id.btnStartScanning);
-        btnStartScanning.setOnClickListener(this);
-
         cbServiceOn = (CheckBox) findViewById(R.id.cbServiceOn);
         cbServiceOn.setOnCheckedChangeListener(this);
-
-        handler = new Handler();
     }
 
     private void initializeFullSteps() {
@@ -183,18 +152,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initializeStep2() {
-        if (AdvertiserService.isRunning(MainActivity.this))
+        if (TracerService.isRunning(MainActivity.this))
             appendStatusText("Service is already running");
 
-        boolean serviceEnabled = AdvertiserService.isEnabled(MainActivity.this);
+        boolean serviceEnabled = TracerService.isEnabled(MainActivity.this);
         cbServiceOn.setChecked(serviceEnabled);
         if (serviceEnabled) {
-            startAdvertiserService();
+            startTracerService();
         } else {
-            stopAdvertiserService();
+            stopTracerService();
         }
-
-        initBluetoothScanner();
     }
 
     private void exithWithToast(int string_resource_id) {
@@ -230,118 +197,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         advertiserMessageReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                String message = intent.getStringExtra(AdvertiserService.ADVERTISING_MESSAGE_EXTRA_MESSAGE);
+                String message = intent.getStringExtra(TracerService.ADVERTISING_MESSAGE_EXTRA_MESSAGE);
                 appendStatusText(message);
             }
         };
-    }
-
-    private void startAdvertiserService() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            startForegroundService(new Intent(MainActivity.this, AdvertiserService.class));
-        else
-            startService(new Intent(MainActivity.this, AdvertiserService.class));
-    }
-
-    private void stopAdvertiserService() {
-        stopService(new Intent(MainActivity.this, AdvertiserService.class));
     }
 
     /*********************
      * Bluetooth Scanner *
      *********************/
 
-    private void initBluetoothScanner() {
-        bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
-    }
+    private void initScannerReceiver() {
+        nearbyDeviceFoundReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String name = intent.getStringExtra(TracerService.NEARBY_DEVICE_FOUND_EXTRA_NAME);
+                int rssi = intent.getIntExtra(TracerService.NEARBY_DEVICE_FOUND_EXTRA_RSSI, 0);
 
-    /**
-     * Start scanning for BLE Advertisements (& set it up to stop after a set period of time).
-     */
-    public void startScanning() {
-        if (scanCallback == null) {
-            appendStatusText("Start Scanning");
-
-            // Will stop the scanning after a set time.
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    stopScanning();
-                }
-            }, SCAN_PERIOD);
-            // Kick off a new scan.
-            scanCallback = new SampleScanCallback();
-            bluetoothLeScanner.startScan(buildScanFilters(), buildScanSettings(), scanCallback);
-            String toastText = getString(R.string.scan_start_toast) + " "
-                    + TimeUnit.SECONDS.convert(SCAN_PERIOD, TimeUnit.MILLISECONDS) + " "
-                    + getString(R.string.seconds);
-            Toast.makeText(MainActivity.this, toastText, Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(MainActivity.this, R.string.already_scanning, Toast.LENGTH_SHORT).show();
-        }
-    }
-    /**
-     * Stop scanning for BLE Advertisements.
-     */
-    public void stopScanning() {
-        appendStatusText("Stop Scanning");
-
-        // Stop the scan, wipe the callback.
-        bluetoothLeScanner.stopScan(scanCallback);
-        scanCallback = null;
-        // Even if no new results, update 'last seen' times.
-        //mAdapter.notifyDataSetChanged();
-    }
-
-
-    /**
-     * Return a List of {@link ScanFilter} objects to filter by Service UUID.
-     */
-    private List<ScanFilter> buildScanFilters() {
-        List<ScanFilter> scanFilters = new ArrayList<>();
-        ScanFilter.Builder builder = new ScanFilter.Builder();
-        // Comment out the below line to see all BLE devices around you
-        builder.setServiceUuid(Constants.Service_UUID);
-        scanFilters.add(builder.build());
-        return scanFilters;
-    }
-    /**
-     * Return a {@link ScanSettings} object set to use low power (to preserve battery life).
-     */
-    private ScanSettings buildScanSettings() {
-        ScanSettings.Builder builder = new ScanSettings.Builder();
-        builder.setScanMode(ScanSettings.SCAN_MODE_LOW_POWER);
-        return builder.build();
-    }
-
-    /**
-     * Custom ScanCallback object - adds to adapter on success, displays error on failure.
-     */
-    private class SampleScanCallback extends ScanCallback {
-        @Override
-        public void onBatchScanResults(List<ScanResult> results) {
-            super.onBatchScanResults(results);
-            for (ScanResult result : results) {
-                byte[] data = result.getScanRecord().getServiceData(Constants.Service_UUID);
-                //int value = ByteUtils.byteArrayToInt(data);
-                String value = new String(data);
-                appendStatusText("***** Found Nearby Device with User ID: " + value);
+                appendStatusText("");
+                appendStatusText("***** RSSI: " + rssi);
+                appendStatusText("***** Found Nearby Device: " + name);
+                appendStatusText("");
             }
-        }
-        @Override
-        public void onScanResult(int callbackType, ScanResult result) {
-            super.onScanResult(callbackType, result);
-            byte[] data = result.getScanRecord().getServiceData(Constants.Service_UUID);
-            //int value = ByteUtils.byteArrayToInt(data);
-            String value = new String(data);
-            appendStatusText("***** Found Nearby Device with User ID: " + value);
-        }
-        @Override
-        public void onScanFailed(int errorCode) {
-            super.onScanFailed(errorCode);
-            Toast.makeText(MainActivity.this, "Scan failed with error: " + errorCode, Toast.LENGTH_LONG)
-                    .show();
-        }
+        };
+    }
+
+    /**********************
+     * Background Service *
+     **********************/
+
+    private void startTracerService() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            startForegroundService(new Intent(MainActivity.this, TracerService.class));
+        else
+            startService(new Intent(MainActivity.this, TracerService.class));
+    }
+
+    private void stopTracerService() {
+        stopService(new Intent(MainActivity.this, TracerService.class));
     }
 
     /*****************
@@ -352,16 +245,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvStatus.setText(text + "\n" + tvStatus.getText());
     }
 
-
-    /**
-     * Button Click Handling
-     */
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.btnStartScanning)
-            startScanning();
-    }
-
     /**
      * Checkbox Changed Handling
      */
@@ -369,11 +252,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (buttonView.getId() == R.id.cbServiceOn) {
             if (isChecked) {
-                AdvertiserService.enable(MainActivity.this);
-                startAdvertiserService();
+                TracerService.enable(MainActivity.this);
+                startTracerService();
             } else {
-                AdvertiserService.disable(MainActivity.this);
-                stopAdvertiserService();
+                TracerService.disable(MainActivity.this);
+                stopTracerService();
             }
         }
     }
