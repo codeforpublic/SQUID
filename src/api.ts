@@ -40,7 +40,6 @@ export const verifyOTP = async (otpCode: string) => {
     body: JSON.stringify({ otpCode }),
   })
   const result = await resp.json()
-
   return result.status === 'ok'
 }
 
