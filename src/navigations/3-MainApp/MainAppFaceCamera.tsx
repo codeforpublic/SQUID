@@ -29,5 +29,5 @@ export const MainAppFaceCamera = () => {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.WHITE },
+  container: { flex: 1, backgroundColor: 'black' },
 })
