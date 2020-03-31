@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { MyBackground } from '../../components/MyBackground'
-import { View, StatusBar, Platform, Text, StyleSheet } from 'react-native'
+import { View, StatusBar, Platform, Text, StyleSheet, ActivityIndicator } from 'react-native'
 import { PERMISSIONS, check, request } from 'react-native-permissions'
 import { useNavigation } from 'react-navigation-hooks'
 import { FONT_FAMILY, COLORS } from '../../styles'
@@ -57,6 +57,20 @@ export const OnboardLocation = () => {
 
     backgroundTracking.start()
     navigation.navigate('OnboardProgressing')
+  }
+  if (locationPerm === 'checking' || activityPerm === 'checking') {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: COLORS.PRIMARY_DARK,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <ActivityIndicator size="large" />
+      </View>
+    )
   }
 
   return (
