@@ -9,25 +9,34 @@ import {
 import { COLORS } from '../styles'
 import { AuthStack } from './1-Auth/AuthStack'
 import { OnboardingStack } from './2-Onboarding/OnboardingStack'
-import { MainAppTab } from './3-MainApp/MainAppStack'
+import { MainAppTab, MainAppStack } from './3-MainApp/MainAppStack'
 import { applicationState } from '../state/app-state'
 
 const isOnboarded = async () => {
   return applicationState.get('isPassedOnboarding')
 }
 const isSkipRegistered = async () => {
-  console.log('isSkipRegistered', applicationState.get('isRegistered'), applicationState.get('skipRegistration'))
-  return applicationState.get('isRegistered') || applicationState.get('skipRegistration')
+  console.log(
+    'isSkipRegistered',
+    applicationState.get('isRegistered'),
+    applicationState.get('skipRegistration'),
+  )
+  return (
+    applicationState.get('isRegistered') ||
+    applicationState.get('skipRegistration')
+  )
 }
 
 const REDIRECT_PAGE = 'AuthOTP'
-const REDIRECT_PARAMS = { data: { color: 'green', age: 25, gender: 'M', iat: 1585235348 } }
+const REDIRECT_PARAMS = {
+  data: { color: 'green', age: 25, gender: 'M', iat: 1585235348 },
+}
 
 const Root = ({ navigation }) => {
   useEffect(() => {
     const redirect = async () => {
       const registered = await isSkipRegistered()
-      const onboarded = await isOnboarded()      
+      const onboarded = await isOnboarded()
       const page = registered ? (onboarded ? 'MainApp' : 'Onboarding') : 'Auth'
       const action = StackActions.reset({
         index: 0,
@@ -63,7 +72,7 @@ export default createStackNavigator(
       screen: OnboardingStack,
     },
     MainApp: {
-      screen: MainAppTab,
+      screen: MainAppStack,
     },
   },
   {

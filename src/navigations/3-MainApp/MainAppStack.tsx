@@ -4,9 +4,13 @@ import { QRCodeScan } from './QRCodeScan'
 import { QRCodeResult } from './QRCodeResult'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AntIcon from 'react-native-vector-icons/AntDesign'
-import { createBottomTabNavigator } from 'react-navigation'
+import {
+  createBottomTabNavigator,
+  createStackNavigator,
+} from 'react-navigation'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { Text } from 'react-native'
+import { MainAppFaceCamera } from './MainAppFaceCamera'
 
 export const MainAppTab = createBottomTabNavigator({
   MainApp: {
@@ -60,3 +64,11 @@ export const MainAppTab = createBottomTabNavigator({
     },
   },
 })
+
+export const MainAppStack = createStackNavigator(
+  {
+    MainApp: MainAppTab,
+    MainAppFaceCamera,
+  },
+  { headerMode: 'none' },
+)
