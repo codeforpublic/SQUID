@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Advertising Service: "
+            android:text="Service: "
             android:textStyle="bold" />
 
         <CheckBox
@@ -31,13 +31,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#888888" />
-
-    <Button
-        android:id="@+id/btnStartScanning"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Start Scanning" />
 
     <ScrollView
         android:layout_width="match_parent"

@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".service.AdvertiserService" android:enabled="true"></service>
+        <service android:name=".service.TracerService" android:enabled="true"></service>
 
         <receiver android:name=".receiver.BootCompletedReceiver" >
             <intent-filter>
