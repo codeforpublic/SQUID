@@ -7,6 +7,8 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.le.AdvertiseCallback;
@@ -18,6 +20,7 @@ import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,6 +29,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.widget.Toast;
 
 import com.nuuneoi.contacttracer.R;
@@ -130,6 +134,20 @@ public class TracerService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        Intent restartServiceTask = new Intent(getApplicationContext(), this.getClass());
+        restartServiceTask.setPackage(getPackageName());
+        PendingIntent restartPendingIntent =PendingIntent.getService(getApplicationContext(), 1, restartServiceTask, PendingIntent.FLAG_ONE_SHOT);
+        AlarmManager myAlarmService = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        myAlarmService.set(
+                AlarmManager.ELAPSED_REALTIME,
+                SystemClock.elapsedRealtime() + 1000,
+                restartPendingIntent);
+
+        super.onTaskRemoved(rootIntent);
     }
 
     private void exithWithToast(int string_resource_id) {
@@ -491,10 +509,17 @@ public class TracerService extends Service {
      */
 
     private void initAlarm() {
-        Intent ll24 = new Intent(TracerService.this, BootCompletedReceiver.class);
-        PendingIntent recurringLl24 = PendingIntent.getBroadcast(TracerService.this, 0, ll24, PendingIntent.FLAG_CANCEL_CURRENT);
-        AlarmManager alarms = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarms.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTime().getTime(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, recurringLl24);
+        JobScheduler mJobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        JobInfo.Builder builder = new JobInfo.Builder(1,
+                new ComponentName(getPackageName(), SchedulerService.class.getName()));
+        builder.setPeriodic(15 * 60 * 1000);
+        builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
+        mJobScheduler.schedule(builder.build());
+
+        AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Intent i = new Intent(TracerService.this, BootCompletedReceiver.class);
+        PendingIntent pi = PendingIntent.getBroadcast(TracerService.this, 0, i, 0);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 1000, 1000 * 60 * 15, pi); // Millisec * Second * Minute
     }
 
     /**
