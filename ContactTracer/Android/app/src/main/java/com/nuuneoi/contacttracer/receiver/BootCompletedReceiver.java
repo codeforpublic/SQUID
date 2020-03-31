@@ -5,13 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-import com.nuuneoi.contacttracer.service.AdvertiserService;
+import com.nuuneoi.contacttracer.service.TracerService;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        boolean serviceEnabled = AdvertiserService.isEnabled(context);
+        boolean serviceEnabled = TracerService.isEnabled(context);
         if (serviceEnabled) {
             startAdvertiserService(context);
         } else {
@@ -21,13 +21,13 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
     private void startAdvertiserService(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            context.startForegroundService(new Intent(context, AdvertiserService.class));
+            context.startForegroundService(new Intent(context, TracerService.class));
         else
-            context.startService(new Intent(context, AdvertiserService.class));
+            context.startService(new Intent(context, TracerService.class));
     }
 
     private void stopAdvertiserService(Context context) {
-        context.stopService(new Intent(context, AdvertiserService.class));
+        context.stopService(new Intent(context, TracerService.class));
     }
 
 }
