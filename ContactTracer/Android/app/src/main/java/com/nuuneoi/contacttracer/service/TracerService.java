@@ -152,6 +152,7 @@ public class TracerService extends Service {
             @Override
             public void run() {
                 startScanning();
+                startScannerTimer();
             }
         };
     }
