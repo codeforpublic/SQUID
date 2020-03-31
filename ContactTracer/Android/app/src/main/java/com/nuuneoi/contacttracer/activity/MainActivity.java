@@ -330,7 +330,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onScanResult(int callbackType, ScanResult result) {
             super.onScanResult(callbackType, result);
             String value = getUserIdFromResult(result);
-            appendStatusText("***** Found Nearby Device with User ID: " + value);
+            appendStatusText("***** Found Nearby Device: " + value);
         }
         @Override
         public void onScanFailed(int errorCode) {
