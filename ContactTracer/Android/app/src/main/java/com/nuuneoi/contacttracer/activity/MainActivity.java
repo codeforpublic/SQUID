@@ -333,7 +333,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onScanResult(callbackType, result);
             byte[] data = result.getScanRecord().getServiceData(Constants.Service_UUID);
             //int value = ByteUtils.byteArrayToInt(data);
-            String value = new String(data);
+            //String value = new String(data);
+            String value;
+            if (data != null)
+                value = new String(data);
+            else
+                value = result.getDevice().getName();
             appendStatusText("***** Found Nearby Device with User ID: " + value);
         }
         @Override

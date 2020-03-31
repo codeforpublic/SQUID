@@ -8,10 +8,14 @@
 
 import UIKit
 import CoreBluetooth
+import CoreLocation
 
-class ViewController: UIViewController, CBCentralManagerDelegate {
-    
+class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralManagerDelegate {
+
+    var cbuuid = CBUUID(string: "000086e1-0000-1000-8000-00805f9b34fb")
+
     private var centralManager : CBCentralManager!
+    private var peripheralManager : CBPeripheralManager!
     
     let kDataClass = CBUUID(string: "86E1");
 
@@ -19,12 +23,20 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
     @IBOutlet weak var tvStatus: UITextView!
     @IBOutlet weak var btnStartScanning: UIButton!
     @IBOutlet weak var btnStopScanning: UIButton!
+    @IBOutlet weak var sbAdvertiser: UISwitch!
+    @IBOutlet weak var tvUserId: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+                
         // Do any additional setup after loading the view.
+        tvUserId.text = "ID: \(getUserID())"
+        
         centralManager = CBCentralManager(delegate: self, queue: nil, options: nil)
+        peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
     }
+    
+    // MARK: Scanning
 
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state == .poweredOn {
@@ -42,15 +54,19 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
         print("RSSI   : \(RSSI)")
 
         if let adData = advertisementData["kCBAdvDataServiceData"] as? AnyObject {
-            if let data = adData[kDataClass] as? NSData {
-                print("Ad Data: \(adData)")
-                let str = String(data: data as! Data, encoding: .utf8) as! String
-                print("str: \(str)")
-                
-                appendStatusText(text: "\n")
-                appendStatusText(text: "RSSI: \(RSSI)")
-                appendStatusText(text: "Found Nearby Device: \(str)")
+            var nearbyDeviceUserId: String?
+            
+            let data = adData[kDataClass] as? NSData
+            if data == nil {
+                // iOS, use name instead
+                nearbyDeviceUserId = peripheral.name
+            } else {
+                nearbyDeviceUserId = String(data: data as! Data, encoding: .utf8) as! String
             }
+
+            appendStatusText(text: "\n")
+            appendStatusText(text: "RSSI: \(RSSI)")
+            appendStatusText(text: "Found Nearby Device: \(nearbyDeviceUserId!)")
         }
     }
     
@@ -64,8 +80,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
 
         appendStatusText(text: "Start Scanning for Nearby Device\n")
 
-        var uuid = CBUUID(string: "000086e1-0000-1000-8000-00805f9b34fb")
-        centralManager.scanForPeripherals(withServices: [uuid], options: nil)
+        centralManager.scanForPeripherals(withServices: [cbuuid], options: nil)
     }
     
     @IBAction func onStopScanningClicked(_ sender: Any) {
@@ -81,7 +96,63 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
         centralManager.stopScan()
     }
     
+
+    // MARK: Advertising
     
+    @IBAction func onAdvertiserSwitchChanged(_ sender: Any) {
+        if sbAdvertiser.isOn {
+            startAdvertising()
+        } else {
+            stopAdvertising()
+        }
+    }
+    
+    func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
+        switch peripheral.state {
+        case .unknown:
+            print("Bluetooth Device is UNKNOWN")
+        case .unsupported:
+            print("Bluetooth Device is UNSUPPORTED")
+        case .unauthorized:
+            print("Bluetooth Device is UNAUTHORIZED")
+        case .resetting:
+            print("Bluetooth Device is RESETTING")
+        case .poweredOff:
+            print("Bluetooth Device is POWERED OFF")
+        case .poweredOn:
+            print("Bluetooth Device is POWERED ON")
+            appendStatusText(text: "Bluetooth Device is POWERED ON. You can start advertising now.")
+            sbAdvertiser.isEnabled = true
+        @unknown default:
+            print("Unknown State")
+        }
+    }
+    
+    func startAdvertising() {
+        peripheralManager.startAdvertising([CBAdvertisementDataLocalNameKey: getUserID(), CBAdvertisementDataServiceUUIDsKey: [cbuuid]])
+        print("Started Advertising")
+        appendStatusText(text: "Starting Advertising")
+    }
+    
+    func stopAdvertising() {
+        peripheralManager.stopAdvertising()
+        print("Started Advertising")
+        appendStatusText(text: "Stopping Advertising")
+    }
+    
+    // MARK: User ID
+    
+    func getUserID() -> String {
+        var userId = UserDefaults.standard.string(forKey: "userId")
+        if userId == nil {
+            userId = NanoID.new(20)
+            UserDefaults.standard.set(userId, forKey: "userId")
+        }
+        return userId!
+    }
+    
+    // MARK: Status
+
     private func appendStatusText(text: String) {
         tvStatus.text = text + "\n" + tvStatus.text
     }
