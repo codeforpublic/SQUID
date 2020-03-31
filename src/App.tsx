@@ -11,7 +11,7 @@ import { NavigationContainerComponent } from 'react-navigation'
 import { HUDProvider } from './HudView'
 import SplashScreen from 'react-native-splash-screen'
 import { COLORS } from './styles'
-import codePush from "react-native-code-push"
+import codePush from 'react-native-code-push'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { CachePersistor, persistCache } from 'apollo-cache-persist'
 import { apolloClient, migrateState } from './apollo-client'
@@ -23,14 +23,14 @@ const AppContainer = createAppContainer(Navigator)
 
 class App extends React.Component {
   _navigator: NavigationContainerComponent | null
-  state: {    
+  state: {
     loaded: boolean
     activateCallback?: Function
   }
   constructor(props) {
     super(props)
     this._navigator = null
-    this.state = {      
+    this.state = {
       loaded: false,
     }
   }
@@ -45,12 +45,12 @@ class App extends React.Component {
       },
     )
   }
-  purgeAll() {    
+  purgeAll() {
     const persistor = new CachePersistor({
       cache: apolloClient.cache,
       storage: AsyncStorage,
     })
-    return Promise.all([      
+    return Promise.all([
       AsyncStorage.clear(),
       backgroundTracking.destroyLocations(),
       persistor.purge(),
@@ -70,11 +70,9 @@ class App extends React.Component {
       }),
     ])
     await migrateState(apolloClient)
-    await backgroundTracking.setup(
-      applicationState.get('isPassedOnboarding')
-    )
+    await backgroundTracking.setup(applicationState.get('isPassedOnboarding'))
     SplashScreen.hide()
-  }  
+  }
 
   render() {
     if (!this.state.loaded) {
@@ -83,8 +81,8 @@ class App extends React.Component {
     return (
       <SafeAreaProvider>
         <ApolloProvider client={apolloClient}>
-          <HUDProvider>          
-            <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }}>                
+          <HUDProvider>
+            <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }}>
               <AppContainer
                 uriPrefix="thaialert://"
                 ref={navigator => {
@@ -102,5 +100,6 @@ class App extends React.Component {
 export default codePush({
   // @ts-ignore
   updateDialog: true,
-  installMode: codePush.InstallMode.IMMEDIATE
+  installMode: codePush.InstallMode.IMMEDIATE,
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
 })(App)

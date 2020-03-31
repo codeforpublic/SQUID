@@ -18,10 +18,13 @@
 
     <!-- Required -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission-sdk-23 android:name="android.permission.CAMERA"/>
+    <uses-permission-sdk-23 android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <!-- Include this only if you are planning to use the camera roll -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <!-- Include this only if you are planning to use the microphone for video recording -->
@@ -33,7 +36,8 @@
       android:usesCleartextTraffic="true"
       android:icon="@mipmap/ic_launcher"
       android:allowBackup="true"
-      android:theme="@style/AppTheme">
+      android:theme="@style/AppTheme"
+    >
        <activity
           android:name=".SplashActivity"
           android:theme="@style/SplashTheme"
