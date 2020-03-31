@@ -4,7 +4,7 @@ import styled, { css } from '@emotion/native'
 import { RNCamera, TakePictureResponse } from 'react-native-camera'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from 'react-navigation-hooks'
-import ImagePicker from 'react-native-image-picker';
+// import ImagePicker from 'react-native-image-picker';
 import { StyleSheet, View, TouchableOpacity, StatusBar, NativeModules } from 'react-native'
 import { COLORS } from '../styles'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
@@ -108,26 +108,26 @@ const DEFAULT_OPTIONS = {
   tintColor: '',
 }
 
-const SelectImageButton = ({onSelectImage}) => {
-  const options = {
-    ...DEFAULT_OPTIONS,
-    title: 'Select Avatar',
-  };
-  return (
-  <TouchableOpacity
-    activeOpacity={0.8}
-    style={{ position: 'absolute', right: 0, padding: 16, alignSelf: 'center'}}
-    onPress={async () => {
-      ImagePicker.launchImageLibrary(options, (response) => {
-        console.log({ response })
-        const uri = response.uri // TODO: Android 11 cannot use this, find alternative way
-        onSelectImage(uri)  
-      });
-    }}
-  >
-    <EntypoIcon name="images" color="white" size={32} />
-  </TouchableOpacity>
-)}
+// const SelectImageButton = ({onSelectImage}) => {
+//   const options = {
+//     ...DEFAULT_OPTIONS,
+//     title: 'Select Avatar',
+//   };
+//   return (
+//   <TouchableOpacity
+//     activeOpacity={0.8}
+//     style={{ position: 'absolute', right: 0, padding: 16, alignSelf: 'center'}}
+//     onPress={async () => {
+//       ImagePicker.launchImageLibrary(options, (response) => {
+//         console.log({ response })
+//         const uri = response.uri // TODO: Android 11 cannot use this, find alternative way
+//         onSelectImage(uri)  
+//       });
+//     }}
+//   >
+//     <EntypoIcon name="images" color="white" size={32} />
+//   </TouchableOpacity>
+// )}
 
 export const Camera = ({
   onCapture,
