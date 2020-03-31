@@ -10,6 +10,9 @@ export const MainAppFaceCamera = () => {
   const navigation = useNavigation()
   return (
     <UpdateFaceCamera
+      onClose={() => {
+        navigation.goBack()
+      }}
       onCapture={async uri => {
         await userPrivateData.setFace(uri, { isTempUri: true })
         if (navigation.state.params.setUri) {

@@ -6,7 +6,7 @@ import { Platform, Alert } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
 import { SelfieCaptureGuideline } from './SelfieCaptureGuideline'
 
-export const UpdateFaceCamera = ({ onCapture }) => {
+export const UpdateFaceCamera = ({ onCapture, ...props }) => {
   const { showSpinner, hide } = useHUD()
   const onCameraCapture = async (camera: RNCamera) => {
     showSpinner()
@@ -21,7 +21,7 @@ export const UpdateFaceCamera = ({ onCapture }) => {
   }
 
   return (
-    <Camera onCapture={onCameraCapture} defaultType="front">
+    <Camera onCapture={onCameraCapture} defaultType="front" {...props}>
       <SelfieCaptureGuideline />
     </Camera>
   )
