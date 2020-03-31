@@ -9,6 +9,7 @@
 import UIKit
 import CoreBluetooth
 import CoreLocation
+import BackgroundTasks
 
 class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralManagerDelegate {
 
@@ -50,9 +51,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralMa
     }
     
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        print("\nName   : \(peripheral.name ?? "(No name)")")
-        print("RSSI   : \(RSSI)")
-
         if let adData = advertisementData["kCBAdvDataServiceData"] as? AnyObject {
             var nearbyDeviceUserId: String?
             
@@ -67,6 +65,9 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralMa
             appendStatusText(text: "\n")
             appendStatusText(text: "RSSI: \(RSSI)")
             appendStatusText(text: "Found Nearby Device: \(nearbyDeviceUserId!)")
+
+            print("\nFound Nearby Device: \(nearbyDeviceUserId!)")
+            print("RSSI: \(RSSI)")
         }
     }
     
@@ -77,7 +78,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralMa
         if centralManager.isScanning {
           return
         }
-
+        
         appendStatusText(text: "Start Scanning for Nearby Device\n")
 
         centralManager.scanForPeripherals(withServices: [cbuuid], options: nil)
@@ -156,6 +157,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralMa
     private func appendStatusText(text: String) {
         tvStatus.text = text + "\n" + tvStatus.text
     }
-
+        
 }
 
