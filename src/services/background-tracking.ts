@@ -36,7 +36,7 @@ class BackgroundTracking {
         httpRootProperty: 'locations',
         locationsOrderDirection: 'ASC',
         heartbeatInterval: 60 * 15,
-        // useSignificantChangesOnly: Platform.OS === 'android',
+        useSignificantChangesOnly: Platform.OS === 'android',
         locationAuthorizationAlert: {
           titleWhenNotEnabled: "กรุณาเปิด Location services ให้ ThaiAlert",
           titleWhenOff: "กรุณาเปิด Location services ให้ ThaiAlert",
@@ -58,26 +58,26 @@ class BackgroundTracking {
     if (startImmediately) {
       await this.start()
     }
-    BackgroundFetch.configure({
-      minimumFetchInterval: 30,
-      // Android options
-      stopOnTerminate: false,
-      startOnBoot: true,
-      requiredNetworkType: BackgroundFetch.NETWORK_TYPE_NONE, // Default
-      requiresCharging: false,      // Default
-      requiresDeviceIdle: false,    // Default
-      requiresBatteryNotLow: false, // Default
-      requiresStorageNotLow: false  // Default
-    }, async (taskId) => {
-      console.log("[js] Received background-fetch event: ", taskId);
-      if (this.started) {
-        // trigger update location
-        await this.getLocation({ triggerType: 'backgroundFetch' })
-      }
-      BackgroundFetch.finish(taskId);
-    }, (error) => {
-      console.log("[js] RNBackgroundFetch failed to start");
-    });
+    // BackgroundFetch.configure({
+    //   minimumFetchInterval: 30,
+    //   // Android options
+    //   stopOnTerminate: false,
+    //   startOnBoot: true,
+    //   requiredNetworkType: BackgroundFetch.NETWORK_TYPE_NONE, // Default
+    //   requiresCharging: false,      // Default
+    //   requiresDeviceIdle: false,    // Default
+    //   requiresBatteryNotLow: false, // Default
+    //   requiresStorageNotLow: false  // Default
+    // }, async (taskId) => {
+    //   console.log("[js] Received background-fetch event: ", taskId);
+    //   if (this.started) {
+    //     // trigger update location
+    //     await this.getLocation({ triggerType: 'backgroundFetch' })
+    //   }
+    //   BackgroundFetch.finish(taskId);
+    // }, (error) => {
+    //   console.log("[js] RNBackgroundFetch failed to start");
+    // });
 
   }
   async start() {
