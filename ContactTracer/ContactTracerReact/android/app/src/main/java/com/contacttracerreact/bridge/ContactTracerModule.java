@@ -221,7 +221,15 @@ public class ContactTracerModule extends ReactContextBaseJavaModule implements A
 
     @Override
     public void onHostDestroy() {
-        getReactApplicationContext().unregisterReceiver(advertiserMessageReceiver);
-        getReactApplicationContext().unregisterReceiver(nearbyDeviceFoundReceiver);
+        try {
+            getReactApplicationContext().unregisterReceiver(advertiserMessageReceiver);
+        } catch (IllegalArgumentException e) {
+
+        }
+        try {
+            getReactApplicationContext().unregisterReceiver(nearbyDeviceFoundReceiver);
+        } catch (IllegalArgumentException e) {
+
+        }
     }
 }
