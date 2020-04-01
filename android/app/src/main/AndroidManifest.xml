@@ -41,7 +41,8 @@
        <activity
           android:name=".SplashActivity"
           android:theme="@style/SplashTheme"
-          android:label="@string/app_name">
+          android:label="@string/app_name"
+          android:screenOrientation="portrait">
           <intent-filter>
               <action android:name="android.intent.action.MAIN" />
               <category android:name="android.intent.category.LAUNCHER" />
@@ -54,6 +55,7 @@
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
         android:windowSoftInputMode="adjustResize"
         android:exported="true"
+        android:screenOrientation="portrait"
         >
         <intent-filter android:label="filter_react_native">
             <action android:name="android.intent.action.VIEW" />
