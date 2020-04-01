@@ -1,3 +1,4 @@
+import DeviceInfo from 'react-native-device-info'
 import { userPrivateData } from './state/userPrivateData'
 import nanoid from 'nanoid'
 
@@ -6,27 +7,42 @@ export const API_URL = 'https://api.staging.thaialert.com'
 // export const API_URL = 'http://192.168.1.102:4210'
 const API_KEY = 'd6857fca1cfbeb600b399ac29f2dabf9'
 
-export const getPrivateHeaders = () => {
+export const getPrivateHeaders = async () => {
   return {
     'X-TH-API-Key': API_KEY,
-    'X-TH-USER-ID': userPrivateData.getId(),
-    'X-TH-ANONYMOUS-ID': userPrivateData.getAnonymousId(),
+    'X-TH-USER-ID': await userPrivateData.getId(),
+    'X-TH-ANONYMOUS-ID': await userPrivateData.getAnonymousId(),
     'Content-Type': 'application/json',
   }
 }
 
-export const getAnonymousHeaders = () => {
+export const getAnonymousHeaders = async () => {
   return {
     'X-TH-API-Key': API_KEY,
-    'X-TH-ANONYMOUS-ID': userPrivateData.getAnonymousId(),
+    'X-TH-ANONYMOUS-ID': await userPrivateData.getAnonymousId(),
     'Content-Type': 'application/json',
   }
+}
+
+export const registerDevice = async (): Promise<{
+  userId: string
+  anonymousId: string
+}> => {
+  const resp = await fetch(API_URL + `/registerDevice`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ deviceId: DeviceInfo.getUniqueId() }),
+  })
+  const result = await resp.json()
+  return result
 }
 
 export const requestOTP = async (mobileNo: string) => {
   const resp = await fetch(API_URL + `/requestOTP`, {
     method: 'post',
-    headers: getPrivateHeaders(),
+    headers: await getPrivateHeaders(),
     body: JSON.stringify({ mobileNo }),
   })
   const result = await resp.json()
@@ -37,7 +53,7 @@ export const requestOTP = async (mobileNo: string) => {
 export const verifyOTP = async (otpCode: string) => {
   const resp = await fetch(API_URL + `/mobileParing`, {
     method: 'post',
-    headers: getPrivateHeaders(),
+    headers: await getPrivateHeaders(),
     body: JSON.stringify({ otpCode }),
   })
   const result = await resp.json()
@@ -47,7 +63,7 @@ export const verifyOTP = async (otpCode: string) => {
 export const updateUserData = async (data: { [key: string]: any }) => {
   const resp = await fetch(API_URL + `/userdata`, {
     method: 'post',
-    headers: getAnonymousHeaders(),
+    headers: await getAnonymousHeaders(),
     body: JSON.stringify({ data }),
   })
   return resp.json()
@@ -67,7 +83,7 @@ interface QRData {
 export const getQRData = async () => {
   const resp = await fetch(API_URL + `/qr`, {
     method: 'get',
-    headers: getAnonymousHeaders(),
+    headers: await getAnonymousHeaders(),
   })
   const result: QRData = await resp.json()
 
@@ -80,7 +96,7 @@ export const scan = async (
 ) => {
   return fetch(API_URL + '/scan', {
     method: 'post',
-    headers: getAnonymousHeaders(),
+    headers: await getAnonymousHeaders(),
     body: JSON.stringify({
       meetId: nanoid(),
       timestamp: new Date().toISOString(),
