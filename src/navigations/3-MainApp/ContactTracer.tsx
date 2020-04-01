@@ -7,14 +7,18 @@ import {
   Text,
   Switch,
   ScrollView,
+  NativeEventEmitter,
   DeviceEventEmitter,
   NativeModules,
+  Platform,
 } from 'react-native'
 import { COLORS } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { getUserId } from './User'
 import { requestLocationPermission } from './Permission'
+
+const eventEmitter = new NativeEventEmitter(NativeModules.ContactTracerModule)
 
 interface ContactTracerProps {}
 
@@ -71,7 +75,11 @@ export class ContactTracer extends React.Component<
       .then(() => {})
 
     // Check if BLE is available
-    NativeModules.ContactTracerModule.isBLEAvailable()
+    NativeModules.ContactTracerModule.initialize()
+      .then(result => {
+        return NativeModules.ContactTracerModule.isBLEAvailable()
+      })
+      // For NativeModules.ContactTracerModule.isBLEAvailable()
       .then(isBLEAvailable => {
         if (isBLEAvailable) {
           this.appendStatusText('BLE is available')
@@ -105,6 +113,8 @@ export class ContactTracer extends React.Component<
         if (bluetoothOn) {
           this.appendStatusText('Bluetooth is On')
           // See if Multiple Advertisement is supported
+          // Refresh Tracer Service Status in case the service is down
+          NativeModules.ContactTracerModule.refreshTracerServiceStatus()
           return NativeModules.ContactTracerModule.isMultipleAdvertisementSupported()
         } else {
           this.appendStatusText('Bluetooth is Off')
@@ -118,15 +128,27 @@ export class ContactTracer extends React.Component<
       })
 
     // Register Event Emitter
-    this.advertiserEventSubscription = DeviceEventEmitter.addListener(
-      'AdvertiserMessage',
-      this.onAdvertiserMessageReceived,
-    )
+    if (Platform.OS == 'ios') {
+      this.advertiserEventSubscription = eventEmitter.addListener(
+        'AdvertiserMessage',
+        this.onAdvertiserMessageReceived,
+      )
 
-    this.nearbyDeviceFoundEventSubscription = DeviceEventEmitter.addListener(
-      'NearbyDeviceFound',
-      this.onNearbyDeviceFoundReceived,
-    )
+      this.nearbyDeviceFoundEventSubscription = eventEmitter.addListener(
+        'NearbyDeviceFound',
+        this.onNearbyDeviceFoundReceived,
+      )
+    } else {
+      this.advertiserEventSubscription = DeviceEventEmitter.addListener(
+        'AdvertiserMessage',
+        this.onAdvertiserMessageReceived,
+      )
+
+      this.nearbyDeviceFoundEventSubscription = DeviceEventEmitter.addListener(
+        'NearbyDeviceFound',
+        this.onNearbyDeviceFoundReceived,
+      )
+    }
   }
 
   componentWillUnmount() {
