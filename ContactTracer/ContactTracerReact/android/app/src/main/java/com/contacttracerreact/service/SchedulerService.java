@@ -10,8 +10,6 @@ import android.widget.Toast;
 public class SchedulerService extends JobService {
     @Override
     public boolean onStartJob(JobParameters params) {
-        Toast.makeText(this, "Job", Toast.LENGTH_LONG).show();
-
         boolean serviceEnabled = TracerService.isEnabled(this);
         if (serviceEnabled) {
             startAdvertiserService(this);

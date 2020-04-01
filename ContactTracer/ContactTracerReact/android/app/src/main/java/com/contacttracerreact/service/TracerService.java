@@ -34,15 +34,13 @@ import android.widget.Toast;
 
 import com.contacttracerreact.MainActivity;
 import com.contacttracerreact.R;
+import com.contacttracerreact.mock.IUser;
 import com.contacttracerreact.mock.User;
-import com.contacttracerreact.mock.UserMock;
 import com.contacttracerreact.receiver.BootCompletedReceiver;
-import com.contacttracerreact.service.SchedulerService;
 import com.contacttracerreact.utils.BluetoothUtils;
 import com.contacttracerreact.utils.Constants;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -76,7 +74,7 @@ public class TracerService extends Service {
     private Handler handler;
 
     // User
-    User user;
+    IUser user;
 
     // Wake Lock
     PowerManager.WakeLock wakeLock;
@@ -152,7 +150,7 @@ public class TracerService extends Service {
     }
 
     private void initInstances() {
-        user = new UserMock(TracerService.this);
+        user = new User(TracerService.this);
 
         handler = new Handler();
         autoRefreshTimerRunnable = new Runnable() {
@@ -305,7 +303,7 @@ public class TracerService extends Service {
          *  AdvertiseCallback.ADVERTISE_FAILED_DATA_TOO_LARGE. Catch this error in the
          *  onStartFailure() method of an AdvertiseCallback implementation.
          */
-        String id = user.getUserNanoId();
+        String id = user.getUserId();
         AdvertiseData.Builder dataBuilder = new AdvertiseData.Builder();
         dataBuilder.addServiceUuid(Constants.Service_UUID);
         //dataBuilder.setIncludeDeviceName(true);
