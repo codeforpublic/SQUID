@@ -68,6 +68,11 @@ public class ContactTracerModule extends ReactContextBaseJavaModule implements A
     }
 
     @ReactMethod
+    public void initialize(final Promise promise) {
+        promise.resolve(null);
+    }
+
+    @ReactMethod
     public void isBLEAvailable(final Promise promise) {
         boolean isBLEAvailable = BluetoothUtils.isBLEAvailable(getReactApplicationContext().getApplicationContext());
         promise.resolve(isBLEAvailable);

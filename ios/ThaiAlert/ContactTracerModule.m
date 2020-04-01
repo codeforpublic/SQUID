@@ -6,8 +6,16 @@
 //
 
 #import "React/RCTBridgeModule.h"
+#import <React/RCTEventEmitter.h>
 
-@interface RCT_EXTERN_MODULE(ContactTracerModule, NSObject)
+@interface RCT_EXTERN_MODULE(ContactTracerModule, RCTEventEmitter)
+
+RCT_EXTERN_METHOD(supportedEvents)
+
+RCT_EXTERN_METHOD(
+  initialize: (RCTPromiseResolveBlock)resolve
+  rejecter: (RCTPromiseRejectBlock)reject
+)
 
 RCT_EXTERN_METHOD(
   isTracerServiceEnabled: (RCTPromiseResolveBlock)resolve
