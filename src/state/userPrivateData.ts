@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import nanoid from 'nanoid'
 import DeviceInfo from 'react-native-device-info'
 import { Platform } from 'react-native'
+import { registerDevice } from '../api'
 
 const USER_DATA_KEY = '@USER_PRIVATE_DATA'
 
@@ -34,20 +35,33 @@ class UserPrivateData {
       this.data = JSON.parse(userDataString)
     } else {
       this.data = {
-        id: Platform.select({
-          android: DeviceInfo.getMacAddressSync(),
-          ios: nanoid(),
-          default: nanoid(),
-        }),
-        anonymousId: DeviceInfo.getUniqueId(),
+        anonymousId: '',
+        id: '',
       }
-      await this.save()
+      await this.loadId()
     }
   }
-  getId() {
+  async loadId() {
+    const { userId, anonymousId } = await registerDevice()
+    this.data.id = userId
+    this.data.anonymousId = anonymousId
+    await this.save()
+  }
+
+  isValidId() {
+    return !!this.data.id && !!this.data.anonymousId
+  }
+
+  async getId() {
+    if (!this.isValidId()) {
+      await this.loadId()
+    }
     return this.data.id
   }
-  getAnonymousId() {
+  async getAnonymousId() {
+    if (!this.isValidId()) {
+      await this.loadId()
+    }
     return this.data.anonymousId
   }
   getData(key: keyof UserData) {
