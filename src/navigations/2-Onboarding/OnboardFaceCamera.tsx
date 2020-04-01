@@ -27,5 +27,5 @@ export const OnboardFaceCamera = () => {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.PRIMARY_DARK },
+  container: { flex: 1, backgroundColor: 'black' },
 })

@@ -12,6 +12,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { useIsFocused } from 'react-navigation-hooks'
 import EntypoIcon from 'react-native-vector-icons/Entypo'
 import { request, PERMISSIONS } from 'react-native-permissions'
+import { useHUD } from '../HudView'
 
 export type { TakePictureResponse, RNCamera }
 
