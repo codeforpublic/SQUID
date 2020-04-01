@@ -1,10 +1,6 @@
 import { userPrivateData } from './state/userPrivateData'
 import nanoid from 'nanoid'
-
-// export const API_URL = 'https://api.thaialert.com'
-export const API_URL = 'https://api.staging.thaialert.com'
-// export const API_URL = 'http://192.168.1.102:4210'
-const API_KEY = 'd6857fca1cfbeb600b399ac29f2dabf9'
+import { API_URL, API_KEY } from 'react-native-dotenv'
 
 export const getPrivateHeaders = () => {
   return {

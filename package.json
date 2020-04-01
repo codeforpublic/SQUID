@@ -67,6 +67,7 @@
     "react-native-circular-slider": "^1.0.1",
     "react-native-code-push": "^6.1.1",
     "react-native-device-info": "^5.5.3",
+    "react-native-dotenv": "^0.2.0",
     "react-native-easy-grid": "^0.2.0",
     "react-native-elements": "^1.2.7",
     "react-native-fs": "^2.16.6",
