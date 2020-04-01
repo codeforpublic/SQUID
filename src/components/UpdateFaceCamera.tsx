@@ -5,6 +5,7 @@ import RNFS from 'react-native-fs'
 import { Platform, Alert } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
 import { SelfieCaptureGuideline } from './SelfieCaptureGuideline'
+import ImageEditor from '@react-native-community/image-editor'
 
 export const UpdateFaceCamera = ({ onCapture, ...props }) => {
   const { showSpinner, hide } = useHUD()
@@ -12,7 +13,20 @@ export const UpdateFaceCamera = ({ onCapture, ...props }) => {
     showSpinner()
     try {
       const data: TakePictureResponse = await camera.takePictureAsync()
-      onCapture(data.uri)
+      const width = Math.floor((70 / 100) * Math.min(data.width, data.height))
+      const height = width
+      const offsetX = Math.floor((data.width - width) / 2)
+      const offsetY = Math.floor((data.height - height) / 2)
+      const uri = await ImageEditor.cropImage(data.uri, {
+        offset: { x: offsetX, y: offsetY },
+        size: { width, height },
+        displaySize: { width, height },
+        resizeMode: 'cover',
+      })
+      console.log(data.width, data.height)
+      console.log(width, height)
+
+      onCapture(uri)
     } catch (err) {
       console.log(err)
       Alert.alert('เกิดข้อผิดพลาด กรุณาลองอีกครั้ง')

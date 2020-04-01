@@ -201,6 +201,7 @@ android {
 
 
 dependencies {
+    implementation project(':@react-native-community_image-editor')
     implementation project(':react-native-image-picker')
     implementation project(':react-native-svg')
     implementation 'androidx.multidex:multidex:2.0.1'
