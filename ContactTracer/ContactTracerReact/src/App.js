@@ -19,6 +19,8 @@ import {
 import {getUserId} from './User';
 import {requestLocationPermission} from './Permission';
 
+import ContactTracerModule from './ContactTracerBridge';
+
 class App extends React.Component {
   statusText = '';
 
@@ -27,6 +29,7 @@ class App extends React.Component {
     this.state = {
       isServiceChecked: false,
       isLocationPermissionGranted: false,
+      isBluetoothOn: false,
 
       userId: '',
 
@@ -35,16 +38,53 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // Get saved user ID or henerate a new one
     getUserId().then(userId => {
       this.setState({userId: userId});
     });
-    requestLocationPermission().then(granted => {
-      this.setState({
-        isLocationPermissionGranted: granted,
+
+    // Bluetooth Features from Bridge
+    ContactTracerModule.isBLEAvailable()
+      .then(isBLEAvailable => {
+        if (isBLEAvailable) {
+          this.appendStatusText('BLE is available');
+          // BLE is available, continue requesting Location Permission
+          return requestLocationPermission();
+        } else {
+          // BLE is not available, don't do anything furthur since BLE is required
+          this.appendStatusText('BLE is NOT available');
+        }
+      })
+      .then(locationPermissionGranted => {
+        this.setState({
+          isLocationPermissionGranted: locationPermissionGranted,
+        });
+        if (locationPermissionGranted) {
+          // Location permission is granted, try turning on Bluetooth now
+          this.appendStatusText('Location permission is granted');
+          return ContactTracerModule.tryToTurnBluetoothOn();
+        } else {
+          // Location permission is required, we cannot continue working without this permission
+          this.appendStatusText('Location permission is NOT granted');
+        }
+      })
+      .then(bluetoothOn => {
+        this.setState({
+          isBluetoothOn: bluetoothOn,
+        });
+        if (bluetoothOn) {
+          this.appendStatusText('Bluetooth is On');
+          // See if Multiple Advertisement is supported
+          return ContactTracerModule.isMultipleAdvertisementSupported();
+        } else {
+          this.appendStatusText('Bluetooth is Off');
+        }
+      })
+      .then(supported => {
+        if (supported)
+          this.appendStatusText('Mulitple Advertisement is supported');
+        else this.appendStatusText('Mulitple Advertisement is NOT supported');
       });
-      if (granted) this.appendStatusText('Location permission is granted');
-      else this.appendStatusText('Location permission is NOT granted');
-    });
   }
 
   appendStatusText(text) {
@@ -54,7 +94,7 @@ class App extends React.Component {
     });
   }
 
-  toggleSwitch = () => {
+  onServiceSwitchChanged = () => {
     this.setState({
       isServiceChecked: !this.state.isServiceChecked,
     });
@@ -77,9 +117,12 @@ class App extends React.Component {
                 trackColor={{false: '#767577', true: '#81b0ff'}}
                 thumbColor={this.state.isServiceChecked ? '#f5dd4b' : '#f4f3f4'}
                 ios_backgroundColor="#3e3e3e"
-                onValueChange={this.toggleSwitch}
+                onValueChange={this.onServiceSwitchChanged}
                 value={this.state.isServiceChecked}
-                disabled={!this.state.isLocationPermissionGranted}
+                disabled={
+                  !this.state.isLocationPermissionGranted ||
+                  !this.state.isBluetoothOn
+                }
               />
             </View>
             <ScrollView
