@@ -53,6 +53,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Bluetooth is needed to scan for people around you.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>ต้องการใช้ถ่ายรูปยืนยันตัวตน</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
@@ -105,6 +107,8 @@
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>bluetooth-central</string>
+		<string>bluetooth-peripheral</string>
 		<string>fetch</string>
 		<string>location</string>
 	</array>

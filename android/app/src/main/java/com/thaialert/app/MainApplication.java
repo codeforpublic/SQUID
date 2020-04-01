@@ -10,6 +10,8 @@ import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.thaialert.app.bridge.ContactTracerPackage;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
               List<ReactPackage> packages = new PackageList(this).getPackages();
               // Packages that cannot be autolinked yet can be added manually here, for example:
               // packages.add(new ReactNativePushNotificationPackage());
+              packages.add(new ContactTracerPackage());
               return packages;
             }
 
