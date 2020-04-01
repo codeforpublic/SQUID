@@ -4,7 +4,7 @@ import styled, { css } from '@emotion/native'
 import { RNCamera, TakePictureResponse } from 'react-native-camera'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from 'react-navigation-hooks'
-import ImagePicker from 'react-native-image-picker';
+// import ImagePicker from 'react-native-image-picker';
 import { StyleSheet, View, TouchableOpacity, StatusBar, NativeModules } from 'react-native'
 import { COLORS } from '../styles'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
@@ -111,6 +111,10 @@ const DEFAULT_OPTIONS = {
 
 const isImagePickerAvailable = Boolean(NativeModules.ImagePickerManager)
 const SelectImageButton = ({onSelectImage}) => {
+  if (!isImagePickerAvailable) {
+    return null
+  }
+  const ImagePicker = require('react-native-image-picker').default
   const options = {
     ...DEFAULT_OPTIONS,
     title: 'Select Avatar',
