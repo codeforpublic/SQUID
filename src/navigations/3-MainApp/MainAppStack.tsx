@@ -2,6 +2,7 @@ import React from 'react'
 import { MainApp } from './MainApp'
 import { QRCodeScan } from './QRCodeScan'
 import { QRCodeResult } from './QRCodeResult'
+import { ContactTracer } from './ContactTracer'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AntIcon from 'react-native-vector-icons/AntDesign'
 import {
@@ -52,6 +53,31 @@ export const MainAppTab = createBottomTabNavigator({
           }}
         >
           สแกน QR
+        </Text>
+      ),
+      tabBarIcon: ({ focused }) => (
+        <AntIcon
+          name="scan1"
+          color={focused ? COLORS.PRIMARY_DARK : COLORS.GRAY_2}
+          size={20}
+        />
+      ),
+    },
+  },
+  ContactTracer: {
+    screen: ContactTracer,
+    navigationOptions: {
+      tabBarLabel: ({ focused }) => (
+        <Text
+          style={{
+            textAlign: 'center',
+            fontSize: 12,
+            fontFamily: FONT_FAMILY,
+            marginBottom: 2,
+            color: focused ? COLORS.PRIMARY_DARK : COLORS.GRAY_2,
+          }}
+        >
+          ContactTracer
         </Text>
       ),
       tabBarIcon: ({ focused }) => (
