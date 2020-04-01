@@ -1,6 +1,6 @@
 import { userPrivateData } from './state/userPrivateData'
 import nanoid from 'nanoid'
-import { API_URL, API_KEY } from 'react-native-dotenv'
+import { API_KEY, API_URL } from './config'
 
 export const getPrivateHeaders = () => {
   return {

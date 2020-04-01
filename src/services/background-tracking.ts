@@ -2,7 +2,7 @@ import BackgroundGeolocation from '../react-native-background-geolocation'
 import BackgroundFetch from 'react-native-background-fetch'
 import { getAnonymousHeaders } from '../api'
 import { AppState, Alert, Platform } from 'react-native'
-import { API_URL } from 'react-native-dotenv'
+import { API_URL } from '../config'
 
 class BackgroundTracking {
   private ready: boolean = false
