@@ -17,24 +17,46 @@ import {
   Switch,
 } from 'react-native';
 import {getUserId} from './User';
+import {requestLocationPermission} from './Permission';
 
 class App extends React.Component {
+  statusText = '';
+
   constructor() {
     super();
     this.state = {
-      isEnabled: false,
-      userId: '',
-      statusText: 'Hi',
-    };
+      isServiceChecked: false,
+      isLocationPermissionGranted: false,
 
+      userId: '',
+
+      statusText: this.statusText,
+    };
+  }
+
+  componentDidMount() {
     getUserId().then(userId => {
       this.setState({userId: userId});
+    });
+    requestLocationPermission().then(granted => {
+      this.setState({
+        isLocationPermissionGranted: granted,
+      });
+      if (granted) this.appendStatusText('Location permission is granted');
+      else this.appendStatusText('Location permission is NOT granted');
+    });
+  }
+
+  appendStatusText(text) {
+    this.statusText = text + '\n' + this.statusText;
+    this.setState({
+      statusText: this.statusText,
     });
   }
 
   toggleSwitch = () => {
     this.setState({
-      isEnabled: !this.state.isEnabled,
+      isServiceChecked: !this.state.isServiceChecked,
     });
   };
 
@@ -53,10 +75,11 @@ class App extends React.Component {
               <Text style={styles.normalText}>Service: </Text>
               <Switch
                 trackColor={{false: '#767577', true: '#81b0ff'}}
-                thumbColor={this.state.isEnabled ? '#f5dd4b' : '#f4f3f4'}
+                thumbColor={this.state.isServiceChecked ? '#f5dd4b' : '#f4f3f4'}
                 ios_backgroundColor="#3e3e3e"
                 onValueChange={this.toggleSwitch}
-                value={this.state.isEnabled}
+                value={this.state.isServiceChecked}
+                disabled={!this.state.isLocationPermissionGranted}
               />
             </View>
             <ScrollView

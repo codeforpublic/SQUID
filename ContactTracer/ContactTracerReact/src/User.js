@@ -1,4 +1,4 @@
-import {AsyncStorage} from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 import 'react-native-get-random-values';
 import {nanoid} from './nanoid';
 
@@ -8,7 +8,7 @@ export async function getUserId() {
   if (_userId != '') return _userId;
   try {
     const value = await AsyncStorage.getItem('userId');
-    if (value !== null) {
+    if (value) {
       _userId = value;
       return _userId;
     }
