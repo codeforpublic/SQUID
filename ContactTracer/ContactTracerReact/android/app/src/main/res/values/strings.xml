@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">ContactTracerReact</string>
+    <string name="ble_not_supported">BLE Not Supported</string>
+    <string name="bluetooth_need_to_be_turned_on">Bluetooth is needed to be turned on to continue.</string>
+    <string name="seconds">seconds</string>
+    <string name="already_scanning">Already Scanning</string>
+    <string name="scan_start_toast">Scanning for</string>
+    <string name="multiple_advertisement_required">Multiple Advertisement Required</string>
+    <string name="location_permission_needed">Location permission is needed to run this application.</string>
+    <string name="location_permission_needed_dialog_header">Location Permission Needed</string>
+    <string name="location_permission_needed_dialog_content">Location Permission is needed to turn on bluetooth service. Although it is asked for location but we would like to ensure you that there is no specific location like GPS data acquired in this application.</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 </resources>

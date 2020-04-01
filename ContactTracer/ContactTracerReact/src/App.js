@@ -16,85 +16,60 @@ import {
   StatusBar,
   Switch,
 } from 'react-native';
+import {getUserId} from './User';
 
-const App: () => React$Node = () => {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      isEnabled: false,
+      userId: '',
+      statusText: 'Hi',
+    };
 
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <View style={styles.body}>
-          <View>
-            <Text style={styles.mediumText}>User ID: xxxx</Text>
+    getUserId().then(userId => {
+      this.setState({userId: userId});
+    });
+  }
+
+  toggleSwitch = () => {
+    this.setState({
+      isEnabled: !this.state.isEnabled,
+    });
+  };
+
+  render() {
+    return (
+      <>
+        <StatusBar barStyle="dark-content" />
+        <SafeAreaView>
+          <View style={styles.body}>
+            <View>
+              <Text style={styles.mediumText}>
+                User ID: {this.state.userId}
+              </Text>
+            </View>
+            <View style={styles.horizontalRow}>
+              <Text style={styles.normalText}>Service: </Text>
+              <Switch
+                trackColor={{false: '#767577', true: '#81b0ff'}}
+                thumbColor={this.state.isEnabled ? '#f5dd4b' : '#f4f3f4'}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={this.toggleSwitch}
+                value={this.state.isEnabled}
+              />
+            </View>
+            <ScrollView
+              contentInsetAdjustmentBehavior="automatic"
+              style={styles.scrollView}>
+              <Text>{this.state.statusText}</Text>
+            </ScrollView>
           </View>
-          <View style={styles.horizontalRow}>
-            <Text style={styles.normalText}>Service: </Text>
-            <Switch
-              trackColor={{false: '#767577', true: '#81b0ff'}}
-              thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={isEnabled}
-            />
-          </View>
-          <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            style={styles.scrollView}>
-            <Text>{`
-Hi~
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message.
-this is a test message9.
-this is a test message8.
-this is a test message7.
-this is a test message6.
-this is a test message5.
-this is a test message4.
-this is a test message3.
-this is a test message2.
-this is a test message1.
-this is a test message0.
-`}</Text>
-          </ScrollView>
-        </View>
-      </SafeAreaView>
-    </>
-  );
-};
+        </SafeAreaView>
+      </>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   body: {
