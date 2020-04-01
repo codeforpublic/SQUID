@@ -41,7 +41,7 @@ public class ContactTracerModule extends ReactContextBaseJavaModule implements A
     public ContactTracerModule(ReactApplicationContext reactContext) {
         super(reactContext);
         reactContext.addActivityEventListener(this);
-        reactContext.addLifecycleEventListener(this);
+//        reactContext.addLifecycleEventListener(this);
 
         user = new User(getReactApplicationContext());
 
