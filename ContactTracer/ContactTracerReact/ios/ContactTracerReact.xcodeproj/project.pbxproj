@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* ContactTracerReactTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ContactTracerReactTests.m */; };
+		07B327CE2434659400796E92 /* ContactTracerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B327CC2434659400796E92 /* ContactTracerModule.swift */; };
+		07B327D124346F7C00796E92 /* ContactTracerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B327D024346F7C00796E92 /* ContactTracerModule.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -46,6 +48,9 @@
 		00E356F21AD99517003FC87E /* ContactTracerReactTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactTracerReactTests.m; sourceTree = "<group>"; };
 		02EDCE06CE576D792693F5EA /* Pods-ContactTracerReact-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ContactTracerReact-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-ContactTracerReact-tvOSTests/Pods-ContactTracerReact-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		036A0EC63BB790C2B61A3075 /* Pods-ContactTracerReact-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ContactTracerReact-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ContactTracerReact-tvOSTests/Pods-ContactTracerReact-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		07B327CC2434659400796E92 /* ContactTracerModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContactTracerModule.swift; path = ContactTracerReact/ContactTracerModule.swift; sourceTree = "<group>"; };
+		07B327CF243467BE00796E92 /* ContactTracerReact-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ContactTracerReact-Bridging-Header.h"; sourceTree = "<group>"; };
+		07B327D024346F7C00796E92 /* ContactTracerModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ContactTracerModule.m; path = ContactTracerReact/ContactTracerModule.m; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* ContactTracerReact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactTracerReact.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ContactTracerReact/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ContactTracerReact/AppDelegate.m; sourceTree = "<group>"; };
@@ -125,6 +130,7 @@
 		13B07FAE1A68108700A75B9A /* ContactTracerReact */ = {
 			isa = PBXGroup;
 			children = (
+				07B327CF243467BE00796E92 /* ContactTracerReact-Bridging-Header.h */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -132,6 +138,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				07B327CC2434659400796E92 /* ContactTracerModule.swift */,
+				07B327D024346F7C00796E92 /* ContactTracerModule.m */,
 			);
 			name = ContactTracerReact;
 			sourceTree = "<group>";
@@ -161,7 +169,6 @@
 				036A0EC63BB790C2B61A3075 /* Pods-ContactTracerReact-tvOSTests.debug.xcconfig */,
 				02EDCE06CE576D792693F5EA /* Pods-ContactTracerReact-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -292,6 +299,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 2EWEU8NLQ9;
 						LastSwiftMigration = 1120;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -530,8 +538,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07B327CE2434659400796E92 /* ContactTracerModule.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				07B327D124346F7C00796E92 /* ContactTracerModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,6 +594,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D5B4A08B1C998CBA522C28B /* Pods-ContactTracerReact-ContactTracerReactTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -607,6 +618,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D9D9F97FA08B850647A4F043 /* Pods-ContactTracerReact-ContactTracerReactTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = ContactTracerReactTests/Info.plist;
@@ -630,6 +642,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2EWEU8NLQ9;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -644,6 +657,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ContactTracerReact;
+				SWIFT_OBJC_BRIDGING_HEADER = "ContactTracerReact-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -657,6 +671,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2EWEU8NLQ9;
 				INFOPLIST_FILE = ContactTracerReact/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -666,6 +681,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ContactTracerReact;
+				SWIFT_OBJC_BRIDGING_HEADER = "ContactTracerReact-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -838,6 +854,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "ContactTracerReact-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -890,6 +907,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "ContactTracerReact-Bridging-Header.h";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
