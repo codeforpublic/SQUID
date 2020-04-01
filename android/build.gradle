@@ -9,7 +9,7 @@ buildscript {
         firebaseVersion = "+"
         removeBackgroundGeolocationDebugSoundsInRelease = false
         buildToolsVersion = "28.0.3"
-        minSdkVersion = 16
+        minSdkVersion = 21
         compileSdkVersion = 29
         targetSdkVersion = 29
         supportLibVersion = "1.0.2"
