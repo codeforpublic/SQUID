@@ -13,12 +13,14 @@ interface UserData {
   id: string
   anonymousId: string
   faceURI?: string
+  version?: number
 }
 
 const SINFO_OPTIONS = {
   sharedPreferencesName: 'ThaiAlert.UserPrivateData',
   keychainService: '@ThaiAlert/UserPrivateData',
 }
+const LATEST_VERSION = 1
 
 class UserPrivateData {
   data: UserData
@@ -33,19 +35,18 @@ class UserPrivateData {
     const userDataString = await SInfo.getItem(USER_DATA_KEY, SINFO_OPTIONS)
     if (userDataString) {
       this.data = JSON.parse(userDataString)
-    } else {
+    }
+    if (!this.data || this.data.version !== LATEST_VERSION) {
       this.data = {
         anonymousId: '',
         id: '',
       }
-      await this.loadId()
+      const { userId, anonymousId } = await registerDevice()
+      this.data.id = userId
+      this.data.anonymousId = anonymousId
+      this.data.version = 1
+      await this.save()
     }
-  }
-  async loadId() {
-    const { userId, anonymousId } = await registerDevice()
-    this.data.id = userId
-    this.data.anonymousId = anonymousId
-    await this.save()
   }
 
   getId() {    
@@ -65,7 +66,7 @@ class UserPrivateData {
     return dataPath
   }
   setData(key: keyof UserData, value: any) {
-    this.data[key] = value
+    this.data[key.toString()] = value
     return this.save()
   }
   setFace(uri, { isTempUri }) {
