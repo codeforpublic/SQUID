@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		05F0DC7D215A492BA2BF38DB /* (null) in Resources */ = {isa = PBXBuildFile; };
+		072F24ED243484C8007BBF30 /* ContactTracerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 072F24EB243484C8007BBF30 /* ContactTracerModule.m */; };
+		072F24EE243484C8007BBF30 /* ContactTracerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F24EC243484C8007BBF30 /* ContactTracerModule.swift */; };
 		081C5DCBAF7747F29143A7B2 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		08893D91E8324F20A1CB7B99 /* Prompt-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0924E0AA06284895947A9058 /* Prompt-ExtraBold.ttf */; };
 		08A37DCBF1874DDB821E96E2 /* (null) in Resources */ = {isa = PBXBuildFile; };
@@ -56,6 +58,9 @@
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* ThaiAlertTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThaiAlertTests.m; sourceTree = "<group>"; };
+		072F24EA243484C7007BBF30 /* ThaiAlert-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ThaiAlert-Bridging-Header.h"; sourceTree = "<group>"; };
+		072F24EB243484C8007BBF30 /* ContactTracerModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactTracerModule.m; path = ThaiAlert/ContactTracerModule.m; sourceTree = "<group>"; };
+		072F24EC243484C8007BBF30 /* ContactTracerModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContactTracerModule.swift; path = ThaiAlert/ContactTracerModule.swift; sourceTree = "<group>"; };
 		0924E0AA06284895947A9058 /* Prompt-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-ExtraBold.ttf"; path = "../assets/fonts/Prompt-ExtraBold.ttf"; sourceTree = "<group>"; };
 		0FDBC3A7DB8E4AA5AAC44D89 /* Prompt-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-BoldItalic.ttf"; path = "../assets/fonts/Prompt-BoldItalic.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* ThaiAlert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThaiAlert.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +137,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				D988E8EE24301732009500DC /* Launch Screen.storyboard */,
+				072F24EB243484C8007BBF30 /* ContactTracerModule.m */,
+				072F24EC243484C8007BBF30 /* ContactTracerModule.swift */,
+				072F24EA243484C7007BBF30 /* ThaiAlert-Bridging-Header.h */,
 			);
 			name = ThaiAlert;
 			sourceTree = "<group>";
@@ -257,6 +265,7 @@
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = N5WRT2798G;
+						LastSwiftMigration = 1120;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -450,6 +459,8 @@
 				839C411D23084F93008AF109 /* RNBackgroundFetch+AppDelegate.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				072F24ED243484C8007BBF30 /* ContactTracerModule.m in Sources */,
+				072F24EE243484C8007BBF30 /* ContactTracerModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +472,7 @@
 			baseConfigurationReference = AC3B637179884E92FD6A084B /* Pods-ThaiAlert.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = TAAppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 4;
@@ -479,6 +491,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.thaialert.app;
 				PRODUCT_NAME = ThaiAlert;
 				PROVISIONING_PROFILE_SPECIFIER = ThaiAlert;
+				SWIFT_OBJC_BRIDGING_HEADER = "ThaiAlert-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -488,6 +503,7 @@
 			baseConfigurationReference = 1C082E5CD493754C79D27915 /* Pods-ThaiAlert.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = TAAppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 4;
@@ -506,6 +522,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.thaialert.app;
 				PRODUCT_NAME = ThaiAlert;
 				PROVISIONING_PROFILE_SPECIFIER = ThaiAlert;
+				SWIFT_OBJC_BRIDGING_HEADER = "ThaiAlert-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
