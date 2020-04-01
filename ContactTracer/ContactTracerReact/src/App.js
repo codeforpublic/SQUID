@@ -108,12 +108,12 @@ class App extends React.Component {
       });
 
     // Register Event Emitter
-    advertiserEventSubscription = DeviceEventEmitter.addListener(
+    this.advertiserEventSubscription = DeviceEventEmitter.addListener(
       'AdvertiserMessage',
       this.onAdvertiserMessageReceived,
     );
 
-    nearbyDeviceFoundEventSubscription = DeviceEventEmitter.addListener(
+    this.nearbyDeviceFoundEventSubscription = DeviceEventEmitter.addListener(
       'NearbyDeviceFound',
       this.onNearbyDeviceFoundReceived,
     );
@@ -121,10 +121,10 @@ class App extends React.Component {
 
   componentWillUnmount() {
     // Unregister Event Emitter
-    advertiserEventSubscription.remove();
-    nearbyDeviceFoundEventSubscription.remove();
-    advertiserEventSubscription = null;
-    nearbyDeviceFoundEventSubscription = null;
+    this.advertiserEventSubscription.remove();
+    this.nearbyDeviceFoundEventSubscription.remove();
+    this.advertiserEventSubscription = null;
+    this.nearbyDeviceFoundEventSubscription = null;
   }
 
   appendStatusText(text) {
