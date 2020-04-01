@@ -15,6 +15,7 @@ import {
   Text,
   StatusBar,
   Switch,
+  DeviceEventEmitter,
 } from 'react-native';
 import {getUserId} from './User';
 import {requestLocationPermission} from './Permission';
@@ -23,11 +24,13 @@ import ContactTracerModule from './ContactTracerBridge';
 
 class App extends React.Component {
   statusText = '';
+  advertiserEventSubscription = null;
+  nearbyDeviceFoundEventSubscription = null;
 
   constructor() {
     super();
     this.state = {
-      isServiceChecked: false,
+      isServiceEnabled: false,
       isLocationPermissionGranted: false,
       isBluetoothOn: false,
 
@@ -39,11 +42,25 @@ class App extends React.Component {
 
   componentDidMount() {
     // Get saved user ID or henerate a new one
-    getUserId().then(userId => {
-      this.setState({userId: userId});
-    });
+    getUserId()
+      .then(userId => {
+        this.setState({userId: userId});
+        return ContactTracerModule.setUserId(userId);
+      })
+      .then(userId => {});
 
-    // Bluetooth Features from Bridge
+    // Check if Tracer Service has been enabled
+    ContactTracerModule.isTracerServiceEnabled()
+      .then(enabled => {
+        this.setState({
+          isServiceEnabled: enabled,
+        });
+        // Refresh Tracer Service Status in case the service is down
+        ContactTracerModule.refreshTracerServiceStatus();
+      })
+      .then(() => {});
+
+    // Check if BLE is available
     ContactTracerModule.isBLEAvailable()
       .then(isBLEAvailable => {
         if (isBLEAvailable) {
@@ -55,6 +72,7 @@ class App extends React.Component {
           this.appendStatusText('BLE is NOT available');
         }
       })
+      // For requestLocationPermission()
       .then(locationPermissionGranted => {
         this.setState({
           isLocationPermissionGranted: locationPermissionGranted,
@@ -68,10 +86,12 @@ class App extends React.Component {
           this.appendStatusText('Location permission is NOT granted');
         }
       })
+      // For ContactTracerModule.tryToTurnBluetoothOn()
       .then(bluetoothOn => {
         this.setState({
           isBluetoothOn: bluetoothOn,
         });
+
         if (bluetoothOn) {
           this.appendStatusText('Bluetooth is On');
           // See if Multiple Advertisement is supported
@@ -80,11 +100,31 @@ class App extends React.Component {
           this.appendStatusText('Bluetooth is Off');
         }
       })
+      // For ContactTracerModule.isMultipleAdvertisementSupported()
       .then(supported => {
         if (supported)
           this.appendStatusText('Mulitple Advertisement is supported');
         else this.appendStatusText('Mulitple Advertisement is NOT supported');
       });
+
+    // Register Event Emitter
+    advertiserEventSubscription = DeviceEventEmitter.addListener(
+      'AdvertiserMessage',
+      this.onAdvertiserMessageReceived,
+    );
+
+    nearbyDeviceFoundEventSubscription = DeviceEventEmitter.addListener(
+      'NearbyDeviceFound',
+      this.onNearbyDeviceFoundReceived,
+    );
+  }
+
+  componentWillUnmount() {
+    // Unregister Event Emitter
+    advertiserEventSubscription.remove();
+    nearbyDeviceFoundEventSubscription.remove();
+    advertiserEventSubscription = null;
+    nearbyDeviceFoundEventSubscription = null;
   }
 
   appendStatusText(text) {
@@ -94,10 +134,36 @@ class App extends React.Component {
     });
   }
 
+  /**
+   * User Event Handler
+   */
+
   onServiceSwitchChanged = () => {
+    if (this.state.isServiceEnabled) {
+      // To turn off
+      ContactTracerModule.disableTracerService().then(() => {});
+    } else {
+      // To turn on
+      ContactTracerModule.enableTracerService().then(() => {});
+    }
     this.setState({
-      isServiceChecked: !this.state.isServiceChecked,
+      isServiceEnabled: !this.state.isServiceEnabled,
     });
+  };
+
+  /**
+   * Event Emitting Handler
+   */
+
+  onAdvertiserMessageReceived = e => {
+    this.appendStatusText(e['message']);
+  };
+
+  onNearbyDeviceFoundReceived = e => {
+    this.appendStatusText('');
+    this.appendStatusText('***** RSSI: ' + e['rssi']);
+    this.appendStatusText('***** Found Nearby Device: ' + e['name']);
+    this.appendStatusText('');
   };
 
   render() {
@@ -115,10 +181,10 @@ class App extends React.Component {
               <Text style={styles.normalText}>Service: </Text>
               <Switch
                 trackColor={{false: '#767577', true: '#81b0ff'}}
-                thumbColor={this.state.isServiceChecked ? '#f5dd4b' : '#f4f3f4'}
+                thumbColor={this.state.isServiceEnabled ? '#f5dd4b' : '#f4f3f4'}
                 ios_backgroundColor="#3e3e3e"
                 onValueChange={this.onServiceSwitchChanged}
-                value={this.state.isServiceChecked}
+                value={this.state.isServiceEnabled}
                 disabled={
                   !this.state.isLocationPermissionGranted ||
                   !this.state.isBluetoothOn
