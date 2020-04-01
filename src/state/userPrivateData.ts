@@ -48,20 +48,10 @@ class UserPrivateData {
     await this.save()
   }
 
-  isValidId() {
-    return !!this.data.id && !!this.data.anonymousId
-  }
-
-  async getId() {
-    if (!this.isValidId()) {
-      await this.loadId()
-    }
+  getId() {    
     return this.data.id
   }
-  async getAnonymousId() {
-    if (!this.isValidId()) {
-      await this.loadId()
-    }
+  getAnonymousId() {    
     return this.data.anonymousId
   }
   getData(key: keyof UserData) {
