@@ -37,10 +37,12 @@ import com.contacttracerreact.R;
 import com.contacttracerreact.mock.User;
 import com.contacttracerreact.mock.UserMock;
 import com.contacttracerreact.receiver.BootCompletedReceiver;
+import com.contacttracerreact.service.SchedulerService;
 import com.contacttracerreact.utils.BluetoothUtils;
 import com.contacttracerreact.utils.Constants;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -95,11 +97,6 @@ public class TracerService extends Service {
 
         if (bluetoothAdapter == null)
             exithWithToast(R.string.ble_not_supported);
-
-        if (!BluetoothUtils.isMultipleAdvertisementSupported(bluetoothAdapter)) {
-            exithWithToast(R.string.multiple_advertisement_required);
-            return;
-        }
 
         initBluetoothAdvertiser();
 
@@ -242,6 +239,10 @@ public class TracerService extends Service {
      * Starts BLE Advertising.
      */
     private void startAdvertising() {
+        // Multiple Advertisement Required
+        if (!BluetoothUtils.isMultipleAdvertisementSupported(bluetoothAdapter))
+            return;
+
         goForeground();
 
         if (advertiseCallback == null) {
@@ -262,7 +263,6 @@ public class TracerService extends Service {
      */
     private void stopAdvertising() {
         sendSignalAndLog("Service: Stopping Advertising");
-
 
         if (bluetoothLeAdvertiser != null) {
             bluetoothLeAdvertiser.stopAdvertising(advertiseCallback);

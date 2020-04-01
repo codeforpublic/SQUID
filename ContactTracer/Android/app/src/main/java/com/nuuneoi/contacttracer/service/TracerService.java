@@ -97,11 +97,6 @@ public class TracerService extends Service {
         if (bluetoothAdapter == null)
             exithWithToast(R.string.ble_not_supported);
 
-        if (!BluetoothUtils.isMultipleAdvertisementSupported(bluetoothAdapter)) {
-            exithWithToast(R.string.multiple_advertisement_required);
-            return;
-        }
-
         initBluetoothAdvertiser();
 
         initWakeLock();
@@ -243,6 +238,10 @@ public class TracerService extends Service {
      * Starts BLE Advertising.
      */
     private void startAdvertising() {
+        // Multiple Advertisement Required
+        if (!BluetoothUtils.isMultipleAdvertisementSupported(bluetoothAdapter))
+            return;
+
         goForeground();
 
         if (advertiseCallback == null) {
@@ -263,7 +262,6 @@ public class TracerService extends Service {
      */
     private void stopAdvertising() {
         sendSignalAndLog("Service: Stopping Advertising");
-
 
         if (bluetoothLeAdvertiser != null) {
             bluetoothLeAdvertiser.stopAdvertising(advertiseCallback);
