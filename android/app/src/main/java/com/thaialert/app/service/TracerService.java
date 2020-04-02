@@ -416,8 +416,10 @@ public class TracerService extends Service {
         sendSignalAndLog("Stop Scanning");
 
         // Stop the scan, wipe the callback.
-        bluetoothLeScanner.stopScan(scanCallback);
-        scanCallback = null;
+        if (scanCallback != null) {
+            bluetoothLeScanner.stopScan(scanCallback);
+            scanCallback = null;
+        }
         // Even if no new results, update 'last seen' times.
         //mAdapter.notifyDataSetChanged();
     }
