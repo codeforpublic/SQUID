@@ -262,7 +262,7 @@ public class TracerService extends Service {
     private void stopAdvertising() {
         sendSignalAndLog("Service: Stopping Advertising");
 
-        if (bluetoothLeAdvertiser != null) {
+        if (bluetoothLeAdvertiser != null && advertiseCallback != null) {
             bluetoothLeAdvertiser.stopAdvertising(advertiseCallback);
             advertiseCallback = null;
         }
@@ -416,8 +416,10 @@ public class TracerService extends Service {
         sendSignalAndLog("Stop Scanning");
 
         // Stop the scan, wipe the callback.
-        bluetoothLeScanner.stopScan(scanCallback);
-        scanCallback = null;
+        if (scanCallback != null) {
+            bluetoothLeScanner.stopScan(scanCallback);
+            scanCallback = null;
+        }
         // Even if no new results, update 'last seen' times.
         //mAdapter.notifyDataSetChanged();
     }
