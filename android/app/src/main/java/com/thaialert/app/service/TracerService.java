@@ -262,7 +262,7 @@ public class TracerService extends Service {
     private void stopAdvertising() {
         sendSignalAndLog("Service: Stopping Advertising");
 
-        if (bluetoothLeAdvertiser != null) {
+        if (bluetoothLeAdvertiser != null && advertiseCallback != null) {
             bluetoothLeAdvertiser.stopAdvertising(advertiseCallback);
             advertiseCallback = null;
         }
