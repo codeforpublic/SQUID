@@ -37,6 +37,9 @@ public class ContactTracerModule extends ReactContextBaseJavaModule implements A
     private BroadcastReceiver advertiserMessageReceiver;
     private BroadcastReceiver nearbyDeviceFoundReceiver;
 
+    private boolean isAdvertiserMessageReceiverRegistered = false;
+    private boolean isNearbyDeviceFoundReceiverRegistered = false;
+
     public ContactTracerModule(ReactApplicationContext reactContext) {
         super(reactContext);
         reactContext.addActivityEventListener(this);
@@ -231,15 +234,6 @@ public class ContactTracerModule extends ReactContextBaseJavaModule implements A
 
     @Override
     public void onHostDestroy() {
-        try {
-            getReactApplicationContext().unregisterReceiver(advertiserMessageReceiver);
-        } catch (IllegalArgumentException e) {
 
-        }
-        try {
-            getReactApplicationContext().unregisterReceiver(nearbyDeviceFoundReceiver);
-        } catch (IllegalArgumentException e) {
-
-        }
     }
 }
