@@ -5,22 +5,34 @@ import {
   View,
   Text,
   Switch,
+  ScrollView,
+  NativeEventEmitter,
+  DeviceEventEmitter,
   NativeModules,
+  Platform,
 } from 'react-native'
 import { COLORS } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
+const eventEmitter = new NativeEventEmitter(NativeModules.ContactTracerModule)
+
 interface SettingsProps {}
 
 interface SettingsState {
+  statusText: string
   isServiceEnabled: boolean
 }
 
 export class Settings extends React.Component<SettingsProps, SettingsState> {
+  statusText = ''
+  advertiserEventSubscription = null
+  nearbyDeviceFoundEventSubscription = null
+
   constructor(props) {
     super(props)
     this.state = {
+      statusText: '',
       isServiceEnabled: false,
     }
   }
@@ -34,9 +46,38 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
         })
       })
       .then(() => {})
+
+    // Register Event Emitter
+    if (Platform.OS == 'ios') {
+      this.advertiserEventSubscription = eventEmitter.addListener(
+        'AdvertiserMessage',
+        this.onAdvertiserMessageReceived,
+      )
+
+      this.nearbyDeviceFoundEventSubscription = eventEmitter.addListener(
+        'NearbyDeviceFound',
+        this.onNearbyDeviceFoundReceived,
+      )
+    } else {
+      this.advertiserEventSubscription = DeviceEventEmitter.addListener(
+        'AdvertiserMessage',
+        this.onAdvertiserMessageReceived,
+      )
+
+      this.nearbyDeviceFoundEventSubscription = DeviceEventEmitter.addListener(
+        'NearbyDeviceFound',
+        this.onNearbyDeviceFoundReceived,
+      )
+    }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    // Unregister Event Emitter
+    this.advertiserEventSubscription.remove()
+    this.nearbyDeviceFoundEventSubscription.remove()
+    this.advertiserEventSubscription = null
+    this.nearbyDeviceFoundEventSubscription = null
+  }
 
   /**
    * User Event Handler
@@ -52,6 +93,28 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
     }
     this.setState({
       isServiceEnabled: !this.state.isServiceEnabled,
+    })
+  }
+
+  /**
+   * Event Emitting Handler
+   */
+
+  onAdvertiserMessageReceived = e => {
+    this.appendStatusText(e['message'])
+  }
+
+  onNearbyDeviceFoundReceived = e => {
+    this.appendStatusText('')
+    this.appendStatusText('***** RSSI: ' + e['rssi'])
+    this.appendStatusText('***** Found Nearby Device: ' + e['name'])
+    this.appendStatusText('')
+  }
+
+  appendStatusText(text) {
+    this.statusText = text + '\n' + this.statusText
+    this.setState({
+      statusText: this.statusText,
     })
   }
 
@@ -78,6 +141,12 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
                 />
               </View>
             </View>
+            <ScrollView
+              contentInsetAdjustmentBehavior="automatic"
+              style={styles.scrollView}
+            >
+              <Text>{this.state.statusText}</Text>
+            </ScrollView>
           </View>
         </SafeAreaView>
       </MyBackground>
@@ -113,5 +182,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     marginTop: 24,
+    marginLeft: 24,
+    marginRight: 24,
   },
 })
