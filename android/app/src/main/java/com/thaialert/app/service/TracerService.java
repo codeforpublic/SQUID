@@ -187,12 +187,14 @@ public class TracerService extends Service {
      ************************/
 
     private void initBluetoothAdvertiser() {
+        if (bluetoothAdapter == null)
+            return;
         if (bluetoothLeAdvertiser == null) {
             final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
             if (bluetoothManager != null) {
                 bluetoothLeAdvertiser = bluetoothAdapter.getBluetoothLeAdvertiser();
             } else {
-                exithWithToast(R.string.ble_not_supported);
+
             }
         }
     }
@@ -369,6 +371,8 @@ public class TracerService extends Service {
      *********************/
 
     private void initBluetoothScanner() {
+        if (bluetoothAdapter == null)
+            return;
         bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
     }
 
