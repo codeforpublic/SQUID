@@ -79,6 +79,7 @@ export const MainApp = () => {
   const navigation = useNavigation()
   const [fadeAnim] = useState(new Animated.Value(0))
 
+  const timeSinceLastUpdate = Date.now() - qr.timestamp
   const avatarWidth = Math.min(
     200,
     Math.floor((25 / 100) * Dimensions.get('screen').height),
@@ -211,13 +212,14 @@ export const MainApp = () => {
           style={{
             color: '#DCC91B',
             fontFamily: FONT_FAMILY,
-            fontSize: 18,
-            marginTop: -8,
+            fontSize: 14,
+            marginTop: -4,
             marginBottom: 8,
             alignSelf: 'center',
           }}
         >
-          QR ไม่ได้อัพเดทเกิน 10 นาที
+          * QR ไม่ได้อัพเดทเป็นเวลา {Math.floor(timeSinceLastUpdate / 60000)}{' '}
+          นาที
         </Text>
       ) : null}
       <View
