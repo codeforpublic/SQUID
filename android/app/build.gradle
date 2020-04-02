@@ -212,9 +212,6 @@ android {
 
 
 dependencies {
-    implementation project(':react-native-config')
-    implementation project(':react-native-image-picker')
-    implementation project(':react-native-svg')
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation project(':react-native-push-notification')
     implementation fileTree(dir: "libs", include: ["*.jar"])

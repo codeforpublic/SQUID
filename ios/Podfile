@@ -45,11 +45,8 @@ target 'ThaiAlert' do
   use_native_modules!
 
   
-  pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
-  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
-  pod 'react-native-config', :path => '../node_modules/react-native-config'
 
 end
 

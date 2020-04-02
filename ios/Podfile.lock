@@ -279,7 +279,7 @@ PODS:
     - React
   - RNCPushNotificationIOS (1.1.0):
     - React
-  - RNDeviceInfo (5.5.3):
+  - RNDeviceInfo (5.5.4):
     - React
   - RNFS (2.16.6):
     - React
@@ -364,7 +364,7 @@ DEPENDENCIES:
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - Base64
     - boost-for-react-native
     - CocoaLumberjack
@@ -541,6 +541,6 @@ SPEC CHECKSUMS:
   SSZipArchive: fa16b8cc4cdeceb698e5e5d9f67e9558532fbf23
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: 1849d4575d48af8ce6d031518da2755a151f48dc
+PODFILE CHECKSUM: 96cb5bef461d082a6399d35d028994479487b9cb
 
 COCOAPODS: 1.9.1
