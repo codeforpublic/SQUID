@@ -88,8 +88,8 @@ class ContactTracerModule: RCTEventEmitter, CBCentralManagerDelegate, CBPeripher
   }
   
   @objc
-  func stopTracerServiceService(_ resolve: RCTPromiseResolveBlock,
-                                  rejecter reject: RCTPromiseRejectBlock) -> Void {
+  func stopTracerService(_ resolve: RCTPromiseResolveBlock,
+                           rejecter reject: RCTPromiseRejectBlock) -> Void {
     stopScanning()
     stopAdvertising()
     resolve(true)
