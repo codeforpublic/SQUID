@@ -1,5 +1,5 @@
 apply plugin: "com.android.application"
-
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 import com.android.build.OutputFile
 
 /**
@@ -143,6 +143,7 @@ android {
         versionName "1.0.5"
         multiDexEnabled true
         missingDimensionStrategy 'react-native-camera', 'general' 
+        resValue "string", "build_config_package", "com.thaialert.app"
     }
     splits {
         abi {
@@ -204,6 +205,7 @@ android {
 
 
 dependencies {
+    implementation project(':react-native-config')
     implementation project(':react-native-image-picker')
     implementation project(':react-native-svg')
     implementation 'androidx.multidex:multidex:2.0.1'
