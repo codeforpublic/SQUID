@@ -82,9 +82,17 @@ class ContactTracerModule: RCTEventEmitter, CBCentralManagerDelegate, CBPeripher
   
   @objc
   func refreshTracerServiceStatus(_ resolve: RCTPromiseResolveBlock,
-                                rejecter reject: RCTPromiseRejectBlock) -> Void {
+                                    rejecter reject: RCTPromiseRejectBlock) -> Void {
     _refreshTracerServiceStatus()
     resolve(_isTracerServiceEnabled())
+  }
+  
+  @objc
+  func stopTracerServiceService(_ resolve: RCTPromiseResolveBlock,
+                                  rejecter reject: RCTPromiseRejectBlock) -> Void {
+    stopScanning()
+    stopAdvertising()
+    resolve(true)
   }
   
   // MARK: Bluetooth
