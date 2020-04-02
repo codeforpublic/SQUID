@@ -1,15 +1,19 @@
 import AsyncStorage from "@react-native-community/async-storage"
+import { HookState, createUseHookState } from "../utils/hook-state"
 
 const ApplicationStateKey = '@applicationState'
-
+type valueof<T> = T[keyof T]
 interface ApplicationStateData {
   isPassedOnboarding?: boolean
-  isRegistered?: boolean
-  isVerified?: boolean
+  isRegistered?: boolean | 'success'
+  isVerified?: boolean | 'success'
   skipRegistration?: boolean
 }
-class ApplicationState {
+class ApplicationState extends HookState {
   data: ApplicationStateData
+  constructor() {
+    super('ApplicationState')
+  }
   async load() {
     const appStateString = await AsyncStorage.getItem(ApplicationStateKey)
     if (appStateString) {
@@ -24,15 +28,17 @@ class ApplicationState {
     }
   }
   save() {
+    super.save()
     return AsyncStorage.setItem(ApplicationStateKey, JSON.stringify(this.data))
   }
-  set(key: keyof ApplicationStateData, value) {
+  setData(key: keyof ApplicationStateData, value: valueof<ApplicationStateData>) {
     this.data[key] = value
     return this.save()
   }
-  get(key: keyof ApplicationStateData) {
+  getData(key: keyof ApplicationStateData) {
     return this.data[key]
   }
 }
 
 export const applicationState = new ApplicationState()
+export const useApplicationState = createUseHookState<ApplicationStateData>(applicationState)

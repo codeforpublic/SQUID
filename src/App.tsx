@@ -67,7 +67,7 @@ class App extends React.Component {
       }),
     ])
     await migrateState(apolloClient)
-    await backgroundTracking.setup(applicationState.get('isPassedOnboarding'))
+    await backgroundTracking.setup(applicationState.getData('isPassedOnboarding'))
     SplashScreen.hide()
 
     await NativeModules.ContactTracerModule.setUserId(
@@ -84,7 +84,7 @@ class App extends React.Component {
     return (
       <ContactTracerProvider
         anonymousId={userPrivateData.getAnonymousId()}
-        isPassedOnboarding={applicationState.get('isPassedOnboarding')}
+        isPassedOnboarding={applicationState.getData('isPassedOnboarding')}
       >
         <SafeAreaProvider>
           <ApolloProvider client={apolloClient}>
