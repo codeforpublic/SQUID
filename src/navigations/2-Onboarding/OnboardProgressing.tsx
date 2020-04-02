@@ -13,6 +13,7 @@ import {
 import { PrimaryButton } from '../../components/Button'
 import { applicationState } from '../../state/app-state'
 import { pushNotification } from '../../services/notification'
+import { useContactTracer } from '../../services/contact-tracing-provider'
 
 const STRING = {
   TITLE: 'กำลังดำเนินการ...',
@@ -21,9 +22,11 @@ const STRING = {
 
 export const OnboardProgressing = () => {
   const navigation = useNavigation()
+  const contactTracer = useContactTracer() 
   useEffect(() => {
+    pushNotification.configure()
+    contactTracer.enable()
     setTimeout(() => {
-      pushNotification.configure()
       applicationState.set('isPassedOnboarding', 'success')
       navigation.navigate('OnboardComplete')
     }, 1000)

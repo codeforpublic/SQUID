@@ -35,12 +35,10 @@ const MAX_SCORE = 100
 
 export const MainApp = () => {
   const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
-  console.log(faceURI)
   const isVerified = applicationState.get('isRegistered')
   const qr = useSelfQR()
   const resetTo = useResetTo()
   const navigation = useNavigation()
-  const [fadeAnim] = useState(new Animated.Value(0))
 
   const avatarWidth = Math.min(
     200,
@@ -60,7 +58,6 @@ export const MainApp = () => {
     RNFS.exists(faceURI).then(exists => {
       console.log('exists', exists)
       if (!exists) {
-        applicationState.set('isPassedOnboarding', false)
         resetTo({
           routeName: 'Onboarding',
         })
@@ -253,13 +250,10 @@ export const MainApp = () => {
             resetTo({
               routeName: 'Auth',
             })
-            setTimeout(() => {
-              navigation.navigate('AuthPhone')
-            }, 0)
+            navigation.navigate('AuthPhone')
           }}
           style={{
             paddingBottom: 4,
-            // backgroundColor: COLORS.PRIMARY_LIGHT
           }}
         >
           <Link style={{ fontWeight: 'bold' }}>ยืนยันตัวตน ></Link>

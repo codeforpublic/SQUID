@@ -13,7 +13,7 @@ import { useIsFocused } from 'react-navigation-hooks'
 import { QRResult } from '../../state/qr'
 import NotificationPopup from 'react-native-push-notification-popup'
 import { QRPopupContent } from './QRPopupContent'
-import { scanManager } from '../../services/scanManager'
+import { scanManager } from '../../services/contact-scanner'
 
 export const QRCodeScan = ({ navigation }) => {
   const isFocused = useIsFocused()
@@ -30,7 +30,7 @@ export const QRCodeScan = ({ navigation }) => {
           .getCreatedDate()
           .format('DD MMM YYYY HH:mm น.')}`,
       })
-      scanManager.add(qrResult)
+      scanManager.add(qrResult.annonymousId)
     }
   }, [qrResult])
   return (

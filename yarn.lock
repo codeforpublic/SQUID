@@ -6782,6 +6782,11 @@ react-native-colortool@^0.0.1:
   resolved "https://registry.yarnpkg.com/react-native-colortool/-/react-native-colortool-0.0.1.tgz#0ae21efe2e3df18a1c3d9b48c30acaaa647dfb66"
   integrity sha1-CuIe/i498YocPZtIwwrKqmR9+2Y=
 
+react-native-config@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-1.0.0.tgz#fada8f79996db1eadcee9e221afd713c91f677e5"
+  integrity sha512-ZydFNkGgjPCgJ4nDDGxuoMSsz4HACJH6TyYEDeefnzGW3XS/HXxdiW8SOaOD8B0WACQJHM028ypnwhexJ7hhsA==
+
 react-native-confirm@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/react-native-confirm/-/react-native-confirm-0.0.1.tgz#495ba41e10f67a8c1323a9450623a172c4743a29"
@@ -6799,9 +6804,9 @@ react-native-datepicker@^1.4.4:
     moment "^2.22.0"
 
 react-native-device-info@^5.5.3:
-  version "5.5.3"
-  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-5.5.3.tgz#6652fb46c4602a1dd3a5d6a18d2266ecdf97fec7"
-  integrity sha512-bzUVTPHca+FfNco1qaOM1+idoeII8zdpGRsR+RK+DWhwp9utHZWfbkonZZ9XFm/U+i3mirNxt6oaKV+vUMjMzg==
+  version "5.5.4"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-5.5.4.tgz#470770db4e8a35c55b8269473d81790102074057"
+  integrity sha512-koR7ZvL4V+34GwhjQxb3PNZLElpEzAvDG5AE4KIc70ufKMEHJL9VCpRXBMelihlA0u9PlYzuMgBs7tovNRAzFw==
 
 react-native-drawer-menu@^0.2.3:
   version "0.2.5"
