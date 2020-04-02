@@ -92,10 +92,10 @@ class BackgroundTracking {
   destroyLocations() {
     return BackgroundGeolocation.destroyLocations()
   }
-  getLocation(extras?: any) {
+  getLocation(extras: any = {}) {
     return BackgroundGeolocation.getCurrentPosition({
       samples: 1,
-      extras,
+      ...extras
     })
   }
   onAppStateChange = state => {
@@ -105,7 +105,7 @@ class BackgroundTracking {
     if (this.appState !== 'active' && state === 'active') {
       if (Date.now() - this.latestKnownedUpdated > 10 * 60 * 1000) {
         //  at least 10 min
-        this.getLocation({ triggerType: 'appState' }) // trigger location
+        this.getLocation({ extras: { triggerType: 'appState' } }) // trigger location
       }
     }
     this.appState = state
