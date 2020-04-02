@@ -48,6 +48,8 @@ target 'ThaiAlert' do
 
 
 
+  pod 'react-native-image-editor', :path => '../node_modules/@react-native-community/image-editor'
+
 end
 
 
