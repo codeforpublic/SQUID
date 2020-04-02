@@ -394,7 +394,7 @@ public class TracerService extends Service {
      * Start scanning for BLE Advertisements (& set it up to stop after a set period of time).
      */
     public void startScanning() {
-        if (scanCallback == null && bluetoothLeScanner != null) {
+        if (scanCallback == null) {
             sendSignalAndLog("Start Scanning");
 
             // Will stop the scanning after a set time.
