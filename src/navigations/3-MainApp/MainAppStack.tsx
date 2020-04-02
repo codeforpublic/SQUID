@@ -81,38 +81,13 @@ export const MainAppTab = createBottomTabNavigator({
       ),
       tabBarIcon: ({ focused }) => (
         <AntIcon
-          name="scan1"
+          name="profile"
           color={focused ? COLORS.PRIMARY_DARK : COLORS.GRAY_2}
           size={20}
         />
       ),
     },
   },
-  //   ContactTracer: {
-  //     screen: ContactTracer,
-  //     navigationOptions: {
-  //       tabBarLabel: ({ focused }) => (
-  //         <Text
-  //           style={{
-  //             textAlign: 'center',
-  //             fontSize: 12,
-  //             fontFamily: FONT_FAMILY,
-  //             marginBottom: 2,
-  //             color: focused ? COLORS.PRIMARY_DARK : COLORS.GRAY_2,
-  //           }}
-  //         >
-  //           สแกน QR
-  //         </Text>
-  //       ),
-  //       tabBarIcon: ({ focused }) => (
-  //         <AntIcon
-  //           name="scan1"
-  //           color={focused ? COLORS.PRIMARY_DARK : COLORS.GRAY_2}
-  //           size={20}
-  //         />
-  //       ),
-  //     },
-  //   },
 })
 
 export const MainAppStack = createStackNavigator(
