@@ -12,7 +12,7 @@ const eventEmitter = new NativeEventEmitter(NativeModules.ContactTracerModule)
 
 interface ContactTracerProps {
   anonymousId: string
-  startWithEnable: boolean
+  isPassedOnboarding: boolean
 }
 
 interface ContactTracerState {
@@ -51,8 +51,8 @@ export class ContactTracerProvider extends React.Component<
 
   componentDidMount() {
     NativeModules.ContactTracerModule.stopTracerService()
-    if (this.props.startWithEnable) {
-      this.enable()
+    if (this.props.isPassedOnboarding) {
+      NativeModules.ContactTracerModule.refreshTracerServiceStatus()
     }
   }
 

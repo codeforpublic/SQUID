@@ -84,7 +84,7 @@ class App extends React.Component {
     return (
       <ContactTracerProvider
         anonymousId={userPrivateData.getAnonymousId()}
-        startWithEnable={applicationState.get('isPassedOnboarding')}
+        isPassedOnboarding={applicationState.get('isPassedOnboarding')}
       >
         <SafeAreaProvider>
           <ApolloProvider client={apolloClient}>
