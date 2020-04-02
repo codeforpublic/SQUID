@@ -56,9 +56,7 @@ export class ContactTracerProvider extends React.Component<
     }
   }
 
-  componentWillUnmount() {
-    //this.disable()
-  }
+  componentWillUnmount() {}
 
   async init() {
     this.isInited = true
