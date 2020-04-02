@@ -89,14 +89,14 @@ public class TracerService extends Service {
     public void onCreate() {
         super.onCreate();
 
+        goForeground();
+
         initInstances();
 
         initBluetoothInstances();
 
         if (bluetoothAdapter == null)
             exithWithToast(R.string.ble_not_supported);
-
-        goForeground();
 
         initBluetoothAdvertiser();
 
