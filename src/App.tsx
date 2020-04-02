@@ -17,6 +17,7 @@ import { CachePersistor, persistCache } from 'apollo-cache-persist'
 import { apolloClient, migrateState } from './apollo-client'
 import { userPrivateData } from './state/userPrivateData'
 import { backgroundTracking } from './services/background-tracking'
+import { ContactTracerProvider } from './services/contact-tracing-provider'
 import { applicationState } from './state/app-state'
 
 const AppContainer = createAppContainer(Navigator)
@@ -76,20 +77,22 @@ class App extends React.Component {
       return null
     }
     return (
-      <SafeAreaProvider>
-        <ApolloProvider client={apolloClient}>
-          <HUDProvider>
-            <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }}>
-              <AppContainer
-                uriPrefix="thaialert://"
-                ref={navigator => {
-                  this._navigator = navigator
-                }}
-              />
-            </View>
-          </HUDProvider>
-        </ApolloProvider>
-      </SafeAreaProvider>
+      <ContactTracerProvider anonymousId={userPrivateData.getAnonymousId()} startWithEnable={applicationState.get('isPassedOnboarding')}>
+        <SafeAreaProvider>
+          <ApolloProvider client={apolloClient}>
+            <HUDProvider>
+              <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }}>
+                <AppContainer
+                  uriPrefix="thaialert://"
+                  ref={navigator => {
+                    this._navigator = navigator
+                  }}
+                />
+              </View>
+            </HUDProvider>
+          </ApolloProvider>
+        </SafeAreaProvider>
+      </ContactTracerProvider>
     )
   }
 }
