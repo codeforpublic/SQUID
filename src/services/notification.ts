@@ -9,7 +9,7 @@ class Notification {
       return
     }
     this.isConfigured = true
-    PushNotification.configure({
+    return PushNotification.configure({
       // (optional) Called when Token is generated (iOS and Android)
       onRegister: function(token) {
         console.log('TOKEN:', token)

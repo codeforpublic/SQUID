@@ -1,33 +1,28 @@
 import React, { useContext } from 'react'
 import {
-  Dimensions,
-  StatusBar,
-  StyleSheet,
-  View,
-  Text,
-  Switch,
-  ScrollView,
   NativeEventEmitter,
   DeviceEventEmitter,
   NativeModules,
   Platform,
 } from 'react-native'
-import { COLORS } from '../../styles'
-import { MyBackground } from '../../components/MyBackground'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { requestLocationPermission } from './Permission'
-import nanoid from 'nanoid'
+import { requestLocationPermission } from '../utils/Permission'
+import { scanManager } from './scanManager'
 
 const eventEmitter = new NativeEventEmitter(NativeModules.ContactTracerModule)
 
-interface ContactTracerProps {}
+interface ContactTracerProps {
+  anonymousId: string
+  startWithEnable: boolean
+}
 
 interface ContactTracerState {
   isServiceEnabled: boolean
   isLocationPermissionGranted: boolean
   isBluetoothOn: boolean
-  userId: string
-  statusText: string
+  anonymousId: string
+  statusText: string  
+  enable: () => void
+  disable: () => void  
 }
 
 const Context = React.createContext<ContactTracerState>(null)
@@ -36,9 +31,10 @@ export class ContactTracerProvider extends React.Component<
   ContactTracerProps,
   ContactTracerState
 > {
-  statusText = ''
-  advertiserEventSubscription = null
-  nearbyDeviceFoundEventSubscription = null
+  private isInited = false
+  private statusText = ''
+  private advertiserEventSubscription = null
+  private nearbyDeviceFoundEventSubscription = null
 
   constructor(props) {
     super(props)
@@ -46,21 +42,28 @@ export class ContactTracerProvider extends React.Component<
       isServiceEnabled: false,
       isLocationPermissionGranted: false,
       isBluetoothOn: false,
-
-      userId: '',
-
+      anonymousId: '',
       statusText: this.statusText,
+      enable: this.enable.bind(this),
+      disable: this.disable.bind(this)
     }
   }
 
   componentDidMount() {
-    console.log(NativeModules.ContactTracerModule)
+    if (this.props.startWithEnable) {
+      this.enable()
+    }
+  }
 
-    // Get saved user ID or generate a new one
-    // TODO: Use the global userId instead of the local one. Remove User.tsx file if done
-    const userId = nanoid().substr(0, 20)
-    this.setState({ userId: userId })
-    NativeModules.ContactTracerModule.setUserId(userId).then(userId => {})
+  componentWillUnmount() {
+    this.disable()
+  }
+
+  async init() {
+    this.isInited = true
+    const anonymousId = this.props.anonymousId
+    this.setState({ anonymousId: anonymousId })
+    NativeModules.ContactTracerModule.setUserId(anonymousId).then(anonymousId => {})
 
     // Check if Tracer Service has been enabled
     NativeModules.ContactTracerModule.isTracerServiceEnabled()
@@ -74,7 +77,7 @@ export class ContactTracerProvider extends React.Component<
       .then(() => {})
 
     // Check if BLE is available
-    NativeModules.ContactTracerModule.initialize()
+    await NativeModules.ContactTracerModule.initialize()
       .then(result => {
         return NativeModules.ContactTracerModule.isBLEAvailable()
       })
@@ -148,9 +151,28 @@ export class ContactTracerProvider extends React.Component<
         this.onNearbyDeviceFoundReceived,
       )
     }
+    console.log('init complete')
+  }
+  async enable() {
+    console.log('enable tracing')
+    if (!this.isInited) {
+      await this.init()
+    }
+    
+    NativeModules.ContactTracerModule.enableTracerService().then(() => {})
+    this.setState({
+      isServiceEnabled: false
+    })
   }
 
-  componentWillUnmount() {
+  disable() {
+    NativeModules.ContactTracerModule.disableTracerService()
+    this.setState({
+      isServiceEnabled: false
+    })
+  }
+
+  destroy() {
     // Unregister Event Emitter
     this.advertiserEventSubscription.remove()
     this.nearbyDeviceFoundEventSubscription.remove()
@@ -159,26 +181,10 @@ export class ContactTracerProvider extends React.Component<
   }
 
   appendStatusText(text) {
+    console.log('tracing status', text)
     this.statusText = text + '\n' + this.statusText
     this.setState({
       statusText: this.statusText,
-    })
-  }
-
-  /**
-   * User Event Handler
-   */
-
-  onServiceSwitchChanged = () => {
-    if (this.state.isServiceEnabled) {
-      // To turn off
-      NativeModules.ContactTracerModule.disableTracerService().then(() => {})
-    } else {
-      // To turn on
-      NativeModules.ContactTracerModule.enableTracerService().then(() => {})
-    }
-    this.setState({
-      isServiceEnabled: !this.state.isServiceEnabled,
     })
   }
 
@@ -195,6 +201,8 @@ export class ContactTracerProvider extends React.Component<
     this.appendStatusText('***** RSSI: ' + e['rssi'])
     this.appendStatusText('***** Found Nearby Device: ' + e['name'])
     this.appendStatusText('')
+    /* broadcast */
+    scanManager.add(e['rssi'])
   }
 
   render() {
