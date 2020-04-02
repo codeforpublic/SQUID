@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, Fragment } from 'react'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {
@@ -37,7 +37,7 @@ export const MainApp = () => {
   const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
   console.log(faceURI)
   const isVerified = applicationState.get('isRegistered')
-  const qr = useSelfQR()
+  const { qrData: qr, error: qrError } = useSelfQR()
   const resetTo = useResetTo()
   const navigation = useNavigation()
   const [fadeAnim] = useState(new Animated.Value(0))
@@ -233,12 +233,19 @@ export const MainApp = () => {
         {({ height }) => {
           const size = height ? Math.min(300, height) : void 0
           return size ? (
-            <Image
-              style={{ width: size, height: size }}
-              source={{
-                uri: qr.getQRImageURL(),
-              }}
-            />
+            <Fragment>
+              <Image
+                style={{ width: size, height: size }}
+                source={{
+                  uri: qr.getQRImageURL(),
+                }}
+              />
+              {qrError && (
+                <Text style={styles.errorText}>
+                  ไม่สามารถอัพเดท QR ได้ โปรดเช็คการเชื่อมต่ออินเทอร์เน็ตของคุณ
+                </Text>
+              )}
+            </Fragment>
           ) : (
             <ActivityIndicator size="large" />
           )
