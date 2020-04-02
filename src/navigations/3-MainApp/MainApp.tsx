@@ -65,6 +65,19 @@ const QRStateText = ({ qrState }) => {
           </Text>
         </View>
       )
+    case QR_STATE.LOADING:
+      return (
+        <View
+          style={{
+            position: 'absolute',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 12,
+          }}
+        >
+          <ActivityIndicator size="large" color="black" />
+        </View>
+      )
     case QR_STATE.EXPIRE:
       return (
         <View
@@ -131,21 +144,6 @@ export const MainApp = () => {
       }
     })
   }, [])
-  // useEffect(() => {
-  //   fadeAnim.setValue(0)
-  //   Animated.timing(fadeAnim, {
-  //     toValue: 1,
-  //     duration: 5000,
-  //   }).start()
-  // }, [qr])
-
-  if (qrState === QR_STATE.LOADING) {
-    return (
-      <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-        <ActivityIndicator size="large" />
-      </View>
-    )
-  }
 
   const qr = qrData
   const timeSinceLastUpdate = qr ? Date.now() - qr.timestamp : 0
