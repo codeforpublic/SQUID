@@ -43,7 +43,9 @@ export const useSelfQR = () => {
     },
   )
   useEffect(() => {
+    let tl
     const updateQR = async () => {
+      clearTimeout(tl)
       try {
         const _qrData = await getQRData()
         const qrData = await SelfQR.setCurrentQRFromQRData(_qrData)
@@ -52,13 +54,13 @@ export const useSelfQR = () => {
           type: QR_ACTION.UPDATE,
           payload: { qrData, qrState, error: null },
         })
-        setTimeout(updateQR, 60 * 1000) // Update after 1 min
+        tl = setTimeout(updateQR, 60 * 1000) // Update after 1 min
       } catch (error) {
         dispatch({
           type: QR_ACTION.UPDATE,
           payload: { qrState: QR_STATE.FAILED, error },
         })
-        setTimeout(updateQR, 5 * 1000) // Retry after 5 sec
+        tl = setTimeout(updateQR, 10 * 1000) // Retry after 10 sec
       }
     }
 
@@ -68,6 +70,9 @@ export const useSelfQR = () => {
     }
 
     setQRFromStorage().then(() => updateQR())
+    return () => {
+      clearTimeout(tl)
+    }
   }, [])
 
   return state
