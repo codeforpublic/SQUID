@@ -223,6 +223,9 @@ dependencies {
     } else {
       implementation jscFlavor
     }
+
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
 }
 
 // Run this once to be able to run the application with BUCK
