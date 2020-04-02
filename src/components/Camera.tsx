@@ -44,7 +44,7 @@ const ShutterButton = styled.TouchableOpacity`
 const FlashButton = ({ flashMode, setFlashMode }) => (
   <TouchableOpacity
     activeOpacity={0.8}
-    style={{ position: 'absolute', right: 0, padding: 16 }}
+    style={{ padding: 16 }}
     onPress={() => {
       const sequences = [RNCamera.Constants.FlashMode.on, RNCamera.Constants.FlashMode.auto, RNCamera.Constants.FlashMode.off]
       setFlashMode(
@@ -83,7 +83,7 @@ const CameraDirectionButton = ({ setCameraType, cameraType }) => (
 const CloseButton = ({onClose}) => (
   <TouchableOpacity
     activeOpacity={0.8}
-    style={{ position: 'absolute', left: 0, padding: 16 }}
+    style={{ padding: 16 }}
     onPress={() => {
         onClose()
     }}
@@ -166,20 +166,21 @@ export const Camera = ({
     <SafeAreaView
       style={{ flex: 1, backgroundColor: 'black', position: 'relative' }}
     >
+      <View style={{ width: '100%', flex: 1, alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' }}>
+        {onClose ? <CloseButton onClose={onClose} />: null}
+        <FlashButton flashMode={flashMode} setFlashMode={setFlashMode} />
+      </View>
       {isFocused ? <RNCamera
         ref={cameraRef}
         flashMode={flashMode}
         type={cameraType}
-        style={{ flex: 1, width: '100%', height: '100%' }}
+        ratio="4:3"
+        style={{ width: '100%', aspectRatio: 3/4 }}
         captureAudio={false}
       >
         {children}
       </RNCamera>: null}
-      <View style={{position: 'absolute', top: 0, left: 0, width: '100%'}}>
-        {onClose ? <CloseButton onClose={onClose} />: null}
-        <FlashButton flashMode={flashMode} setFlashMode={setFlashMode} />
-      </View>
-      <View style={{ flexDirection: 'row', paddingVertical: 8 }}>
+      <View style={{ flexDirection: 'row', paddingVertical: 8, flex: 1 }}>
         <View
           style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
         >
