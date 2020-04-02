@@ -17,7 +17,7 @@ import { CachePersistor, persistCache } from 'apollo-cache-persist'
 import { apolloClient, migrateState } from './apollo-client'
 import { userPrivateData } from './state/userPrivateData'
 import { backgroundTracking } from './services/background-tracking'
-import { ContactTracerProvider } from './services/contact-tracing-manager'
+import { ContactTracerProvider } from './services/contact-tracing-provider'
 import { applicationState } from './state/app-state'
 
 const AppContainer = createAppContainer(Navigator)

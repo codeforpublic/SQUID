@@ -13,7 +13,7 @@ import {
 import { PrimaryButton } from '../../components/Button'
 import { applicationState } from '../../state/app-state'
 import { pushNotification } from '../../services/notification'
-import { useContactTracer } from '../../services/contact-tracing-manager'
+import { useContactTracer } from '../../services/contact-tracing-provider'
 
 const STRING = {
   TITLE: 'กำลังดำเนินการ...',

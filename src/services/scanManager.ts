@@ -1,10 +1,9 @@
 import {  AppState } from 'react-native'
-import { QRResult } from "../state/qr"
 import { scan } from '../api'
 import { backgroundTracking } from './background-tracking'
 
 class ScanManager {
-  list: QRResult[] = []
+  list: string[] = []
   _it?: NodeJS.Timeout 
   constructor() {
     let prevState
@@ -20,11 +19,11 @@ class ScanManager {
   private startTimeout() {    
     this._it = setTimeout(() => this.upload(), 30 * 1000) // 30 sec
   }
-  add(result: QRResult): boolean {    
-    if (this.list.find(r => r.annonymousId === result.annonymousId)) {
+  add(annonymousId: string): boolean {    
+    if (this.list.find(id => id === annonymousId)) {
       return false
     }
-    this.list.push(result)
+    this.list.push(annonymousId)
     if (!this._it) {
       this.startTimeout()
     }
@@ -38,7 +37,7 @@ class ScanManager {
       delete this._it
       try {
         const location = await backgroundTracking.getLocation()
-        await scan(uploadList.map(l => l.annonymousId), {
+        await scan(uploadList, {
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
           accuracy: location.coords.accuracy
