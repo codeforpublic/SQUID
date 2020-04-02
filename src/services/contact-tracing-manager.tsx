@@ -131,6 +131,7 @@ export class ContactTracerProvider extends React.Component<
 
     // Register Event Emitter
     if (Platform.OS == 'ios') {
+      console.log('add listener')
       this.advertiserEventSubscription = eventEmitter.addListener(
         'AdvertiserMessage',
         this.onAdvertiserMessageReceived,
@@ -141,6 +142,7 @@ export class ContactTracerProvider extends React.Component<
         this.onNearbyDeviceFoundReceived,
       )
     } else {
+      console.log('add listener')
       this.advertiserEventSubscription = DeviceEventEmitter.addListener(
         'AdvertiserMessage',
         this.onAdvertiserMessageReceived,
