@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, Fragment } from 'react'
+import React, { useEffect, useState, useRef, Fragment, useMemo } from 'react'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {
@@ -35,6 +35,36 @@ const MAX_SCORE = 100
 
 const QRStateText = ({ qrState }) => {
   switch (qrState) {
+    case QR_STATE.INITIAL:
+      return (
+        <View
+          style={{
+            position: 'absolute',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'rgba(255,255,255,0.9)',
+            padding: 12,
+          }}
+        >
+          <Text
+            style={{
+              color: COLORS.GRAY_4,
+              fontSize: 24,
+              fontFamily: FONT_FAMILY,
+            }}
+          >
+            ไม่สามารถสร้าง QR ได้
+          </Text>
+          <Text
+            style={{
+              color: COLORS.GRAY_4,
+              fontFamily: FONT_FAMILY,
+            }}
+          >
+            เชื่อมต่ออินเทอร์เน็ตเพื่อสร้าง QR
+          </Text>
+        </View>
+      )
     case QR_STATE.EXPIRE:
       return (
         <View
@@ -72,14 +102,12 @@ const QRStateText = ({ qrState }) => {
 
 export const MainApp = () => {
   const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
-  console.log(faceURI)
   const isVerified = applicationState.get('isRegistered')
-  const { qrData: qr, qrState } = useSelfQR()
+  const { qrData, qrState, error } = useSelfQR()
   const resetTo = useResetTo()
   const navigation = useNavigation()
   const [fadeAnim] = useState(new Animated.Value(0))
 
-  const timeSinceLastUpdate = Date.now() - qr.timestamp
   const avatarWidth = Math.min(
     200,
     Math.floor((25 / 100) * Dimensions.get('screen').height),
@@ -113,13 +141,20 @@ export const MainApp = () => {
   //   }).start()
   // }, [qr])
 
-  if (!qr) {
+  if (!qrData && !error) {
     return (
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>
         <ActivityIndicator size="large" />
       </View>
     )
   }
+
+  const qr = qrData
+  const timeSinceLastUpdate = qr ? Date.now() - qr.timestamp : 0
+  const progress = qr ? (qr.getScore() / MAX_SCORE) * 100 : 0
+  const color = qr ? qr.getStatusColor() : COLORS.GRAY_2
+  const qrUri = qr ? qr.getQRImageURL() : ''
+  const label = qr ? qr.getLabel() : ''
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
@@ -148,10 +183,10 @@ export const MainApp = () => {
         >
           <View style={{ position: 'relative' }}>
             <CircularProgressAvatar
-              key={qr.getCreatedDate()}
+              key={qr ? qr.getCreatedDate() : 0}
               image={faceURI ? { uri: faceURI } : void 0}
-              color={qr.getStatusColor()}
-              progress={(qr.getScore() / MAX_SCORE) * 100}
+              color={color}
+              progress={progress}
               width={avatarWidth}
             />
             <TouchableHighlight
@@ -186,27 +221,29 @@ export const MainApp = () => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-      <Animated.Text
-        style={{
-          fontFamily: FONT_FAMILY,
-          fontSize: 18,
-          alignSelf: 'center',
-          // color: fadeAnim.interpolate({
-          //   inputRange: [0, 0.1, 0.9, 1],
-          //   outputRange: [
-          //     'rgb(80, 85, 101)',
-          //     'rgb(231,137,51)',
-          //     'rgb(231, 73, 51)',
-          //     'rgb(80, 85, 101)',
-          //   ],
-          // }),
-          color: COLORS.GRAY_4,
-          marginTop: 12,
-          marginBottom: 8,
-        }}
-      >
-        ข้อมูลวันที่ {qr.getCreatedDate().format('DD MMM YYYY HH:mm น.')}
-      </Animated.Text>
+      {qr ? (
+        <Animated.Text
+          style={{
+            fontFamily: FONT_FAMILY,
+            fontSize: 18,
+            alignSelf: 'center',
+            // color: fadeAnim.interpolate({
+            //   inputRange: [0, 0.1, 0.9, 1],
+            //   outputRange: [
+            //     'rgb(80, 85, 101)',
+            //     'rgb(231,137,51)',
+            //     'rgb(231, 73, 51)',
+            //     'rgb(80, 85, 101)',
+            //   ],
+            // }),
+            color: COLORS.GRAY_4,
+            marginTop: 12,
+            marginBottom: 8,
+          }}
+        >
+          ข้อมูลวันที่ {qr.getCreatedDate().format('DD MMM YYYY HH:mm น.')}
+        </Animated.Text>
+      ) : null}
       {qrState === QR_STATE.OUTDATE ? (
         <Text
           style={{
@@ -230,25 +267,26 @@ export const MainApp = () => {
           justifyContent: 'center',
         }}
       >
-        <View
-          style={{
-            flexDirection: 'row',
-            paddingHorizontal: 16,
-            alignItems: 'center',
-          }}
-        >
-          <Image
-            source={require('../../assets/covid.png')}
-            style={{ width: 20, height: 20 }}
-          />
+        {qr ? (
           <View
             style={{
-              alignItems: 'flex-start',
-              flexDirection: 'column',
-              marginLeft: 8,
+              flexDirection: 'row',
+              paddingHorizontal: 16,
+              alignItems: 'center',
             }}
           >
-            {/* <Text
+            <Image
+              source={require('../../assets/covid.png')}
+              style={{ width: 20, height: 20 }}
+            />
+            <View
+              style={{
+                alignItems: 'flex-start',
+                flexDirection: 'column',
+                marginLeft: 8,
+              }}
+            >
+              {/* <Text
                 style={{
                   fontFamily: FONT_FAMILY,
                   fontSize: 12,
@@ -257,19 +295,20 @@ export const MainApp = () => {
               >
                 ความเสี่ยง
               </Text> */}
-            <Text
-              style={{
-                fontFamily: FONT_FAMILY,
-                fontSize: 16,
-                marginTop: -4,
-                fontWeight: 'bold',
-                color: qr.getStatusColor(),
-              }}
-            >
-              {qr.getLabel()}
-            </Text>
+              <Text
+                style={{
+                  fontFamily: FONT_FAMILY,
+                  fontSize: 16,
+                  marginTop: -4,
+                  fontWeight: 'bold',
+                  color,
+                }}
+              >
+                {label}
+              </Text>
+            </View>
           </View>
-        </View>
+        ) : null}
       </View>
       <Sizer
         style={{
@@ -287,12 +326,19 @@ export const MainApp = () => {
           const size = height ? Math.min(300, height) : void 0
           return size ? (
             <Fragment>
-              <Image
-                style={{ width: size, height: size }}
-                source={{
-                  uri: qr.getQRImageURL(),
-                }}
-              />
+              {qr ? (
+                <Image
+                  style={{ width: size, height: size }}
+                  source={{
+                    uri: qrUri,
+                  }}
+                />
+              ) : (
+                <Image
+                  style={{ width: size, height: size, opacity: 0.1 }}
+                  source={require('../../assets/qr-placeholder.png')}
+                />
+              )}
               <QRStateText qrState={qrState} />
             </Fragment>
           ) : (
