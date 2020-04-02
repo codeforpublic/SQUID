@@ -35,10 +35,6 @@ const MAX_SCORE = 100
 
 const QRStateText = ({ qrState }) => {
   switch (qrState) {
-    case QR_STATE.OUTDATE:
-      return (
-        <Text style={{ color: '#DCC91B' }}>QR ไม่ได้อัพเดทเกิน 10 นาที</Text>
-      )
     case QR_STATE.EXPIRE:
       return (
         <View
@@ -210,6 +206,20 @@ export const MainApp = () => {
       >
         ข้อมูลวันที่ {qr.getCreatedDate().format('DD MMM YYYY HH:mm น.')}
       </Animated.Text>
+      {qrState === QR_STATE.OUTDATE ? (
+        <Text
+          style={{
+            color: '#DCC91B',
+            fontFamily: FONT_FAMILY,
+            fontSize: 18,
+            marginTop: -8,
+            marginBottom: 8,
+            alignSelf: 'center',
+          }}
+        >
+          QR ไม่ได้อัพเดทเกิน 10 นาที
+        </Text>
+      ) : null}
       <View
         style={{
           flexDirection: 'row',
