@@ -2,6 +2,7 @@ import { getQRData } from '../api'
 import { useEffect, useState } from 'react'
 import moment from 'moment-timezone'
 import 'moment/locale/th'
+import AsyncStorage from '@react-native-community/async-storage'
 interface QRData {
   data: {
     anonymousId: string
@@ -13,24 +14,32 @@ interface QRData {
   }
 }
 
-let _qrData: SelfQR | null
 export const useSelfQR = () => {
-  const [qrData, setQRData] = useState(_qrData)
+  const [qrData, setQRData] = useState(null)
+  const [error, setError] = useState(null)
   useEffect(() => {
-    const updateQR = () => {
-      getQRData().then(d => {
-        _qrData = new SelfQR(d)
-        setQRData(_qrData)
-      })
+    const updateQR = async () => {
+      try {
+        const _qrData = await getQRData()
+        const qrData = await SelfQR.setCurrentQRFromQRData(_qrData)
+        setError(null)
+        setQRData(qrData)
+        setTimeout(updateQR, 60 * 1000) // Update after 1 min
+      } catch (error) {
+        setError(error)
+        setTimeout(updateQR, 5 * 1000) // Retry in 5 sec
+      }
     }
-    updateQR()
-    const it = setInterval(updateQR, 1 * 60 * 1000)
-    return () => {
-      clearInterval(it)
+
+    const setQRFromStorage = async () => {
+      const qrData = await SelfQR.getCurrentQR()
+      setQRData(qrData)
     }
+
+    setQRFromStorage().then(() => updateQR())
   }, [])
 
-  return qrData
+  return { qrData, error }
 }
 
 class QR {
@@ -56,6 +65,32 @@ class SelfQR extends QR {
   qrData: QRData
   code: string
   timestamp: number
+
+  private static currentQR: SelfQR = null
+
+  public static async getCurrentQR() {
+    if (!this.currentQR) {
+      try {
+        this.currentQR = new SelfQR(
+          JSON.parse(await AsyncStorage.getItem('selfQRData')),
+        )
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    return this.currentQR
+  }
+
+  public static async setCurrentQRFromQRData(qrData: QRData) {
+    try {
+      await AsyncStorage.setItem('selfQRData', JSON.stringify(qrData))
+    } catch (error) {
+      console.log(error)
+    }
+    this.currentQR = new SelfQR(qrData)
+    return this.currentQR
+  }
+
   constructor(qrData: QRData) {
     super(qrData.data.code)
     this.qrData = qrData
@@ -121,14 +156,15 @@ const LABELS = {
   red: 'ความเสี่ยงสูงมาก',
 }
 const CODE_MAP = {
-  'G': 'green',
-  'Y': 'yellow',
-  'O': 'orange',
-  'R': 'red'
+  G: 'green',
+  Y: 'yellow',
+  O: 'orange',
+  R: 'red',
 }
-const GEN_ACTION = "ล้างมือ สวมหน้ากาก หลีกเลี่ยงที่แออัด"
+const GEN_ACTION = 'ล้างมือ สวมหน้ากาก หลีกเลี่ยงที่แออัด'
 const SPEC_ACTIONS = {
-  'YELLOW': "อาจเป็นโรคอื่น ถ้า 2 วัน อาการไม่ดีขึ้นให้ไปพบแพทย์",
-  "ORANGE": "เนื่องจากท่านมีประวัติเดินทางจากพื้นที่เสี่ยง ให้กักตัว 14 วัน พร้อมเฝ้าระวังอาการ ถ้ามีอาการไข้ ร่วมกับ อาการระบบทางเดินหายใจ ให้ติดต่อสถานพยาบาลทันที",
-  "RED": "ให้ติดต่อสถานพยาบาลทันที"
+  YELLOW: 'อาจเป็นโรคอื่น ถ้า 2 วัน อาการไม่ดีขึ้นให้ไปพบแพทย์',
+  ORANGE:
+    'เนื่องจากท่านมีประวัติเดินทางจากพื้นที่เสี่ยง ให้กักตัว 14 วัน พร้อมเฝ้าระวังอาการ ถ้ามีอาการไข้ ร่วมกับ อาการระบบทางเดินหายใจ ให้ติดต่อสถานพยาบาลทันที',
+  RED: 'ให้ติดต่อสถานพยาบาลทันที',
 }
