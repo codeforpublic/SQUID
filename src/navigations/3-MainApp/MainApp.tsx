@@ -35,12 +35,10 @@ const MAX_SCORE = 100
 
 export const MainApp = () => {
   const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
-  console.log(faceURI)
   const isVerified = applicationState.get('isRegistered')
   const qr = useSelfQR()
   const resetTo = useResetTo()
   const navigation = useNavigation()
-  const [fadeAnim] = useState(new Animated.Value(0))
 
   const avatarWidth = Math.min(
     200,
