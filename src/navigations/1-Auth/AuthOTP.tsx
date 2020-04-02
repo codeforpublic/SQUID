@@ -42,7 +42,11 @@ export const AuthOTP = () => {
       }      
       hide()
       applicationState.set('isRegistered', 'success')
-      resetTo({ routeName: 'Onboarding' })
+      if (applicationState.get('isPassedOnboarding')) {
+        resetTo({ routeName: 'MainApp' })
+      } else {
+        resetTo({ routeName: 'Onboarding' })
+      }
     } catch (err) {
       console.log(err)
       hide()

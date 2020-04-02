@@ -1,18 +1,26 @@
 import PushNotification from 'react-native-push-notification'
 import PushNotificationIOS from "@react-native-community/push-notification-ios"
 import { backgroundTracking } from './background-tracking'
+import { updateUserData } from '../api'
 
 class Notification {
   isConfigured = false
-  configure() {
+  configure() {    
     if (this.isConfigured) {
       return
     }
+    console.log('notification configure')
     this.isConfigured = true
+    
     return PushNotification.configure({
       // (optional) Called when Token is generated (iOS and Android)
-      onRegister: function(token) {
-        console.log('TOKEN:', token)
+      onRegister: function(pushToken) {
+        console.log('notification TOKEN:', pushToken)
+        updateUserData({
+          pushToken
+        }).then(r => {
+          console.log('notification save push token', r)
+        })
       },
 
       // (required) Called when a remote or local notification is opened or received
