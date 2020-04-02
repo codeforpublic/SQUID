@@ -1,10 +1,8 @@
 import DeviceInfo from 'react-native-device-info'
 import { userPrivateData } from './state/userPrivateData'
 import nanoid from 'nanoid'
+import { API_URL } from './config'
 
-// export const API_URL = 'https://api.thaialert.com'
-export const API_URL = 'https://api.staging.thaialert.com'
-// export const API_URL = 'http://192.168.1.102:4210'
 const API_KEY = 'd6857fca1cfbeb600b399ac29f2dabf9'
 
 export const getPrivateHeaders = () => {
@@ -36,7 +34,12 @@ export const registerDevice = async (): Promise<{
     body: JSON.stringify({ deviceId: DeviceInfo.getUniqueId() }),
   })
   const result = await resp.json()
-  return result
+  console.log('registerDevice', result)
+  if (!result.anonymousId || !result.userId) {
+    throw new Error('RegisterDevice failed')
+  }
+  
+  return { userId: result.userId, anonymousId: result.anonymousId }
 }
 
 export const requestOTP = async (mobileNo: string) => {

@@ -15,4 +15,7 @@ public class Constants {
 
     // Interval for Advertiser service refreshing
     public static final long ADVERTISER_REFRESH_INTERVAL = 120000;
+
+    // Interval for TracerService health check
+    public static final int SERVICE_HEALTH_CHECK_INTERVAL = 5 * 60 * 1000;
 }

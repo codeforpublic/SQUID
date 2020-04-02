@@ -37,6 +37,9 @@ public class ContactTracerModule extends ReactContextBaseJavaModule implements A
     private BroadcastReceiver advertiserMessageReceiver;
     private BroadcastReceiver nearbyDeviceFoundReceiver;
 
+    private boolean isAdvertiserMessageReceiverRegistered = false;
+    private boolean isNearbyDeviceFoundReceiverRegistered = false;
+
     public ContactTracerModule(ReactApplicationContext reactContext) {
         super(reactContext);
         reactContext.addActivityEventListener(this);
@@ -142,36 +145,42 @@ public class ContactTracerModule extends ReactContextBaseJavaModule implements A
     @ReactMethod
     public void enableTracerService(final Promise promise) {
         TracerService.enable(getReactApplicationContext());
-        startTracerService(getReactApplicationContext());
+        _startTracerService(getReactApplicationContext());
         promise.resolve(null);
     }
 
     @ReactMethod
     public void disableTracerService(final Promise promise) {
         TracerService.disable(getReactApplicationContext());
-        stopTracerService(getReactApplicationContext());
+        _stopTracerService(getReactApplicationContext());
         promise.resolve(null);
     }
 
     @ReactMethod
     public void refreshTracerServiceStatus(final Promise promise) {
         if (TracerService.isEnabled(getReactApplicationContext())) {
-            startTracerService(getReactApplicationContext());
+            _startTracerService(getReactApplicationContext());
             promise.resolve(true);
         } else {
-            stopTracerService(getReactApplicationContext());
+            _stopTracerService(getReactApplicationContext());
             promise.resolve(false);
         }
     }
 
-    private void startTracerService(Context context) {
+    @ReactMethod
+    public void stopTracerService(final Promise promise) {
+        _stopTracerService(getReactApplicationContext());
+        promise.resolve(true);
+    }
+
+    private void _startTracerService(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             context.startForegroundService(new Intent(context, TracerService.class));
         else
             context.startService(new Intent(context, TracerService.class));
     }
 
-    private void stopTracerService(Context context) {
+    private void _stopTracerService(Context context) {
         context.stopService(new Intent(context, TracerService.class));
     }
 
@@ -225,15 +234,6 @@ public class ContactTracerModule extends ReactContextBaseJavaModule implements A
 
     @Override
     public void onHostDestroy() {
-        try {
-            getReactApplicationContext().unregisterReceiver(advertiserMessageReceiver);
-        } catch (IllegalArgumentException e) {
 
-        }
-        try {
-            getReactApplicationContext().unregisterReceiver(nearbyDeviceFoundReceiver);
-        } catch (IllegalArgumentException e) {
-
-        }
     }
 }

@@ -96,6 +96,8 @@ public class TracerService extends Service {
         if (bluetoothAdapter == null)
             exithWithToast(R.string.ble_not_supported);
 
+        goForeground();
+
         initBluetoothAdvertiser();
 
         initWakeLock();
@@ -120,6 +122,8 @@ public class TracerService extends Service {
 
         stopScannerTimer();
         stopScanning();
+
+        broadcastHealthCheck();
 
         super.onDestroy();
     }
@@ -183,12 +187,14 @@ public class TracerService extends Service {
      ************************/
 
     private void initBluetoothAdvertiser() {
+        if (bluetoothAdapter == null)
+            return;
         if (bluetoothLeAdvertiser == null) {
             final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
             if (bluetoothManager != null) {
                 bluetoothLeAdvertiser = bluetoothAdapter.getBluetoothLeAdvertiser();
             } else {
-                exithWithToast(R.string.ble_not_supported);
+
             }
         }
     }
@@ -212,6 +218,7 @@ public class TracerService extends Service {
                 .setContentText("This device is discoverable to others nearby.")
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .build();
 
         startForeground(FOREGROUND_NOTIFICATION_ID, n);
@@ -241,8 +248,6 @@ public class TracerService extends Service {
         if (!BluetoothUtils.isMultipleAdvertisementSupported(bluetoothAdapter))
             return;
 
-        goForeground();
-
         if (advertiseCallback == null) {
             sendSignalAndLog("Service: Starting Advertising");
 
@@ -262,10 +267,9 @@ public class TracerService extends Service {
     private void stopAdvertising() {
         sendSignalAndLog("Service: Stopping Advertising");
 
-        if (bluetoothLeAdvertiser != null && advertiseCallback != null) {
+        if (bluetoothLeAdvertiser != null && advertiseCallback != null)
             bluetoothLeAdvertiser.stopAdvertising(advertiseCallback);
-            advertiseCallback = null;
-        }
+        advertiseCallback = null;
     }
 
     /**
@@ -367,6 +371,8 @@ public class TracerService extends Service {
      *********************/
 
     private void initBluetoothScanner() {
+        if (bluetoothAdapter == null)
+            return;
         bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
     }
 
@@ -400,13 +406,10 @@ public class TracerService extends Service {
             }, Constants.SCAN_PERIOD);
             // Kick off a new scan.
             scanCallback = new SampleScanCallback();
-            bluetoothLeScanner.startScan(buildScanFilters(), buildScanSettings(), scanCallback);
-            String toastText = getString(R.string.scan_start_toast) + " "
-                    + TimeUnit.SECONDS.convert(Constants.SCAN_PERIOD, TimeUnit.MILLISECONDS) + " "
-                    + getString(R.string.seconds);
-            //Toast.makeText(TracerService.this, toastText, Toast.LENGTH_LONG).show();
+            if (bluetoothLeScanner != null)
+                bluetoothLeScanner.startScan(buildScanFilters(), buildScanSettings(), scanCallback);
         } else {
-            //Toast.makeText(TracerService.this, R.string.already_scanning, Toast.LENGTH_SHORT).show();
+
         }
     }
     /**
@@ -416,10 +419,9 @@ public class TracerService extends Service {
         sendSignalAndLog("Stop Scanning");
 
         // Stop the scan, wipe the callback.
-        if (scanCallback != null) {
+        if (bluetoothLeScanner != null && scanCallback != null)
             bluetoothLeScanner.stopScan(scanCallback);
-            scanCallback = null;
-        }
+        scanCallback = null;
         // Even if no new results, update 'last seen' times.
         //mAdapter.notifyDataSetChanged();
     }
@@ -511,14 +513,19 @@ public class TracerService extends Service {
         JobScheduler mJobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
         JobInfo.Builder builder = new JobInfo.Builder(1,
                 new ComponentName(getPackageName(), SchedulerService.class.getName()));
-        builder.setPeriodic(15 * 60 * 1000);
+        builder.setPeriodic(Constants.SERVICE_HEALTH_CHECK_INTERVAL);
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
         mJobScheduler.schedule(builder.build());
 
         AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(TracerService.this, BootCompletedReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(TracerService.this, 0, i, 0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 1000, 1000 * 60 * 15, pi); // Millisec * Second * Minute
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 1000, Constants.SERVICE_HEALTH_CHECK_INTERVAL, pi); // Millisec * Second * Minute
+    }
+
+    private void broadcastHealthCheck() {
+        Intent intent = new Intent("com.thaialert.servicehealthcheck");
+        sendBroadcast(intent);
     }
 
     /**
