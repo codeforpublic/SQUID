@@ -204,7 +204,7 @@ export class ContactTracerProvider extends React.Component<
     this.appendStatusText('***** Found Nearby Device: ' + e['name'])
     this.appendStatusText('')
     /* broadcast */
-    scanManager.add(e['rssi'])
+    scanManager.add(e['name'])
   }
 
   render() {
