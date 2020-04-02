@@ -148,7 +148,7 @@ export const MainApp = () => {
   }
 
   const qr = qrData
-  const timeSinceLastUpdate = qr ? Date.now() - qr.timestamp + 300000000 : 0
+  const timeSinceLastUpdate = qr ? Date.now() - qr.timestamp : 0
   const progress = qr ? (qr.getScore() / MAX_SCORE) * 100 : 0
   const color = qr ? qr.getStatusColor() : COLORS.GRAY_2
   const qrUri = qr ? qr.getQRImageURL() : ''
