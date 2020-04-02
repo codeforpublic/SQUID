@@ -36,7 +36,12 @@ export const registerDevice = async (): Promise<{
     body: JSON.stringify({ deviceId: DeviceInfo.getUniqueId() }),
   })
   const result = await resp.json()
-  return result
+  console.log('registerDevice', result)
+  if (!result.anonymousId || !result.userId) {
+    throw new Error('RegisterDevice failed')
+  }
+  
+  return { userId: result.userId, anonymousId: result.anonymousId }
 }
 
 export const requestOTP = async (mobileNo: string) => {
