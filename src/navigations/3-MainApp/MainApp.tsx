@@ -18,7 +18,7 @@ import { CircularProgressAvatar } from '../../components/CircularProgressAvatar'
 import { WhiteBackground } from '../../components/WhiteBackground'
 import Sizer from 'react-native-size'
 import { userPrivateData } from '../../state/userPrivateData'
-import { useSelfQR } from '../../state/qr'
+import { useSelfQR, QR_STATE } from '../../state/qr'
 import { applicationState } from '../../state/app-state'
 import { Link } from '../../components/Base'
 import { useResetTo } from '../../utils/navigation'
@@ -33,11 +33,52 @@ import RNFS from 'react-native-fs'
 
 const MAX_SCORE = 100
 
+const QRStateText = ({ qrState }) => {
+  switch (qrState) {
+    case QR_STATE.OUTDATE:
+      return (
+        <Text style={{ color: '#DCC91B' }}>QR ไม่ได้อัพเดทเกิน 10 นาที</Text>
+      )
+    case QR_STATE.EXPIRE:
+      return (
+        <View
+          style={{
+            position: 'absolute',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'rgba(255,255,255,0.9)',
+            padding: 12,
+          }}
+        >
+          <Text
+            style={{
+              color: 'red',
+              fontSize: 24,
+              fontFamily: FONT_FAMILY,
+            }}
+          >
+            QR หมดอายุแล้ว
+          </Text>
+          <Text
+            style={{
+              color: 'red',
+              fontFamily: FONT_FAMILY,
+            }}
+          >
+            เชื่อมต่ออินเทอร์เน็ตเพื่ออัพเดท
+          </Text>
+        </View>
+      )
+    default:
+      return null
+  }
+}
+
 export const MainApp = () => {
   const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
   console.log(faceURI)
   const isVerified = applicationState.get('isRegistered')
-  const { qrData: qr, error: qrError } = useSelfQR()
+  const { qrData: qr, qrState } = useSelfQR()
   const resetTo = useResetTo()
   const navigation = useNavigation()
   const [fadeAnim] = useState(new Animated.Value(0))
@@ -240,11 +281,7 @@ export const MainApp = () => {
                   uri: qr.getQRImageURL(),
                 }}
               />
-              {qrError && (
-                <Text style={styles.errorText}>
-                  ไม่สามารถอัพเดท QR ได้ โปรดเช็คการเชื่อมต่ออินเทอร์เน็ตของคุณ
-                </Text>
-              )}
+              <QRStateText qrState={qrState} />
             </Fragment>
           ) : (
             <ActivityIndicator size="large" />
