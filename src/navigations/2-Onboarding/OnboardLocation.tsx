@@ -1,6 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { MyBackground } from '../../components/MyBackground'
-import { View, StatusBar, Platform, Text, StyleSheet, ActivityIndicator } from 'react-native'
+import {
+  View,
+  StatusBar,
+  Platform,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native'
 import { PERMISSIONS, check, request } from 'react-native-permissions'
 import { useNavigation } from 'react-navigation-hooks'
 import { FONT_FAMILY, COLORS } from '../../styles'
@@ -65,7 +72,7 @@ export const OnboardLocation = () => {
           flex: 1,
           backgroundColor: COLORS.PRIMARY_DARK,
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
         }}
       >
         <ActivityIndicator size="large" />
@@ -74,39 +81,39 @@ export const OnboardLocation = () => {
   }
 
   return (
-    
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: COLORS.PRIMARY_DARK
-        }}
-      >
-        <StatusBar backgroundColor={COLORS.PRIMARY_DARK} barStyle="light-content" />
-        <View
-          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-        >
-          <Icon name="location" color={COLORS.ORANGE} size={64} />
-          <View style={{ padding: 8 }}>
-            <Text style={styles.title}>ขอสิทธิเข้าถึงข้อมูล</Text>
-            <Text style={styles.description}>
-              <AntIcon name="checksquareo" size={18} color={COLORS.ORANGE} /> 1.
-              เราจำเป็นจะต้องเข้าถึงที่อยู่ของคุณ
-              เพื่อส่งให้กับหน่วยงานที่คุณวางใจ
-              โดยที่คุณสามารถยกเลิกการแชร์ข้อมูลได้ตลอดเวลา
-            </Text>
-            <Text style={styles.description}>
-              <AntIcon name="checksquareo" size={18} color={COLORS.ORANGE} /> 2.
-              เราจำเป็นจะต้องเข้าถึง Activity
-              ของคุณเพื่อจัดการการใช้พลังงานของมือถือของคุณ
-            </Text>
-            <PrimaryButton
-              title={'อนุญาตให้เข้าถึง'}
-              style={{ marginTop: 56, alignSelf: 'center', width: '100%' }}
-              onPress={() => handleSubmit()}
-            />
-          </View>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: COLORS.PRIMARY_DARK,
+      }}
+    >
+      <StatusBar
+        backgroundColor={COLORS.PRIMARY_DARK}
+        barStyle="light-content"
+      />
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Icon name="location" color={COLORS.ORANGE} size={64} />
+        <View style={{ padding: 8 }}>
+          <Text style={styles.title}>ขอสิทธิ์เข้าถึงข้อมูล</Text>
+          <Text style={styles.description}>
+            <AntIcon name="checksquareo" size={18} color={COLORS.ORANGE} /> 1.
+            เราจำเป็นจะต้องเข้าถึงที่อยู่ของคุณ
+            เพื่อส่งให้กับหน่วยงานที่คุณสามารถวางใจได้
+            โดยที่คุณสามารถยกเลิกการแชร์ข้อมูลได้ตลอดเวลา
+          </Text>
+          <Text style={styles.description}>
+            <AntIcon name="checksquareo" size={18} color={COLORS.ORANGE} /> 2.
+            เราจำเป็นจะต้องเข้าถึงกิจกรรมการใช้งานของโทรศัพท์มือถือของท่าน
+            เพื่อจัดการการใช้พลังงานของมือถืออย่างมีประสิทธิภาพ
+          </Text>
+          <PrimaryButton
+            title={'อนุญาตให้เข้าถึง'}
+            style={{ marginTop: 56, alignSelf: 'center', width: '100%' }}
+            onPress={() => handleSubmit()}
+          />
         </View>
       </View>
+    </View>
   )
 }
 const styles = StyleSheet.create({

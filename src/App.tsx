@@ -1,5 +1,6 @@
 // export const App = () => null
 import React, { Component, Context } from 'react'
+import { NativeModules } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-community/async-storage'
 
@@ -17,6 +18,7 @@ import { CachePersistor, persistCache } from 'apollo-cache-persist'
 import { apolloClient, migrateState } from './apollo-client'
 import { userPrivateData } from './state/userPrivateData'
 import { backgroundTracking } from './services/background-tracking'
+import { ContactTracerProvider } from './services/contact-tracing-provider'
 import { applicationState } from './state/app-state'
 
 const AppContainer = createAppContainer(Navigator)
@@ -35,15 +37,10 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
-    this.load().then(
-      () => {
-        this.setState({ loaded: true })
-      },
-      err => {
-        console.log('err', err)
-        Alert.alert('Load app failed')
-      },
-    )
+    this.load().catch(err => {
+      console.log('err', err)
+      Alert.alert('Load app failed')
+    })
   }
   purgeAll() {
     const persistor = new CachePersistor({
@@ -72,6 +69,12 @@ class App extends React.Component {
     await migrateState(apolloClient)
     await backgroundTracking.setup(applicationState.get('isPassedOnboarding'))
     SplashScreen.hide()
+
+    await NativeModules.ContactTracerModule.setUserId(
+      userPrivateData.getAnonymousId(),
+    )
+
+    this.setState({ loaded: true })
   }
 
   render() {
@@ -79,20 +82,25 @@ class App extends React.Component {
       return null
     }
     return (
-      <SafeAreaProvider>
-        <ApolloProvider client={apolloClient}>
-          <HUDProvider>
-            <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }}>
-              <AppContainer
-                uriPrefix="thaialert://"
-                ref={navigator => {
-                  this._navigator = navigator
-                }}
-              />
-            </View>
-          </HUDProvider>
-        </ApolloProvider>
-      </SafeAreaProvider>
+      <ContactTracerProvider
+        anonymousId={userPrivateData.getAnonymousId()}
+        isPassedOnboarding={applicationState.get('isPassedOnboarding')}
+      >
+        <SafeAreaProvider>
+          <ApolloProvider client={apolloClient}>
+            <HUDProvider>
+              <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }}>
+                <AppContainer
+                  uriPrefix="thaialert://"
+                  ref={navigator => {
+                    this._navigator = navigator
+                  }}
+                />
+              </View>
+            </HUDProvider>
+          </ApolloProvider>
+        </SafeAreaProvider>
+      </ContactTracerProvider>
     )
   }
 }

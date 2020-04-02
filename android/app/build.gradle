@@ -1,5 +1,12 @@
 apply plugin: "com.android.application"
 
+project.ext.envConfigFiles = [
+    debug: ".env",
+    release: ".env.production",
+    anothercustombuild: ".env",
+]
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 import com.android.build.OutputFile
 
 /**
@@ -75,6 +82,9 @@ import com.android.build.OutputFile
 project.ext.react = [
     entryFile: "index.js",
     enableHermes: false,  // clean and rebuild if changing
+    bundleAssetName: "index.android.bundle",
+    bundleInDebug: true,
+    bundleInRelease: true
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -136,10 +146,11 @@ android {
         applicationId "com.thaialert.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 5
-        versionName "1.0.4"
+        versionCode 8
+        versionName "1.0.7"
         multiDexEnabled true
         missingDimensionStrategy 'react-native-camera', 'general' 
+        resValue "string", "build_config_package", "com.thaialert.app"
     }
     splits {
         abi {
@@ -201,9 +212,6 @@ android {
 
 
 dependencies {
-    implementation project(':@react-native-community_image-editor')
-    implementation project(':react-native-image-picker')
-    implementation project(':react-native-svg')
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation project(':react-native-push-notification')
     implementation fileTree(dir: "libs", include: ["*.jar"])

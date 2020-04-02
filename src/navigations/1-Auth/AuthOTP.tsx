@@ -39,10 +39,14 @@ export const AuthOTP = () => {
         Alert.alert('รหัสผ่านไม่ถูกต้อง')
         hide()
         return
-      }      
+      }
       hide()
       applicationState.set('isRegistered', 'success')
-      resetTo({ routeName: 'Onboarding' })
+      if (applicationState.get('isPassedOnboarding')) {
+        resetTo({ routeName: 'MainApp' })
+      } else {
+        resetTo({ routeName: 'Onboarding' })
+      }
     } catch (err) {
       console.log(err)
       hide()

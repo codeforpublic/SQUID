@@ -18,12 +18,14 @@ import { requestOTP } from '../../api'
 import { useHUD } from '../../HudView'
 import { Link } from '../../components/Base'
 import { applicationState } from '../../state/app-state'
+import { useResetTo } from '../../utils/navigation'
 
 export const AuthPhone = () => {
   const navigation = useNavigation()
   const { showSpinner, hide } = useHUD()
   const [phone, setPhone] = useState('')
   const isValidPhone = useMemo(() => phone.match(/^[0-9-]{12}$/), [phone])
+  const resetTo = useResetTo()
 
   return (
     <SafeAreaView style={styles.container}>
@@ -60,6 +62,7 @@ export const AuthPhone = () => {
                 setPhone(text.trim())
               }}
               value={phone}
+              autoFocus
               placeholder="เบอร์โทรศัพท์ของคุณ"
               maxLength={12}
               keyboardType={'phone-pad'}
@@ -94,10 +97,14 @@ export const AuthPhone = () => {
           />
           <TouchableOpacity onPress={() => {
             applicationState.set('skipRegistration', true)
-            navigation.navigate({
-              routeName: 'Onboarding',
-              params: { phone },
-            })            
+            if (applicationState.get('isPassedOnboarding')) {
+              resetTo({ routeName: 'MainApp' })
+            } else {              
+              navigation.navigate({
+                routeName: 'Onboarding',
+                params: { phone },
+              })
+            }
           }} style={{ marginTop: 8 }}>
             <Link style={{ fontWeight: 'bold' }}>
               ใช้งานแบบไม่ยืนยันตัวตน >
