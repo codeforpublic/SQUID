@@ -121,6 +121,8 @@ public class TracerService extends Service {
         stopScannerTimer();
         stopScanning();
 
+        broadcastHealthCheck();
+
         super.onDestroy();
     }
 
@@ -212,6 +214,7 @@ public class TracerService extends Service {
                 .setContentText("This device is discoverable to others nearby.")
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .build();
 
         startForeground(FOREGROUND_NOTIFICATION_ID, n);
@@ -219,7 +222,7 @@ public class TracerService extends Service {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private String createNotificationChannel(String channelId, String channelName) {
-        NotificationChannel chan = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_NONE);
+        NotificationChannel chan = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
         chan.setLightColor(Color.BLUE);
         chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
         NotificationManager service = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -511,14 +514,19 @@ public class TracerService extends Service {
         JobScheduler mJobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
         JobInfo.Builder builder = new JobInfo.Builder(1,
                 new ComponentName(getPackageName(), SchedulerService.class.getName()));
-        builder.setPeriodic(15 * 60 * 1000);
+        builder.setPeriodic(Constants.SERVICE_HEALTH_CHECK_INTERVAL);
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
         mJobScheduler.schedule(builder.build());
 
         AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(TracerService.this, BootCompletedReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(TracerService.this, 0, i, 0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 1000, 1000 * 60 * 15, pi); // Millisec * Second * Minute
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 1000, Constants.SERVICE_HEALTH_CHECK_INTERVAL, pi); // Millisec * Second * Minute
+    }
+
+    private void broadcastHealthCheck() {
+        Intent intent = new Intent("com.thaialert.servicehealthcheck");
+        sendBroadcast(intent);
     }
 
     /**
