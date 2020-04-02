@@ -30,7 +30,7 @@ export const QRCodeScan = ({ navigation }) => {
           .getCreatedDate()
           .format('DD MMM YYYY HH:mm น.')}`,
       })
-      scanManager.add(qrResult)
+      scanManager.add(qrResult.annonymousId)
     }
   }, [qrResult])
   return (
