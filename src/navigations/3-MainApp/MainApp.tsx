@@ -35,7 +35,7 @@ const MAX_SCORE = 100
 
 const QRStateText = ({ qrState }) => {
   switch (qrState) {
-    case QR_STATE.INITIAL:
+    case QR_STATE.FAILED:
       return (
         <View
           style={{
@@ -141,16 +141,16 @@ export const MainApp = () => {
   //   }).start()
   // }, [qr])
 
-  if (!qrData && !error) {
+  if (qrState === QR_STATE.LOADING) {
     return (
-      <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
         <ActivityIndicator size="large" />
       </View>
     )
   }
 
   const qr = qrData
-  const timeSinceLastUpdate = qr ? Date.now() - qr.timestamp : 0
+  const timeSinceLastUpdate = qr ? Date.now() - qr.timestamp + 300000000 : 0
   const progress = qr ? (qr.getScore() / MAX_SCORE) * 100 : 0
   const color = qr ? qr.getStatusColor() : COLORS.GRAY_2
   const qrUri = qr ? qr.getQRImageURL() : ''
@@ -328,7 +328,11 @@ export const MainApp = () => {
             <Fragment>
               {qr ? (
                 <Image
-                  style={{ width: size, height: size }}
+                  style={{
+                    width: size,
+                    height: size,
+                    opacity: qrState === QR_STATE.EXPIRE ? 0.1 : 1,
+                  }}
                   source={{
                     uri: qrUri,
                   }}
