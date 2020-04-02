@@ -38,7 +38,7 @@ RCT_EXTERN_METHOD(
 )
 
 RCT_EXTERN_METHOD(
-  stopTracerServiceService: (RCTPromiseResolveBlock)resolve
+  stopTracerService: (RCTPromiseResolveBlock)resolve
   rejecter: (RCTPromiseRejectBlock)reject
 )
 

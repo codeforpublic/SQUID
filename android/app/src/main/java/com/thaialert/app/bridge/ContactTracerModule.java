@@ -165,7 +165,7 @@ public class ContactTracerModule extends ReactContextBaseJavaModule implements A
     }
 
     @ReactMethod
-    public void stopTracerServiceService(final Promise promise) {
+    public void stopTracerService(final Promise promise) {
         _stopTracerService(getReactApplicationContext());
         promise.resolve(true);
     }
