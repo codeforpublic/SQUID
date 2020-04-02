@@ -1,3 +1,4 @@
+import DeviceInfo from 'react-native-device-info'
 import { userPrivateData } from './state/userPrivateData'
 import nanoid from 'nanoid'
 import { API_URL } from './config'
@@ -20,6 +21,21 @@ export const getAnonymousHeaders = () => {
     'X-TH-ANONYMOUS-ID': userPrivateData.getAnonymousId(),
     'Content-Type': 'application/json',
   }
+}
+
+export const registerDevice = async (): Promise<{
+  userId: string
+  anonymousId: string
+}> => {
+  const resp = await fetch(API_URL + `/registerDevice`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ deviceId: DeviceInfo.getUniqueId() }),
+  })
+  const result = await resp.json()
+  return result
 }
 
 export const requestOTP = async (mobileNo: string) => {

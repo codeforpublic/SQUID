@@ -4,6 +4,10 @@
 <dict>
 	<key>BACKGROUND_GEOLOCATION_ENCRYPTION_PASSWORD</key>
 	<string>transistorsoft</string>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.thaialert.bgscanner</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

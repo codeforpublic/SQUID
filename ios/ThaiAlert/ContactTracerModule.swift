@@ -25,6 +25,10 @@ class ContactTracerModule: RCTEventEmitter, CBCentralManagerDelegate, CBPeripher
   
   private var isBluetoothOn = false
 
+  func test() -> Int {
+    return 1010
+  }
+  
   @objc
   func initialize(_ resolve: RCTPromiseResolveBlock,
                     rejecter reject: RCTPromiseRejectBlock) -> Void {
