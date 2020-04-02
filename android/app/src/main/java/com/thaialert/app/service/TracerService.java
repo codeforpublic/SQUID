@@ -265,10 +265,9 @@ public class TracerService extends Service {
     private void stopAdvertising() {
         sendSignalAndLog("Service: Stopping Advertising");
 
-        if (bluetoothLeAdvertiser != null && advertiseCallback != null) {
+        if (bluetoothLeAdvertiser != null && advertiseCallback != null)
             bluetoothLeAdvertiser.stopAdvertising(advertiseCallback);
-            advertiseCallback = null;
-        }
+        advertiseCallback = null;
     }
 
     /**
@@ -391,7 +390,7 @@ public class TracerService extends Service {
      * Start scanning for BLE Advertisements (& set it up to stop after a set period of time).
      */
     public void startScanning() {
-        if (scanCallback == null) {
+        if (scanCallback == null && bluetoothLeScanner != null) {
             sendSignalAndLog("Start Scanning");
 
             // Will stop the scanning after a set time.
@@ -403,13 +402,10 @@ public class TracerService extends Service {
             }, Constants.SCAN_PERIOD);
             // Kick off a new scan.
             scanCallback = new SampleScanCallback();
-            bluetoothLeScanner.startScan(buildScanFilters(), buildScanSettings(), scanCallback);
-            String toastText = getString(R.string.scan_start_toast) + " "
-                    + TimeUnit.SECONDS.convert(Constants.SCAN_PERIOD, TimeUnit.MILLISECONDS) + " "
-                    + getString(R.string.seconds);
-            //Toast.makeText(TracerService.this, toastText, Toast.LENGTH_LONG).show();
+            if (bluetoothLeScanner != null)
+                bluetoothLeScanner.startScan(buildScanFilters(), buildScanSettings(), scanCallback);
         } else {
-            //Toast.makeText(TracerService.this, R.string.already_scanning, Toast.LENGTH_SHORT).show();
+
         }
     }
     /**
@@ -419,10 +415,9 @@ public class TracerService extends Service {
         sendSignalAndLog("Stop Scanning");
 
         // Stop the scan, wipe the callback.
-        if (scanCallback != null) {
+        if (bluetoothLeScanner != null && scanCallback != null)
             bluetoothLeScanner.stopScan(scanCallback);
-            scanCallback = null;
-        }
+        scanCallback = null;
         // Even if no new results, update 'last seen' times.
         //mAdapter.notifyDataSetChanged();
     }
