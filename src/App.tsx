@@ -1,5 +1,6 @@
 // export const App = () => null
 import React, { Component, Context } from 'react'
+import { NativeModules } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-community/async-storage'
 
@@ -37,10 +38,9 @@ class App extends React.Component {
   }
   componentDidMount() {
     this.load().catch(err => {
-        console.log('err', err)
-        Alert.alert('Load app failed')
-      },
-    )
+      console.log('err', err)
+      Alert.alert('Load app failed')
+    })
   }
   purgeAll() {
     const persistor = new CachePersistor({
@@ -69,6 +69,11 @@ class App extends React.Component {
     await migrateState(apolloClient)
     await backgroundTracking.setup(applicationState.get('isPassedOnboarding'))
     SplashScreen.hide()
+
+    await NativeModules.ContactTracerModule.setUserId(
+      userPrivateData.getAnonymousId(),
+    )
+
     this.setState({ loaded: true })
   }
 
@@ -77,7 +82,10 @@ class App extends React.Component {
       return null
     }
     return (
-      <ContactTracerProvider anonymousId={userPrivateData.getAnonymousId()} startWithEnable={applicationState.get('isPassedOnboarding')}>
+      <ContactTracerProvider
+        anonymousId={userPrivateData.getAnonymousId()}
+        isPassedOnboarding={applicationState.get('isPassedOnboarding')}
+      >
         <SafeAreaProvider>
           <ApolloProvider client={apolloClient}>
             <HUDProvider>

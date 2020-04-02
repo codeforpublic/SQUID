@@ -12,7 +12,7 @@ const eventEmitter = new NativeEventEmitter(NativeModules.ContactTracerModule)
 
 interface ContactTracerProps {
   anonymousId: string
-  startWithEnable: boolean
+  isPassedOnboarding: boolean
 }
 
 interface ContactTracerState {
@@ -20,9 +20,9 @@ interface ContactTracerState {
   isLocationPermissionGranted: boolean
   isBluetoothOn: boolean
   anonymousId: string
-  statusText: string  
+  statusText: string
   enable: () => void
-  disable: () => void  
+  disable: () => void
 }
 
 const Context = React.createContext<ContactTracerState>(null)
@@ -45,25 +45,26 @@ export class ContactTracerProvider extends React.Component<
       anonymousId: '',
       statusText: this.statusText,
       enable: this.enable.bind(this),
-      disable: this.disable.bind(this)
+      disable: this.disable.bind(this),
     }
   }
 
   componentDidMount() {
-    if (this.props.startWithEnable) {
-      this.enable()
+    NativeModules.ContactTracerModule.stopTracerService()
+    if (this.props.isPassedOnboarding) {
+      NativeModules.ContactTracerModule.refreshTracerServiceStatus()
     }
   }
 
-  componentWillUnmount() {
-    this.disable()
-  }
+  componentWillUnmount() {}
 
   async init() {
     this.isInited = true
     const anonymousId = this.props.anonymousId
     this.setState({ anonymousId: anonymousId })
-    NativeModules.ContactTracerModule.setUserId(anonymousId).then(anonymousId => {})
+    NativeModules.ContactTracerModule.setUserId(
+      anonymousId,
+    ).then(anonymousId => {})
 
     // Check if Tracer Service has been enabled
     NativeModules.ContactTracerModule.isTracerServiceEnabled()
@@ -160,17 +161,17 @@ export class ContactTracerProvider extends React.Component<
     if (!this.isInited) {
       await this.init()
     }
-    
+
     NativeModules.ContactTracerModule.enableTracerService().then(() => {})
     this.setState({
-      isServiceEnabled: false
+      isServiceEnabled: false,
     })
   }
 
   disable() {
     NativeModules.ContactTracerModule.disableTracerService()
     this.setState({
-      isServiceEnabled: false
+      isServiceEnabled: false,
     })
   }
 

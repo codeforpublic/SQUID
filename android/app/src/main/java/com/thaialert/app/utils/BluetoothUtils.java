@@ -13,6 +13,8 @@ public class BluetoothUtils {
     }
 
     public static boolean isMultipleAdvertisementSupported(BluetoothAdapter bluetoothAdapter) {
+        if (bluetoothAdapter == null)
+            return false;
         return bluetoothAdapter.isMultipleAdvertisementSupported();
     }
 
