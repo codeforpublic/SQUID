@@ -39,7 +39,7 @@ export const AuthOTP = () => {
         Alert.alert('รหัสผ่านไม่ถูกต้อง')
         hide()
         return
-      }      
+      }
       hide()
       applicationState.set('isRegistered', 'success')
       if (applicationState.get('isPassedOnboarding')) {
