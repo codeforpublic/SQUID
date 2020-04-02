@@ -14,20 +14,27 @@ interface QRData {
   }
 }
 
+export const QR_STATE = {
+  INITIAL: 'initial',
+  NORMAL: 'normal',
+  OUTDATE: 'outdate',
+  EXPIRE: 'outdate',
+}
+
 export const useSelfQR = () => {
   const [qrData, setQRData] = useState(null)
-  const [error, setError] = useState(null)
+  const [qrState, setQRState] = useState(QR_STATE.INITIAL)
   useEffect(() => {
     const updateQR = async () => {
       try {
         const _qrData = await getQRData()
         const qrData = await SelfQR.setCurrentQRFromQRData(_qrData)
-        setError(null)
+        const qrState = SelfQR.getCurrentState()
         setQRData(qrData)
+        setQRState(qrState)
         setTimeout(updateQR, 60 * 1000) // Update after 1 min
       } catch (error) {
-        setError(error)
-        setTimeout(updateQR, 5 * 1000) // Retry in 5 sec
+        console.log(error)
       }
     }
 
@@ -39,7 +46,7 @@ export const useSelfQR = () => {
     setQRFromStorage().then(() => updateQR())
   }, [])
 
-  return { qrData, error }
+  return { qrData, qrState }
 }
 
 class QR {
@@ -89,6 +96,17 @@ class SelfQR extends QR {
     }
     this.currentQR = new SelfQR(qrData)
     return this.currentQR
+  }
+
+  public static getCurrentState() {
+    const time = Date.now() - this.currentQR.timestamp
+    if (time < 10 * 1000) {
+      return QR_STATE.NORMAL
+    }
+    if (time < 3 * 60 * 1000) {
+      return QR_STATE.OUTDATE
+    }
+    return QR_STATE.EXPIRE
   }
 
   constructor(qrData: QRData) {
