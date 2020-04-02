@@ -222,7 +222,7 @@ public class TracerService extends Service {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private String createNotificationChannel(String channelId, String channelName) {
-        NotificationChannel chan = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
+        NotificationChannel chan = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_NONE);
         chan.setLightColor(Color.BLUE);
         chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
         NotificationManager service = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
