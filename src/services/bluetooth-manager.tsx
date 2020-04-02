@@ -15,8 +15,8 @@ import {
 import { COLORS } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { getUserId } from './User'
 import { requestLocationPermission } from './Permission'
+import nanoid from 'nanoid'
 
 const eventEmitter = new NativeEventEmitter(NativeModules.ContactTracerModule)
 
@@ -58,12 +58,9 @@ export class ContactTracerProvider extends React.Component<
 
     // Get saved user ID or generate a new one
     // TODO: Use the global userId instead of the local one. Remove User.tsx file if done
-    getUserId()
-      .then(userId => {
-        this.setState({ userId: userId })
-        return NativeModules.ContactTracerModule.setUserId(userId)
-      })
-      .then(userId => {})
+    const userId = nanoid().substr(0, 20)
+    this.setState({ userId: userId })
+    NativeModules.ContactTracerModule.setUserId(userId).then(userId => {})
 
     // Check if Tracer Service has been enabled
     NativeModules.ContactTracerModule.isTracerServiceEnabled()
