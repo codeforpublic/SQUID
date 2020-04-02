@@ -96,8 +96,8 @@ export const AuthPhone = () => {
             }}
           />
           <TouchableOpacity onPress={() => {
-            applicationState.set('skipRegistration', true)
-            if (applicationState.get('isPassedOnboarding')) {
+            applicationState.setData('skipRegistration', true)
+            if (applicationState.getData('isPassedOnboarding')) {
               resetTo({ routeName: 'MainApp' })
             } else {              
               navigation.navigate({

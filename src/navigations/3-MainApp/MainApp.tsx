@@ -115,7 +115,7 @@ const QRStateText = ({ qrState }) => {
 
 export const MainApp = () => {
   const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
-  const isVerified = applicationState.get('isRegistered')
+  const isVerified = applicationState.getData('isRegistered')
   const { qrData, qrState, error } = useSelfQR()
   const resetTo = useResetTo()
   const navigation = useNavigation()
@@ -351,7 +351,7 @@ export const MainApp = () => {
       ) : (
         <TouchableOpacity
           onPress={() => {
-            applicationState.set('skipRegistration', false)
+            applicationState.setData('skipRegistration', false)
             resetTo({
               routeName: 'Auth',
             })

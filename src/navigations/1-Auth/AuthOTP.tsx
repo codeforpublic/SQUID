@@ -13,9 +13,7 @@ import {
 } from 'react-native'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { PrimaryButton } from '../../components/Button'
-import OtpInputs from 'react-native-otp-inputs'
 import AntIcon from 'react-native-vector-icons/AntDesign'
-import AsyncStorage from '@react-native-community/async-storage'
 import { BackButton } from '../../components/BackButton'
 import { requestOTP, verifyOTP } from '../../api'
 import { useHUD } from '../../HudView'
@@ -23,14 +21,15 @@ import { useResetTo } from '../../utils/navigation'
 import { applicationState } from '../../state/app-state'
 import OTPInputView from '@twotalltotems/react-native-otp-input'
 import { Link } from '../../components/Base'
+import { userPrivateData } from '../../state/userPrivateData'
 
-
-export const AuthOTP = () => {
+export const AuthOTP = () => {  
   const { showSpinner, hide } = useHUD()
   const navigation = useNavigation()
   const phone = navigation.getParam('phone')
   const [otp, setOtp] = useState('')
   const resetTo = useResetTo()
+  const mobileNumber = navigation.state.params.phone
   const onSubmit = async () => {
     showSpinner()
     try {
@@ -41,8 +40,9 @@ export const AuthOTP = () => {
         return
       }
       hide()
-      applicationState.set('isRegistered', 'success')
-      if (applicationState.get('isPassedOnboarding')) {
+      userPrivateData.setData('mobileNumber', mobileNumber)
+      applicationState.setData('isRegistered', 'success')
+      if (applicationState.getData('isPassedOnboarding')) {
         resetTo({ routeName: 'MainApp' })
       } else {
         resetTo({ routeName: 'Onboarding' })
@@ -60,7 +60,6 @@ export const AuthOTP = () => {
   }, [otp])
 
   return (
-    
       <SafeAreaView style={styles.container}>
         <KeyboardAvoidingView style={{ flex: 1, width: '100%' }}>
           <StatusBar backgroundColor={COLORS.PRIMARY_DARK} barStyle="light-content" />
@@ -70,7 +69,7 @@ export const AuthOTP = () => {
           <View style={styles.header}>
             <Text style={styles.title}>กรอกรหัสจาก SMS</Text>
             <Text style={styles.subtitle}>
-              ส่งไปที่เบอร์ {navigation.state.params.phone}
+              ส่งไปที่เบอร์ {mobileNumber}
             </Text>
           </View>
           <View style={styles.content}>
@@ -129,7 +128,7 @@ export const AuthOTP = () => {
               onPress={onSubmit}
             />
             <TouchableOpacity onPress={() => {
-              applicationState.set('skipRegistration', true)
+              applicationState.setData('skipRegistration', true)
               navigation.navigate({
                 routeName: 'Onboarding',
                 params: { phone },
