@@ -36,7 +36,7 @@ const MUTATE_USER = gql`
 `
 
 export const OnboardFace = () => {
-  const [uri, setUri] = useState()
+  const [uri, setUri] = useState(userPrivateData.getFace())
 
   const navigation = useNavigation()
 
