@@ -24,6 +24,7 @@ export const QR_STATE = {
 export const useSelfQR = () => {
   const [qrData, setQRData] = useState(null)
   const [qrState, setQRState] = useState(QR_STATE.INITIAL)
+  const [error, setError] = useState(null)
   useEffect(() => {
     const updateQR = async () => {
       try {
@@ -32,9 +33,12 @@ export const useSelfQR = () => {
         const qrState = SelfQR.getCurrentState()
         setQRData(qrData)
         setQRState(qrState)
+        setError(null)
         setTimeout(updateQR, 60 * 1000) // Update after 1 min
       } catch (error) {
         console.log(error)
+        setError(error)
+        setTimeout(updateQR, 5 * 1000) // Retry after 5 sec
       }
     }
 
@@ -46,7 +50,7 @@ export const useSelfQR = () => {
     setQRFromStorage().then(() => updateQR())
   }, [])
 
-  return { qrData, qrState }
+  return { qrData, qrState, error }
 }
 
 class QR {
@@ -99,6 +103,9 @@ class SelfQR extends QR {
   }
 
   public static getCurrentState() {
+    if (!this.currentQR) {
+      return QR_STATE.INITIAL
+    }
     const time = Date.now() - this.currentQR.timestamp
     if (time < 10 * 1000) {
       return QR_STATE.NORMAL
