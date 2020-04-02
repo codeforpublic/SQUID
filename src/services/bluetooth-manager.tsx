@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   Dimensions,
   StatusBar,
@@ -30,7 +30,9 @@ interface ContactTracerState {
   statusText: string
 }
 
-export class ContactTracer extends React.Component<
+const Context = React.createContext<ContactTracerState>(null)
+
+export class ContactTracerProvider extends React.Component<
   ContactTracerProps,
   ContactTracerState
 > {
@@ -197,76 +199,13 @@ export class ContactTracer extends React.Component<
 
   render() {
     return (
-      <MyBackground variant="light">
-        <StatusBar
-          barStyle="dark-content"
-          backgroundColor={COLORS.PRIMARY_LIGHT}
-        />
-        <SafeAreaView style={{ flex: 1 }}>
-          <View>
-            <View style={styles.body}>
-              <View>
-                <Text style={styles.mediumText}>
-                  User ID: {this.state.userId}
-                </Text>
-              </View>
-              <View style={styles.horizontalRow}>
-                <Text style={styles.normalText}>Service: </Text>
-                <Switch
-                  trackColor={{ false: '#767577', true: '#81b0ff' }}
-                  thumbColor={
-                    this.state.isServiceEnabled ? '#f5dd4b' : '#f4f3f4'
-                  }
-                  ios_backgroundColor="#3e3e3e"
-                  onValueChange={this.onServiceSwitchChanged}
-                  value={this.state.isServiceEnabled}
-                  disabled={
-                    !this.state.isLocationPermissionGranted ||
-                    !this.state.isBluetoothOn
-                  }
-                />
-              </View>
-              <ScrollView
-                contentInsetAdjustmentBehavior="automatic"
-                style={styles.scrollView}
-              >
-                <Text>{this.state.statusText}</Text>
-              </ScrollView>
-            </View>
-          </View>
-        </SafeAreaView>
-      </MyBackground>
+      <Context.Provider value={this.state}>
+        {this.props.children}
+      </Context.Provider>
     )
   }
 }
 
-const styles = StyleSheet.create({
-  body: {
-    backgroundColor: '#ffffff',
-    padding: 24,
-  },
-  horizontalRow: {
-    marginTop: 24,
-    flexDirection: 'row',
-  },
-  normalText: {
-    fontSize: 16,
-    color: '#000000',
-  },
-  mediumText: {
-    fontSize: 20,
-    color: '#000000',
-  },
-  largeText: {
-    fontSize: 24,
-    color: '#000000',
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: '#000000',
-  },
-  scrollView: {
-    marginTop: 24,
-  },
-})
+export const useContactTracer = (): ContactTracerState => {
+  return useContext(Context)
+}

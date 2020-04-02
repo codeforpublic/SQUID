@@ -25,6 +25,8 @@ class BackgroundTracking {
       )
       this.latestKnownedUpdated = Date.now()
     })
+    
+    const headers = getAnonymousHeaders()
 
     await BackgroundGeolocation.ready({
       distanceFilter: 50,
@@ -32,7 +34,7 @@ class BackgroundTracking {
       stopOnTerminate: false,
       startOnBoot: true,
       foregroundService: true,
-      headers: getAnonymousHeaders(),
+      headers,
       autoSync: true,
       debug: false,
       batchSync: true,
@@ -56,34 +58,12 @@ class BackgroundTracking {
           'คุณจะได้รับการแจ้งเตือนทันที เมื่อคุณได้ไปใกล้ชิดกับคนที่มีความเสี่ยง',
       },
       logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
-      // locationAuthorizationAlert: {
-      //   titleWhenNotEnabled: :
-      // }
     })
     this.ready = true
     if (startImmediately) {
       await this.start()
     }
-    // BackgroundFetch.configure({
-    //   minimumFetchInterval: 30,
-    //   // Android options
-    //   stopOnTerminate: false,
-    //   startOnBoot: true,
-    //   requiredNetworkType: BackgroundFetch.NETWORK_TYPE_NONE, // Default
-    //   requiresCharging: false,      // Default
-    //   requiresDeviceIdle: false,    // Default
-    //   requiresBatteryNotLow: false, // Default
-    //   requiresStorageNotLow: false  // Default
-    // }, async (taskId) => {
-    //   console.log("[js] Received background-fetch event: ", taskId);
-    //   if (this.started) {
-    //     // trigger update location
-    //     await this.getLocation({ triggerType: 'backgroundFetch' })
-    //   }
-    //   BackgroundFetch.finish(taskId);
-    // }, (error) => {
-    //   console.log("[js] RNBackgroundFetch failed to start");
-    // });
+    BackgroundFetch.stop()
   }
   async start() {
     if (!this.ready) {

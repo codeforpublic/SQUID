@@ -35,11 +35,7 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
-    this.load().then(
-      () => {
-        this.setState({ loaded: true })
-      },
-      err => {
+    this.load().catch(err => {
         console.log('err', err)
         Alert.alert('Load app failed')
       },
@@ -72,6 +68,7 @@ class App extends React.Component {
     await migrateState(apolloClient)
     await backgroundTracking.setup(applicationState.get('isPassedOnboarding'))
     SplashScreen.hide()
+    this.setState({ loaded: true })
   }
 
   render() {
