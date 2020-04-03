@@ -10,7 +10,6 @@
     <!-- < Only if you're using GCM or localNotificationSchedule() > -->
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
 
     <!-- 2/3 [RELEASE:ADD] Add these in release -->
@@ -39,9 +38,9 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-    <uses-feature
+    <!--uses-feature
         android:name="android.hardware.bluetooth_le"
-        android:required="true" />
+        android:required="true" /-->
 
     <application
       android:name=".MainApplication"
