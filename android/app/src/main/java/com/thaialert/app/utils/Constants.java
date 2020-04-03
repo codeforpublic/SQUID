@@ -11,7 +11,7 @@ public class Constants {
     public static final long SCAN_PERIOD = 15000;
 
     // Bluetooth scan interval time in milliseconds
-    public static final long SCAN_INTERVAL = 60000;
+    public static final long SCAN_INTERVAL = 30000;
 
     // Interval for Advertiser service refreshing
     public static final long ADVERTISER_REFRESH_INTERVAL = 120000;

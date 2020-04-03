@@ -85,6 +85,8 @@ public class TracerService extends Service {
     // Scanner Timer
     Runnable scannerStartTimerRunnable;
 
+    private boolean isStoppingSelf = false;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -123,7 +125,8 @@ public class TracerService extends Service {
         stopScannerTimer();
         stopScanning();
 
-        broadcastHealthCheck();
+        if (!isStoppingSelf)
+            broadcastHealthCheck();
 
         super.onDestroy();
     }
@@ -150,6 +153,7 @@ public class TracerService extends Service {
 
     private void exithWithToast(int string_resource_id) {
         Toast.makeText(this, string_resource_id, Toast.LENGTH_SHORT).show();
+        isStoppingSelf = true;
         stopSelf();
     }
 
@@ -340,7 +344,6 @@ public class TracerService extends Service {
         public void onStartFailure(int errorCode) {
             super.onStartFailure(errorCode);
             sendSignalAndLog("Advertising failed");
-            stopSelf();
         }
 
         @Override

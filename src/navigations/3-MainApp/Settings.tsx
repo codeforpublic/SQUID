@@ -143,12 +143,14 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
                 />
               </View>
             </View>
+            {/*
             <ScrollView
               contentInsetAdjustmentBehavior="automatic"
               style={styles.scrollView}
             >
               <Text>{this.state.statusText}</Text>
             </ScrollView>
+            */}
           </View>
         </SafeAreaView>
       </MyBackground>
