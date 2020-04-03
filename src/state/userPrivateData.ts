@@ -40,16 +40,27 @@ class UserPrivateData extends HookState {
     if (userDataString) {
       this.data = JSON.parse(userDataString)
     }
-    if (!this.data || this.data.version !== LATEST_VERSION) {
+    
+    if (!this.data) {
       this.data = {
         anonymousId: '',
         id: '',
-      }
-      const { userId, anonymousId } = await registerDevice()
-      this.data.id = userId
-      this.data.anonymousId = anonymousId
-      this.data.version = 1
-      await this.save()
+      }      
+    }
+    const register = () => {
+      return registerDevice().then(({ userId, anonymousId }) => {
+        this.data.id = userId
+        this.data.anonymousId = anonymousId
+        this.data.version = 1
+        return this.save()
+      })
+    }
+    if (this.data.version !== LATEST_VERSION) {
+      /* wait to register */
+      await register()
+    } else {
+      /* just sync, if failed, stil fine  */
+      register()
     }
   }
 
