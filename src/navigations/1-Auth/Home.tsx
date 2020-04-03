@@ -1,9 +1,12 @@
 import React from 'react'
-import { Image, Text, View, StyleSheet, StatusBar } from 'react-native'
+import { Image, Text, View, StyleSheet, StatusBar, Alert } from 'react-native'
 import { PrimaryButton } from '../../components/Button'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
 import { NavigationActions, StackActions } from 'react-navigation'
+import { DebugTouchable } from '../../components/DebugTouchable'
+import { API_URL } from '../../config'
+import CodePush from 'react-native-code-push'
 
 export const Home = ({ navigation }) => {
   return (
@@ -18,11 +21,19 @@ export const Home = ({ navigation }) => {
         barStyle="light-content"
       />
       <View style={styles.content}>
-        <Image
-          source={require('../../assets/Logo.png')}
-          resizeMode="contain"
-          style={{ width: 300 }}
-        />
+        <DebugTouchable
+          onDebug={() => {
+            CodePush.getUpdateMetadata().then(result => {
+              Alert.alert(API_URL, JSON.stringify(result))
+            })
+          }}
+        >
+          <Image
+            source={require('../../assets/Logo.png')}
+            resizeMode="contain"
+            style={{ width: 300 }}
+          />
+        </DebugTouchable>
         <Text style={styles.description}>
           หยุดเชื้อเพื่อชาติ{'\n'}
           ป้องกันการระบาดของโรค

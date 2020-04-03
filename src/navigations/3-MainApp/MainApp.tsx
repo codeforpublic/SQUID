@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   Dimensions,
   TouchableHighlight,
+  Alert,
 } from 'react-native'
 import { CircularProgressAvatar } from '../../components/CircularProgressAvatar'
 import { WhiteBackground } from '../../components/WhiteBackground'
@@ -30,10 +31,11 @@ import FeatureIcon from 'react-native-vector-icons/Feather'
 import { Camera } from '../../components/Camera'
 import { SelfieCaptureGuideline } from '../../components/SelfieCaptureGuideline'
 import RNFS from 'react-native-fs'
+import { API_URL } from '../../config'
 
 const MAX_SCORE = 100
 
-const QRStateText = ({ qrState }) => {
+const QRStateText = ({ qrState }) => {  
   switch (qrState) {
     case QR_STATE.FAILED:
       return (
