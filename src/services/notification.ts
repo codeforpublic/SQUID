@@ -3,8 +3,38 @@ import PushNotificationIOS from '@react-native-community/push-notification-ios'
 import { backgroundTracking } from './background-tracking'
 import { updateUserData } from '../api'
 
+// console.disableYellowBox = true
+
 class Notification {
   isConfigured = false
+  mockNotVerified() {
+    PushNotification.localNotificationSchedule({
+      title: "กรุณายืนยันตัวตนด้วยเบอร์โทรศัพท์",
+      message: "เพื่อนำผลประเมิน COVID-19 มาปรับปรุงผลการประเมิน",
+      date: new Date(Date.now() + 15 * 1000) 
+    })
+  }
+  mockOrangeCode() {
+    PushNotification.localNotificationSchedule({
+      title: "สถานะของคุณได้ถูกเปลี่ยนเป็นสีส้ม",
+      message: "เนื่องจากท่านมีประวัติเดินทางจากพื้นที่เสี่ยง ให้กักตัว 14 วัน พร้อมเฝ้าระวังอาการ ถ้ามีอาการไข้ ร่วมกับ อาการระบบทางเดินหายใจ ให้ติดต่อสถานพยาบาลทันที",
+      date: new Date(Date.now() + 10 * 1000) 
+    })
+  }
+  mockRedCode() {
+    PushNotification.localNotificationSchedule({
+      title: "สถานะของคุณได้ถูกเปลี่ยนเป็นสีแดง",
+      message: "คุณเข้าสู่สภาวะเสี่ยงสูง สถานพยาบาลกำลังจะติดต่อคุณกลับไปทันที",
+      date: new Date(Date.now() + 10 * 1000) 
+    })
+  }
+  dailyAdvice() {
+    PushNotification.localNotificationSchedule({
+      title: "คำแนะนำของคุณในวันนี้ (สีส้ม)",
+      message: "เนื่องจากท่านมีประวัติเดินทางจากพื้นที่เสี่ยง ให้กักตัว 14 วัน พร้อมเฝ้าระวังอาการ ถ้ามีอาการไข้ ร่วมกับ อาการระบบทางเดินหายใจ ให้ติดต่อสถานพยาบาลทันที",
+      date: new Date(Date.now() + 10 * 1000) 
+    })
+  }
   configure() {
     if (this.isConfigured) {
       return
