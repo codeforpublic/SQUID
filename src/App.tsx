@@ -67,7 +67,7 @@ class App extends React.Component {
       }),
     ])
     await migrateState(apolloClient)
-    await backgroundTracking.setup(applicationState.getData('isPassedOnboarding'))
+    await backgroundTracking.setup(Boolean(applicationState.getData('isPassedOnboarding')))
     SplashScreen.hide()
 
     await NativeModules.ContactTracerModule.setUserId(
