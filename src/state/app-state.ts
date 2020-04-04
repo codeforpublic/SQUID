@@ -5,8 +5,8 @@ const ApplicationStateKey = '@applicationState'
 type valueof<T> = T[keyof T]
 interface ApplicationStateData {
   isPassedOnboarding?: boolean
-  isRegistered?: 'success' | boolean
-  isVerified?: 'success' | boolean
+  isRegistered?: boolean
+  isVerified?: boolean
   skipRegistration?: boolean
 }
 class ApplicationState extends HookState {

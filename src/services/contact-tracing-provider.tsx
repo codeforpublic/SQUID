@@ -6,7 +6,7 @@ import {
   Platform,
 } from 'react-native'
 import { requestLocationPermission } from '../utils/Permission'
-import { slowPaceScanner } from './contact-scanner'
+import { scanManager } from './contact-scanner'
 
 const eventEmitter = new NativeEventEmitter(NativeModules.ContactTracerModule)
 
@@ -205,7 +205,7 @@ export class ContactTracerProvider extends React.Component<
     this.appendStatusText('***** Found Nearby Device: ' + e['name'])
     this.appendStatusText('')
     /* broadcast */
-    slowPaceScanner.add(e['name'])
+    scanManager.add(e['name'])
   }
 
   render() {
