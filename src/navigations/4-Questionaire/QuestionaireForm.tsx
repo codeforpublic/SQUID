@@ -217,11 +217,10 @@ const styles = StyleSheet.create({
   subtitle: {
     fontFamily: FONT_FAMILY,
     fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 18,
     lineHeight: 24,
     alignItems: 'center',
-    color: COLORS.GRAY_2,
+    color: COLORS.GRAY_4,
     textAlign: 'left',
   },
 })

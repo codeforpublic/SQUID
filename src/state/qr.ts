@@ -7,6 +7,8 @@ interface QRData {
   data: {
     anonymousId: string
     code: string
+    proficient?: string
+    proficientLabel?: string
   }
   qr: {
     type: string
@@ -100,6 +102,8 @@ class QR {
 class SelfQR extends QR {
   qrData: QRData
   code: string
+  proficient?: string
+  proficientLabel?: string
   timestamp: number
 
   private static currentQR: SelfQR = null
@@ -145,6 +149,8 @@ class SelfQR extends QR {
     super(qrData.data.code)
     this.qrData = qrData
     this.timestamp = Date.now()
+    this.proficient = qrData.data?.proficient
+    this.proficientLabel = qrData.data?.proficientLabel
   }
   getAnonymousId() {
     return this.qrData.data.anonymousId
@@ -155,8 +161,8 @@ class SelfQR extends QR {
   getCreatedDate(): moment {
     return moment(this.timestamp).locale('th')
   }
-  getProficientLabel() {
-    return 'บุคลากรทางการแพทย์'
+  getProficientLabel(): string | undefined {
+    return this.proficientLabel
   }
 }
 

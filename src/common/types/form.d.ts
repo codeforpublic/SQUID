@@ -15,7 +15,7 @@ type DataInput = {
   subtitle?: string
   required?: Boolean
   additionalUrl?: string
-  options?: { value: any; label: string }[]
+  options?: { value: any; label: string, clearOther?: boolean }[]
   dataType: String | Boolean
   inputType:
     | 'Date'

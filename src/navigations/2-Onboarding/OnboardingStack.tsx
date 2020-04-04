@@ -21,8 +21,18 @@ export const OnboardingStack = createStackNavigator(
   {
     OnboardFaceStack,
     OnboardLocation,
-    OnboardProgressing,
-    OnboardComplete,
+    OnboardProgressing: {
+      screen: OnboardProgressing,
+      navigationOptions: {
+        gesturesEnabled: false,
+      },
+    },
+    OnboardComplete: {
+      screen: OnboardComplete,
+      navigationOptions: {
+        gesturesEnabled: false,
+      },
+    },
   },
   {
     headerMode: 'none',

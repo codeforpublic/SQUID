@@ -14,6 +14,7 @@ import { PrimaryButton } from '../../components/Button'
 import { applicationState } from '../../state/app-state'
 import { pushNotification } from '../../services/notification'
 import { useContactTracer } from '../../services/contact-tracing-provider'
+import { useResetTo } from '../../utils/navigation'
 
 const STRING = {
   TITLE: 'กำลังดำเนินการ...',
@@ -23,12 +24,17 @@ const STRING = {
 export const OnboardProgressing = () => {
   const navigation = useNavigation()
   const contactTracer = useContactTracer()
+  const resetTo = useResetTo()
   useEffect(() => {
     pushNotification.configure()
     contactTracer.enable()
     setTimeout(() => {
       applicationState.setData('isPassedOnboarding', true)
-      navigation.navigate('OnboardComplete')
+      if (applicationState.getData('filledQuestionaire')) {
+        navigation.navigate('OnboardComplete')
+      } else {
+        resetTo({ routeName: 'Questionaire' })
+      }
     }, 1000)
   }, [])
   return (

@@ -26,6 +26,7 @@ const SelectItemContainer = styled(View)(({ isSelected }) => ({
 const SelectItemLabel = styled(Text)({
   fontFamily: FONT_FAMILY,
   fontSize: 20,
+  lineHeight: 28
 })
 
 interface Props {
@@ -60,13 +61,14 @@ export const QuestionaireSelect = ({
   onChange,
 }: Props) => {
   const onSelect = useCallback((itemValue) => {
+    
     if (multiple) {
-      if (!value) {
+      if (!value || itemValue === 'none') {
         onChange([itemValue])
       } else if (value.includes(itemValue)) {
-        onChange(value.filter((v) => v !== itemValue))
+        onChange(value.filter((v) => v !== itemValue && v !== 'none'))
       } else {
-        onChange(value.concat(itemValue))
+        onChange(value.filter(v => v !== 'none').concat(itemValue))
       }
     } else {
       console.log('onChange', itemValue)
