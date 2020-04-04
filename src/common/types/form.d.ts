@@ -10,9 +10,12 @@ type Country = {
 type DataInput = {
   id: string
   name: string
-  title?: string
-  titleTH: string
-  required: Boolean
+  title: string
+  titleTH?: string
+  subtitle?: string
+  required?: Boolean
+  additionalUrl?: string
+  options?: { value: any; label: string, clearOther?: boolean }[]
   dataType: String | Boolean
   inputType:
     | 'Date'
@@ -26,6 +29,8 @@ type DataInput = {
     | 'ไปมา/ไม่ไป'
     | 'ใช่/ไม่ใช่'
     | 'Select <Country>'
+    | 'Select'
+    | 'MuliSelect'
   showCondition?: any
   defaultValue?: any
 }

@@ -7,6 +7,7 @@ import { StatusBar, View, Text, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 import { PrimaryButton } from '../../components/Button'
 import { useResetTo } from '../../utils/navigation'
+import { applicationState } from '../../state/app-state'
 
 const STRING = {
   TITLE: 'ลงทะเบียนสำเร็จ',
@@ -20,8 +21,8 @@ export const OnboardComplete = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
-        backgroundColor={COLORS.PRIMARY_DARK}
-        barStyle="light-content"
+        backgroundColor={COLORS.WHITE}
+        barStyle="dark-content"
       />      
       <View style={styles.header}>
         <Text style={styles.title}>{STRING.TITLE}</Text>
@@ -33,8 +34,16 @@ export const OnboardComplete = () => {
       <View style={styles.footer}>
         <PrimaryButton
           title={STRING.NEXT_BUTTON}
+          style={{ width: '100%' }}
+          containerWidth={{ width: '100%' }}
           onPress={() => {
-            resetTo({ routeName: 'MainApp' })
+            if (applicationState.getData(
+              'filledQuestionaire',
+            )) {
+              resetTo({ routeName: 'MainApp' })
+            } else {
+              resetTo({ routeName: 'Questionaire' })
+            }
           }}
         />
       </View>
@@ -43,7 +52,7 @@ export const OnboardComplete = () => {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.PRIMARY_DARK },
+  container: { flex: 1, backgroundColor: COLORS.WHITE },
   header: {
     alignItems: 'center',
   },
@@ -55,7 +64,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
-    color: COLORS.WHITE,
+    color: COLORS.BLACK_1,
     textAlign: 'center',
   },
   subtitle: {

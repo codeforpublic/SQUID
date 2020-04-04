@@ -37,6 +37,15 @@ const MUTATE_USER = gql`
 
 export const OnboardFace = () => {
   const [uri, setUri] = useState(userPrivateData.getFace())
+  useEffect(() => {
+    if (uri) {
+      RNFS.exists(uri).then(exists => {
+        if (!exists) {
+          setUri(null)
+        }
+      })
+    }
+  }, [])
 
   const navigation = useNavigation()
 
@@ -52,11 +61,11 @@ export const OnboardFace = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
-        backgroundColor={COLORS.PRIMARY_DARK}
-        barStyle="light-content"
+        backgroundColor={COLORS.WHITE}
+        barStyle="dark-content"
       />
       <Header>
-        <Title style={{ color: COLORS.WHITE }}>รูปถ่ายหน้าตรง</Title>
+        <Title style={{ color: COLORS.BLACK_1 }}>รูปถ่ายหน้าตรง</Title>
         <Subtitle>เห็นหน้าชัดเจน</Subtitle>
       </Header>
       <View style={styles.content}>
@@ -84,7 +93,7 @@ export const OnboardFace = () => {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.PRIMARY_DARK },
+  container: { flex: 1, backgroundColor: COLORS.WHITE },
   content: {
     flex: 1,
     justifyContent: 'center',

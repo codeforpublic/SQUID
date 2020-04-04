@@ -129,9 +129,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
           <View>
             <View style={styles.body}>
               <View style={styles.horizontalRow}>
-                <Text style={styles.normalText}>
-                  Bluetooth Tracer Service:{' '}
-                </Text>
+                <Text style={styles.normalText}>การค้นหาด้วยบลูทูธ: </Text>
                 <Switch
                   trackColor={{ false: '#767577', true: '#81b0ff' }}
                   thumbColor={
