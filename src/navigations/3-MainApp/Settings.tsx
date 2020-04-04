@@ -40,7 +40,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
   componentDidMount() {
     // Check if Tracer Service has been enabled
     NativeModules.ContactTracerModule.isTracerServiceEnabled()
-      .then(enabled => {
+      .then((enabled) => {
         this.setState({
           isServiceEnabled: enabled,
         })
@@ -100,11 +100,11 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
    * Event Emitting Handler
    */
 
-  onAdvertiserMessageReceived = e => {
+  onAdvertiserMessageReceived = (e) => {
     this.appendStatusText(e['message'])
   }
 
-  onNearbyDeviceFoundReceived = e => {
+  onNearbyDeviceFoundReceived = (e) => {
     this.appendStatusText('')
     this.appendStatusText('***** RSSI: ' + e['rssi'])
     this.appendStatusText('***** Found Nearby Device: ' + e['name'])
@@ -141,14 +141,12 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
                 />
               </View>
             </View>
-            {/*
             <ScrollView
               contentInsetAdjustmentBehavior="automatic"
               style={styles.scrollView}
             >
               <Text>{this.state.statusText}</Text>
             </ScrollView>
-            */}
           </View>
         </SafeAreaView>
       </MyBackground>
