@@ -27,7 +27,7 @@ export const OnboardProgressing = () => {
     pushNotification.configure()
     contactTracer.enable()
     setTimeout(() => {
-      applicationState.set('isPassedOnboarding', 'success')
+      applicationState.setData('isPassedOnboarding', 'success')
       navigation.navigate('OnboardComplete')
     }, 1000)
   }, [])

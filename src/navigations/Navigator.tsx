@@ -13,17 +13,17 @@ import { MainAppTab, MainAppStack } from './3-MainApp/MainAppStack'
 import { applicationState } from '../state/app-state'
 
 const isOnboarded = async () => {
-  return applicationState.get('isPassedOnboarding')
+  return applicationState.getData('isPassedOnboarding')
 }
 const isSkipRegistered = async () => {
   console.log(
     'isSkipRegistered',
-    applicationState.get('isRegistered'),
-    applicationState.get('skipRegistration'),
+    applicationState.getData('isRegistered'),
+    applicationState.getData('skipRegistration'),
   )
   return (
-    applicationState.get('isRegistered') ||
-    applicationState.get('skipRegistration')
+    applicationState.getData('isRegistered') ||
+    applicationState.getData('skipRegistration')
   )
 }
 
