@@ -29,7 +29,8 @@ class BackgroundTracking {
     const headers = getAnonymousHeaders()
 
     await BackgroundGeolocation.ready({
-      distanceFilter: 50,
+      distanceFilter: Platform.OS === 'android'? 0: 10, // every 10 meter
+      locationUpdateInterval: 3 * 60 * 1000, // every 3 minute
       stationaryRadius: 50,
       stopOnTerminate: false,
       startOnBoot: true,
@@ -43,7 +44,6 @@ class BackgroundTracking {
       httpRootProperty: 'locations',
       locationsOrderDirection: 'ASC',
       heartbeatInterval: 60 * 15,
-      useSignificantChangesOnly: Platform.OS === 'android',
       locationAuthorizationAlert: {
         titleWhenNotEnabled: 'กรุณาเปิด Location services ให้ ThaiAlert',
         titleWhenOff: 'กรุณาเปิด Location services ให้ ThaiAlert',
