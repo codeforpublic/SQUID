@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   Dimensions,
   TouchableHighlight,
+  Alert,
 } from 'react-native'
 import { CircularProgressAvatar } from '../../components/CircularProgressAvatar'
 import { WhiteBackground } from '../../components/WhiteBackground'
@@ -30,10 +31,11 @@ import FeatureIcon from 'react-native-vector-icons/Feather'
 import { Camera } from '../../components/Camera'
 import { SelfieCaptureGuideline } from '../../components/SelfieCaptureGuideline'
 import RNFS from 'react-native-fs'
+import { API_URL } from '../../config'
 
 const MAX_SCORE = 100
 
-const QRStateText = ({ qrState }) => {
+const QRStateText = ({ qrState }) => {  
   switch (qrState) {
     case QR_STATE.FAILED:
       return (
@@ -115,7 +117,7 @@ const QRStateText = ({ qrState }) => {
 
 export const MainApp = () => {
   const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
-  const isVerified = applicationState.get('isRegistered')
+  const isVerified = applicationState.getData('isRegistered')
   const { qrData, qrState, error } = useSelfQR()
   const resetTo = useResetTo()
   const navigation = useNavigation()
@@ -351,7 +353,7 @@ export const MainApp = () => {
       ) : (
         <TouchableOpacity
           onPress={() => {
-            applicationState.set('skipRegistration', false)
+            applicationState.setData('skipRegistration', false)
             resetTo({
               routeName: 'Auth',
             })
