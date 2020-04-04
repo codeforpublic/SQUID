@@ -72,25 +72,25 @@ export const updateUserData = async (data: { [key: string]: any }) => {
   return resp.json()
 }
 
-interface QRData {
-  data: {
-    anonymousId: string
-    code: string
-    proficient?: string
-    proficientLabel?: string
-  }
-  qr: {
-    type: string
-    base64: string
-  }
-}
-
 export const getQRData = async () => {
   const resp = await fetch(API_URL + `/qr`, {
     method: 'get',
     headers: getAnonymousHeaders(),
   })
-  const result: QRData = await resp.json()
+  const result = await resp.json()
+
+  return result
+}
+
+export const getProficientData = async () => {
+  const resp = await fetch(API_URL + `/qr/proficient`, {
+    method: 'get',
+    headers: getAnonymousHeaders(),
+  })
+  if (resp.status !== 200) {
+    throw new Error('Invalid')
+  }
+  const result = await resp.json()
 
   return result
 }

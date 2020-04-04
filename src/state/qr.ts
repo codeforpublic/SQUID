@@ -1,4 +1,4 @@
-import { getQRData } from '../api'
+import { getQRData, getProficientData } from '../api'
 import { useEffect, useState, useReducer } from 'react'
 import moment from 'moment-timezone'
 import 'moment/locale/th'
@@ -167,7 +167,7 @@ class SelfQR extends QR {
 }
 
 interface DecodedResult {
-  _: [string, 'G' | 'Y' | 'O' | 'R']
+  _: [string, 'G' | 'Y' | 'O' | 'R', string | undefined]
   iat: number
   iss: string
 }
@@ -175,10 +175,12 @@ export class QRResult extends QR {
   iat: number
   code: string
   annonymousId: string
+  proficientCode?: string
   iss: string
-  constructor(decodedResult: DecodedResult) {
+  constructor(decodedResult: DecodedResult) {    
     super(CODE_MAP[decodedResult._[1]])
     this.annonymousId = decodedResult._[0]
+    this.proficientCode = decodedResult._[2]
     this.iat = decodedResult.iat
     this.iss = decodedResult.iss
 
@@ -186,6 +188,9 @@ export class QRResult extends QR {
   }
   getCreatedDate(): moment {
     return moment(this.iat * 1000).locale('th')
+  }
+  getProficientLabel(): string | undefined {
+    return this.proficientCode? proficientManager.getLabelFromCode(this.proficientCode): void 0
   }
 }
 
@@ -227,3 +232,35 @@ const SPEC_ACTIONS = {
     'เนื่องจากท่านมีประวัติเดินทางจากพื้นที่เสี่ยง ให้กักตัว 14 วัน พร้อมเฝ้าระวังอาการ ถ้ามีอาการไข้ ร่วมกับ อาการระบบทางเดินหายใจ ให้ติดต่อสถานพยาบาลทันที',
   RED: 'ให้ติดต่อสถานพยาบาลทันที',
 }
+
+type ProficientMap = {
+  name: string
+  code: string
+  label: string
+}[]
+
+class ProficientManager {
+  proficientMap?: ProficientMap
+  constructor() {
+    this.load()
+  }
+  async load() {
+    const str = await AsyncStorage.getItem('ProficientMap')
+    if (str) {
+      this.proficientMap = JSON.parse(str)
+    }
+  }
+  async update() {
+    const result: ProficientMap = await getProficientData()
+    this.proficientMap = result
+    AsyncStorage.setItem('ProficientMap', JSON.stringify(this.proficientMap))
+  }
+  getLabelFromCode(code) {
+    if (!this.proficientMap) {
+      return
+    }
+    return this.proficientMap.find(p => p.code === code)?.label
+  }
+}
+
+export const proficientManager = new ProficientManager()

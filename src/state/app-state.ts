@@ -32,11 +32,11 @@ class ApplicationState extends HookState {
     super.save()
     return AsyncStorage.setItem(ApplicationStateKey, JSON.stringify(this.data))
   }
-  setData(key: keyof ApplicationStateData, value: valueof<ApplicationStateData>) {
+  setData = (key: keyof ApplicationStateData, value: valueof<ApplicationStateData>) => {
     this.data[key] = value
     return this.save()
   }
-  getData(key: keyof ApplicationStateData) {
+  getData = (key: keyof ApplicationStateData) => {
     return this.data[key]
   }
 }

@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { decodeJWT } from '../../utils/jwt'
 import { MyBackground } from '../../components/MyBackground'
 import { useIsFocused } from 'react-navigation-hooks'
-import { QRResult } from '../../state/qr'
+import { QRResult, proficientManager } from '../../state/qr'
 import NotificationPopup from 'react-native-push-notification-popup'
 import { QRPopupContent } from './QRPopupContent'
 import { scanManager } from '../../services/contact-scanner'
@@ -15,7 +15,12 @@ import { scanManager } from '../../services/contact-scanner'
 export const QRCodeScan = ({ navigation }) => {
   const isFocused = useIsFocused()
   const [qrResult, setQRResult] = useState<QRResult>(null)
-  const popupRef = useRef<NotificationPopup>()
+  console.log('qrResult', qrResult)
+  const popupRef = useRef<NotificationPopup>()  
+
+  useEffect(() => {
+    proficientManager.update()
+  }, [isFocused])
 
   useEffect(() => {
     if (qrResult) {
@@ -26,6 +31,7 @@ export const QRCodeScan = ({ navigation }) => {
         body: `ข้อมูลวันที่ ${qrResult
           .getCreatedDate()
           .format('DD MMM YYYY HH:mm น.')}`,
+        timeText: qrResult.getProficientLabel()
       })
       scanManager.add(qrResult.annonymousId)
     }
