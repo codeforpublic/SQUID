@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>BACKGROUND_GEOLOCATION_ENCRYPTION_PASSWORD</key>
-	<string>transistorsoft</string>
+	<string>com.thaialert.app</string>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>com.thaialert.bgscanner</string>
+		<string>com.thaialert.app</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
@@ -31,7 +31,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>thaialert</string>
+				<string>morchana</string>
 				<string></string>
 			</array>
 		</dict>
