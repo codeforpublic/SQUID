@@ -13,21 +13,6 @@ import { MainAppTab, MainAppStack } from './3-MainApp/MainAppStack'
 import { applicationState } from '../state/app-state'
 import { QuestionaireStack } from './4-Questionaire/QuestionaireStack'
 
-const isOnboarded = async () => {
-  return applicationState.getData('isPassedOnboarding')
-}
-const isSkipRegistered = async () => {
-  console.log(
-    'isSkipRegistered',
-    applicationState.getData('isRegistered'),
-    applicationState.getData('skipRegistration'),
-  )
-  return (
-    applicationState.getData('isRegistered') ||
-    applicationState.getData('skipRegistration')
-  )
-}
-
 const REDIRECT_PAGE = 'AuthOTP'
 const REDIRECT_PARAMS = {
   data: { color: 'green', age: 25, gender: 'M', iat: 1585235348 },
@@ -36,24 +21,28 @@ const REDIRECT_PARAMS = {
 const Root = ({ navigation }) => {
   useEffect(() => {
     const redirect = async () => {
-      const registered = await isSkipRegistered()
-      const onboarded = await isOnboarded()
+      const registered = (
+        applicationState.getData('isRegistered') ||
+        applicationState.getData('skipRegistration')
+      )
+      const onboarded = applicationState.getData('isPassedOnboarding')
       const isFilledQuestionaire = applicationState.getData(
         'filledQuestionaire',
       )
-      const page = registered
+      console.log('onboarded',onboarded,isFilledQuestionaire)
+      const routeName = registered
         ? onboarded
           ? isFilledQuestionaire
             ? 'MainApp'
             : 'Questionaire'
           : 'Onboarding'
         : 'Auth'
-        
+      
       const action = StackActions.reset({
         index: 0,
         actions: [
           NavigationActions.navigate({
-            routeName: 'Auth',
+            routeName //: 'Auth',
           }),
         ],
         key: null,

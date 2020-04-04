@@ -76,6 +76,8 @@ interface QRData {
   data: {
     anonymousId: string
     code: string
+    proficient?: string
+    proficientLabel?: string
   }
   qr: {
     type: string
