@@ -11,6 +11,7 @@ import { AuthStack } from './1-Auth/AuthStack'
 import { OnboardingStack } from './2-Onboarding/OnboardingStack'
 import { MainAppTab, MainAppStack } from './3-MainApp/MainAppStack'
 import { applicationState } from '../state/app-state'
+import { QuestionaireStack } from './4-Questionaire/QuestionaireStack'
 
 const isOnboarded = async () => {
   return applicationState.getData('isPassedOnboarding')
@@ -37,7 +38,8 @@ const Root = ({ navigation }) => {
     const redirect = async () => {
       const registered = await isSkipRegistered()
       const onboarded = await isOnboarded()
-      const page = registered ? (onboarded ? 'MainApp' : 'Onboarding') : 'Auth'
+      // const page = registered ? (onboarded ? 'MainApp' : 'Onboarding') : 'Auth'
+      const page = 'Questionaire'
       const action = StackActions.reset({
         index: 0,
         actions: [
@@ -74,6 +76,9 @@ export default createStackNavigator(
     MainApp: {
       screen: MainAppStack,
     },
+    Questionaire: {
+      screen: QuestionaireStack
+    }
   },
   {
     initialRouteName: 'Root',
