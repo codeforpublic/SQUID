@@ -23,8 +23,8 @@ export const PrimaryButton = ({
     <RButton
       buttonStyle={{
         backgroundColor: disabled ? '#555' : COLORS.BLUE,
-        borderRadius: 90,
-        height: 60,
+        borderRadius: 6,
+        // height: 60,
         width: 240,
         alignItems: 'center',
         justifyContent: 'center',
@@ -57,8 +57,8 @@ export const DangerButton = ({
     <RButton
       buttonStyle={{
         backgroundColor: disabled ? '#555' : COLORS.DANGER,
-        borderRadius: 90,
-        height: 60,
+        borderRadius: 6,
+        // height: 60,
         width: 240,
         alignItems: 'center',
         justifyContent: 'center',
@@ -92,7 +92,7 @@ export const RectButton = ({
       buttonStyle={{
         backgroundColor: '#FFFFFF',
         borderRadius: 0,
-        height: 60,
+        // height: 60,
         width: 240,
         alignItems: 'center',
         justifyContent: 'center',

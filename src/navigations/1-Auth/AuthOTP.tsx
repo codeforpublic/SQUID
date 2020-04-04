@@ -62,7 +62,7 @@ export const AuthOTP = () => {
   return (
       <SafeAreaView style={styles.container}>
         <KeyboardAvoidingView style={{ flex: 1, width: '100%' }}>
-          <StatusBar backgroundColor={COLORS.PRIMARY_DARK} barStyle="light-content" />
+          <StatusBar backgroundColor={COLORS.WHITE} barStyle="light-content" />
           <View style={{ padding: 16 }}>
             <BackButton />
           </View>
@@ -90,7 +90,7 @@ export const AuthOTP = () => {
                   borderWidth: 1,
                   fontSize: 24,
                   fontFamily: FONT_FAMILY,
-                  color: COLORS.PRIMARY_DARK,
+                  color: COLORS.BLACK_1,
                   margin: 4,
                   height: 60,
                   width: 60
@@ -117,7 +117,7 @@ export const AuthOTP = () => {
                 marginTop: 32,
               }}
             >
-              <AntIcon name="reload1" size={24} color={COLORS.WHITE} />
+              <AntIcon name="reload1" size={24} color={COLORS.BLACK_1} />
               <Text style={styles.text}>ส่งรหัสใหม่</Text>
             </TouchableOpacity>
           </View>
@@ -145,7 +145,7 @@ export const AuthOTP = () => {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.PRIMARY_DARK },
+  container: { flex: 1, backgroundColor: COLORS.WHITE },
   header: {
     alignItems: 'center',
     marginBottom: 32,
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 32,
     marginLeft: 8,
-    color: COLORS.WHITE,
+    color: COLORS.BLACK_1,
   },
   title: {
     fontFamily: FONT_FAMILY,
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
-    color: COLORS.WHITE,
+    color: COLORS.BLACK_1,
     textAlign: 'center',
   },
   errorText: {

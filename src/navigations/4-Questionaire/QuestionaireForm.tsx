@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { useFormik } from 'formik'
 import styled from '@emotion/native'
-import * as Yup from 'yup'
 import { useSafeArea } from 'react-native-safe-area-context'
 import { QuestionaireSelect } from '../../components/QuestionaireSelect'
-import { View, Text, StatusBar, StyleSheet } from 'react-native'
-import { PrimaryButton } from '../../components/Button'
+import { View, Text, StatusBar, StyleSheet, Dimensions } from 'react-native'
 import { COLORS, FONT_FAMILY } from '../../styles'
-import { BackButton } from '../../components/BackButton'
 import { FormHeader } from '../../components/Form/FormHeader'
 import { dataInputTable } from './form-input'
 import { useIsFocused } from 'react-navigation-hooks'
+import { updateUserData } from '../../api'
+import { useHUD } from '../../HudView'
+import { ScrollView } from 'react-native-gesture-handler'
+import { Button } from 'react-native-elements'
+import { applicationState } from '../../state/app-state'
 
 const Container = styled(View)({
   backgroundColor: '#E3F4FF',
@@ -18,7 +19,8 @@ const Container = styled(View)({
 })
 const Footer = styled(View)({
   alignItems: 'center',
-  marginBottom: 12,
+  marginVertical: 12,
+  paddingHorizontal: 20
 })
 
 export const FormDataInput = ({
@@ -35,7 +37,8 @@ export const FormDataInput = ({
       <QuestionaireSelect
         options={di.options}
         multiple
-        value={value || di.defaultValue}
+        value={value}
+        defaultValue={di.defaultValue}
         onChange={setValue}
       />
     )
@@ -44,8 +47,8 @@ export const FormDataInput = ({
     return (
       <QuestionaireSelect
         options={di.options}
-        multiple
-        value={value || di.defaultValue}
+        value={value}
+        defaultValue={di.defaultValue}
         onChange={setValue}
       />
     )
@@ -56,13 +59,13 @@ export const FormDataInput = ({
 interface ProgressProps {
   style?: any
   progress: number
-  height: number | string
+  height: number
   width?: number | string
 }
 const Progress = ({
   style = {},
   progress = 0.5,
-  height = 8
+  height = 8,
 }: ProgressProps) => {
   return (
     <View
@@ -74,7 +77,11 @@ const Progress = ({
       }}
     >
       <View
-        style={{ height, width: progress * 100 + '%', backgroundColor: '#216DB8' }}
+        style={{
+          height,
+          width: progress * 100 + '%',
+          backgroundColor: '#216DB8',
+        }}
       />
     </View>
   )
@@ -85,7 +92,8 @@ const FormBackHandler = ({ onBack }) => {
   return null
 }
 
-export const QQuestion1 = ({ navigation }) => {
+export const QuestionaireForm = ({ navigation }) => {
+  const { showSpinner, hide } = useHUD()
   const [formValue, setFormValue] = useState({})
   const inset = useSafeArea()
   const [index, setIndex] = useState(0)
@@ -105,6 +113,29 @@ export const QQuestion1 = ({ navigation }) => {
       setIndex(index - 1)
     }
   }, [index])
+  const footer = (
+    <Footer style={{ paddingBottom: inset.bottom }}>
+      <Button            
+        title={'ถัดไป'}
+        titleStyle={{ fontFamily: FONT_FAMILY }}
+        buttonStyle={{ height: 46, backgroundColor: '#216DB8', borderRadius: 10 }}
+        containerStyle={{ width: '100%', borderRadius: 10 }}
+        disabled={typeof value === 'undefined' || value?.length === 0}
+        onPress={async () => {
+          if (dataInputTable[index + 1]) {
+            setIndex(index + 1)
+          } else {
+            showSpinner()
+            await updateUserData({ questionaire: formValue })
+            applicationState.setData('filledQuestionaire', true)
+            navigation.navigate('QuestionaireSummary')
+            hide()
+          }
+        }}
+      />
+    </Footer>
+  )
+  const fixedFooter = Dimensions.get('window').height > 700
 
   return (
     <Container>
@@ -124,8 +155,16 @@ export const QQuestion1 = ({ navigation }) => {
           ) : (
             void 0
           )}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 16 }}>
-            <Text style={{ fontFamily: FONT_FAMILY, marginRight: 12, fontSize: 16  }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginTop: 16,
+            }}
+          >
+            <Text
+              style={{ fontFamily: FONT_FAMILY, marginRight: 12, fontSize: 16 }}
+            >
               {index + 1} / {dataInputTable.length}
             </Text>
             <Progress
@@ -136,13 +175,13 @@ export const QQuestion1 = ({ navigation }) => {
           </View>
         </View>
       </FormHeader>
-      <View
+      <ScrollView
         style={{
           flex: 1,
           borderTopColor: '#E6F2FA',
           borderTopWidth: 1,
-          justifyContent: 'center',
         }}
+        contentContainerStyle={{ justifyContent: 'center'  }}
       >
         {di ? (
           <FormDataInput
@@ -152,22 +191,9 @@ export const QQuestion1 = ({ navigation }) => {
             value={value}
           />
         ) : null}
-      </View>
-      <Footer style={{ paddingBottom: inset.bottom }}>
-        <PrimaryButton
-          style={{ width: 320 }}
-          title={'ถัดไป'}
-          disabled={!value}
-          onPress={() => {
-            if (dataInputTable[index + 1]) {
-              setIndex(index + 1)
-            } else {
-              console.log('formValue', formValue)
-              navigation.navigate('QuestionaireSummary')
-            }
-          }}
-        />
-      </Footer>
+        {fixedFooter? null: footer}
+      </ScrollView>
+      {fixedFooter? footer: null}
     </Container>
   )
 }

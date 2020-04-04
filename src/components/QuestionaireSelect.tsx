@@ -20,7 +20,7 @@ const SelectItemContainer = styled(View)(({ isSelected }) => ({
   shadowColor: 'black',
   shadowOpacity: 0.1,
   flexDirection: 'row',
-  justifyContent: 'space-between',
+  // justifyContent: 'space-between',
   alignItems: 'center'
 }))
 const SelectItemLabel = styled(Text)({
@@ -36,14 +36,15 @@ interface Props {
   }[]
   style?: any
   value: any[]
+  defaultValue: any
   onChange: (value: any) => void
 }
 
-const SelectItem = ({ label, value, isSelected, onSelect }) => {  
+const SelectItem = ({ label, value, isSelected, onSelect }) => { 
   return (
     <TouchableOpacity onPress={() => onSelect(value)} activeOpacity={0.6}>
       <SelectItemContainer isSelected={isSelected}>
-        <SelectItemLabel style={{ color: isSelected? '#216DB8': '#0C2641' }}>{label}</SelectItemLabel>
+        <SelectItemLabel style={{ color: isSelected? '#216DB8': '#0C2641', flex: 1 }}>{label}</SelectItemLabel>
         <FeatherIcon name={isSelected? "check-circle": "circle"} size={20} color={isSelected? '#216DB8': '#0C2641'} />
       </SelectItemContainer>
     </TouchableOpacity>
@@ -55,31 +56,38 @@ export const QuestionaireSelect = ({
   style,
   options,
   value,
+  defaultValue,
   onChange,
 }: Props) => {
   const onSelect = useCallback((itemValue) => {
     if (multiple) {
-      if (value.includes(itemValue)) {
+      if (!value) {
+        onChange([itemValue])
+      } else if (value.includes(itemValue)) {
         onChange(value.filter((v) => v !== itemValue))
       } else {
         onChange(value.concat(itemValue))
       }
     } else {
-      onChange([itemValue])
+      console.log('onChange', itemValue)
+      onChange(itemValue)
     }
   }, [multiple, value])
   
   return (
     <Container style={style}>
-      {options.map((option) => (
-        <SelectItem
-          key={option.label}
-          label={option.label}
-          value={option.value}
-          isSelected={value.includes(option.value)}
-          onSelect={(itemValue) => onSelect(itemValue)}
-        />
-      ))}
+      {options.map((option) => {
+        // console.log('value === option.value', value === option.value, value, option.value )
+        return (
+          <SelectItem
+            key={option.label}
+            label={option.label}
+            value={option.value || (defaultValue || option.value)}
+            isSelected={multiple? value && value.includes(option.value): value === option.value}
+            onSelect={(itemValue) => onSelect(itemValue)}
+          />
+        )
+      })}
     </Container>
   )
 }

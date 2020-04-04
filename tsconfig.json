@@ -7,7 +7,6 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,  
     "skipLibCheck": true,
-    "baseUrl": "./src",
     "jsx": "react-native"
   },
   "include": [

@@ -8,6 +8,7 @@ interface ApplicationStateData {
   isRegistered?: boolean
   isVerified?: boolean
   skipRegistration?: boolean
+  filledQuestionaire?: boolean
 }
 class ApplicationState extends HookState {
   data: ApplicationStateData
