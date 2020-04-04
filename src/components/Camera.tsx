@@ -44,7 +44,7 @@ const ShutterButton = styled.TouchableOpacity`
 const FlashButton = ({ flashMode, setFlashMode }) => (
   <TouchableOpacity
     activeOpacity={0.8}
-    style={{ padding: 16 }}
+    // style={{ padding: 16 }}
     onPress={() => {
       const sequences = [RNCamera.Constants.FlashMode.on, RNCamera.Constants.FlashMode.auto, RNCamera.Constants.FlashMode.off]
       setFlashMode(
@@ -83,7 +83,7 @@ const CameraDirectionButton = ({ setCameraType, cameraType }) => (
 const CloseButton = ({onClose}) => (
   <TouchableOpacity
     activeOpacity={0.8}
-    style={{ padding: 16 }}
+    // style={{ padding: 16 }}
     onPress={() => {
         onClose()
     }}
@@ -165,11 +165,7 @@ export const Camera = ({
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: 'black', position: 'relative' }}
-    >
-      <View style={{ width: '100%', flex: 1, alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' }}>
-        {onClose ? <CloseButton onClose={onClose} />: null}
-        <FlashButton flashMode={flashMode} setFlashMode={setFlashMode} />
-      </View>
+    >      
       {isFocused ? <RNCamera
         ref={cameraRef}
         flashMode={flashMode}
@@ -180,7 +176,11 @@ export const Camera = ({
       >
         {children}
       </RNCamera>: null}
-      <View style={{ flexDirection: 'row', paddingVertical: 8, flex: 1 }}>
+      <View style={{ width: '100%', flex: 1, alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 16, position: 'absolute' }}>
+        {onClose ? <CloseButton onClose={onClose} />: null}
+        <FlashButton flashMode={flashMode} setFlashMode={setFlashMode} />
+      </View>
+      <View style={{ flexDirection: 'row', paddingVertical: 8, flex: 1, alignItems: 'flex-end' }}>
         <View
           style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
         >
@@ -189,14 +189,14 @@ export const Camera = ({
               <ShutterButton onPress={handleShutter} />
             </ShutterButtonInner>
           </ShutterButtonOuter>
+          <CameraDirectionButton
+            cameraType={cameraType}
+            setCameraType={setCameraType}
+          />
+          {isImagePickerAvailable && onSelectImage ?         
+            <SelectImageButton onSelectImage={onSelectImage}/>: null
+          } 
         </View>
-        <CameraDirectionButton
-          cameraType={cameraType}
-          setCameraType={setCameraType}
-        />
-        {isImagePickerAvailable && onSelectImage ?         
-          <SelectImageButton onSelectImage={onSelectImage}/>: null
-        } 
       </View>
       
     </SafeAreaView>

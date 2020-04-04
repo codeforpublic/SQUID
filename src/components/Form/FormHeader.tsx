@@ -15,7 +15,7 @@ export const FormHeader = ({ style, children, onBack }: PropTypes) => {
       <View style={styles.header}>
         <BackButton onPress={onBack} />
         <View style={styles.space} />
-        <Image source={require('./header-logo.png')} height={50} />
+        <Image source={require('./form-logo.png')} style={{ height: 60}} resizeMode="contain" />
       </View>
       {children}
     </View>

@@ -22,7 +22,7 @@ const STRING = {
 
 export const OnboardProgressing = () => {
   const navigation = useNavigation()
-  const contactTracer = useContactTracer() 
+  const contactTracer = useContactTracer()
   useEffect(() => {
     pushNotification.configure()
     contactTracer.enable()
@@ -32,24 +32,22 @@ export const OnboardProgressing = () => {
     }, 1000)
   }, [])
   return (
-    
-      <SafeAreaView style={styles.container}>
-        <StatusBar   backgroundColor={COLORS.PRIMARY_DARK} barStyle="light-content" />
-        <View style={{ height: 56 }}></View>
-        <View style={styles.header}>
-          <Text style={styles.title}>{STRING.TITLE}</Text>
-          <Text style={styles.subtitle}>{STRING.SUB_TITLE}</Text>
-        </View>
-        <View style={styles.content}>
-          <ActivityIndicator size="large" color={COLORS.WHITE} />
-        </View>
-      </SafeAreaView>
-    
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
+      <View style={{ height: 56 }}></View>
+      <View style={styles.header}>
+        <Text style={styles.title}>{STRING.TITLE}</Text>
+        <Text style={styles.subtitle}>{STRING.SUB_TITLE}</Text>
+      </View>
+      <View style={styles.content}>
+        <ActivityIndicator size="large" color={COLORS.BLACK_1} />
+      </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.PRIMARY_DARK },
+  container: { flex: 1, backgroundColor: COLORS.WHITE },
   header: {
     alignItems: 'center',
     marginBottom: 32,
@@ -62,7 +60,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
-    color: COLORS.WHITE,
+    color: COLORS.BLACK_1,
     textAlign: 'center',
   },
   subtitle: {

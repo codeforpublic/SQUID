@@ -11,7 +11,7 @@ export const BackButton = ({ onPress }: { onPress?: any }) => {
       onPress={onPress ? onPress : () => navigation.pop()}
       hitSlop={{ top: -10, left: -10, right: -10, bottom: -10 }}
     >
-      <Icon name="chevron-thin-left" size={24} color={COLORS.PRIMARY_DARK} />
+      <Icon name="chevron-thin-left" size={24} color={COLORS.BLACK_1} />
     </TouchableOpacity>
   )
 }

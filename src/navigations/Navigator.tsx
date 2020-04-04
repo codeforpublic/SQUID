@@ -38,13 +38,22 @@ const Root = ({ navigation }) => {
     const redirect = async () => {
       const registered = await isSkipRegistered()
       const onboarded = await isOnboarded()
-      // const page = registered ? (onboarded ? 'MainApp' : 'Onboarding') : 'Auth'
-      const page = 'Questionaire'
+      const isFilledQuestionaire = applicationState.getData(
+        'filledQuestionaire',
+      )
+      const page = registered
+        ? onboarded
+          ? isFilledQuestionaire
+            ? 'MainApp'
+            : 'Questionaire'
+          : 'Onboarding'
+        : 'Auth'
+        
       const action = StackActions.reset({
         index: 0,
         actions: [
           NavigationActions.navigate({
-            routeName: page,
+            routeName: 'Auth',
           }),
         ],
         key: null,
@@ -77,8 +86,8 @@ export default createStackNavigator(
       screen: MainAppStack,
     },
     Questionaire: {
-      screen: QuestionaireStack
-    }
+      screen: QuestionaireStack,
+    },
   },
   {
     initialRouteName: 'Root',

@@ -155,6 +155,9 @@ class SelfQR extends QR {
   getCreatedDate(): moment {
     return moment(this.timestamp).locale('th')
   }
+  getProficientLabel() {
+    return 'บุคลากรทางการแพทย์'
+  }
 }
 
 interface DecodedResult {
