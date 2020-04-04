@@ -103,7 +103,7 @@ class App extends React.Component {
               <HUDProvider>
                 <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }}>
                   <AppContainer
-                    uriPrefix="thaialert://"
+                    uriPrefix="morchana://"
                     ref={(navigator) => {
                       this._navigator = navigator
                     }}

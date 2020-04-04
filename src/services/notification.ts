@@ -3,7 +3,7 @@ import PushNotificationIOS from '@react-native-community/push-notification-ios'
 import { backgroundTracking } from './background-tracking'
 import { updateUserData } from '../api'
 
-// console.disableYellowBox = true
+console.disableYellowBox = true
 
 class Notification {
   isConfigured = false

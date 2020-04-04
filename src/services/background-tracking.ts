@@ -45,15 +45,15 @@ class BackgroundTracking {
       locationsOrderDirection: 'ASC',
       heartbeatInterval: 60 * 15,
       locationAuthorizationAlert: {
-        titleWhenNotEnabled: 'กรุณาเปิด Location services ให้ ThaiAlert',
-        titleWhenOff: 'กรุณาเปิด Location services ให้ ThaiAlert',
+        titleWhenNotEnabled: 'กรุณาเปิด Location services ให้หมอชนะ',
+        titleWhenOff: 'กรุณาเปิด Location services ให้หมอชนะ',
         instructions:
           'เพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง หรืออยู่ในพื้นที่เสี่ยง',
         cancelButton: 'Cancel',
         settingsButton: 'Settings',
       },
       notification: {
-        title: 'ระบบเฝ้าระวังของ ThaiAlert ทำงาน',
+        title: 'ระบบเฝ้าระวังของหมอชนะ ทำงาน',
         text:
           'คุณจะได้รับการแจ้งเตือนทันที เมื่อคุณได้ไปใกล้ชิดกับคนที่มีความเสี่ยง',
       },
