@@ -55,16 +55,16 @@ export const dataInputTable: DataInput[] = [
       { label: 'ไม่ใช่', value: false },
     ],
   },
-  {
-    id: 'med_prof',
-    title: 'เป็นบุคลากรทางการแพทย์',
-    subtitle: 'คุณเป็นเป็นบุคลากรทางการแพทย์ ?',
-    name: 'data:community:med_prof',
-    dataType: 'Boolean',
-    inputType: 'Select',
-    options: [
-      { label: 'ใช่', value: true },
-      { label: 'ไม่ใช่', value: false },
-    ],
-  }
+  // {
+  //   id: 'med_prof',
+  //   title: 'เป็นบุคลากรทางการแพทย์',
+  //   subtitle: 'คุณเป็นเป็นบุคลากรทางการแพทย์ ?',
+  //   name: 'data:community:med_prof',
+  //   dataType: 'Boolean',
+  //   inputType: 'Select',
+  //   options: [
+  //     { label: 'ใช่', value: true },
+  //     { label: 'ไม่ใช่', value: false },
+  //   ],
+  // }
 ]
