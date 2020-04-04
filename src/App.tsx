@@ -70,14 +70,15 @@ class App extends React.Component {
     await migrateState(apolloClient)
     await backgroundTracking.setup(
       Boolean(applicationState.getData('isPassedOnboarding')),
-    )
-    SplashScreen.hide()
+    )    
 
     await NativeModules.ContactTracerModule.setUserId(
       userPrivateData.getAnonymousId(),
     )
 
-    this.setState({ loaded: true })
+    this.setState({ loaded: true }, () => {
+      SplashScreen.hide()
+    })
   }
   getTheme() {
     return {
