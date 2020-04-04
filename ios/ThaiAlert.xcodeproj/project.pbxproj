@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		05F0DC7D215A492BA2BF38DB /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		05F0DC7D215A492BA2BF38DB /* (null) in Resources */ = {isa = PBXBuildFile; };
 		072F24ED243484C8007BBF30 /* ContactTracerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 072F24EB243484C8007BBF30 /* ContactTracerModule.m */; };
 		072F24EE243484C8007BBF30 /* ContactTracerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F24EC243484C8007BBF30 /* ContactTracerModule.swift */; };
-		081C5DCBAF7747F29143A7B2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		081C5DCBAF7747F29143A7B2 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		08893D91E8324F20A1CB7B99 /* Prompt-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0924E0AA06284895947A9058 /* Prompt-ExtraBold.ttf */; };
-		08A37DCBF1874DDB821E96E2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		0D692DC7853D4DECB9968597 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		08A37DCBF1874DDB821E96E2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		0D692DC7853D4DECB9968597 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -21,37 +21,37 @@
 		1DC5DD5C64BE4DB6876498B2 /* Prompt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EFCC0FF17D042048ECFFD23 /* Prompt.ttf */; };
 		29D436AE6EBE4A3D9033902A /* Prompt-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A5A2CDAFEC2486EA4268877 /* Prompt-SemiBoldItalic.ttf */; };
 		307C8B58159647B7928EF803 /* Prompt-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F6E9B653B044F4FA57E152F /* Prompt-ThinItalic.ttf */; };
-		3ED53526BC8045809EFADEEF /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		3ED53526BC8045809EFADEEF /* (null) in Resources */ = {isa = PBXBuildFile; };
 		3FD7302BFC714FC8B4FD38C7 /* Prompt-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 775792EF0A3F478E979586E4 /* Prompt-ExtraLightItalic.ttf */; };
 		46A8FB914D960FAF53230493 /* libPods-ThaiAlert.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48E61E4FD28192444B63D93A /* libPods-ThaiAlert.a */; };
-		4C1692EF69BA47D0AE7B9A4E /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		4C1692EF69BA47D0AE7B9A4E /* (null) in Resources */ = {isa = PBXBuildFile; };
 		4D1976E30D784C199790D1A9 /* Prompt-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C8E1FFC3A5E48B8998E54C4 /* Prompt-Regular.ttf */; };
-		6D733537F7FC4405A008E6D8 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		6D733537F7FC4405A008E6D8 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		6F72F9111FEA4322AE8452B4 /* Prompt-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9790A306A14407D95088CA1 /* Prompt-LightItalic.ttf */; };
-		77C6E1BCB5F14FB9BE4FF235 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		77C6E1BCB5F14FB9BE4FF235 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		839C411D23084F93008AF109 /* RNBackgroundFetch+AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 839C411C23084F93008AF109 /* RNBackgroundFetch+AppDelegate.m */; };
 		9061E0BAF85344DF89EE3628 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 59734E132FCC4616AE67D544 /* libz.tbd */; };
-		940E7B116F054DAB9980A809 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		97A91DC475884C64BD64FB51 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		99ECEB03AC804ABD9CEB0E85 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		940E7B116F054DAB9980A809 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		97A91DC475884C64BD64FB51 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		99ECEB03AC804ABD9CEB0E85 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		A0FAD7A3E7E64112A5B2FC3F /* Prompt-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7882F728D05D4C1E92C77C02 /* Prompt-BlackItalic.ttf */; };
 		ADB4F028F5C44E0FBB866170 /* Prompt-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 437322D981D2467BA31FC7FD /* Prompt-ExtraLight.ttf */; };
 		B85CF3C06DDE463FB58A9D3A /* Prompt-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F5543A345A54E0796816BBF /* Prompt-MediumItalic.ttf */; };
-		BC81F525AE454F1A852B2534 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		CEB9E88018834E95A877D93B /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		BC81F525AE454F1A852B2534 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		CEB9E88018834E95A877D93B /* (null) in Resources */ = {isa = PBXBuildFile; };
 		CECB959EEA9442C8B56609BE /* Prompt-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1DC8D8810EF48428CC97DA6 /* Prompt-Light.ttf */; };
 		D988E8EF24301732009500DC /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D988E8EE24301732009500DC /* Launch Screen.storyboard */; };
-		D9A1677C4B1A4B2086735166 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		D9A1677C4B1A4B2086735166 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		E0F298E8D5F44083A6E4664B /* Prompt-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4DD441D0C38B4FF8B5740C5D /* Prompt-Thin.ttf */; };
 		E7064FF4ED4F45BCADE462EA /* Prompt-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17E1D3226CB74158A6A1C6EC /* Prompt-ExtraBoldItalic.ttf */; };
-		E73A414341994E54A32BB718 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		E73A414341994E54A32BB718 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		EA9D60E8AFD549DB80919AE4 /* Prompt-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98138CBE0C1C42268A70FD98 /* Prompt-Italic.ttf */; };
-		EF158EC2AE9B44499DED0589 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		EF2EF421FB4C4364A32726BD /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		EF158EC2AE9B44499DED0589 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		EF2EF421FB4C4364A32726BD /* (null) in Resources */ = {isa = PBXBuildFile; };
 		F2B20B08EF5A46C8A27524A9 /* Prompt-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6753B51E68A04ABD984F59EF /* Prompt-Bold.ttf */; };
 		F977A24453654EE392236A12 /* Prompt-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0FDBC3A7DB8E4AA5AAC44D89 /* Prompt-BoldItalic.ttf */; };
 		FB49C6F0AA654674A730551E /* Prompt-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F27A3CF1E48C46D6BE032711 /* Prompt-SemiBold.ttf */; };
-		FC83681864C942E3839E94D1 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		FC83681864C942E3839E94D1 /* (null) in Resources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -224,7 +224,6 @@
 				9A7D21D02A0DA4FEB298AE5E /* Pods-ThaiAlert.debug.xcconfig */,
 				E9F8201E607CA56D9B1DEEA8 /* Pods-ThaiAlert.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -294,25 +293,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				0D692DC7853D4DECB9968597 /* BuildFile in Resources */,
-				4C1692EF69BA47D0AE7B9A4E /* BuildFile in Resources */,
-				05F0DC7D215A492BA2BF38DB /* BuildFile in Resources */,
-				940E7B116F054DAB9980A809 /* BuildFile in Resources */,
-				97A91DC475884C64BD64FB51 /* BuildFile in Resources */,
-				081C5DCBAF7747F29143A7B2 /* BuildFile in Resources */,
-				3ED53526BC8045809EFADEEF /* BuildFile in Resources */,
+				0D692DC7853D4DECB9968597 /* (null) in Resources */,
+				4C1692EF69BA47D0AE7B9A4E /* (null) in Resources */,
+				05F0DC7D215A492BA2BF38DB /* (null) in Resources */,
+				940E7B116F054DAB9980A809 /* (null) in Resources */,
+				97A91DC475884C64BD64FB51 /* (null) in Resources */,
+				081C5DCBAF7747F29143A7B2 /* (null) in Resources */,
+				3ED53526BC8045809EFADEEF /* (null) in Resources */,
 				D988E8EF24301732009500DC /* Launch Screen.storyboard in Resources */,
-				D9A1677C4B1A4B2086735166 /* BuildFile in Resources */,
-				6D733537F7FC4405A008E6D8 /* BuildFile in Resources */,
-				FC83681864C942E3839E94D1 /* BuildFile in Resources */,
-				BC81F525AE454F1A852B2534 /* BuildFile in Resources */,
-				77C6E1BCB5F14FB9BE4FF235 /* BuildFile in Resources */,
-				99ECEB03AC804ABD9CEB0E85 /* BuildFile in Resources */,
-				EF158EC2AE9B44499DED0589 /* BuildFile in Resources */,
-				EF2EF421FB4C4364A32726BD /* BuildFile in Resources */,
-				08A37DCBF1874DDB821E96E2 /* BuildFile in Resources */,
-				CEB9E88018834E95A877D93B /* BuildFile in Resources */,
-				E73A414341994E54A32BB718 /* BuildFile in Resources */,
+				D9A1677C4B1A4B2086735166 /* (null) in Resources */,
+				6D733537F7FC4405A008E6D8 /* (null) in Resources */,
+				FC83681864C942E3839E94D1 /* (null) in Resources */,
+				BC81F525AE454F1A852B2534 /* (null) in Resources */,
+				77C6E1BCB5F14FB9BE4FF235 /* (null) in Resources */,
+				99ECEB03AC804ABD9CEB0E85 /* (null) in Resources */,
+				EF158EC2AE9B44499DED0589 /* (null) in Resources */,
+				EF2EF421FB4C4364A32726BD /* (null) in Resources */,
+				08A37DCBF1874DDB821E96E2 /* (null) in Resources */,
+				CEB9E88018834E95A877D93B /* (null) in Resources */,
+				E73A414341994E54A32BB718 /* (null) in Resources */,
 				1DBA43B09B7742CAA3336A3B /* Prompt-Black.ttf in Resources */,
 				A0FAD7A3E7E64112A5B2FC3F /* Prompt-BlackItalic.ttf in Resources */,
 				F2B20B08EF5A46C8A27524A9 /* Prompt-Bold.ttf in Resources */,
@@ -474,19 +473,19 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9A7D21D02A0DA4FEB298AE5E /* Pods-ThaiAlert.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = TAAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ThaiAlert/ThaiAlert.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = N5WRT2798G;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ThaiAlert/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.7;
+				MARKETING_VERSION = 1.1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -506,19 +505,19 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E9F8201E607CA56D9B1DEEA8 /* Pods-ThaiAlert.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = TAAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ThaiAlert/ThaiAlert.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = N5WRT2798G;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ThaiAlert/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.7;
+				MARKETING_VERSION = 1.1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

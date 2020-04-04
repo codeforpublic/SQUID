@@ -47,6 +47,7 @@
     "apollo-boost": "0.4.7",
     "apollo-cache-persist": "^0.1.1",
     "babel-plugin-module-resolver": "^4.0.0",
+    "emotion-theming": "^10.0.27",
     "formik": "^2.1.4",
     "graphql": "^14.6.0",
     "jsonwebtoken": "^8.5.1",

@@ -23,7 +23,7 @@ export const MainAppTab = createBottomTabNavigator({
             fontSize: 12,
             fontFamily: FONT_FAMILY,
             marginBottom: 2,
-            color: focused ? COLORS.PRIMARY_DARK : COLORS.GRAY_2,
+            color: focused ? '#303342' : COLORS.GRAY_2,
           }}
         >
           ข้อมูล
@@ -32,7 +32,7 @@ export const MainAppTab = createBottomTabNavigator({
       tabBarIcon: ({ focused }) => (
         <Icon
           name="user"
-          color={focused ? COLORS.PRIMARY_DARK : COLORS.GRAY_2}
+          color={focused ? '#303342' : COLORS.GRAY_2}
           size={20}
         />
       ),
@@ -48,7 +48,7 @@ export const MainAppTab = createBottomTabNavigator({
             fontSize: 12,
             fontFamily: FONT_FAMILY,
             marginBottom: 2,
-            color: focused ? COLORS.PRIMARY_DARK : COLORS.GRAY_2,
+            color: focused ? '#303342' : COLORS.GRAY_2,
           }}
         >
           สแกน QR
@@ -57,7 +57,7 @@ export const MainAppTab = createBottomTabNavigator({
       tabBarIcon: ({ focused }) => (
         <AntIcon
           name="scan1"
-          color={focused ? COLORS.PRIMARY_DARK : COLORS.GRAY_2}
+          color={focused ? '#303342' : COLORS.GRAY_2}
           size={20}
         />
       ),
@@ -73,7 +73,7 @@ export const MainAppTab = createBottomTabNavigator({
   //           fontSize: 12,
   //           fontFamily: FONT_FAMILY,
   //           marginBottom: 2,
-  //           color: focused ? COLORS.PRIMARY_DARK : COLORS.GRAY_2,
+  //           color: focused ? '#303342' : COLORS.GRAY_2,
   //         }}
   //       >
   //         ตั้งค่า
@@ -82,7 +82,7 @@ export const MainAppTab = createBottomTabNavigator({
   //     tabBarIcon: ({ focused }) => (
   //       <AntIcon
   //         name="profile"
-  //         color={focused ? COLORS.PRIMARY_DARK : COLORS.GRAY_2}
+  //         color={focused ? '#303342' : COLORS.GRAY_2}
   //         size={20}
   //       />
   //     ),

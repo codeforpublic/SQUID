@@ -1,6 +1,6 @@
 // export const App = () => null
 import React, { Component, Context } from 'react'
-import { NativeModules } from 'react-native'
+import { NativeModules, Dimensions } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-community/async-storage'
 
@@ -20,6 +20,7 @@ import { userPrivateData } from './state/userPrivateData'
 import { backgroundTracking } from './services/background-tracking'
 import { ContactTracerProvider } from './services/contact-tracing-provider'
 import { applicationState } from './state/app-state'
+import { ThemeProvider } from 'emotion-theming'
 
 const AppContainer = createAppContainer(Navigator)
 
@@ -37,7 +38,7 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
-    this.load().catch(err => {
+    this.load().catch((err) => {
       console.log('err', err)
       Alert.alert('Load app failed')
     })
@@ -67,40 +68,52 @@ class App extends React.Component {
       }),
     ])
     await migrateState(apolloClient)
-    await backgroundTracking.setup(Boolean(applicationState.getData('isPassedOnboarding')))
-    SplashScreen.hide()
+    await backgroundTracking.setup(
+      Boolean(applicationState.getData('isPassedOnboarding')),
+    )    
 
     await NativeModules.ContactTracerModule.setUserId(
       userPrivateData.getAnonymousId(),
     )
 
-    this.setState({ loaded: true })
+    this.setState({ loaded: true }, () => {
+      SplashScreen.hide()
+    })
+  }
+  getTheme() {
+    return {
+      scaling: Dimensions.get('window').height / 818
+    }
   }
 
   render() {
     if (!this.state.loaded) {
       return null
     }
+    const theme = this.getTheme()
+    console.log('theme', theme)
     return (
-      <ContactTracerProvider
-        anonymousId={userPrivateData.getAnonymousId()}
-        isPassedOnboarding={applicationState.getData('isPassedOnboarding')}
-      >
-        <SafeAreaProvider>
-          <ApolloProvider client={apolloClient}>
-            <HUDProvider>
-              <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }}>
-                <AppContainer
-                  uriPrefix="thaialert://"
-                  ref={navigator => {
-                    this._navigator = navigator
-                  }}
-                />
-              </View>
-            </HUDProvider>
-          </ApolloProvider>
-        </SafeAreaProvider>
-      </ContactTracerProvider>
+      <ThemeProvider theme={theme}>
+        <ContactTracerProvider
+          anonymousId={userPrivateData.getAnonymousId()}
+          isPassedOnboarding={applicationState.getData('isPassedOnboarding')}
+        >
+          <SafeAreaProvider>
+            <ApolloProvider client={apolloClient}>
+              <HUDProvider>
+                <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }}>
+                  <AppContainer
+                    uriPrefix="thaialert://"
+                    ref={(navigator) => {
+                      this._navigator = navigator
+                    }}
+                  />
+                </View>
+              </HUDProvider>
+            </ApolloProvider>
+          </SafeAreaProvider>
+        </ContactTracerProvider>
+      </ThemeProvider>
     )
   }
 }

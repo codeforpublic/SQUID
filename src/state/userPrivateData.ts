@@ -64,13 +64,13 @@ class UserPrivateData extends HookState {
     }
   }
 
-  getId() {    
+  getId = () => {    
     return this.data.id
   }
-  getAnonymousId() {    
+  getAnonymousId = () => {
     return this.data.anonymousId
   }
-  getData(key: keyof UserData) {
+  getData = (key: keyof UserData) => {
     return this.data[key]
   }
   getFace() {

@@ -30,6 +30,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <!-- Contact Tracer -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -130,9 +131,16 @@
 
         <receiver
             android:name=".receiver.BootCompletedReceiver"
-            android:process=":remote">
+            android:process=":remote"
+            android:enabled="true">
             <intent-filter>
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
                 <action android:name="com.thaialert.servicehealthcheck"/>
             </intent-filter>

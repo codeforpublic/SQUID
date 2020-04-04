@@ -19,6 +19,7 @@ import { useHUD } from '../../HudView'
 import { Link } from '../../components/Base'
 import { applicationState } from '../../state/app-state'
 import { useResetTo } from '../../utils/navigation'
+import { FormHeader } from '../../components/Form/FormHeader'
 
 export const AuthPhone = () => {
   const navigation = useNavigation()
@@ -31,16 +32,15 @@ export const AuthPhone = () => {
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={{ flex: 1, width: '100%' }}>
         <StatusBar
-          backgroundColor={COLORS.PRIMARY_DARK}
-          barStyle="light-content"
+          backgroundColor={COLORS.WHITE}
+          barStyle="dark-content"
         />
-        <View style={{ padding: 16 }}>
-          <BackButton />
-        </View>
-        <View style={styles.header}>
-          <Text style={styles.title}>กรอกเบอร์โทรศัพท์</Text>
-          <Text style={styles.subtitle}>เพื่อยืนยันตัวตนด้วย SMS</Text>
-        </View>
+        <FormHeader>        
+          <View style={styles.header}>
+            <Text style={styles.title}>กรอกเบอร์โทรศัพท์</Text>
+            <Text style={styles.subtitle}>เพื่อยืนยันตัวตนด้วย SMS</Text>
+          </View>
+        </FormHeader>
         <View style={styles.content}>
           <View
             style={{
@@ -68,9 +68,9 @@ export const AuthPhone = () => {
               keyboardType={'phone-pad'}
               style={{
                 textAlign: 'center',
-                fontSize: 20,
+                fontSize: 18,
                 fontFamily: FONT_FAMILY,
-                letterSpacing: 5,
+                letterSpacing: 3,
               }}
             />
           </View>
@@ -117,7 +117,7 @@ export const AuthPhone = () => {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.PRIMARY_DARK },
+  container: { flex: 1, backgroundColor: COLORS.WHITE },
   header: {
     alignItems: 'center',
     marginBottom: 32,
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
-    color: COLORS.PRIMARY_LIGHT,
+    color: COLORS.BLACK_1,
     textAlign: 'center',
   },
   errorText: {
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   agreement: {
     fontSize: 16,
     lineHeight: 24,
-    color: COLORS.PRIMARY_LIGHT,
+    color: COLORS.BLACK_1,
   },
   footer: {
     alignItems: 'center',
