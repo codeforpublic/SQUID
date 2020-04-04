@@ -14,6 +14,7 @@ class ApplicationState extends HookState {
   data: ApplicationStateData
   constructor() {
     super('ApplicationState')
+    this.data = {}
   }
   async load() {
     const appStateString = await AsyncStorage.getItem(ApplicationStateKey)
@@ -37,7 +38,7 @@ class ApplicationState extends HookState {
     return this.save()
   }
   getData = (key: keyof ApplicationStateData) => {
-    return this.data[key]
+    return this.data && this.data[key]
   }
 }
 
