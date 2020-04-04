@@ -10,6 +10,7 @@
     <!-- < Only if you're using GCM or localNotificationSchedule() > -->
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
 
     <!-- 2/3 [RELEASE:ADD] Add these in release -->
@@ -29,20 +30,6 @@
     <!-- Include this only if you are planning to use the microphone for video recording -->
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
-    <!-- Contact Tracer -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-
-    <!--uses-feature
-        android:name="android.hardware.bluetooth_le"
-        android:required="true" /-->
-
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
@@ -59,8 +46,10 @@
           <intent-filter>
               <action android:name="android.intent.action.MAIN" />
               <category android:name="android.intent.category.LAUNCHER" />
-              
-          </intent-filter>          
+          </intent-filter>
+           <intent-filter>
+               <action android:name="com.nuuneoi.lib.contacttracer.noti" />
+           </intent-filter>
         </activity>
         <activity
         android:name=".MainActivity"
@@ -122,34 +111,6 @@
               <action android:name="com.google.android.c2dm.intent.RECEIVE" />
           </intent-filter>
       </service>
-
-        <!-- Contact Tracer -->
-
-        <service
-            android:name=".service.TracerService"
-            android:enabled="true"></service>
-
-        <receiver
-            android:name=".receiver.BootCompletedReceiver"
-            android:process=":remote"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-                <action android:name="android.intent.action.USER_PRESENT" />
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-                <action android:name="com.thaialert.servicehealthcheck"/>
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name=".service.SchedulerService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
     </application>
 
 </manifest>

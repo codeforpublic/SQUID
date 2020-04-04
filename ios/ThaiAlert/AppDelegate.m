@@ -54,9 +54,6 @@
     self.window.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
   }
   
-  // Configure Background Scanner
-  [self configureBackgroundScanner];
-  
   [RNSplashScreen show];
   return YES;
 }
@@ -122,57 +119,5 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
   completionHandler(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge);
 }
-
-/**
- * Background Task
- */
-
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-  [self scheduleScanner];
-}
-
-- (void)configureBackgroundScanner
-{
-  if (@available(iOS 13.0, *)) {
-    [[BGTaskScheduler sharedScheduler] registerForTaskWithIdentifier:@"com.thaialert.bgscanner"
-                                                          usingQueue:nil
-                                                       launchHandler:^(BGTask *task) {
-        [self handleBackgroundScannerTask:task];
-    }];
-  } else {
-    // Fallback on earlier versions
-  }
-}
-
-// Schedule Background Task
-- (void)scheduleScanner
-{
-  if (@available(iOS 13.0, *)) {
-    BGAppRefreshTaskRequest *request = [[BGAppRefreshTaskRequest alloc] initWithIdentifier:@"com.thaialert.bgscanner"];
-    request.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow: 2 * 60];
-    NSError *error = NULL;
-    BOOL success = [[BGTaskScheduler sharedScheduler] submitTaskRequest:request error:&error];
-    if (!success) {
-      NSLog(@"Failed to submit request: %@", error);
-    }
-  } else {
-    // Fallback on earlier versions
-  }
-}
-
--(void)handleBackgroundScannerTask:(BGTask *)task  API_AVAILABLE(ios(13.0)) {
-  // Do things with task
-  
-  // Setup Expiration Handler
-  [task setExpirationHandler:^{
-  }];
-  
-  [task setTaskCompletedWithSuccess:true];
-  
-  // Reschedule
-  [self scheduleScanner];
-}
-
 
 @end
