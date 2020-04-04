@@ -41,7 +41,7 @@ export const AuthOTP = () => {
       }
       hide()
       userPrivateData.setData('mobileNumber', mobileNumber)
-      applicationState.setData('isRegistered', 'success')
+      applicationState.setData('isRegistered', true)
       if (applicationState.getData('isPassedOnboarding')) {
         resetTo({ routeName: 'MainApp' })
       } else {
