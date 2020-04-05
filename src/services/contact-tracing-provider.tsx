@@ -50,11 +50,21 @@ export class ContactTracerProvider extends React.Component<
   }
 
   componentDidMount() {
-    this.initListeners()
+    this.registerListeners()
 
     NativeModules.ContactTracerModule.stopTracerService()
     if (this.props.isPassedOnboarding) {
-      this.registerListeners()
+      // Check if Tracer Service has been enabled
+      NativeModules.ContactTracerModule.isTracerServiceEnabled()
+        .then((enabled) => {
+          this.setState({
+            isServiceEnabled: enabled,
+          })
+          // Refresh Tracer Service Status in case the service is down
+          if (enabled) return this.enable()
+          return ''
+        })
+        .then(() => {})
     }
   }
 
@@ -153,7 +163,7 @@ export class ContactTracerProvider extends React.Component<
 
     NativeModules.ContactTracerModule.enableTracerService().then(() => {})
     this.setState({
-      isServiceEnabled: false,
+      isServiceEnabled: true,
     })
   }
 
@@ -223,10 +233,14 @@ export class ContactTracerProvider extends React.Component<
    */
   unregisterListeneres() {
     // Unregister Event Emitter
-    this.advertiserEventSubscription.remove()
-    this.nearbyDeviceFoundEventSubscription.remove()
-    this.advertiserEventSubscription = null
-    this.nearbyDeviceFoundEventSubscription = null
+    if (this.advertiserEventSubscription != null) {
+      this.advertiserEventSubscription.remove()
+      this.advertiserEventSubscription = null
+    }
+    if (this.nearbyDeviceFoundEventSubscription != null) {
+      this.nearbyDeviceFoundEventSubscription.remove()
+      this.nearbyDeviceFoundEventSubscription = null
+    }
   }
 
   /**
