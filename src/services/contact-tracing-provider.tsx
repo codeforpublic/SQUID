@@ -52,12 +52,19 @@ export class ContactTracerProvider extends React.Component<
   componentDidMount() {
     NativeModules.ContactTracerModule.stopTracerService()
     if (this.props.isPassedOnboarding) {
+      // Get service's status and make sure isServiceEnabled is set
       this.refreshTracerService()
     }
+    this.registerListeners()
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    this.unregisterListeneres()
+  }
 
+  /**
+   * Initialize Contact Tracer instance
+   */
   async init() {
     this.isInited = true
     const anonymousId = this.props.anonymousId
@@ -130,6 +137,61 @@ export class ContactTracerProvider extends React.Component<
         else this.appendStatusText('Mulitple Advertisement is NOT supported')
       })
 
+    console.log('init complete')
+  }
+
+  /**
+   * Enable Contact Tracer service
+   *
+   * Could be call only once and it will remember its state in persistant storage
+   */
+  async enable() {
+    console.log('enable tracing')
+    if (!this.isInited) {
+      await this.init()
+    }
+
+    NativeModules.ContactTracerModule.enableTracerService().then(() => {})
+    this.setState({
+      isServiceEnabled: true,
+    })
+  }
+
+  /**
+   * Disable Contact Tracer service
+   *
+   * Could be call only once and it will remember its state in persistant storage
+   */
+  disable() {
+    console.log('disable tracing')
+    NativeModules.ContactTracerModule.disableTracerService()
+    this.setState({
+      isServiceEnabled: false,
+    })
+  }
+
+  /**
+   * Read Contact Tracer service latest state
+   *
+   * Read state, set isServiceEnabled and call enable() to init
+   */
+  refreshTracerService() {
+    NativeModules.ContactTracerModule.isTracerServiceEnabled()
+      .then((enabled) => {
+        this.setState({
+          isServiceEnabled: enabled,
+        })
+        // Refresh Tracer Service Status in case the service is down
+        if (enabled) return this.enable()
+        else return ''
+      })
+      .then(() => {})
+  }
+
+  /**
+   * Initialize Listeners
+   */
+  registerListeners() {
     // Register Event Emitter
     if (Platform.OS == 'ios') {
       console.log('add listener')
@@ -154,43 +216,12 @@ export class ContactTracerProvider extends React.Component<
         this.onNearbyDeviceFoundReceived,
       )
     }
-    console.log('init complete')
   }
 
-  async enable() {
-    console.log('enable tracing')
-    if (!this.isInited) {
-      await this.init()
-    }
-
-    NativeModules.ContactTracerModule.enableTracerService().then(() => {})
-    this.setState({
-      isServiceEnabled: true,
-    })
-  }
-
-  disable() {
-    console.log('disable tracing')
-    NativeModules.ContactTracerModule.disableTracerService()
-    this.setState({
-      isServiceEnabled: false,
-    })
-  }
-
-  refreshTracerService() {
-    NativeModules.ContactTracerModule.isTracerServiceEnabled()
-      .then((enabled) => {
-        this.setState({
-          isServiceEnabled: enabled,
-        })
-        // Refresh Tracer Service Status in case the service is down
-        if (enabled) return this.enable()
-        else return ''
-      })
-      .then(() => {})
-  }
-
-  destroy() {
+  /**
+   * Destroy Listeners
+   */
+  unregisterListeneres() {
     // Unregister Event Emitter
     this.advertiserEventSubscription.remove()
     this.nearbyDeviceFoundEventSubscription.remove()
@@ -198,6 +229,11 @@ export class ContactTracerProvider extends React.Component<
     this.nearbyDeviceFoundEventSubscription = null
   }
 
+  /**
+   * Append debug text
+   *
+   * @param text Message to be appended
+   */
   appendStatusText(text) {
     console.log('tracing status', text)
     this.statusText = text + '\n' + this.statusText
