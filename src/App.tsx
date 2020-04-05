@@ -62,12 +62,12 @@ class App extends React.Component {
     await Promise.all([
       applicationState.load(),
       userPrivateData.load(),
-      persistCache({
-        cache: apolloClient.cache,
-        storage: AsyncStorage,
-      }),
+      // persistCache({
+      //   cache: apolloClient.cache,
+      //   storage: AsyncStorage,
+      // }),
     ])
-    await migrateState(apolloClient)
+    // await migrateState(apolloClient)
     await backgroundTracking.setup(
       Boolean(applicationState.getData('isPassedOnboarding')),
     )    
