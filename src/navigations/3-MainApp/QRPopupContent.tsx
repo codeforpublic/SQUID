@@ -3,8 +3,16 @@ import { Text, View, Image, StyleSheet } from 'react-native'
 import { QRResult } from '../../state/qr'
 import { COLORS, FONT_FAMILY } from '../../styles'
 
+const Label = ({ label }) => {
+  return (
+    <View style={{ marginTop: 6, backgroundColor: '#0C2641', paddingVertical: 4, paddingHorizontal: 8, borderRadius: 6, alignSelf: 'flex-start' }}>
+      <Text style={{ color: 'white', fontFamily: FONT_FAMILY }}>{label}</Text>
+    </View>
+  )
+}
+
 export const QRPopupContent = (props: any) => {
-  const { appIconSource, appTitle, timeText, title, body } = props
+  const { appIconSource, appTitle, timeText: proficientLabel, title, body } = props
   const qrResult: QRResult = props.qrResult
   return (
     <View style={[styles.popupContentContainer]}>
@@ -22,11 +30,6 @@ export const QRPopupContent = (props: any) => {
             {appTitle || ''}
           </Text>
         </View>
-        <View style={styles.headerTimeContainer}>
-          <Text style={styles.headerTime} numberOfLines={1}>
-            {timeText || ''}
-          </Text>
-        </View>
       </View>
       <View style={styles.contentContainer}>
         <View style={styles.contentTitleContainer}>
@@ -35,6 +38,7 @@ export const QRPopupContent = (props: any) => {
         <View style={styles.contentTextContainer}>
           <Text style={styles.contentText}>{body || ''}</Text>
         </View>
+        {proficientLabel? <Label label={proficientLabel}/>: void 0}
       </View>
     </View>
   )

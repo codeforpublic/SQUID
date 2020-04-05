@@ -63,7 +63,7 @@
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
-            <data android:scheme="thaialert" android:host="app"/>
+            <data android:scheme="morchana" android:host="app"/>
             </intent-filter>
         </activity>
       <!-- 3/3 [RELEASE:REMOVE] Remove for release
@@ -73,7 +73,7 @@
       <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCINS2dyuBipK8MZzOQnzyKdrS2I1_b5I4"/>
 
       <meta-data android:name="com.transistorsoft.locationmanager.license" android:value="47ab2c45c3db6e20a59e1f3d02b8d2ac8571b45e723610efbbdb601164cd2fa8" />
-      <meta-data android:name="com.transistorsoft.locationmanager.ENCRYPTION_PASSWORD" android:value="transistorsoft" />
+      <meta-data android:name="com.transistorsoft.locationmanager.ENCRYPTION_PASSWORD" android:value="com.thaialert.app" />
 
       <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_name"
                 android:value="ThaiAlert"/>

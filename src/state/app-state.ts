@@ -5,14 +5,16 @@ const ApplicationStateKey = '@applicationState'
 type valueof<T> = T[keyof T]
 interface ApplicationStateData {
   isPassedOnboarding?: boolean
-  isRegistered?: 'success' | boolean
-  isVerified?: 'success' | boolean
+  isRegistered?: boolean
+  isVerified?: boolean
   skipRegistration?: boolean
+  filledQuestionaire?: boolean
 }
 class ApplicationState extends HookState {
   data: ApplicationStateData
   constructor() {
     super('ApplicationState')
+    this.data = {}
   }
   async load() {
     const appStateString = await AsyncStorage.getItem(ApplicationStateKey)
@@ -31,12 +33,12 @@ class ApplicationState extends HookState {
     super.save()
     return AsyncStorage.setItem(ApplicationStateKey, JSON.stringify(this.data))
   }
-  setData(key: keyof ApplicationStateData, value: valueof<ApplicationStateData>) {
+  setData = (key: keyof ApplicationStateData, value: valueof<ApplicationStateData>) => {
     this.data[key] = value
     return this.save()
   }
-  getData(key: keyof ApplicationStateData) {
-    return this.data[key]
+  getData = (key: keyof ApplicationStateData) => {
+    return this.data && this.data[key]
   }
 }
 

@@ -26,6 +26,8 @@ class UserPrivateData extends HookState {
   data: UserData
   constructor() {
     super('UserPrivateData')
+    // @ts-ignore
+    this.data = {}
   }
   save() {
     super.save()
@@ -64,14 +66,14 @@ class UserPrivateData extends HookState {
     }
   }
 
-  getId() {    
+  getId = () => {    
     return this.data.id
   }
-  getAnonymousId() {    
+  getAnonymousId = () => {
     return this.data.anonymousId
   }
-  getData(key: keyof UserData) {
-    return this.data[key]
+  getData = (key: keyof UserData) => {
+    return this.data && this.data[key]
   }
   getFace() {
     const dataPath = `${RNFS.DocumentDirectoryPath}/${this.getData('faceURI')}`
