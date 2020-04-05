@@ -27,7 +27,7 @@ export const OnboardProgressing = () => {
   const resetTo = useResetTo()
   useEffect(() => {
     pushNotification.configure()
-    contactTracer.enable()
+    contactTracer?.enable()
     setTimeout(() => {
       applicationState.setData('isPassedOnboarding', true)
       if (applicationState.getData('filledQuestionaire')) {

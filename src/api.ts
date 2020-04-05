@@ -1,8 +1,8 @@
 import DeviceInfo from 'react-native-device-info'
 import { userPrivateData } from './state/userPrivateData'
 import nanoid from 'nanoid'
-import { API_URL } from './config'
-// const API_URL = 'http://192.168.1.102:4210'
+// import { API_URL } from './config'
+const API_URL = 'http://192.168.1.102:4210'
 
 const API_KEY = 'd6857fca1cfbeb600b399ac29f2dabf9'
 

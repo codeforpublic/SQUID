@@ -38,8 +38,8 @@ const MUTATE_USER = gql`
 `
 
 export const OnboardFace = () => {
-  // const [uri, setUri] = useState(userPrivateData.getFace())
-  const [uri, setUri] = useState()
+  const [uri, setUri] = useState(userPrivateData.getFace())
+  
   useEffect(() => {
     if (uri) {
       RNFS.exists(uri).then(exists => {

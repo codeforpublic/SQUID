@@ -1298,10 +1298,24 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
-"@types/color-name@^1.1.1":
+"@types/color-convert@*":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@types/color-convert/-/color-convert-1.9.0.tgz#bfa8203e41e7c65471e9841d7e306a7cd8b5172d"
+  integrity sha512-OKGEfULrvSL2VRbkl/gnjjgbbF7ycIlpSsX7Nkab4MOWi5XxmgBYvuiQ7lcCFY5cPDz7MUNaKgxte2VRmtr4Fg==
+  dependencies:
+    "@types/color-name" "*"
+
+"@types/color-name@*", "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
+
+"@types/color@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@types/color/-/color-3.0.1.tgz#2900490ed04da8116c5058cd5dba3572d5a25071"
+  integrity sha512-oeUWVaAwI+xINDUx+3F2vJkl/vVB03VChFF/Gl3iQCdbcakjuoJyMOba+3BXRtnBhxZ7uBYqQBi9EpLnvSoztA==
+  dependencies:
+    "@types/color-convert" "*"
 
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
@@ -6805,6 +6819,11 @@ react-native-confirm@^0.0.1:
     react-native-input-xg "^0.0.2"
     react-native-stylesheet-xg "^1.1.0"
 
+react-native-contact-tracer@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-contact-tracer/-/react-native-contact-tracer-1.0.3.tgz#e20d62122786a3c8282b1304644c97e44c1181c2"
+  integrity sha512-XCuiK+nujjp5y8/7LSrODq+ly6gNOGe1x+JPbWBR+0NJbOkj/9zWOA5WCkwlL+0U+aRo7kPctICORHg9wIhmAw==
+
 react-native-datepicker@^1.4.4:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/react-native-datepicker/-/react-native-datepicker-1.7.2.tgz#58d0822591a0ac9b32aba082650222a0ee29669d"
@@ -8633,6 +8652,11 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
+
+vanilla-text-mask@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/vanilla-text-mask/-/vanilla-text-mask-5.1.1.tgz#f854819b2785191cef651e3ee94869f45855f365"
+  integrity sha512-JhjoMbCx3DG4GN/M/j06n1bVLeJPsZ7XelyCx8q87M9d5k3jwuWaY+a+09XBq1uOGQAW8QaWska66hOzXNKiQg==
 
 vary@~1.1.2:
   version "1.1.2"
