@@ -14,7 +14,7 @@ import {
 } from 'react-native'
 import { StackActions, NavigationActions } from 'react-navigation'
 import { useNavigation } from 'react-navigation-hooks'
-import { COLORS } from '../../styles'
+import { COLORS, FONT_FAMILY } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useContactTracer } from '../../services/contact-tracing-provider'
@@ -31,27 +31,26 @@ export const Settings = () => {
 
   return (
     <MyBackground variant="light">
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor={COLORS.PRIMARY_LIGHT}
-      />
       <SafeAreaView style={{ flex: 1 }}>
+        <StatusBar
+          barStyle="dark-content"
+          backgroundColor={COLORS.PRIMARY_LIGHT}
+        />
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}
         >
           <View>
-            <View style={styles.sectionHeader}></View>
+            <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}>ระบบค้นหา</Text></View>
             <View style={styles.settingsSection}>
-              <View style={styles.section}>
+              <View style={[styles.section]}>
                 <View style={styles.horizontalRow}>
                   <View style={styles.leftArea}>
                     <Text style={styles.sectionText}>การค้นหาด้วยบลูทูธ: </Text>
                   </View>
                   <View style={styles.rightArea}>
                     <Switch
-                      trackColor={{ false: '#767577', true: '#81b0ff' }}
-                      thumbColor={isServiceEnabled ? '#f5dd4b' : '#f4f3f4'}
+                      trackColor={{ false: '#767577', true: COLORS.PRIMARY_DARK }}
                       ios_backgroundColor="#3e3e3e"
                       onValueChange={() =>
                         isServiceEnabled ? disable() : enable()
@@ -112,6 +111,7 @@ const styles = StyleSheet.create({
   sectionHeaderText: {
     color: '#AAAAAA',
     fontSize: 14,
+    fontFamily: FONT_FAMILY
   },
   settingsSection: {
     borderTopWidth: 1,
@@ -129,11 +129,13 @@ const styles = StyleSheet.create({
   sectionText: {
     fontSize: 16,
     color: '#000000',
+    fontFamily: FONT_FAMILY
   },
   sectionDescription: {
     marginTop: 4,
     fontSize: 12,
     color: '#888888',
+    fontFamily: FONT_FAMILY
   },
   mediumText: {
     fontSize: 20,
@@ -142,11 +144,13 @@ const styles = StyleSheet.create({
   largeText: {
     fontSize: 24,
     color: '#000000',
+    fontFamily: FONT_FAMILY
   },
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
     color: '#000000',
+    fontFamily: FONT_FAMILY
   },
   scrollView: {},
 })
