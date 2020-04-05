@@ -30,9 +30,11 @@ import { pushNotification } from '../../services/notification'
 import { DebugTouchable } from '../../components/DebugTouchable'
 import { backgroundTracking } from '../../services/background-tracking'
 import Color from 'color'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const Footer = ({ date = moment().locale('th') }) => {
   const smallDevice = Dimensions.get('window').height < 600
+  // const time = useTimer()
   return (
     <DebugTouchable
       onDebug={() => {
@@ -47,6 +49,7 @@ const Footer = ({ date = moment().locale('th') }) => {
         }}
       >
         <View style={{ marginRight: 12 }}>
+          
           <Text
             style={{
               fontFamily: FONT_FAMILY,
@@ -56,7 +59,7 @@ const Footer = ({ date = moment().locale('th') }) => {
           >
             ตรวจโดยแอปพลิเคชัน
           </Text>
-          {/* <Text
+          <Text
             style={{
               fontFamily: FONT_FAMILY,
               fontSize: smallDevice ? 12 : 14,
@@ -65,8 +68,8 @@ const Footer = ({ date = moment().locale('th') }) => {
               textAlign: 'right',
             }}
           >
-            วันที่ {date.format('DD MMM HH:mm น.')}
-          </Text> */}
+            วันที่ {date.format('D MMMM​')} พ.ศ. {date.year() + 543}
+          </Text>
         </View>
         <Image
           source={require('../../assets/logo_header.png')}
@@ -100,7 +103,26 @@ const ProficientLabel = ({ label }) => {
   )
 }
 
-const DoctorBadge = () => {}
+const useTimer = () => {
+  const [time, setTime] = useState(60 * 5)
+  useEffect(() => {
+    let it = setTimeout(() => {
+      if (time === 0) {
+        setTime(60 * 5)
+        return
+      }
+      setTime(time - 1)
+    }, 1000)
+    return () => clearTimeout(it)
+  }, [time])
+  const minutes = Math.floor(time / 60)
+  const seconds = time % 60
+  return (
+    (minutes > 9 ? minutes : '0' + minutes) +
+    ':' +
+    (seconds > 9 ? seconds : '0' + seconds)
+  )
+}
 
 export const MainApp = () => {
   const inset = useSafeArea()
@@ -224,7 +246,18 @@ export const MainApp = () => {
         </View>
       </TouchableWithoutFeedback>
       {proficientLabel ? <ProficientLabel label={proficientLabel} /> : void 0}
-      <View style={{ backgroundColor: 'white', marginTop: 16, paddingTop: 8, borderTopLeftRadius: 30, borderTopRightRadius: 30, borderColor: COLORS.GRAY_1, borderWidth: 1, borderBottomWidth: 0 }}>        
+      <View
+        style={{
+          backgroundColor: 'white',
+          marginTop: 16,
+          paddingTop: 8,
+          borderTopLeftRadius: 30,
+          borderTopRightRadius: 30,
+          borderColor: COLORS.GRAY_1,
+          borderWidth: 1,
+          borderBottomWidth: 0,
+        }}
+      >
         <View
           style={{
             flexDirection: 'row',
@@ -241,18 +274,22 @@ export const MainApp = () => {
             resizeMode="contain"
           />
           <View>
-            {label?<Text
-              style={{
-                fontFamily: FONT_FAMILY,
-                fontSize: 16,
-                marginTop: 12,
-                fontWeight: 'bold',
-                textDecorationLine: 'underline',
-                color,
-              }}
-            >
-              {label}
-            </Text>: void 0}
+            {label ? (
+              <Text
+                style={{
+                  fontFamily: FONT_FAMILY,
+                  fontSize: 16,
+                  marginTop: 12,
+                  fontWeight: 'bold',
+                  textDecorationLine: 'underline',
+                  color,
+                }}
+              >
+                {label}
+              </Text>
+            ) : (
+              void 0
+            )}
             {qrState === QR_STATE.OUTDATE || qrState === QR_STATE.EXPIRE ? (
               <Text
                 style={{
@@ -262,21 +299,36 @@ export const MainApp = () => {
                   alignSelf: 'center',
                 }}
               >
-                ไม่ได้อัพเดทเป็นเวลา {Math.floor(timeSinceLastUpdate / 60000)} นาที
+                ไม่ได้อัพเดทเป็นเวลา {Math.floor(timeSinceLastUpdate / 60000)}{' '}
+                นาที
               </Text>
-            ) : qr? <Text
-            style={{
-              fontFamily: FONT_FAMILY,
-              fontSize: 16,
-              alignSelf: 'center',
-              color: COLORS.GRAY_4,                  
-            }}
-          >
-            {`อัพเดทล่าสุด ${qr
-                  .getCreatedDate()
-                  .format('HH:mm น.')}`}            
-            </Text>: void 0}
-          </View>          
+            ) : qr ? (
+              <Text
+                style={{
+                  fontFamily: FONT_FAMILY,
+                  fontSize: 16,
+                  alignSelf: 'center',
+                  color: COLORS.GRAY_4,
+                }}
+              >
+                {`อัพเดทล่าสุด ${qr.getCreatedDate().format('HH:mm น.')}`}
+              </Text>
+            ) : (
+              void 0
+            )}
+          </View>
+          {qr || qrState !== QR_STATE.LOADING ? (
+            <TouchableOpacity onPress={refreshQR}>
+              <Ionicons
+                name="ios-refresh"
+                color={COLORS.BLACK_1}
+                size={24}
+                style={{ marginLeft: 8 }}
+              />
+            </TouchableOpacity>
+          ) : (
+            void 0
+          )}
         </View>
       </View>
       <Sizer
