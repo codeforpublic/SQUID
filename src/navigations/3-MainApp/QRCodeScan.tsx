@@ -67,7 +67,7 @@ export const QRCodeScan = ({ navigation }) => {
           topContent={
             <Header>
               <Title>สแกน QR</Title>
-              <Subtitle>เพื่อตรวจสอบความเสี่ยง</Subtitle>
+              <Subtitle>เพื่อบันทึกการเข้าใกล้และตรวจสอบความเสี่ยง</Subtitle>
             </Header>
           }
         />
