@@ -94,18 +94,19 @@ export const OnboardLocation = () => {
       />
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Icon name="location" color={COLORS.BLUE} size={64} />
-        <View style={{ padding: 8 }}>
+        <View style={{ padding: 8, paddingHorizontal: 30 }}>
           <Text style={styles.title}>ขอสิทธิ์เข้าถึงข้อมูล</Text>
           <Text style={styles.description}>
             <AntIcon name="checksquareo" size={18} color={COLORS.BLUE} /> 1.
-            เราจำเป็นจะต้องเข้าถึงที่อยู่ของคุณ
-            เพื่อส่งให้กับหน่วยงานที่คุณสามารถวางใจได้
-            โดยที่คุณสามารถยกเลิกการแชร์ข้อมูลได้ตลอดเวลา
+            ที่อยู่ของคุณเพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง หรืออยู่ในพื้นที่เสี่ยง
           </Text>
           <Text style={styles.description}>
             <AntIcon name="checksquareo" size={18} color={COLORS.BLUE} /> 2.
-            เราจำเป็นจะต้องเข้าถึงกิจกรรมการใช้งานของโทรศัพท์มือถือของท่าน
-            เพื่อจัดการการใช้พลังงานของมือถืออย่างมีประสิทธิภาพ
+            กิจกรรมการใช้งานของโทรศัพท์มือถือของท่านเพื่อจัดการการใช้พลังงานของมือถืออย่างมีประสิทธิภาพ
+          </Text>
+          <Text style={styles.description}>
+            <AntIcon name="checksquareo" size={18} color={COLORS.BLUE} /> 3.
+            บลูทูธพลังงานต่ำเพื่อคอยสแกนคนใกล้ตัว และแจ้งเตือนทันทีหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง
           </Text>
           <PrimaryButton
             title={'อนุญาตให้เข้าถึง'}
@@ -119,7 +120,7 @@ export const OnboardLocation = () => {
 }
 const styles = StyleSheet.create({
   title: {
-    marginTop: 40,
+    marginTop: 20,
     fontFamily: FONT_FAMILY,
     fontStyle: 'normal',
     fontWeight: 'normal',
@@ -131,8 +132,6 @@ const styles = StyleSheet.create({
   },
   description: {
     marginTop: 20,
-    width: 310,
-    marginBottom: 20,
     fontFamily: FONT_FAMILY,
     fontStyle: 'normal',
     fontWeight: 'normal',
