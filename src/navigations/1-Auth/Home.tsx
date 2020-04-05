@@ -17,7 +17,7 @@ export const Home = ({ navigation }) => {
     >
       <StatusBar
         backgroundColor={COLORS.PRIMARY_DARK}
-        barStyle="dark-content"
+        barStyle="light-content"
       />
       <View style={styles.content}>
         <DebugTouchable

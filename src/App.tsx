@@ -3,7 +3,6 @@ import React, { Component, Context } from 'react'
 import { NativeModules, Dimensions } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-community/async-storage'
-
 import { createAppContainer } from 'react-navigation'
 import Navigator from './navigations/Navigator'
 import { View, Alert } from 'react-native'
