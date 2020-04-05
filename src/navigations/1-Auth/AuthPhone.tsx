@@ -20,22 +20,22 @@ import { Link } from '../../components/Base'
 import { applicationState } from '../../state/app-state'
 import { useResetTo } from '../../utils/navigation'
 import { FormHeader } from '../../components/Form/FormHeader'
+import { userPrivateData } from '../../state/userPrivateData'
 
 export const AuthPhone = () => {
   const navigation = useNavigation()
   const { showSpinner, hide } = useHUD()
-  const [phone, setPhone] = useState('')
-  const isValidPhone = useMemo(() => phone.match(/^[0-9-]{12}$/), [phone])
-  const resetTo = useResetTo()
+  const [phone, setPhone] = useState(userPrivateData.getMobileNumber() || '')
+  const isValidPhone = useMemo(
+    () => phone.replace(/-/g, '').match(/^[0-9]{10}$/),
+    [phone],
+  )
 
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={{ flex: 1, width: '100%' }}>
-        <StatusBar
-          backgroundColor={COLORS.WHITE}
-          barStyle="dark-content"
-        />
-        <FormHeader>        
+        <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
+        <FormHeader>
           <View style={styles.header}>
             <Text style={styles.title}>กรอกเบอร์โทรศัพท์</Text>
             <Text style={styles.subtitle}>เพื่อยืนยันตัวตนด้วย SMS</Text>
@@ -50,15 +50,15 @@ export const AuthPhone = () => {
               borderRadius: 4,
               height: 60,
               width: '100%',
-              justifyContent: 'center'
+              justifyContent: 'center',
             }}
           >
             <TextInputMask
               type="custom"
               options={{
-                mask: "999-999-9999"
+                mask: '999-999-9999',
               }}
-              onChangeText={text => {
+              onChangeText={(text) => {
                 setPhone(text.trim())
               }}
               value={phone}
@@ -82,11 +82,12 @@ export const AuthPhone = () => {
             onPress={async () => {
               showSpinner()
               try {
-                await requestOTP(phone.replace(/-/g, ""))
+                await requestOTP(phone.replace(/-/g, ''))
                 hide()
+                userPrivateData.setData('mobileNumber', phone)
                 navigation.navigate({
                   routeName: 'AuthOTP',
-                  params: { phone: phone.replace(/-/g, "") },
+                  params: { phone: phone.replace(/-/g, '') },
                 })
               } catch (err) {
                 console.log(err)

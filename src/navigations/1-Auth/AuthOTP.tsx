@@ -22,6 +22,7 @@ import { applicationState } from '../../state/app-state'
 import OTPInputView from '@twotalltotems/react-native-otp-input'
 import { Link } from '../../components/Base'
 import { userPrivateData } from '../../state/userPrivateData'
+import { FormHeader } from '../../components/Form/FormHeader'
 
 export const AuthOTP = () => {  
   const { showSpinner, hide } = useHUD()
@@ -63,15 +64,14 @@ export const AuthOTP = () => {
       <SafeAreaView style={styles.container}>
         <KeyboardAvoidingView style={{ flex: 1, width: '100%' }}>
           <StatusBar backgroundColor={COLORS.WHITE} barStyle="light-content" />
-          <View style={{ padding: 16 }}>
-            <BackButton />
-          </View>
-          <View style={styles.header}>
-            <Text style={styles.title}>กรอกรหัสจาก SMS</Text>
-            <Text style={styles.subtitle}>
-              ส่งไปที่เบอร์ {mobileNumber}
-            </Text>
-          </View>
+          <FormHeader>
+            <View style={styles.header}>
+              <Text style={styles.title}>กรอกรหัสจาก SMS</Text>
+              <Text style={styles.subtitle}>
+                ส่งไปที่เบอร์ {mobileNumber}
+              </Text>
+            </View>
+          </FormHeader>
           <View style={styles.content}>
             <View
               style={{

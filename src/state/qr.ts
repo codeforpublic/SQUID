@@ -3,6 +3,7 @@ import { useEffect, useState, useReducer } from 'react'
 import moment from 'moment-timezone'
 import 'moment/locale/th'
 import AsyncStorage from '@react-native-community/async-storage'
+import { applicationState } from './app-state'
 interface QRData {
   data: {
     anonymousId: string
@@ -16,20 +17,26 @@ interface QRData {
   }
 }
 
-export const QR_STATE = {
-  LOADING: 'loading',
-  FAILED: 'failed',
-  NORMAL: 'normal',
-  OUTDATE: 'outdate',
-  EXPIRE: 'expire',
+export enum QR_STATE {
+  LOADING = 'loading',
+  FAILED = 'failed',
+  NORMAL = 'normal',
+  OUTDATE = 'outdate',
+  EXPIRE = 'expire',
+  NOT_VERIFIED = 'not_verified'
 }
-
 const QR_ACTION = {
   UPDATE: 'update',
 }
 
+type SelfQRType = {
+  qrData: SelfQR,
+  qrState: QR_STATE,
+  error: any,
+}
+
 export const useSelfQR = () => {
-  const [state, dispatch] = useReducer(
+  const [state, dispatch] = useReducer<(state: SelfQRType, action: any) => SelfQRType>(
     (state, action) => {
       switch (action.type) {
         case QR_ACTION.UPDATE:
@@ -44,7 +51,16 @@ export const useSelfQR = () => {
       error: null,
     },
   )
+  const isVerified = applicationState.getData('isRegistered')
+  
   useEffect(() => {
+    if (!isVerified) {
+      dispatch({
+        type: QR_ACTION.UPDATE,
+        payload: { qrState: QR_STATE.NOT_VERIFIED },
+      })
+      return
+    }
     let tl
     const updateQR = async () => {
       clearTimeout(tl)
@@ -75,7 +91,7 @@ export const useSelfQR = () => {
     return () => {
       clearTimeout(tl)
     }
-  }, [])
+  }, [isVerified])
 
   return state
 }
