@@ -31,18 +31,20 @@ import FeatureIcon from 'react-native-vector-icons/Feather'
 import { Camera } from '../../components/Camera'
 import { SelfieCaptureGuideline } from '../../components/SelfieCaptureGuideline'
 import RNFS from 'react-native-fs'
-import { API_URL } from '../../config'
+import moment from 'moment-timezone'
+import 'moment/locale/th'
 
 const MAX_SCORE = 100
 
-const QRStateText = ({ qrState }) => {
-  const resetTo = useResetTo()
+const QRStateText = ({ qrState, refreshQR }) => {
   const navigation = useNavigation()
 
   switch (qrState) {
     case QR_STATE.FAILED:
       return (
-        <View
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={refreshQR}
           style={styles.qrOverlay}
         >
           <Text
@@ -62,7 +64,15 @@ const QRStateText = ({ qrState }) => {
           >
             เชื่อมต่ออินเทอร์เน็ตเพื่อสร้าง QR
           </Text>
-        </View>
+          <Text style={{
+            color: '#02A0D7',
+            fontFamily: FONT_FAMILY,
+            textAlign: 'center',
+            textDecorationLine: 'underline',
+          }}>
+            ลองอีกครั้ง
+          </Text>
+        </TouchableOpacity>
       )
     case QR_STATE.LOADING:
       return (
@@ -79,7 +89,9 @@ const QRStateText = ({ qrState }) => {
       )
     case QR_STATE.EXPIRE:
       return (
-        <View
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={refreshQR}
           style={styles.qrOverlay}
         >
           <Text
@@ -99,7 +111,15 @@ const QRStateText = ({ qrState }) => {
           >
             เชื่อมต่ออินเทอร์เน็ตเพื่ออัพเดท
           </Text>
-        </View>
+          <Text style={{
+            color: '#02A0D7',
+            fontFamily: FONT_FAMILY,
+            textAlign: 'center',
+            textDecorationLine: 'underline',
+          }}>
+            ลองอีกครั้ง
+          </Text>
+        </TouchableOpacity>
       )
     case QR_STATE.NOT_VERIFIED:
       return (
@@ -173,7 +193,7 @@ const Label = ({ label }) => {
 
 export const MainApp = () => {
   const [faceURI, setFaceURI] = useState(userPrivateData.getFace())  
-  const { qrData, qrState, error } = useSelfQR()
+  const { qrData, qrState, error, refreshQR } = useSelfQR()
   const resetTo = useResetTo()
   const navigation = useNavigation()
 
@@ -205,7 +225,7 @@ export const MainApp = () => {
   const qr = qrData
   const timeSinceLastUpdate = qr ? Date.now() - qr.timestamp : 0
   const progress = qr ? (qr.getScore() / MAX_SCORE) * 100 : 0
-  const color = qr ? qr.getStatusColor() : COLORS.GRAY_2
+  const color = qr ? qr.getStatusColor() : qrState === QR_STATE.NOT_VERIFIED? COLORS.ORANGE_2 : COLORS.GRAY_2
   const qrUri = qr ? qr.getQRImageURL() : ''
   const label = qr ? qr.getLabel() : qrState === QR_STATE.NOT_VERIFIED? 'ยังไม่ทราบความเสี่ยง': null
 
@@ -285,7 +305,7 @@ export const MainApp = () => {
       ) : (
         void 0
       )}
-      {qr ? (
+      
         <Animated.Text
           style={{
             fontFamily: FONT_FAMILY,
@@ -296,9 +316,9 @@ export const MainApp = () => {
             marginBottom: 4,
           }}
         >
-          ข้อมูลวันที่ {qr.getCreatedDate().format('DD MMM HH:mm น.')}
+          {qr? `ข้อมูลวันที่ ${qr.getCreatedDate().format('DD MMM HH:mm น.')}`: `วันที่ ${moment().format('DD MMM HH:mm น.')}`}
         </Animated.Text>
-      ) : null}
+      
       {qrState === QR_STATE.OUTDATE ? (
         <Text
           style={{
@@ -326,7 +346,7 @@ export const MainApp = () => {
             style={{
               flexDirection: 'row',
               paddingHorizontal: 16,
-              alignItems: 'center',
+              alignItems: 'center'
             }}
           >
             <View
@@ -388,7 +408,7 @@ export const MainApp = () => {
                   source={require('../../assets/qr-placeholder.png')}
                 />
               )}
-              <QRStateText qrState={qrState} />
+              <QRStateText qrState={qrState} refreshQR={refreshQR} />
             </Fragment>
           ) : (
             <ActivityIndicator size="large" />

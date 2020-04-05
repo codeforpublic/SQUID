@@ -1,5 +1,5 @@
 import { getQRData, getProficientData } from '../api'
-import { useEffect, useState, useReducer } from 'react'
+import { useEffect, useState, useReducer, useRef } from 'react'
 import moment from 'moment-timezone'
 import 'moment/locale/th'
 import AsyncStorage from '@react-native-community/async-storage'
@@ -25,8 +25,9 @@ export enum QR_STATE {
   EXPIRE = 'expire',
   NOT_VERIFIED = 'not_verified'
 }
-const QR_ACTION = {
-  UPDATE: 'update',
+enum QR_ACTION {
+  UPDATE = 'update',
+  LOADING = 'loading'
 }
 
 type SelfQRType = {
@@ -39,6 +40,8 @@ export const useSelfQR = () => {
   const [state, dispatch] = useReducer<(state: SelfQRType, action: any) => SelfQRType>(
     (state, action) => {
       switch (action.type) {
+        case QR_ACTION.LOADING:
+          return { ...state, qrState: QR_STATE.LOADING }
         case QR_ACTION.UPDATE:
           return { ...state, ...action.payload }
         default:
@@ -51,7 +54,31 @@ export const useSelfQR = () => {
       error: null,
     },
   )
+  const tlRef = useRef<NodeJS.Timeout>()
   const isVerified = applicationState.getData('isRegistered')
+
+  const refreshQR = async () => {
+    clearTimeout(tlRef.current)
+    try {
+      dispatch({
+        type: QR_ACTION.LOADING
+      })
+      const _qrData = await getQRData()
+      const qrData = await SelfQR.setCurrentQRFromQRData(_qrData)
+      const qrState = SelfQR.getCurrentState()
+      dispatch({
+        type: QR_ACTION.UPDATE,
+        payload: { qrData, qrState, error: null },
+      })
+      tlRef.current = setTimeout(refreshQR, 60 * 1000) // Update after 1 min
+    } catch (error) {
+      dispatch({
+        type: QR_ACTION.UPDATE,
+        payload: { qrState: QR_STATE.FAILED, error },
+      })
+      tlRef.current = setTimeout(refreshQR, 10 * 1000) // Retry after 10 sec
+    }
+  }
   
   useEffect(() => {
     if (!isVerified) {
@@ -61,39 +88,20 @@ export const useSelfQR = () => {
       })
       return
     }
-    let tl
-    const updateQR = async () => {
-      clearTimeout(tl)
-      try {
-        const _qrData = await getQRData()
-        const qrData = await SelfQR.setCurrentQRFromQRData(_qrData)
-        const qrState = SelfQR.getCurrentState()
-        dispatch({
-          type: QR_ACTION.UPDATE,
-          payload: { qrData, qrState, error: null },
-        })
-        tl = setTimeout(updateQR, 60 * 1000) // Update after 1 min
-      } catch (error) {
-        dispatch({
-          type: QR_ACTION.UPDATE,
-          payload: { qrState: QR_STATE.FAILED, error },
-        })
-        tl = setTimeout(updateQR, 10 * 1000) // Retry after 10 sec
-      }
-    }
+    
 
     const setQRFromStorage = async () => {
       const qrData = await SelfQR.getCurrentQR()
       dispatch({ type: QR_ACTION.UPDATE, payload: { qrData } })
     }
 
-    setQRFromStorage().then(() => updateQR())
+    setQRFromStorage().then(() => refreshQR())
     return () => {
-      clearTimeout(tl)
+      clearTimeout(tlRef.current)
     }
   }, [isVerified])
 
-  return state
+  return { ...state, refreshQR }
 }
 
 class QR {
