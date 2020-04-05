@@ -52,7 +52,7 @@ export class ContactTracerProvider extends React.Component<
   componentDidMount() {
     NativeModules.ContactTracerModule.stopTracerService()
     if (this.props.isPassedOnboarding) {
-      NativeModules.ContactTracerModule.refreshTracerServiceStatus()
+      this.refreshTracerService()
     }
   }
 
@@ -64,11 +64,11 @@ export class ContactTracerProvider extends React.Component<
     this.setState({ anonymousId: anonymousId })
     NativeModules.ContactTracerModule.setUserId(
       anonymousId,
-    ).then(anonymousId => {})
+    ).then((anonymousId) => {})
 
     // Check if Tracer Service has been enabled
     NativeModules.ContactTracerModule.isTracerServiceEnabled()
-      .then(enabled => {
+      .then((enabled) => {
         this.setState({
           isServiceEnabled: enabled,
         })
@@ -79,11 +79,11 @@ export class ContactTracerProvider extends React.Component<
 
     // Check if BLE is available
     await NativeModules.ContactTracerModule.initialize()
-      .then(result => {
+      .then((result) => {
         return NativeModules.ContactTracerModule.isBLEAvailable()
       })
       // For NativeModules.ContactTracerModule.isBLEAvailable()
-      .then(isBLEAvailable => {
+      .then((isBLEAvailable) => {
         if (isBLEAvailable) {
           this.appendStatusText('BLE is available')
           // BLE is available, continue requesting Location Permission
@@ -94,7 +94,7 @@ export class ContactTracerProvider extends React.Component<
         }
       })
       // For requestLocationPermission()
-      .then(locationPermissionGranted => {
+      .then((locationPermissionGranted) => {
         this.setState({
           isLocationPermissionGranted: locationPermissionGranted,
         })
@@ -108,7 +108,7 @@ export class ContactTracerProvider extends React.Component<
         }
       })
       // For NativeModules.ContactTracerModule.tryToTurnBluetoothOn()
-      .then(bluetoothOn => {
+      .then((bluetoothOn) => {
         this.setState({
           isBluetoothOn: bluetoothOn,
         })
@@ -124,7 +124,7 @@ export class ContactTracerProvider extends React.Component<
         }
       })
       // For NativeModules.ContactTracerModule.isMultipleAdvertisementSupported()
-      .then(supported => {
+      .then((supported) => {
         if (supported)
           this.appendStatusText('Mulitple Advertisement is supported')
         else this.appendStatusText('Mulitple Advertisement is NOT supported')
@@ -156,6 +156,7 @@ export class ContactTracerProvider extends React.Component<
     }
     console.log('init complete')
   }
+
   async enable() {
     console.log('enable tracing')
     if (!this.isInited) {
@@ -174,6 +175,19 @@ export class ContactTracerProvider extends React.Component<
     this.setState({
       isServiceEnabled: false,
     })
+  }
+
+  refreshTracerService() {
+    NativeModules.ContactTracerModule.isTracerServiceEnabled()
+      .then((enabled) => {
+        this.setState({
+          isServiceEnabled: enabled,
+        })
+        // Refresh Tracer Service Status in case the service is down
+        if (enabled) return this.enable()
+        else return ''
+      })
+      .then(() => {})
   }
 
   destroy() {
@@ -196,11 +210,11 @@ export class ContactTracerProvider extends React.Component<
    * Event Emitting Handler
    */
 
-  onAdvertiserMessageReceived = e => {
+  onAdvertiserMessageReceived = (e) => {
     this.appendStatusText(e['message'])
   }
 
-  onNearbyDeviceFoundReceived = e => {
+  onNearbyDeviceFoundReceived = (e) => {
     this.appendStatusText('')
     this.appendStatusText('***** RSSI: ' + e['rssi'])
     this.appendStatusText('***** Found Nearby Device: ' + e['name'])
