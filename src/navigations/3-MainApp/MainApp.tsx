@@ -36,17 +36,14 @@ import { API_URL } from '../../config'
 const MAX_SCORE = 100
 
 const QRStateText = ({ qrState }) => {
+  const resetTo = useResetTo()
+  const navigation = useNavigation()
+
   switch (qrState) {
     case QR_STATE.FAILED:
       return (
         <View
-          style={{
-            position: 'absolute',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'rgba(255,255,255,0.9)',
-            padding: 12,
-          }}
+          style={styles.qrOverlay}
         >
           <Text
             style={{
@@ -83,13 +80,7 @@ const QRStateText = ({ qrState }) => {
     case QR_STATE.EXPIRE:
       return (
         <View
-          style={{
-            position: 'absolute',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'rgba(255,255,255,0.9)',
-            padding: 12,
-          }}
+          style={styles.qrOverlay}
         >
           <Text
             style={{
@@ -110,6 +101,54 @@ const QRStateText = ({ qrState }) => {
           </Text>
         </View>
       )
+    case QR_STATE.NOT_VERIFIED:
+      return (
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => {
+            const phone = userPrivateData.getMobileNumber()
+            if (phone) {
+              navigation.navigate({
+                routeName: 'AuthOTP',
+                params: { phone: phone.replace(/-/g, '') },
+              })
+            } else {
+              navigation.navigate('AuthPhone')
+            }
+          }}
+          style={styles.qrOverlay}
+        >
+          <View>
+            <Text
+              style={{
+                color: COLORS.BLACK_1,
+                fontSize: 20,
+                fontFamily: FONT_FAMILY,
+                textAlign: 'center',
+              }}
+            >
+              ยืนยันเบอร์โทรศัพท์
+            </Text>
+            <Text
+              style={{
+                color: COLORS.BLACK_1,
+                fontFamily: FONT_FAMILY,
+                textAlign: 'center',
+              }}
+            >
+              ด้วยรหัสจาก SMS ก่อนนะครับ
+            </Text>
+            <Text style={{
+              color: '#02A0D7',
+              fontFamily: FONT_FAMILY,
+              textAlign: 'center',
+              textDecorationLine: 'underline',
+            }}>
+              กดเพื่อรับหรัส
+            </Text>
+          </View>
+        </TouchableOpacity>
+      )
     default:
       return null
   }
@@ -117,15 +156,23 @@ const QRStateText = ({ qrState }) => {
 
 const Label = ({ label }) => {
   return (
-    <View style={{ marginTop: 12, backgroundColor: '#0C2641', paddingVertical: 6, paddingHorizontal: 12, borderRadius: 6, alignSelf: 'center' }}>
+    <View
+      style={{
+        marginTop: 12,
+        backgroundColor: '#0C2641',
+        paddingVertical: 6,
+        paddingHorizontal: 12,
+        borderRadius: 6,
+        alignSelf: 'center',
+      }}
+    >
       <Text style={{ color: 'white', fontFamily: FONT_FAMILY }}>{label}</Text>
     </View>
   )
 }
 
 export const MainApp = () => {
-  const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
-  const isVerified = applicationState.getData('isRegistered')
+  const [faceURI, setFaceURI] = useState(userPrivateData.getFace())  
   const { qrData, qrState, error } = useSelfQR()
   const resetTo = useResetTo()
   const navigation = useNavigation()
@@ -160,7 +207,8 @@ export const MainApp = () => {
   const progress = qr ? (qr.getScore() / MAX_SCORE) * 100 : 0
   const color = qr ? qr.getStatusColor() : COLORS.GRAY_2
   const qrUri = qr ? qr.getQRImageURL() : ''
-  const label = qr ? qr.getLabel() : ''
+  const label = qr ? qr.getLabel() : qrState === QR_STATE.NOT_VERIFIED? 'ยังไม่ทราบความเสี่ยง': null
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
@@ -232,7 +280,11 @@ export const MainApp = () => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-      {qr && qr.getProficientLabel()? <Label label={qr.getProficientLabel()}/>: void 0}
+      {qr && qr.getProficientLabel() ? (
+        <Label label={qr.getProficientLabel()} />
+      ) : (
+        void 0
+      )}
       {qr ? (
         <Animated.Text
           style={{
@@ -265,11 +317,11 @@ export const MainApp = () => {
       <View
         style={{
           flexDirection: 'row',
-          paddingHorizontal: 16,          
+          paddingHorizontal: 16,
           justifyContent: 'center',
         }}
       >
-        {qr ? (
+        {label ? (
           <View
             style={{
               flexDirection: 'row',
@@ -311,6 +363,7 @@ export const MainApp = () => {
       >
         {({ height }) => {
           const size = height ? Math.min(300, height) : void 0
+          const qrPadding = (20 / 300) * size
           return size ? (
             <Fragment>
               {qr ? (
@@ -326,7 +379,12 @@ export const MainApp = () => {
                 />
               ) : (
                 <Image
-                  style={{ width: size, height: size, opacity: 0.1 }}
+                  style={{
+                    width: size - qrPadding * 2,
+                    height: size - qrPadding * 2,
+                    padding: qrPadding,
+                    opacity: 0.1,
+                  }}
                   source={require('../../assets/qr-placeholder.png')}
                 />
               )}
@@ -337,24 +395,6 @@ export const MainApp = () => {
           )
         }}
       </Sizer>
-      {isVerified ? (
-        void 0
-      ) : (
-        <TouchableOpacity
-          onPress={() => {
-            applicationState.setData('skipRegistration', false)
-            resetTo({
-              routeName: 'Auth',
-            })
-            navigation.navigate('AuthPhone')
-          }}
-          style={{
-            paddingBottom: 4,
-          }}
-        >
-          <Link style={{ fontWeight: 'bold' }}>ยืนยันตัวตน ></Link>
-        </TouchableOpacity>
-      )}
     </SafeAreaView>
   )
 }
@@ -406,4 +446,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 16,
   },
+  qrOverlay: {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    padding: 12,
+    borderWidth: 3,
+    borderColor: '#0C2641'
+  }
 })
