@@ -27,7 +27,7 @@ export class HookState {
 }
 type valueof<T> = T[keyof T]
 
-export const createUseHookState = <DataType>(hookStateInstance: HookState) => () => {
+export const createUseHookState = <DataType>(hookStateInstance: HookState) => (): [DataType, any] => {
   const [data, _setData] = useState<DataType>(hookStateInstance.data)
   useEffect(() => {
     const unsubscribe = hookStateInstance.subscribeToChange(_setData)
