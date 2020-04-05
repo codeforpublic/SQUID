@@ -9,6 +9,8 @@ interface ApplicationStateData {
   isVerified?: boolean
   skipRegistration?: boolean
   filledQuestionaire?: boolean
+  createdDate?: string
+  updateProfileDate?: string
 }
 class ApplicationState extends HookState {
   data: ApplicationStateData
@@ -27,6 +29,10 @@ class ApplicationState extends HookState {
         isRegistered: false,
         skipRegistration: false
       }
+    }
+    if (!this.data.createdDate) {
+      this.data.createdDate = new Date().toISOString()
+      await this.save()
     }
   }
   save() {
