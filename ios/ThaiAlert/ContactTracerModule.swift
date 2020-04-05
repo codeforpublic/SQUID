@@ -220,11 +220,13 @@ class ContactTracerModule: RCTEventEmitter, CBCentralManagerDelegate, CBPeripher
           } else {
               nearbyDeviceUserId = String(data: data as! Data, encoding: .utf8) as! String
           }
-        
-          emitNearbyDeviceFound(name: nearbyDeviceUserId, rssi: "\(RSSI)")
+      
+          if nearbyDeviceUserId != nil {
+            emitNearbyDeviceFound(name: nearbyDeviceUserId, rssi: "\(RSSI)")
 
-          print("\nFound Nearby Device: \(nearbyDeviceUserId!)")
-          print("RSSI: \(RSSI)")
+            print("\nFound Nearby Device: \(nearbyDeviceUserId!)")
+            print("RSSI: \(RSSI)")
+          }
       }
   }
   
