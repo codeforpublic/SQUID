@@ -22,13 +22,24 @@ import { useContactTracer } from '../../services/contact-tracing-provider'
 export const Settings = () => {
   const { enable, disable, statusText, isServiceEnabled } = useContactTracer()
   console.log('isServiceEnabled', isServiceEnabled)
-  return  (
+
+  const _onPrivacyPolicyClicked = () => {}
+
+  const _onOpenSourceLicenseClicked = () => {}
+
+  const _onAboutUsClicked = () => {}
+
+  return (
     <MyBackground variant="light">
-        <StatusBar
-          barStyle="dark-content"
-          backgroundColor={COLORS.PRIMARY_LIGHT}
-        />
-        <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor={COLORS.PRIMARY_LIGHT}
+      />
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          style={styles.scrollView}
+        >
           <View>
             <View style={styles.sectionHeader}></View>
             <View style={styles.settingsSection}>
@@ -40,11 +51,11 @@ export const Settings = () => {
                   <View style={styles.rightArea}>
                     <Switch
                       trackColor={{ false: '#767577', true: '#81b0ff' }}
-                      thumbColor={
-                        isServiceEnabled ? '#f5dd4b' : '#f4f3f4'
-                      }
+                      thumbColor={isServiceEnabled ? '#f5dd4b' : '#f4f3f4'}
                       ios_backgroundColor="#3e3e3e"
-                      onValueChange={() => isServiceEnabled? disable(): enable()}
+                      onValueChange={() =>
+                        isServiceEnabled ? disable() : enable()
+                      }
                       value={isServiceEnabled}
                     />
                   </View>
@@ -56,27 +67,31 @@ export const Settings = () => {
                   แต่ระบบจะไม่สามารถค้นหาอุปกรณ์อื่นโดยอัตโนมัติได้
                 </Text>
               </View>
-                          
             </View>
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionHeaderText}>ทั่วไป</Text>
             </View>
             <View style={styles.settingsSection}>
-              <TouchableHighlight onPress={this._onPrivacyPolicyClicked}>
+              <TouchableHighlight onPress={_onPrivacyPolicyClicked}>
                 <View style={styles.section}>
                   <Text style={styles.sectionText}>นโยบายความเป็นส่วนตัว</Text>
                 </View>
               </TouchableHighlight>
+              <TouchableHighlight onPress={_onOpenSourceLicenseClicked}>
+                <View style={styles.section}>
+                  <Text style={styles.sectionText}>Open Source Licenses</Text>
+                </View>
+              </TouchableHighlight>
+              <TouchableHighlight onPress={_onAboutUsClicked}>
+                <View style={styles.section}>
+                  <Text style={styles.sectionText}>เกี่ยวกับเรา</Text>
+                </View>
+              </TouchableHighlight>
             </View>
           </View>
-          <ScrollView
-              contentInsetAdjustmentBehavior="automatic"
-              style={styles.scrollView}
-            >
-              <Text>{statusText}</Text>
-            </ScrollView>
-        </SafeAreaView>
-      </MyBackground>
+        </ScrollView>
+      </SafeAreaView>
+    </MyBackground>
   )
 }
 
@@ -133,9 +148,5 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#000000',
   },
-  scrollView: {
-    marginTop: 24,
-    marginLeft: 24,
-    marginRight: 24,
-  },
+  scrollView: {},
 })

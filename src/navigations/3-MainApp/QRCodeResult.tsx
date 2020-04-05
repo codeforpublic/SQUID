@@ -24,32 +24,51 @@ const Footer = styled(View)({
 const DateLabel = styled(Text)({
   fontFamily: FONT_FAMILY,
   marginBottom: 8,
-  color: COLORS.GRAY_4
+  color: COLORS.GRAY_4,
 })
 
 const RiskLabel = ({ label, color, style }) => {
   return (
-    <View style={{ ...style, marginTop: -10, alignItems: 'center', justifyContent: 'center' }}>
+    <View
+      style={{
+        ...style,
+        marginTop: -10,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       <Image source={require('./risk_icon.png')} width={100} height={100} />
       <Subtitle style={{ marginTop: 4 }}>ความเสี่ยง</Subtitle>
-      <Title style={{ fontWeight: '600', color, fontSize: 24, lineHeight: 36 }}>{label}</Title>
+      <Title style={{ fontWeight: '600', color, fontSize: 24, lineHeight: 36 }}>
+        {label}
+      </Title>
     </View>
   )
 }
 
-export const QRCodeResult = ({ qrResult, onRescan }: { qrResult: QRResult, onRescan: (e: any) => any }) => {  
+export const QRCodeResult = ({
+  qrResult,
+  onRescan,
+}: {
+  qrResult: QRResult
+  onRescan: (e: any) => any
+}) => {
   // console.log('qrResult', qrResult)
   return (
     <MyBackground variant="light">
       <SafeAreaView style={{ flex: 1 }}>
         <Header>
-          <Title>ผลลัพธ์การแสกน</Title>
+          <Title>ผลลัพธ์การสแกน</Title>
         </Header>
         <Content>
           <CircularProgressAvatar
             text="เสี่ยงน้อย"
             CustomComponent={({ style }) => (
-              <RiskLabel style={style} label={qrResult.getLabel()} color={qrResult.getStatusColor()} />
+              <RiskLabel
+                style={style}
+                label={qrResult.getLabel()}
+                color={qrResult.getStatusColor()}
+              />
             )}
             color={qrResult.getStatusColor()}
             progress={80}
@@ -57,7 +76,10 @@ export const QRCodeResult = ({ qrResult, onRescan }: { qrResult: QRResult, onRes
           />
         </Content>
         <Footer>
-          <DateLabel>ข้อมูลวันที่ {qrResult.getCreatedDate().format('DD MMM YYYY HH:mm น.')}</DateLabel>
+          <DateLabel>
+            ข้อมูลวันที่{' '}
+            {qrResult.getCreatedDate().format('DD MMM YYYY HH:mm น.')}
+          </DateLabel>
           <PrimaryButton title={'สแกนใหม่อีกครั้ง'} onPress={onRescan} />
         </Footer>
       </SafeAreaView>
