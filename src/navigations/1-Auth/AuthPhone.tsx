@@ -95,7 +95,7 @@ export const AuthPhone = () => {
               }
             }}
           />
-          <TouchableOpacity onPress={() => {
+          {/* <TouchableOpacity onPress={() => {
             applicationState.setData('skipRegistration', true)
             if (applicationState.getData('isPassedOnboarding')) {
               resetTo({ routeName: 'MainApp' })
@@ -109,7 +109,7 @@ export const AuthPhone = () => {
             <Link style={{ fontWeight: 'bold' }}>
               ใช้งานแบบไม่ยืนยันตัวตน >
             </Link>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>

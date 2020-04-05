@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { MockScreen } from '../MockScreen'
 import { Avatar } from 'react-native-elements'
 import { Camera, TakePictureResponse, RNCamera } from '../../components/Camera'
-import { COLORS } from '../../styles'
+import { COLORS, FONT_FAMILY } from '../../styles'
 import styled, { css } from '@emotion/native'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -14,6 +14,7 @@ import {
   Alert,
   Platform,
   BackHandler,
+  Text,
 } from 'react-native'
 import { Title, Subtitle, Header, WhiteText } from '../../components/Base'
 import { PrimaryButton } from '../../components/Button'
@@ -28,6 +29,7 @@ import { useHUD } from '../../HudView'
 import FeatherIcon from 'react-native-vector-icons/Feather'
 import { SelfieCaptureGuideline } from '../../components/SelfieCaptureGuideline'
 import { RELATIVE_FACE_PATH } from '../const'
+import { FormHeader } from '../../components/Form/FormHeader'
 
 const MUTATE_USER = gql`
   mutation($image: String) {
@@ -36,7 +38,8 @@ const MUTATE_USER = gql`
 `
 
 export const OnboardFace = () => {
-  const [uri, setUri] = useState(userPrivateData.getFace())
+  // const [uri, setUri] = useState(userPrivateData.getFace())
+  const [uri, setUri] = useState()
   useEffect(() => {
     if (uri) {
       RNFS.exists(uri).then(exists => {
@@ -64,17 +67,17 @@ export const OnboardFace = () => {
         backgroundColor={COLORS.WHITE}
         barStyle="dark-content"
       />
-      <Header>
-        <Title style={{ color: COLORS.BLACK_1 }}>รูปถ่ายหน้าตรง</Title>
-        <Subtitle>เห็นหน้าชัดเจน</Subtitle>
-      </Header>
+      <View style={styles.header}>
+        <Text style={styles.title}>ภาพโปรไฟล์</Text>
+        <Text style={styles.subtitle}>ถ่ายรูปหน้าตรง เห็นหน้าชัดเจน</Text>
+      </View>
       <View style={styles.content}>
         <TouchableOpacity onPress={navigateToCamera}>
           <Avatar
             size={250}
             rounded
-            source={uri ? { uri } : void 0}
-            icon={uri ? void 0 : { name: 'camera', type: 'entypo' }}
+            overlayContainerStyle={{backgroundColor:'#E6F2FA' }}          
+            source={uri ? { uri } : require('./camera-mask.png')}
           />
         </TouchableOpacity>
         {uri && (
@@ -103,5 +106,28 @@ const styles = StyleSheet.create({
   footer: {
     alignItems: 'center',
     marginBottom: 12,
+  },
+  header: {
+    marginTop: 30,
+    marginBottom: 16,
+  },
+  title: {
+    fontFamily: FONT_FAMILY,
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+    fontSize: 24,
+    lineHeight: 40,
+    color: COLORS.BLACK_1,
+    textAlign: 'center',
+  },
+
+  subtitle: {
+    fontFamily: FONT_FAMILY,
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+    fontSize: 16,
+    lineHeight: 24,
+    color: COLORS.GRAY_2,
+    textAlign: 'center',
   },
 })
