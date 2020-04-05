@@ -1,7 +1,7 @@
 import React from 'react'
 import { MainApp } from './MainApp'
 import { QRCodeScan } from './QRCodeScan'
-import { Settings } from './Settings2'
+import { Settings } from './Settings'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AntIcon from 'react-native-vector-icons/AntDesign'
 import {
