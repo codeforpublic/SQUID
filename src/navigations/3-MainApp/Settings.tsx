@@ -77,15 +77,11 @@ export const Settings = () => {
                   <Text style={styles.sectionText}>นโยบายความเป็นส่วนตัว</Text>
                 </View>
               </TouchableHighlight>
-            </View>
-            <View style={styles.settingsSection}>
               <TouchableHighlight onPress={_onOpenSourceLicenseClicked}>
                 <View style={styles.section}>
                   <Text style={styles.sectionText}>Open Source Licenses</Text>
                 </View>
               </TouchableHighlight>
-            </View>
-            <View style={styles.settingsSection}>
               <TouchableHighlight onPress={_onAboutUsClicked}>
                 <View style={styles.section}>
                   <Text style={styles.sectionText}>เกี่ยวกับเรา</Text>
