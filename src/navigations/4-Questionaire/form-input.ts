@@ -13,7 +13,7 @@ export const dataInputTable: DataInput[] = [
       { label: 'เจ็บคอ', value: 'one_uri_symp_2' },
       { label: 'เหนื่อยหอบผิดปกติ', value: 'one_uri_symp_3' },
       { label: 'อาเจียน', value: 'one_uri_symp_4' },
-      { label: 'ไม่มีอาการข้างต้น', value: 'none', clearOther: true },
+      { label: 'ไม่มีอาการใด ๆ ข้างต้น', value: 'none', clearOther: true },
     ],
   },
   {
@@ -36,10 +36,20 @@ export const dataInputTable: DataInput[] = [
     dataType: 'Boolean',
     inputType: 'MuliSelect',
     defaultValue: [],
-    options: [      
-      { label: 'มีผู้ใกล้ชิดป่วยเป็นไข้หวัดพร้อมกัน มากกว่า 5 คน', value: 'close_con' },
-      { label: 'มีบุคคลในบ้านเดินทางไปต่างประเทศ', value: 'close_risk_country' },
-      { label: 'อยู่ใกล้ชิดกับผู้ป่วยยืนยัน COVID-19 (ใกล้กว่า 1 เมตร นานเกิน 5 นาที)', value: 'covid19_contact' },
+    options: [
+      {
+        label: 'มีผู้ใกล้ชิดป่วยเป็นไข้หวัดพร้อมกัน มากกว่า 5 คน',
+        value: 'close_con',
+      },
+      {
+        label: 'มีบุคคลในบ้านเดินทางไปต่างประเทศ',
+        value: 'close_risk_country',
+      },
+      {
+        label:
+          'อยู่ใกล้ชิดกับผู้ป่วยยืนยัน COVID-19 (ใกล้กว่า 1 เมตร นานเกิน 5 นาที)',
+        value: 'covid19_contact',
+      },
       { label: 'ไม่มีประวัติข้างต้น', value: 'none', clearOther: true },
     ],
   },
