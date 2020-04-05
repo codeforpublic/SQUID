@@ -36,64 +36,63 @@ export const Settings = () => {
         backgroundColor={COLORS.PRIMARY_LIGHT}
       />
       <SafeAreaView style={{ flex: 1 }}>
-        <View>
-          <View style={styles.sectionHeader}></View>
-          <View style={styles.settingsSection}>
-            <View style={styles.section}>
-              <View style={styles.horizontalRow}>
-                <View style={styles.leftArea}>
-                  <Text style={styles.sectionText}>การค้นหาด้วยบลูทูธ: </Text>
-                </View>
-                <View style={styles.rightArea}>
-                  <Switch
-                    trackColor={{ false: '#767577', true: '#81b0ff' }}
-                    thumbColor={isServiceEnabled ? '#f5dd4b' : '#f4f3f4'}
-                    ios_backgroundColor="#3e3e3e"
-                    onValueChange={() =>
-                      isServiceEnabled ? disable() : enable()
-                    }
-                    value={isServiceEnabled}
-                  />
-                </View>
-              </View>
-              <Text style={styles.sectionDescription}>
-                เปิดการค้นหาการเข้าใกล้บุคคลอื่นผ่านบลูทูธพลังงานต่ำโดยอัตโนมัติ
-                อาจส่งผลให้มือถือมีการใช้พลังงานมากกว่าปกติ
-                สามารถเลือกปิดได้ถ้าต้องการ
-                แต่ระบบจะไม่สามารถค้นหาอุปกรณ์อื่นโดยอัตโนมัติได้
-              </Text>
-            </View>
-          </View>
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionHeaderText}>ทั่วไป</Text>
-          </View>
-          <View style={styles.settingsSection}>
-            <TouchableHighlight onPress={_onPrivacyPolicyClicked}>
-              <View style={styles.section}>
-                <Text style={styles.sectionText}>นโยบายความเป็นส่วนตัว</Text>
-              </View>
-            </TouchableHighlight>
-          </View>
-          <View style={styles.settingsSection}>
-            <TouchableHighlight onPress={_onOpenSourceLicenseClicked}>
-              <View style={styles.section}>
-                <Text style={styles.sectionText}>Open Source Licenses</Text>
-              </View>
-            </TouchableHighlight>
-          </View>
-          <View style={styles.settingsSection}>
-            <TouchableHighlight onPress={_onAboutUsClicked}>
-              <View style={styles.section}>
-                <Text style={styles.sectionText}>เกี่ยวกับเรา</Text>
-              </View>
-            </TouchableHighlight>
-          </View>
-        </View>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}
         >
-          <Text>{statusText}</Text>
+          <View>
+            <View style={styles.sectionHeader}></View>
+            <View style={styles.settingsSection}>
+              <View style={styles.section}>
+                <View style={styles.horizontalRow}>
+                  <View style={styles.leftArea}>
+                    <Text style={styles.sectionText}>การค้นหาด้วยบลูทูธ: </Text>
+                  </View>
+                  <View style={styles.rightArea}>
+                    <Switch
+                      trackColor={{ false: '#767577', true: '#81b0ff' }}
+                      thumbColor={isServiceEnabled ? '#f5dd4b' : '#f4f3f4'}
+                      ios_backgroundColor="#3e3e3e"
+                      onValueChange={() =>
+                        isServiceEnabled ? disable() : enable()
+                      }
+                      value={isServiceEnabled}
+                    />
+                  </View>
+                </View>
+                <Text style={styles.sectionDescription}>
+                  เปิดการค้นหาการเข้าใกล้บุคคลอื่นผ่านบลูทูธพลังงานต่ำโดยอัตโนมัติ
+                  อาจส่งผลให้มือถือมีการใช้พลังงานมากกว่าปกติ
+                  สามารถเลือกปิดได้ถ้าต้องการ
+                  แต่ระบบจะไม่สามารถค้นหาอุปกรณ์อื่นโดยอัตโนมัติได้
+                </Text>
+              </View>
+            </View>
+            <View style={styles.sectionHeader}>
+              <Text style={styles.sectionHeaderText}>ทั่วไป</Text>
+            </View>
+            <View style={styles.settingsSection}>
+              <TouchableHighlight onPress={_onPrivacyPolicyClicked}>
+                <View style={styles.section}>
+                  <Text style={styles.sectionText}>นโยบายความเป็นส่วนตัว</Text>
+                </View>
+              </TouchableHighlight>
+            </View>
+            <View style={styles.settingsSection}>
+              <TouchableHighlight onPress={_onOpenSourceLicenseClicked}>
+                <View style={styles.section}>
+                  <Text style={styles.sectionText}>Open Source Licenses</Text>
+                </View>
+              </TouchableHighlight>
+            </View>
+            <View style={styles.settingsSection}>
+              <TouchableHighlight onPress={_onAboutUsClicked}>
+                <View style={styles.section}>
+                  <Text style={styles.sectionText}>เกี่ยวกับเรา</Text>
+                </View>
+              </TouchableHighlight>
+            </View>
+          </View>
         </ScrollView>
       </SafeAreaView>
     </MyBackground>
@@ -153,9 +152,5 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#000000',
   },
-  scrollView: {
-    marginTop: 24,
-    marginLeft: 24,
-    marginRight: 24,
-  },
+  scrollView: {},
 })
