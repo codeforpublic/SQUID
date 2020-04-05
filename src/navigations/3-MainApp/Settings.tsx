@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import {
   StatusBar,
   StyleSheet,
@@ -6,11 +6,14 @@ import {
   Text,
   Switch,
   ScrollView,
+  TouchableHighlight,
   NativeEventEmitter,
   DeviceEventEmitter,
   NativeModules,
   Platform,
 } from 'react-native'
+import { StackActions, NavigationActions } from 'react-navigation'
+import { useNavigation } from 'react-navigation-hooks'
 import { COLORS } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -118,6 +121,8 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
     })
   }
 
+  _onPrivacyPolicyClicked = () => {}
+
   render() {
     return (
       <MyBackground variant="light">
@@ -165,8 +170,12 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionHeaderText}>ทั่วไป</Text>
             </View>
-            <View style={styles.section}>
-              <Text style={styles.sectionText}>นโยบายความเป็นส่วนตัว</Text>
+            <View style={styles.settingsSection}>
+              <TouchableHighlight onPress={this._onPrivacyPolicyClicked}>
+                <View style={styles.section}>
+                  <Text style={styles.sectionText}>นโยบายความเป็นส่วนตัว</Text>
+                </View>
+              </TouchableHighlight>
             </View>
           </View>
         </SafeAreaView>
