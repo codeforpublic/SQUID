@@ -123,10 +123,6 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
 
   _onPrivacyPolicyClicked = () => {}
 
-  _onOpenSourceLicenseClicked = () => {}
-
-  _onAboutUsClicked = () => {}
-
   render() {
     return (
       <MyBackground variant="light">
@@ -178,20 +174,6 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
               <TouchableHighlight onPress={this._onPrivacyPolicyClicked}>
                 <View style={styles.section}>
                   <Text style={styles.sectionText}>นโยบายความเป็นส่วนตัว</Text>
-                </View>
-              </TouchableHighlight>
-            </View>
-            <View style={styles.settingsSection}>
-              <TouchableHighlight onPress={this._onOpenSourceLicenseClicked}>
-                <View style={styles.section}>
-                  <Text style={styles.sectionText}>Open Source License</Text>
-                </View>
-              </TouchableHighlight>
-            </View>
-            <View style={styles.settingsSection}>
-              <TouchableHighlight onPress={this._onAboutUsClicked}>
-                <View style={styles.section}>
-                  <Text style={styles.sectionText}>เกี่ยวกับเรา</Text>
                 </View>
               </TouchableHighlight>
             </View>
