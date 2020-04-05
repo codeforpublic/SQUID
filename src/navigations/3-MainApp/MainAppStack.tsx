@@ -89,31 +89,31 @@ export const MainAppTab = createBottomTabNavigator({
       ),
     },
   },
-  Debug: {
-    screen: Debug,
-    navigationOptions: {
-      tabBarLabel: ({ focused }) => (
-        <Text
-          style={{
-            textAlign: 'center',
-            fontSize: 12,
-            fontFamily: FONT_FAMILY,
-            marginBottom: 2,
-            color: focused ? '#303342' : COLORS.GRAY_2,
-          }}
-        >
-          Debug
-        </Text>
-      ),
-      tabBarIcon: ({ focused }) => (
-        <AntIcon
-          name="BugOutlined"
-          color={focused ? '#303342' : COLORS.GRAY_2}
-          size={20}
-        />
-      ),
-    },
-  },
+  // Debug: {
+  //   screen: Debug,
+  //   navigationOptions: {
+  //     tabBarLabel: ({ focused }) => (
+  //       <Text
+  //         style={{
+  //           textAlign: 'center',
+  //           fontSize: 12,
+  //           fontFamily: FONT_FAMILY,
+  //           marginBottom: 2,
+  //           color: focused ? '#303342' : COLORS.GRAY_2,
+  //         }}
+  //       >
+  //         Debug
+  //       </Text>
+  //     ),
+  //     tabBarIcon: ({ focused }) => (
+  //       <AntIcon
+  //         name="BugOutlined"
+  //         color={focused ? '#303342' : COLORS.GRAY_2}
+  //         size={20}
+  //       />
+  //     ),
+  //   },
+  // },
 })
 
 export const MainAppStack = createStackNavigator(

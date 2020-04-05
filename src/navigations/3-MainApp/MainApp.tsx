@@ -28,6 +28,7 @@ import { useResetTo } from '../../utils/navigation'
 import { useNavigation } from 'react-navigation-hooks'
 import { pushNotification } from '../../services/notification'
 import { DebugTouchable } from '../../components/DebugTouchable'
+import { UpdateProfileButton } from './UpdateProfileButton'
 import { backgroundTracking } from '../../services/background-tracking'
 import Color from 'color'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -124,6 +125,7 @@ const useTimer = () => {
   )
 }
 
+
 export const MainApp = () => {
   const inset = useSafeArea()
   const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
@@ -136,11 +138,6 @@ export const MainApp = () => {
     Math.floor((20 / 100) * Dimensions.get('screen').height),
   )
 
-  const navigateToMainAppFaceCamera = () => {
-    navigation.navigate('MainAppFaceCamera', { setUri: setFaceURI })
-  }
-
-  const changeImageWidth = Math.floor(avatarWidth / 6)
 
   useEffect(() => {
     pushNotification.configure()
@@ -213,35 +210,11 @@ export const MainApp = () => {
               progress={progress}
               width={avatarWidth}
             />
-            <TouchableHighlight
-              activeOpacity={0.6}
-              underlayColor="#DDDDDD"
-              onPress={navigateToMainAppFaceCamera}
-              style={{
-                backgroundColor: 'white',
-                position: 'absolute',
-                width: changeImageWidth,
-                height: changeImageWidth,
-                borderRadius: Math.floor(changeImageWidth / 2),
-                alignItems: 'center',
-                justifyContent: 'center',
-                shadowColor: '#000',
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 4,
-                bottom: Math.floor((8 / 100) * avatarWidth),
-                right: Math.floor((8 / 100) * avatarWidth),
-              }}
-            >
-              <FeatureIcon
-                name="camera"
-                size={Math.floor((60 / 100) * changeImageWidth)}
-              />
-            </TouchableHighlight>
+            <UpdateProfileButton width={Math.floor(avatarWidth / 6)} style={{
+              position: 'absolute',
+              bottom: Math.floor((8 / 100) * avatarWidth),
+              right: Math.floor((8 / 100) * avatarWidth),
+            }} onChange={setFaceURI}/>
           </View>
         </View>
       </TouchableWithoutFeedback>

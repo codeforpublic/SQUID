@@ -5,6 +5,7 @@ import RNFS from 'react-native-fs'
 import { Platform, Alert, NativeModules } from 'react-native'
 import { SelfieCaptureGuideline } from './SelfieCaptureGuideline'
 import ImageEditor from '@react-native-community/image-editor'
+import { applicationState } from '../state/app-state'
 
 export const UpdateFaceCamera = ({ onCapture, ...props }) => {
   const { showSpinner, hide } = useHUD()
@@ -29,6 +30,7 @@ export const UpdateFaceCamera = ({ onCapture, ...props }) => {
       } else {
         onCapture(data.uri)
       }
+      applicationState.setData('updateProfileDate', new Date().toISOString())
     } catch (err) {
       console.log(err)
       Alert.alert('เกิดข้อผิดพลาด กรุณาลองอีกครั้ง')
