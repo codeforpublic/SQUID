@@ -45,8 +45,8 @@ class BackgroundTracking {
       locationsOrderDirection: 'ASC',
       heartbeatInterval: 60 * 15,
       locationAuthorizationAlert: {
-        titleWhenNotEnabled: 'กรุณาเปิด Location services ให้หมอชนะ',
-        titleWhenOff: 'กรุณาเปิด Location services ให้หมอชนะ',
+        titleWhenNotEnabled: 'กรุณาเปิด Location services เป็น Always ให้หมอชนะ',
+        titleWhenOff: 'กรุณาเปิด Location services เป็น Always ให้หมอชนะ',
         instructions:
           'เพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง หรืออยู่ในพื้นที่เสี่ยง',
         cancelButton: 'Cancel',
