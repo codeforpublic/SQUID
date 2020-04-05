@@ -21,6 +21,7 @@ import { useContactTracer } from '../../services/contact-tracing-provider'
 
 export const Settings = () => {
   const { enable, disable, statusText, isServiceEnabled } = useContactTracer()
+  console.log('isServiceEnabled', isServiceEnabled)
   return  (
     <MyBackground variant="light">
         <StatusBar
