@@ -30,7 +30,7 @@ class BackgroundTracking {
 
     await BackgroundGeolocation.ready({
       distanceFilter: Platform.OS === 'android'? 0: 10, // every 10 meter
-      locationUpdateInterval: 3 * 60 * 1000, // every 3 minute
+      locationUpdateInterval: 15 * 60 * 1000, // every 15 minute
       stationaryRadius: 50,
       stopOnTerminate: false,
       startOnBoot: true,
@@ -40,6 +40,7 @@ class BackgroundTracking {
       debug: false,
       batchSync: true,
       maxBatchSize: 20,
+      deferTime: 60 * 1000,      
       url: API_URL + '/location',
       httpRootProperty: 'locations',
       locationsOrderDirection: 'ASC',

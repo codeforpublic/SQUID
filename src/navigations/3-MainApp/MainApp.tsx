@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, Fragment, useMemo } from 'react'
 import { COLORS, FONT_FAMILY } from '../../styles'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { useSafeArea } from 'react-native-safe-area-context'
 import {
   Animated,
   StatusBar,
@@ -15,174 +15,83 @@ import {
   TouchableHighlight,
   Alert,
 } from 'react-native'
+import FeatureIcon from 'react-native-vector-icons/Feather'
+import RNFS from 'react-native-fs'
+import moment from 'moment-timezone'
+import 'moment/locale/th'
+import { QRStateText } from './QRStateText'
 import { CircularProgressAvatar } from '../../components/CircularProgressAvatar'
-import { WhiteBackground } from '../../components/WhiteBackground'
 import Sizer from 'react-native-size'
 import { userPrivateData } from '../../state/userPrivateData'
 import { useSelfQR, QR_STATE } from '../../state/qr'
-import { applicationState } from '../../state/app-state'
-import { Link } from '../../components/Base'
 import { useResetTo } from '../../utils/navigation'
 import { useNavigation } from 'react-navigation-hooks'
 import { pushNotification } from '../../services/notification'
 import { DebugTouchable } from '../../components/DebugTouchable'
 import { backgroundTracking } from '../../services/background-tracking'
-import FeatureIcon from 'react-native-vector-icons/Feather'
-import { Camera } from '../../components/Camera'
-import { SelfieCaptureGuideline } from '../../components/SelfieCaptureGuideline'
-import RNFS from 'react-native-fs'
-import moment from 'moment-timezone'
-import 'moment/locale/th'
+import Color from 'color'
 
-const MAX_SCORE = 100
-
-const QRStateText = ({ qrState, refreshQR }) => {
-  const navigation = useNavigation()
-
-  switch (qrState) {
-    case QR_STATE.FAILED:
-      return (
-        <TouchableOpacity
-          activeOpacity={0.5}
-          onPress={refreshQR}
-          style={styles.qrOverlay}
-        >
+const Footer = ({ date = moment().locale('th') }) => {
+  const smallDevice = Dimensions.get('window').height < 600
+  return (
+    <DebugTouchable
+      onDebug={() => {
+        backgroundTracking.toggleDebug()
+      }}
+    >
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'row',
+        }}
+      >
+        <View style={{ marginRight: 12 }}>
           <Text
             style={{
-              color: COLORS.GRAY_4,
-              fontSize: 24,
               fontFamily: FONT_FAMILY,
+              fontSize: smallDevice ? 12 : 14,
+              textAlign: 'right',
             }}
           >
-            ไม่สามารถสร้าง QR ได้
+            ตรวจโดยแอปพลิเคชัน
           </Text>
-          <Text
+          {/* <Text
             style={{
-              color: COLORS.GRAY_4,
               fontFamily: FONT_FAMILY,
-            }}
-          >
-            เชื่อมต่ออินเทอร์เน็ตเพื่อสร้าง QR
-          </Text>
-          <Text style={{
-            color: '#02A0D7',
-            fontFamily: FONT_FAMILY,
-            textAlign: 'center',
-            textDecorationLine: 'underline',
-          }}>
-            ลองอีกครั้ง
-          </Text>
-        </TouchableOpacity>
-      )
-    case QR_STATE.LOADING:
-      return (
-        <View
-          style={{
-            position: 'absolute',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 12,
-          }}
-        >
-          <ActivityIndicator size="large" color="black" />
-        </View>
-      )
-    case QR_STATE.EXPIRE:
-      return (
-        <TouchableOpacity
-          activeOpacity={0.5}
-          onPress={refreshQR}
-          style={styles.qrOverlay}
-        >
-          <Text
-            style={{
-              color: 'red',
-              fontSize: 24,
-              fontFamily: FONT_FAMILY,
-            }}
-          >
-            QR หมดอายุแล้ว
-          </Text>
-          <Text
-            style={{
-              color: 'red',
-              fontFamily: FONT_FAMILY,
-            }}
-          >
-            เชื่อมต่ออินเทอร์เน็ตเพื่ออัพเดท
-          </Text>
-          <Text style={{
-            color: '#02A0D7',
-            fontFamily: FONT_FAMILY,
-            textAlign: 'center',
-            textDecorationLine: 'underline',
-          }}>
-            ลองอีกครั้ง
-          </Text>
-        </TouchableOpacity>
-      )
-    case QR_STATE.NOT_VERIFIED:
-      return (
-        <TouchableOpacity
-          activeOpacity={0.5}
-          onPress={() => {
-            const phone = userPrivateData.getMobileNumber()
-            if (phone) {
-              navigation.navigate({
-                routeName: 'AuthOTP',
-                params: { phone: phone.replace(/-/g, '') },
-              })
-            } else {
-              navigation.navigate('AuthPhone')
-            }
-          }}
-          style={styles.qrOverlay}
-        >
-          <View>
-            <Text
-              style={{
-                color: COLORS.BLACK_1,
-                fontSize: 20,
-                fontFamily: FONT_FAMILY,
-                textAlign: 'center',
-              }}
-            >
-              ยืนยันเบอร์โทรศัพท์
-            </Text>
-            <Text
-              style={{
-                color: COLORS.BLACK_1,
-                fontFamily: FONT_FAMILY,
-                textAlign: 'center',
-              }}
-            >
-              ด้วยรหัสจาก SMS ก่อนนะครับ
-            </Text>
-            <Text style={{
+              fontSize: smallDevice ? 12 : 14,
               color: '#02A0D7',
-              fontFamily: FONT_FAMILY,
-              textAlign: 'center',
-              textDecorationLine: 'underline',
-            }}>
-              กดเพื่อรับหรัส
-            </Text>
-          </View>
-        </TouchableOpacity>
-      )
-    default:
-      return null
-  }
+              opacity: 0.9,
+              textAlign: 'right',
+            }}
+          >
+            วันที่ {date.format('DD MMM HH:mm น.')}
+          </Text> */}
+        </View>
+        <Image
+          source={require('../../assets/logo_header.png')}
+          resizeMode="contain"
+          style={{
+            height: smallDevice ? 30 : 40,
+            width: (smallDevice ? 30 : 40) * (260 / 140),
+          }}
+        />
+      </View>
+    </DebugTouchable>
+  )
 }
-
-const Label = ({ label }) => {
+const PROFICIENT_BG = '#0C2641'
+const ProficientLabel = ({ label }) => {
   return (
     <View
       style={{
         marginTop: 12,
-        backgroundColor: '#0C2641',
+        backgroundColor: PROFICIENT_BG,
         paddingVertical: 6,
         paddingHorizontal: 12,
         borderRadius: 6,
+        borderColor: COLORS.WHITE,
+        borderWidth: 1,
         alignSelf: 'center',
       }}
     >
@@ -191,8 +100,11 @@ const Label = ({ label }) => {
   )
 }
 
+const DoctorBadge = () => {}
+
 export const MainApp = () => {
-  const [faceURI, setFaceURI] = useState(userPrivateData.getFace())  
+  const inset = useSafeArea()
+  const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
   const { qrData, qrState, error, refreshQR } = useSelfQR()
   const resetTo = useResetTo()
   const navigation = useNavigation()
@@ -224,40 +136,51 @@ export const MainApp = () => {
 
   const qr = qrData
   const timeSinceLastUpdate = qr ? Date.now() - qr.timestamp : 0
-  const progress = qr ? (qr.getScore() / MAX_SCORE) * 100 : 0
-  const color = qr ? qr.getStatusColor() : qrState === QR_STATE.NOT_VERIFIED? COLORS.ORANGE_2 : COLORS.GRAY_2
+  const progress = qr ? (qr.getScore() / 100) * 100 : 0
+  const color = qr
+    ? qr.getStatusColor()
+    : qrState === QR_STATE.NOT_VERIFIED
+    ? COLORS.ORANGE_2
+    : COLORS.GRAY_2
   const qrUri = qr ? qr.getQRImageURL() : ''
-  const label = qr ? qr.getLabel() : qrState === QR_STATE.NOT_VERIFIED? 'ยังไม่ทราบความเสี่ยง': null
+  const label = qr
+    ? qr.getLabel()
+    : qrState === QR_STATE.NOT_VERIFIED
+    ? 'ยังไม่ทราบความเสี่ยง'
+    : qrState === QR_STATE.LOADING
+    ? 'รอสักครู่...'
+    : ''
+  const proficientLabel = qr && qr.getProficientLabel()
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View
+      style={[styles.container, { paddingTop: inset.top, paddingBottom: 12 }]}
+    >
       <StatusBar
-        barStyle="dark-content"
-        backgroundColor={COLORS.PRIMARY_LIGHT}
+        barStyle={proficientLabel ? 'light-content' : 'dark-content'}
+        backgroundColor={
+          proficientLabel ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT
+        }
       />
-      <DebugTouchable
-        onDebug={() => {
-          backgroundTracking.toggleDebug()
-        }}
-      >
-        <View style={{ alignItems: 'flex-start', marginLeft: 30 }}>
-          <Image
-            source={require('../../assets/logo_header.png')}
-            resizeMode="contain"
-            style={{
-              height: 50,
-              width: 50 * (260 / 140),
-              marginTop: 8,
-              marginBottom: 12,
-            }}
-          />
-        </View>
-      </DebugTouchable>
+      {qr && (
+        <View
+          style={[
+            StyleSheet.absoluteFill,
+            {
+              backgroundColor: proficientLabel
+                ? PROFICIENT_BG
+                : Color(qr.getStatusColor()).alpha(0.1).toString(),
+              height: '50%',
+            },
+          ]}
+        />
+      )}
       <TouchableWithoutFeedback>
         <View
           style={{
             alignItems: 'center',
             position: 'relative',
+            marginTop: 20,
           }}
         >
           <View style={{ position: 'relative' }}>
@@ -300,76 +223,61 @@ export const MainApp = () => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-      {qr && qr.getProficientLabel() ? (
-        <Label label={qr.getProficientLabel()} />
-      ) : (
-        void 0
-      )}
-      
-        <Animated.Text
+      {proficientLabel ? <ProficientLabel label={proficientLabel} /> : void 0}
+      <View style={{ backgroundColor: 'white', marginTop: 16, paddingTop: 8, borderTopLeftRadius: 30, borderTopRightRadius: 30, borderColor: COLORS.GRAY_1, borderWidth: 1, borderBottomWidth: 0 }}>        
+        <View
           style={{
-            fontFamily: FONT_FAMILY,
-            fontSize: 16,
-            alignSelf: 'center',
-            color: COLORS.GRAY_4,
-            marginTop: 16,
-            marginBottom: 4,
+            flexDirection: 'row',
+            paddingHorizontal: 16,
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
-          {qr? `ข้อมูลวันที่ ${qr.getCreatedDate().format('DD MMM HH:mm น.')}`: `วันที่ ${moment().format('DD MMM HH:mm น.')}`}
-        </Animated.Text>
-      
-      {qrState === QR_STATE.OUTDATE ? (
-        <Text
-          style={{
-            color: '#DCC91B',
-            fontFamily: FONT_FAMILY,
-            fontSize: 14,
-            marginTop: -4,
-            marginBottom: 8,
-            alignSelf: 'center',
-          }}
-        >
-          * QR ไม่ได้อัพเดทเป็นเวลา {Math.floor(timeSinceLastUpdate / 60000)}{' '}
-          นาที
-        </Text>
-      ) : null}
-      <View
-        style={{
-          flexDirection: 'row',
-          paddingHorizontal: 16,
-          justifyContent: 'center',
-        }}
-      >
-        {label ? (
-          <View
+          <Image
+            source={require('./morchana.png')}
             style={{
-              flexDirection: 'row',
-              paddingHorizontal: 16,
-              alignItems: 'center'
+              marginRight: 10,
             }}
-          >
-            <View
+            resizeMode="contain"
+          />
+          <View>
+            {label?<Text
               style={{
-                alignItems: 'flex-start',
-                flexDirection: 'column',
-                marginLeft: 8,
+                fontFamily: FONT_FAMILY,
+                fontSize: 16,
+                marginTop: 12,
+                fontWeight: 'bold',
+                textDecorationLine: 'underline',
+                color,
               }}
             >
+              {label}
+            </Text>: void 0}
+            {qrState === QR_STATE.OUTDATE || qrState === QR_STATE.EXPIRE ? (
               <Text
                 style={{
+                  color: COLORS.ORANGE_2,
                   fontFamily: FONT_FAMILY,
-                  fontSize: 16,
-                  marginTop: -4,
-                  fontWeight: 'bold',
-                  color,
+                  fontSize: 14,
+                  alignSelf: 'center',
                 }}
               >
-                {label}
+                ไม่ได้อัพเดทเป็นเวลา {Math.floor(timeSinceLastUpdate / 60000)} นาที
               </Text>
-            </View>
-          </View>
-        ) : null}
+            ) : qr? <Text
+            style={{
+              fontFamily: FONT_FAMILY,
+              fontSize: 16,
+              alignSelf: 'center',
+              color: COLORS.GRAY_4,                  
+            }}
+          >
+            {`อัพเดทล่าสุด ${qr
+                  .getCreatedDate()
+                  .format('HH:mm น.')}`}            
+            </Text>: void 0}
+          </View>          
+        </View>
       </View>
       <Sizer
         style={{
@@ -379,10 +287,11 @@ export const MainApp = () => {
           backgroundColor: COLORS.WHITE,
           borderColor: COLORS.GRAY_1,
           borderStyle: 'solid',
+          maxHeight: 320,
         }}
       >
         {({ height }) => {
-          const size = height ? Math.min(300, height) : void 0
+          const size = height ? Math.min(320, height) : void 0
           const qrPadding = (20 / 300) * size
           return size ? (
             <Fragment>
@@ -391,7 +300,7 @@ export const MainApp = () => {
                   style={{
                     width: size,
                     height: size,
-                    opacity: qrState === QR_STATE.EXPIRE ? 0.1 : 1,
+                    opacity: qrState === QR_STATE.EXPIRE ? 0.05 : 1,
                   }}
                   source={{
                     uri: qrUri,
@@ -415,12 +324,17 @@ export const MainApp = () => {
           )
         }}
       </Sizer>
-    </SafeAreaView>
+      <Footer />
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.WHITE },
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.WHITE,
+    justifyContent: 'center',
+  },
   header: {
     alignItems: 'center',
     marginBottom: 32,
@@ -473,6 +387,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.9)',
     padding: 12,
     borderWidth: 3,
-    borderColor: '#0C2641'
-  }
+    borderColor: '#0C2641',
+  },
 })
