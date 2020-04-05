@@ -70,7 +70,7 @@ export const OnboardLocation = () => {
       <View
         style={{
           flex: 1,
-          backgroundColor: COLORS.PRIMARY_DARK,
+          backgroundColor: COLORS.WHITE,
           justifyContent: 'center',
           alignItems: 'center',
         }}
@@ -84,25 +84,26 @@ export const OnboardLocation = () => {
     <View
       style={{
         flex: 1,
-        backgroundColor: COLORS.PRIMARY_DARK,
+        backgroundColor: COLORS.WHITE,
+        // paddingHorizontal: 20
       }}
     >
       <StatusBar
-        backgroundColor={COLORS.PRIMARY_DARK}
-        barStyle="light-content"
+        backgroundColor={COLORS.WHITE}
+        barStyle="dark-content"
       />
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Icon name="location" color={COLORS.ORANGE} size={64} />
+        <Icon name="location" color={COLORS.BLUE} size={64} />
         <View style={{ padding: 8 }}>
           <Text style={styles.title}>ขอสิทธิ์เข้าถึงข้อมูล</Text>
           <Text style={styles.description}>
-            <AntIcon name="checksquareo" size={18} color={COLORS.ORANGE} /> 1.
+            <AntIcon name="checksquareo" size={18} color={COLORS.BLUE} /> 1.
             เราจำเป็นจะต้องเข้าถึงที่อยู่ของคุณ
             เพื่อส่งให้กับหน่วยงานที่คุณสามารถวางใจได้
             โดยที่คุณสามารถยกเลิกการแชร์ข้อมูลได้ตลอดเวลา
           </Text>
           <Text style={styles.description}>
-            <AntIcon name="checksquareo" size={18} color={COLORS.ORANGE} /> 2.
+            <AntIcon name="checksquareo" size={18} color={COLORS.BLUE} /> 2.
             เราจำเป็นจะต้องเข้าถึงกิจกรรมการใช้งานของโทรศัพท์มือถือของท่าน
             เพื่อจัดการการใช้พลังงานของมือถืออย่างมีประสิทธิภาพ
           </Text>
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
     fontSize: 29,
     lineHeight: 44,
     textAlign: 'left',
-    color: COLORS.WHITE,
+    color: COLORS.BLACK_1,
     width: 310,
   },
   description: {
@@ -138,6 +139,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 26,
     textAlign: 'left',
-    color: COLORS.WHITE,
+    color: COLORS.BLACK_1,    
   },
 })

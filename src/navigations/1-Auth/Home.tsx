@@ -2,8 +2,7 @@ import React from 'react'
 import { Image, Text, View, StyleSheet, StatusBar, Alert } from 'react-native'
 import { PrimaryButton } from '../../components/Button'
 import { COLORS, FONT_FAMILY } from '../../styles'
-import { MyBackground } from '../../components/MyBackground'
-import { NavigationActions, StackActions } from 'react-navigation'
+import { Button } from 'react-native-elements'
 import { DebugTouchable } from '../../components/DebugTouchable'
 import { API_URL } from '../../config'
 import CodePush from 'react-native-code-push'
@@ -13,12 +12,12 @@ export const Home = ({ navigation }) => {
     <View
       style={{
         ...StyleSheet.absoluteFillObject,
-        backgroundColor: '#212356',
+        backgroundColor: COLORS.PRIMARY_DARK,
       }}
     >
       <StatusBar
         backgroundColor={COLORS.PRIMARY_DARK}
-        barStyle="light-content"
+        barStyle="dark-content"
       />
       <View style={styles.content}>
         <DebugTouchable
@@ -38,14 +37,19 @@ export const Home = ({ navigation }) => {
           หยุดเชื้อเพื่อชาติ{'\n'}
           ป้องกันการระบาดของโรค
         </Text>
-        <PrimaryButton
-          title="เริ่มต้น"
-          iconRight
-          icon={{
-            name: 'right',
-            type: 'antdesign',
-            color: 'white',
-            size: 18,
+        <Button
+          title="ลงทะเบียน"
+          type="outline"
+          titleStyle={{
+            color: '#00A0D7',
+            fontWeight: 'bold',
+            fontSize: 20,
+            width: 240,
+            fontFamily: FONT_FAMILY
+          }}
+          buttonStyle={{
+            borderRadius: 5,
+            backgroundColor: 'white',            
           }}
           onPress={async () => {
             navigation.navigate('AgreementPolicy')

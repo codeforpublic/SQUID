@@ -6,7 +6,7 @@ import {
   Platform,
 } from 'react-native'
 import { requestLocationPermission } from '../utils/Permission'
-import { slowPaceScanner } from './contact-scanner'
+import { scanManager } from './contact-scanner'
 
 const eventEmitter = new NativeEventEmitter(NativeModules.ContactTracerModule)
 
@@ -54,18 +54,17 @@ export class ContactTracerProvider extends React.Component<
 
     NativeModules.ContactTracerModule.stopTracerService()
     if (this.props.isPassedOnboarding) {
-      NativeModules.ContactTracerModule.isTracerServiceEnabled().then(
-        (enabled) => {
-          if (enabled) this.enable()
-        },
-      )
+      this.registerListeners()
     }
   }
 
   componentWillUnmount() {
-    this.destroy()
+    this.unregisterListeneres()
   }
 
+  /**
+   * Initialize Contact Tracer instance
+   */
   async init() {
     this.isInited = true
     const anonymousId = this.props.anonymousId
@@ -140,6 +139,12 @@ export class ContactTracerProvider extends React.Component<
 
     console.log('init complete')
   }
+
+  /**
+   * Enable Contact Tracer service
+   *
+   * Could be call only once and it will remember its state in persistant storage
+   */
   async enable() {
     console.log('enable tracing')
     if (!this.isInited) {
@@ -152,14 +157,41 @@ export class ContactTracerProvider extends React.Component<
     })
   }
 
+  /**
+   * Disable Contact Tracer service
+   *
+   * Could be call only once and it will remember its state in persistant storage
+   */
   disable() {
+    console.log('disable tracing')
     NativeModules.ContactTracerModule.disableTracerService()
     this.setState({
       isServiceEnabled: false,
     })
   }
 
-  initListeners() {
+  /**
+   * Read Contact Tracer service latest state
+   *
+   * Read state, set isServiceEnabled and call enable() to init
+   */
+  refreshTracerService() {
+    NativeModules.ContactTracerModule.isTracerServiceEnabled()
+      .then((enabled) => {
+        this.setState({
+          isServiceEnabled: enabled,
+        })
+        // Refresh Tracer Service Status in case the service is down
+        if (enabled) return this.enable()
+        else return ''
+      })
+      .then(() => {})
+  }
+
+  /**
+   * Initialize Listeners
+   */
+  registerListeners() {
     // Register Event Emitter
     if (Platform.OS == 'ios') {
       console.log('add listener')
@@ -186,7 +218,10 @@ export class ContactTracerProvider extends React.Component<
     }
   }
 
-  destroy() {
+  /**
+   * Destroy Listeners
+   */
+  unregisterListeneres() {
     // Unregister Event Emitter
     this.advertiserEventSubscription.remove()
     this.nearbyDeviceFoundEventSubscription.remove()
@@ -194,6 +229,11 @@ export class ContactTracerProvider extends React.Component<
     this.nearbyDeviceFoundEventSubscription = null
   }
 
+  /**
+   * Append debug text
+   *
+   * @param text Message to be appended
+   */
   appendStatusText(text) {
     console.log('tracing status', text)
     this.statusText = text + '\n' + this.statusText
@@ -216,7 +256,8 @@ export class ContactTracerProvider extends React.Component<
     this.appendStatusText('***** Found Nearby Device: ' + e['name'])
     this.appendStatusText('')
     /* broadcast */
-    slowPaceScanner.add(e['name'])
+    console.log('broadcast:' + e['name'])
+    scanManager.add(e['name'])
   }
 
   render() {

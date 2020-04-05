@@ -35,7 +35,7 @@ import { API_URL } from '../../config'
 
 const MAX_SCORE = 100
 
-const QRStateText = ({ qrState }) => {  
+const QRStateText = ({ qrState }) => {
   switch (qrState) {
     case QR_STATE.FAILED:
       return (
@@ -115,6 +115,14 @@ const QRStateText = ({ qrState }) => {
   }
 }
 
+const Label = ({ label }) => {
+  return (
+    <View style={{ marginTop: 12, backgroundColor: '#0C2641', paddingVertical: 6, paddingHorizontal: 12, borderRadius: 6, alignSelf: 'center' }}>
+      <Text style={{ color: 'white', fontFamily: FONT_FAMILY }}>{label}</Text>
+    </View>
+  )
+}
+
 export const MainApp = () => {
   const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
   const isVerified = applicationState.getData('isRegistered')
@@ -124,7 +132,7 @@ export const MainApp = () => {
 
   const avatarWidth = Math.min(
     200,
-    Math.floor((25 / 100) * Dimensions.get('screen').height),
+    Math.floor((20 / 100) * Dimensions.get('screen').height),
   )
 
   const navigateToMainAppFaceCamera = () => {
@@ -137,7 +145,7 @@ export const MainApp = () => {
     pushNotification.configure()
   }, [])
   useEffect(() => {
-    RNFS.exists(faceURI).then(exists => {
+    RNFS.exists(faceURI).then((exists) => {
       console.log('exists', exists)
       if (!exists) {
         resetTo({
@@ -164,11 +172,16 @@ export const MainApp = () => {
           backgroundTracking.toggleDebug()
         }}
       >
-        <View style={{ alignItems: 'center' }}>
+        <View style={{ alignItems: 'flex-start', marginLeft: 30 }}>
           <Image
             source={require('../../assets/logo_header.png')}
             resizeMode="contain"
-            style={{ height: 32, marginTop: 8, marginBottom: 4 }}
+            style={{
+              height: 50,
+              width: 50 * (260 / 140),
+              marginTop: 8,
+              marginBottom: 12,
+            }}
           />
         </View>
       </DebugTouchable>
@@ -219,27 +232,19 @@ export const MainApp = () => {
           </View>
         </View>
       </TouchableWithoutFeedback>
+      {qr && qr.getProficientLabel()? <Label label={qr.getProficientLabel()}/>: void 0}
       {qr ? (
         <Animated.Text
           style={{
             fontFamily: FONT_FAMILY,
-            fontSize: 18,
+            fontSize: 16,
             alignSelf: 'center',
-            // color: fadeAnim.interpolate({
-            //   inputRange: [0, 0.1, 0.9, 1],
-            //   outputRange: [
-            //     'rgb(80, 85, 101)',
-            //     'rgb(231,137,51)',
-            //     'rgb(231, 73, 51)',
-            //     'rgb(80, 85, 101)',
-            //   ],
-            // }),
             color: COLORS.GRAY_4,
-            marginTop: 12,
-            marginBottom: 8,
+            marginTop: 16,
+            marginBottom: 4,
           }}
         >
-          ข้อมูลวันที่ {qr.getCreatedDate().format('DD MMM YYYY HH:mm น.')}
+          ข้อมูลวันที่ {qr.getCreatedDate().format('DD MMM HH:mm น.')}
         </Animated.Text>
       ) : null}
       {qrState === QR_STATE.OUTDATE ? (
@@ -260,8 +265,7 @@ export const MainApp = () => {
       <View
         style={{
           flexDirection: 'row',
-          paddingHorizontal: 16,
-          paddingBottom: 6,
+          paddingHorizontal: 16,          
           justifyContent: 'center',
         }}
       >
@@ -273,10 +277,6 @@ export const MainApp = () => {
               alignItems: 'center',
             }}
           >
-            <Image
-              source={require('../../assets/covid.png')}
-              style={{ width: 20, height: 20 }}
-            />
             <View
               style={{
                 alignItems: 'flex-start',
@@ -284,15 +284,6 @@ export const MainApp = () => {
                 marginLeft: 8,
               }}
             >
-              {/* <Text
-                style={{
-                  fontFamily: FONT_FAMILY,
-                  fontSize: 12,
-                  color: COLORS.GRAY_2,
-                }}
-              >
-                ความเสี่ยง
-              </Text> */}
               <Text
                 style={{
                   fontFamily: FONT_FAMILY,
@@ -315,8 +306,6 @@ export const MainApp = () => {
           justifyContent: 'center',
           backgroundColor: COLORS.WHITE,
           borderColor: COLORS.GRAY_1,
-          // borderBottomWidth: 1,
-          // borderTopWidth: 1,
           borderStyle: 'solid',
         }}
       >

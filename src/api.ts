@@ -2,6 +2,7 @@ import DeviceInfo from 'react-native-device-info'
 import { userPrivateData } from './state/userPrivateData'
 import nanoid from 'nanoid'
 import { API_URL } from './config'
+// const API_URL = 'http://192.168.1.102:4210'
 
 const API_KEY = 'd6857fca1cfbeb600b399ac29f2dabf9'
 
@@ -72,23 +73,25 @@ export const updateUserData = async (data: { [key: string]: any }) => {
   return resp.json()
 }
 
-interface QRData {
-  data: {
-    anonymousId: string
-    code: string
-  }
-  qr: {
-    type: string
-    base64: string
-  }
-}
-
 export const getQRData = async () => {
   const resp = await fetch(API_URL + `/qr`, {
     method: 'get',
     headers: getAnonymousHeaders(),
   })
-  const result: QRData = await resp.json()
+  const result = await resp.json()
+
+  return result
+}
+
+export const getProficientData = async () => {
+  const resp = await fetch(API_URL + `/qr/proficient`, {
+    method: 'get',
+    headers: getAnonymousHeaders(),
+  })
+  if (resp.status !== 200) {
+    throw new Error('Invalid')
+  }
+  const result = await resp.json()
 
   return result
 }
