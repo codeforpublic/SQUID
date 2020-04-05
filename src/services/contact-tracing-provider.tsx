@@ -164,11 +164,12 @@ export class ContactTracerProvider extends React.Component<
 
     NativeModules.ContactTracerModule.enableTracerService().then(() => {})
     this.setState({
-      isServiceEnabled: false,
+      isServiceEnabled: true,
     })
   }
 
   disable() {
+    console.log('disable tracing')
     NativeModules.ContactTracerModule.disableTracerService()
     this.setState({
       isServiceEnabled: false,
@@ -205,6 +206,7 @@ export class ContactTracerProvider extends React.Component<
     this.appendStatusText('***** Found Nearby Device: ' + e['name'])
     this.appendStatusText('')
     /* broadcast */
+    console.log('broadcast:' + e['name'])
     scanManager.add(e['name'])
   }
 
