@@ -17,115 +17,12 @@ import { useNavigation } from 'react-navigation-hooks'
 import { COLORS } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useContactTracer } from '../../services/contact-tracing-provider'
 
-const eventEmitter = new NativeEventEmitter(NativeModules.ContactTracerModule)
-
-interface SettingsProps {}
-
-interface SettingsState {
-  statusText: string
-  isServiceEnabled: boolean
-}
-
-export class Settings extends React.Component<SettingsProps, SettingsState> {
-  statusText = ''
-  advertiserEventSubscription = null
-  nearbyDeviceFoundEventSubscription = null
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      statusText: '',
-      isServiceEnabled: false,
-    }
-  }
-
-  componentDidMount() {
-    // Check if Tracer Service has been enabled
-    NativeModules.ContactTracerModule.isTracerServiceEnabled()
-      .then((enabled) => {
-        this.setState({
-          isServiceEnabled: enabled,
-        })
-      })
-      .then(() => {})
-
-    // Register Event Emitter
-    if (Platform.OS == 'ios') {
-      this.advertiserEventSubscription = eventEmitter.addListener(
-        'AdvertiserMessage',
-        this.onAdvertiserMessageReceived,
-      )
-
-      this.nearbyDeviceFoundEventSubscription = eventEmitter.addListener(
-        'NearbyDeviceFound',
-        this.onNearbyDeviceFoundReceived,
-      )
-    } else {
-      this.advertiserEventSubscription = DeviceEventEmitter.addListener(
-        'AdvertiserMessage',
-        this.onAdvertiserMessageReceived,
-      )
-
-      this.nearbyDeviceFoundEventSubscription = DeviceEventEmitter.addListener(
-        'NearbyDeviceFound',
-        this.onNearbyDeviceFoundReceived,
-      )
-    }
-  }
-
-  componentWillUnmount() {
-    // Unregister Event Emitter
-    this.advertiserEventSubscription.remove()
-    this.nearbyDeviceFoundEventSubscription.remove()
-    this.advertiserEventSubscription = null
-    this.nearbyDeviceFoundEventSubscription = null
-  }
-
-  /**
-   * User Event Handler
-   */
-
-  onServiceSwitchChanged = () => {
-    if (this.state.isServiceEnabled) {
-      // To turn off
-      NativeModules.ContactTracerModule.disableTracerService().then(() => {})
-    } else {
-      // To turn on
-      NativeModules.ContactTracerModule.enableTracerService().then(() => {})
-    }
-    this.setState({
-      isServiceEnabled: !this.state.isServiceEnabled,
-    })
-  }
-
-  /**
-   * Event Emitting Handler
-   */
-
-  onAdvertiserMessageReceived = (e) => {
-    this.appendStatusText(e['message'])
-  }
-
-  onNearbyDeviceFoundReceived = (e) => {
-    this.appendStatusText('')
-    this.appendStatusText('***** RSSI: ' + e['rssi'])
-    this.appendStatusText('***** Found Nearby Device: ' + e['name'])
-    this.appendStatusText('')
-  }
-
-  appendStatusText(text) {
-    this.statusText = text + '\n' + this.statusText
-    this.setState({
-      statusText: this.statusText,
-    })
-  }
-
-  _onPrivacyPolicyClicked = () => {}
-
-  render() {
-    return (
-      <MyBackground variant="light">
+export const Settings = () => {
+  const { enable, disable, statusText, isServiceEnabled } = useContactTracer()
+  return  (
+    <MyBackground variant="light">
         <StatusBar
           barStyle="dark-content"
           backgroundColor={COLORS.PRIMARY_LIGHT}
@@ -143,11 +40,11 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
                     <Switch
                       trackColor={{ false: '#767577', true: '#81b0ff' }}
                       thumbColor={
-                        this.state.isServiceEnabled ? '#f5dd4b' : '#f4f3f4'
+                        isServiceEnabled ? '#f5dd4b' : '#f4f3f4'
                       }
                       ios_backgroundColor="#3e3e3e"
-                      onValueChange={this.onServiceSwitchChanged}
-                      value={this.state.isServiceEnabled}
+                      onValueChange={() => isServiceEnabled? disable(): enable()}
+                      value={isServiceEnabled}
                     />
                   </View>
                 </View>
@@ -158,14 +55,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
                   แต่ระบบจะไม่สามารถค้นหาอุปกรณ์อื่นโดยอัตโนมัติได้
                 </Text>
               </View>
-              {/*
-            <ScrollView
-              contentInsetAdjustmentBehavior="automatic"
-              style={styles.scrollView}
-            >
-              <Text>{this.state.statusText}</Text>
-            </ScrollView>
-            */}
+                          
             </View>
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionHeaderText}>ทั่วไป</Text>
@@ -178,10 +68,15 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
               </TouchableHighlight>
             </View>
           </View>
+          <ScrollView
+              contentInsetAdjustmentBehavior="automatic"
+              style={styles.scrollView}
+            >
+              <Text>{statusText}</Text>
+            </ScrollView>
         </SafeAreaView>
       </MyBackground>
-    )
-  }
+  )
 }
 
 const styles = StyleSheet.create({
