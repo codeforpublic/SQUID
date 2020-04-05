@@ -16,7 +16,7 @@ export const QRCodeScan = ({ navigation }) => {
   const isFocused = useIsFocused()
   const [qrResult, setQRResult] = useState<QRResult>(null)
   console.log('qrResult', qrResult)
-  const popupRef = useRef<NotificationPopup>()  
+  const popupRef = useRef<NotificationPopup>()
 
   useEffect(() => {
     proficientManager.update()
@@ -31,7 +31,7 @@ export const QRCodeScan = ({ navigation }) => {
         body: `ข้อมูลวันที่ ${qrResult
           .getCreatedDate()
           .format('DD MMM YYYY HH:mm น.')}`,
-        timeText: qrResult.getProficientLabel()
+        timeText: qrResult.getProficientLabel(),
       })
       scanManager.add(qrResult.annonymousId)
     }
@@ -66,7 +66,7 @@ export const QRCodeScan = ({ navigation }) => {
           containerStyle={{ flex: 1 }}
           topContent={
             <Header>
-              <Title>แสกน QR</Title>
+              <Title>สแกน QR</Title>
               <Subtitle>เพื่อตรวจสอบความเสี่ยง</Subtitle>
             </Header>
           }

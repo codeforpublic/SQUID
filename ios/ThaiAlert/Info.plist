@@ -58,9 +58,9 @@
 		</dict>
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>เพื่อคอยแสกนคนใกล้ตัว และแจ้งเตือนทันทีหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง</string>
+	<string>เพื่อคอยสแกนคนใกล้ตัว และแจ้งเตือนทันทีหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>เพื่อคอยแสกนคนใกล้ตัว และแจ้งเตือนทันทีหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง</string>
+	<string>เพื่อคอยสแกนคนใกล้ตัว และแจ้งเตือนทันทีหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง</string>
 	<key>NSCameraUsageDescription</key>
 	<string>ต้องการใช้ถ่ายรูปยืนยันตัวตน</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
