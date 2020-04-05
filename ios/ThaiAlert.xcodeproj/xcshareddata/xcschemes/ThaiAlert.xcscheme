@@ -24,7 +24,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "ThaiAlert.app"
+               BuildableName = "&#xe2b;&#xe21;&#xe2d;&#xe0a;&#xe19;&#xe30;.app"
                BlueprintName = "ThaiAlert"
                ReferencedContainer = "container:ThaiAlert.xcodeproj">
             </BuildableReference>
@@ -54,7 +54,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "ThaiAlert.app"
+            BuildableName = "&#xe2b;&#xe21;&#xe2d;&#xe0a;&#xe19;&#xe30;.app"
             BlueprintName = "ThaiAlert"
             ReferencedContainer = "container:ThaiAlert.xcodeproj">
          </BuildableReference>
@@ -71,7 +71,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "ThaiAlert.app"
+            BuildableName = "&#xe2b;&#xe21;&#xe2d;&#xe0a;&#xe19;&#xe30;.app"
             BlueprintName = "ThaiAlert"
             ReferencedContainer = "container:ThaiAlert.xcodeproj">
          </BuildableReference>
