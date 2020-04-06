@@ -72,9 +72,10 @@ export const useSelfQR = () => {
       })
       tlRef.current = setTimeout(refreshQR, 60 * 1000) // Update after 1 min
     } catch (error) {
+      const qrState = !isVerified? QR_STATE.NOT_VERIFIED: SelfQR.getCurrentState()
       dispatch({
         type: QR_ACTION.UPDATE,
-        payload: { qrState: QR_STATE.FAILED, error },
+        payload: { qrState, error },
       })
       tlRef.current = setTimeout(refreshQR, 10 * 1000) // Retry after 10 sec
     }
@@ -153,10 +154,10 @@ class SelfQR extends QR {
       return QR_STATE.FAILED
     }
     const time = Date.now() - this.currentQR.timestamp
-    if (time < 10 * 1000) {
+    if (time < 3 * 60 * 1000) {
       return QR_STATE.NORMAL
     }
-    if (time < 3 * 60 * 1000) {
+    if (time < 10 * 60 * 1000) {
       return QR_STATE.OUTDATE
     }
     return QR_STATE.EXPIRE
