@@ -236,8 +236,8 @@ const SCORES = {
 }
 const LABELS = {
   green: 'ความเสี่ยงต่ำ',
-  orange: 'ความเสี่ยงปานกลาง',
-  yellow: 'ความเสี่ยงสูง',
+  yellow: 'ความเสี่ยงปานกลาง',
+  orange: 'ความเสี่ยงสูง',
   red: 'ความเสี่ยงสูงมาก',
 }
 const CODE_MAP = {
