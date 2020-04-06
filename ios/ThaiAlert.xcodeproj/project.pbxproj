@@ -38,6 +38,7 @@
 		BC81F525AE454F1A852B2534 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		CEB9E88018834E95A877D93B /* (null) in Resources */ = {isa = PBXBuildFile; };
 		CECB959EEA9442C8B56609BE /* Prompt-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1DC8D8810EF48428CC97DA6 /* Prompt-Light.ttf */; };
+		D9459BA8243B91D900588DC9 /* AppCenter-Config.plist.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9459BA7243B91D900588DC9 /* AppCenter-Config.plist.plist */; };
 		D988E8EF24301732009500DC /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D988E8EE24301732009500DC /* Launch Screen.storyboard */; };
 		D9A1677C4B1A4B2086735166 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		E0F298E8D5F44083A6E4664B /* Prompt-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4DD441D0C38B4FF8B5740C5D /* Prompt-Thin.ttf */; };
@@ -84,6 +85,7 @@
 		9A7D21D02A0DA4FEB298AE5E /* Pods-ThaiAlert.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThaiAlert.debug.xcconfig"; path = "Target Support Files/Pods-ThaiAlert/Pods-ThaiAlert.debug.xcconfig"; sourceTree = "<group>"; };
 		B1DC8D8810EF48428CC97DA6 /* Prompt-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-Light.ttf"; path = "../assets/fonts/Prompt-Light.ttf"; sourceTree = "<group>"; };
 		D92A024D24360E0E00367D58 /* ThaiAlert.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ThaiAlert.entitlements; path = ThaiAlert/ThaiAlert.entitlements; sourceTree = "<group>"; };
+		D9459BA7243B91D900588DC9 /* AppCenter-Config.plist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist.plist"; path = "ThaiAlert/AppCenter-Config.plist.plist"; sourceTree = "<group>"; };
 		D9790A306A14407D95088CA1 /* Prompt-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-LightItalic.ttf"; path = "../assets/fonts/Prompt-LightItalic.ttf"; sourceTree = "<group>"; };
 		D988E8EE24301732009500DC /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		E9F8201E607CA56D9B1DEEA8 /* Pods-ThaiAlert.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThaiAlert.release.xcconfig"; path = "Target Support Files/Pods-ThaiAlert/Pods-ThaiAlert.release.xcconfig"; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				D988E8EE24301732009500DC /* Launch Screen.storyboard */,
+				D9459BA7243B91D900588DC9 /* AppCenter-Config.plist.plist */,
 			);
 			name = ThaiAlert;
 			sourceTree = "<group>";
@@ -254,7 +257,7 @@
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = QF457V8Y87;
+						DevelopmentTeam = N5WRT2798G;
 						LastSwiftMigration = 1120;
 						ProvisioningStyle = Automatic;
 					};
@@ -318,6 +321,7 @@
 				1DC5DD5C64BE4DB6876498B2 /* Prompt.ttf in Resources */,
 				B85CF3C06DDE463FB58A9D3A /* Prompt-MediumItalic.ttf in Resources */,
 				4D1976E30D784C199790D1A9 /* Prompt-Regular.ttf in Resources */,
+				D9459BA8243B91D900588DC9 /* AppCenter-Config.plist.plist in Resources */,
 				FB49C6F0AA654674A730551E /* Prompt-SemiBold.ttf in Resources */,
 				29D436AE6EBE4A3D9033902A /* Prompt-SemiBoldItalic.ttf in Resources */,
 				E0F298E8D5F44083A6E4664B /* Prompt-Thin.ttf in Resources */,
@@ -468,9 +472,9 @@
 				CODE_SIGN_ENTITLEMENTS = ThaiAlert/ThaiAlert.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = QF457V8Y87;
+				DEVELOPMENT_TEAM = N5WRT2798G;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ThaiAlert/Info.plist;
@@ -481,7 +485,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cleverse.thaialert;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thaialert.app;
 				PRODUCT_NAME = "หมอชนะ";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ThaiAlert-Bridging-Header.h";
@@ -500,9 +504,9 @@
 				CODE_SIGN_ENTITLEMENTS = ThaiAlert/ThaiAlert.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = QF457V8Y87;
+				DEVELOPMENT_TEAM = N5WRT2798G;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ThaiAlert/Info.plist;
@@ -513,7 +517,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cleverse.thaialert;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thaialert.app;
 				PRODUCT_NAME = "หมอชนะ";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ThaiAlert-Bridging-Header.h";

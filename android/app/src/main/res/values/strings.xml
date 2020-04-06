@@ -12,5 +12,7 @@
     <string name="location_permission_needed_dialog_content">Location Permission is needed to turn on bluetooth service. Although it is asked for location but we would like to ensure you that there is no specific location like GPS data acquired in this application.</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
+    <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
 </resources>
 
