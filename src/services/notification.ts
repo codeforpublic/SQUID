@@ -61,6 +61,7 @@ class Notification {
       onError: (data) => {
         console.warn('_____PushNotificationIOS::registrationError', { ...data })
       },
+      senderID: "914417222955",
 
       // (required) Called when a remote or local notification is opened or received
       onNotification: function (notification) {
