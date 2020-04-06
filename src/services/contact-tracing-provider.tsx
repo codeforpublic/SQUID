@@ -272,6 +272,9 @@ export class ContactTracerProvider extends React.Component<
     /* broadcast */
     console.log('broadcast:' + e['name'])
     scanManager.add(e['name'])
+    if (Date.now() - scanManager.oldestItemTS > 10 * 60 * 1000) {
+      scanManager.upload()
+    }
   }
 
   render() {
