@@ -8,6 +8,8 @@ class ScanManager {
   list: string[] = []
   timeout?: NodeJS.Timeout
   locationAccuracy: number
+  latestUploadTS?: number
+  oldestItemTS?: number
   constructor({ ttl, locationAccuracy }) {
     this.locationAccuracy = locationAccuracy
     this.ttl = ttl
@@ -29,6 +31,9 @@ class ScanManager {
       return false
     }
     this.list.push(annonymousId)
+    if (!this.oldestItemTS) {
+      this.oldestItemTS = Date.now()
+    }
     if (!this.timeout) {
       this.startTimeout()
     }
@@ -40,7 +45,9 @@ class ScanManager {
       this.list = []
       clearTimeout(this.timeout)
       delete this.timeout
+      const oldestItemTS = this.oldestItemTS
       try {
+        delete this.oldestItemTS
         const location = await backgroundTracking.getLocation({
           desiredAccuracy: this.locationAccuracy,
         })
@@ -49,8 +56,10 @@ class ScanManager {
           longitude: location.coords.longitude,
           accuracy: location.coords.accuracy,
         })
+        this.latestUploadTS = Date.now()
       } catch (err) {
         console.log(err)
+        this.oldestItemTS = oldestItemTS
         this.list = this.list.concat(uploadList) // back to list
         if (!this.timeout) {
           this.startTimeout() // start timeout again
