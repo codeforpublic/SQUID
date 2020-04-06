@@ -36,6 +36,8 @@ export const AuthOTP = () => {
   const navigation = useNavigation()
   const phone = navigation.getParam('phone')
   const triggerOTP = navigation.getParam('triggerOTP')
+  const onBack = navigation.getParam('onBack')
+  const backIcon = navigation.getParam('backIcon')
   const [otp, setOtp] = useState('')
   const resetTo = useResetTo()
   const mobileNumber = navigation.state.params.phone
@@ -87,10 +89,12 @@ export const AuthOTP = () => {
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={{ flex: 1, width: '100%' }}>
         <StatusBar backgroundColor={COLORS.WHITE} barStyle="light-content" />
-        <FormHeader>
+        <FormHeader onBack={onBack} backIcon={backIcon}>
           <View style={styles.header}>
             <Text style={styles.title}>กรอกรหัสจาก SMS</Text>
-            <Text style={styles.subtitle}>ส่งไปที่เบอร์ {formatPhoneNumber(mobileNumber)}</Text>
+            <Text style={styles.subtitle}>
+              ส่งไปที่เบอร์ {formatPhoneNumber(mobileNumber)}
+            </Text>
           </View>
         </FormHeader>
         <View style={styles.content}>
@@ -142,10 +146,14 @@ export const AuthOTP = () => {
           <TouchableOpacity
             onPress={() => {
               applicationState.setData('skipRegistration', true)
-              navigation.navigate({
-                routeName: 'Onboarding',
-                params: { phone },
-              })
+              if (applicationState.getData('isPassedOnboarding')) {
+                resetTo({ routeName: 'MainApp' })
+              } else {
+                navigation.navigate({
+                  routeName: 'Onboarding',
+                  params: { phone },
+                })
+              }
             }}
           >
             <Link style={{ marginTop: 8, fontWeight: 'bold' }}>

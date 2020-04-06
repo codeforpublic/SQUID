@@ -65,7 +65,7 @@ export const useSelfQR = () => {
       })
       const _qrData = await getQRData()
       const qrData = await SelfQR.setCurrentQRFromQRData(_qrData)
-      const qrState = SelfQR.getCurrentState()
+      const qrState = !isVerified? QR_STATE.NOT_VERIFIED: SelfQR.getCurrentState()
       dispatch({
         type: QR_ACTION.UPDATE,
         payload: { qrData, qrState, error: null },
@@ -81,13 +81,6 @@ export const useSelfQR = () => {
   }
   
   useEffect(() => {
-    if (!isVerified) {
-      dispatch({
-        type: QR_ACTION.UPDATE,
-        payload: { qrState: QR_STATE.NOT_VERIFIED },
-      })
-      return
-    }
     
 
     const setQRFromStorage = async () => {
