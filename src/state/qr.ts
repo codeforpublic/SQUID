@@ -129,9 +129,12 @@ class SelfQR extends QR {
   public static async getCurrentQR() {
     if (!this.currentQR) {
       try {
-        this.currentQR = new SelfQR(
-          JSON.parse(await AsyncStorage.getItem('selfQRData')),
-        )
+        const selfQRData = await AsyncStorage.getItem('selfQRData')
+        if (selfQRData) {
+          this.currentQR = new SelfQR(
+            JSON.parse(selfQRData),
+          )
+        }
       } catch (error) {
         console.log(error)
       }
