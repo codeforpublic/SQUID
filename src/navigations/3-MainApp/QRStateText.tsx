@@ -10,10 +10,17 @@ import {
 import { userPrivateData } from '../../state/userPrivateData'
 import { useSelfQR, QR_STATE } from '../../state/qr'
 import { useNavigation } from 'react-navigation-hooks'
+import { useResetTo } from '../../utils/navigation'
 
-
-export const QRStateText = ({ qrState, refreshQR }: { qrState: QR_STATE, refreshQR: () => void }) => {
+export const QRStateText = ({
+  qrState,
+  refreshQR,
+}: {
+  qrState: QR_STATE
+  refreshQR: () => void
+}) => {
   const navigation = useNavigation()
+  const resetTo = useResetTo()
 
   switch (qrState) {
     case QR_STATE.FAILED:
@@ -40,12 +47,14 @@ export const QRStateText = ({ qrState, refreshQR }: { qrState: QR_STATE, refresh
           >
             เชื่อมต่ออินเทอร์เน็ตเพื่อสร้าง QR
           </Text>
-          <Text style={{
-            color: '#02A0D7',
-            fontFamily: FONT_FAMILY,
-            textAlign: 'center',
-            textDecorationLine: 'underline',
-          }}>
+          <Text
+            style={{
+              color: '#02A0D7',
+              fontFamily: FONT_FAMILY,
+              textAlign: 'center',
+              textDecorationLine: 'underline',
+            }}
+          >
             ลองอีกครั้ง
           </Text>
         </TouchableOpacity>
@@ -87,12 +96,14 @@ export const QRStateText = ({ qrState, refreshQR }: { qrState: QR_STATE, refresh
           >
             เชื่อมต่ออินเทอร์เน็ตเพื่ออัพเดท
           </Text>
-          <Text style={{
-            color: '#02A0D7',
-            fontFamily: FONT_FAMILY,
-            textAlign: 'center',
-            textDecorationLine: 'underline',
-          }}>
+          <Text
+            style={{
+              color: '#02A0D7',
+              fontFamily: FONT_FAMILY,
+              textAlign: 'center',
+              textDecorationLine: 'underline',
+            }}
+          >
             ลองอีกครั้ง
           </Text>
         </TouchableOpacity>
@@ -102,15 +113,13 @@ export const QRStateText = ({ qrState, refreshQR }: { qrState: QR_STATE, refresh
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={() => {
-            const phone = userPrivateData.getMobileNumber()
-            if (phone) {
-              navigation.navigate({
-                routeName: 'AuthOTP',
-                params: { phone: phone.replace(/-/g, ''), triggerOTP: true },
-              })
-            } else {
-              navigation.navigate('AuthPhone')
-            }
+            navigation.navigate({
+              routeName: 'AuthPhone',
+              params: {
+                backIcon: 'close',
+                onBack: () => resetTo({ routeName: 'MainApp' }),
+              },
+            })
           }}
           style={styles.qrOverlay}
         >
@@ -132,14 +141,16 @@ export const QRStateText = ({ qrState, refreshQR }: { qrState: QR_STATE, refresh
                 textAlign: 'center',
               }}
             >
-              ด้วยรหัสจาก SMS ก่อนนะครับ
+              เพื่อนำ QR Code ไปใช้ Checkin
             </Text>
-            <Text style={{
-              color: '#02A0D7',
-              fontFamily: FONT_FAMILY,
-              textAlign: 'center',
-              textDecorationLine: 'underline',
-            }}>
+            <Text
+              style={{
+                color: '#02A0D7',
+                fontFamily: FONT_FAMILY,
+                textAlign: 'center',
+                textDecorationLine: 'underline',
+              }}
+            >
               กดเพื่อรับหรัส
             </Text>
           </View>
@@ -150,7 +161,6 @@ export const QRStateText = ({ qrState, refreshQR }: { qrState: QR_STATE, refresh
   }
 }
 
-
 const styles = StyleSheet.create({
   qrOverlay: {
     position: 'absolute',
@@ -159,6 +169,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.9)',
     padding: 12,
     borderWidth: 3,
-    borderColor: '#0C2641'
-  }
+    borderRadius: 3,
+    borderColor: '#0C2641',
+  },
 })

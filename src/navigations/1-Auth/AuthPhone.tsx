@@ -31,12 +31,14 @@ export const AuthPhone = () => {
     [phone],
   )
   const resetTo = useResetTo()
+  const onBack = navigation.getParam('onBack')
+  const backIcon = navigation.getParam('backIcon')
 
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={{ flex: 1, width: '100%' }}>
         <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
-        <FormHeader>
+        <FormHeader onBack={onBack} backIcon={backIcon}>
           <View style={styles.header}>
             <Text style={styles.title}>กรอกเบอร์โทรศัพท์</Text>
             <Text style={styles.subtitle}>เพื่อยืนยันตัวตนด้วย SMS</Text>
