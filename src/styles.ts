@@ -11,6 +11,7 @@ export const COLORS = {
   DANGER: '#DF4A4A',
   BLACK_1: '#1F1D1D',
   BLACK_2: '#171717',
+  BLACK_3: '#0C2641',
   PURPLE: '#394CE4',
   RED: '#CB0000',
   YELLOW: '#E5DB5C',
