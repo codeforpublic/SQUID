@@ -29,7 +29,7 @@ class BackgroundTracking {
     const headers = getAnonymousHeaders()
 
     await BackgroundGeolocation.ready({
-      distanceFilter: Platform.OS === 'android'? 0: 10, // every 10 meter
+      distanceFilter: Platform.OS === 'android'? 0: 25, // every 25 meter
       locationUpdateInterval: 15 * 60 * 1000, // every 15 minute
       stationaryRadius: 50,
       stopOnTerminate: false,
