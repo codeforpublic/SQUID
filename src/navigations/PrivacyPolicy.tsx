@@ -1,29 +1,23 @@
 import React, { useState } from 'react'
-import { MyBackground } from '../../components/MyBackground'
+import { MyBackground } from '../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import {
-  StatusBar,
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-} from 'react-native'
-import { PrimaryButton } from '../../components/Button'
+import { StatusBar, View, Text, StyleSheet, ScrollView } from 'react-native'
+import { PrimaryButton } from '../components/Button'
 import { useNavigation } from 'react-navigation-hooks'
-import { COLORS, FONT_FAMILY } from '../../styles'
+import { COLORS, FONT_FAMILY } from '../styles'
 import { CheckBox } from 'react-native-elements'
-import { FormHeader } from '../../components/Form/FormHeader'
-import { agreementText } from '../const'
+import { FormHeader } from '../components/Form/FormHeader'
+import { agreementText } from './const'
 
-export const AgreementPolicy = () => {
+export const PrivacyPolicy = () => {
   const navigation = useNavigation()
   const [agree, setAgree] = useState(false)
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={'white'} barStyle="light-content" />
-      <FormHeader>
+      <FormHeader backIcon="close">
         <View style={styles.header}>
-          <Text style={styles.title}>ข้อตกลงและเงื่อนไข</Text>
+          <Text style={styles.title}>นโยบายความเป็นส่วนตัว </Text>
           <Text style={styles.subtitle}>ในการใช้บริการ</Text>
         </View>
       </FormHeader>
@@ -44,26 +38,13 @@ export const AgreementPolicy = () => {
           </View>
         </ScrollView>
       </View>
-      <CheckBox
-        title="ฉันยอมรับข้อตกลงและเงื่อนไข"
-        containerStyle={{
-          backgroundColor: 'transparent',
-          borderWidth: 0,
-          marginBottom: 16,
-        }}
-        checked={agree}
-        onPress={() => setAgree(!agree)}
-        checkedColor={COLORS.BLUE}
-        textStyle={{ color: COLORS.BLACK_1, fontSize: 16 }}
-      />
       <View style={styles.footer}>
         <PrimaryButton
-          disabled={!agree}
-          title={'ถัดไป'}
+          title={'ปิด'}
           style={{ width: '100%' }}
           containerStyle={{ width: '100%' }}
           onPress={() => {
-            navigation.navigate('AuthPhone')
+            navigation.pop()
           }}
         />
       </View>
@@ -104,16 +85,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 16,
+    marginBottom: 16,
   },
   agreement: {
     fontSize: 16,
     lineHeight: 24,
     color: COLORS.GRAY_4,
-    marginBottom: 16,    
+    marginBottom: 16,
   },
   footer: {
     alignItems: 'center',
-    paddingHorizontal: 24,
+    paddingHorizontal: 20,
     marginBottom: 16,
   },
 })

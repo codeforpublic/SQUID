@@ -19,11 +19,13 @@ import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useContactTracer } from '../../services/contact-tracing-provider'
 
-export const Settings = () => {
+export const Settings = ({ navigation }) => {
   const { enable, disable, statusText, isServiceEnabled } = useContactTracer()
   console.log('isServiceEnabled', isServiceEnabled)
 
-  const _onPrivacyPolicyClicked = () => {}
+  const _onPrivacyPolicyClicked = () => {
+    navigation.navigate('PrivacyPolicy')
+  }
 
   const _onOpenSourceLicenseClicked = () => {}
 
@@ -76,7 +78,7 @@ export const Settings = () => {
                   <Text style={styles.sectionText}>นโยบายความเป็นส่วนตัว</Text>
                 </View>
               </TouchableHighlight>
-              <TouchableHighlight onPress={_onOpenSourceLicenseClicked}>
+              {/* <TouchableHighlight onPress={_onOpenSourceLicenseClicked}>
                 <View style={styles.section}>
                   <Text style={styles.sectionText}>Open Source Licenses</Text>
                 </View>
@@ -85,7 +87,7 @@ export const Settings = () => {
                 <View style={styles.section}>
                   <Text style={styles.sectionText}>เกี่ยวกับเรา</Text>
                 </View>
-              </TouchableHighlight>
+              </TouchableHighlight> */}
             </View>
           </View>
         </ScrollView>
