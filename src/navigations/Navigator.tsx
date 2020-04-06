@@ -12,6 +12,7 @@ import { OnboardingStack } from './2-Onboarding/OnboardingStack'
 import { MainAppTab, MainAppStack } from './3-MainApp/MainAppStack'
 import { applicationState } from '../state/app-state'
 import { QuestionaireStack } from './4-Questionaire/QuestionaireStack'
+import { PrivacyPolicy } from './PrivacyPolicy'
 
 const REDIRECT_PAGE = 'AuthOTP'
 const REDIRECT_PARAMS = {
@@ -77,6 +78,9 @@ export default createStackNavigator(
     Questionaire: {
       screen: QuestionaireStack,
     },
+    PrivacyPolicy: {
+      screen: PrivacyPolicy,      
+    }
   },
   {
     initialRouteName: 'Root',
