@@ -35,7 +35,7 @@ export const OnboardComplete = () => {
         <PrimaryButton
           title={STRING.NEXT_BUTTON}
           style={{ width: '100%' }}
-          containerWidth={{ width: '100%' }}
+          containerStyle={{ width: '100%' }}
           onPress={() => {
             if (applicationState.getData(
               'filledQuestionaire',
@@ -86,5 +86,6 @@ const styles = StyleSheet.create({
   footer: {
     alignItems: 'center',
     marginBottom: 16,
+    paddingHorizontal: 20
   },
 })

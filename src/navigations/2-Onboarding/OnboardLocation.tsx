@@ -110,7 +110,7 @@ export const OnboardLocation = () => {
           </Text>
           <PrimaryButton
             title={'อนุญาตให้เข้าถึง'}
-            style={{ marginTop: 56, alignSelf: 'center', width: '100%' }}
+            style={{ marginTop: 30, alignSelf: 'center', width: '100%' }}
             onPress={() => handleSubmit()}
           />
         </View>
@@ -120,7 +120,7 @@ export const OnboardLocation = () => {
 }
 const styles = StyleSheet.create({
   title: {
-    marginTop: 20,
+    marginTop: 10,
     fontFamily: FONT_FAMILY,
     fontStyle: 'normal',
     fontWeight: 'normal',
@@ -128,7 +128,6 @@ const styles = StyleSheet.create({
     lineHeight: 44,
     textAlign: 'left',
     color: COLORS.BLACK_1,
-    width: 310,
   },
   description: {
     marginTop: 20,

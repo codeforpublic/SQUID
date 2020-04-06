@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		05F0DC7D215A492BA2BF38DB /* (null) in Resources */ = {isa = PBXBuildFile; };
-		072F24ED243484C8007BBF30 /* ContactTracerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 072F24EB243484C8007BBF30 /* ContactTracerModule.m */; };
-		072F24EE243484C8007BBF30 /* ContactTracerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F24EC243484C8007BBF30 /* ContactTracerModule.swift */; };
 		081C5DCBAF7747F29143A7B2 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		08893D91E8324F20A1CB7B99 /* Prompt-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0924E0AA06284895947A9058 /* Prompt-ExtraBold.ttf */; };
 		08A37DCBF1874DDB821E96E2 /* (null) in Resources */ = {isa = PBXBuildFile; };
@@ -258,7 +256,7 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = QF457V8Y87;
 						LastSwiftMigration = 1120;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -470,14 +468,14 @@
 				CODE_SIGN_ENTITLEMENTS = ThaiAlert/ThaiAlert.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = QF457V8Y87;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ThaiAlert/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -502,14 +500,14 @@
 				CODE_SIGN_ENTITLEMENTS = ThaiAlert/ThaiAlert.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = QF457V8Y87;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ThaiAlert/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

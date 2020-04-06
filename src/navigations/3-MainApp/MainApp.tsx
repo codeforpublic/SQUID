@@ -158,7 +158,7 @@ export const MainApp = () => {
   const progress = qr ? (qr.getScore() / 100) * 100 : 0
   const color = qr
     ? qr.getStatusColor()
-    : qrState === QR_STATE.NOT_VERIFIED
+    : (qrState === QR_STATE.NOT_VERIFIED || qrState === QR_STATE.FAILED)
     ? COLORS.ORANGE_2
     : COLORS.GRAY_2
   const qrUri = qr ? qr.getQRImageURL() : ''
@@ -168,6 +168,8 @@ export const MainApp = () => {
     ? 'ยังไม่ทราบความเสี่ยง'
     : qrState === QR_STATE.LOADING
     ? 'รอสักครู่...'
+    : qrState === QR_STATE.FAILED
+    ? 'เกิดข้อผิดพลาด'
     : ''
   const proficientLabel = qr && qr.getProficientLabel()
 
