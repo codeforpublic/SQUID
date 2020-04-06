@@ -25,16 +25,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
-  NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
-    
-  for (NSString *family in familyNames) {
-    NSLog(@"Family name: %@", family);
-
-    NSArray *fontNames = [UIFont fontNamesForFamilyName: family];
-    for (NSString *font in fontNames) {
-      NSLog(@"    Font name: %@", font);
-    }
-  }
   
   //NSURL *jsCodeLocation;
   //jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
