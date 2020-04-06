@@ -141,7 +141,7 @@ export const QRStateText = ({
                 textAlign: 'center',
               }}
             >
-              เพื่อนำ QR Code ไปใช้ Checkin
+              สำหรับนำ QR Code ไปใช้ check-in
             </Text>
             <Text
               style={{
@@ -151,7 +151,7 @@ export const QRStateText = ({
                 textDecorationLine: 'underline',
               }}
             >
-              กดเพื่อรับหรัส
+              กดเพื่อยืนยัน
             </Text>
           </View>
         </TouchableOpacity>
