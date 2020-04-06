@@ -28,48 +28,21 @@ export const QRStateText = ({
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={refreshQR}
-          style={styles.qrOverlay}
+          style={[styles.qrOverlay, { borderColor: COLORS.RED }]}
         >
+          <Text style={[styles.title, { color: COLORS.RED }]}>ไม่สามารถสร้าง QR ได้</Text>
           <Text
-            style={{
-              color: COLORS.GRAY_4,
-              fontSize: 24,
-              fontFamily: FONT_FAMILY,
-            }}
-          >
-            ไม่สามารถสร้าง QR ได้
-          </Text>
-          <Text
-            style={{
-              color: COLORS.GRAY_4,
-              fontFamily: FONT_FAMILY,
-            }}
+            style={styles.subtitle}
           >
             เชื่อมต่ออินเทอร์เน็ตเพื่อสร้าง QR
           </Text>
-          <Text
-            style={{
-              color: '#02A0D7',
-              fontFamily: FONT_FAMILY,
-              textAlign: 'center',
-              textDecorationLine: 'underline',
-            }}
-          >
-            ลองอีกครั้ง
-          </Text>
+          <Text style={styles.link}>ลองอีกครั้ง</Text>
         </TouchableOpacity>
       )
     case QR_STATE.LOADING:
       return (
-        <View
-          style={{
-            position: 'absolute',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 12,
-          }}
-        >
-          <ActivityIndicator size="large" color="black" />
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color={COLORS.BLACK_1} />
         </View>
       )
     case QR_STATE.EXPIRE:
@@ -77,35 +50,13 @@ export const QRStateText = ({
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={refreshQR}
-          style={styles.qrOverlay}
+          style={[styles.qrOverlay, { borderColor: COLORS.RED }]}
         >
-          <Text
-            style={{
-              color: 'red',
-              fontSize: 24,
-              fontFamily: FONT_FAMILY,
-            }}
-          >
+          <Text style={[styles.title, { color: COLORS.RED }]}>
             QR หมดอายุแล้ว
           </Text>
-          <Text
-            style={{
-              color: 'red',
-              fontFamily: FONT_FAMILY,
-            }}
-          >
-            เชื่อมต่ออินเทอร์เน็ตเพื่ออัพเดท
-          </Text>
-          <Text
-            style={{
-              color: '#02A0D7',
-              fontFamily: FONT_FAMILY,
-              textAlign: 'center',
-              textDecorationLine: 'underline',
-            }}
-          >
-            ลองอีกครั้ง
-          </Text>
+          <Text style={styles.subtitle}>เชื่อมต่ออินเทอร์เน็ตเพื่ออัพเดท</Text>
+          <Text style={styles.link}>ลองอีกครั้ง</Text>
         </TouchableOpacity>
       )
     case QR_STATE.NOT_VERIFIED:
@@ -124,35 +75,9 @@ export const QRStateText = ({
           style={styles.qrOverlay}
         >
           <View>
-            <Text
-              style={{
-                color: COLORS.BLACK_1,
-                fontSize: 20,
-                fontFamily: FONT_FAMILY,
-                textAlign: 'center',
-              }}
-            >
-              ยืนยันเบอร์โทรศัพท์
-            </Text>
-            <Text
-              style={{
-                color: COLORS.BLACK_1,
-                fontFamily: FONT_FAMILY,
-                textAlign: 'center',
-              }}
-            >
-              สำหรับนำ QR Code ไปใช้ check-in
-            </Text>
-            <Text
-              style={{
-                color: '#02A0D7',
-                fontFamily: FONT_FAMILY,
-                textAlign: 'center',
-                textDecorationLine: 'underline',
-              }}
-            >
-              กดเพื่อยืนยัน
-            </Text>
+            <Text style={styles.title}>ยืนยันเบอร์โทรศัพท์</Text>
+            <Text style={styles.subtitle}>สำหรับนำ QR Code ไปใช้ check-in</Text>
+            <Text style={styles.link}>กดเพื่อยืนยัน</Text>
           </View>
         </TouchableOpacity>
       )
@@ -162,6 +87,23 @@ export const QRStateText = ({
 }
 
 const styles = StyleSheet.create({
+  title: {
+    color: COLORS.BLACK_1,
+    fontSize: 20,
+    fontFamily: FONT_FAMILY,
+    textAlign: 'center',
+  },
+  subtitle: {
+    color: COLORS.BLACK_1,
+    fontFamily: FONT_FAMILY,
+    textAlign: 'center',
+  },
+  link: {
+    color: '#02A0D7',
+    fontFamily: FONT_FAMILY,
+    textAlign: 'center',
+    textDecorationLine: 'underline',
+  },
   qrOverlay: {
     position: 'absolute',
     alignItems: 'center',
@@ -171,5 +113,11 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 3,
     borderColor: '#0C2641',
+  },
+  loadingContainer: {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 12,
   },
 })
