@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import styled from '@emotion/native'
-import { View, StyleSheet, Text, Image, Dimensions } from 'react-native'
+import { View, StyleSheet, Text, Image, Dimensions, StatusBar } from 'react-native'
 import { FONT_FAMILY, COLORS } from '../../styles'
 import { Button } from 'react-native-elements'
 import { useSafeArea } from 'react-native-safe-area-view'
 
 const Container = styled(View)({
-  backgroundColor: '#E6F7FF',
+  backgroundColor: '#00A0D7',
   justifyContent: 'center',
   flex: 1,
 })
@@ -18,8 +18,9 @@ const Content = styled(View)({
 })
 
 const HomeListItem = ({ source, title, subtitle }) => {
+  const isLarge = Dimensions.get('window').height >= 800
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 16 }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: isLarge? 16: 8 }}>
       <Image source={source} style={{ marginRight: 30 }} />
       <View>
         <Text
@@ -44,6 +45,7 @@ const HomeListItem = ({ source, title, subtitle }) => {
 export const QuestionaireHome = ({ navigation }) => {
   const inset = useSafeArea()
   const fixedFooter = Dimensions.get('window').height >= 667
+  const doctorSize = Dimensions.get('window').height >= 800? 192: 140
   const footer = (
     <View style={{ backgroundColor: 'white', paddingBottom: inset.bottom + 16, paddingHorizontal: 40, marginTop: 16 }}>
       <HomeListItem
@@ -65,20 +67,28 @@ export const QuestionaireHome = ({ navigation }) => {
   )
   return (
     <Container>
+      <StatusBar
+        backgroundColor={COLORS.PRIMARY_DARK}
+        barStyle="light-content"
+      />
       <View style={{ paddingTop: inset.top, flex: 1, justifyContent: 'flex-end', }}>
         <View
           style={{
             justifyContent: 'center',
             flexDirection: 'row',
             alignItems: 'center',
+            paddingHorizontal: 10
           }}
         >
           <Image
-            style={{ width: 150, height: 82, marginRight: 40 }}
+            style={{ width: 150, height: 83, marginRight: 0 }}
             resizeMode="contain"
-            source={require('./assets/logo.png')}
+            source={require('./assets/logo_white.png')}
           />
-          <Image source={require('./assets/doctor.png')} />
+          <Image source={require('./assets/doctor.png')} style={{
+            width: doctorSize,
+            height: doctorSize * 219 / 192
+          }} />
         </View>
         <Content style={{ marginHorizontal: fixedFooter? 16: 0 }}>
           <Text style={styles.title}>หมอชนะแวะมาสอบถาม อาการของคุณ</Text>

@@ -141,8 +141,8 @@ export const QuestionaireForm = ({ navigation }) => {
     <Container>
       {isFocused ? <FormBackHandler onBack={onBack} /> : null}
       <StatusBar
-        backgroundColor={COLORS.PRIMARY_DARK}
-        barStyle="light-content"
+        backgroundColor={COLORS.WHITE}
+        barStyle="dark-content"
       />
       <FormHeader
         style={{ backgroundColor: 'white', paddingTop: inset.top }}
