@@ -16,6 +16,9 @@
 #import <React/RCTLinkingManager.h>
 #import <BackgroundTasks/BackgroundTasks.h>
 #import "RNSplashScreen.h"  // here
+#import <AppCenterReactNative.h>
+#import <AppCenterReactNativeAnalytics.h>
+#import <AppCenterReactNativeCrashes.h>
 
 @implementation AppDelegate
 
@@ -53,6 +56,13 @@
   if (@available(iOS 13, *)) {
     self.window.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
   }
+  [AppCenterReactNative register];
+  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
+  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
+  [AppCenterReactNative register];
+  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
+  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
+
   
   [RNSplashScreen show];
   return YES;

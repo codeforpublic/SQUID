@@ -1,4 +1,22 @@
 PODS:
+  - appcenter-analytics (3.0.1):
+    - AppCenter/Analytics
+    - AppCenterReactNativeShared
+    - React
+  - appcenter-core (3.0.1):
+    - AppCenterReactNativeShared
+    - React
+  - appcenter-crashes (3.0.1):
+    - AppCenter/Crashes
+    - AppCenterReactNativeShared
+    - React
+  - AppCenter/Analytics (3.1.0):
+    - AppCenter/Core
+  - AppCenter/Core (3.1.0)
+  - AppCenter/Crashes (3.1.0):
+    - AppCenter/Core
+  - AppCenterReactNativeShared (3.0.1):
+    - AppCenter/Core (= 3.1.0)
   - Base64 (1.1.2)
   - boost-for-react-native (1.63.0)
   - CocoaLumberjack (3.5.3):
@@ -311,6 +329,9 @@ PODS:
   - Yoga (1.14.0)
 
 DEPENDENCIES:
+  - appcenter-analytics (from `../node_modules/appcenter-analytics/ios`)
+  - appcenter-core (from `../node_modules/appcenter/ios`)
+  - appcenter-crashes (from `../node_modules/appcenter-crashes/ios`)
   - CodePush (from `../node_modules/react-native-code-push`)
   - ContactTracerReactNative (from `../node_modules/react-native-contact-tracer/ios`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
@@ -372,6 +393,8 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AppCenter
+    - AppCenterReactNativeShared
     - Base64
     - boost-for-react-native
     - CocoaLumberjack
@@ -380,6 +403,12 @@ SPEC REPOS:
     - SSZipArchive
 
 EXTERNAL SOURCES:
+  appcenter-analytics:
+    :path: "../node_modules/appcenter-analytics/ios"
+  appcenter-core:
+    :path: "../node_modules/appcenter/ios"
+  appcenter-crashes:
+    :path: "../node_modules/appcenter-crashes/ios"
   CodePush:
     :path: "../node_modules/react-native-code-push"
   ContactTracerReactNative:
@@ -492,6 +521,11 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  AppCenter: a1c30c47b7882a04a615ffa5ab26c007326436d8
+  appcenter-analytics: 46b4bb2832834a198ba6c4058b4eb335386c1063
+  appcenter-core: 765878f5c300907bb70dbb8e956c5a74df7ca23d
+  appcenter-crashes: 66b533f4e2a2278ddbd9369614fe18f0d7f58e47
+  AppCenterReactNativeShared: a18a3da01dd569fbfbdd264c8c43491af6efa88d
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   CocoaLumberjack: 2f44e60eb91c176d471fdba43b9e3eae6a721947
