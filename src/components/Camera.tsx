@@ -128,7 +128,7 @@ const SelectImageButton = ({onSelectImage}) => {
       showSpinner()
       ImagePicker.launchImageLibrary(options, (response) => {
         hide()
-        console.log({ response })
+        //console.log({ response })
         const uri = response.uri // TODO: Android 11 cannot use this, find alternative way
         onSelectImage(uri)  
       });
