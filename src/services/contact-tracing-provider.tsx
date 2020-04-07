@@ -6,7 +6,7 @@ import {
   Platform,
 } from 'react-native'
 import { requestLocationPermission } from '../utils/Permission'
-import { scanManager } from './contact-scanner'
+import { bluetoothScanner } from './contact-scanner'
 
 const eventEmitter = new NativeEventEmitter(NativeModules.ContactTracerModule)
 
@@ -271,9 +271,9 @@ export class ContactTracerProvider extends React.Component<
     this.appendStatusText('')
     /* broadcast */
     console.log('broadcast:' + e['name'])
-    scanManager.add(e['name'])
-    if (Date.now() - scanManager.oldestItemTS > 10 * 60 * 1000) {
-      scanManager.upload()
+    bluetoothScanner.add(e['name'])
+    if (Date.now() - bluetoothScanner.oldestItemTS > 10 * 60 * 1000) {
+      bluetoothScanner.upload()
     }
   }
 
