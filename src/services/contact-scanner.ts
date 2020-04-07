@@ -10,7 +10,7 @@ class ScanManager {
   locationAccuracy: number
   latestUploadTS?: number
   oldestItemTS?: number
-  type: string
+  type: 'bluetooth' | 'qrscan'
   constructor({ ttl, locationAccuracy, type }) {
     this.locationAccuracy = locationAccuracy
     this.ttl = ttl
@@ -57,7 +57,7 @@ class ScanManager {
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
           accuracy: location.coords.accuracy,
-        })
+        }, this.type)
         this.latestUploadTS = Date.now()
       } catch (err) {
         console.log(err)
