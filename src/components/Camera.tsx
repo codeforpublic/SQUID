@@ -4,8 +4,10 @@ import styled, { css } from '@emotion/native'
 import { RNCamera, TakePictureResponse } from 'react-native-camera'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from 'react-navigation-hooks'
+import RNFS from 'react-native-fs'
+import RNFetchBlob from 'rn-fetch-blob'
 // import ImagePicker from 'react-native-image-picker';
-import { StyleSheet, View, TouchableOpacity, StatusBar, NativeModules } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, StatusBar, NativeModules, Platform } from 'react-native'
 import { COLORS } from '../styles'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -129,8 +131,16 @@ const SelectImageButton = ({onSelectImage}) => {
       ImagePicker.launchImageLibrary(options, (response) => {
         hide()
         //console.log({ response })
-        const uri = response.uri // TODO: Android 11 cannot use this, find alternative way
-        onSelectImage(uri)  
+        if (Platform.OS == 'android') {
+          const newFilePath = `${Date.now()}-tmp`
+          let tmpPath = `${RNFS.CachesDirectoryPath}/${newFilePath}`
+          RNFetchBlob.fs.writeFile(tmpPath, response.data, 'base64')
+          const uri = 'file://' + tmpPath
+          onSelectImage(uri)  
+        } else {
+          const uri = response.uri
+          onSelectImage(uri)  
+        }
       });
     }}
   >
