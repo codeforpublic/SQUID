@@ -55,7 +55,7 @@ export const QRStateText = ({
           <Text style={[styles.title, { color: COLORS.RED }]}>
             QR หมดอายุแล้ว
           </Text>
-          <Text style={styles.subtitle}>เชื่อมต่ออินเทอร์เน็ตเพื่ออัพเดท</Text>
+          <Text style={styles.subtitle}>เชื่อมต่ออินเทอร์เน็ตเพื่ออัปเดต</Text>
           <Text style={styles.link}>ลองอีกครั้ง</Text>
         </TouchableOpacity>
       )
