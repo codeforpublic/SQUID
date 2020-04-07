@@ -130,8 +130,8 @@ const SelectImageButton = ({onSelectImage}) => {
       showSpinner()
       ImagePicker.launchImageLibrary(options, (response) => {
         hide()
-        //console.log({ response })
-        if (Platform.OS == 'android') {
+        console.log({ response })
+        if (Platform.OS == 'android' && "data" in response) {
           const newFilePath = `${Date.now()}-tmp`
           let tmpPath = `${RNFS.CachesDirectoryPath}/${newFilePath}`
           RNFetchBlob.fs.writeFile(tmpPath, response.data, 'base64')
