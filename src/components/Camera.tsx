@@ -19,16 +19,18 @@ import { useHUD } from '../HudView'
 export type { TakePictureResponse, RNCamera }
 
 const ShutterButtonOuter = styled.View`
-  background-color: ${COLORS.ORANGE_2};
-  width: 74px;
+  width: 72px;
   border-radius: 37px;
+  border-style: solid;
+  border-width: 4px;
+  border-color: white;
   aspect-ratio: 1;
   align-items: center;
   justify-content: center;
 `
 
 const ShutterButtonInner = styled.View`
-  background-color: black;
+  background-color: transparent;
   width: 62px;
   border-radius: 31px;
   aspect-ratio: 1;
@@ -177,14 +179,14 @@ export const Camera = ({
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: 'black', position: 'relative' }}
+      style={{ flex: 1, backgroundColor: 'red', position: 'relative', alignItems: 'center' }}
     >      
       {isFocused ? <RNCamera
         ref={cameraRef}
         flashMode={flashMode}
         type={cameraType}
         ratio="4:3"
-        style={{ width: '100%', aspectRatio: 3/4 }}
+        style={{ flex: 1, aspectRatio: 3/4 }}
         captureAudio={false}
       >
         {children}
@@ -193,7 +195,7 @@ export const Camera = ({
         {onClose ? <CloseButton onClose={onClose} />: null}
         <FlashButton flashMode={flashMode} setFlashMode={setFlashMode} />
       </View>
-      <View style={{ flexDirection: 'row', paddingVertical: 8, flex: 1, alignItems: 'flex-end' }}>
+      <View style={{ flexDirection: 'row', paddingVertical: 8, alignItems: 'flex-end', position: 'absolute', bottom: 0}}>
         <View
           style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
         >
