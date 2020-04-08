@@ -25,5 +25,8 @@ export const COLORS = {
   BORDER_LIGHT_BLUE: '#E6F2FA',
 }
 
-export const FONT_FAMILY = 'DB Helvethaica X'
-
+export const FONT_FAMILY = 'DBHelvethaicaX-Reg'
+export const FONT_BY_WEIGHT = {
+  BOLD: 'DBHelvethaicaX-Bd',
+  MED: 'DBHelvethaicaX-Med',
+}
