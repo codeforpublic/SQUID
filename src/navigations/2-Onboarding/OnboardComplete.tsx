@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 
   title: {
     fontFamily: FONT_BOLD,
-    fontSize: 24,
+    fontSize: FONT_SIZES[600],
     lineHeight: 40,
     alignItems: 'center',
     color: COLORS.BLACK_1,

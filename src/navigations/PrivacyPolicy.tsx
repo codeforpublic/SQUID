@@ -52,46 +52,53 @@ export const PrivacyPolicy = () => {
   )
 }
 
+
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: 'white' },
   header: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginBottom: 16,
+    marginHorizontal: 24,
   },
 
   title: {
     fontFamily: FONT_BOLD,
-    fontSize: 24,
-    lineHeight: 40,
+    fontSize: FONT_SIZES[700],
     alignItems: 'center',
     color: COLORS.BLACK_1,
     textAlign: 'center',
   },
 
   subtitle: {
-    fontFamily: FONT_BOLD,
+    fontFamily: FONT_FAMILY,
     fontSize: FONT_SIZES[500],
     lineHeight: 24,
     alignItems: 'center',
-    color: COLORS.GRAY_2,
+    color: COLORS.SECONDARY_DIM,
     textAlign: 'center',
   },
   content: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 16,
+    backgroundColor: COLORS.LIGHT_BLUE,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderStyle: 'solid',
+    borderColor: COLORS.BORDER_LIGHT_BLUE,
+
+    paddingHorizontal: 24,
     marginBottom: 16,
   },
   agreement: {
-    fontSize: FONT_SIZES[500],
+    fontSize: FONT_SIZES[400],
     lineHeight: 24,
     color: COLORS.GRAY_4,
     marginBottom: 16,
   },
   footer: {
     alignItems: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 24,
     marginBottom: 16,
   },
 })

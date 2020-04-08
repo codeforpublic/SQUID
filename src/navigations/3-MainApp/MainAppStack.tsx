@@ -1,17 +1,13 @@
 import React from 'react'
+import { Text } from 'react-native'
+import AntIcon from 'react-native-vector-icons/AntDesign'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
+import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import { MainApp } from './MainApp'
+import { MainAppFaceCamera } from './MainAppFaceCamera'
 import { QRCodeScan } from './QRCodeScan'
 import { Settings } from './Settings'
-import { Debug } from './Debug'
-import Icon from 'react-native-vector-icons/FontAwesome'
-import AntIcon from 'react-native-vector-icons/AntDesign'
-import {
-  createBottomTabNavigator,
-  createStackNavigator,
-} from 'react-navigation'
-import { COLORS, FONT_FAMILY } from '../../styles'
-import { Text } from 'react-native'
-import { MainAppFaceCamera } from './MainAppFaceCamera'
 
 export const MainAppTab = createBottomTabNavigator(
   {
@@ -22,7 +18,7 @@ export const MainAppTab = createBottomTabNavigator(
           <Text
             style={{
               textAlign: 'center',
-              fontSize: 12,
+              fontSize: FONT_SIZES[400],
               fontFamily: FONT_FAMILY,
               marginBottom: 2,
               color: focused ? '#303342' : COLORS.GRAY_2,
@@ -47,7 +43,7 @@ export const MainAppTab = createBottomTabNavigator(
           <Text
             style={{
               textAlign: 'center',
-              fontSize: 12,
+              fontSize: FONT_SIZES[400],
               fontFamily: FONT_FAMILY,
               marginBottom: 2,
               color: focused ? '#303342' : COLORS.GRAY_2,
@@ -72,7 +68,7 @@ export const MainAppTab = createBottomTabNavigator(
           <Text
             style={{
               textAlign: 'center',
-              fontSize: 12,
+              fontSize: FONT_SIZES[400],
               fontFamily: FONT_FAMILY,
               marginBottom: 2,
               color: focused ? '#303342' : COLORS.GRAY_2,
@@ -97,7 +93,7 @@ export const MainAppTab = createBottomTabNavigator(
     //       <Text
     //         style={{
     //           textAlign: 'center',
-    //           fontSize: 12,
+    //           fontSize: FONT_SIZES[400],
     //           fontFamily: FONT_FAMILY,
     //           marginBottom: 2,
     //           color: focused ? '#303342' : COLORS.GRAY_2,
@@ -119,7 +115,7 @@ export const MainAppTab = createBottomTabNavigator(
   {
     tabBarOptions: {
       style: {
-        paddingTop: 3,
+        paddingTop: 8,
       },
     },
   },

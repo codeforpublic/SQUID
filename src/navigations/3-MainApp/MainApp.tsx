@@ -53,7 +53,7 @@ const Footer = ({ date = moment().locale('th') }) => {
           <Text
             style={{
               fontFamily: FONT_FAMILY,
-              fontSize: smallDevice ? 12 : 14,
+              fontSize: FONT_SIZES[500],
               textAlign: 'right',
             }}
           >
@@ -62,7 +62,7 @@ const Footer = ({ date = moment().locale('th') }) => {
           <Text
             style={{
               fontFamily: FONT_FAMILY,
-              fontSize: smallDevice ? 12 : 14,
+              fontSize: FONT_SIZES[500],
               color: '#02A0D7',
               opacity: 0.9,
               textAlign: 'right',
@@ -256,7 +256,7 @@ export const MainApp = () => {
               <Text
                 style={{
                   fontFamily: FONT_BOLD,
-                  fontSize: FONT_SIZES[500],
+                  fontSize: FONT_SIZES[600],
                   marginTop: 12,
                   textDecorationLine: 'underline',
                   color,
@@ -272,7 +272,8 @@ export const MainApp = () => {
                 style={{
                   color: COLORS.ORANGE_2,
                   fontFamily: FONT_FAMILY,
-                  fontSize: 14,
+                  fontSize: FONT_SIZES[500],
+
                   alignSelf: 'center',
                 }}
               >
@@ -377,7 +378,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: FONT_BOLD,
-    fontSize: 24,
+    fontSize: FONT_SIZES[700],
     lineHeight: 40,
     alignItems: 'center',
     color: COLORS.PRIMARY_LIGHT,
