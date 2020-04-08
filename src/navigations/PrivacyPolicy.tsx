@@ -14,7 +14,7 @@ export const PrivacyPolicy = () => {
   const [agree, setAgree] = useState(false)
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={'white'} barStyle="light-content" />
+      <StatusBar backgroundColor={'white'} barStyle="dark-content" />
       <FormHeader backIcon="close">
         <View style={styles.header}>
           <Text style={styles.title}>นโยบายความเป็นส่วนตัว </Text>
