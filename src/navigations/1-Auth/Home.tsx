@@ -34,8 +34,8 @@ export const Home = ({ navigation }) => {
           />
         </DebugTouchable>
         <Text style={styles.description}>
-          หยุดเชื้อเพื่อชาติ{'\n'}
-          ป้องกันการระบาดของโรค
+          ร่วมโหลด ร่วมใช้ ร่วมใจ{'\n'}
+          พิชิตโควิด-19
         </Text>
         <PrimaryButton
           title="ลงทะเบียน"

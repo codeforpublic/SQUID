@@ -25,7 +25,7 @@ export const QRCodeScan = ({ navigation }) => {
   useEffect(() => {
     if (qrResult) {
       popupRef.current.show({
-        appIconSource: require('./noti_icon.png'),
+        // appIconSource: require('./noti_icon.png'),
         appTitle: 'ระดับความเสี่ยง',
         title: qrResult.getLabel(),
         body: `ข้อมูลวันที่ ${qrResult
