@@ -41,7 +41,7 @@ export const AuthPhone = () => {
         <FormHeader onBack={onBack} backIcon={backIcon}>
           <View style={styles.header}>
             <Text style={styles.title}>กรอกเบอร์โทรศัพท์</Text>
-            <Text style={styles.subtitle}>เพื่อยืนยันตัวตนด้วย SMS</Text>
+            <Text style={styles.subtitle}>เพื่อยืนยันรหัสผ่านจาก SMS</Text>
           </View>
         </FormHeader>
         <View style={styles.content}>
@@ -61,7 +61,7 @@ export const AuthPhone = () => {
               options={{
                 mask: '999-999-9999',
               }}
-              onChangeText={(text) => {
+              onChangeText={text => {
                 setPhone(text.trim())
               }}
               value={phone}
@@ -82,6 +82,8 @@ export const AuthPhone = () => {
           <PrimaryButton
             disabled={!isValidPhone}
             title={'ถัดไป'}
+            style={{ width: '100%' }}
+            containerStyle={{ width: '100%' }}
             onPress={async () => {
               showSpinner()
               try {
@@ -99,19 +101,22 @@ export const AuthPhone = () => {
               }
             }}
           />
-          <TouchableOpacity onPress={() => {
-            applicationState.setData('skipRegistration', true)
-            if (applicationState.getData('isPassedOnboarding')) {
-              resetTo({ routeName: 'MainApp' })
-            } else {              
-              navigation.navigate({
-                routeName: 'Onboarding',
-                params: { phone },
-              })
-            }
-          }} style={{ marginTop: 8 }}>
-            <Link style={{ fontWeight: 'bold' }}>
-              ใช้งานแบบไม่ยืนยันตัวตน >
+          <TouchableOpacity
+            onPress={() => {
+              applicationState.setData('skipRegistration', true)
+              if (applicationState.getData('isPassedOnboarding')) {
+                resetTo({ routeName: 'MainApp' })
+              } else {
+                navigation.navigate({
+                  routeName: 'Onboarding',
+                  params: { phone },
+                })
+              }
+            }}
+            style={{ marginTop: 8 }}
+          >
+            <Link style={{ color: '#576675', textDecorationLine: 'underline' }}>
+              ใช้งานแบบไม่ยืนยันตัวตน
             </Link>
           </TouchableOpacity>
         </View>
@@ -123,14 +128,14 @@ export const AuthPhone = () => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.WHITE },
   header: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginBottom: 32,
+    marginHorizontal: 24,
   },
 
   title: {
     fontFamily: FONT_FAMILY,
     fontStyle: 'normal',
-    fontWeight: 'bold',
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
@@ -143,7 +148,6 @@ const styles = StyleSheet.create({
   subtitle: {
     fontFamily: FONT_FAMILY,
     fontStyle: 'normal',
-    fontWeight: 'bold',
     fontSize: 16,
     lineHeight: 24,
     alignItems: 'center',
@@ -154,7 +158,12 @@ const styles = StyleSheet.create({
     flex: 1,
     // justifyContent: 'center',
     alignItems: 'center',
-    padding: 16,
+    padding: 24,
+    backgroundColor: COLORS.LIGHT_BLUE,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderStyle: 'solid',
+    borderColor: COLORS.BORDER_LIGHT_BLUE,
   },
   agreement: {
     fontSize: 16,
@@ -163,6 +172,8 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: 'center',
+    marginTop: 24,
     marginBottom: 16,
+    paddingHorizontal: 24,
   },
 })
