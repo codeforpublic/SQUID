@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, StatusBar, Text, View } from 'react-native'
+import { Image, SafeAreaView, StatusBar, Text, View } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
 import { PrimaryButton } from '../../components/Button'
 import { useHUD } from '../../HudView'
@@ -7,6 +7,7 @@ import { useContactTracer } from '../../services/contact-tracing-provider'
 import { COLORS } from '../../styles'
 import { isSmallDevice } from '../../utils/responsive'
 import { doctorSize, styles } from './const'
+import { OnboardHeader } from './OnboadHeader'
 
 export const OnboardBluetooth = () => {
   const navigation = useNavigation()
@@ -24,8 +25,11 @@ export const OnboardBluetooth = () => {
     navigation.navigate('OnboardNotification')},1000)
   }
 
-  return (
-    <View
+  return ( <>
+    <SafeAreaView style={{
+        backgroundColor: COLORS.BLUE,
+      }}/>
+    <SafeAreaView
       style={{
         flex: 1,
         backgroundColor: COLORS.WHITE,
@@ -33,33 +37,25 @@ export const OnboardBluetooth = () => {
       }}
     >
       <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
-      <View
+      <OnboardHeader 
         style={{
-          flex: 7,
-          alignItems: 'center',
-          justifyContent: 'center',
           backgroundColor: COLORS.BLUE,
-        }}
+        }}/>
+      <View
+        style={styles.topContainer}
       >
-        <View style={{ padding: 8, paddingHorizontal: 30,alignItems: 'center'}}>
+        <View style={{ padding: 8, paddingHorizontal: 30,  justifyContent: 'center', alignItems: 'center'}}>
           <Image
             source={require('../../assets/morchana-permission-bluetooth.png')}
             resizeMode="contain"
-            style={{ width: doctorSize }}
+            style={{ height: doctorSize }}
           />
           <Text style={styles.title}>มีคนเสี่ยงอยู่ใกล้ ๆ</Text>
           <Text style={styles.subtitle}>หมอตรวจสอบได้ด้วยบลูทูธ</Text>
         </View>
       </View>
       <View
-        style={{
-          flex: 3,
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingHorizontal: 30,
-          paddingVertical:30,
-          flexBasis: 180,
-        }}
+        style={styles.bottomContainer}
       >
         <View style={{ flexDirection: 'row' }}>
           {!isSmallDevice &&<View style={{ paddingRight: 16 }}>
@@ -88,6 +84,7 @@ export const OnboardBluetooth = () => {
           onPress={() => handleSubmit()}
         />
       </View>
-    </View>
+    </SafeAreaView>
+    </>
   )
 }
