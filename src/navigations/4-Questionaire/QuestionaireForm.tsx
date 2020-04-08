@@ -79,6 +79,7 @@ const Progress = ({
       <View
         style={{
           height,
+          borderRadius: height / 2,
           width: progress * 100 + '%',
           backgroundColor: '#216DB8',
         }}
