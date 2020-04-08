@@ -99,6 +99,7 @@ export const getProficientData = async () => {
 export const scan = async (
   anonymousList: string[],
   location: { latitude: number; longitude: number; accuracy: number },
+  type: 'bluetooth' | 'qrscan'
 ) => {
   return fetch(API_URL + '/scan', {
     method: 'post',
@@ -108,6 +109,7 @@ export const scan = async (
       timestamp: new Date().toISOString(),
       meetWithIds: anonymousList,
       location,
+      type
     }),
   })
 }
