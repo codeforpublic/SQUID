@@ -1,22 +1,22 @@
-import React, { useEffect, useMemo } from 'react'
-import { useResetTo } from '../../utils/navigation'
-import {
-  StyleSheet,
-  View,
-  StatusBar,
-  ActivityIndicator,
-  Text,
-  Image,
-  Dimensions,
-} from 'react-native'
-import { FONT_FAMILY, COLORS, FONT_SIZES } from '../../styles'
 import styled from '@emotion/native'
-import { FormHeader } from '../../components/Form/FormHeader'
+import React from 'react'
+import {
+  ActivityIndicator,
+  Dimensions,
+  Image,
+  StatusBar,
+  Text,
+  View,
+} from 'react-native'
 import { useSafeArea } from 'react-native-safe-area-view'
-import { useSelfQR, QR_STATE } from '../../state/qr'
-import { WhiteText } from '../../components/Base'
 import Icon from 'react-native-vector-icons/Entypo'
-import { Button, normalize } from 'react-native-elements'
+import { WhiteText } from '../../components/Base'
+import { PrimaryButton } from '../../components/Button'
+import { FormHeader } from '../../components/Form/FormHeader'
+import { QR_STATE, useSelfQR } from '../../state/qr'
+import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD } from '../../styles'
+import { useResetTo } from '../../utils/navigation'
+import { isSmallDevice } from '../../utils/responsive'
 
 const Container = styled(View)({
   backgroundColor: '#00A0D7',
@@ -67,7 +67,9 @@ const RiskLevel = ({ level }) => {
               alignItems: 'center',
             }}
           >
-            <WhiteText style={{ fontSize: FONT_SIZES[500] }}>{risk.text}</WhiteText>
+            <WhiteText style={{ fontSize: FONT_SIZES[500] }}>
+              {risk.text}
+            </WhiteText>
           </View>
         ))}
       </View>
@@ -120,8 +122,8 @@ export const QuestionaireSummary = ({ navigation }) => {
           <Card>
             <Text
               style={{
-                fontSize: 36,
-                fontFamily: FONT_FAMILY,
+                fontSize: isSmallDevice? FONT_SIZES[800]:FONT_SIZES[900],
+                fontFamily: FONT_BOLD,
                 color: qrData.getStatusColor(),
               }}
             >
@@ -150,7 +152,7 @@ export const QuestionaireSummary = ({ navigation }) => {
                 fontSize: FONT_SIZES[500],
                 marginTop: 8,
                 marginBottom: 8,
-                fontFamily: FONT_FAMILY,                
+                fontFamily: FONT_FAMILY,
                 color: '#576675',
               }}
             >
@@ -163,17 +165,13 @@ export const QuestionaireSummary = ({ navigation }) => {
                 alignSelf: 'stretch',
               }}
             >
-              <Button
+              <PrimaryButton
                 title={'รับ QR Code'}
-                titleStyle={{ fontFamily: FONT_FAMILY }}
-                buttonStyle={{
-                  height: 46,
-                  backgroundColor: '#216DB8',
-                  borderRadius: 10,
+                style={{
                   width: '100%',
                 }}
                 containerStyle={{
-                  borderRadius: 10,
+                  width: '100%',
                 }}
                 onPress={async () => {
                   resetTo({ routeName: 'MainApp' })

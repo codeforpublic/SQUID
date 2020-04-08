@@ -1,17 +1,18 @@
-import React, { useState, useEffect, useCallback } from 'react'
 import styled from '@emotion/native'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Dimensions, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 import { useSafeArea } from 'react-native-safe-area-context'
-import { QuestionaireSelect } from '../../components/QuestionaireSelect'
-import { View, Text, StatusBar, StyleSheet, Dimensions } from 'react-native'
-import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
-import { FormHeader } from '../../components/Form/FormHeader'
-import { dataInputTable } from './form-input'
 import { useIsFocused } from 'react-navigation-hooks'
 import { updateUserData } from '../../api'
+import { PrimaryButton } from '../../components/Button'
+import { FormHeader } from '../../components/Form/FormHeader'
+import { QuestionaireSelect } from '../../components/QuestionaireSelect'
 import { useHUD } from '../../HudView'
-import { ScrollView } from 'react-native-gesture-handler'
 import { Button, normalize } from 'react-native-elements'
 import { applicationState } from '../../state/app-state'
+import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../styles'
+import { dataInputTable } from './form-input'
 
 const padding = normalize(18)
 
@@ -118,11 +119,14 @@ export const QuestionaireForm = ({ navigation }) => {
   }, [index])
   const footer = (
     <Footer style={{ paddingBottom: inset.bottom }}>
-      <Button
+      <PrimaryButton
         title={'ถัดไป'}
-        titleStyle={{ fontFamily: FONT_FAMILY, fontSize: FONT_SIZES[600] }}
-        buttonStyle={{ height: 46, backgroundColor: '#216DB8', borderRadius: 10 }}
-        containerStyle={{ width: '100%', borderRadius: 10 }}
+        style={{
+          width: '100%',
+        }}
+        containerStyle={{
+          width: '100%',
+        }}
         disabled={typeof value === 'undefined' || value?.length === 0}
         onPress={async () => {
           if (dataInputTable[index + 1]) {
