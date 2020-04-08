@@ -70,7 +70,7 @@ export const OnboardFace = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
-      <FormHeader >
+      <FormHeader>
         <View style={styles.header}>
           <Text style={styles.title}>ภาพโปรไฟล์</Text>
           <Text style={styles.subtitle}>ถ่ายรูปหน้าตรง เห็นหน้าชัดเจน</Text>
@@ -106,14 +106,20 @@ export const OnboardFace = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>
-        <PrimaryButton title={'ถัดไป'} onPress={onSubmit} disabled={!uri} />
+        <PrimaryButton
+          style={{ width: '100%' }}
+          containerStyle={{ width: '100%'}}
+          title={'ถัดไป'}
+          onPress={onSubmit}
+          disabled={!uri}
+        />
       </View>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.WHITE },
+  container: { flex: 1, backgroundColor: COLORS.WHITE, marginHorizontal: 24 },
   content: {
     flex: 1,
     justifyContent: 'center',
@@ -127,7 +133,6 @@ const styles = StyleSheet.create({
   header: {
     textAlign: 'left',
     marginBottom: 16,
-    marginHorizontal: 24,
   },
   title: {
     fontFamily: FONT_BOLD,
