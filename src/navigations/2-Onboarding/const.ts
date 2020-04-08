@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
   },
   itemTitle: {
     fontFamily: FONT_BOLD,
-    fontSize: isSmallDevice ? FONT_SIZES[600] : FONT_SIZES[600],
+    fontSize: FONT_SIZES[600],
     color: COLORS.SECONDARY_DARK,
   },
   subtitle: {
