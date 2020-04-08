@@ -1,23 +1,13 @@
-import React, { useEffect, useState, useContext } from 'react'
-import { MyBackground } from '../../components/MyBackground'
-import {
-    View,
-    StatusBar,
-    Platform,
-    Text,
-    StyleSheet,
-    ActivityIndicator,
-    Image
-} from 'react-native'
-import { PERMISSIONS, check, request } from 'react-native-permissions'
+import React, { useEffect, useState } from 'react'
+import { ActivityIndicator, Dimensions, Image, Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { check, PERMISSIONS, request } from 'react-native-permissions'
 import { useNavigation } from 'react-navigation-hooks'
-import { FONT_FAMILY, COLORS } from '../../styles'
 import { PrimaryButton } from '../../components/Button'
-import Icon from 'react-native-vector-icons/Entypo'
-import AntIcon from 'react-native-vector-icons/AntDesign'
 import { useHUD } from '../../HudView'
-import { StackActions, NavigationActions } from 'react-navigation'
 import { backgroundTracking } from '../../services/background-tracking'
+import { COLORS, FONT_FAMILY } from '../../styles'
+import { isSmallDevice } from '../../utils/responsive'
+import { doctorSize,styles } from './const'
 
 const LOCATION_PERMISSION = Platform.select({
   ios: PERMISSIONS.IOS.LOCATION_ALWAYS,
@@ -64,7 +54,10 @@ export const OnboardLocation = () => {
     hide()
 
     backgroundTracking.start()
-    navigation.navigate('OnboardBluetooth')
+
+    setTimeout(() => {
+    navigation.navigate('OnboardBluetooth')}
+    ,1000)
   }
   if (locationPerm === 'checking' || activityPerm === 'checking') {
     return (
@@ -98,11 +91,11 @@ export const OnboardLocation = () => {
           backgroundColor: COLORS.BLUE,
         }}
       >
-        <View style={{ padding: 8, paddingHorizontal: 30 }}>
+        <View style={{ padding: 8, paddingHorizontal: 30,alignItems: 'center'}}>
           <Image
             source={require('../../assets/morchana-permission-location.png')}
             resizeMode="contain"
-            style={{ width: 300 }}
+            style={{ width: doctorSize }}
           />
           <Text style={styles.title}>ขอสิทธิ์เข้าถึงข้อมูล</Text>
           <Text style={styles.subtitle}>
@@ -112,21 +105,24 @@ export const OnboardLocation = () => {
       </View>
       <View
         style={{
-          flex: 3,
+          flex:3,
           alignItems: 'center',
           justifyContent: 'space-between',
           paddingHorizontal: 30,
           paddingVertical: 30,
+          flexBasis: 180,
         }}
       >
         <View style={{ flexDirection: 'row' }}>
-          <View style={{ paddingRight: 16 }}>
-            <Image
-              source={require('../../assets/perm-location-icon.png')}
-              resizeMode="contain"
-              style={{ width: 52 }}
-            />
-          </View>
+          {!isSmallDevice && (
+            <View style={{ paddingRight: 16 }}>
+              <Image
+                source={require('../../assets/perm-location-icon.png')}
+                resizeMode="contain"
+                style={{ width: 52 }}
+              />
+            </View>
+          )}
           <View style={{ flex: 1 }}>
             <Text style={styles.itemTitle}>ตำแหน่งของคุณ</Text>
             <Text style={styles.description}>
@@ -136,13 +132,15 @@ export const OnboardLocation = () => {
           </View>
         </View>
         <View style={{ flexDirection: 'row' }}>
-          <View style={{ paddingRight: 16 }}>
-            <Image
-              source={require('../../assets/perm-motion-icon.png')}
-              resizeMode="contain"
-              style={{ width: 52 }}
-            />
-          </View>
+          {!isSmallDevice && (
+            <View style={{ paddingRight: 16 }}>
+              <Image
+                source={require('../../assets/perm-motion-icon.png')}
+                resizeMode="contain"
+                style={{ width: 52 }}
+              />
+            </View>
+          )}
           <View style={{ flex: 1 }}>
             <Text style={styles.itemTitle}>การเคลื่อนที่ของคุณ (MOTION)</Text>
             <Text style={styles.description}>
@@ -165,37 +163,3 @@ export const OnboardLocation = () => {
     </View>
   )
 }
-const styles = StyleSheet.create({
-  title: {
-    marginTop: 10,
-    fontFamily: FONT_FAMILY,
-    fontWeight: 'bold',
-    fontSize: 36,
-    textAlign: 'left',
-    alignSelf: 'center',
-    color: COLORS.WHITE,
-  },
-  itemTitle: {
-    fontFamily: FONT_FAMILY,
-    fontSize: 18,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-  },
-  subtitle: {
-    fontFamily: FONT_FAMILY,
-    fontWeight: 'bold',
-    fontSize: 18,
-    textAlign: 'left',
-    alignSelf: 'center',
-    color: COLORS.WHITE,
-  },
-  description: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    fontSize: 14,
-    lineHeight: 26,
-    textAlign: 'left',
-    color: COLORS.BLACK_1,
-  },
-})
