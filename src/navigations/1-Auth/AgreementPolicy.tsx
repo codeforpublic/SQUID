@@ -1,13 +1,7 @@
 import React, { useState } from 'react'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import {
-  StatusBar,
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-} from 'react-native'
+import { StatusBar, View, Text, StyleSheet, ScrollView } from 'react-native'
 import { PrimaryButton } from '../../components/Button'
 import { useNavigation } from 'react-navigation-hooks'
 import { COLORS, FONT_FAMILY } from '../../styles'
@@ -24,22 +18,18 @@ export const AgreementPolicy = () => {
       <FormHeader>
         <View style={styles.header}>
           <Text style={styles.title}>ข้อตกลงและเงื่อนไข</Text>
-          <Text style={styles.subtitle}>ในการใช้บริการ</Text>
+          <Text style={styles.subtitle}>ก่อนการเริ่มต้นใช้งาน</Text>
+          <Text style={styles.subtitle}>กรุณายอมรับข้อตกลงและเงื่อนไข</Text>
         </View>
       </FormHeader>
       <View style={styles.content}>
         <ScrollView
           contentContainerStyle={{
             flexGrow: 1,
-            backgroundColor: 'white',
-          }}
-          style={{
-            borderColor: COLORS.GRAY_2,
-            borderWidth: 1,
-            borderRadius: 4,
+            paddingVertical: 16,
           }}
         >
-          <View style={{ padding: 16 }}>
+          <View style={{ paddingHorizontal: 24 }}>
             <Text style={styles.agreement}>{agreementText} </Text>
           </View>
         </ScrollView>
@@ -74,14 +64,14 @@ export const AgreementPolicy = () => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: 'white' },
   header: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginBottom: 16,
+    marginHorizontal: 24,
   },
 
   title: {
     fontFamily: FONT_FAMILY,
     fontStyle: 'normal',
-    fontWeight: 'bold',
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
@@ -92,7 +82,6 @@ const styles = StyleSheet.create({
   subtitle: {
     fontFamily: FONT_FAMILY,
     fontStyle: 'normal',
-    fontWeight: 'bold',
     fontSize: 16,
     lineHeight: 24,
     alignItems: 'center',
@@ -103,13 +92,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 16,
+    backgroundColor: COLORS.LIGHT_BLUE,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderStyle: 'solid',
+    borderColor: COLORS.BORDER_LIGHT_BLUE,
   },
   agreement: {
     fontSize: 16,
     lineHeight: 24,
     color: COLORS.GRAY_4,
-    marginBottom: 16,    
+    marginBottom: 16,
   },
   footer: {
     alignItems: 'center',
