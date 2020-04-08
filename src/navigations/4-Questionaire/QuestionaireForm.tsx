@@ -14,7 +14,7 @@ import { Button } from 'react-native-elements'
 import { applicationState } from '../../state/app-state'
 
 const Container = styled(View)({
-  backgroundColor: '#E3F4FF',
+  backgroundColor: '#FAFDFF',
   height: '100%',
 })
 const Footer = styled(View)({
