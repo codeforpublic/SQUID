@@ -51,7 +51,7 @@ export const OnboardNotification = () => {
           style={{
             flex: 1,
             alignItems: 'center',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             backgroundColor: COLORS.BLUE,
           }}
         >
@@ -67,7 +67,7 @@ export const OnboardNotification = () => {
             <Image
               source={require('../../assets/morchana-permission-notification.png')}
               resizeMode="contain"
-              style={{ width: doctorSize }}
+              style={{ height: doctorSize }}
             />
             <Text style={styles.title}>ให้หมอแจ้งเตือนคุณ</Text>
             <Text style={styles.subtitle}>
