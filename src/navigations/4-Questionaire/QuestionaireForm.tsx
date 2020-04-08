@@ -3,7 +3,7 @@ import styled from '@emotion/native'
 import { useSafeArea } from 'react-native-safe-area-context'
 import { QuestionaireSelect } from '../../components/QuestionaireSelect'
 import { View, Text, StatusBar, StyleSheet, Dimensions } from 'react-native'
-import { COLORS, FONT_FAMILY } from '../../styles'
+import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
 import { FormHeader } from '../../components/Form/FormHeader'
 import { dataInputTable } from './form-input'
 import { useIsFocused } from 'react-navigation-hooks'
@@ -82,6 +82,7 @@ const Progress = ({
           borderRadius: height / 2,
           width: progress * 100 + '%',
           backgroundColor: '#216DB8',
+          borderRadius: height / 2,
         }}
       />
     </View>
@@ -116,7 +117,7 @@ export const QuestionaireForm = ({ navigation }) => {
   }, [index])
   const footer = (
     <Footer style={{ paddingBottom: inset.bottom }}>
-      <Button            
+      <Button
         title={'ถัดไป'}
         titleStyle={{ fontFamily: FONT_FAMILY }}
         buttonStyle={{ height: 46, backgroundColor: '#216DB8', borderRadius: 10 }}
@@ -164,7 +165,7 @@ export const QuestionaireForm = ({ navigation }) => {
             }}
           >
             <Text
-              style={{ fontFamily: FONT_FAMILY, marginRight: 12, fontSize: 16 }}
+              style={{ fontFamily: FONT_BOLD,color:'#C4CCD4', marginRight: 12, fontSize: FONT_SIZES[500] }}
             >
               {index + 1} / {dataInputTable.length}
             </Text>
@@ -206,19 +207,15 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontSize: 24,
-    lineHeight: 32,
+    fontFamily: FONT_BOLD,
+    fontSize: FONT_SIZES[700],
     alignItems: 'center',
     color: COLORS.PRIMARY_DARK,
     textAlign: 'left',
   },
   subtitle: {
     fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontSize: 18,
+    fontSize: FONT_SIZES[500],
     lineHeight: 24,
     alignItems: 'center',
     color: COLORS.GRAY_4,

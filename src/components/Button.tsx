@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { Button as RButton } from 'react-native-elements'
-import { COLORS, FONT_FAMILY } from '../styles'
+import { COLORS, FONT_FAMILY, FONT_MED, FONT_SIZES } from '../styles'
 
 interface PropTypes {
   title: string
@@ -34,13 +34,11 @@ export const PrimaryButton = ({
       }}
       title={title}
       titleStyle={{
-        fontFamily: FONT_FAMILY,
-        fontStyle: 'normal',
-        fontWeight: '600',
-        fontSize: 16,
+        fontFamily: FONT_MED,
+        fontSize: FONT_SIZES[600],
         lineHeight: 30,
         color: COLORS.PRIMARY_LIGHT,
-        ...titleStyle
+        ...titleStyle,
       }}
       disabled={disabled}
       onPress={onPress}
@@ -69,10 +67,8 @@ export const DangerButton = ({
       }}
       title={title}
       titleStyle={{
-        fontFamily: FONT_FAMILY,
-        fontStyle: 'normal',
-        fontWeight: '600',
-        fontSize: 16,
+        fontFamily: FONT_MED,
+        fontSize: FONT_SIZES[500],
         lineHeight: 30,
         color: COLORS.PRIMARY_LIGHT,
       }}
@@ -104,10 +100,8 @@ export const RectButton = ({
       title={title}
       titleStyle={{
         color: 'black',
-        fontFamily: FONT_FAMILY,
-        fontStyle: 'normal',
-        fontWeight: '600',
-        fontSize: 16,
+        fontFamily: FONT_MED,
+        fontSize: FONT_SIZES[500],
         lineHeight: 30,
       }}
       disabled={disabled}

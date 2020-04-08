@@ -32,7 +32,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>morchana</string>
-				<string></string>
+				<string/>
 			</array>
 		</dict>
 	</array>
@@ -94,24 +94,22 @@
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
 		<string>Fontisto.ttf</string>
-		<string>Prompt-Black.ttf</string>
-		<string>Prompt-BlackItalic.ttf</string>
-		<string>Prompt-Bold.ttf</string>
-		<string>Prompt-BoldItalic.ttf</string>
-		<string>Prompt-ExtraBold.ttf</string>
-		<string>Prompt-ExtraBoldItalic.ttf</string>
-		<string>Prompt-ExtraLight.ttf</string>
-		<string>Prompt-ExtraLightItalic.ttf</string>
-		<string>Prompt-Italic.ttf</string>
-		<string>Prompt-Light.ttf</string>
-		<string>Prompt-LightItalic.ttf</string>
-		<string>Prompt.ttf</string>
-		<string>Prompt-MediumItalic.ttf</string>
-		<string>Prompt-Regular.ttf</string>
-		<string>Prompt-SemiBold.ttf</string>
-		<string>Prompt-SemiBoldItalic.ttf</string>
-		<string>Prompt-Thin.ttf</string>
-		<string>Prompt-ThinItalic.ttf</string>
+		<string>DBHelvethaicaX-Bd.ttf</string>
+		<string>DBHelvethaicaX-BdIt.ttf</string>
+		<string>DBHelvethaicaX-Blk.ttf</string>
+		<string>DBHelvethaicaX-BlkIt.ttf</string>
+		<string>DBHelvethaicaX-Ext.ttf</string>
+		<string>DBHelvethaicaX-ExtIt.ttf</string>
+		<string>DBHelvethaicaX-It.ttf</string>
+		<string>DBHelvethaicaX-Li.ttf</string>
+		<string>DBHelvethaicaX-LiIt.ttf</string>
+		<string>DBHelvethaicaX-Med.ttf</string>
+		<string>DBHelvethaicaX-MedIt.ttf</string>
+		<string>DBHelvethaicaX-Thin.ttf</string>
+		<string>DBHelvethaicaX-ThinIt.ttf</string>
+		<string>DBHelvethaicaX-UlLi.ttf</string>
+		<string>DBHelvethaicaX-UlLiIt.ttf</string>
+		<string>DBHelvethaicaX-Reg.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
