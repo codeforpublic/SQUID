@@ -8,6 +8,7 @@ interface PropTypes {
   children?: any
   onBack?: any
   backIcon?: string
+  whiteLogo?: boolean
 }
 
 export const FormHeader = ({
@@ -15,16 +16,21 @@ export const FormHeader = ({
   children,
   onBack,
   backIcon,
+  whiteLogo,
 }: PropTypes) => {
   const logoHeight = Dimensions.get('window').height < 600 ? 40 : 60
   const logoWidth = (logoHeight * 101) / 54
   return (
     <View style={style}>
       <View style={styles.header}>
-        {onBack && <BackButton onPress={onBack} backIcon={backIcon} />}
+        {onBack ? <BackButton onPress={onBack} backIcon={backIcon} /> : null}
         <View style={styles.space} />
         <Image
-          source={require('./form-logo.png')}
+          source={
+            whiteLogo
+              ? require('./form-logo-white.png')
+              : require('./form-logo.png')
+          }
           style={{ height: logoHeight, width: logoWidth }}
           resizeMode="contain"
         />
