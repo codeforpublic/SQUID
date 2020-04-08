@@ -14,7 +14,7 @@ import {
 } from 'react-native'
 import { StackActions, NavigationActions } from 'react-navigation'
 import { useNavigation } from 'react-navigation-hooks'
-import { COLORS, FONT_FAMILY } from '../../styles'
+import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useContactTracer } from '../../services/contact-tracing-provider'
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   sectionText: {
-    fontSize: 16,
+    fontSize: FONT_SIZES[500],
     color: '#000000',
     fontFamily: FONT_FAMILY
   },

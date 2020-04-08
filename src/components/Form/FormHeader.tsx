@@ -21,7 +21,7 @@ export const FormHeader = ({
   return (
     <View style={style}>
       <View style={styles.header}>
-        <BackButton onPress={onBack} backIcon={backIcon} />
+        {onBack && <BackButton onPress={onBack} backIcon={backIcon} />}
         <View style={styles.space} />
         <Image
           source={require('./form-logo.png')}

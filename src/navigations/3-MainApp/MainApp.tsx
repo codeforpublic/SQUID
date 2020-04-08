@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, Fragment, useMemo } from 'react'
-import { COLORS, FONT_FAMILY } from '../../styles'
+import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
 import { useSafeArea } from 'react-native-safe-area-context'
 import {
   Animated,
@@ -255,10 +255,9 @@ export const MainApp = () => {
             {label ? (
               <Text
                 style={{
-                  fontFamily: FONT_FAMILY,
-                  fontSize: 16,
+                  fontFamily: FONT_BOLD,
+                  fontSize: FONT_SIZES[500],
                   marginTop: 12,
-                  fontWeight: 'bold',
                   textDecorationLine: 'underline',
                   color,
                 }}
@@ -284,7 +283,7 @@ export const MainApp = () => {
               <Text
                 style={{
                   fontFamily: FONT_FAMILY,
-                  fontSize: 16,
+                  fontSize: FONT_SIZES[500],
                   alignSelf: 'center',
                   color: COLORS.GRAY_4,
                 }}
@@ -371,16 +370,13 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontSize: 16,
+    fontSize: FONT_SIZES[500],
     lineHeight: 32,
     marginLeft: 8,
     color: COLORS.PRIMARY_LIGHT,
   },
   title: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
+    fontFamily: FONT_BOLD,
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
@@ -391,10 +387,8 @@ const styles = StyleSheet.create({
     color: COLORS.RED,
   },
   subtitle: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontFamily: FONT_BOLD,
+    fontSize: FONT_SIZES[500],
     lineHeight: 24,
     alignItems: 'center',
     color: COLORS.GRAY_2,
