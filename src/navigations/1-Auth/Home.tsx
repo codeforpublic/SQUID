@@ -34,8 +34,8 @@ export const Home = ({ navigation }) => {
           />
         </DebugTouchable>
         <Text style={styles.description}>
-          หยุดเชื้อเพื่อชาติ{'\n'}
-          ป้องกันการระบาดของโรค
+          ร่วมโหลด ร่วมใช้ ร่วมใจ{'\n'}
+          พิชิตโควิด-19
         </Text>
         <Button
           title="ลงทะเบียน"
@@ -45,11 +45,11 @@ export const Home = ({ navigation }) => {
             fontWeight: 'bold',
             fontSize: 20,
             width: 240,
-            fontFamily: FONT_FAMILY
+            fontFamily: FONT_FAMILY,
           }}
           buttonStyle={{
             borderRadius: 5,
-            backgroundColor: 'white',            
+            backgroundColor: 'white',
           }}
           onPress={async () => {
             navigation.navigate('AgreementPolicy')
