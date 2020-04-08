@@ -14,7 +14,7 @@ import { Button } from 'react-native-elements'
 import { applicationState } from '../../state/app-state'
 
 const Container = styled(View)({
-  backgroundColor: '#E3F4FF',
+  backgroundColor: '#FAFDFF',
   height: '100%',
 })
 const Footer = styled(View)({
@@ -79,6 +79,7 @@ const Progress = ({
       <View
         style={{
           height,
+          borderRadius: height / 2,
           width: progress * 100 + '%',
           backgroundColor: '#216DB8',
           borderRadius: height / 2,
