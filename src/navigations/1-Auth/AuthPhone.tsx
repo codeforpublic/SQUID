@@ -27,7 +27,7 @@ export const AuthPhone = () => {
   const { showSpinner, hide } = useHUD()
   const [phone, setPhone] = useState(userPrivateData.getMobileNumber() || '')
   const isValidPhone = useMemo(
-    () => phone.replace(/-/g, '').match(/^0[0-9]{9}$/),
+    () => phone.replace(/-/g, '').match(/^(0|1)[0-9]{9}$/),
     [phone],
   )
   const resetTo = useResetTo()
