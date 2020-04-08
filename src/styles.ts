@@ -21,6 +21,8 @@ export const COLORS = {
   SECONDARY_NORMAL: '#296EB7',
   SECONDARY_DARK: '#0C2641',
   SECONDARY_DIM: '#576675',
+  LIGHT_BLUE: '#FAFDFF',
+  BORDER_LIGHT_BLUE: '#E6F2FA',
 }
 
 export const FONT_FAMILY = 'Prompt'

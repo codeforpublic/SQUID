@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from '@emotion/native'
 import { COLORS } from '../styles'
+import { Dimensions } from 'react-native'
 
 const GuidelineContainer = styled.View`
   flex: 1;
@@ -9,7 +10,6 @@ const GuidelineContainer = styled.View`
 `
 
 const FaceGuideline = styled.View`
-  width: 70%;
   border-color: ${COLORS.PRIMARY_LIGHT};
   border-width: 2px;
   border-radius: 500px;
@@ -20,7 +20,11 @@ const FaceGuideline = styled.View`
 export const SelfieCaptureGuideline = () => {
   return (
     <GuidelineContainer>
-      <FaceGuideline />
+      <FaceGuideline
+        style={{
+          width: Math.floor((70 / 100) * Dimensions.get('window').width),
+        }}
+      />
       {/* <CardGuideline /> */}
     </GuidelineContainer>
   )

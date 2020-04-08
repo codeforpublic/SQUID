@@ -16,7 +16,13 @@ import {
   BackHandler,
   Text,
 } from 'react-native'
-import { Title, Subtitle, Header, WhiteText } from '../../components/Base'
+import {
+  Title,
+  Subtitle,
+  Header,
+  WhiteText,
+  ColorText,
+} from '../../components/Base'
 import { PrimaryButton } from '../../components/Button'
 import { useNavigation, useNavigationParam } from 'react-navigation-hooks'
 import { BackButton } from '../../components/BackButton'
@@ -39,7 +45,7 @@ const MUTATE_USER = gql`
 
 export const OnboardFace = () => {
   const [uri, setUri] = useState(userPrivateData.getFace())
-  
+
   useEffect(() => {
     if (uri) {
       RNFS.exists(uri).then(exists => {
@@ -63,10 +69,7 @@ export const OnboardFace = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar
-        backgroundColor={COLORS.WHITE}
-        barStyle="dark-content"
-      />
+      <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
       <View style={styles.header}>
         <Text style={styles.title}>ภาพโปรไฟล์</Text>
         <Text style={styles.subtitle}>ถ่ายรูปหน้าตรง เห็นหน้าชัดเจน</Text>
@@ -76,17 +79,29 @@ export const OnboardFace = () => {
           <Avatar
             size={250}
             rounded
-            overlayContainerStyle={{backgroundColor:'#E6F2FA' }}          
+            overlayContainerStyle={{ backgroundColor: '#E6F2FA' }}
             source={uri ? { uri } : require('./camera-mask.png')}
           />
         </TouchableOpacity>
-        {uri && (
-          <TouchableOpacity onPress={navigateToCamera}>
-            <WhiteText style={{ marginTop: 12 }}>
-              <FeatherIcon name="camera" color="white" size={20} /> ถ่ายใหม่
-            </WhiteText>
-          </TouchableOpacity>
-        )}
+        <TouchableOpacity
+          style={{
+            borderStyle: 'dashed',
+            borderWidth: 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingVertical: 8,
+            borderColor: COLORS.BLUE,
+            paddingHorizontal: 16,
+            marginTop: 12,
+            borderRadius: 8,
+          }}
+          onPress={navigateToCamera}
+        >
+          <FeatherIcon name="camera" color={COLORS.BLUE} size={20} />
+          <ColorText color={COLORS.BLUE} style={{ marginLeft: 12 }}>
+            {uri ? 'ถ่ายใหม่' : 'ถ่ายรูป'}
+          </ColorText>
+        </TouchableOpacity>
       </View>
       <View style={styles.footer}>
         <PrimaryButton title={'ถัดไป'} onPress={onSubmit} disabled={!uri} />
@@ -101,14 +116,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 100,
+    marginBottom: 20,
   },
   footer: {
     alignItems: 'center',
     marginBottom: 12,
   },
   header: {
-    marginTop: 30,
+    marginTop: 16,
     marginBottom: 16,
   },
   title: {

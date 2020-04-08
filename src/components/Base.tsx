@@ -31,7 +31,6 @@ export const Subtitle = styled(Text)({
 
 export const Link = styled(Text)({
   fontFamily: FONT_FAMILY,
-  fontWeight: 'bold',
   fontSize: 16,
   lineHeight: 30,
   alignItems: 'center',
@@ -46,3 +45,11 @@ export const WhiteText = styled(Text)({
   lineHeight: 30,
   color: COLORS.WHITE,
 })
+
+export const ColorText = styled(Text)`
+  font-family: ${FONT_FAMILY};
+  font-style: normal;
+  font-size: 16px;
+  line-height: 30px;
+  color: ${props => props.color};
+`
