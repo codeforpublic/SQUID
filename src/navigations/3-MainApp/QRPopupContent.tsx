@@ -12,7 +12,7 @@ const Label = ({ label }) => {
 }
 
 export const QRPopupContent = (props: any) => {
-  const { appIconSource, appTitle, timeText: proficientLabel, title, body } = props
+  const { appTitle, timeText: proficientLabel, title, body } = props
   const qrResult: QRResult = props.qrResult
   return (
     <View style={[styles.popupContentContainer]}>
@@ -22,9 +22,6 @@ export const QRPopupContent = (props: any) => {
           { backgroundColor: qrResult.getStatusColor() },
         ]}
       >
-        <View style={styles.headerIconContainer}>
-          <Image style={styles.headerIcon} source={appIconSource || null} />
-        </View>
         <View style={styles.headerTextContainer}>
           <Text style={styles.headerText} numberOfLines={1}>
             {appTitle || ''}
@@ -69,7 +66,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 12,
     paddingVertical: 6,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
   headerIconContainer: {
@@ -91,6 +87,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY,
     fontSize: FONT_SIZES[600],
     color: 'white',
+    paddingLeft: 16,
   },
   headerTimeContainer: {
     marginHorizontal: 16,
