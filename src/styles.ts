@@ -1,3 +1,5 @@
+import { normalize } from 'react-native-elements'
+
 export const COLORS = {
   WHITE: '#FAFDFF',
   PRIMARY_DARK: '#00A0D7',
@@ -26,7 +28,16 @@ export const COLORS = {
 }
 
 export const FONT_FAMILY = 'DBHelvethaicaX-Reg'
-export const FONT_BY_WEIGHT = {
-  BOLD: 'DBHelvethaicaX-Bd',
-  MED: 'DBHelvethaicaX-Med',
+export const FONT_BOLD = 'DBHelvethaicaX-Bd'
+export const FONT_MED = 'DBHelvethaicaX-Med'
+
+export const FONT_SIZES = {
+  200: normalize(8),
+  300: normalize(10),
+  400: normalize(13),
+  500: normalize(16), // 16px
+  600: normalize(20),
+  700: normalize(25),
+  800: normalize(31),
+  900: normalize(39),
 }
