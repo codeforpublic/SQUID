@@ -2,7 +2,7 @@ import React from 'react'
 import { useHUD } from '../HudView'
 import { RNCamera, TakePictureResponse, Camera } from './Camera'
 import RNFS from 'react-native-fs'
-import { Platform, Alert, NativeModules } from 'react-native'
+import { Platform, Alert, NativeModules, Dimensions } from 'react-native'
 import { SelfieCaptureGuideline } from './SelfieCaptureGuideline'
 import ImageEditor from '@react-native-community/image-editor'
 import { applicationState } from '../state/app-state'
@@ -15,7 +15,12 @@ export const UpdateFaceCamera = ({ onCapture, ...props }) => {
       const data: TakePictureResponse = await camera.takePictureAsync()
       console.log('ImageEditor', ImageEditor)
       if (NativeModules.RNCImageEditor) {
-        const width = Math.floor((70 / 100) * Math.min(data.width, data.height))
+        const scale =
+          Math.max(data.width, data.height) / Dimensions.get('screen').height
+        const width = Math.floor(
+          scale * (70 / 100) * Dimensions.get('screen').width,
+        )
+        // const width = Math.floor((70 / 100) * Math.min(data.width, data.height))
         const height = width
         const offsetX = Math.floor((data.width - width) / 2)
         const offsetY = Math.floor((data.height - height) / 2)
@@ -25,7 +30,7 @@ export const UpdateFaceCamera = ({ onCapture, ...props }) => {
           displaySize: { width, height },
           resizeMode: 'cover',
         })
-  
+
         onCapture(uri)
       } else {
         onCapture(data.uri)
