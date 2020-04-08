@@ -88,7 +88,7 @@ export const AuthOTP = () => {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={{ flex: 1, width: '100%' }}>
-        <StatusBar backgroundColor={COLORS.WHITE} barStyle="light-content" />
+        <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
         <FormHeader onBack={onBack} backIcon={backIcon}>
           <View style={styles.header}>
             <Text style={styles.title}>กรอกรหัสจาก SMS</Text>
@@ -121,7 +121,7 @@ export const AuthOTP = () => {
                 width: 60,
               }}
               style={{ height: 60 }}
-              onCodeFilled={(code) => setOtp(code)}
+              onCodeFilled={code => setOtp(code)}
               pinCount={4}
             />
           </View>
@@ -140,10 +140,13 @@ export const AuthOTP = () => {
         <View style={styles.footer}>
           <PrimaryButton
             disabled={otp.length !== 4}
+            style={{ width: '100%' }}
+            containerStyle={{ width: '100%' }}
             title={'ถัดไป'}
             onPress={onSubmit}
           />
           <TouchableOpacity
+            style={{ marginTop: 8 }}
             onPress={() => {
               applicationState.setData('skipRegistration', true)
               if (applicationState.getData('isPassedOnboarding')) {
@@ -156,7 +159,7 @@ export const AuthOTP = () => {
               }
             }}
           >
-            <Link style={{ marginTop: 8, fontWeight: 'bold' }}>
+            <Link style={{ color: '#576675', textDecorationLine: 'underline' }}>
               ใช้งานแบบไม่ยืนยันตัวตน >
             </Link>
           </TouchableOpacity>
@@ -167,36 +170,25 @@ export const AuthOTP = () => {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.WHITE },
   header: {
-    alignItems: 'center',
-    marginBottom: 32,
+    alignItems: 'flex-start',
+    marginBottom: 16,
+    marginHorizontal: 24,
   },
-  text: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontSize: 16,
-    lineHeight: 32,
-    marginLeft: 8,
-    color: COLORS.BLACK_1,
-  },
+
   title: {
     fontFamily: FONT_FAMILY,
     fontStyle: 'normal',
-    fontWeight: 'bold',
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
     color: COLORS.BLACK_1,
     textAlign: 'center',
   },
-  errorText: {
-    color: COLORS.RED,
-  },
+
   subtitle: {
     fontFamily: FONT_FAMILY,
     fontStyle: 'normal',
-    fontWeight: 'bold',
     fontSize: 16,
     lineHeight: 24,
     alignItems: 'center',
@@ -205,11 +197,31 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+    padding: 24,
     alignItems: 'center',
-    padding: 16,
+    backgroundColor: COLORS.LIGHT_BLUE,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderStyle: 'solid',
+    borderColor: COLORS.BORDER_LIGHT_BLUE,
+  },
+
+  container: { flex: 1, backgroundColor: COLORS.WHITE },
+  text: {
+    fontFamily: FONT_FAMILY,
+    fontStyle: 'normal',
+    fontSize: 16,
+    lineHeight: 32,
+    marginLeft: 8,
+    color: COLORS.BLACK_1,
+  },
+  errorText: {
+    color: COLORS.RED,
   },
   footer: {
     alignItems: 'center',
     marginBottom: 16,
+    marginTop: 24,
+    paddingHorizontal: 24,
   },
 })
