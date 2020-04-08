@@ -98,7 +98,6 @@ export const OnboardLocation = () => {
           backgroundColor: COLORS.BLUE,
         }}
       >
-        <Icon name="location" color={COLORS.BLUE} size={64} />
         <View style={{ padding: 8, paddingHorizontal: 30 }}>
           <Image
             source={require('../../assets/morchana-permission-location.png')}
@@ -121,8 +120,12 @@ export const OnboardLocation = () => {
         }}
       >
         <View style={{ flexDirection: 'row' }}>
-          <View>
-            <AntIcon name="checksquareo" size={18} color={COLORS.BLUE} />
+          <View style={{ paddingRight: 16 }}>
+            <Image
+              source={require('../../assets/perm-location-icon.png')}
+              resizeMode="contain"
+              style={{ width: 52 }}
+            />
           </View>
           <View style={{ flex: 1 }}>
             <Text style={styles.itemTitle}>ตำแหน่งของคุณ</Text>
@@ -133,8 +136,12 @@ export const OnboardLocation = () => {
           </View>
         </View>
         <View style={{ flexDirection: 'row' }}>
-          <View>
-            <AntIcon name="checksquareo" size={18} color={COLORS.BLUE} />
+          <View style={{ paddingRight: 16 }}>
+            <Image
+              source={require('../../assets/perm-motion-icon.png')}
+              resizeMode="contain"
+              style={{ width: 52 }}
+            />
           </View>
           <View style={{ flex: 1 }}>
             <Text style={styles.itemTitle}>การเคลื่อนที่ของคุณ (MOTION)</Text>
