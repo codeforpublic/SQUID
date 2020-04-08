@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { View, Image, StatusBar, StyleSheet, Dimensions } from 'react-native'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { BackButton } from '../BackButton'
+import { normalize } from 'react-native-elements'
 
 interface PropTypes {
   style?: any
@@ -39,10 +40,10 @@ export const FormHeader = ({
     </View>
   )
 }
-
+const padding = normalize(18)
 const styles = StyleSheet.create({
   header: {
-    paddingHorizontal: 20,
+    paddingHorizontal: padding,
     alignItems: 'center',
     marginBottom: 10,
     flexDirection: 'row',

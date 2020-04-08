@@ -5,7 +5,7 @@ import { StatusBar, View, Text, StyleSheet, ScrollView } from 'react-native'
 import { PrimaryButton } from '../components/Button'
 import { useNavigation } from 'react-navigation-hooks'
 import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../styles'
-import { CheckBox } from 'react-native-elements'
+import { CheckBox, normalize } from 'react-native-elements'
 import { FormHeader } from '../components/Form/FormHeader'
 import { agreementText } from './const'
 
@@ -52,13 +52,15 @@ export const PrivacyPolicy = () => {
   )
 }
 
+const padding = normalize(16)
+
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: 'white' },
   header: {
     alignItems: 'flex-start',
     marginBottom: 16,
-    marginHorizontal: 24,
+    marginHorizontal: padding,
   },
 
   title: {
@@ -87,7 +89,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderColor: COLORS.BORDER_LIGHT_BLUE,
 
-    paddingHorizontal: 24,
+    paddingHorizontal: padding,
     marginBottom: 16,
   },
   agreement: {
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: 'center',
-    paddingHorizontal: 24,
+    paddingHorizontal: padding,
     marginBottom: 16,
   },
 })
