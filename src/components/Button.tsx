@@ -10,6 +10,7 @@ interface PropTypes {
   disabled?: boolean
   icon?: any
   iconRight?: boolean
+  containerStyle?: any
 }
 
 export const PrimaryButton = ({

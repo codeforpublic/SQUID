@@ -17,6 +17,8 @@ export const COLORS = {
   YELLOW: '#E5DB5C',
   ORANGE_2: '#E74933',
   GREEN: '#27C269',
+  LIGHT_BLUE: '#FAFDFF',
+  BORDER_LIGHT_BLUE: '#E6F2FA',
 }
 
 export const FONT_FAMILY = 'Prompt'
