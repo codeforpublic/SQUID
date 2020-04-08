@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { MockScreen } from '../MockScreen'
 import { Avatar } from 'react-native-elements'
 import { Camera, TakePictureResponse, RNCamera } from '../../components/Camera'
-import { COLORS, FONT_FAMILY } from '../../styles'
+import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
 import styled, { css } from '@emotion/native'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -70,10 +70,12 @@ export const OnboardFace = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
-      <View style={styles.header}>
-        <Text style={styles.title}>ภาพโปรไฟล์</Text>
-        <Text style={styles.subtitle}>ถ่ายรูปหน้าตรง เห็นหน้าชัดเจน</Text>
-      </View>
+      <FormHeader >
+        <View style={styles.header}>
+          <Text style={styles.title}>ภาพโปรไฟล์</Text>
+          <Text style={styles.subtitle}>ถ่ายรูปหน้าตรง เห็นหน้าชัดเจน</Text>
+        </View>
+      </FormHeader>
       <View style={styles.content}>
         <TouchableOpacity onPress={navigateToCamera}>
           <Avatar
@@ -123,26 +125,19 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   header: {
-    marginTop: 16,
+    textAlign: 'left',
     marginBottom: 16,
+    marginHorizontal: 24,
   },
   title: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontSize: 24,
-    lineHeight: 40,
+    fontFamily: FONT_BOLD,
+    fontSize: FONT_SIZES[700],
     color: COLORS.BLACK_1,
-    textAlign: 'center',
   },
-
   subtitle: {
     fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: FONT_SIZES[500],
     lineHeight: 24,
-    color: COLORS.GRAY_2,
-    textAlign: 'center',
+    color: COLORS.SECONDARY_DIM,
   },
 })

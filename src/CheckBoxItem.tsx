@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { COLORS, FONT_FAMILY } from './styles'
+import { COLORS, FONT_FAMILY, FONT_SIZES } from './styles'
 
 export const CheckBoxItem = ({
   title,
@@ -58,9 +58,7 @@ const liStyles = StyleSheet.create({
   },
   title: {
     fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    fontSize: 16,
+    fontSize: FONT_SIZES[500],
     lineHeight: 24,
     color: 'white',
   },
