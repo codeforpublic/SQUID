@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Alert, AppState } from 'react-native'
+import { backgroundTracking } from './background-tracking'
 
 export const isServiceAvailable = async () => {
   const t = Date.now()
@@ -25,11 +26,12 @@ export const useSystemAvailable = () => {
       console.log('checking...')
       isServiceAvailable().then(bool => {
         console.log('ServiceAvailable is ', bool)
-        if (bool) {
+        if (bool) {          
           setIsAvailable(true)
         } else {
+          backgroundTracking.stop()
           setIsAvailable(false)
-          Alert.alert('System is now shutdown')
+          Alert.alert('ระบบได้ปิดให้บริการแล้ว')
         }
       })
     }
