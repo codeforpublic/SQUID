@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar, View, Text, StyleSheet, ScrollView } from 'react-native'
 import { PrimaryButton } from '../components/Button'
 import { useNavigation } from 'react-navigation-hooks'
-import { COLORS, FONT_FAMILY } from '../styles'
+import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../styles'
 import { CheckBox } from 'react-native-elements'
 import { FormHeader } from '../components/Form/FormHeader'
 import { agreementText } from './const'
@@ -60,9 +60,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
+    fontFamily: FONT_BOLD,
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
@@ -71,10 +69,8 @@ const styles = StyleSheet.create({
   },
 
   subtitle: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontFamily: FONT_BOLD,
+    fontSize: FONT_SIZES[500],
     lineHeight: 24,
     alignItems: 'center',
     color: COLORS.GRAY_2,
@@ -88,7 +84,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   agreement: {
-    fontSize: 16,
+    fontSize: FONT_SIZES[500],
     lineHeight: 24,
     color: COLORS.GRAY_4,
     marginBottom: 16,
