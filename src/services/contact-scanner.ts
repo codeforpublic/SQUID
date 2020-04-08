@@ -10,9 +10,11 @@ class ScanManager {
   locationAccuracy: number
   latestUploadTS?: number
   oldestItemTS?: number
-  constructor({ ttl, locationAccuracy }) {
+  type: 'bluetooth' | 'qrscan'
+  constructor({ ttl, locationAccuracy, type }) {
     this.locationAccuracy = locationAccuracy
     this.ttl = ttl
+    this.type = type
     let prevState
     AppState.addEventListener('change', state => {
       if (prevState !== state) {
@@ -55,7 +57,7 @@ class ScanManager {
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
           accuracy: location.coords.accuracy,
-        })
+        }, this.type)
         this.latestUploadTS = Date.now()
       } catch (err) {
         console.log(err)
@@ -71,9 +73,11 @@ class ScanManager {
 
 export const scanManager = new ScanManager({
   ttl: 30 * 1000,
+  type: 'qrscan',
   locationAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
 })
-export const slowPaceScanner = new ScanManager({
+export const bluetoothScanner = new ScanManager({
   ttl: 10 * 60 * 1000,
+  type: 'bluetooth',
   locationAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_LOW,
 })
