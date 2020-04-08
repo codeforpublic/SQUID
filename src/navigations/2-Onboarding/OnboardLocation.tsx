@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Image,
   Platform,
+  SafeAreaView,
   StatusBar,
   Text,
   View,
@@ -15,6 +16,7 @@ import { backgroundTracking } from '../../services/background-tracking'
 import { COLORS } from '../../styles'
 import { isSmallDevice } from '../../utils/responsive'
 import { doctorSize, styles } from './const'
+import { OnboardHeader } from './OnboadHeader'
 
 const LOCATION_PERMISSION = Platform.select({
   ios: PERMISSIONS.IOS.LOCATION_ALWAYS,
@@ -82,93 +84,94 @@ export const OnboardLocation = () => {
   }
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: COLORS.WHITE,
-        // paddingHorizontal: 20
-      }}
-    >
-      <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
-      <View
+    <>
+      <SafeAreaView
         style={{
-          flex: 7,
-          alignItems: 'center',
-          justifyContent: 'center',
           backgroundColor: COLORS.BLUE,
         }}
-      >
-        <View
-          style={{ padding: 8, paddingHorizontal: 30, alignItems: 'center' }}
-        >
-          <Image
-            source={require('../../assets/morchana-permission-location.png')}
-            resizeMode="contain"
-            style={{ width: doctorSize }}
-          />
-          <Text style={styles.title}>ขอสิทธิ์เข้าถึงข้อมูล</Text>
-          <Text style={styles.subtitle}>
-            เพื่อให้หมอประเมินความเสี่ยงของคุณ
-          </Text>
-        </View>
-      </View>
-      <View
+      />
+      <SafeAreaView
         style={{
-          flex: 3,
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingHorizontal: 30,
-          paddingVertical: 30,
-          flexBasis: 180,
+          flex: 1,
+          backgroundColor: COLORS.WHITE,
+          // paddingHorizontal: 20
         }}
       >
-        <View style={{ flexDirection: 'row' }}>
-          {!isSmallDevice && (
-            <View style={{ paddingRight: 16 }}>
-              <Image
-                source={require('../../assets/perm-location-icon.png')}
-                resizeMode="contain"
-                style={{ width: 52 }}
-              />
-            </View>
-          )}
-          <View style={{ flex: 1 }}>
-            <Text style={styles.itemTitle}>ตำแหน่งของคุณ</Text>
-            <Text style={styles.description}>
-              เพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่มี ความเสี่ยง
-              หรืออยู่ในพื้นที่เสี่ยง
-            </Text>
-          </View>
-        </View>
-        <View style={{ flexDirection: 'row' }}>
-          {!isSmallDevice && (
-            <View style={{ paddingRight: 16 }}>
-              <Image
-                source={require('../../assets/perm-motion-icon.png')}
-                resizeMode="contain"
-                style={{ width: 52 }}
-              />
-            </View>
-          )}
-          <View style={{ flex: 1 }}>
-            <Text style={styles.itemTitle}>การเคลื่อนที่ของคุณ (MOTION)</Text>
-            <Text style={styles.description}>
-              เพื่อจัดการการใช้พลังงานของมือถือ อย่างมีประสิทธิภาพ
-            </Text>
-          </View>
-        </View>
-        <PrimaryButton
-          containerStyle={{ width: '100%' }}
-          title={'อนุญาตให้เข้าถึง'}
+        <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
+        <OnboardHeader
           style={{
-            marginTop: 30,
-            alignSelf: 'center',
-            width: '100%',
-            backgroundColor: COLORS.BLUE_BUTTON,
+            backgroundColor: COLORS.BLUE,
           }}
-          onPress={() => handleSubmit()}
         />
-      </View>
-    </View>
+        <View style={styles.topContainer}>
+          <View
+            style={{
+              padding: 8,
+              paddingHorizontal: 30,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Image
+              source={require('../../assets/morchana-permission-location.png')}
+              resizeMode="contain"
+              style={{ height: doctorSize }}
+            />
+            <Text style={styles.title}>ขอสิทธิ์เข้าถึงข้อมูล</Text>
+            <Text style={styles.subtitle}>
+              เพื่อให้หมอประเมินความเสี่ยงของคุณ
+            </Text>
+          </View>
+        </View>
+        <View style={styles.bottomContainer}>
+          <View style={{ flexDirection: 'row' }}>
+            {!isSmallDevice && (
+              <View style={{ paddingRight: 16 }}>
+                <Image
+                  source={require('../../assets/perm-location-icon.png')}
+                  resizeMode="contain"
+                  style={{ width: 52 }}
+                />
+              </View>
+            )}
+            <View style={{ flex: 1 }}>
+              <Text style={styles.itemTitle}>ตำแหน่งของคุณ</Text>
+              <Text style={styles.description}>
+                เพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่มี ความเสี่ยง
+                หรืออยู่ในพื้นที่เสี่ยง
+              </Text>
+            </View>
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            {!isSmallDevice && (
+              <View style={{ paddingRight: 16 }}>
+                <Image
+                  source={require('../../assets/perm-motion-icon.png')}
+                  resizeMode="contain"
+                  style={{ width: 52 }}
+                />
+              </View>
+            )}
+            <View style={{ flex: 1 }}>
+              <Text style={styles.itemTitle}>การเคลื่อนที่ของคุณ (MOTION)</Text>
+              <Text style={styles.description}>
+                เพื่อจัดการการใช้พลังงานของมือถือ อย่างมีประสิทธิภาพ
+              </Text>
+            </View>
+          </View>
+          <PrimaryButton
+            containerStyle={{ width: '100%' }}
+            title={'อนุญาตให้เข้าถึง'}
+            style={{
+              marginTop: 30,
+              alignSelf: 'center',
+              width: '100%',
+              backgroundColor: COLORS.BLUE_BUTTON,
+            }}
+            onPress={() => handleSubmit()}
+          />
+        </View>
+      </SafeAreaView>
+    </>
   )
 }
