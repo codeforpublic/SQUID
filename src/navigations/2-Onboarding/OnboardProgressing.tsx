@@ -1,5 +1,11 @@
 import React, { useEffect } from 'react'
-import { ActivityIndicator, StatusBar, StyleSheet, Text, View } from 'react-native'
+import {
+  ActivityIndicator,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from 'react-navigation-hooks'
 import { applicationState } from '../../state/app-state'
@@ -27,7 +33,7 @@ export const OnboardProgressing = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
-      <View style={{ height: 56 }}></View>
+      <View style={{ height: 56 }} />
       <View style={styles.header}>
         <Text style={styles.title}>{STRING.TITLE}</Text>
         <Text style={styles.subtitle}>{STRING.SUB_TITLE}</Text>
