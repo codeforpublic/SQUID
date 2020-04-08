@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import styled from '@emotion/native'
 import { Text, View, TouchableOpacity } from 'react-native'
-import { FONT_FAMILY } from '../styles'
+import { FONT_FAMILY, FONT_SIZES, FONT_MED } from '../styles'
 import FeatherIcon from 'react-native-vector-icons/Feather'
 
 const Container = styled(View)({
@@ -24,9 +24,8 @@ const SelectItemContainer = styled(View)(({ isSelected }) => ({
   alignItems: 'center'
 }))
 const SelectItemLabel = styled(Text)({
-  fontFamily: FONT_FAMILY,
-  fontSize: 20,
-  lineHeight: 28
+  fontFamily: FONT_MED,
+  fontSize: FONT_SIZES[600],
 })
 
 interface Props {

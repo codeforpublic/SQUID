@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image, Text, View, StyleSheet, StatusBar, Alert } from 'react-native'
 import { PrimaryButton } from '../../components/Button'
-import { COLORS, FONT_FAMILY } from '../../styles'
+import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
 import { Button } from 'react-native-elements'
 import { DebugTouchable } from '../../components/DebugTouchable'
 import { API_URL } from '../../config'
@@ -37,18 +37,13 @@ export const Home = ({ navigation }) => {
           หยุดเชื้อเพื่อชาติ{'\n'}
           ป้องกันการระบาดของโรค
         </Text>
-        <Button
+        <PrimaryButton
           title="ลงทะเบียน"
-          type="outline"
           titleStyle={{
             color: '#00A0D7',
-            fontWeight: 'bold',
-            fontSize: 20,
             width: 240,
-            fontFamily: FONT_FAMILY
           }}
           buttonStyle={{
-            borderRadius: 5,
             backgroundColor: 'white',            
           }}
           onPress={async () => {
@@ -68,9 +63,7 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 60,
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
+    fontFamily: FONT_BOLD,
     fontSize: 24,
     lineHeight: 44,
     textAlign: 'center',
@@ -81,10 +74,7 @@ const styles = StyleSheet.create({
     width: 262,
     marginBottom: 82,
     fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    fontSize: 18,
-    lineHeight: 25,
+    fontSize: FONT_SIZES[500],
     textAlign: 'center',
     color: COLORS.PRIMARY_LIGHT,
   },
