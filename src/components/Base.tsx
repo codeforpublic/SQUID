@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { FONT_FAMILY, COLORS } from '../styles'
+import { FONT_FAMILY, COLORS, FONT_BY_WEIGHT } from '../styles'
 import styled from '@emotion/native'
 
 export const Header = styled(View)({
@@ -20,7 +20,7 @@ export const Title = styled(Text)({
 })
 
 export const Subtitle = styled(Text)({
-  fontFamily: FONT_FAMILY,
+  fontFamily: FONT_BY_WEIGHT.BOLD,
   fontWeight: 'bold',
   fontSize: 16,
   lineHeight: 24,

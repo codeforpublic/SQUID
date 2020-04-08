@@ -29,6 +29,7 @@
 		D988E8EF24301732009500DC /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D988E8EE24301732009500DC /* Launch Screen.storyboard */; };
 		DB2A43B00A414B1EAF5EFFFA /* DBHelvethaicaX-BlkIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8207C214E52047A1870A3F21 /* DBHelvethaicaX-BlkIt.ttf */; };
 		E41DA6C4F20D4EE888A23CC1 /* DBHelvethaicaX-Med.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A93DDE0CF1104FC3A82164B9 /* DBHelvethaicaX-Med.ttf */; };
+		CD0F7327770B4E0A81D603D2 /* DBHelvethaicaX-Reg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90742424F7014571866EA086 /* DBHelvethaicaX-Reg.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +100,7 @@
 		E84E96F9CF18434ABD271A01 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		E9F8201E607CA56D9B1DEEA8 /* Pods-ThaiAlert.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThaiAlert.release.xcconfig"; path = "Target Support Files/Pods-ThaiAlert/Pods-ThaiAlert.release.xcconfig"; sourceTree = "<group>"; };
 		F27A3CF1E48C46D6BE032711 /* Prompt-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-SemiBold.ttf"; path = "../assets/fonts/Prompt-SemiBold.ttf"; sourceTree = "<group>"; };
+		90742424F7014571866EA086 /* DBHelvethaicaX-Reg.ttf */ = {isa = PBXFileReference; name = "DBHelvethaicaX-Reg.ttf"; path = "../assets/fonts/DBHelvethaicaX-Reg.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +212,7 @@
 				7BB682EFA96D4181BE320868 /* Octicons.ttf */,
 				A969BEA4F091401388A12E15 /* SimpleLineIcons.ttf */,
 				445983F9907B4DB896E90AAC /* Zocial.ttf */,
+				90742424F7014571866EA086 /* DBHelvethaicaX-Reg.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				8332433AD6FF40BCACE127F0 /* DBHelvethaicaX-UlLi.ttf in Resources */,
 				6307B650B6BE44DC9030AF83 /* DBHelvethaicaX-UlLiIt.ttf in Resources */,
 				272D506D33B9433294E2B974 /* DBHelvethaicaX.ttf in Resources */,
+				CD0F7327770B4E0A81D603D2 /* DBHelvethaicaX-Reg.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

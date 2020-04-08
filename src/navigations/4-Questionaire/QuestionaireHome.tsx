@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import styled from '@emotion/native'
 import { View, StyleSheet, Text, Image, Dimensions, StatusBar } from 'react-native'
-import { FONT_FAMILY, COLORS } from '../../styles'
+import { FONT_FAMILY, COLORS, FONT_BY_WEIGHT } from '../../styles'
 import { Button } from 'react-native-elements'
 import { useSafeArea } from 'react-native-safe-area-view'
 
@@ -24,7 +24,7 @@ const HomeListItem = ({ source, title, subtitle }) => {
       <Image source={source} style={{ marginRight: 30 }} />
       <View>
         <Text
-          style={{ fontFamily: FONT_FAMILY, fontWeight: 'bold', fontSize: 20 }}
+          style={{ fontFamily: FONT_BY_WEIGHT.BOLD, fontSize: 20 }}
         >
           {title}
         </Text>
@@ -124,9 +124,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
+    fontFamily: FONT_BY_WEIGHT.BOLD,
     fontSize: 24,
     lineHeight: 28,
     marginBottom: 12,
@@ -136,7 +134,6 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
     fontSize: 16,
     lineHeight: 24,
     alignItems: 'center',
