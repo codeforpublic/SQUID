@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, Dimensions, Image, Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
+import {
+  ActivityIndicator,
+  Image,
+  Platform,
+  StatusBar,
+  Text,
+  View,
+} from 'react-native'
 import { check, PERMISSIONS, request } from 'react-native-permissions'
 import { useNavigation } from 'react-navigation-hooks'
 import { PrimaryButton } from '../../components/Button'
 import { useHUD } from '../../HudView'
 import { backgroundTracking } from '../../services/background-tracking'
-import { COLORS, FONT_FAMILY } from '../../styles'
+import { COLORS } from '../../styles'
 import { isSmallDevice } from '../../utils/responsive'
-import { doctorSize,styles } from './const'
+import { doctorSize, styles } from './const'
 
 const LOCATION_PERMISSION = Platform.select({
   ios: PERMISSIONS.IOS.LOCATION_ALWAYS,
@@ -56,8 +63,8 @@ export const OnboardLocation = () => {
     backgroundTracking.start()
 
     setTimeout(() => {
-    navigation.navigate('OnboardBluetooth')}
-    ,1000)
+      navigation.navigate('OnboardBluetooth')
+    }, 1000)
   }
   if (locationPerm === 'checking' || activityPerm === 'checking') {
     return (
@@ -91,7 +98,9 @@ export const OnboardLocation = () => {
           backgroundColor: COLORS.BLUE,
         }}
       >
-        <View style={{ padding: 8, paddingHorizontal: 30,alignItems: 'center'}}>
+        <View
+          style={{ padding: 8, paddingHorizontal: 30, alignItems: 'center' }}
+        >
           <Image
             source={require('../../assets/morchana-permission-location.png')}
             resizeMode="contain"
@@ -105,7 +114,7 @@ export const OnboardLocation = () => {
       </View>
       <View
         style={{
-          flex:3,
+          flex: 3,
           alignItems: 'center',
           justifyContent: 'space-between',
           paddingHorizontal: 30,

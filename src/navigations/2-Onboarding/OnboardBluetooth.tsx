@@ -1,10 +1,10 @@
 import React from 'react'
-import { Dimensions, Image, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { Image, StatusBar, Text, View } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
 import { PrimaryButton } from '../../components/Button'
 import { useHUD } from '../../HudView'
 import { useContactTracer } from '../../services/contact-tracing-provider'
-import { COLORS, FONT_FAMILY } from '../../styles'
+import { COLORS } from '../../styles'
 import { isSmallDevice } from '../../utils/responsive'
 import { doctorSize, styles } from './const'
 

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import { Image, StatusBar, StyleSheet, Text, View, Dimensions } from 'react-native'
+import { Image, StatusBar, Text, View } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
 import { PrimaryButton } from '../../components/Button'
 import { useHUD } from '../../HudView'
 import { pushNotification } from '../../services/notification'
-import { COLORS, FONT_FAMILY } from '../../styles'
-import { doctorSize,styles } from './const'
+import { COLORS } from '../../styles'
+import { doctorSize, styles } from './const'
 
 export const OnboardNotification = () => {
   const navigation = useNavigation()
@@ -48,7 +48,15 @@ export const OnboardNotification = () => {
           backgroundColor: COLORS.BLUE,
         }}
       >
-        <View style={{ padding: 8, paddingHorizontal: 30,flex: 1,justifyContent:'center',alignItems:'center'}}>
+        <View
+          style={{
+            padding: 8,
+            paddingHorizontal: 30,
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           <Image
             source={require('../../assets/morchana-permission-notification.png')}
             resizeMode="contain"
@@ -61,7 +69,7 @@ export const OnboardNotification = () => {
         </View>
 
         <PrimaryButton
-          containerStyle={{ width: '100%', padding: 30,justifySelf: 'center'}}
+          containerStyle={{ width: '100%', padding: 30, justifySelf: 'center' }}
           title={'เปิดการแจ้งเตือน'}
           style={{
             marginTop: 30,
