@@ -3,14 +3,16 @@ import styled from '@emotion/native'
 import { Text, View, TouchableOpacity } from 'react-native'
 import { FONT_FAMILY, FONT_SIZES, FONT_MED } from '../styles'
 import FeatherIcon from 'react-native-vector-icons/Feather'
+import { normalize } from 'react-native-elements'
 
+const padding = normalize(16)
 const Container = styled(View)({
-  padding: 20,  
+  padding: padding,  
 })
 
 const SelectItemContainer = styled(View)(({ isSelected }) => ({
   paddingVertical: 12,
-  paddingHorizontal: 24,
+  paddingHorizontal: padding,
   backgroundColor: 'white',
   borderColor: isSelected ? '#216DB8' : '#E6F2FA',
   borderWidth: isSelected ? 2 : 1,

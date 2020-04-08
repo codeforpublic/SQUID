@@ -78,7 +78,7 @@ export const QuestionaireHome = ({ navigation }) => {
             justifyContent: 'center',
             flexDirection: 'row',
             alignItems: 'center',
-            paddingHorizontal: 10
+            paddingHorizontal: 10,            
           }}
         >
           <Image
@@ -91,7 +91,7 @@ export const QuestionaireHome = ({ navigation }) => {
             height: doctorSize * 219 / 192
           }} />
         </View>
-        <Content style={{ marginHorizontal: fixedFooter? 16: 0 }}>
+        <Content style={{ marginHorizontal: fixedFooter? 16: 0, borderBottomRightRadius: fixedFooter? 20: 0, borderBottomLeftRadius: fixedFooter? 20: 0 }}>
           <Text style={styles.title}>หมอชนะแวะมาสอบถาม อาการของคุณ</Text>
           <Text style={styles.subtitle}>
             สวัสดีครับ วันนี้หมอแวะมาประเมินอาการของคุณ

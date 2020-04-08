@@ -32,7 +32,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>morchana</string>
-				<string/>
+				<string></string>
 			</array>
 		</dict>
 	</array>

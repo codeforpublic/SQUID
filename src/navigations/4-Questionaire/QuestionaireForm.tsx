@@ -10,8 +10,10 @@ import { useIsFocused } from 'react-navigation-hooks'
 import { updateUserData } from '../../api'
 import { useHUD } from '../../HudView'
 import { ScrollView } from 'react-native-gesture-handler'
-import { Button } from 'react-native-elements'
+import { Button, normalize } from 'react-native-elements'
 import { applicationState } from '../../state/app-state'
+
+const padding = normalize(18)
 
 const Container = styled(View)({
   backgroundColor: '#FAFDFF',
@@ -20,7 +22,7 @@ const Container = styled(View)({
 const Footer = styled(View)({
   alignItems: 'center',
   marginVertical: 12,
-  paddingHorizontal: 20
+  paddingHorizontal: padding
 })
 
 export const FormDataInput = ({
@@ -82,7 +84,6 @@ const Progress = ({
           borderRadius: height / 2,
           width: progress * 100 + '%',
           backgroundColor: '#216DB8',
-          borderRadius: height / 2,
         }}
       />
     </View>
