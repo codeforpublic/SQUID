@@ -178,8 +178,8 @@ export const Camera = ({
   const [flashMode, setFlashMode] = useState(RNCamera.Constants.FlashMode.auto)
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: 'black', position: 'relative', alignItems: 'center' }}
+    <View
+      style={{ flex: 1, alignItems: 'center' }}
     >      
       {isFocused ? <RNCamera
         ref={cameraRef}
@@ -214,6 +214,6 @@ export const Camera = ({
         </View>
       </View>
       
-    </SafeAreaView>
+    </View>
   )
 }

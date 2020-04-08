@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { COLORS, FONT_FAMILY } from '../../styles'
+import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD } from '../../styles'
 import { useNavigation } from 'react-navigation-hooks'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {
@@ -27,7 +27,7 @@ export const AuthPhone = () => {
   const { showSpinner, hide } = useHUD()
   const [phone, setPhone] = useState(userPrivateData.getMobileNumber() || '')
   const isValidPhone = useMemo(
-    () => phone.replace(/-/g, '').match(/^[0-9]{10}$/),
+    () => phone.replace(/-/g, '').match(/^(0|1)[0-9]{9}$/),
     [phone],
   )
   const resetTo = useResetTo()
@@ -71,7 +71,7 @@ export const AuthPhone = () => {
               keyboardType={'phone-pad'}
               style={{
                 textAlign: 'center',
-                fontSize: 18,
+                fontSize: FONT_SIZES[500],
                 fontFamily: FONT_FAMILY,
                 letterSpacing: 3,
               }}
@@ -129,30 +129,26 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.WHITE },
   header: {
     alignItems: 'flex-start',
-    marginBottom: 32,
+    marginBottom: 16,
     marginHorizontal: 24,
   },
-
   title: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontSize: 24,
-    lineHeight: 40,
+    fontFamily: FONT_BOLD,
+    fontSize: FONT_SIZES[700],
     alignItems: 'center',
     color: COLORS.BLACK_1,
     textAlign: 'center',
   },
-  errorText: {
-    color: COLORS.RED,
-  },
   subtitle: {
     fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontSize: 16,
+    fontSize: FONT_SIZES[500],
     lineHeight: 24,
     alignItems: 'center',
-    color: COLORS.GRAY_2,
+    color: COLORS.SECONDARY_DIM,
     textAlign: 'center',
+  },
+  errorText: {
+    color: COLORS.RED,
   },
   content: {
     flex: 1,
@@ -164,11 +160,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderStyle: 'solid',
     borderColor: COLORS.BORDER_LIGHT_BLUE,
-  },
-  agreement: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: COLORS.BLACK_1,
   },
   footer: {
     alignItems: 'center',

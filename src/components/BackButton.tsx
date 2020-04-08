@@ -2,7 +2,7 @@ import React from 'react'
 import { TouchableOpacity, Text } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { COLORS, FONT_FAMILY } from '../styles'
+import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD } from '../styles'
 
 export const BackButton = ({
   onPress,
@@ -22,9 +22,9 @@ export const BackButton = ({
       <Text
         style={{
           color: COLORS.BLACK_3,
-          fontFamily: FONT_FAMILY,
+          fontFamily: FONT_BOLD,
           marginLeft: 12,
-          fontSize: 16,
+          fontSize: FONT_SIZES[500],
         }}
       >
         ย้อนกลับ

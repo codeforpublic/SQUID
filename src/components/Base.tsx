@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { FONT_FAMILY, COLORS } from '../styles'
+import { FONT_FAMILY, COLORS, FONT_BOLD, FONT_SIZES } from '../styles'
 import styled from '@emotion/native'
 
 export const Header = styled(View)({
@@ -10,7 +10,6 @@ export const Header = styled(View)({
 
 export const Title = styled(Text)({
   fontFamily: FONT_FAMILY,
-  fontStyle: 'normal',
   fontSize: 28,
   lineHeight: 36,
   alignItems: 'center',
@@ -20,9 +19,8 @@ export const Title = styled(Text)({
 })
 
 export const Subtitle = styled(Text)({
-  fontFamily: FONT_FAMILY,
-  fontWeight: 'bold',
-  fontSize: 16,
+  fontFamily: FONT_BOLD,
+  fontSize: FONT_SIZES[500],
   lineHeight: 24,
   alignItems: 'center',
   color: COLORS.GRAY_2,
@@ -31,7 +29,7 @@ export const Subtitle = styled(Text)({
 
 export const Link = styled(Text)({
   fontFamily: FONT_FAMILY,
-  fontSize: 16,
+  fontSize: FONT_SIZES[500],
   lineHeight: 30,
   alignItems: 'center',
   color: COLORS.BLUE,
@@ -40,15 +38,13 @@ export const Link = styled(Text)({
 
 export const WhiteText = styled(Text)({
   fontFamily: FONT_FAMILY,
-  fontStyle: 'normal',
-  fontSize: 16,
+  fontSize: FONT_SIZES[500],
   lineHeight: 30,
   color: COLORS.WHITE,
 })
 
 export const ColorText = styled(Text)`
   font-family: ${FONT_FAMILY};
-  font-style: normal;
   font-size: 16px;
   line-height: 30px;
   color: ${props => props.color};
