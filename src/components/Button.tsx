@@ -17,6 +17,7 @@ export const PrimaryButton = ({
   title,
   style = {},
   disabled,
+  titleStyle={},
   ...props
 }: PropTypes) => {
   return (
@@ -38,6 +39,7 @@ export const PrimaryButton = ({
         fontSize: 16,
         lineHeight: 22,
         color: COLORS.PRIMARY_LIGHT,
+        ...titleStyle
       }}
       disabled={disabled}
       onPress={onPress}

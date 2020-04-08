@@ -1,19 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { COLORS, FONT_FAMILY } from '../../styles'
-import { useNavigation } from 'react-navigation-hooks'
-import { MyBackground } from '../../components/MyBackground'
+import React, { useEffect } from 'react'
+import { ActivityIndicator, StatusBar, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import {
-  StatusBar,
-  View,
-  Text,
-  StyleSheet,
-  ActivityIndicator,
-} from 'react-native'
-import { PrimaryButton } from '../../components/Button'
+import { useNavigation } from 'react-navigation-hooks'
 import { applicationState } from '../../state/app-state'
-import { pushNotification } from '../../services/notification'
-import { useContactTracer } from '../../services/contact-tracing-provider'
+import { COLORS, FONT_FAMILY } from '../../styles'
 import { useResetTo } from '../../utils/navigation'
 
 const STRING = {
@@ -23,11 +13,8 @@ const STRING = {
 
 export const OnboardProgressing = () => {
   const navigation = useNavigation()
-  const contactTracer = useContactTracer()
   const resetTo = useResetTo()
   useEffect(() => {
-    pushNotification.configure()
-    contactTracer?.enable()
     setTimeout(() => {
       applicationState.setData('isPassedOnboarding', true)
       if (applicationState.getData('filledQuestionaire')) {
