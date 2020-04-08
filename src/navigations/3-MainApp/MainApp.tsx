@@ -277,7 +277,7 @@ export const MainApp = () => {
                   alignSelf: 'center',
                 }}
               >
-                ไม่ได้อัพเดทเป็นเวลา {Math.floor(timeSinceLastUpdate / 60000)}{' '}
+                ไม่ได้อัปเดตเป็นเวลา {Math.floor(timeSinceLastUpdate / 60000)}{' '}
                 นาที
               </Text>
             ) : qr ? (
@@ -289,7 +289,7 @@ export const MainApp = () => {
                   color: COLORS.GRAY_4,
                 }}
               >
-                {`อัพเดทล่าสุด ${qr.getCreatedDate().format('HH:mm น.')}`}
+                {`อัปเดตล่าสุด ${qr.getCreatedDate().format('HH:mm น.')}`}
               </Text>
             ) : (
               void 0
