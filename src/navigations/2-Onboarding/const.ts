@@ -2,7 +2,7 @@ import { Dimensions, StyleSheet } from 'react-native'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { isSmallDevice } from '../../utils/responsive'
 
-export const doctorSize = Dimensions.get('window').height >= 800 ? 218 : 150
+export const doctorSize = Dimensions.get('window').height >= 800 ? 218 : 120
 
 export const styles = StyleSheet.create({
   topContainer: {
@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
   },
   itemTitle: {
     fontFamily: FONT_FAMILY,
-    fontSize: 20,
+    fontSize: isSmallDevice ? 18 : 20,
     fontStyle: 'normal',
     fontWeight: 'bold',
     color: COLORS.SECONDARY_DARK,
@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
   subtitle: {
     fontFamily: FONT_FAMILY,
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: isSmallDevice ? 16 : 18,
     textAlign: 'left',
     alignSelf: 'center',
     color: COLORS.WHITE,
