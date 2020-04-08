@@ -24,7 +24,7 @@ export const PrimaryButton = ({
   return (
     <RButton
       buttonStyle={{
-        backgroundColor: disabled ? '#555' : COLORS.BLUE,
+        backgroundColor: disabled ? '#555' : COLORS.BLUE_BUTTON,
         borderRadius: 6,
         // height: 60,
         width: 240,
