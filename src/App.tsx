@@ -47,7 +47,7 @@ class App extends React.Component {
   }
   async load() {
     if (process.env.NODE_ENV !== 'production') {
-      await this.purgeAll()
+      // await this.purgeAll()
     }
 
     await Promise.all([applicationState.load(), userPrivateData.load()])
