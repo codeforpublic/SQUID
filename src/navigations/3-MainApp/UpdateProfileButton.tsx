@@ -13,11 +13,18 @@ export const UpdateProfileButton = ({ width, style, onChange }) => {
   const [data] = useApplicationState()
   const daySinceCreated = moment().diff(data.createdDate, 'days')
   const daySinceUpdated = moment().diff(data.updateProfileDate, 'days')
-  const isLock = !(daySinceCreated < START_PERIODS || daySinceUpdated >= DEFAULT_PERIODS)
-  console.log('daySinceCreated', daySinceCreated, daySinceCreated < START_PERIODS)
+  const isLock = !(
+    daySinceCreated < START_PERIODS || daySinceUpdated >= DEFAULT_PERIODS
+  )
+  console.log(
+    'daySinceCreated',
+    daySinceCreated,
+    daySinceCreated < START_PERIODS,
+  )
 
   return (
     <TouchableHighlight
+      hitSlop={{ top: 48, left: 48, right: 24, bottom: 24 }}
       activeOpacity={0.6}
       underlayColor="#DDDDDD"
       onPress={() => {
@@ -29,7 +36,7 @@ export const UpdateProfileButton = ({ width, style, onChange }) => {
           )
         } else {
           navigation.navigate('MainAppFaceCamera', {
-            setUri: (uri) => {
+            setUri: uri => {
               if (daySinceCreated >= 3) {
                 Alert.alert(
                   'คุณแน่ใจไหม ?',
