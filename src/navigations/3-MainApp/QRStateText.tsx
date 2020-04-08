@@ -1,5 +1,5 @@
 import React from 'react'
-import { COLORS, FONT_FAMILY } from '../../styles'
+import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import {
   View,
   StyleSheet,
@@ -89,7 +89,7 @@ export const QRStateText = ({
 const styles = StyleSheet.create({
   title: {
     color: COLORS.BLACK_1,
-    fontSize: 20,
+    fontSize: FONT_SIZES[600],
     fontFamily: FONT_FAMILY,
     textAlign: 'center',
   },

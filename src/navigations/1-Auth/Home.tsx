@@ -1,11 +1,10 @@
 import React from 'react'
-import { Image, Text, View, StyleSheet, StatusBar, Alert } from 'react-native'
+import { Alert, Image, StatusBar, StyleSheet, Text, View } from 'react-native'
+import CodePush from 'react-native-code-push'
 import { PrimaryButton } from '../../components/Button'
-import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
-import { Button } from 'react-native-elements'
 import { DebugTouchable } from '../../components/DebugTouchable'
 import { API_URL } from '../../config'
-import CodePush from 'react-native-code-push'
+import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 
 export const Home = ({ navigation }) => {
   return (
@@ -60,14 +59,6 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  title: {
-    marginTop: 60,
-    fontFamily: FONT_BOLD,
-    fontSize: 24,
-    lineHeight: 44,
-    textAlign: 'center',
-    color: COLORS.PRIMARY_LIGHT,
   },
   description: {
     marginTop: 20,

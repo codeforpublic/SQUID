@@ -4,7 +4,7 @@ import { CircularProgressAvatar } from '../../components/CircularProgressAvatar'
 import { View, Text, Image, Dimensions } from 'react-native'
 import { Title, Header, Subtitle } from '../../components/Base'
 import styled from '@emotion/native'
-import { FONT_FAMILY, COLORS } from '../../styles'
+import { FONT_FAMILY, COLORS, FONT_SIZES } from '../../styles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { MyBackground } from '../../components/MyBackground'
 import { PrimaryButton } from '../../components/Button'
@@ -39,7 +39,7 @@ const RiskLabel = ({ label, color, style }) => {
     >
       <Image source={require('./risk_icon.png')} width={100} height={100} />
       <Subtitle style={{ marginTop: 4 }}>ความเสี่ยง</Subtitle>
-      <Title style={{ fontWeight: '600', color, fontSize: 24, lineHeight: 36 }}>
+      <Title style={{ fontWeight: '600', color, fontSize: FONT_SIZES[700], lineHeight: 36 }}>
         {label}
       </Title>
     </View>
