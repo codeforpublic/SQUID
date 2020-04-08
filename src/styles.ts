@@ -32,12 +32,12 @@ export const FONT_BOLD = 'DBHelvethaicaX-Bd'
 export const FONT_MED = 'DBHelvethaicaX-Med'
 
 export const FONT_SIZES = {
-  200: normalize(8),
-  300: normalize(10),
-  400: normalize(13),
-  500: normalize(16), // 16px
-  600: normalize(20),
-  700: normalize(25),
-  800: normalize(31),
-  900: normalize(39),
+  200: 10,
+  300: 12,
+  400: 16,
+  500: 19, // 16px
+  600: 23,
+  700: 28,
+  800: 37,
+  900: 47,
 }

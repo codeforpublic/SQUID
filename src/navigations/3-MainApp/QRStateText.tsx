@@ -95,12 +95,14 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     color: COLORS.BLACK_1,
+    fontSize: FONT_SIZES[500],
     fontFamily: FONT_FAMILY,
     textAlign: 'center',
   },
   link: {
     color: '#02A0D7',
     fontFamily: FONT_FAMILY,
+    fontSize: FONT_SIZES[500],
     textAlign: 'center',
     textDecorationLine: 'underline',
   },

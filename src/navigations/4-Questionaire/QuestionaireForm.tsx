@@ -119,7 +119,7 @@ export const QuestionaireForm = ({ navigation }) => {
     <Footer style={{ paddingBottom: inset.bottom }}>
       <Button
         title={'ถัดไป'}
-        titleStyle={{ fontFamily: FONT_FAMILY }}
+        titleStyle={{ fontFamily: FONT_FAMILY, fontSize: FONT_SIZES[600] }}
         buttonStyle={{ height: 46, backgroundColor: '#216DB8', borderRadius: 10 }}
         containerStyle={{ width: '100%', borderRadius: 10 }}
         disabled={typeof value === 'undefined' || value?.length === 0}
@@ -165,7 +165,7 @@ export const QuestionaireForm = ({ navigation }) => {
             }}
           >
             <Text
-              style={{ fontFamily: FONT_BOLD,color:'#C4CCD4', marginRight: 12, fontSize: FONT_SIZES[500] }}
+              style={{ fontFamily: FONT_BOLD, color:'#C4CCD4', marginRight: 12, fontSize: FONT_SIZES[500] }}
             >
               {index + 1} / {dataInputTable.length}
             </Text>
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontFamily: FONT_FAMILY,
-    fontSize: FONT_SIZES[500],
+    fontSize: FONT_SIZES[600],
     lineHeight: 24,
     alignItems: 'center',
     color: COLORS.GRAY_4,
