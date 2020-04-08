@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View, Image, StyleSheet } from 'react-native'
 import { QRResult } from '../../state/qr'
-import { COLORS, FONT_FAMILY } from '../../styles'
+import { COLORS, FONT_FAMILY, FONT_BOLD } from '../../styles'
 
 const Label = ({ label }) => {
   return (
@@ -110,10 +110,9 @@ const styles = StyleSheet.create({
   },
   contentTitleContainer: {},
   contentTitle: {
-    fontWeight: 'bold',
     fontSize: 18,
     lineHeight: 25,
-    fontFamily: FONT_FAMILY,
+    fontFamily: FONT_BOLD,
     color: 'black',
   },
   contentTextContainer: {},

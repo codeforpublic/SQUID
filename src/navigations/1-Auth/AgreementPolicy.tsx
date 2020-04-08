@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar, View, Text, StyleSheet, ScrollView } from 'react-native'
 import { PrimaryButton } from '../../components/Button'
 import { useNavigation } from 'react-navigation-hooks'
-import { COLORS, FONT_FAMILY } from '../../styles'
+import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD } from '../../styles'
 import { CheckBox } from 'react-native-elements'
 import { FormHeader } from '../../components/Form/FormHeader'
 import { agreementText } from '../const'
@@ -44,7 +44,8 @@ export const AgreementPolicy = () => {
         checked={agree}
         onPress={() => setAgree(!agree)}
         checkedColor={COLORS.BLUE}
-        textStyle={{ color: COLORS.BLACK_1, fontSize: 16 }}
+        textStyle={{ color: COLORS.BLACK_1, fontSize: FONT_SIZES[500], fontWeight:'normal'}}
+        fontFamily={FONT_BOLD}
       />
       <View style={styles.footer}>
         <PrimaryButton
@@ -70,10 +71,8 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontSize: 24,
-    lineHeight: 40,
+    fontFamily: FONT_BOLD,
+    fontSize: FONT_SIZES[700],
     alignItems: 'center',
     color: COLORS.BLACK_1,
     textAlign: 'center',
@@ -81,11 +80,10 @@ const styles = StyleSheet.create({
 
   subtitle: {
     fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontSize: 16,
+    fontSize: FONT_SIZES[500],
     lineHeight: 24,
     alignItems: 'center',
-    color: COLORS.GRAY_2,
+    color: COLORS.SECONDARY_DIM,
     textAlign: 'center',
   },
   content: {
@@ -99,7 +97,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.BORDER_LIGHT_BLUE,
   },
   agreement: {
-    fontSize: 16,
+    fontSize: FONT_SIZES[400],
     lineHeight: 24,
     color: COLORS.GRAY_4,
     marginBottom: 16,

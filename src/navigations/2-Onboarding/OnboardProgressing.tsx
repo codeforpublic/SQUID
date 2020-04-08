@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { COLORS, FONT_FAMILY } from '../../styles'
-import { useNavigation } from 'react-navigation-hooks'
-import { MyBackground } from '../../components/MyBackground'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import React, { useEffect } from 'react'
 import {
-  StatusBar,
-  View,
-  Text,
-  StyleSheet,
   ActivityIndicator,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native'
-import { PrimaryButton } from '../../components/Button'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { useNavigation } from 'react-navigation-hooks'
 import { applicationState } from '../../state/app-state'
-import { pushNotification } from '../../services/notification'
-import { useContactTracer } from '../../services/contact-tracing-provider'
+import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
 import { useResetTo } from '../../utils/navigation'
 
 const STRING = {
@@ -23,11 +19,8 @@ const STRING = {
 
 export const OnboardProgressing = () => {
   const navigation = useNavigation()
-  const contactTracer = useContactTracer()
   const resetTo = useResetTo()
   useEffect(() => {
-    pushNotification.configure()
-    contactTracer?.enable()
     setTimeout(() => {
       applicationState.setData('isPassedOnboarding', true)
       if (applicationState.getData('filledQuestionaire')) {
@@ -40,7 +33,7 @@ export const OnboardProgressing = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
-      <View style={{ height: 56 }}></View>
+      <View style={{ height: 56 }} />
       <View style={styles.header}>
         <Text style={styles.title}>{STRING.TITLE}</Text>
         <Text style={styles.subtitle}>{STRING.SUB_TITLE}</Text>
@@ -60,9 +53,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
+    fontFamily: FONT_BOLD,
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
@@ -70,10 +61,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   subtitle: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontFamily: FONT_BOLD,
+    fontSize: FONT_SIZES[500],
     lineHeight: 24,
     alignItems: 'center',
     color: COLORS.GRAY_2,

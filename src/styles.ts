@@ -1,3 +1,5 @@
+import { normalize } from 'react-native-elements'
+
 export const COLORS = {
   WHITE: '#FAFDFF',
   PRIMARY_DARK: '#00A0D7',
@@ -17,8 +19,25 @@ export const COLORS = {
   YELLOW: '#E5DB5C',
   ORANGE_2: '#E74933',
   GREEN: '#27C269',
+  BLUE_BUTTON: '#216DB8',
+  SECONDARY_NORMAL: '#296EB7',
+  SECONDARY_DARK: '#0C2641',
+  SECONDARY_DIM: '#576675',
   LIGHT_BLUE: '#FAFDFF',
   BORDER_LIGHT_BLUE: '#E6F2FA',
 }
 
-export const FONT_FAMILY = 'Prompt'
+export const FONT_FAMILY = 'DBHelvethaicaX-Reg'
+export const FONT_BOLD = 'DBHelvethaicaX-Bd'
+export const FONT_MED = 'DBHelvethaicaX-Med'
+
+export const FONT_SIZES = {
+  200: normalize(8),
+  300: normalize(10),
+  400: normalize(13),
+  500: normalize(16), // 16px
+  600: normalize(20),
+  700: normalize(25),
+  800: normalize(31),
+  900: normalize(39),
+}

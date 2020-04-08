@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, Fragment, useMemo } from 'react'
-import { COLORS, FONT_FAMILY } from '../../styles'
+import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
 import { useSafeArea } from 'react-native-safe-area-context'
 import {
   Animated,
@@ -50,7 +50,6 @@ const Footer = ({ date = moment().locale('th') }) => {
         }}
       >
         <View style={{ marginRight: 12 }}>
-          
           <Text
             style={{
               fontFamily: FONT_FAMILY,
@@ -125,7 +124,6 @@ const useTimer = () => {
   )
 }
 
-
 export const MainApp = () => {
   const inset = useSafeArea()
   const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
@@ -138,12 +136,11 @@ export const MainApp = () => {
     Math.floor((20 / 100) * Dimensions.get('screen').height),
   )
 
-
   useEffect(() => {
     pushNotification.configure()
   }, [])
   useEffect(() => {
-    RNFS.exists(faceURI).then((exists) => {
+    RNFS.exists(faceURI).then(exists => {
       console.log('exists', exists)
       if (!exists) {
         resetTo({
@@ -158,7 +155,7 @@ export const MainApp = () => {
   const progress = qr ? (qr.getScore() / 100) * 100 : 0
   const color = qr
     ? qr.getStatusColor()
-    : (qrState === QR_STATE.NOT_VERIFIED || qrState === QR_STATE.FAILED)
+    : qrState === QR_STATE.NOT_VERIFIED || qrState === QR_STATE.FAILED
     ? COLORS.ORANGE_2
     : COLORS.GRAY_2
   const qrUri = qr ? qr.getQRImageURL() : ''
@@ -190,7 +187,9 @@ export const MainApp = () => {
             {
               backgroundColor: proficientLabel
                 ? PROFICIENT_BG
-                : Color(qr.getStatusColor()).alpha(0.1).toString(),
+                : Color(qr.getStatusColor())
+                    .alpha(0.1)
+                    .toString(),
               height: '50%',
             },
           ]}
@@ -212,11 +211,15 @@ export const MainApp = () => {
               progress={progress}
               width={avatarWidth}
             />
-            <UpdateProfileButton width={Math.floor(avatarWidth / 6)} style={{
-              position: 'absolute',
-              bottom: Math.floor((8 / 100) * avatarWidth),
-              right: Math.floor((8 / 100) * avatarWidth),
-            }} onChange={setFaceURI}/>
+            <UpdateProfileButton
+              width={Math.floor(avatarWidth / 6)}
+              style={{
+                position: 'absolute',
+                bottom: Math.floor((8 / 100) * avatarWidth),
+                right: Math.floor((8 / 100) * avatarWidth),
+              }}
+              onChange={setFaceURI}
+            />
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -252,10 +255,9 @@ export const MainApp = () => {
             {label ? (
               <Text
                 style={{
-                  fontFamily: FONT_FAMILY,
-                  fontSize: 16,
+                  fontFamily: FONT_BOLD,
+                  fontSize: FONT_SIZES[500],
                   marginTop: 12,
-                  fontWeight: 'bold',
                   textDecorationLine: 'underline',
                   color,
                 }}
@@ -274,19 +276,19 @@ export const MainApp = () => {
                   alignSelf: 'center',
                 }}
               >
-                ไม่ได้อัพเดทเป็นเวลา {Math.floor(timeSinceLastUpdate / 60000)}{' '}
+                ไม่ได้อัปเดตเป็นเวลา {Math.floor(timeSinceLastUpdate / 60000)}{' '}
                 นาที
               </Text>
             ) : qr ? (
               <Text
                 style={{
                   fontFamily: FONT_FAMILY,
-                  fontSize: 16,
+                  fontSize: FONT_SIZES[500],
                   alignSelf: 'center',
                   color: COLORS.GRAY_4,
                 }}
               >
-                {`อัพเดทล่าสุด ${qr.getCreatedDate().format('HH:mm น.')}`}
+                {`อัปเดตล่าสุด ${qr.getCreatedDate().format('HH:mm น.')}`}
               </Text>
             ) : (
               void 0
@@ -368,16 +370,13 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontSize: 16,
+    fontSize: FONT_SIZES[500],
     lineHeight: 32,
     marginLeft: 8,
     color: COLORS.PRIMARY_LIGHT,
   },
   title: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
+    fontFamily: FONT_BOLD,
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',
@@ -388,10 +387,8 @@ const styles = StyleSheet.create({
     color: COLORS.RED,
   },
   subtitle: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontFamily: FONT_BOLD,
+    fontSize: FONT_SIZES[500],
     lineHeight: 24,
     alignItems: 'center',
     color: COLORS.GRAY_2,

@@ -1,5 +1,5 @@
 import React, { Component, Fragment, useEffect } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, AsyncStorage } from 'react-native'
 
 import {
   createStackNavigator,
