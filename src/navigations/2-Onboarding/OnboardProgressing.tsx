@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
 
   title: {
     fontFamily: FONT_BOLD,
-    fontSize: FONT_SIZES[600],
+    fontSize: FONT_SIZES[700],
     lineHeight: 40,
     alignItems: 'center',
     color: COLORS.BLACK_1,
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontFamily: FONT_BOLD,
-    fontSize: FONT_SIZES[500],
+    fontSize: FONT_SIZES[600],
     lineHeight: 24,
     alignItems: 'center',
     color: COLORS.GRAY_2,

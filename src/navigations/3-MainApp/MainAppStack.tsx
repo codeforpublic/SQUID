@@ -18,9 +18,8 @@ export const MainAppTab = createBottomTabNavigator(
           <Text
             style={{
               textAlign: 'center',
-              fontSize: FONT_SIZES[400],
-              fontFamily: FONT_FAMILY,
-              marginBottom: 2,
+              fontSize: FONT_SIZES[500],
+              fontFamily: FONT_FAMILY,              
               color: focused ? '#303342' : COLORS.GRAY_2,
             }}
           >
@@ -31,7 +30,7 @@ export const MainAppTab = createBottomTabNavigator(
           <Icon
             name="user"
             color={focused ? '#303342' : COLORS.GRAY_2}
-            size={20}
+            size={18}
           />
         ),
       },
@@ -43,9 +42,8 @@ export const MainAppTab = createBottomTabNavigator(
           <Text
             style={{
               textAlign: 'center',
-              fontSize: FONT_SIZES[400],
-              fontFamily: FONT_FAMILY,
-              marginBottom: 2,
+              fontSize: FONT_SIZES[500],
+              fontFamily: FONT_FAMILY,              
               color: focused ? '#303342' : COLORS.GRAY_2,
             }}
           >
@@ -56,7 +54,7 @@ export const MainAppTab = createBottomTabNavigator(
           <AntIcon
             name="scan1"
             color={focused ? '#303342' : COLORS.GRAY_2}
-            size={20}
+            size={18}
           />
         ),
       },
@@ -68,9 +66,8 @@ export const MainAppTab = createBottomTabNavigator(
           <Text
             style={{
               textAlign: 'center',
-              fontSize: FONT_SIZES[400],
-              fontFamily: FONT_FAMILY,
-              marginBottom: 2,
+              fontSize: FONT_SIZES[500],
+              fontFamily: FONT_FAMILY,              
               color: focused ? '#303342' : COLORS.GRAY_2,
             }}
           >
@@ -81,7 +78,7 @@ export const MainAppTab = createBottomTabNavigator(
           <AntIcon
             name="profile"
             color={focused ? '#303342' : COLORS.GRAY_2}
-            size={20}
+            size={18}
           />
         ),
       },
@@ -93,9 +90,9 @@ export const MainAppTab = createBottomTabNavigator(
     //       <Text
     //         style={{
     //           textAlign: 'center',
-    //           fontSize: FONT_SIZES[400],
+    //           fontSize: FONT_SIZES[500],
     //           fontFamily: FONT_FAMILY,
-    //           marginBottom: 2,
+  //           
     //           color: focused ? '#303342' : COLORS.GRAY_2,
     //         }}
     //       >
@@ -106,7 +103,7 @@ export const MainAppTab = createBottomTabNavigator(
     //       <AntIcon
     //         name="BugOutlined"
     //         color={focused ? '#303342' : COLORS.GRAY_2}
-    //         size={20}
+    //         size={18}
     //       />
     //     ),
     //   },

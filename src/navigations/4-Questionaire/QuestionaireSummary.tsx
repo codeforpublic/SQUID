@@ -9,14 +9,14 @@ import {
   Image,
   Dimensions,
 } from 'react-native'
-import { FONT_FAMILY, COLORS } from '../../styles'
+import { FONT_FAMILY, COLORS, FONT_SIZES } from '../../styles'
 import styled from '@emotion/native'
 import { FormHeader } from '../../components/Form/FormHeader'
 import { useSafeArea } from 'react-native-safe-area-view'
 import { useSelfQR, QR_STATE } from '../../state/qr'
 import { WhiteText } from '../../components/Base'
 import Icon from 'react-native-vector-icons/Entypo'
-import { Button } from 'react-native-elements'
+import { Button, normalize } from 'react-native-elements'
 
 const Container = styled(View)({
   backgroundColor: '#00A0D7',
@@ -25,16 +25,17 @@ const Container = styled(View)({
 
 const Content = styled.View`
   flex: 1;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  padding: 24px;
+  padding: 16px;
 `
 
 const Card = styled.View`
   background-color: white;
-  border-radius: 24px;
+  border-radius: 16px;
   align-items: center;
-  padding: 24px;
+  max-width: 360px;
+  padding: 16px;
 `
 
 const risks = [
@@ -66,7 +67,7 @@ const RiskLevel = ({ level }) => {
               alignItems: 'center',
             }}
           >
-            <WhiteText style={{ fontSize: 14 }}>{risk.text}</WhiteText>
+            <WhiteText style={{ fontSize: FONT_SIZES[500] }}>{risk.text}</WhiteText>
           </View>
         ))}
       </View>
@@ -128,7 +129,7 @@ export const QuestionaireSummary = ({ navigation }) => {
             </Text>
             <Text
               style={{
-                fontSize: 20,
+                fontSize: FONT_SIZES[500],
                 fontFamily: FONT_FAMILY,
                 color: 'black',
               }}
@@ -137,7 +138,7 @@ export const QuestionaireSummary = ({ navigation }) => {
             </Text>
             <Text
               style={{
-                fontSize: 20,
+                fontSize: FONT_SIZES[500],
                 fontFamily: FONT_FAMILY,
                 color: 'black',
               }}
@@ -146,10 +147,10 @@ export const QuestionaireSummary = ({ navigation }) => {
             </Text>
             <Text
               style={{
-                fontSize: 16,
-                marginTop: 32,
-                marginBottom: 16,
-                fontFamily: FONT_FAMILY,
+                fontSize: FONT_SIZES[500],
+                marginTop: 8,
+                marginBottom: 8,
+                fontFamily: FONT_FAMILY,                
                 color: '#576675',
               }}
             >
@@ -158,7 +159,7 @@ export const QuestionaireSummary = ({ navigation }) => {
             <RiskLevel level={qrData.getLevel()} />
             <View
               style={{
-                marginTop: 16,
+                marginTop: 4,
                 alignSelf: 'stretch',
               }}
             >

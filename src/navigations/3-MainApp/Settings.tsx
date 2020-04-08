@@ -143,13 +143,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   sectionText: {
-    fontSize: FONT_SIZES[500],
+    fontSize: FONT_SIZES[600],
     color: '#000000',
     fontFamily: FONT_FAMILY,
   },
   sectionDescription: {
     marginTop: 4,
-    fontSize: FONT_SIZES[400],
+    fontSize: FONT_SIZES[500],
     color: '#888888',
     fontFamily: FONT_FAMILY,
   },

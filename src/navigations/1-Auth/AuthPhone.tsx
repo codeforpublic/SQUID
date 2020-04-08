@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontFamily: FONT_FAMILY,
-    fontSize: FONT_SIZES[500],
+    fontSize: FONT_SIZES[600],
     lineHeight: 24,
     alignItems: 'center',
     color: COLORS.SECONDARY_DIM,
