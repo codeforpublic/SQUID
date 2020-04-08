@@ -179,7 +179,7 @@ export const Camera = ({
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: 'red', position: 'relative', alignItems: 'center' }}
+      style={{ flex: 1, backgroundColor: 'black', position: 'relative', alignItems: 'center' }}
     >      
       {isFocused ? <RNCamera
         ref={cameraRef}
