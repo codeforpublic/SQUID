@@ -113,7 +113,7 @@ export const AuthOTP = () => {
                 borderRadius: 4,
                 borderColor: COLORS.GRAY_2,
                 borderWidth: 1,
-                fontSize: 24,
+                fontSize: FONT_SIZES[700],
                 fontFamily: FONT_FAMILY,
                 color: COLORS.BLACK_1,
                 margin: 4,

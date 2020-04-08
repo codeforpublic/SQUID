@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
   sectionHeaderText: {
     color: '#AAAAAA',
-    fontSize: 14,
+    fontSize: FONT_SIZES[500],
     fontFamily: FONT_FAMILY
   },
   settingsSection: {
@@ -135,21 +135,21 @@ const styles = StyleSheet.create({
   },
   sectionDescription: {
     marginTop: 4,
-    fontSize: 12,
+    fontSize: FONT_SIZES[400],
     color: '#888888',
     fontFamily: FONT_FAMILY
   },
   mediumText: {
-    fontSize: 20,
+    fontSize: FONT_SIZES[600],
     color: '#000000',
   },
   largeText: {
-    fontSize: 24,
+    fontSize: FONT_SIZES[700],
     color: '#000000',
     fontFamily: FONT_FAMILY
   },
   sectionTitle: {
-    fontSize: 24,
+    fontSize: FONT_SIZES[700],
     fontWeight: '600',
     color: '#000000',
     fontFamily: FONT_FAMILY
