@@ -31,7 +31,6 @@ export const Subtitle = styled(Text)({
 
 export const Link = styled(Text)({
   fontFamily: FONT_FAMILY,
-  fontWeight: 'bold',
   fontSize: 16,
   lineHeight: 30,
   alignItems: 'center',
