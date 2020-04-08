@@ -16,6 +16,7 @@ import { backgroundTracking } from './services/background-tracking'
 import { ContactTracerProvider } from './services/contact-tracing-provider'
 import { applicationState } from './state/app-state'
 import { ThemeProvider } from 'emotion-theming'
+import { withSystemAvailable } from './services/available'
 
 const AppContainer = createAppContainer(Navigator)
 
@@ -33,7 +34,7 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
-    this.load().catch((err) => {
+    this.load().catch(err => {
       console.log('err', err)
       Alert.alert('Load app failed')
     })
@@ -49,13 +50,10 @@ class App extends React.Component {
       await this.purgeAll()
     }
 
-    await Promise.all([
-      applicationState.load(),
-      userPrivateData.load(),
-    ])
+    await Promise.all([applicationState.load(), userPrivateData.load()])
     await backgroundTracking.setup(
       Boolean(applicationState.getData('isPassedOnboarding')),
-    )    
+    )
 
     await NativeModules.ContactTracerModule.setUserId(
       userPrivateData.getAnonymousId(),
@@ -67,7 +65,7 @@ class App extends React.Component {
   }
   getTheme() {
     return {
-      scaling: Dimensions.get('window').height / 818
+      scaling: Dimensions.get('window').height / 818,
     }
   }
 
@@ -88,7 +86,7 @@ class App extends React.Component {
               <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }}>
                 <AppContainer
                   uriPrefix="morchana://"
-                  ref={(navigator) => {
+                  ref={navigator => {
                     this._navigator = navigator
                   }}
                 />
@@ -101,9 +99,11 @@ class App extends React.Component {
   }
 }
 
-export default codePush({
-  // @ts-ignore
-  updateDialog: true,
-  installMode: codePush.InstallMode.IMMEDIATE,
-  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-})(App)
+export default withSystemAvailable(
+  codePush({
+    // @ts-ignore
+    updateDialog: true,
+    installMode: codePush.InstallMode.IMMEDIATE,
+    checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+  })(App),
+)
