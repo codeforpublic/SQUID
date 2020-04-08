@@ -37,7 +37,7 @@ export const PrimaryButton = ({
         fontStyle: 'normal',
         fontWeight: '600',
         fontSize: 16,
-        lineHeight: 22,
+        lineHeight: 30,
         color: COLORS.PRIMARY_LIGHT,
         ...titleStyle
       }}
@@ -72,7 +72,7 @@ export const DangerButton = ({
         fontStyle: 'normal',
         fontWeight: '600',
         fontSize: 16,
-        lineHeight: 22,
+        lineHeight: 30,
         color: COLORS.PRIMARY_LIGHT,
       }}
       disabled={disabled}
@@ -107,7 +107,7 @@ export const RectButton = ({
         fontStyle: 'normal',
         fontWeight: '600',
         fontSize: 16,
-        lineHeight: 22,
+        lineHeight: 30,
       }}
       disabled={disabled}
       onPress={onPress}

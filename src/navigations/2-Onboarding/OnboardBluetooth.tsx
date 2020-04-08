@@ -41,7 +41,6 @@ export const OnboardBluetooth = () => {
           backgroundColor: COLORS.BLUE,
         }}
       >
-        <Icon name="location" color={COLORS.BLUE} size={64} />
         <View style={{ padding: 8, paddingHorizontal: 30 }}>
           <Image
             source={require('../../assets/morchana-permission-bluetooth.png')}
@@ -62,8 +61,12 @@ export const OnboardBluetooth = () => {
         }}
       >
         <View style={{ flexDirection: 'row' }}>
-          <View>
-            <AntIcon name="checksquareo" size={18} color={COLORS.BLUE} />
+          <View style={{ paddingRight: 16 }}>
+            <Image
+              source={require('../../assets/perm-bluetooth-icon.png')}
+              resizeMode="contain"
+              style={{ width: 52 }}
+            />
           </View>
           <View style={{ flex: 1 }}>
             <Text style={styles.itemTitle}>ขอสิทธ์เข้าถึงบลูทูธ Bluetooth</Text>
