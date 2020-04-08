@@ -1,11 +1,22 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useResetTo } from '../../utils/navigation'
-import { StyleSheet, View, StatusBar, ActivityIndicator } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  StatusBar,
+  ActivityIndicator,
+  Text,
+  Image,
+  Dimensions,
+} from 'react-native'
 import { FONT_FAMILY, COLORS } from '../../styles'
 import styled from '@emotion/native'
 import { FormHeader } from '../../components/Form/FormHeader'
 import { useSafeArea } from 'react-native-safe-area-view'
 import { useSelfQR, QR_STATE } from '../../state/qr'
+import { WhiteText } from '../../components/Base'
+import Icon from 'react-native-vector-icons/Entypo'
+import { Button } from 'react-native-elements'
 
 const Container = styled(View)({
   backgroundColor: '#00A0D7',
@@ -16,23 +27,74 @@ const Content = styled.View`
   flex: 1;
   justify-content: flex-end;
   align-items: center;
+  padding: 24px;
 `
 
 const Card = styled.View`
   background-color: white;
   border-radius: 24px;
+  align-items: center;
   padding: 24px;
 `
 
-const DoctorImage = styled.Image`
-  width: 60%;
-`
+const risks = [
+  { text: 'ต่ำ', color: COLORS.GREEN },
+  { text: 'ปานกลาง', color: COLORS.YELLOW },
+  { text: 'สูง', color: COLORS.ORANGE },
+  { text: 'สูงมาก', color: COLORS.RED },
+]
+
+const RiskLevel = ({ level }) => {
+  console.log({ level })
+  const indicatorMargin = `${(level - 1) * 25}%`
+  return (
+    <View style={{ width: '100%', alignItems: 'center' }}>
+      <View
+        style={{
+          borderRadius: 16,
+          height: 32,
+          flexDirection: 'row',
+          overflow: 'hidden',
+        }}
+      >
+        {risks.map(risk => (
+          <View
+            key={risk.text}
+            style={{
+              backgroundColor: risk.color,
+              flex: 1,
+              alignItems: 'center',
+            }}
+          >
+            <WhiteText style={{ fontSize: 14 }}>{risk.text}</WhiteText>
+          </View>
+        ))}
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          alignSelf: 'stretch',
+        }}
+      >
+        <View
+          style={{
+            marginLeft: indicatorMargin,
+            width: '25%',
+            alignItems: 'center',
+          }}
+        >
+          <Icon name="triangle-up" color="black" size={24} />
+        </View>
+      </View>
+    </View>
+  )
+}
 
 export const QuestionaireSummary = ({ navigation }) => {
   const resetTo = useResetTo()
   const inset = useSafeArea()
   const { qrData, qrState, error, refreshQR } = useSelfQR()
-
   // useEffect(() => {
   //   resetTo({ routeName: 'MainApp' })
   // }, [])
@@ -44,40 +106,82 @@ export const QuestionaireSummary = ({ navigation }) => {
         <ActivityIndicator />
       ) : (
         <Content>
-          <DoctorImage
+          <Image
             source={require('./assets/smile-doctor.png')}
-            resizeMode="contain"
+            style={{
+              width: Math.floor(Dimensions.get('window').width * 0.6),
+              height: Math.floor(
+                (1578 / 1370) * Dimensions.get('window').width * 0.6,
+              ),
+            }}
+            resizeMode="cover"
           />
-          <Card />
+          <Card>
+            <Text
+              style={{
+                fontSize: 36,
+                fontFamily: FONT_FAMILY,
+                color: qrData.getStatusColor(),
+              }}
+            >
+              {qrData.getLabel()}
+            </Text>
+            <Text
+              style={{
+                fontSize: 20,
+                fontFamily: FONT_FAMILY,
+                color: 'black',
+              }}
+            >
+              หมอจะให้ QR Code
+            </Text>
+            <Text
+              style={{
+                fontSize: 20,
+                fontFamily: FONT_FAMILY,
+                color: 'black',
+              }}
+            >
+              สำหรับตรวจสอบความเสี่ยง
+            </Text>
+            <Text
+              style={{
+                fontSize: 16,
+                marginTop: 32,
+                marginBottom: 16,
+                fontFamily: FONT_FAMILY,
+                color: '#576675',
+              }}
+            >
+              ระดับความเสี่ยง
+            </Text>
+            <RiskLevel level={qrData.getLevel()} />
+            <View
+              style={{
+                marginTop: 16,
+                alignSelf: 'stretch',
+              }}
+            >
+              <Button
+                title={'รับ QR Code'}
+                titleStyle={{ fontFamily: FONT_FAMILY }}
+                buttonStyle={{
+                  height: 46,
+                  backgroundColor: '#216DB8',
+                  borderRadius: 10,
+                  width: '100%',
+                }}
+                containerStyle={{
+                  borderRadius: 10,
+                }}
+                onPress={async () => {
+                  resetTo({ routeName: 'MainApp' })
+                }}
+              />
+            </View>
+          </Card>
         </Content>
       )}
     </Container>
   )
 }
-
-const styles = StyleSheet.create({
-  header: {
-    paddingHorizontal: 30,
-    marginBottom: 20,
-  },
-
-  title: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontSize: 24,
-    lineHeight: 32,
-    alignItems: 'center',
-    color: COLORS.PRIMARY_DARK,
-    textAlign: 'left',
-  },
-  subtitle: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontSize: 18,
-    lineHeight: 24,
-    alignItems: 'center',
-    color: COLORS.GRAY_4,
-    textAlign: 'left',
-  },
-})
