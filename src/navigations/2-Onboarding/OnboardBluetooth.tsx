@@ -58,13 +58,13 @@ export const OnboardBluetooth = () => {
         style={styles.bottomContainer}
       >
         <View style={{ flexDirection: 'row' }}>
-          {!isSmallDevice &&<View style={{ paddingRight: 16 }}>
+          <View style={{ paddingRight: 16 }}>
             <Image
               source={require('../../assets/perm-bluetooth-icon.png')}
               resizeMode="contain"
-              style={{ width: 52 }}
+              style={{ width: isSmallDevice? 40: 52 }}
             />
-          </View>}
+          </View>
           <View style={{ flex: 1 }}>
             <Text style={styles.itemTitle}>ขอสิทธ์เข้าถึงบลูทูธ Bluetooth</Text>
             <Text style={styles.description}>

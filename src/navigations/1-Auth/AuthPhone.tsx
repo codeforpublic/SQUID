@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.WHITE },
   header: {
     alignItems: 'flex-start',
-    marginBottom: 32,
+    marginBottom: 16,
     marginHorizontal: 24,
   },
 

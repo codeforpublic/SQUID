@@ -11,6 +11,9 @@ interface PropTypes {
 export const OnboardHeader = ({
   style,
 }: PropTypes) => {
+  if (Dimensions.get('window').height < 600) {
+    return null
+  }
   const logoHeight = Dimensions.get('window').height < 600 ? 40 : 60
   const logoWidth = (logoHeight * 101) / 54
   return (
