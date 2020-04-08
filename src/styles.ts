@@ -19,6 +19,8 @@ export const COLORS = {
          GREEN: '#27C269',
          BLUE_BUTTON: '#216DB8',
          SECONDARY_NORMAL: '#296EB7',
+         SECONDARY_DARK: '#0C2641',
+         SECONDARY_DIM: '#576675',
        }
 
 export const FONT_FAMILY = 'Prompt'

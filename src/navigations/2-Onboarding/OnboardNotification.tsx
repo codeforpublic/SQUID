@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
-import { Image, StatusBar, StyleSheet, Text, View } from 'react-native'
-import Icon from 'react-native-vector-icons/Entypo'
+import { Image, StatusBar, StyleSheet, Text, View, Dimensions } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
 import { PrimaryButton } from '../../components/Button'
 import { useHUD } from '../../HudView'
-import { backgroundTracking } from '../../services/background-tracking'
 import { pushNotification } from '../../services/notification'
 import { COLORS, FONT_FAMILY } from '../../styles'
+import { doctorSize,styles } from './const'
 
 export const OnboardNotification = () => {
   const navigation = useNavigation()
@@ -49,12 +48,11 @@ export const OnboardNotification = () => {
           backgroundColor: COLORS.BLUE,
         }}
       >
-        <Icon name="location" color={COLORS.BLUE} size={64} />
-        <View style={{ padding: 8, paddingHorizontal: 30 }}>
+        <View style={{ padding: 8, paddingHorizontal: 30,flex: 1,justifyContent:'center',alignItems:'center'}}>
           <Image
             source={require('../../assets/morchana-permission-notification.png')}
             resizeMode="contain"
-            style={{ width: 300 }}
+            style={{ width: doctorSize }}
           />
           <Text style={styles.title}>ให้หมอแจ้งเตือนคุณ</Text>
           <Text style={styles.subtitle}>
@@ -63,7 +61,7 @@ export const OnboardNotification = () => {
         </View>
 
         <PrimaryButton
-          containerStyle={{ width: '100%', padding: 30 }}
+          containerStyle={{ width: '100%', padding: 30,justifySelf: 'center'}}
           title={'เปิดการแจ้งเตือน'}
           style={{
             marginTop: 30,
@@ -80,37 +78,3 @@ export const OnboardNotification = () => {
     </View>
   )
 }
-const styles = StyleSheet.create({
-  title: {
-    marginTop: 10,
-    fontFamily: FONT_FAMILY,
-    fontWeight: 'bold',
-    fontSize: 36,
-    textAlign: 'left',
-    alignSelf: 'center',
-    color: COLORS.WHITE,
-  },
-  itemTitle: {
-    fontFamily: FONT_FAMILY,
-    fontSize: 18,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-  },
-  subtitle: {
-    fontFamily: FONT_FAMILY,
-    fontWeight: 'bold',
-    fontSize: 18,
-    textAlign: 'left',
-    alignSelf: 'center',
-    color: COLORS.WHITE,
-  },
-  description: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    fontSize: 14,
-    lineHeight: 26,
-    textAlign: 'left',
-    color: COLORS.BLACK_1,
-  },
-})
