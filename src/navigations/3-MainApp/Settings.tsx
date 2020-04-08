@@ -43,7 +43,9 @@ export const Settings = ({ navigation }) => {
           style={styles.scrollView}
         >
           <View>
-            <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}>ระบบค้นหา</Text></View>
+            <View style={styles.sectionHeader}>
+              <Text style={styles.sectionHeaderText}>ระบบค้นหา</Text>
+            </View>
             <View style={styles.settingsSection}>
               <View style={[styles.section]}>
                 <View style={styles.horizontalRow}>
@@ -52,7 +54,10 @@ export const Settings = ({ navigation }) => {
                   </View>
                   <View style={styles.rightArea}>
                     <Switch
-                      trackColor={{ false: '#767577', true: COLORS.PRIMARY_DARK }}
+                      trackColor={{
+                        false: '#767577',
+                        true: COLORS.PRIMARY_DARK,
+                      }}
                       ios_backgroundColor="#3e3e3e"
                       onValueChange={() =>
                         isServiceEnabled ? disable() : enable()
@@ -76,6 +81,15 @@ export const Settings = ({ navigation }) => {
               <TouchableHighlight onPress={_onPrivacyPolicyClicked}>
                 <View style={styles.section}>
                   <Text style={styles.sectionText}>นโยบายความเป็นส่วนตัว</Text>
+                </View>
+              </TouchableHighlight>
+              <TouchableHighlight
+                onPress={() => navigation.navigate('Questionaire')}
+              >
+                <View style={styles.section}>
+                  <Text style={styles.sectionText}>
+                    ทำแบบประเมินตนเองอีกครั้ง
+                  </Text>
                 </View>
               </TouchableHighlight>
               {/* <TouchableHighlight onPress={_onOpenSourceLicenseClicked}>
@@ -113,7 +127,7 @@ const styles = StyleSheet.create({
   sectionHeaderText: {
     color: '#AAAAAA',
     fontSize: 14,
-    fontFamily: FONT_FAMILY
+    fontFamily: FONT_FAMILY,
   },
   settingsSection: {
     borderTopWidth: 1,
@@ -131,13 +145,13 @@ const styles = StyleSheet.create({
   sectionText: {
     fontSize: FONT_SIZES[500],
     color: '#000000',
-    fontFamily: FONT_FAMILY
+    fontFamily: FONT_FAMILY,
   },
   sectionDescription: {
     marginTop: 4,
     fontSize: 12,
     color: '#888888',
-    fontFamily: FONT_FAMILY
+    fontFamily: FONT_FAMILY,
   },
   mediumText: {
     fontSize: 20,
@@ -146,13 +160,13 @@ const styles = StyleSheet.create({
   largeText: {
     fontSize: 24,
     color: '#000000',
-    fontFamily: FONT_FAMILY
+    fontFamily: FONT_FAMILY,
   },
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
     color: '#000000',
-    fontFamily: FONT_FAMILY
+    fontFamily: FONT_FAMILY,
   },
   scrollView: {},
 })
