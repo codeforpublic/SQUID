@@ -10,7 +10,7 @@ import {
   Alert,
   KeyboardAvoidingView,
 } from 'react-native'
-import { COLORS, FONT_FAMILY } from '../../styles'
+import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD } from '../../styles'
 import { PrimaryButton } from '../../components/Button'
 import AntIcon from 'react-native-vector-icons/AntDesign'
 import { requestOTP, verifyOTP } from '../../api'
@@ -175,24 +175,19 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginHorizontal: 24,
   },
-
   title: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontSize: 24,
-    lineHeight: 40,
+    fontFamily: FONT_BOLD,
+    fontSize: FONT_SIZES[700],
     alignItems: 'center',
     color: COLORS.BLACK_1,
     textAlign: 'center',
   },
-
   subtitle: {
     fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontSize: 16,
+    fontSize: FONT_SIZES[500],
     lineHeight: 24,
     alignItems: 'center',
-    color: COLORS.GRAY_2,
+    color: COLORS.SECONDARY_DIM,
     textAlign: 'center',
   },
   content: {
@@ -209,8 +204,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.WHITE },
   text: {
     fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontSize: 16,
+    fontSize: FONT_SIZES[500],
     lineHeight: 32,
     marginLeft: 8,
     color: COLORS.BLACK_1,

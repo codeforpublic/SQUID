@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import styled from '@emotion/native'
 import { View, StyleSheet, Text, Image, Dimensions, StatusBar } from 'react-native'
-import { FONT_FAMILY, COLORS } from '../../styles'
+import { FONT_FAMILY, COLORS, FONT_BOLD, FONT_SIZES } from '../../styles'
 import { Button } from 'react-native-elements'
 import { useSafeArea } from 'react-native-safe-area-view'
+import { PrimaryButton } from '../../components/Button'
 
 const Container = styled(View)({
   backgroundColor: '#00A0D7',
@@ -24,14 +25,14 @@ const HomeListItem = ({ source, title, subtitle }) => {
       <Image source={source} style={{ marginRight: 30 }} />
       <View>
         <Text
-          style={{ fontFamily: FONT_FAMILY, fontWeight: 'bold', fontSize: 20 }}
+          style={{ fontFamily: FONT_BOLD, fontSize: FONT_SIZES[600]}}
         >
           {title}
         </Text>
         <Text
           style={{
             fontFamily: FONT_FAMILY,
-            fontSize: 14,
+            fontSize: FONT_SIZES[500],
             color: COLORS.GRAY_2,
           }}
         >
@@ -97,14 +98,12 @@ export const QuestionaireHome = ({ navigation }) => {
             หมอจะแนะนำวิธีปฏิบัติตัวของคุณ
             ให้เหมาะสมกับความเสี่ยงที่หมอประเมินได้
           </Text>
-          <Button
+          <PrimaryButton
             containerStyle={{ width: '100%', marginTop: 32 }}
-            buttonStyle={{
-              height: 46,
+            style={{
+              width: '100%',
               backgroundColor: '#216DB8',
-              borderRadius: 10,
             }}
-            titleStyle={{ fontFamily: FONT_FAMILY }}
             title={'เริ่มประเมิน'}
             onPress={async () => {
               navigation.navigate('QuestionaireForm')
@@ -124,10 +123,8 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontSize: 24,
+    fontFamily: FONT_BOLD,
+    fontSize: FONT_SIZES[700],
     lineHeight: 28,
     marginBottom: 12,
     alignItems: 'center',
@@ -136,11 +133,9 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: FONT_SIZES[600],
     alignItems: 'center',
-    color: COLORS.GRAY_2,
+    color: COLORS.SECONDARY_DIM,
     textAlign: 'left',
   },
 })

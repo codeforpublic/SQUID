@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Text, StatusBar } from 'react-native'
-import { COLORS, FONT_FAMILY } from '../styles'
+import { COLORS, FONT_FAMILY, FONT_BOLD } from '../styles'
 import SafeAreaView from 'react-native-safe-area-view'
 
 import { useNavigation } from 'react-navigation-hooks'
@@ -59,9 +59,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'bold',
+    fontFamily: FONT_BOLD,
     fontSize: 24,
     lineHeight: 40,
     alignItems: 'center',

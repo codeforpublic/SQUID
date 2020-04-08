@@ -12,7 +12,7 @@ import {
   NativeModules,
   Platform,
 } from 'react-native'
-import { COLORS } from '../../styles'
+import { COLORS, FONT_SIZES } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { requestLocationPermission } from './Permission'
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   normalText: {
-    fontSize: 16,
+    fontSize: FONT_SIZES[500],
     color: '#000000',
   },
   mediumText: {
