@@ -2,7 +2,7 @@ import { Dimensions, StyleSheet } from 'react-native'
 import { COLORS, FONT_FAMILY } from '../../styles'
 
 
-export const doctorSize = Dimensions.get('window').height >= 600 ? 300 : 140
+export const doctorSize = Dimensions.get('window').height >= 800 ? 300 : 150
 
 export const styles = StyleSheet.create({
   title: {
