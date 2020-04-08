@@ -25,4 +25,5 @@ export const COLORS = {
   BORDER_LIGHT_BLUE: '#E6F2FA',
 }
 
-export const FONT_FAMILY = 'Prompt'
+export const FONT_FAMILY = 'DB Helvethaica X'
+
