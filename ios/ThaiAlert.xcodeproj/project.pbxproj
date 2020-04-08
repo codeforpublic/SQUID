@@ -12,7 +12,6 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		1BF308EF61674F0EA8DC15D5 /* DBHelvethaicaX-MedIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A81E1C9A24394FC1BAEFAE9C /* DBHelvethaicaX-MedIt.ttf */; };
 		1F51727EE9454D609CF6186E /* DBHelvethaicaX-Li.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 090846D618034DC3A1BF67B9 /* DBHelvethaicaX-Li.ttf */; };
-		272D506D33B9433294E2B974 /* DBHelvethaicaX.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77CD95EF481740E59CCF3E8B /* DBHelvethaicaX.ttf */; };
 		2852A1D5467442B4ABC8BCDE /* DBHelvethaicaX-Blk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2D9A40DE154D42909FAAABD1 /* DBHelvethaicaX-Blk.ttf */; };
 		2DEC04DBB57741BF8EDD3550 /* DBHelvethaicaX-It.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9E6C21F42BB49F3A5F22BAB /* DBHelvethaicaX-It.ttf */; };
 		39F35AF94DEE46B49222E38C /* DBHelvethaicaX-LiIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 198210C6E770401BB26824FE /* DBHelvethaicaX-LiIt.ttf */; };
@@ -24,12 +23,12 @@
 		9061E0BAF85344DF89EE3628 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 59734E132FCC4616AE67D544 /* libz.tbd */; };
 		98D101F8D70F49B38A5B30C1 /* DBHelvethaicaX-BdIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C258F860B2FF442CB80806B6 /* DBHelvethaicaX-BdIt.ttf */; };
 		AC463FAB5EA642DDA0E5AB58 /* DBHelvethaicaX-ThinIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C2F038AAB4E62AD96DA82 /* DBHelvethaicaX-ThinIt.ttf */; };
+		CD0F7327770B4E0A81D603D2 /* DBHelvethaicaX-Reg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90742424F7014571866EA086 /* DBHelvethaicaX-Reg.ttf */; };
 		D20BC62B371245BF95CF983C /* DBHelvethaicaX-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99E1DDFF5FA54CBE8DC665A2 /* DBHelvethaicaX-Thin.ttf */; };
 		D9459BA8243B91D900588DC9 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9459BA7243B91D900588DC9 /* AppCenter-Config.plist */; };
 		D988E8EF24301732009500DC /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D988E8EE24301732009500DC /* Launch Screen.storyboard */; };
 		DB2A43B00A414B1EAF5EFFFA /* DBHelvethaicaX-BlkIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8207C214E52047A1870A3F21 /* DBHelvethaicaX-BlkIt.ttf */; };
 		E41DA6C4F20D4EE888A23CC1 /* DBHelvethaicaX-Med.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A93DDE0CF1104FC3A82164B9 /* DBHelvethaicaX-Med.ttf */; };
-		CD0F7327770B4E0A81D603D2 /* DBHelvethaicaX-Reg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90742424F7014571866EA086 /* DBHelvethaicaX-Reg.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +78,7 @@
 		8C3008BFAAB04B0CBDFAC845 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		8D8C2F038AAB4E62AD96DA82 /* DBHelvethaicaX-ThinIt.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DBHelvethaicaX-ThinIt.ttf"; path = "../assets/fonts/DBHelvethaicaX-ThinIt.ttf"; sourceTree = "<group>"; };
 		8FD7211C87B146C082620E64 /* DBHelvethaicaX-Bd.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DBHelvethaicaX-Bd.ttf"; path = "../assets/fonts/DBHelvethaicaX-Bd.ttf"; sourceTree = "<group>"; };
+		90742424F7014571866EA086 /* DBHelvethaicaX-Reg.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DBHelvethaicaX-Reg.ttf"; path = "../assets/fonts/DBHelvethaicaX-Reg.ttf"; sourceTree = "<group>"; };
 		98138CBE0C1C42268A70FD98 /* Prompt-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-Italic.ttf"; path = "../assets/fonts/Prompt-Italic.ttf"; sourceTree = "<group>"; };
 		99E1DDFF5FA54CBE8DC665A2 /* DBHelvethaicaX-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DBHelvethaicaX-Thin.ttf"; path = "../assets/fonts/DBHelvethaicaX-Thin.ttf"; sourceTree = "<group>"; };
 		9A7D21D02A0DA4FEB298AE5E /* Pods-ThaiAlert.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThaiAlert.debug.xcconfig"; path = "Target Support Files/Pods-ThaiAlert/Pods-ThaiAlert.debug.xcconfig"; sourceTree = "<group>"; };
@@ -100,7 +100,6 @@
 		E84E96F9CF18434ABD271A01 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		E9F8201E607CA56D9B1DEEA8 /* Pods-ThaiAlert.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThaiAlert.release.xcconfig"; path = "Target Support Files/Pods-ThaiAlert/Pods-ThaiAlert.release.xcconfig"; sourceTree = "<group>"; };
 		F27A3CF1E48C46D6BE032711 /* Prompt-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-SemiBold.ttf"; path = "../assets/fonts/Prompt-SemiBold.ttf"; sourceTree = "<group>"; };
-		90742424F7014571866EA086 /* DBHelvethaicaX-Reg.ttf */ = {isa = PBXFileReference; name = "DBHelvethaicaX-Reg.ttf"; path = "../assets/fonts/DBHelvethaicaX-Reg.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -346,7 +345,6 @@
 				AC463FAB5EA642DDA0E5AB58 /* DBHelvethaicaX-ThinIt.ttf in Resources */,
 				8332433AD6FF40BCACE127F0 /* DBHelvethaicaX-UlLi.ttf in Resources */,
 				6307B650B6BE44DC9030AF83 /* DBHelvethaicaX-UlLiIt.ttf in Resources */,
-				272D506D33B9433294E2B974 /* DBHelvethaicaX.ttf in Resources */,
 				CD0F7327770B4E0A81D603D2 /* DBHelvethaicaX-Reg.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
