@@ -95,33 +95,20 @@
 		<string>Zocial.ttf</string>
 		<string>Fontisto.ttf</string>
 		<string>DBHelvethaicaX-Bd.ttf</string>
-		<string>DBHelvethaicaX-BdExt.ttf</string>
-		<string>DBHelvethaicaX-BdExtIt.ttf</string>
 		<string>DBHelvethaicaX-BdIt.ttf</string>
 		<string>DBHelvethaicaX-Blk.ttf</string>
-		<string>DBHelvethaicaX-BlkExt.ttf</string>
-		<string>DBHelvethaicaX-BlkExtIt.ttf</string>
 		<string>DBHelvethaicaX-BlkIt.ttf</string>
 		<string>DBHelvethaicaX-Ext.ttf</string>
 		<string>DBHelvethaicaX-ExtIt.ttf</string>
 		<string>DBHelvethaicaX-It.ttf</string>
 		<string>DBHelvethaicaX-Li.ttf</string>
-		<string>DBHelvethaicaX-LiExt.ttf</string>
-		<string>DBHelvethaicaX-LiExtIt.ttf</string>
 		<string>DBHelvethaicaX-LiIt.ttf</string>
 		<string>DBHelvethaicaX-Med.ttf</string>
-		<string>DBHelvethaicaX-MedExt.ttf</string>
-		<string>DBHelvethaicaX-MedExtIt.ttf</string>
 		<string>DBHelvethaicaX-MedIt.ttf</string>
 		<string>DBHelvethaicaX-Thin.ttf</string>
-		<string>DBHelvethaicaX-ThinExt.ttf</string>
-		<string>DBHelvethaicaX-ThinExtIt.ttf</string>
 		<string>DBHelvethaicaX-ThinIt.ttf</string>
 		<string>DBHelvethaicaX-UlLi.ttf</string>
-		<string>DBHelvethaicaX-UlLiExt.ttf</string>
-		<string>DBHelvethaicaX-UlLiExtIt.ttf</string>
 		<string>DBHelvethaicaX-UlLiIt.ttf</string>
-		<string>DBHelvethaicaX.ttf</string>
 		<string>DBHelvethaicaX-Reg.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
