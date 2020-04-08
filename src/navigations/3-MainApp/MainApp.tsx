@@ -50,7 +50,6 @@ const Footer = ({ date = moment().locale('th') }) => {
         }}
       >
         <View style={{ marginRight: 12 }}>
-          
           <Text
             style={{
               fontFamily: FONT_FAMILY,
@@ -125,7 +124,6 @@ const useTimer = () => {
   )
 }
 
-
 export const MainApp = () => {
   const inset = useSafeArea()
   const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
@@ -138,12 +136,11 @@ export const MainApp = () => {
     Math.floor((20 / 100) * Dimensions.get('screen').height),
   )
 
-
   useEffect(() => {
     pushNotification.configure()
   }, [])
   useEffect(() => {
-    RNFS.exists(faceURI).then((exists) => {
+    RNFS.exists(faceURI).then(exists => {
       console.log('exists', exists)
       if (!exists) {
         resetTo({
@@ -158,7 +155,7 @@ export const MainApp = () => {
   const progress = qr ? (qr.getScore() / 100) * 100 : 0
   const color = qr
     ? qr.getStatusColor()
-    : (qrState === QR_STATE.NOT_VERIFIED || qrState === QR_STATE.FAILED)
+    : qrState === QR_STATE.NOT_VERIFIED || qrState === QR_STATE.FAILED
     ? COLORS.ORANGE_2
     : COLORS.GRAY_2
   const qrUri = qr ? qr.getQRImageURL() : ''
@@ -190,7 +187,9 @@ export const MainApp = () => {
             {
               backgroundColor: proficientLabel
                 ? PROFICIENT_BG
-                : Color(qr.getStatusColor()).alpha(0.1).toString(),
+                : Color(qr.getStatusColor())
+                    .alpha(0.1)
+                    .toString(),
               height: '50%',
             },
           ]}
@@ -212,11 +211,15 @@ export const MainApp = () => {
               progress={progress}
               width={avatarWidth}
             />
-            <UpdateProfileButton width={Math.floor(avatarWidth / 6)} style={{
-              position: 'absolute',
-              bottom: Math.floor((8 / 100) * avatarWidth),
-              right: Math.floor((8 / 100) * avatarWidth),
-            }} onChange={setFaceURI}/>
+            <UpdateProfileButton
+              width={Math.floor(avatarWidth / 6)}
+              style={{
+                position: 'absolute',
+                bottom: Math.floor((8 / 100) * avatarWidth),
+                right: Math.floor((8 / 100) * avatarWidth),
+              }}
+              onChange={setFaceURI}
+            />
           </View>
         </View>
       </TouchableWithoutFeedback>
