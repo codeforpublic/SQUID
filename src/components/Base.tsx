@@ -46,3 +46,11 @@ export const WhiteText = styled(Text)({
   lineHeight: 30,
   color: COLORS.WHITE,
 })
+
+export const ColorText = styled(Text)`
+  font-family: ${FONT_FAMILY};
+  font-style: normal;
+  font-size: 16px;
+  line-height: 30px;
+  color: ${props => props.color};
+`
