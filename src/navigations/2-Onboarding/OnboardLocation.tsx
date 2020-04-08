@@ -1,22 +1,22 @@
-import React, { useEffect, useState, useContext } from 'react'
-import { MyBackground } from '../../components/MyBackground'
+import React, { useEffect, useState } from 'react'
 import {
-  View,
-  StatusBar,
-  Platform,
-  Text,
-  StyleSheet,
   ActivityIndicator,
+  Image,
+  Platform,
+  SafeAreaView,
+  StatusBar,
+  Text,
+  View,
 } from 'react-native'
-import { PERMISSIONS, check, request } from 'react-native-permissions'
+import { check, PERMISSIONS, request } from 'react-native-permissions'
 import { useNavigation } from 'react-navigation-hooks'
-import { FONT_FAMILY, COLORS } from '../../styles'
 import { PrimaryButton } from '../../components/Button'
-import Icon from 'react-native-vector-icons/Entypo'
-import AntIcon from 'react-native-vector-icons/AntDesign'
 import { useHUD } from '../../HudView'
-import { StackActions, NavigationActions } from 'react-navigation'
 import { backgroundTracking } from '../../services/background-tracking'
+import { COLORS } from '../../styles'
+import { isSmallDevice } from '../../utils/responsive'
+import { doctorSize, styles } from './const'
+import { OnboardHeader } from './OnboadHeader'
 
 const LOCATION_PERMISSION = Platform.select({
   ios: PERMISSIONS.IOS.LOCATION_ALWAYS,
@@ -63,7 +63,10 @@ export const OnboardLocation = () => {
     hide()
 
     backgroundTracking.start()
-    navigation.navigate('OnboardProgressing')
+
+    setTimeout(() => {
+      navigation.navigate('OnboardBluetooth')
+    }, 1000)
   }
   if (locationPerm === 'checking' || activityPerm === 'checking') {
     return (
@@ -81,62 +84,94 @@ export const OnboardLocation = () => {
   }
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: COLORS.WHITE,
-        // paddingHorizontal: 20
-      }}
-    >
-      <StatusBar
-        backgroundColor={COLORS.WHITE}
-        barStyle="dark-content"
+    <>
+      <SafeAreaView
+        style={{
+          backgroundColor: COLORS.BLUE,
+        }}
       />
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Icon name="location" color={COLORS.BLUE} size={64} />
-        <View style={{ padding: 8, paddingHorizontal: 30 }}>
-          <Text style={styles.title}>ขอสิทธิ์เข้าถึงข้อมูล</Text>
-          <Text style={styles.description}>
-            <AntIcon name="checksquareo" size={18} color={COLORS.BLUE} /> 1.
-            ที่อยู่ของคุณเพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง หรืออยู่ในพื้นที่เสี่ยง
-          </Text>
-          <Text style={styles.description}>
-            <AntIcon name="checksquareo" size={18} color={COLORS.BLUE} /> 2.
-            กิจกรรมการใช้งานของโทรศัพท์มือถือของท่านเพื่อจัดการการใช้พลังงานของมือถืออย่างมีประสิทธิภาพ
-          </Text>
-          <Text style={styles.description}>
-            <AntIcon name="checksquareo" size={18} color={COLORS.BLUE} /> 3.
-            บลูทูธพลังงานต่ำเพื่อคอยสแกนคนใกล้ตัว และแจ้งเตือนทันทีหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง
-          </Text>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: COLORS.WHITE,
+          // paddingHorizontal: 20
+        }}
+      >
+        <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
+        <OnboardHeader
+          style={{
+            backgroundColor: COLORS.BLUE,
+          }}
+        />
+        <View style={styles.topContainer}>
+          <View
+            style={{
+              padding: 8,
+              paddingHorizontal: 30,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Image
+              source={require('../../assets/morchana-permission-location.png')}
+              resizeMode="contain"
+              style={{ height: doctorSize }}
+            />
+            <Text style={styles.title}>ขอสิทธิ์เข้าถึงข้อมูล</Text>
+            <Text style={styles.subtitle}>
+              เพื่อให้หมอประเมินความเสี่ยงของคุณ
+            </Text>
+          </View>
+        </View>
+        <View style={styles.bottomContainer}>
+          <View style={{ flexDirection: 'row' }}>
+            {!isSmallDevice && (
+              <View style={{ paddingRight: 16 }}>
+                <Image
+                  source={require('../../assets/perm-location-icon.png')}
+                  resizeMode="contain"
+                  style={{ width: 52 }}
+                />
+              </View>
+            )}
+            <View style={{ flex: 1 }}>
+              <Text style={styles.itemTitle}>ตำแหน่งของคุณ</Text>
+              <Text style={styles.description}>
+                เพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่มี ความเสี่ยง
+                หรืออยู่ในพื้นที่เสี่ยง
+              </Text>
+            </View>
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            {!isSmallDevice && (
+              <View style={{ paddingRight: 16 }}>
+                <Image
+                  source={require('../../assets/perm-motion-icon.png')}
+                  resizeMode="contain"
+                  style={{ width: 52 }}
+                />
+              </View>
+            )}
+            <View style={{ flex: 1 }}>
+              <Text style={styles.itemTitle}>การเคลื่อนที่ของคุณ (MOTION)</Text>
+              <Text style={styles.description}>
+                เพื่อจัดการการใช้พลังงานของมือถือ อย่างมีประสิทธิภาพ
+              </Text>
+            </View>
+          </View>
           <PrimaryButton
+            containerStyle={{ width: '100%' }}
             title={'อนุญาตให้เข้าถึง'}
-            style={{ marginTop: 30, alignSelf: 'center', width: '100%' }}
+            style={{
+              marginTop: 30,
+              alignSelf: 'center',
+              width: '100%',
+              backgroundColor: COLORS.BLUE_BUTTON,
+            }}
             onPress={() => handleSubmit()}
           />
         </View>
-      </View>
-    </View>
+      </SafeAreaView>
+    </>
   )
 }
-const styles = StyleSheet.create({
-  title: {
-    marginTop: 10,
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    fontSize: 29,
-    lineHeight: 44,
-    textAlign: 'left',
-    color: COLORS.BLACK_1,
-  },
-  description: {
-    marginTop: 20,
-    fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    fontSize: 14,
-    lineHeight: 26,
-    textAlign: 'left',
-    color: COLORS.BLACK_1,    
-  },
-})

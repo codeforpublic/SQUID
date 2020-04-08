@@ -6,6 +6,8 @@ import { OnboardFace } from './OnboardFace'
 import { OnboardFaceCamera } from './OnboardFaceCamera'
 import { OnboardProgressing } from './OnboardProgressing'
 import { OnboardComplete } from './OnboardComplete'
+import { OnboardBluetooth } from './OnboardBluetooth'
+import { OnboardNotification } from './OnboardNotification'
 
 const OnboardFaceStack = createStackNavigator(
   {
@@ -21,6 +23,8 @@ export const OnboardingStack = createStackNavigator(
   {
     OnboardFaceStack,
     OnboardLocation,
+    OnboardBluetooth,
+    OnboardNotification,
     OnboardProgressing: {
       screen: OnboardProgressing,
       navigationOptions: {

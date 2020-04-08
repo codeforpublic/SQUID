@@ -27,7 +27,7 @@ export const AuthPhone = () => {
   const { showSpinner, hide } = useHUD()
   const [phone, setPhone] = useState(userPrivateData.getMobileNumber() || '')
   const isValidPhone = useMemo(
-    () => phone.replace(/-/g, '').match(/^[0-9]{10}$/),
+    () => phone.replace(/-/g, '').match(/^(0|1)[0-9]{9}$/),
     [phone],
   )
   const resetTo = useResetTo()
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.WHITE },
   header: {
     alignItems: 'flex-start',
-    marginBottom: 32,
+    marginBottom: 16,
     marginHorizontal: 24,
   },
 
