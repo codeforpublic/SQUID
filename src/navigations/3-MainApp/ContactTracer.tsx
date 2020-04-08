@@ -254,15 +254,15 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
   mediumText: {
-    fontSize: 20,
+    fontSize: FONT_SIZES[600],
     color: '#000000',
   },
   largeText: {
-    fontSize: 24,
+    fontSize: FONT_SIZES[700],
     color: '#000000',
   },
   sectionTitle: {
-    fontSize: 24,
+    fontSize: FONT_SIZES[700],
     fontWeight: '600',
     color: '#000000',
   },

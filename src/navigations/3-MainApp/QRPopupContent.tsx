@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View, Image, StyleSheet } from 'react-native'
 import { QRResult } from '../../state/qr'
-import { COLORS, FONT_FAMILY, FONT_BOLD } from '../../styles'
+import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
 
 const Label = ({ label }) => {
   return (
@@ -12,7 +12,7 @@ const Label = ({ label }) => {
 }
 
 export const QRPopupContent = (props: any) => {
-  const { appIconSource, appTitle, timeText: proficientLabel, title, body } = props
+  const { appTitle, timeText: proficientLabel, title, body } = props
   const qrResult: QRResult = props.qrResult
   return (
     <View style={[styles.popupContentContainer]}>
@@ -22,9 +22,6 @@ export const QRPopupContent = (props: any) => {
           { backgroundColor: qrResult.getStatusColor() },
         ]}
       >
-        <View style={styles.headerIconContainer}>
-          <Image style={styles.headerIcon} source={appIconSource || null} />
-        </View>
         <View style={styles.headerTextContainer}>
           <Text style={styles.headerText} numberOfLines={1}>
             {appTitle || ''}
@@ -69,7 +66,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 12,
     paddingVertical: 6,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
   headerIconContainer: {
@@ -89,18 +85,17 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontFamily: FONT_FAMILY,
-    fontSize: 18,
+    fontSize: FONT_SIZES[600],
     color: 'white',
-    lineHeight: 25,
+    paddingLeft: 16,
   },
   headerTimeContainer: {
     marginHorizontal: 16,
   },
   headerTime: {
     fontFamily: FONT_FAMILY,
-    fontSize: 14,
+    fontSize: FONT_SIZES[500],
     color: '#808080',
-    lineHeight: 14,
   },
   contentContainer: {
     width: '100%',
@@ -110,16 +105,14 @@ const styles = StyleSheet.create({
   },
   contentTitleContainer: {},
   contentTitle: {
-    fontSize: 18,
-    lineHeight: 25,
+    fontSize: FONT_SIZES[600],
     fontFamily: FONT_BOLD,
     color: 'black',
   },
   contentTextContainer: {},
   contentText: {
     fontFamily: FONT_FAMILY,
-    fontSize: 14,
-    lineHeight: 18,
+    fontSize: FONT_SIZES[500],
     color: '#808080',
     marginTop: 5,
   },

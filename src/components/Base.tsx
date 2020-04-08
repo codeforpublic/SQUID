@@ -9,8 +9,8 @@ export const Header = styled(View)({
 })
 
 export const Title = styled(Text)({
-  fontFamily: FONT_FAMILY,
-  fontSize: 28,
+  fontFamily: FONT_BOLD,
+  fontSize: FONT_SIZES[700],
   lineHeight: 36,
   alignItems: 'center',
   color: COLORS.PRIMARY_DARK,
@@ -45,7 +45,7 @@ export const WhiteText = styled(Text)({
 
 export const ColorText = styled(Text)`
   font-family: ${FONT_FAMILY};
-  font-size: 16px;
+  font-size: ${FONT_SIZES[500]};
   line-height: 30px;
   color: ${props => props.color};
 `
