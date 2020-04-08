@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { MyBackground } from '../../components/MyBackground'
 import {
-  View,
-  StatusBar,
-  Platform,
-  Text,
-  StyleSheet,
-  ActivityIndicator,
+    View,
+    StatusBar,
+    Platform,
+    Text,
+    StyleSheet,
+    ActivityIndicator,
+    Image
 } from 'react-native'
 import { PERMISSIONS, check, request } from 'react-native-permissions'
 import { useNavigation } from 'react-navigation-hooks'
@@ -63,7 +64,7 @@ export const OnboardLocation = () => {
     hide()
 
     backgroundTracking.start()
-    navigation.navigate('OnboardProgressing')
+    navigation.navigate('OnboardBluetooth')
   }
   if (locationPerm === 'checking' || activityPerm === 'checking') {
     return (
@@ -88,32 +89,71 @@ export const OnboardLocation = () => {
         // paddingHorizontal: 20
       }}
     >
-      <StatusBar
-        backgroundColor={COLORS.WHITE}
-        barStyle="dark-content"
-      />
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
+      <View
+        style={{
+          flex: 7,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: COLORS.BLUE,
+        }}
+      >
         <Icon name="location" color={COLORS.BLUE} size={64} />
         <View style={{ padding: 8, paddingHorizontal: 30 }}>
-          <Text style={styles.title}>ขอสิทธิ์เข้าถึงข้อมูล</Text>
-          <Text style={styles.description}>
-            <AntIcon name="checksquareo" size={18} color={COLORS.BLUE} /> 1.
-            ที่อยู่ของคุณเพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง หรืออยู่ในพื้นที่เสี่ยง
-          </Text>
-          <Text style={styles.description}>
-            <AntIcon name="checksquareo" size={18} color={COLORS.BLUE} /> 2.
-            กิจกรรมการใช้งานของโทรศัพท์มือถือของท่านเพื่อจัดการการใช้พลังงานของมือถืออย่างมีประสิทธิภาพ
-          </Text>
-          <Text style={styles.description}>
-            <AntIcon name="checksquareo" size={18} color={COLORS.BLUE} /> 3.
-            บลูทูธพลังงานต่ำเพื่อคอยสแกนคนใกล้ตัว และแจ้งเตือนทันทีหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง
-          </Text>
-          <PrimaryButton
-            title={'อนุญาตให้เข้าถึง'}
-            style={{ marginTop: 30, alignSelf: 'center', width: '100%' }}
-            onPress={() => handleSubmit()}
+          <Image
+            source={require('../../assets/morchana-permission-location.png')}
+            resizeMode="contain"
+            style={{ width: 300 }}
           />
+          <Text style={styles.title}>ขอสิทธิ์เข้าถึงข้อมูล</Text>
+          <Text style={styles.subtitle}>
+            เพื่อให้หมอประเมินความเสี่ยงของคุณ
+          </Text>
         </View>
+      </View>
+      <View
+        style={{
+          flex: 3,
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingHorizontal: 30,
+          paddingVertical: 30,
+        }}
+      >
+        <View style={{ flexDirection: 'row' }}>
+          <View>
+            <AntIcon name="checksquareo" size={18} color={COLORS.BLUE} />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.itemTitle}>ตำแหน่งของคุณ</Text>
+            <Text style={styles.description}>
+              เพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่มี ความเสี่ยง
+              หรืออยู่ในพื้นที่เสี่ยง
+            </Text>
+          </View>
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <View>
+            <AntIcon name="checksquareo" size={18} color={COLORS.BLUE} />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.itemTitle}>การเคลื่อนที่ของคุณ (MOTION)</Text>
+            <Text style={styles.description}>
+              เพื่อจัดการการใช้พลังงานของมือถือ อย่างมีประสิทธิภาพ
+            </Text>
+          </View>
+        </View>
+        <PrimaryButton
+          containerStyle={{ width: '100%' }}
+          title={'อนุญาตให้เข้าถึง'}
+          style={{
+            marginTop: 30,
+            alignSelf: 'center',
+            width: '100%',
+            backgroundColor: COLORS.BLUE_BUTTON,
+          }}
+          onPress={() => handleSubmit()}
+        />
       </View>
     </View>
   )
@@ -122,21 +162,33 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 10,
     fontFamily: FONT_FAMILY,
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    fontSize: 29,
-    lineHeight: 44,
+    fontWeight: 'bold',
+    fontSize: 36,
     textAlign: 'left',
-    color: COLORS.BLACK_1,
+    alignSelf: 'center',
+    color: COLORS.WHITE,
+  },
+  itemTitle: {
+    fontFamily: FONT_FAMILY,
+    fontSize: 18,
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+  },
+  subtitle: {
+    fontFamily: FONT_FAMILY,
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'left',
+    alignSelf: 'center',
+    color: COLORS.WHITE,
   },
   description: {
-    marginTop: 20,
     fontFamily: FONT_FAMILY,
     fontStyle: 'normal',
     fontWeight: 'normal',
     fontSize: 14,
     lineHeight: 26,
     textAlign: 'left',
-    color: COLORS.BLACK_1,    
+    color: COLORS.BLACK_1,
   },
 })
