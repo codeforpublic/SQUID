@@ -116,14 +116,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 100,
+    marginBottom: 20,
   },
   footer: {
     alignItems: 'center',
     marginBottom: 12,
   },
   header: {
-    marginTop: 30,
+    marginTop: 16,
     marginBottom: 16,
   },
   title: {
