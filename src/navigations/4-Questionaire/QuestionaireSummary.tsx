@@ -17,6 +17,7 @@ import { QR_STATE, useSelfQR } from '../../state/qr'
 import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD } from '../../styles'
 import { useResetTo } from '../../utils/navigation'
 import { isSmallDevice } from '../../utils/responsive'
+import { Button } from 'react-native-elements'
 
 const Container = styled(View)({
   backgroundColor: '#00A0D7',
@@ -25,7 +26,7 @@ const Container = styled(View)({
 
 const Content = styled.View`
   flex: 1;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   padding: 16px;
 `
@@ -67,7 +68,7 @@ const RiskLevel = ({ level }) => {
               alignItems: 'center',
             }}
           >
-            <WhiteText style={{ fontSize: FONT_SIZES[500] }}>
+            <WhiteText style={{ fontSize: FONT_SIZES[600] }}>
               {risk.text}
             </WhiteText>
           </View>
@@ -108,13 +109,13 @@ export const QuestionaireSummary = ({ navigation }) => {
       {qrState === QR_STATE.LOADING ? (
         <ActivityIndicator />
       ) : (
-        <Content>
+        <Content style={{ marginBottom: inset.bottom }}>
           <Image
             source={require('./assets/smile-doctor.png')}
             style={{
-              width: Math.floor(Dimensions.get('window').width * 0.6),
+              width: Math.floor(Dimensions.get('window').width * 0.5),
               height: Math.floor(
-                (1578 / 1370) * Dimensions.get('window').width * 0.6,
+                (1578 / 1370) * Dimensions.get('window').width * 0.5,
               ),
             }}
             resizeMode="cover"
@@ -131,7 +132,7 @@ export const QuestionaireSummary = ({ navigation }) => {
             </Text>
             <Text
               style={{
-                fontSize: FONT_SIZES[500],
+                fontSize: FONT_SIZES[600],
                 fontFamily: FONT_FAMILY,
                 color: 'black',
               }}
@@ -140,7 +141,7 @@ export const QuestionaireSummary = ({ navigation }) => {
             </Text>
             <Text
               style={{
-                fontSize: FONT_SIZES[500],
+                fontSize: FONT_SIZES[600],
                 fontFamily: FONT_FAMILY,
                 color: 'black',
               }}
@@ -149,9 +150,9 @@ export const QuestionaireSummary = ({ navigation }) => {
             </Text>
             <Text
               style={{
-                fontSize: FONT_SIZES[500],
+                fontSize: FONT_SIZES[600],
                 marginTop: 8,
-                marginBottom: 8,
+                marginBottom: 4,
                 fontFamily: FONT_FAMILY,
                 color: '#576675',
               }}
@@ -175,6 +176,24 @@ export const QuestionaireSummary = ({ navigation }) => {
                 }}
                 onPress={async () => {
                   resetTo({ routeName: 'MainApp' })
+                }}
+              />
+              <Button
+                title={'ทำแบบประเมินตนเองอีกครั้ง'}
+                style={{
+                  width: '100%',
+                }}
+                type="clear"
+                titleStyle={{
+                  fontFamily: FONT_FAMILY,
+                  fontSize: FONT_SIZES[600]
+                }}
+                containerStyle={{
+                  marginTop: 4,
+                  width: '100%',
+                }}
+                onPress={async () => {
+                  resetTo({ routeName: 'Questionaire' })
                 }}
               />
             </View>

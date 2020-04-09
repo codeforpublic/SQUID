@@ -68,7 +68,7 @@ export const DangerButton = ({
       title={title}
       titleStyle={{
         fontFamily: FONT_MED,
-        fontSize: FONT_SIZES[500],
+        fontSize: FONT_SIZES[600],
         lineHeight: 30,
         color: COLORS.PRIMARY_LIGHT,
       }}
