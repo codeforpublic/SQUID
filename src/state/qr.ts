@@ -69,7 +69,7 @@ export const useSelfQR = () => {
         type: QR_ACTION.UPDATE,
         payload: { qrData, qrState, error: null },
       })
-      tlRef.current = setTimeout(refreshQR, 60 * 1000) // Update after 1 min
+      tlRef.current = setTimeout(refreshQR, 2 * 60 * 1000) // Update after 2 min
     } catch (error) {
       const qrState = SelfQR.getCurrentState()
       dispatch({
@@ -187,7 +187,7 @@ class SelfQR extends QR {
 }
 
 interface DecodedResult {
-  _: [string, 'G' | 'Y' | 'O' | 'R', string | undefined]
+  _: [string, 'G' | 'Y' | 'O' | 'R', string | undefined, number | undefined]
   iat: number
   iss: string
 }
@@ -196,15 +196,22 @@ export class QRResult extends QR {
   code: string
   annonymousId: string
   proficientCode?: string
+  age?: number
   iss: string
-  constructor(decodedResult: DecodedResult) {    
+  constructor(decodedResult: DecodedResult) {
+    console.log('decodedResult', decodedResult)
     super(CODE_MAP[decodedResult._[1]])
     this.annonymousId = decodedResult._[0]
     this.proficientCode = decodedResult._[2]
+    this.age = decodedResult._[3]
     this.iat = decodedResult.iat
     this.iss = decodedResult.iss
-
-    // this.code = 'yellow'
+  }
+  getUserCreatedDate() {
+    if (!this.age) {
+      return null
+    }
+    return moment().subtract(this.age, 'days').locale('th')
   }
   getCreatedDate(): moment {
     return moment(this.iat * 1000).locale('th')

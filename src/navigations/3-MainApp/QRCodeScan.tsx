@@ -11,6 +11,7 @@ import { QRResult, proficientManager } from '../../state/qr'
 import NotificationPopup from 'react-native-push-notification-popup'
 import { QRPopupContent } from './QRPopupContent'
 import { scanManager } from '../../services/contact-scanner'
+import moment from 'moment'
 
 export const QRCodeScan = ({ navigation }) => {
   const isFocused = useIsFocused()
@@ -24,12 +25,17 @@ export const QRCodeScan = ({ navigation }) => {
 
   useEffect(() => {
     if (qrResult) {
-      const date = qrResult.getCreatedDate()
+      const createdData = qrResult.getCreatedDate()
+      const userCreatedDate = qrResult.getUserCreatedDate()
+      // const userCreatedDate = moment().subtract(3, 'day')
+
+      const body = userCreatedDate? `ลงทะเบียนเมื่อ ${userCreatedDate.format('D MMMM​')} พ.ศ. ${userCreatedDate.year() +
+        543}`: `ข้อมูลวันที่ ${createdData.format('D MMMM​')} พ.ศ. ${createdData.year() +
+        543} ${createdData.format(`HH:mm น.`)}`
       popupRef.current.show({
         appTitle: 'ระดับความเสี่ยง',
         title: qrResult.getLabel(),
-        body: `ข้อมูลวันที่ ${date.format('D MMMM​')} พ.ศ. ${date.year() +
-          543} ${date.format(`HH:mm น.`)}`,
+        body,
         timeText: qrResult.getProficientLabel(),
       })
       scanManager.add(qrResult.annonymousId)
