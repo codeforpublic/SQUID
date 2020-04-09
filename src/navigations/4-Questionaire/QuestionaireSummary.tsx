@@ -41,7 +41,7 @@ const Card = styled.View`
 
 const risks = [
   { text: 'ต่ำ', color: COLORS.GREEN },
-  { text: 'ปานกลาง', color: COLORS.YELLOW },
+  { text: 'กลาง', color: COLORS.YELLOW },
   { text: 'สูง', color: COLORS.ORANGE },
   { text: 'สูงมาก', color: COLORS.RED },
 ]
