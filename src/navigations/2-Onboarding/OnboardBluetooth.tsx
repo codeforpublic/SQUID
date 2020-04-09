@@ -5,7 +5,6 @@ import { PrimaryButton } from '../../components/Button'
 import { useHUD } from '../../HudView'
 import { useContactTracer } from '../../services/contact-tracing-provider'
 import { COLORS } from '../../styles'
-import { isSmallDevice } from '../../utils/responsive'
 import { doctorSize, styles } from './const'
 import { OnboardHeader } from './OnboadHeader'
 import { normalize } from 'react-native-elements'
@@ -34,7 +33,6 @@ export const OnboardBluetooth = () => {
       style={{
         flex: 1,
         backgroundColor: COLORS.WHITE,
-        // paddingHorizontal: 20
       }}
     >
       <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
@@ -67,7 +65,7 @@ export const OnboardBluetooth = () => {
             />
           </View>
           <View style={{ flex: 1 }}>
-            <Text style={styles.itemTitle}>ขอสิทธ์เข้าถึงบลูทูธ Bluetooth</Text>
+            <Text style={styles.itemTitle}>ขอสิทธิ์เข้าถึงบลูทูธ Bluetooth</Text>
             <Text style={styles.description}>
               ใช้พลังงานต่ำ เพื่อคอยสแกนคนใกล้ตัวและแจ้งเตือนทันทีหากคุณได้ไปใกล้ชิดกับคนที่มีความเสี่ยง
             </Text>
