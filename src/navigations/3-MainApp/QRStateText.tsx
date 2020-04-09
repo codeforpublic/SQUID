@@ -65,7 +65,7 @@ export const QRStateText = ({
           activeOpacity={0.5}
           onPress={() => {
             navigation.navigate({
-              routeName: 'AuthPhone',
+              routeName: 'Onboarding',
               params: {
                 backIcon: 'close',
                 onBack: () => resetTo({ routeName: 'MainApp' }),

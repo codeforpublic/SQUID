@@ -8,6 +8,7 @@ import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD, FONT_MED } from '../../styl
 import { CheckBox, normalize, Button } from 'react-native-elements'
 import { FormHeader } from '../../components/Form/FormHeader'
 import { agreementText } from '../const'
+import { applicationState } from '../../state/app-state'
 
 export const AgreementPolicy = () => {
   const navigation = useNavigation()
@@ -54,7 +55,8 @@ export const AgreementPolicy = () => {
           style={{ width: '100%' }}
           containerStyle={{ width: '100%', marginTop: normalize(16) }}
           onPress={() => {
-            navigation.navigate('AuthPhone')
+            applicationState.setData('skipRegistration', true)
+            navigation.navigate('Onboarding')
           }}
         />
         <Button

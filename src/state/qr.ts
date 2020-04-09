@@ -54,8 +54,7 @@ export const useSelfQR = () => {
       error: null,
     },
   )
-  const tlRef = useRef<NodeJS.Timeout>()
-  const isVerified = applicationState.getData('isRegistered')
+  const tlRef = useRef<NodeJS.Timeout>()  
 
   const refreshQR = async () => {
     clearTimeout(tlRef.current)
@@ -65,14 +64,14 @@ export const useSelfQR = () => {
       })
       const _qrData = await getQRData()
       const qrData = await SelfQR.setCurrentQRFromQRData(_qrData)
-      const qrState = !isVerified? QR_STATE.NOT_VERIFIED: SelfQR.getCurrentState()
+      const qrState = SelfQR.getCurrentState()
       dispatch({
         type: QR_ACTION.UPDATE,
         payload: { qrData, qrState, error: null },
       })
       tlRef.current = setTimeout(refreshQR, 60 * 1000) // Update after 1 min
     } catch (error) {
-      const qrState = !isVerified? QR_STATE.NOT_VERIFIED: SelfQR.getCurrentState()
+      const qrState = SelfQR.getCurrentState()
       dispatch({
         type: QR_ACTION.UPDATE,
         payload: { qrState, error },
@@ -93,7 +92,7 @@ export const useSelfQR = () => {
     return () => {
       clearTimeout(tlRef.current)
     }
-  }, [isVerified])
+  }, [])
 
   return { ...state, refreshQR }
 }

@@ -1,6 +1,6 @@
 import styled from '@emotion/native'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Dimensions, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, StatusBar, StyleSheet, Text, View, BackHandler } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useSafeArea } from 'react-native-safe-area-context'
 import { useIsFocused } from 'react-navigation-hooks'
@@ -17,7 +17,7 @@ import { dataInputTable } from './form-input'
 const padding = normalize(18)
 
 const Container = styled(View)({
-  backgroundColor: '#FAFDFF',
+  backgroundColor: '#E3F4FF',
   height: '100%',
 })
 const Footer = styled(View)({
@@ -75,7 +75,7 @@ const Progress = ({
       style={{
         height,
         borderRadius: height / 2,
-        backgroundColor: '#E6F2FA',
+        backgroundColor: '#E3F4FF',
         ...style,
       }}
     >
@@ -92,7 +92,17 @@ const Progress = ({
 }
 
 const FormBackHandler = ({ onBack }) => {
-  useEffect(() => {}, [])
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        onBack()
+        return true
+      }
+    )
+
+    return () => backHandler.remove();
+  }, [onBack])
   return null
 }
 
@@ -185,7 +195,7 @@ export const QuestionaireForm = ({ navigation }) => {
       <ScrollView
         style={{
           flex: 1,
-          borderTopColor: '#E6F2FA',
+          borderTopColor: '#E3F4FF',
           borderTopWidth: 1,
         }}
         contentContainerStyle={{ justifyContent: 'center'  }}

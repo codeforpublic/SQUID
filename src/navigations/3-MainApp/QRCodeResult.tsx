@@ -39,7 +39,14 @@ const RiskLabel = ({ label, color, style }) => {
     >
       <Image source={require('./risk_icon.png')} width={100} height={100} />
       <Subtitle style={{ marginTop: 4 }}>ความเสี่ยง</Subtitle>
-      <Title style={{ fontWeight: '600', color, fontSize: FONT_SIZES[700], lineHeight: 36 }}>
+      <Title
+        style={{
+          fontWeight: '600',
+          color,
+          fontSize: FONT_SIZES[700],
+          lineHeight: 36,
+        }}
+      >
         {label}
       </Title>
     </View>
@@ -77,8 +84,9 @@ export const QRCodeResult = ({
         </Content>
         <Footer>
           <DateLabel>
-            ข้อมูลวันที่{' '}
-            {qrResult.getCreatedDate().format('DD MMM YYYY HH:mm น.')}
+            ข้อมูลวันที่ {qrResult.getCreatedDate().format('D MMMM​')} พ.ศ.{' '}
+            {qrResult.getCreatedDate().year() + 543}
+            {qrResult.getCreatedDate().format(' HH:mm น.')}
           </DateLabel>
           <PrimaryButton title={'สแกนใหม่อีกครั้ง'} onPress={onRescan} />
         </Footer>

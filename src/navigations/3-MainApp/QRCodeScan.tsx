@@ -24,13 +24,12 @@ export const QRCodeScan = ({ navigation }) => {
 
   useEffect(() => {
     if (qrResult) {
+      const date = qrResult.getCreatedDate()
       popupRef.current.show({
-        // appIconSource: require('./noti_icon.png'),
         appTitle: 'ระดับความเสี่ยง',
         title: qrResult.getLabel(),
-        body: `ข้อมูลวันที่ ${qrResult
-          .getCreatedDate()
-          .format('DD MMM YYYY HH:mm น.')}`,
+        body: `ข้อมูลวันที่ ${date.format('D MMMM​')} พ.ศ. ${date.year() +
+          543} ${date.format(`HH:mm น.`)}`,
         timeText: qrResult.getProficientLabel(),
       })
       scanManager.add(qrResult.annonymousId)
@@ -52,7 +51,7 @@ export const QRCodeScan = ({ navigation }) => {
             width: Dimensions.get('window').width - 16,
             overflow: 'hidden',
           }}
-          onRead={(e) => {
+          onRead={e => {
             const decoded = e.data ? decodeJWT(e?.data) : null
             if (!decoded?._) {
               alert('ข้อมูลไม่ถูกต้อง')
@@ -76,7 +75,7 @@ export const QRCodeScan = ({ navigation }) => {
       )}
       <NotificationPopup
         ref={popupRef}
-        renderPopupContent={(props) => (
+        renderPopupContent={props => (
           <QRPopupContent {...props} qrResult={qrResult} />
         )}
       />

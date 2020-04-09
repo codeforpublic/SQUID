@@ -100,7 +100,7 @@ export const OnboardFace = () => {
           onPress={navigateToCamera}
         >
           <FeatherIcon name="camera" color={COLORS.BLUE} size={20} />
-          <ColorText color={COLORS.BLUE} style={{ marginLeft: 12 }}>
+          <ColorText color={COLORS.BLUE} style={{ marginLeft: 12, fontSize: FONT_SIZES[700] }}>
             {uri ? 'ถ่ายใหม่' : 'ถ่ายรูป'}
           </ColorText>
         </TouchableOpacity>
