@@ -2,8 +2,8 @@ export const dataInputTable: DataInput[] = [
   {
     id: 'one_uri_symp',
     name: 'data:covid:one_uri_symp',
-    title: 'ท่านมีอาการดังต่อไปนี้หรือไม่ ?',
-    subtitle: 'กรุณาเลือกอาการที่ตรงกับคุณ',
+    title: 'คุณมีอาการดังต่อไปนี้หรือไม่ ?',
+    subtitle: 'กรุณาเลือกอาการที่ตรงกับคุณ เลือกได้มากกว่า 1 อาการ',
     dataType: 'String',
     inputType: 'MuliSelect',
     defaultValue: [],
@@ -18,8 +18,7 @@ export const dataInputTable: DataInput[] = [
   },
   {
     id: 'travel_risk_country',
-    title: 'เดินทางไปต่างประเทศ',
-    subtitle: 'คุณได้เดินทางไปต่างประเทศในช่วง 14 วันก่อน ?',
+    title: 'คุณได้เดินทางไปต่างประเทศในช่วง 14 วันก่อนหรือไม่ ?',
     name: 'data:travel:travel_risk_country',
     dataType: 'Boolean',
     inputType: 'Select',
@@ -30,8 +29,7 @@ export const dataInputTable: DataInput[] = [
   },
   {
     id: 'covid19_contact',
-    title: 'อยู่ใกล้ชิดคนที่มีความเสี่ยง',
-    subtitle: 'คุณได้อยู่ใกล้ชิดกับคนที่มีความเสี่ยงในช่วง 14 วันก่อน ?',
+    title: 'คุณได้อยู่ใกล้ชิดกับคนที่มีความเสี่ยงในช่วง 14 วันก่อนหรือไม่ ?',
     name: 'data:community:covid19_contact',
     dataType: 'Boolean',
     inputType: 'MuliSelect',
@@ -55,8 +53,7 @@ export const dataInputTable: DataInput[] = [
   },
   {
     id: 'int_contact',
-    title: 'ประกอบอาชีพ',
-    subtitle: 'คุณได้ประกอบอาชีพที่ใกล้ชิดกับชาวต่างชาติ ?',
+    title: 'คุณได้ประกอบอาชีพที่ใกล้ชิดกับชาวต่างชาติหรือไม่ ?',
     name: 'data:community:int_contact',
     dataType: 'Boolean',
     inputType: 'Select',
