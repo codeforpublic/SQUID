@@ -8,6 +8,7 @@ import { COLORS } from '../../styles'
 import { isSmallDevice } from '../../utils/responsive'
 import { doctorSize, styles } from './const'
 import { OnboardHeader } from './OnboadHeader'
+import { normalize } from 'react-native-elements'
 
 export const OnboardBluetooth = () => {
   const navigation = useNavigation()
@@ -62,7 +63,7 @@ export const OnboardBluetooth = () => {
             <Image
               source={require('../../assets/perm-bluetooth-icon.png')}
               resizeMode="contain"
-              style={{ width: isSmallDevice? 40: 52 }}
+              style={{ width: normalize(40) }}
             />
           </View>
           <View style={{ flex: 1 }}>

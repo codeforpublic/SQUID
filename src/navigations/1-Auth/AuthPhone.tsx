@@ -71,9 +71,9 @@ export const AuthPhone = () => {
               keyboardType={'phone-pad'}
               style={{
                 textAlign: 'center',
-                fontSize: FONT_SIZES[500],
+                fontSize: FONT_SIZES[600],
                 fontFamily: FONT_FAMILY,
-                letterSpacing: 3,
+                letterSpacing: 2,
               }}
             />
           </View>
@@ -115,7 +115,7 @@ export const AuthPhone = () => {
             }}
             style={{ marginTop: 8 }}
           >
-            <Link style={{ color: '#576675', textDecorationLine: 'underline' }}>
+            <Link style={{ fontSize: FONT_SIZES[500], color: '#576675', textDecorationLine: 'underline' }}>
               ใช้งานแบบไม่ยืนยันตัวตน
             </Link>
           </TouchableOpacity>

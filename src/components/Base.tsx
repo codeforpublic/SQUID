@@ -10,7 +10,7 @@ export const Header = styled(View)({
 
 export const Title = styled(Text)({
   fontFamily: FONT_BOLD,
-  fontSize: FONT_SIZES[700],
+  fontSize: FONT_SIZES[800],
   lineHeight: 36,
   alignItems: 'center',
   color: COLORS.PRIMARY_DARK,
@@ -19,8 +19,8 @@ export const Title = styled(Text)({
 })
 
 export const Subtitle = styled(Text)({
-  fontFamily: FONT_BOLD,
-  fontSize: FONT_SIZES[500],
+  fontFamily: FONT_FAMILY,
+  fontSize: FONT_SIZES[600],
   lineHeight: 24,
   alignItems: 'center',
   color: COLORS.GRAY_2,
@@ -29,7 +29,7 @@ export const Subtitle = styled(Text)({
 
 export const Link = styled(Text)({
   fontFamily: FONT_FAMILY,
-  fontSize: FONT_SIZES[500],
+  fontSize: FONT_SIZES[600],
   lineHeight: 30,
   alignItems: 'center',
   color: COLORS.BLUE,

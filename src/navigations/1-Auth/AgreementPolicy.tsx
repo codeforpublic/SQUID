@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar, View, Text, StyleSheet, ScrollView } from 'react-native'
-import { PrimaryButton } from '../../components/Button'
+import { PrimaryButton, DangerButton } from '../../components/Button'
 import { useNavigation } from 'react-navigation-hooks'
-import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD } from '../../styles'
-import { CheckBox } from 'react-native-elements'
+import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD, FONT_MED } from '../../styles'
+import { CheckBox, normalize, Button } from 'react-native-elements'
 import { FormHeader } from '../../components/Form/FormHeader'
 import { agreementText } from '../const'
 
@@ -34,7 +34,7 @@ export const AgreementPolicy = () => {
           </View>
         </ScrollView>
       </View>
-      <CheckBox
+      {/* <CheckBox
         title="ฉันยอมรับข้อตกลงและเงื่อนไข"
         containerStyle={{
           backgroundColor: 'transparent',
@@ -44,17 +44,31 @@ export const AgreementPolicy = () => {
         checked={agree}
         onPress={() => setAgree(!agree)}
         checkedColor={COLORS.BLUE}
-        textStyle={{ color: COLORS.BLACK_1, fontSize: FONT_SIZES[500], fontWeight:'normal'}}
+        textStyle={{ color: COLORS.BLACK_1, fontSize: FONT_SIZES[600], fontWeight:'normal'}}
         fontFamily={FONT_BOLD}
-      />
+      /> */}
       <View style={styles.footer}>
         <PrimaryButton
-          disabled={!agree}
-          title={'ถัดไป'}
+          // disabled={!agree}
+          title={'ยอมรับ'}
           style={{ width: '100%' }}
-          containerStyle={{ width: '100%' }}
+          containerStyle={{ width: '100%', marginTop: normalize(16) }}
           onPress={() => {
             navigation.navigate('AuthPhone')
+          }}
+        />
+        <Button
+          type="outline"
+          title={'ปฎิเสธ'}
+          style={{ width: '100%' }}
+          titleStyle={{
+            fontFamily: FONT_MED,
+            fontSize: FONT_SIZES[600],
+            lineHeight: 30,
+          }}
+          containerStyle={{ width: '100%', marginTop: 8 }}
+          onPress={() => {
+            navigation.pop()
           }}
         />
       </View>
@@ -104,7 +118,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: 'center',
-    paddingHorizontal: 24,
-    marginBottom: 16,
+    paddingHorizontal: normalize(20),
+    marginBottom: 8,
   },
 })

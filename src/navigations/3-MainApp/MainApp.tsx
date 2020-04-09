@@ -34,53 +34,46 @@ import Color from 'color'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const Footer = ({ date = moment().locale('th') }) => {
-  const smallDevice = Dimensions.get('window').height < 600
-  // const time = useTimer()
+  const smallDevice = Dimensions.get('window').height < 600  
   return (
-    <DebugTouchable
-      onDebug={() => {
-        backgroundTracking.toggleDebug()
+    <View
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
       }}
     >
-      <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'row',
-        }}
-      >
-        <View style={{ marginRight: 12 }}>
-          <Text
-            style={{
-              fontFamily: FONT_FAMILY,
-              fontSize: FONT_SIZES[500],
-              textAlign: 'right',
-            }}
-          >
-            ตรวจโดยแอปพลิเคชัน
-          </Text>
-          <Text
-            style={{
-              fontFamily: FONT_FAMILY,
-              fontSize: FONT_SIZES[500],
-              color: '#02A0D7',
-              opacity: 0.9,
-              textAlign: 'right',
-            }}
-          >
-            วันที่ {date.format('D MMMM​')} พ.ศ. {date.year() + 543}
-          </Text>
-        </View>
-        <Image
-          source={require('../../assets/logo_header.png')}
-          resizeMode="contain"
+      <View style={{ marginRight: 12 }}>
+        <Text
           style={{
-            height: smallDevice ? 30 : 40,
-            width: (smallDevice ? 30 : 40) * (260 / 140),
+            fontFamily: FONT_FAMILY,
+            fontSize: FONT_SIZES[500],
+            textAlign: 'right',
           }}
-        />
+        >
+          ตรวจโดยแอปพลิเคชัน
+        </Text>
+        <Text
+          style={{
+            fontFamily: FONT_FAMILY,
+            fontSize: FONT_SIZES[500],
+            color: '#02A0D7',
+            opacity: 0.9,
+            textAlign: 'right',
+          }}
+        >
+          วันที่ {date.format('D MMMM​')} พ.ศ. {date.year() + 543}
+        </Text>
       </View>
-    </DebugTouchable>
+      <Image
+        source={require('../../assets/logo_header.png')}
+        resizeMode="contain"
+        style={{
+          height: smallDevice ? 30 : 40,
+          width: (smallDevice ? 30 : 40) * (260 / 140),
+        }}
+      />
+    </View>
   )
 }
 const PROFICIENT_BG = '#0C2641'

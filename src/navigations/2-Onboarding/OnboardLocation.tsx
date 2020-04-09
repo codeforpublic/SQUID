@@ -17,6 +17,7 @@ import { COLORS } from '../../styles'
 import { isSmallDevice } from '../../utils/responsive'
 import { doctorSize, styles } from './const'
 import { OnboardHeader } from './OnboadHeader'
+import { normalize } from 'react-native-elements'
 
 const LOCATION_PERMISSION = Platform.select({
   ios: PERMISSIONS.IOS.LOCATION_ALWAYS,
@@ -125,15 +126,14 @@ export const OnboardLocation = () => {
         </View>
         <View style={styles.bottomContainer}>
           <View style={{ flexDirection: 'row' }}>
-            {!isSmallDevice && (
-              <View style={{ paddingRight: 16 }}>
-                <Image
-                  source={require('../../assets/perm-location-icon.png')}
-                  resizeMode="contain"
-                  style={{ width: 52 }}
-                />
-              </View>
-            )}
+            <View style={{ paddingRight: 16 }}>
+              <Image
+                source={require('../../assets/perm-location-icon.png')}
+                resizeMode="contain"
+                style={{ width: normalize(40) }}
+              />
+            </View>
+
             <View style={{ flex: 1 }}>
               <Text style={styles.itemTitle}>ตำแหน่งของคุณ</Text>
               <Text style={styles.description}>
@@ -143,15 +143,14 @@ export const OnboardLocation = () => {
             </View>
           </View>
           <View style={{ flexDirection: 'row' }}>
-            {!isSmallDevice && (
-              <View style={{ paddingRight: 16 }}>
-                <Image
-                  source={require('../../assets/perm-motion-icon.png')}
-                  resizeMode="contain"
-                  style={{ width: 52 }}
-                />
-              </View>
-            )}
+            <View style={{ paddingRight: 16 }}>
+              <Image
+                source={require('../../assets/perm-motion-icon.png')}
+                resizeMode="contain"
+                style={{ width: normalize(40) }}
+              />
+            </View>
+
             <View style={{ flex: 1 }}>
               <Text style={styles.itemTitle}>การเคลื่อนที่ของคุณ (MOTION)</Text>
               <Text style={styles.description}>

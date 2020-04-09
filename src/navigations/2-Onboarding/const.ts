@@ -1,8 +1,10 @@
 import { Dimensions, StyleSheet } from 'react-native'
 import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
 import { isSmallDevice } from '../../utils/responsive'
+import { normalize } from 'react-native-elements'
 
 export const doctorSize = Dimensions.get('window').height >= 800 ? 218 : 120
+const padding = normalize(20)
 
 export const styles = StyleSheet.create({
   topContainer: {
@@ -14,8 +16,7 @@ export const styles = StyleSheet.create({
   bottomContainer: {
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 30,
-    paddingVertical: 30,
+    padding: padding,
     height: 300,
   },
   title: {
@@ -39,7 +40,7 @@ export const styles = StyleSheet.create({
   },
   description: {
     fontFamily: FONT_FAMILY,
-    fontSize: FONT_SIZES[500],
+    fontSize: FONT_SIZES[600],
     lineHeight: 26,
     textAlign: 'left',
     color: COLORS.SECONDARY_DIM,

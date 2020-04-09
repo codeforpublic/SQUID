@@ -131,6 +131,7 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 def enableHermes = project.ext.react.get("enableHermes", false);
 
 android {
+    ndkVersion "21.0.6113669"
     dexOptions {
        javaMaxHeapSize "3g"
     }
@@ -146,8 +147,8 @@ android {
         applicationId "com.thaialert.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 15
-        versionName "1.2"
+        versionCode 16
+        versionName "1.2.1"
         multiDexEnabled true
         missingDimensionStrategy 'react-native-camera', 'general' 
         resValue "string", "build_config_package", "com.thaialert.app"

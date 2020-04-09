@@ -1,8 +1,15 @@
 import React, { useEffect } from 'react'
 import styled from '@emotion/native'
-import { View, StyleSheet, Text, Image, Dimensions, StatusBar } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  Dimensions,
+  StatusBar,
+} from 'react-native'
 import { FONT_FAMILY, COLORS, FONT_BOLD, FONT_SIZES } from '../../styles'
-import { Button } from 'react-native-elements'
+import { Button, normalize } from 'react-native-elements'
 import { useSafeArea } from 'react-native-safe-area-view'
 import { PrimaryButton } from '../../components/Button'
 
@@ -12,8 +19,7 @@ const Container = styled(View)({
   flex: 1,
 })
 const Content = styled(View)({
-  paddingHorizontal: 20,  
-  padding: 24,
+  padding: normalize(20),
   backgroundColor: 'white',
   borderRadius: 20,
 })
@@ -21,12 +27,16 @@ const Content = styled(View)({
 const HomeListItem = ({ source, title, subtitle }) => {
   const isLarge = Dimensions.get('window').height >= 800
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: isLarge? 16: 8 }}>
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: isLarge ? 16 : 8,
+      }}
+    >
       <Image source={source} style={{ marginRight: 30 }} />
       <View>
-        <Text
-          style={{ fontFamily: FONT_BOLD, fontSize: FONT_SIZES[600]}}
-        >
+        <Text style={{ fontFamily: FONT_BOLD, fontSize: FONT_SIZES[600] }}>
           {title}
         </Text>
         <Text
@@ -46,9 +56,17 @@ const HomeListItem = ({ source, title, subtitle }) => {
 export const QuestionaireHome = ({ navigation }) => {
   const inset = useSafeArea()
   const fixedFooter = Dimensions.get('window').height >= 667
-  const doctorSize = Dimensions.get('window').height >= 800? 192: 140
+  const largeScreen = Dimensions.get('window').height >= 800
+  const doctorSize = largeScreen ? 192 : 140
   const footer = (
-    <View style={{ backgroundColor: 'white', paddingBottom: inset.bottom + 16, paddingHorizontal: 40, marginTop: 16 }}>
+    <View
+      style={{
+        backgroundColor: 'white',
+        paddingBottom: inset.bottom + 16,
+        paddingHorizontal: 40,
+        marginTop: 16,
+      }}
+    >
       <HomeListItem
         title="รู้สถานะคนใกล้ชิด"
         subtitle="ระวังและปฏิบัติตัวได้เหมาะสม"
@@ -72,13 +90,15 @@ export const QuestionaireHome = ({ navigation }) => {
         backgroundColor={COLORS.PRIMARY_DARK}
         barStyle="light-content"
       />
-      <View style={{ paddingTop: inset.top, flex: 1, justifyContent: 'flex-end', }}>
+      <View
+        style={{ paddingTop: inset.top, flex: 1, justifyContent: 'flex-end' }}
+      >
         <View
           style={{
             justifyContent: 'center',
             flexDirection: 'row',
             alignItems: 'center',
-            paddingHorizontal: 10,            
+            paddingHorizontal: 10,
           }}
         >
           <Image
@@ -86,13 +106,23 @@ export const QuestionaireHome = ({ navigation }) => {
             resizeMode="contain"
             source={require('./assets/logo_white.png')}
           />
-          <Image source={require('./assets/doctor.png')} style={{
-            width: doctorSize,
-            height: doctorSize * 219 / 192
-          }} />
+          <Image
+            source={require('./assets/doctor.png')}
+            style={{
+              width: doctorSize,
+              height: (doctorSize * 219) / 192,
+            }}
+          />
         </View>
-        <Content style={{ marginHorizontal: fixedFooter? 16: 0, borderBottomRightRadius: fixedFooter? 20: 0, borderBottomLeftRadius: fixedFooter? 20: 0 }}>
-          <Text style={styles.title}>หมอชนะแวะมาสอบถาม อาการของคุณ</Text>
+        <Content
+          style={{
+            marginHorizontal: fixedFooter ? 16 : 0,
+            borderRadius: fixedFooter ? 20 : 0,
+          }}
+        >
+          <Text style={styles.title}>
+            หมอชนะแวะมาสอบถามอาการ{largeScreen ? 'ของคุณ' : ''}
+          </Text>
           <Text style={styles.subtitle}>
             สวัสดีครับ วันนี้หมอแวะมาประเมินอาการของคุณ
             หมอจะแนะนำวิธีปฏิบัติตัวของคุณ
@@ -111,7 +141,7 @@ export const QuestionaireHome = ({ navigation }) => {
           />
         </Content>
       </View>
-      {fixedFooter? footer: null}
+      {fixedFooter ? footer : null}
     </Container>
   )
 }

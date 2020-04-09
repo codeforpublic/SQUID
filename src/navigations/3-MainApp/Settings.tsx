@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
   sectionHeaderText: {
     color: '#AAAAAA',
-    fontSize: FONT_SIZES[500],
+    fontSize: FONT_SIZES[600],
     fontFamily: FONT_FAMILY
   },
   settingsSection: {
