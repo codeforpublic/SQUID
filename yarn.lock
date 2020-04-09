@@ -6877,10 +6877,10 @@ react-native-confirm@^0.0.1:
     react-native-input-xg "^0.0.2"
     react-native-stylesheet-xg "^1.1.0"
 
-react-native-contact-tracer@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/react-native-contact-tracer/-/react-native-contact-tracer-1.0.3.tgz#e20d62122786a3c8282b1304644c97e44c1181c2"
-  integrity sha512-XCuiK+nujjp5y8/7LSrODq+ly6gNOGe1x+JPbWBR+0NJbOkj/9zWOA5WCkwlL+0U+aRo7kPctICORHg9wIhmAw==
+react-native-contact-tracer@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-contact-tracer/-/react-native-contact-tracer-1.0.4.tgz#6f43eca5316d27ac437c5fe5f366aa8989b5b142"
+  integrity sha512-1qy8CSOzjKVGPfgYzuQC5pz+89Zg3eCz2zGo1m4KuQT29EpuIFrnxpXVMi+Pi5Np3glHhYOZJzhGkP43r4U2iQ==
 
 react-native-datepicker@^1.4.4:
   version "1.7.2"
