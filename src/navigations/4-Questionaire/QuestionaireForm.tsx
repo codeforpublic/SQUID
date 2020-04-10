@@ -35,7 +35,7 @@ export const FormDataInput = ({
   setValue: (value: any) => void
   value: any
 }) => {
-  if (di.inputType === 'MuliSelect') {
+  if (di.inputType === 'MultiSelect') {
     return (
       <QuestionaireSelect
         options={di.options}

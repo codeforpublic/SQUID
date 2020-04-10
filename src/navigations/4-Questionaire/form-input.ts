@@ -5,7 +5,7 @@ export const dataInputTable: DataInput[] = [
     title: 'คุณมีอาการดังต่อไปนี้หรือไม่ ?',
     subtitle: 'กรุณาเลือกอาการที่ตรงกับคุณ เลือกได้มากกว่า 1 อาการ',
     dataType: 'String',
-    inputType: 'MuliSelect',
+    inputType: 'MultiSelect',
     defaultValue: [],
     options: [
       { label: 'มีไข้สูง 37.5 องศาขึ้นไป', value: 'fever' },
@@ -32,7 +32,7 @@ export const dataInputTable: DataInput[] = [
     title: 'คุณได้อยู่ใกล้ชิดกับคนที่มีความเสี่ยงในช่วง 14 วันก่อนหรือไม่ ?',
     name: 'data:community:covid19_contact',
     dataType: 'Boolean',
-    inputType: 'MuliSelect',
+    inputType: 'MultiSelect',
     defaultValue: [],
     options: [
       {
