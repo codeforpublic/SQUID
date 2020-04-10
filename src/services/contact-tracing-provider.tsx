@@ -143,8 +143,8 @@ export class ContactTracerProvider extends React.Component<
       // For NativeModules.ContactTracerModule.isMultipleAdvertisementSupported()
       .then((supported) => {
         if (supported)
-          this.appendStatusText('Mulitple Advertisement is supported')
-        else this.appendStatusText('Mulitple Advertisement is NOT supported')
+          this.appendStatusText('Multitple Advertisement is supported')
+        else this.appendStatusText('Multitple Advertisement is NOT supported')
       })
 
     console.log('init complete')
