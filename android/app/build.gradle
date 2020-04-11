@@ -131,7 +131,7 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 def enableHermes = project.ext.react.get("enableHermes", false);
 
 android {
-    ndkVersion "21.0.6113669"
+    //ndkVersion "21.0.6113669"
     dexOptions {
        javaMaxHeapSize "3g"
     }
@@ -213,6 +213,7 @@ android {
 
 
 dependencies {
+    implementation project(':react-native-contact-tracer')
     implementation project(':rn-fetch-blob')
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation fileTree(dir: "libs", include: ["*.jar"])

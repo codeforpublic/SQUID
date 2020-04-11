@@ -1,4 +1,6 @@
 rootProject.name = 'ThaiAlert'
+include ':react-native-contact-tracer'
+project(':react-native-contact-tracer').projectDir = new File(rootProject.projectDir, '../../contact-tracer/android')
 include ':rn-fetch-blob'
 project(':rn-fetch-blob').projectDir = new File(rootProject.projectDir, '../node_modules/rn-fetch-blob/android')
 
