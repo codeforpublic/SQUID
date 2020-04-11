@@ -6,7 +6,6 @@ import android.os.StrictMode;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-import com.nuuneoi.lib.contacttracer.ContactTracerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.reactnativecommunity.imageeditor.ImageEditorPackage;
 import com.facebook.react.ReactNativeHost;
