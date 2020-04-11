@@ -213,7 +213,6 @@ android {
 
 
 dependencies {
-    implementation project(':react-native-contact-tracer')
     implementation project(':rn-fetch-blob')
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation fileTree(dir: "libs", include: ["*.jar"])
