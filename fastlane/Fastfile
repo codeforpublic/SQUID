@@ -1,16 +1,30 @@
-fastlane_version '2.137.0'
+fastlane_version "2.137.0"
+fastlane_require "dotenv"
+
+before_all do
+  Dotenv.overload "../.env.production"
+end
 
 platform :ios do
   # iOS Lanes
-  desc 'Build the iOS application.'
-  lane :prebuild do
-    set_info_plist_value(path: "./ios/ThaiAlert/Info.plist", key: "CodePushDeploymentKey", value: "xxx")
-  end   
+  desc "Build the iOS application."
+  lane :build do
+    set_info_plist_value(path: "./ios/ThaiAlert/Info.plist", key: "CodePushDeploymentKey", value: "#{ENV["CODE_PUSH_IOS"]}")
+    increment_build_number(
+      xcodeproj: "ios/ThaiAlert.xcodeproj",
+    )
+    build_app(
+      scheme: "ThaiAlert Release",
+      workspace: "ios/ThaiAlert.xcworkspace",
+      include_bitcode: true,
+    )
+    set_info_plist_value(path: "./ios/ThaiAlert/Info.plist", key: "CodePushDeploymentKey", value: "")
+    upload_to_testflight
+  end
 end
 
 platform :android do
   # Android Lanes
   lane :prebuild do
-    
-  end   
+  end
 end

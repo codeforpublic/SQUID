@@ -16,11 +16,20 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## iOS
-### ios prebuild
+### ios build
 ```
-fastlane ios prebuild
+fastlane ios build
 ```
 Build the iOS application.
+
+----
+
+## Android
+### android prebuild
+```
+fastlane android prebuild
+```
+
 
 ----
 

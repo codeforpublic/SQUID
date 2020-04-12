@@ -67,6 +67,7 @@ class Notification {
       onNotification: function (notification) {
         backgroundTracking.getLocation() // trigger update location
         console.log('NOTIFICATION:', notification)
+        // notification?.data?.
         // process the notification
         // required on iOS only (see fetchCompletionHandler docs: https://github.com/react-native-community/react-native-push-notification-ios)
         notification.finish(PushNotificationIOS.FetchResult.NoData)
