@@ -27,6 +27,7 @@ export const registerDevice = async (): Promise<{
   const resp = await fetch(API_URL + `/registerDevice`, {
     method: 'post',
     headers: {
+      'X-TH-API-Key': API_KEY,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ deviceId: DeviceInfo.getUniqueId() }),
