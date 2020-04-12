@@ -7150,6 +7150,13 @@ react-native-splash-screen@^3.2.0:
   resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.2.0.tgz#d47ec8557b1ba988ee3ea98d01463081b60fff45"
   integrity sha512-Ls9qiNZzW/OLFoI25wfjjAcrf2DZ975hn2vr6U9gyuxi2nooVbzQeFoQS5vQcbCt9QX5NY8ASEEAtlLdIa6KVg==
 
+react-native-ssl-pinning@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/react-native-ssl-pinning/-/react-native-ssl-pinning-1.4.1.tgz#a862c276784c511866ad4326b5ba684868f6e8d7"
+  integrity sha512-sJWFe/hQqtVR7kO5VbjznX5bYAEDyn3EinA62wAP/mrIIWYAH7845q4/vMuReqJF//Wi/jHULStdjH3dhLXuDA==
+  dependencies:
+    q "^1.4.1"
+
 react-native-status-bar-height@^2.2.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/react-native-status-bar-height/-/react-native-status-bar-height-2.5.0.tgz#bc0fb85230603850aab9667ee8111a62954de90c"

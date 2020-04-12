@@ -364,7 +364,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh\n\nif [ \"${CONFIGURATION}\" == \"Release\" ]; then\n    echo \"Delete sourcemaps\"\n    rm \"$CONFIGURATION_BUILD_DIR/$PROJECT_NAME.app/main.jsbundle.map\"\nfi\n";
+			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh\n\nif [ \"${CONFIGURATION}\" == \"Release\" ]; then\n    echo \"Delete sourcemaps $CONFIGURATION_BUILD_DIR\"\n    rm \"$CONFIGURATION_BUILD_DIR/$EXECUTABLE_NAME.app/main.jsbundle.map\"\nfi\n\n";
 		};
 		7CEC233EAB151DC324DC0FEF /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -492,14 +492,14 @@
 				CODE_SIGN_ENTITLEMENTS = ThaiAlert/ThaiAlert.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 21;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = QF457V8Y87;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ThaiAlert/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.3.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -524,14 +524,14 @@
 				CODE_SIGN_ENTITLEMENTS = ThaiAlert/ThaiAlert.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 21;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = QF457V8Y87;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ThaiAlert/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.3.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

@@ -105,6 +105,7 @@
     "react-native-size": "^1.3.0",
     "react-native-snap-carousel": "^3.8.4",
     "react-native-splash-screen": "^3.2.0",
+    "react-native-ssl-pinning": "^1.4.1",
     "react-native-svg": "^12.0.3",
     "react-native-svg-uri-reborn": "^1.0.8",
     "react-native-ui-xg": "^0.0.6",
