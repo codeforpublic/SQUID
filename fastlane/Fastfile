@@ -1,0 +1,16 @@
+fastlane_version '2.137.0'
+
+platform :ios do
+  # iOS Lanes
+  desc 'Build the iOS application.'
+  lane :prebuild do
+    set_info_plist_value(path: "./ios/ThaiAlert/Info.plist", key: "CodePushDeploymentKey", value: "xxx")
+  end   
+end
+
+platform :android do
+  # Android Lanes
+  lane :prebuild do
+    
+  end   
+end
