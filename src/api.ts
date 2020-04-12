@@ -1,7 +1,7 @@
 import DeviceInfo from 'react-native-device-info'
 import { userPrivateData } from './state/userPrivateData'
 import nanoid from 'nanoid'
-import { API_URL, API_KEY } from './config'
+import { API_URL, API_KEY, SSL_PINNING_CERT_NAME } from './config'
 import { fetch } from 'react-native-ssl-pinning'
 
 export const getPrivateHeaders = () => {
@@ -28,7 +28,7 @@ export const registerDevice = async (): Promise<{
   const resp = await fetch(API_URL + `/registerDevice`, {
     method: 'POST',
     sslPinning: {
-      certs: ['thaialert']
+      certs: [SSL_PINNING_CERT_NAME],
     },
     headers: {
       'X-TH-API-Key': API_KEY,
@@ -40,6 +40,7 @@ export const registerDevice = async (): Promise<{
   if (!result.anonymousId || !result.userId) {
     throw new Error('RegisterDevice failed')
   }
+  console.log('register success', result)
 
   return { userId: result.userId, anonymousId: result.anonymousId }
 }
@@ -48,7 +49,7 @@ export const requestOTP = async (mobileNo: string) => {
   const resp = await fetch(API_URL + `/requestOTP`, {
     method: 'POST',
     sslPinning: {
-      certs: ['thaialert']
+      certs: ['thaialert'],
     },
     headers: getPrivateHeaders(),
     body: JSON.stringify({ mobileNo }),
@@ -62,7 +63,7 @@ export const verifyOTP = async (otpCode: string) => {
   const resp = await fetch(API_URL + `/mobileParing`, {
     method: 'POST',
     sslPinning: {
-      certs: ['thaialert']
+      certs: ['thaialert'],
     },
     headers: getPrivateHeaders(),
     body: JSON.stringify({ otpCode }),
@@ -75,7 +76,7 @@ export const updateUserData = async (data: { [key: string]: any }) => {
   const resp = await fetch(API_URL + `/userdata`, {
     method: 'POST',
     sslPinning: {
-      certs: ['thaialert']
+      certs: ['thaialert'],
     },
     headers: getAnonymousHeaders(),
     body: JSON.stringify({ data }),
@@ -87,7 +88,7 @@ export const getQRData = async () => {
   const resp = await fetch(API_URL + `/qr`, {
     method: 'GET',
     sslPinning: {
-      certs: ['thaialert']
+      certs: ['thaialert'],
     },
     headers: getAnonymousHeaders(),
   })
@@ -100,7 +101,7 @@ export const getProficientData = async () => {
   const resp = await fetch(API_URL + `/qr/proficient`, {
     method: 'GET',
     sslPinning: {
-      certs: ['thaialert']
+      certs: ['thaialert'],
     },
     headers: getAnonymousHeaders(),
   })
@@ -115,12 +116,12 @@ export const getProficientData = async () => {
 export const scan = async (
   anonymousList: string[],
   location: { latitude: number; longitude: number; accuracy: number },
-  type: 'bluetooth' | 'qrscan'
+  type: 'bluetooth' | 'qrscan',
 ) => {
   return fetch(API_URL + '/scan', {
     method: 'POST',
     sslPinning: {
-      certs: ['thaialert']
+      certs: ['thaialert'],
     },
     headers: getAnonymousHeaders(),
     body: JSON.stringify({
@@ -128,7 +129,7 @@ export const scan = async (
       timestamp: new Date().toISOString(),
       meetWithIds: anonymousList,
       location,
-      type
+      type,
     }),
   })
 }

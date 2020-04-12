@@ -6,6 +6,7 @@ import { Platform } from 'react-native'
 
 export const API_URL = Config.API_URL
 export const API_KEY = Config.API_KEY
+export const SSL_PINNING_CERT_NAME = Config.SSL_PINNING_CERT_NAME
 export const CODEPUSH_DEPLOYMENT_KEY = Platform.select({
   ios: Config.CODE_PUSH_IOS,
   android: Config.CODE_PUSH_ANDROID,

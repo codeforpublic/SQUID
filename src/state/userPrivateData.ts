@@ -20,7 +20,7 @@ const SINFO_OPTIONS = {
   sharedPreferencesName: 'ThaiAlert.UserPrivateData',
   keychainService: '@ThaiAlert/UserPrivateData',
 }
-const LATEST_VERSION = 1
+const LATEST_VERSION = 2
 
 class UserPrivateData extends HookState {
   data: UserData
@@ -53,7 +53,7 @@ class UserPrivateData extends HookState {
       return registerDevice().then(({ userId, anonymousId }) => {
         this.data.id = userId
         this.data.anonymousId = anonymousId
-        this.data.version = 1
+        this.data.version = LATEST_VERSION
         return this.save()
       })
     }
@@ -62,7 +62,9 @@ class UserPrivateData extends HookState {
       await register()
     } else {
       /* just sync, if failed, stil fine  */
-      register()
+      await register().catch(err => {
+        console.log('register failed', err)
+      })
     }
   }
 
