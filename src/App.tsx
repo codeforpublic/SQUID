@@ -17,6 +17,8 @@ import { applicationState } from './state/app-state'
 import { ThemeProvider } from 'emotion-theming'
 import { withSystemAvailable } from './services/available'
 import { CODEPUSH_DEPLOYMENT_KEY } from './config'
+import { withEnforceUpdate } from './utils/enforce-update'
+import { compose } from './utils/compose'
 
 const AppContainer = createAppContainer(Navigator)
 
@@ -99,11 +101,13 @@ class App extends React.Component {
   }
 }
 
-export default withSystemAvailable(
+export default compose(
   codePush({
     // @ts-ignore
     installMode: codePush.InstallMode.IMMEDIATE,
     checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-    deploymentKey: CODEPUSH_DEPLOYMENT_KEY
-  })(App),
-)
+    deploymentKey: CODEPUSH_DEPLOYMENT_KEY,
+  }),
+  withEnforceUpdate(false),
+  withSystemAvailable,
+)(App)
