@@ -44,3 +44,4 @@ android/keystores/debug.keystore
 
 ios/Pods/
 *.hprof
+.env.production
