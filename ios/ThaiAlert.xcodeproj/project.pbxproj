@@ -364,7 +364,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh\n\nif [ \"${CONFIGURATION}\" == \"Release\" ]; then\n    echo \"Delete sourcemaps\"\n    rm \"$CONFIGURATION_BUILD_DIR/$PROJECT_NAME.app/main.jsbundle.map\"\nfi\n";
 		};
 		7CEC233EAB151DC324DC0FEF /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -10,7 +10,3 @@ export const CODEPUSH_DEPLOYMENT_KEY = Platform.select({
   ios: Config.CODE_PUSH_IOS,
   android: Config.CODE_PUSH_ANDROID,
 })
-
-setTimeout(() => {
-  console.log('Config', Config)
-}, 1000)

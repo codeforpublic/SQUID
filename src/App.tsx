@@ -102,7 +102,6 @@ class App extends React.Component {
 export default withSystemAvailable(
   codePush({
     // @ts-ignore
-    updateDialog: true,
     installMode: codePush.InstallMode.IMMEDIATE,
     checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
     deploymentKey: CODEPUSH_DEPLOYMENT_KEY

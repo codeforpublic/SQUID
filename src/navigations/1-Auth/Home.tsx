@@ -22,7 +22,7 @@ export const Home = ({ navigation }) => {
         <DebugTouchable
           onDebug={() => {
             CodePush.getUpdateMetadata().then(result => {
-              Alert.alert(API_URL, JSON.stringify(result))
+              Alert.alert(API_URL)
             })
           }}
         >
