@@ -38,7 +38,7 @@ export const OnboardComplete = () => {
           containerStyle={{ width: '100%' }}
           onPress={() => {
             if (applicationState.getData(
-              'filledQuestionaire',
+              'filledQuestionaireV2',
             )) {
               resetTo({ routeName: 'MainApp' })
             } else {

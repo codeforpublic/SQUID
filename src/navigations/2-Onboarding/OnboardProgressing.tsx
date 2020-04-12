@@ -23,7 +23,7 @@ export const OnboardProgressing = () => {
   useEffect(() => {
     setTimeout(() => {
       applicationState.setData('isPassedOnboarding', true)
-      if (applicationState.getData('filledQuestionaire')) {
+      if (applicationState.getData('filledQuestionaireV2')) {
         navigation.navigate('OnboardComplete')
       } else {
         resetTo({ routeName: 'Questionaire' })

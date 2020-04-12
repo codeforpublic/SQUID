@@ -28,7 +28,7 @@ const Root = ({ navigation }) => {
       )
       const onboarded = applicationState.getData('isPassedOnboarding')
       const isFilledQuestionaire = applicationState.getData(
-        'filledQuestionaire',
+        'filledQuestionaireV2',
       )
       console.log('onboarded',onboarded,isFilledQuestionaire)
       const routeName = registered

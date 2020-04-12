@@ -144,7 +144,7 @@ export const QuestionaireForm = ({ navigation }) => {
           } else {
             showSpinner()
             await updateUserData({ questionaire: formValue })
-            applicationState.setData('filledQuestionaire', true)
+            applicationState.setData('filledQuestionaireV2', true)
             navigation.navigate('QuestionaireSummary')
             hide()
           }
