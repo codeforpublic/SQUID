@@ -93,6 +93,7 @@
 		CB7B6B7E2CF44E8AABAFEC23 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		D6FA3B581FF54C45BD556396 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		D92A024D24360E0E00367D58 /* ThaiAlert.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ThaiAlert.entitlements; path = ThaiAlert/ThaiAlert.entitlements; sourceTree = "<group>"; };
+		D92CAD5B24437D5500A99087 /* thaialert.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = thaialert.cer; sourceTree = "<group>"; };
 		D9459BA7243B91D900588DC9 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "ThaiAlert/AppCenter-Config.plist"; sourceTree = "<group>"; };
 		D9790A306A14407D95088CA1 /* Prompt-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-LightItalic.ttf"; path = "../assets/fonts/Prompt-LightItalic.ttf"; sourceTree = "<group>"; };
 		D988E8EE24301732009500DC /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -135,6 +136,7 @@
 		13B07FAE1A68108700A75B9A /* ThaiAlert */ = {
 			isa = PBXGroup;
 			children = (
+				D92CAD5B24437D5500A99087 /* thaialert.cer */,
 				D92A024D24360E0E00367D58 /* ThaiAlert.entitlements */,
 				839C411C23084F93008AF109 /* RNBackgroundFetch+AppDelegate.m */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
