@@ -1,4 +1,3 @@
-// export const App = () => null
 import React, { Component, Context } from 'react'
 import { NativeModules, Dimensions } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -17,6 +16,7 @@ import { ContactTracerProvider } from './services/contact-tracing-provider'
 import { applicationState } from './state/app-state'
 import { ThemeProvider } from 'emotion-theming'
 import { withSystemAvailable } from './services/available'
+import { CODEPUSH_DEPLOYMENT_KEY } from './config'
 
 const AppContainer = createAppContainer(Navigator)
 
@@ -105,5 +105,6 @@ export default withSystemAvailable(
     updateDialog: true,
     installMode: codePush.InstallMode.IMMEDIATE,
     checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+    deploymentKey: CODEPUSH_DEPLOYMENT_KEY
   })(App),
 )
