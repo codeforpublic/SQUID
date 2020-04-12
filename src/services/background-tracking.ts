@@ -15,21 +15,14 @@ class BackgroundTracking {
     AppState.addEventListener('change', this.onAppStateChange)
     BackgroundGeolocation.onHttp(async response => {
       let status = response.status
-      let success = response.success
-      let responseText = response.responseText
-      console.log(
-        'BackgroundGeolocation [onHttp] ',
-        status,
-        success,
-        responseText,
-      )
+      console.log('BackgroundGeolocation [onHttp] ', status)
       this.latestKnownedUpdated = Date.now()
     })
-    
+
     const headers = getAnonymousHeaders()
 
     await BackgroundGeolocation.ready({
-      distanceFilter: Platform.OS === 'android'? 0: 25, // every 25 meter
+      distanceFilter: Platform.OS === 'android' ? 0 : 25, // every 25 meter
       locationUpdateInterval: 15 * 60 * 1000, // every 15 minute
       stationaryRadius: 50,
       stopOnTerminate: false,
@@ -40,13 +33,14 @@ class BackgroundTracking {
       debug: false,
       batchSync: true,
       maxBatchSize: 20,
-      deferTime: 60 * 1000,      
+      deferTime: 60 * 1000,
       url: API_URL + '/location',
       httpRootProperty: 'locations',
       locationsOrderDirection: 'ASC',
       heartbeatInterval: 60 * 15,
       locationAuthorizationAlert: {
-        titleWhenNotEnabled: 'กรุณาเปิด Location services เป็น Always ให้หมอชนะ',
+        titleWhenNotEnabled:
+          'กรุณาเปิด Location services เป็น Always ให้หมอชนะ',
         titleWhenOff: 'กรุณาเปิด Location services เป็น Always ให้หมอชนะ',
         instructions:
           'เพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง หรืออยู่ในพื้นที่เสี่ยง',
@@ -76,7 +70,6 @@ class BackgroundTracking {
     this.started = true
     console.log('BackgroundGeolocation: started')
     await BackgroundGeolocation.start().catch(err => {
-      console.error(err)
       this.started = false
       setTimeout(() => this.start(), 10 * 10000) // auto retry
     })
@@ -97,7 +90,7 @@ class BackgroundTracking {
   getLocation(extras: any = {}) {
     return BackgroundGeolocation.getCurrentPosition({
       samples: 1,
-      ...extras
+      ...extras,
     })
   }
   onAppStateChange = state => {

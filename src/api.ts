@@ -37,7 +37,6 @@ export const registerDevice = async (): Promise<{
     body: JSON.stringify({ deviceId: DeviceInfo.getUniqueId() }),
   })
   const result = await resp.json()
-  console.log('registerDevice', result)
   if (!result.anonymousId || !result.userId) {
     throw new Error('RegisterDevice failed')
   }
