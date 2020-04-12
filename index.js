@@ -73,9 +73,3 @@ let BackgroundFetchHeadlessTask = async event => {
 
 // Register your BackgroundFetch HeadlessTask
 BackgroundFetch.registerHeadlessTask(BackgroundFetchHeadlessTask)
-
-if (!__DEV__) {
-  console = {}
-  console.log = () => {}
-  console.error = () => {}
-}
