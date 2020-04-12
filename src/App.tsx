@@ -17,7 +17,6 @@ import { applicationState } from './state/app-state'
 import { ThemeProvider } from 'emotion-theming'
 import { withSystemAvailable } from './services/available'
 import { CODEPUSH_DEPLOYMENT_KEY } from './config'
-import { withEnforceUpdate } from './utils/enforce-update'
 import { compose } from './utils/compose'
 
 const AppContainer = createAppContainer(Navigator)
@@ -108,6 +107,5 @@ export default compose(
     checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
     deploymentKey: CODEPUSH_DEPLOYMENT_KEY,
   }),
-  withEnforceUpdate(false),
   withSystemAvailable,
 )(App)

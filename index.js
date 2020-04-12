@@ -34,15 +34,18 @@ let BackgroundGeolocationHeadlessTask = async event => {
 
   switch (event.name) {
     case 'heartbeat':
-      // Use await for async tasks      
+      // Use await for async tasks
       let location = await BackgroundGeolocation.getCurrentPosition({
         samples: 1,
         persist: false,
         extras: {
-          triggerType: 'headlessTask'
-        }
-      });
-      console.log('[BackgroundGeolocation HeadlessTask] - getCurrentPosition:', location);
+          triggerType: 'headlessTask',
+        },
+      })
+      console.log(
+        '[BackgroundGeolocation HeadlessTask] - getCurrentPosition:',
+        location,
+      )
       break
   }
 }
@@ -70,3 +73,9 @@ let BackgroundFetchHeadlessTask = async event => {
 
 // Register your BackgroundFetch HeadlessTask
 BackgroundFetch.registerHeadlessTask(BackgroundFetchHeadlessTask)
+
+if (!__DEV__) {
+  console = {}
+  console.log = () => {}
+  console.error = () => {}
+}
