@@ -27,7 +27,7 @@ PODS:
     - JWT (~> 3.0.0-beta.7)
     - React
     - SSZipArchive (~> 2.1)
-  - ContactTracerReactNative (1.0.0):
+  - ContactTracerReactNative (1.1.0):
     - React
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.61.5)
@@ -335,7 +335,7 @@ DEPENDENCIES:
   - appcenter-core (from `../node_modules/appcenter/ios`)
   - appcenter-crashes (from `../node_modules/appcenter-crashes/ios`)
   - CodePush (from `../node_modules/react-native-code-push`)
-  - ContactTracerReactNative (from `../node_modules/react-native-contact-tracer/ios`)
+  - ContactTracerReactNative (from `../node_modules/react-native-contact-tracer`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
@@ -415,7 +415,7 @@ EXTERNAL SOURCES:
   CodePush:
     :path: "../node_modules/react-native-code-push"
   ContactTracerReactNative:
-    :path: "../node_modules/react-native-contact-tracer/ios"
+    :path: "../node_modules/react-native-contact-tracer"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
@@ -535,7 +535,7 @@ SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   CocoaLumberjack: 2f44e60eb91c176d471fdba43b9e3eae6a721947
   CodePush: bb7e03266a59b81c45d67f518dd5eb30aeb09b1e
-  ContactTracerReactNative: 699802ee377258dcf7b379947d030d0e061b420b
+  ContactTracerReactNative: 5b01f94268e609784ee40bd4171e4e81e37360e0
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   FBLazyVector: aaeaf388755e4f29cd74acbc9e3b8da6d807c37f
   FBReactNativeSpec: 118d0d177724c2d67f08a59136eb29ef5943ec75
