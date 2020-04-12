@@ -24,7 +24,7 @@ export const getAnonymousHeaders = () => {
 export const registerDevice = async (): Promise<{
   userId: string
   anonymousId: string
-}> => {
+}> => {  
   const resp = await fetch(API_URL + `/registerDevice`, {
     method: 'POST',
     sslPinning: {
@@ -39,8 +39,7 @@ export const registerDevice = async (): Promise<{
   const result = await resp.json()
   if (!result.anonymousId || !result.userId) {
     throw new Error('RegisterDevice failed')
-  }
-  console.log('register success', result)
+  }  
 
   return { userId: result.userId, anonymousId: result.anonymousId }
 }
