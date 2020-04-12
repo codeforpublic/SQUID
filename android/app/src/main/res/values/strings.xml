@@ -14,5 +14,6 @@
     <string name="cancel">Cancel</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
+    <string name="contact_tracer_bluetooth_uuid">000086e1-0000-1000-8000-00805f9b34fb</string>
 </resources>
 
