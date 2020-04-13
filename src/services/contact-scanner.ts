@@ -4,14 +4,14 @@ import { backgroundTracking } from './background-tracking'
 import BackgroundGeolocation from 'react-native-background-geolocation'
 
 class ScanManager {
-  ttl: number
+  ttl?: number
   list: string[] = []
   timeout?: NodeJS.Timeout
-  locationAccuracy: number
+  locationAccuracy?: number
   latestUploadTS?: number
   oldestItemTS?: number
   type: 'bluetooth' | 'qrscan'
-  constructor({ ttl, locationAccuracy, type }) {
+  constructor({ ttl, locationAccuracy, type }: { ttl?: number, locationAccuracy?: number, type: 'bluetooth' | 'qrscan' }) {
     this.locationAccuracy = locationAccuracy
     this.ttl = ttl
     this.type = type
@@ -26,7 +26,9 @@ class ScanManager {
     })
   }
   private startTimeout() {
-    this.timeout = setTimeout(() => this.upload(), this.ttl) // 30 sec
+    if (this.ttl) {
+      this.timeout = setTimeout(() => this.upload(), this.ttl) // 30 sec
+    }
   }
   add(annonymousId: string): boolean {
     if (this.list.find(id => id === annonymousId)) {
@@ -76,8 +78,8 @@ export const scanManager = new ScanManager({
   type: 'qrscan',
   locationAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
 })
+
 export const bluetoothScanner = new ScanManager({
-  ttl: 10 * 60 * 1000,
   type: 'bluetooth',
   locationAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_LOW,
 })
