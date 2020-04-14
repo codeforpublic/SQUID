@@ -63,8 +63,10 @@ export const OnboardFace = () => {
   }
 
   const onSubmit = async () => {
-    await userPrivateData.setFace(uri, { isTempUri: true })
-    navigation.navigate('OnboardLocation')
+    if (uri) {
+      await userPrivateData.setFace(uri, { isTempUri: true })
+      navigation.navigate('OnboardLocation')
+    }
   }
 
   return (

@@ -92,6 +92,9 @@ class UserPrivateData extends HookState {
     return this.save()
   }
   setFace(uri, { isTempUri }) {
+    if (!uri) {
+      throw new Error('Uri not found')
+    }
     if (isTempUri) {
       const newFilePath = `${Date.now()}-${RELATIVE_FACE_PATH}`
       let dataPath = `${RNFS.DocumentDirectoryPath}/${newFilePath}`
