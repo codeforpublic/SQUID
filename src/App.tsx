@@ -101,11 +101,11 @@ class App extends React.Component {
 }
 
 export default compose(
-  codePush({
+  CODEPUSH_DEPLOYMENT_KEY? codePush({
     // @ts-ignore
     installMode: codePush.InstallMode.IMMEDIATE,
     checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
     deploymentKey: CODEPUSH_DEPLOYMENT_KEY,
-  }),
+  }): c => c,
   withSystemAvailable,
 )(App)

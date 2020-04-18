@@ -1108,10 +1108,9 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/image-editor/-/image-editor-2.3.0.tgz#8ac6c3691fd2c762d2abeb84c01a3b201bac3b1e"
   integrity sha512-+UJY8WkTkfSkjoU5blQnEI7tTg11jJLoM+YojjiQpEopUaRlYQU4SZ9Zd6F6wWfvc9bjvIeMY6FlKuESK/q4fQ==
 
-"@react-native-community/push-notification-ios@^1.0.1", "@react-native-community/push-notification-ios@^1.0.7":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@react-native-community/push-notification-ios/-/push-notification-ios-1.1.0.tgz#b0aa8196d60505866764937af641cc0390a60bd4"
-  integrity sha512-LBEPQAV55GduftmuwIG0pDB5GtAN93211BYQMaYLqEUSF+LtvSnsAp+F4P91q2qPp6byk/V1+wTRNzdDor7KDg==
+"@react-native-community/push-notification-ios@^1.0.1", "@react-native-community/push-notification-ios@https://github.com/MorganTrudeau/push-notification-ios.git#b823dfb":
+  version "1.1.1"
+  resolved "https://github.com/MorganTrudeau/push-notification-ios.git#b823dfb936edec96922b2fade7be4277fc739e59"
   dependencies:
     invariant "^2.2.4"
 
