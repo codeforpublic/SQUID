@@ -130,7 +130,7 @@ export const MainApp = () => {
   )
 
   useEffect(() => {
-    pushNotification.configure()
+    pushNotification.requestPermissions()
   }, [])
   useEffect(() => {
     RNFS.exists(faceURI).then(exists => {

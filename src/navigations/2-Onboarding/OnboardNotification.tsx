@@ -26,7 +26,7 @@ export const OnboardNotification = () => {
   const handleSubmit = async () => {
     showSpinner()
 
-    pushNotification.configure()
+    pushNotification.requestPermissions()
     hide()
 
     navigation.navigate('OnboardProgressing')

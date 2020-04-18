@@ -2,8 +2,14 @@ import PushNotification from 'react-native-push-notification'
 import PushNotificationIOS from '@react-native-community/push-notification-ios'
 import { backgroundTracking } from './background-tracking'
 import { updateUserData } from '../api'
+import { applicationState } from '../state/app-state'
+import { AppState } from 'react-native'
 
 console.disableYellowBox = true
+
+export enum NOTIFICATION_TYPES {
+  OPEN = 'OPEN'
+}
 
 class Notification {
   isConfigured = false
@@ -37,12 +43,28 @@ class Notification {
       date: new Date(Date.now() + 10 * 1000),
     })
   }
-  configure() {
-    if (this.isConfigured) {
-      return
-    }
-    console.log('notification configure')
-    this.isConfigured = true
+  requestPermissions() {
+    PushNotification.requestPermissions()
+    applicationState.setData('isAllowNotification', true)
+  }
+  popInitialNotification(calback) {
+    PushNotification.popInitialNotification(calback)
+  }
+  configure(onNotification) {    
+    const requestPermissions = applicationState.getData('isAllowNotification') as boolean
+    console.log('notification configure', requestPermissions)
+    // let appState 
+    // AppState.addEventListener('change', (state) => {
+    //   if (appState !== state) {
+    //     if (state === 'active') {
+    //       console.log('PushNotification.popInitialNotification')
+    //       PushNotification.popInitialNotification(notification => {
+    //         console.log('popInitialNotification', notification)
+    //       })
+    //     }
+    //   }
+    //   appState = state
+    // })
 
     return PushNotification.configure({
       // (optional) Called when Token is generated (iOS and Android)
@@ -54,15 +76,12 @@ class Notification {
           console.log('notification save push token', r)
         })
       },
-      onError: (data) => {
-        console.warn('_____PushNotificationIOS::registrationError', { ...data })
-      },
       senderID: "914417222955",
 
       // (required) Called when a remote or local notification is opened or received
-      onNotification: function (notification) {
-        backgroundTracking.getLocation() // trigger update location
-        console.log('NOTIFICATION:', notification)
+      onNotification: async function (notification) {
+        backgroundTracking.getLocation() // trigger update location        
+        await onNotification(notification)
         // notification?.data?.
         // process the notification
         // required on iOS only (see fetchCompletionHandler docs: https://github.com/react-native-community/react-native-push-notification-ios)
@@ -85,7 +104,7 @@ class Notification {
        * - Specified if permissions (ios) and token (android and ios) will requested or not,
        * - if not, you must call PushNotificationsHandler.requestPermissions() later
        */
-      requestPermissions: true,
+      requestPermissions,
     })
   }
 }

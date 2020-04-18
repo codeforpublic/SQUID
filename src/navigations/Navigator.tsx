@@ -30,7 +30,7 @@ const Root = ({ navigation }) => {
       const isFilledQuestionaire = applicationState.getData(
         'filledQuestionaireV2',
       )
-      console.log('onboarded',onboarded,isFilledQuestionaire)
+      
       const routeName = registered
         ? onboarded
           ? isFilledQuestionaire

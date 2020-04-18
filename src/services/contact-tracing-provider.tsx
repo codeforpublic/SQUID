@@ -277,8 +277,7 @@ export class ContactTracerProvider extends React.Component<
     }
   }
 
-  render() {
-    console.log('contact tracing', this.state)
+  render() {    
     return (
       <Context.Provider value={this.state}>
         {this.props.children}

@@ -43,6 +43,7 @@
     "@types/lodash.isequal": "^4.5.5",
     "@types/moment": "^2.13.0",
     "@types/nanoid": "^2.1.0",
+    "@types/react-native-push-notification": "^3.0.9",
     "@types/react-navigation": "^3.0.8",
     "@types/yup": "^0.26.33",
     "@use-it/interval": "^0.1.3",

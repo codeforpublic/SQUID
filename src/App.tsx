@@ -1,5 +1,5 @@
 import React, { Component, Context } from 'react'
-import { NativeModules, Dimensions } from 'react-native'
+import { NativeModules, Dimensions, Linking } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-community/async-storage'
 import { createAppContainer } from 'react-navigation'
@@ -19,6 +19,7 @@ import { withSystemAvailable } from './services/available'
 import { CODEPUSH_DEPLOYMENT_KEY } from './config'
 import { compose } from './utils/compose'
 import { refetchPublicKey } from './utils/crypto'
+import { pushNotification, NOTIFICATION_TYPES } from './services/notification'
 
 const AppContainer = createAppContainer(Navigator)
 
@@ -59,7 +60,10 @@ class App extends React.Component {
 
     await NativeModules.ContactTracerModule.setUserId(
       userPrivateData.getAnonymousId(),
-    )    
+    )
+    
+    pushNotification.configure(this.onNotification)
+    pushNotification.popInitialNotification(this.onNotification)
 
     this.setState({ loaded: true }, () => {
       SplashScreen.hide()
@@ -68,6 +72,25 @@ class App extends React.Component {
   getTheme() {
     return {
       scaling: Dimensions.get('window').height / 818,
+    }
+  }
+  onNotification = (notification) => {
+    console.log('notification', notification)
+    const notificationData = notification?.data
+    if (!notificationData?.type) {
+      return
+    }
+    const navigation = (this._navigator as any)._navigation
+    console.log('notificationData handler', notificationData.type, notificationData)
+    switch (notificationData.type) {
+      case NOTIFICATION_TYPES.OPEN: {
+        if (notificationData.routeName) {
+          navigation.navigate(notificationData.routeName)
+        } else if (notificationData.url) {
+          Linking.openURL(notificationData.url)
+        }
+        break
+      }
     }
   }
 

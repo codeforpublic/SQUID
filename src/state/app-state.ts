@@ -9,6 +9,7 @@ interface ApplicationStateData {
   isVerified?: boolean
   skipRegistration?: boolean
   filledQuestionaireV2?: boolean
+  isAllowNotification?: boolean
   createdDate?: string
   updateProfileDate?: string
 }
