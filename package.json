@@ -98,6 +98,7 @@
     "react-native-qrcode-svg": "^6.0.3",
     "react-native-root-siblings": "git+https://github.com/neilzhengzx/react-native-root-siblings.git",
     "react-native-root-toast": "^3.0.2",
+    "react-native-rsa-native": "^1.1.4",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-safe-area-view": "^1.0.0",
     "react-native-screens": "^1.0.0-alpha.22",

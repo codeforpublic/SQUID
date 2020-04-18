@@ -6850,10 +6850,10 @@ react-native-confirm@^0.0.1:
     react-native-input-xg "^0.0.2"
     react-native-stylesheet-xg "^1.1.0"
 
-react-native-contact-tracer@^1.1.7:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/react-native-contact-tracer/-/react-native-contact-tracer-1.1.7.tgz#bb74a0493529452e26e6479418273cdd4e0965c6"
-  integrity sha512-+i4SPZxnhRZ3p0lDSKX62dAVC1w4vxJ5D1UiZW2QKk2tH1www37KzZ6f4ipmt/nN2qGc+q/tb2Cx6Llfqk/zaA==
+react-native-contact-tracer@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/react-native-contact-tracer/-/react-native-contact-tracer-1.1.9.tgz#eb94a7656c1d2bf386c4fcecc7b0d7e38a09cead"
+  integrity sha512-yBg/QFkXlCrh0YbWnQZn3HF/JRFaSck4OYF3WPCeGOSOOPLrY9krQuIW+aBMV22ylrEIWQ0ZZynL9uxAXFpgVQ==
 
 react-native-datepicker@^1.4.4:
   version "1.7.2"
@@ -7073,6 +7073,11 @@ react-native-root-toast@^3.0.2:
   dependencies:
     prop-types "^15.5.10"
     react-native-root-siblings "^4.0.0"
+
+react-native-rsa-native@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/react-native-rsa-native/-/react-native-rsa-native-1.1.4.tgz#bce591e896ea08972189f70e665cd52bdb2f4c58"
+  integrity sha512-KgFoob40shClvLkLiIC43gtBDSiI3+fHf6rt/x+KWVpecQq4sHpxyFSvykm7sSqlC94GCYyPF6rx/7DBuV84AA==
 
 react-native-safe-area-context@^0.7.3:
   version "0.7.3"
