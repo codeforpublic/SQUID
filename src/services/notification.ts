@@ -44,20 +44,6 @@ class Notification {
     console.log('notification configure')
     this.isConfigured = true
 
-    PushNotificationIOS.addEventListener('registrationError', (data) => {
-      console.log('_____PushNotificationIOS::registrationError', { ...data })
-    })
-    PushNotificationIOS.requestPermissions().then((v) => {
-      console.log('PushNotificationIOS', v)
-    })
-    PushNotificationIOS.addEventListener('register', (token) => {
-      console.log('PushNotificationIOS register', token)
-    })
-    PushNotificationIOS.addEventListener('registrationError', (registrationError) => {
-      console.log('PushNotificationIOS registrationError', registrationError)
-    })
-    return
-
     return PushNotification.configure({
       // (optional) Called when Token is generated (iOS and Android)
       onRegister: (pushToken) => {
