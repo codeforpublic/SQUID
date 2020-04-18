@@ -79,7 +79,7 @@ export const OnboardNotification = () => {
             containerStyle={{
               width: '100%',
               padding: 30,
-              justifySelf: 'center',
+              alignSelf: 'center'
             }}
             title={'เปิดการแจ้งเตือน'}
             style={{
