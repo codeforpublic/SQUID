@@ -1,6 +1,15 @@
 import { RSA } from 'react-native-rsa-native'
 
-const PUBLIC_KEY = '-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz22rqUlKldULTJ6vlL7h\nSSpVw0FeSYhM6rgLMh41t0DzYNNWm3EOMsAvBanfvedI4aY9lCCbyS2HTVgOy5W7\n6OZzXEc0tRDiHfVhccqypH49pvGbc4aIWjmj4KHEprtZpVPVMie8v6g7Fm3Jtjoh\niFAngJ9i9vWM1oW5jQiL9R+v+6aI52YF6dsdXSolF+zZjXNZuRhFPPfPgNMn6Ar3\n9FaB8/gWOQdScfU695CUbn74NrB+8tfH3Gyrc0/QyPJWpAPN8PSfns9W4eOKSiqK\n9zubWFKbAswTVshpJUjbQPvqQpSa0BFjdJo/6bFrXmIvqobdAlCJ82t7gk1NItsm\ntQIDAQAB\n-----END PUBLIC KEY-----'
+let publicKey
+
+export const refetchPublicKey = async () => {
+  /* todo: custom domain and ssl pinning */
+  const resp = await fetch('http://164.115.36.87/key-service/public_key')
+  if (resp.status === 200) {
+    publicKey = await resp.text()
+  }
+}
+
 export const hashMessage = (message) => {
-  return RSA.encrypt(message, PUBLIC_KEY)
+  return RSA.encrypt(message, publicKey)
 }

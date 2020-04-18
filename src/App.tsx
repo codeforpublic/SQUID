@@ -18,6 +18,7 @@ import { ThemeProvider } from 'emotion-theming'
 import { withSystemAvailable } from './services/available'
 import { CODEPUSH_DEPLOYMENT_KEY } from './config'
 import { compose } from './utils/compose'
+import { refetchPublicKey } from './utils/crypto'
 
 const AppContainer = createAppContainer(Navigator)
 
@@ -51,14 +52,14 @@ class App extends React.Component {
       // await this.purgeAll()
     }
 
-    await Promise.all([applicationState.load(), userPrivateData.load()])
+    await Promise.all([applicationState.load(), userPrivateData.load(), refetchPublicKey()])
     await backgroundTracking.setup(
       Boolean(applicationState.getData('isPassedOnboarding')),
     )
 
     await NativeModules.ContactTracerModule.setUserId(
       userPrivateData.getAnonymousId(),
-    )
+    )    
 
     this.setState({ loaded: true }, () => {
       SplashScreen.hide()
