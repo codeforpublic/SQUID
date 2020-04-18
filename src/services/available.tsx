@@ -33,7 +33,7 @@ export const useSystemAvailable = () => {
           setIsAvailable(false)
           Alert.alert('ระบบได้ปิดให้บริการแล้ว')
         }
-      })
+      }).catch()
     }
     let prevState
     AppState.addEventListener('change', state => {
