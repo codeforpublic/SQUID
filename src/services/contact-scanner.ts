@@ -2,7 +2,7 @@ import { AppState } from 'react-native'
 import { scan } from '../api'
 import { backgroundTracking } from './background-tracking'
 import BackgroundGeolocation from 'react-native-background-geolocation'
-
+import _ from 'lodash'
 class ScanManager {
   ttl?: number
   list: string[] = []
@@ -45,7 +45,7 @@ class ScanManager {
   }
   async upload() {
     if (this.list.length > 0) {
-      const uploadList = this.list
+      const uploadList = _.uniq(this.list)
       this.list = []
       clearTimeout(this.timeout)
       delete this.timeout
