@@ -22,6 +22,22 @@ export const getAnonymousHeaders = () => {
   }
 }
 
+export const fetchJWKs = async () => {
+  const resp = await fetch(API_URL + `/.well-known/jwks.json`, {
+    method: 'GET',
+    sslPinning: {
+      certs: [SSL_PINNING_CERT_NAME],
+    },
+    headers: {
+      'X-TH-API-Key': API_KEY,
+      'Content-Type': 'application/json',
+    }
+  })
+  if (resp.status === 200) {
+    return resp.json()
+  }
+}
+
 export const registerDevice = async (): Promise<{
   userId: string
   anonymousId: string

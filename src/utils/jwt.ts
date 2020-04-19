@@ -1,5 +1,13 @@
 import jwtDecode from 'jwt-decode'
-import jwtPure from 'react-native-pure-jwt'
+import { fetchJWKs } from '../api'
+
+let jwks
+export const refetchJWKs = async () => {
+  const result = await fetchJWKs()
+  if (result) {
+    jwks = result
+  }
+}
 
 export const decodeJWT = token => {
   try {
@@ -8,10 +16,5 @@ export const decodeJWT = token => {
     console.log(e)
     return { error: 'QR Code ไม่ถูกต้อง' }
   }
-}
-
-export const encodeJWT = data => {
-  return jwtPure.sign({ ...data, iat: Date.now() }, 'fight-covid-19', {
-    alg: 'HS256',
-  })
+  // return JwtUtils.verify(token, jwks.x, jwks.y)
 }

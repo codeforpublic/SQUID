@@ -20,6 +20,7 @@ import { CODEPUSH_DEPLOYMENT_KEY } from './config'
 import { compose } from './utils/compose'
 import { refetchPublicKey, encryptMessage, hashMessage } from './utils/crypto'
 import { pushNotification, NOTIFICATION_TYPES } from './services/notification'
+import { refetchJWKs } from './utils/jwt'
 
 const AppContainer = createAppContainer(Navigator)
 
@@ -53,7 +54,7 @@ class App extends React.Component {
       // await this.purgeAll()
     }
 
-    await Promise.all([applicationState.load(), userPrivateData.load(), refetchPublicKey()])
+    await Promise.all([applicationState.load(), userPrivateData.load(), refetchPublicKey(), refetchJWKs()])
     await backgroundTracking.setup(
       Boolean(applicationState.getData('isPassedOnboarding')),
     )
