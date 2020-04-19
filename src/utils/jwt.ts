@@ -9,6 +9,10 @@ export const refetchJWKs = async () => {
   }
 }
 
+export const verifyToken = token => {
+  return JwtUtils.verify(token, jwks.x, jwks.y)
+}
+
 export const decodeJWT = token => {
   try {
     return jwtDecode(token)
@@ -16,5 +20,4 @@ export const decodeJWT = token => {
     console.log(e)
     return { error: 'QR Code ไม่ถูกต้อง' }
   }
-  // return JwtUtils.verify(token, jwks.x, jwks.y)
 }
