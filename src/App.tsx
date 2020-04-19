@@ -71,7 +71,6 @@ class App extends React.Component {
   handleAppStateChange(state: AppStateStatus) {
     if (this.appState !== state) {
       if (state === 'active') {
-        refetchDDCPublicKey()
         refetchJWKs()
       }
     }
