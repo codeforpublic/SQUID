@@ -85,6 +85,7 @@
     "react-native-get-random-values": "^1.3.0",
     "react-native-image-picker": "^2.3.1",
     "react-native-json-tree": "^1.2.0",
+    "react-native-jwt-verifier": "^1.0.0",
     "react-native-keyboard-aware-scrollview": "^2.1.0",
     "react-native-maps": "^0.26.1",
     "react-native-masked-text": "^1.13.0",

@@ -1,3 +1,4 @@
+import JwtUtils from 'react-native-jwt-verifier'
 import jwtDecode from 'jwt-decode'
 import { fetchJWKs } from '../api'
 

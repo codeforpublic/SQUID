@@ -20,7 +20,7 @@ import { CODEPUSH_DEPLOYMENT_KEY } from './config'
 import { compose } from './utils/compose'
 import { refetchDDCPublicKey, encryptMessage, hashMessage } from './utils/crypto'
 import { pushNotification, NOTIFICATION_TYPES } from './services/notification'
-import { refetchJWKs } from './utils/jwt'
+import { refetchJWKs, verifyToken } from './utils/jwt'
 
 const AppContainer = createAppContainer(Navigator)
 
@@ -63,7 +63,8 @@ class App extends React.Component {
     await NativeModules.ContactTracerModule.setUserId(
       userPrivateData.getAnonymousId(),
     )
-    AppState.addEventListener('change', this.handleAppStateChange)
+    verifyToken('eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJfIjpbInA3b25sSkotT1FOdCIsIkciLCIiLCIwNURkekNvek9SIl0sImlhdCI6MTU4NzI3Njc5NiwiaXNzIjoiVEhDT1ZJRCJ9.OLj4XYGUkHVwkwuX5X5qK8NQlfVr0JoU0kZt8vYNg9cJjeESsrWux86rV2fn6NL-IrA1-lz85_HbG_d3QZBM4w').then(console.log)
+    AppState.addEventListener('change', this.handleAppStateChange)    
 
     this.setState({ loaded: true }, () => {
       SplashScreen.hide()
