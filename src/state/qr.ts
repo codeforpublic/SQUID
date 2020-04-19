@@ -8,8 +8,7 @@ interface QRData {
   data: {
     anonymousId: string
     code: string
-    tag?: string
-    tagLabel?: string
+    tag?: Tag    
   }
   qr: {
     type: string
@@ -116,11 +115,17 @@ class QR {
   }
 }
 
+interface Tag {
+  id: string
+  title: string
+  description: string
+  color: string
+}
+
 class SelfQR extends QR {
   qrData: QRData
   code: string
-  tag?: string
-  tagLabel?: string
+  tag?: Tag  
   timestamp: number
 
   private static currentQR: SelfQR = null
@@ -170,7 +175,6 @@ class SelfQR extends QR {
     this.qrData = qrData
     this.timestamp = Date.now()
     this.tag = qrData.data?.tag
-    this.tagLabel = qrData.data?.tagLabel
   }
   getAnonymousId() {
     return this.qrData.data.anonymousId
@@ -182,7 +186,10 @@ class SelfQR extends QR {
     return moment(this.timestamp).locale('th')
   }
   getTagLabel(): string | undefined {
-    return this.tagLabel
+    return this.tag?.title
+  }
+  getTagColor() {
+    return this.tag?.color || '#0C2641'
   }
 }
 

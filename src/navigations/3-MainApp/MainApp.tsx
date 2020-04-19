@@ -34,7 +34,7 @@ import Color from 'color'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const Footer = ({ date = moment().locale('th') }) => {
-  const smallDevice = Dimensions.get('window').height < 600  
+  const smallDevice = Dimensions.get('window').height < 600
   return (
     <View
       style={{
@@ -76,13 +76,12 @@ const Footer = ({ date = moment().locale('th') }) => {
     </View>
   )
 }
-const PROFICIENT_BG = '#0C2641'
-const TagLabel = ({ label }) => {
+const TagLabel = ({ label, color }) => {
   return (
     <View
       style={{
         marginTop: 12,
-        backgroundColor: PROFICIENT_BG,
+        backgroundColor: color,
         paddingVertical: 6,
         paddingHorizontal: 12,
         borderRadius: 6,
@@ -169,9 +168,7 @@ export const MainApp = () => {
     >
       <StatusBar
         barStyle={tagLabel ? 'light-content' : 'dark-content'}
-        backgroundColor={
-          tagLabel ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT
-        }
+        backgroundColor={tagLabel ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT}
       />
       {qr && (
         <View
@@ -179,7 +176,7 @@ export const MainApp = () => {
             StyleSheet.absoluteFill,
             {
               backgroundColor: tagLabel
-                ? PROFICIENT_BG
+                ? qr.getTagColor()
                 : Color(qr.getStatusColor())
                     .alpha(0.1)
                     .toString(),
@@ -216,7 +213,11 @@ export const MainApp = () => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-      {tagLabel ? <TagLabel label={tagLabel} /> : void 0}
+      {tagLabel ? (
+        <TagLabel label={tagLabel} color={qr.getTagColor()} />
+      ) : (
+        void 0
+      )}
       <View
         style={{
           backgroundColor: 'white',

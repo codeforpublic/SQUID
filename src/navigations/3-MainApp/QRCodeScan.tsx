@@ -15,7 +15,6 @@ import moment from 'moment'
 export const QRCodeScan = ({ navigation }) => {
   const isFocused = useIsFocused()
   const [qrResult, setQRResult] = useState<QRResult>(null)
-  console.log('qrResult', qrResult)
   const popupRef = useRef<NotificationPopup>()
 
   useEffect(() => {
