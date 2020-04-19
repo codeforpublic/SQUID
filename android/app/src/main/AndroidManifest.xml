@@ -43,7 +43,9 @@
           android:name=".SplashActivity"
           android:theme="@style/SplashTheme"
           android:label="@string/app_name"
-          android:screenOrientation="portrait">
+          android:screenOrientation="portrait"
+          android:launchMode="singleTask"
+          >
           <intent-filter>
               <action android:name="android.intent.action.MAIN" />
               <category android:name="android.intent.category.LAUNCHER" />
@@ -51,22 +53,22 @@
            <intent-filter>
                <action android:name="com.nuuneoi.lib.contacttracer.noti" />
            </intent-filter>
-        </activity>
-        <activity
-        android:name=".MainActivity"
-        android:label="@string/app_name"
-        android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-        android:windowSoftInputMode="adjustResize"
-        android:exported="true"
-        android:screenOrientation="portrait"
-        >
-        <intent-filter android:label="filter_react_native">
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
-            <data android:scheme="morchana" android:host="app"/>
+            <intent-filter android:label="filter_react_native">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="morchana" android:host="app"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+        />
       <!-- 3/3 [RELEASE:REMOVE] Remove for release
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
       -->
@@ -77,41 +79,13 @@
       <meta-data android:name="com.transistorsoft.locationmanager.ENCRYPTION_PASSWORD" android:value="com.thaialert.app" />
 
       <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_name"
-                android:value="ThaiAlert"/>
+                android:value="Morchana"/>
       <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_description"
                   android:value="คุณจะได้รับการแจ้งเตือนทันที เมื่อคุณได้ไปใกล้ชิดกับคนที่มีความเสี่ยง"/>
       <!-- Change the resource name to your App's accent color - or any other color you want -->
       <meta-data  android:name="com.dieam.reactnativepushnotification.notification_color"
                   android:resource="@android:color/white"/>
 
-      <!-- < Only if you're using GCM or localNotificationSchedule() > -->
-      <receiver
-          android:name="com.google.android.gms.gcm.GcmReceiver"
-          android:exported="true"
-          android:permission="com.google.android.c2dm.permission.SEND" >
-          <intent-filter>
-              <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-              <category android:name="com.thaialert.app" />
-          </intent-filter>
-      </receiver>
-      <!-- < Only if you're using GCM or localNotificationSchedule() > -->
-
-      <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationPublisher" />
-      <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationBootEventReceiver">
-          <intent-filter>
-              <action android:name="android.intent.action.BOOT_COMPLETED" />
-          </intent-filter>
-      </receiver>
-      <service android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationRegistrationService"/>
-
-      <!-- < Only if you're using GCM or localNotificationSchedule() > -->
-      <service
-          android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerServiceGcm"
-          android:exported="false" >
-          <intent-filter>
-              <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-          </intent-filter>
-      </service>
       <service
             android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService"
             android:exported="false" >

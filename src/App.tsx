@@ -36,7 +36,7 @@ class App extends React.Component {
       loaded: false,
     }
   }
-  componentDidMount() {
+  componentDidMount() {    
     this.load().catch(err => {
       console.log('err', err)
       Alert.alert('Load app failed')
@@ -60,10 +60,7 @@ class App extends React.Component {
 
     await NativeModules.ContactTracerModule.setUserId(
       userPrivateData.getAnonymousId(),
-    )
-    
-    pushNotification.configure(this.onNotification)
-    pushNotification.popInitialNotification(this.onNotification)
+    )    
 
     this.setState({ loaded: true }, () => {
       SplashScreen.hide()
@@ -74,6 +71,9 @@ class App extends React.Component {
       scaling: Dimensions.get('window').height / 818,
     }
   }
+  onNavigatorLoaded() {
+    pushNotification.configure(this.onNotification)
+  }
   onNotification = (notification) => {
     console.log('notification', notification)
     const notificationData = notification?.data
@@ -81,7 +81,6 @@ class App extends React.Component {
       return
     }
     const navigation = (this._navigator as any)._navigation
-    console.log('notificationData handler', notificationData.type, notificationData)
     switch (notificationData.type) {
       case NOTIFICATION_TYPES.OPEN: {
         if (notificationData.routeName) {
@@ -112,7 +111,10 @@ class App extends React.Component {
                 <AppContainer
                   uriPrefix="morchana://"
                   ref={navigator => {
-                    this._navigator = navigator
+                    if (!this._navigator) {
+                      this._navigator = navigator
+                      this.onNavigatorLoaded()
+                    }                    
                   }}
                 />
               </View>

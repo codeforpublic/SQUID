@@ -1108,7 +1108,7 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/image-editor/-/image-editor-2.3.0.tgz#8ac6c3691fd2c762d2abeb84c01a3b201bac3b1e"
   integrity sha512-+UJY8WkTkfSkjoU5blQnEI7tTg11jJLoM+YojjiQpEopUaRlYQU4SZ9Zd6F6wWfvc9bjvIeMY6FlKuESK/q4fQ==
 
-"@react-native-community/push-notification-ios@^1.0.1", "@react-native-community/push-notification-ios@https://github.com/MorganTrudeau/push-notification-ios.git#b823dfb":
+"@react-native-community/push-notification-ios@https://github.com/MorganTrudeau/push-notification-ios.git#b823dfb":
   version "1.1.1"
   resolved "https://github.com/MorganTrudeau/push-notification-ios.git#b823dfb936edec96922b2fade7be4277fc739e59"
   dependencies:
@@ -7023,12 +7023,9 @@ react-native-push-notification-popup@^1.4.0:
   dependencies:
     prop-types "^15.7.2"
 
-react-native-push-notification@^3.1.9:
-  version "3.1.9"
-  resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-3.1.9.tgz#760ee06e743fef74fc9fcb672dac40794fdc4c47"
-  integrity sha512-YpEg9AYBjNgJtHRgHKR0xPB7kk3Gj0uSjUxd0feOIvd7wrfR+zeiBM4NZonGmjlAG6thaE37dfAG5qcsONFM7w==
-  dependencies:
-    "@react-native-community/push-notification-ios" "^1.0.1"
+"react-native-push-notification@https://github.com/codeforpublic/react-native-push-notification.git#e9e10b9":
+  version "3.1.2"
+  resolved "https://github.com/codeforpublic/react-native-push-notification.git#e9e10b95f3543bd4d52b46ca6fcc3f476d20128a"
 
 react-native-qrcode-scanner@^1.4.0:
   version "1.4.0"

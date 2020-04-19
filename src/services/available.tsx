@@ -15,7 +15,6 @@ export const isServiceAvailable = async () => {
     },
   )
   const txt = (await resp.text()).trim()
-  console.log('txt', txt, txt === '1', Date.now() - t + 'ms')
   return txt === '1'
 }
 
