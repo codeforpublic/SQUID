@@ -1,4 +1,4 @@
-import { RSA } from 'react-native-rsa-native'
+import { RSA, RSAKeychain } from 'react-native-rsa-native'
 
 let publicKey
 
@@ -10,6 +10,6 @@ export const refetchPublicKey = async () => {
   }
 }
 
-export const hashMessage = (message) => {
+export const encryptMessage = (message) => {
   return RSA.encrypt(message, publicKey)
 }

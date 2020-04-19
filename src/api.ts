@@ -3,6 +3,7 @@ import { userPrivateData } from './state/userPrivateData'
 import nanoid from 'nanoid'
 import { API_URL, API_KEY, SSL_PINNING_CERT_NAME } from './config'
 import { fetch } from 'react-native-ssl-pinning'
+import { encryptMessage } from './utils/crypto'
 
 export const getPrivateHeaders = () => {
   return {
@@ -24,7 +25,7 @@ export const getAnonymousHeaders = () => {
 export const registerDevice = async (): Promise<{
   userId: string
   anonymousId: string
-}> => {  
+}> => {
   const resp = await fetch(API_URL + `/registerDevice`, {
     method: 'POST',
     sslPinning: {
@@ -39,19 +40,23 @@ export const registerDevice = async (): Promise<{
   const result = await resp.json()
   if (!result.anonymousId || !result.userId) {
     throw new Error('RegisterDevice failed')
-  }  
+  }
 
   return { userId: result.userId, anonymousId: result.anonymousId }
 }
 
 export const requestOTP = async (mobileNo: string) => {
+  const hashedMobileNo = await encryptMessage(mobileNo)
   const resp = await fetch(API_URL + `/requestOTP`, {
     method: 'POST',
     sslPinning: {
       certs: ['thaialert'],
     },
     headers: getPrivateHeaders(),
-    body: JSON.stringify({ mobileNo }),
+    body: JSON.stringify({
+      mobileNo /* use to send sms only, never keep phone number in server */,
+      hashedMobileNo,
+    }),
   })
   const result = await resp.json()
 

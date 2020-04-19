@@ -18,7 +18,7 @@ import { ThemeProvider } from 'emotion-theming'
 import { withSystemAvailable } from './services/available'
 import { CODEPUSH_DEPLOYMENT_KEY } from './config'
 import { compose } from './utils/compose'
-import { refetchPublicKey } from './utils/crypto'
+import { refetchPublicKey, encryptMessage, hashMessage } from './utils/crypto'
 import { pushNotification, NOTIFICATION_TYPES } from './services/notification'
 
 const AppContainer = createAppContainer(Navigator)
@@ -60,7 +60,7 @@ class App extends React.Component {
 
     await NativeModules.ContactTracerModule.setUserId(
       userPrivateData.getAnonymousId(),
-    )    
+    )
 
     this.setState({ loaded: true }, () => {
       SplashScreen.hide()
@@ -75,7 +75,6 @@ class App extends React.Component {
     pushNotification.configure(this.onNotification)
   }
   onNotification = (notification) => {
-    console.log('notification', notification)
     const notificationData = notification?.data
     if (!notificationData?.type) {
       return
