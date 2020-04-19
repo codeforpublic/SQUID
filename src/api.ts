@@ -54,6 +54,7 @@ export const registerDevice = async (): Promise<{
     body: JSON.stringify({ deviceId: DeviceInfo.getUniqueId() }),
   })
   const result = await resp.json()
+  console.log('result', result)
   if (!result.anonymousId || !result.userId) {
     throw new Error('RegisterDevice failed')
   }
@@ -130,7 +131,7 @@ export const getTagData = async () => {
   }
   const result = await resp.json()
 
-  return result
+  return result as any
 }
 
 export const scan = async (

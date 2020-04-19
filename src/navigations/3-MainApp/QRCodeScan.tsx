@@ -22,19 +22,11 @@ export const QRCodeScan = ({ navigation }) => {
   }, [isFocused])
 
   useEffect(() => {
-    if (qrResult) {
-      const createdData = qrResult.getCreatedDate()
-      const userCreatedDate = qrResult.getUserCreatedDate()
-      // const userCreatedDate = moment().subtract(3, 'day')
-
-      const body = userCreatedDate? `ลงทะเบียนเมื่อ ${userCreatedDate.format('D MMMM​')} พ.ศ. ${userCreatedDate.year() +
-        543}`: `ข้อมูลวันที่ ${createdData.format('D MMMM​')} พ.ศ. ${createdData.year() +
-        543} ${createdData.format(`HH:mm น.`)}`
+    if (qrResult) {      
       popupRef.current.show({
         appTitle: 'ระดับความเสี่ยง',
         title: qrResult.getLabel(),
-        body,
-        timeText: qrResult.getTagLabel(),
+        timeText: qrResult.getTag()?.title,
       })
       scanManager.add(qrResult.annonymousId)
     }

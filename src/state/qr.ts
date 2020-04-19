@@ -3,7 +3,7 @@ import { useEffect, useState, useReducer, useRef } from 'react'
 import moment from 'moment-timezone'
 import 'moment/locale/th'
 import AsyncStorage from '@react-native-community/async-storage'
-import { applicationState } from './app-state'
+import _ from 'lodash'
 interface QRData {
   data: {
     anonymousId: string
@@ -119,9 +119,15 @@ interface Tag {
   id: string
   title: string
   description: string
-  color: string
+  tagRole?: TagRole
+  tagRoleId?: string
 }
 
+type TagRole = {
+  id: string
+  title: string
+  color?: string
+}
 class SelfQR extends QR {
   qrData: QRData
   code: string
@@ -185,16 +191,19 @@ class SelfQR extends QR {
   getCreatedDate(): moment {
     return moment(this.timestamp).locale('th')
   }
-  getTagLabel(): string | undefined {
+  getTagTitle(): string | undefined {
     return this.tag?.title
   }
+  getTagDescription(): string | undefined {
+    return this.tag?.tagRole?.title
+  }
   getTagColor() {
-    return this.tag?.color || '#0C2641'
+    return this.tag?.tagRole?.color
   }
 }
 
 interface DecodedResult {
-  _: [string, 'G' | 'Y' | 'O' | 'R', string | undefined, number | undefined]
+  _: [string, 'G' | 'Y' | 'O' | 'R', string | undefined, string | undefined]
   iat: number
   iss: string
 }
@@ -202,14 +211,14 @@ export class QRResult extends QR {
   iat: number
   code: string
   annonymousId: string
-  tagCode?: string
-  age?: number
+  tagId?: string
+  age?: string
   iss: string
   constructor(decodedResult: DecodedResult) {
     console.log('decodedResult', decodedResult)
     super(CODE_MAP[decodedResult._[1]])
     this.annonymousId = decodedResult._[0]
-    this.tagCode = decodedResult._[2]
+    this.tagId = decodedResult._[2]
     this.age = decodedResult._[3]
     this.iat = decodedResult.iat
     this.iss = decodedResult.iss
@@ -223,9 +232,31 @@ export class QRResult extends QR {
   getCreatedDate(): moment {
     return moment(this.iat * 1000).locale('th')
   }
-  getTagLabel(): string | undefined {
-    return this.tagCode? tagManager.getLabelFromCode(this.tagCode): void 0
+  getTag(): Tag | undefined {
+    if (!this.tagId) {
+      return
+    }
+    return tagManager.getTag(this.tagId)
   }
+  getAge(): string {
+    return resolveAge(this.age)
+  }
+}
+
+const resolveAge = (age: string) => {
+  if (!age) return
+  const mapAge = [
+    ['y', ' ปี'],
+    ['w', ' สัปดาห์'],
+    ['d', ' วัน'],
+    ['h', ' ชม.'],
+    ['m', ' นาที'],
+    ['s', ' วินาที'],
+  ]
+  return _.reduce(mapAge, (p, c) => {
+    return p.replace(c[0], c[1])
+  }, age)
+  // return age.replace('')
 }
 
 const STATUS_COLORS = {
@@ -267,33 +298,50 @@ const SPEC_ACTIONS = {
   RED: 'ให้ติดต่อสถานพยาบาลทันที',
 }
 
-type TagMap = {
-  name: string
-  code: string
-  label: string
-}[]
+type TagMeta = {
+  tags: Tag[]
+  tagRoles: TagRole[]
+}
 
 class TagManager {
-  tagMap?: TagMap
+  tagMeta?: TagMeta
+  mapRoles?: {[name: string]: TagRole}
+  mapTags?: {[name: string]: Tag}
   constructor() {
     this.load()
   }
   async load() {
-    const str = await AsyncStorage.getItem('TagMap')
+    const str = await AsyncStorage.getItem('TagMeta')
     if (str) {
-      this.tagMap = JSON.parse(str)
+      this.tagMeta = JSON.parse(str)
     }
   }
   async update() {
-    const result: TagMap = await getTagData()
-    this.tagMap = result
-    AsyncStorage.setItem('TagMap', JSON.stringify(this.tagMap))
+    const result: TagMeta = await getTagData()
+    this.tagMeta = result
+    this.mapRoles = _.mapKeys(result.tagRoles, r => r.id)  
+    this.mapTags = _.mapKeys(result.tags, r => r.id)
+
+    AsyncStorage.setItem('TagMeta', JSON.stringify(this.tagMeta))
   }
-  getLabelFromCode(code) {
-    if (!this.tagMap) {
+  getTag(tagId) {
+    if (!this.tagMeta) {
       return
+    }    
+    const resolveTag = (tag: Tag): Tag => {
+      if (tag) {
+        const r = {
+          ...tag,
+          tagRole: this.mapRoles[tag.tagRoleId] || this.mapRoles.GEN,
+        }
+        delete r.tagRoleId
+        return r
+      }
+      return null
     }
-    return this.tagMap.find(p => p.code === code)?.label
+    const tag = this.mapTags[tagId]
+    console.log('tagId', tagId, tag)
+    return resolveTag(tag)
   }
 }
 

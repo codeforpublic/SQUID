@@ -76,21 +76,25 @@ const Footer = ({ date = moment().locale('th') }) => {
     </View>
   )
 }
-const TagLabel = ({ label, color }) => {
+const TagLabel = ({ title, description, color }) => {
   return (
     <View
       style={{
         marginTop: 12,
-        backgroundColor: color,
-        paddingVertical: 6,
-        paddingHorizontal: 12,
-        borderRadius: 6,
-        borderColor: COLORS.WHITE,
-        borderWidth: 1,
+        backgroundColor: color,                
         alignSelf: 'center',
       }}
     >
-      <Text style={{ color: 'white', fontFamily: FONT_FAMILY }}>{label}</Text>
+      <Text
+        style={{ textAlign: 'center', color: color ? 'white' : 'black', fontFamily: FONT_FAMILY, fontSize: FONT_SIZES[700] }}
+      >
+        {title}
+      </Text>
+      <Text
+        style={{ textAlign: 'center', color: color ? 'white' : 'black', fontFamily: FONT_FAMILY, fontSize: FONT_SIZES[500] }}
+      >
+        {description}
+      </Text>
     </View>
   )
 }
@@ -143,8 +147,7 @@ export const MainApp = () => {
   }, [])
 
   const qr = qrData
-  const timeSinceLastUpdate = qr ? Date.now() - qr.timestamp : 0
-  const progress = qr ? (qr.getScore() / 100) * 100 : 0
+  const timeSinceLastUpdate = qr ? Date.now() - qr.timestamp : 0  
   const color = qr
     ? qr.getStatusColor()
     : qrState === QR_STATE.NOT_VERIFIED || qrState === QR_STATE.FAILED
@@ -160,23 +163,24 @@ export const MainApp = () => {
     : qrState === QR_STATE.FAILED
     ? 'เกิดข้อผิดพลาด'
     : ''
-  const tagLabel = qr && qr.getTagLabel()
+  const tagTitle = qr?.getTagTitle()
+  const tagColor = qr?.getTagColor()
 
   return (
     <View
       style={[styles.container, { paddingTop: inset.top, paddingBottom: 12 }]}
     >
       <StatusBar
-        barStyle={tagLabel ? 'light-content' : 'dark-content'}
-        backgroundColor={tagLabel ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT}
+        barStyle={tagColor ? 'light-content' : 'dark-content'}
+        backgroundColor={tagColor ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT}
       />
       {qr && (
         <View
           style={[
             StyleSheet.absoluteFill,
             {
-              backgroundColor: tagLabel
-                ? qr.getTagColor()
+              backgroundColor: tagColor
+                ? tagColor
                 : Color(qr.getStatusColor())
                     .alpha(0.1)
                     .toString(),
@@ -198,7 +202,7 @@ export const MainApp = () => {
               key={qr ? qr.getCreatedDate() : 0}
               image={faceURI ? { uri: faceURI } : void 0}
               color={color}
-              progress={progress}
+              progress={100}
               width={avatarWidth}
             />
             <UpdateProfileButton
@@ -213,11 +217,7 @@ export const MainApp = () => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-      {tagLabel ? (
-        <TagLabel label={tagLabel} color={qr.getTagColor()} />
-      ) : (
-        void 0
-      )}
+      {tagTitle ? <TagLabel title={tagTitle} description={qr.getTagDescription()} color={tagColor} /> : void 0}
       <View
         style={{
           backgroundColor: 'white',
