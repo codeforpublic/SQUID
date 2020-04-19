@@ -1,5 +1,5 @@
 import React, { Component, Context } from 'react'
-import { NativeModules, Dimensions, Linking } from 'react-native'
+import { NativeModules, Dimensions, Linking, AppState, AppStateStatus } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-community/async-storage'
 import { createAppContainer } from 'react-navigation'
@@ -18,7 +18,7 @@ import { ThemeProvider } from 'emotion-theming'
 import { withSystemAvailable } from './services/available'
 import { CODEPUSH_DEPLOYMENT_KEY } from './config'
 import { compose } from './utils/compose'
-import { refetchPublicKey, encryptMessage, hashMessage } from './utils/crypto'
+import { refetchDDCPublicKey, encryptMessage, hashMessage } from './utils/crypto'
 import { pushNotification, NOTIFICATION_TYPES } from './services/notification'
 import { refetchJWKs } from './utils/jwt'
 
@@ -30,6 +30,7 @@ class App extends React.Component {
     loaded: boolean
     activateCallback?: Function
   }
+  appState: AppStateStatus
   constructor(props) {
     super(props)
     this._navigator = null
@@ -54,7 +55,7 @@ class App extends React.Component {
       // await this.purgeAll()
     }
 
-    await Promise.all([applicationState.load(), userPrivateData.load(), refetchPublicKey(), refetchJWKs()])
+    await Promise.all([applicationState.load(), userPrivateData.load(), refetchDDCPublicKey(), refetchJWKs()])
     await backgroundTracking.setup(
       Boolean(applicationState.getData('isPassedOnboarding')),
     )
@@ -62,10 +63,20 @@ class App extends React.Component {
     await NativeModules.ContactTracerModule.setUserId(
       userPrivateData.getAnonymousId(),
     )
+    AppState.addEventListener('change', this.handleAppStateChange)
 
     this.setState({ loaded: true }, () => {
       SplashScreen.hide()
     })
+  }
+  handleAppStateChange(state: AppStateStatus) {
+    if (this.appState !== state) {
+      if (state === 'active') {
+        refetchDDCPublicKey()
+        refetchJWKs()
+      }
+    }
+    this.appState = state
   }
   getTheme() {
     return {
