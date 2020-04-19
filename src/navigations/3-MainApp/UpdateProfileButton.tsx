@@ -16,11 +16,6 @@ export const UpdateProfileButton = ({ width, style, onChange }) => {
   const isLock = !(
     daySinceCreated < START_PERIODS || daySinceUpdated >= DEFAULT_PERIODS
   )
-  console.log(
-    'daySinceCreated',
-    daySinceCreated,
-    daySinceCreated < START_PERIODS,
-  )
 
   return (
     <TouchableHighlight

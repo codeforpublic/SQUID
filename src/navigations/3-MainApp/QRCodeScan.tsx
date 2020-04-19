@@ -61,7 +61,7 @@ export const QRCodeScan = ({ navigation }) => {
           }}
           fadeIn={false}
           reactivate
-          reactivateTimeout={2000} //Use this to configure how long it should take before the QRCodeScanner should reactivate.
+          reactivateTimeout={5000} //Use this to configure how long it should take before the QRCodeScanner should reactivate.
           containerStyle={{ flex: 1 }}
           topContent={
             <Header>
