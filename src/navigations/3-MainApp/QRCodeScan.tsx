@@ -4,8 +4,7 @@ import { Dimensions, StatusBar } from 'react-native'
 import { COLORS } from '../../styles'
 import { Title, Subtitle, Header } from '../../components/Base'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { decodeJWT } from '../../utils/jwt'
-import { MyBackground } from '../../components/MyBackground'
+import { verifyToken, decodeJWT } from '../../utils/jwt'
 import { useIsFocused } from 'react-navigation-hooks'
 import { QRResult, proficientManager } from '../../state/qr'
 import NotificationPopup from 'react-native-push-notification-popup'
@@ -57,13 +56,17 @@ export const QRCodeScan = ({ navigation }) => {
             width: Dimensions.get('window').width - 16,
             overflow: 'hidden',
           }}
-          onRead={e => {
-            const decoded = e.data ? decodeJWT(e?.data) : null
-            if (!decoded?._) {
+          onRead={async e => {
+            try {
+              await verifyToken(e?.data) 
+              const decoded = decodeJWT(e?.data)
+              if (!decoded?._) {
+                throw new Error('Invalid')
+              }
+              setQRResult(new QRResult(decoded))
+            } catch (err) {
               alert('ข้อมูลไม่ถูกต้อง')
-              return
             }
-            setQRResult(new QRResult(decoded))
           }}
           fadeIn={false}
           reactivate
