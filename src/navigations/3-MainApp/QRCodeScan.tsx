@@ -6,7 +6,7 @@ import { Title, Subtitle, Header } from '../../components/Base'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { verifyToken, decodeJWT } from '../../utils/jwt'
 import { useIsFocused } from 'react-navigation-hooks'
-import { QRResult, proficientManager } from '../../state/qr'
+import { QRResult, tagManager } from '../../state/qr'
 import NotificationPopup from 'react-native-push-notification-popup'
 import { QRPopupContent } from './QRPopupContent'
 import { scanManager } from '../../services/contact-scanner'
@@ -19,7 +19,7 @@ export const QRCodeScan = ({ navigation }) => {
   const popupRef = useRef<NotificationPopup>()
 
   useEffect(() => {
-    proficientManager.update()
+    tagManager.update()
   }, [isFocused])
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export const QRCodeScan = ({ navigation }) => {
         appTitle: 'ระดับความเสี่ยง',
         title: qrResult.getLabel(),
         body,
-        timeText: qrResult.getProficientLabel(),
+        timeText: qrResult.getTagLabel(),
       })
       scanManager.add(qrResult.annonymousId)
     }

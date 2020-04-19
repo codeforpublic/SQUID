@@ -77,7 +77,7 @@ const Footer = ({ date = moment().locale('th') }) => {
   )
 }
 const PROFICIENT_BG = '#0C2641'
-const ProficientLabel = ({ label }) => {
+const TagLabel = ({ label }) => {
   return (
     <View
       style={{
@@ -161,16 +161,16 @@ export const MainApp = () => {
     : qrState === QR_STATE.FAILED
     ? 'เกิดข้อผิดพลาด'
     : ''
-  const proficientLabel = qr && qr.getProficientLabel()
+  const tagLabel = qr && qr.getTagLabel()
 
   return (
     <View
       style={[styles.container, { paddingTop: inset.top, paddingBottom: 12 }]}
     >
       <StatusBar
-        barStyle={proficientLabel ? 'light-content' : 'dark-content'}
+        barStyle={tagLabel ? 'light-content' : 'dark-content'}
         backgroundColor={
-          proficientLabel ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT
+          tagLabel ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT
         }
       />
       {qr && (
@@ -178,7 +178,7 @@ export const MainApp = () => {
           style={[
             StyleSheet.absoluteFill,
             {
-              backgroundColor: proficientLabel
+              backgroundColor: tagLabel
                 ? PROFICIENT_BG
                 : Color(qr.getStatusColor())
                     .alpha(0.1)
@@ -216,7 +216,7 @@ export const MainApp = () => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-      {proficientLabel ? <ProficientLabel label={proficientLabel} /> : void 0}
+      {tagLabel ? <TagLabel label={tagLabel} /> : void 0}
       <View
         style={{
           backgroundColor: 'white',

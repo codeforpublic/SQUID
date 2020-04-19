@@ -18,7 +18,6 @@ import { ThemeProvider } from 'emotion-theming'
 import { withSystemAvailable } from './services/available'
 import { CODEPUSH_DEPLOYMENT_KEY } from './config'
 import { compose } from './utils/compose'
-import { refetchDDCPublicKey } from './utils/crypto'
 import { pushNotification, NOTIFICATION_TYPES } from './services/notification'
 import { refetchJWKs } from './utils/jwt'
 
@@ -55,7 +54,7 @@ class App extends React.Component {
       // await this.purgeAll()
     }
 
-    await Promise.all([applicationState.load(), userPrivateData.load(), refetchDDCPublicKey(), refetchJWKs()])
+    await Promise.all([applicationState.load(), userPrivateData.load(), refetchJWKs()])
     await backgroundTracking.setup(
       Boolean(applicationState.getData('isPassedOnboarding')),
     )

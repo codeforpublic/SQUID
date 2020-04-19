@@ -12,7 +12,7 @@ const Label = ({ label }) => {
 }
 
 export const QRPopupContent = (props: any) => {
-  const { appTitle, timeText: proficientLabel, title, body } = props
+  const { appTitle, timeText: tagLabel, title, body } = props
   const qrResult: QRResult = props.qrResult
   return (
     <View style={[styles.popupContentContainer]}>
@@ -35,7 +35,7 @@ export const QRPopupContent = (props: any) => {
         <View style={styles.contentTextContainer}>
           <Text style={styles.contentText}>{body || ''}</Text>
         </View>
-        {proficientLabel? <Label label={proficientLabel}/>: void 0}
+        {tagLabel? <Label label={tagLabel}/>: void 0}
       </View>
     </View>
   )

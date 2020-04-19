@@ -1,4 +1,4 @@
-import { getQRData, getProficientData } from '../api'
+import { getQRData, getTagData } from '../api'
 import { useEffect, useState, useReducer, useRef } from 'react'
 import moment from 'moment-timezone'
 import 'moment/locale/th'
@@ -8,8 +8,8 @@ interface QRData {
   data: {
     anonymousId: string
     code: string
-    proficient?: string
-    proficientLabel?: string
+    tag?: string
+    tagLabel?: string
   }
   qr: {
     type: string
@@ -119,8 +119,8 @@ class QR {
 class SelfQR extends QR {
   qrData: QRData
   code: string
-  proficient?: string
-  proficientLabel?: string
+  tag?: string
+  tagLabel?: string
   timestamp: number
 
   private static currentQR: SelfQR = null
@@ -169,8 +169,8 @@ class SelfQR extends QR {
     super(qrData.data.code)
     this.qrData = qrData
     this.timestamp = Date.now()
-    this.proficient = qrData.data?.proficient
-    this.proficientLabel = qrData.data?.proficientLabel
+    this.tag = qrData.data?.tag
+    this.tagLabel = qrData.data?.tagLabel
   }
   getAnonymousId() {
     return this.qrData.data.anonymousId
@@ -181,8 +181,8 @@ class SelfQR extends QR {
   getCreatedDate(): moment {
     return moment(this.timestamp).locale('th')
   }
-  getProficientLabel(): string | undefined {
-    return this.proficientLabel
+  getTagLabel(): string | undefined {
+    return this.tagLabel
   }
 }
 
@@ -195,14 +195,14 @@ export class QRResult extends QR {
   iat: number
   code: string
   annonymousId: string
-  proficientCode?: string
+  tagCode?: string
   age?: number
   iss: string
   constructor(decodedResult: DecodedResult) {
     console.log('decodedResult', decodedResult)
     super(CODE_MAP[decodedResult._[1]])
     this.annonymousId = decodedResult._[0]
-    this.proficientCode = decodedResult._[2]
+    this.tagCode = decodedResult._[2]
     this.age = decodedResult._[3]
     this.iat = decodedResult.iat
     this.iss = decodedResult.iss
@@ -216,8 +216,8 @@ export class QRResult extends QR {
   getCreatedDate(): moment {
     return moment(this.iat * 1000).locale('th')
   }
-  getProficientLabel(): string | undefined {
-    return this.proficientCode? proficientManager.getLabelFromCode(this.proficientCode): void 0
+  getTagLabel(): string | undefined {
+    return this.tagCode? tagManager.getLabelFromCode(this.tagCode): void 0
   }
 }
 
@@ -260,34 +260,34 @@ const SPEC_ACTIONS = {
   RED: 'ให้ติดต่อสถานพยาบาลทันที',
 }
 
-type ProficientMap = {
+type TagMap = {
   name: string
   code: string
   label: string
 }[]
 
-class ProficientManager {
-  proficientMap?: ProficientMap
+class TagManager {
+  tagMap?: TagMap
   constructor() {
     this.load()
   }
   async load() {
-    const str = await AsyncStorage.getItem('ProficientMap')
+    const str = await AsyncStorage.getItem('TagMap')
     if (str) {
-      this.proficientMap = JSON.parse(str)
+      this.tagMap = JSON.parse(str)
     }
   }
   async update() {
-    const result: ProficientMap = await getProficientData()
-    this.proficientMap = result
-    AsyncStorage.setItem('ProficientMap', JSON.stringify(this.proficientMap))
+    const result: TagMap = await getTagData()
+    this.tagMap = result
+    AsyncStorage.setItem('TagMap', JSON.stringify(this.tagMap))
   }
   getLabelFromCode(code) {
-    if (!this.proficientMap) {
+    if (!this.tagMap) {
       return
     }
-    return this.proficientMap.find(p => p.code === code)?.label
+    return this.tagMap.find(p => p.code === code)?.label
   }
 }
 
-export const proficientManager = new ProficientManager()
+export const tagManager = new TagManager()

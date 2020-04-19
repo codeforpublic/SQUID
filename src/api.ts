@@ -117,8 +117,8 @@ export const getQRData = async () => {
   return result
 }
 
-export const getProficientData = async () => {
-  const resp = await fetch(API_URL + `/qr/proficient`, {
+export const getTagData = async () => {
+  const resp = await fetch(API_URL + `/tags`, {
     method: 'GET',
     sslPinning: {
       certs: ['thaialert'],
