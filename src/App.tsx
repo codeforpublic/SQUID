@@ -18,7 +18,7 @@ import { ThemeProvider } from 'emotion-theming'
 import { withSystemAvailable } from './services/available'
 import { CODEPUSH_DEPLOYMENT_KEY } from './config'
 import { compose } from './utils/compose'
-import { refetchDDCPublicKey, encryptMessage, hashMessage } from './utils/crypto'
+import { refetchDDCPublicKey } from './utils/crypto'
 import { pushNotification, NOTIFICATION_TYPES } from './services/notification'
 import { refetchJWKs } from './utils/jwt'
 
@@ -62,8 +62,8 @@ class App extends React.Component {
 
     await NativeModules.ContactTracerModule.setUserId(
       userPrivateData.getAnonymousId(),
-    )
-    AppState.addEventListener('change', this.handleAppStateChange)
+    )    
+    AppState.addEventListener('change', this.handleAppStateChange)    
 
     this.setState({ loaded: true }, () => {
       SplashScreen.hide()
