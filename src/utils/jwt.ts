@@ -5,7 +5,6 @@ import { fetchJWKs } from '../api'
 let jwks
 export const refetchJWKs = async () => {
   const result = await fetchJWKs()
-  console.log('refetchJWKs', result)
   if (result) {
     jwks = result
   }
