@@ -47,11 +47,4 @@ target "ThaiAlert" do
   pod "react-native-image-editor", :path => "../node_modules/@react-native-community/image-editor"
 
   pod "rn-fetch-blob", :path => "../node_modules/rn-fetch-blob"
-  post_install do |installer|
-    installer.pods_project.targets.each do |target|
-      target.build_configurations.each do |config|
-        config.build_settings["ENABLE_BITCODE"] = "NO"
-      end
-    end
-  end
 end
