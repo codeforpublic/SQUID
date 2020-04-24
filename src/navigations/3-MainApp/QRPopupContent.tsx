@@ -62,7 +62,7 @@ export const QRPopupContent = (props: any) => {
         <View style={styles.contentTextContainer}>
           <Text style={styles.contentText}>อัพเดทล่าสุด </Text><Text style={[styles.contentText, bodyStyle]}>{body}</Text>
         </View>
-        {tag.title? <Label color={tag.tagRole?.color} label={tag.title} role={tag.tagRole?.title}/>: void 0}
+        {tag?.title? <Label color={tag.tagRole?.color} label={tag.title} role={tag.tagRole?.title}/>: void 0}
       </View>
     </View>
   )

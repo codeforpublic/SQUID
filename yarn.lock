@@ -6960,10 +6960,10 @@ react-native-json-tree@^1.2.0:
     prop-types "^15.6.0"
     react-base16-styling "github:dean177/react-base16-styling#fbc6593"
 
-react-native-jwt-verifier@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/react-native-jwt-verifier/-/react-native-jwt-verifier-1.0.3.tgz#fdcb02250549d16c2fc3a846fd143eeae1c70f59"
-  integrity sha512-TPRmLvMATJ9lSOO1WQIZoqS/eW4XouP3nPD6Ir+3Ruyg/GXwbxML1yJX29NbLVKqCjxvR44fGzZF1I3+kzeVig==
+react-native-jwt-verifier@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-jwt-verifier/-/react-native-jwt-verifier-1.1.1.tgz#9aa3b289174a4679718e758346335b77fc63e8a5"
+  integrity sha512-phg/BVhrV4T/7Vph8Cmlz+SMKNMZnCYEUnrhyUjAwamATx4KX9R6OgEb0tRby+HWbhp0szJQI+bAtU8mADxcig==
 
 react-native-keyboard-aware-scrollview@^2.1.0:
   version "2.1.0"

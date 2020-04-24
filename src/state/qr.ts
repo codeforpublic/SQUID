@@ -215,7 +215,7 @@ export class QRResult extends QR {
   age?: string
   iss: string
   constructor(decodedResult: DecodedResult) {
-    console.log('decodedResult', decodedResult)
+    // console.log('decodedResult', decodedResult)
     super(CODE_MAP[decodedResult._[1]])
     this.annonymousId = decodedResult._[0]
     this.tagId = decodedResult._[2]
