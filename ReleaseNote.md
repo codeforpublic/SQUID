@@ -1,5 +1,9 @@
 # Release Note
 
+## 24 เมษายน 2020
+- แก้ไขระบบตรวจสอบ JWT บน Android
+- แก้ไขระบบแสกน QR Code
+
 ## 20 เมษายน 2020
 
 - เพิ่มระบบตรวจสอบ jwt signature ใน QR Code ด้วยมาตรฐาน secp256k1
