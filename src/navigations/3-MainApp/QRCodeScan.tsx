@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import QRCodeScanner from 'react-native-qrcode-scanner'
-import { Dimensions, StatusBar } from 'react-native'
+import { Dimensions, StatusBar, Platform } from 'react-native'
 import { COLORS } from '../../styles'
 import { Title, Subtitle, Header } from '../../components/Base'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -10,7 +10,6 @@ import { QRResult, tagManager } from '../../state/qr'
 import NotificationPopup from 'react-native-push-notification-popup'
 import { QRPopupContent } from './QRPopupContent'
 import { scanManager } from '../../services/contact-scanner'
-import moment from 'moment'
 
 export const QRCodeScan = ({ navigation }) => {
   const isFocused = useIsFocused()

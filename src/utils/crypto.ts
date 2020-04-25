@@ -1,17 +1,22 @@
 import { RSA } from 'react-native-rsa-native'
+import { PUBLIC_KEY_URL, PUBLIC_KEY_PINNING_CERT } from '../config'
+import { fetch } from 'react-native-ssl-pinning'
 
 let publicKey
-
 export const refetchDDCPublicKey = async () => {
-  /* todo: custom domain and ssl pinning */
   try {
-    const resp = await fetch('http://164.115.36.87/key-service/public_key')
+    const resp = await fetch(PUBLIC_KEY_URL, {
+      method: 'GET',
+      sslPinning: {
+        certs: [PUBLIC_KEY_PINNING_CERT],
+      },
+    })
     if (resp.status === 200) {
       publicKey = await resp.text()
     }
   } catch {}
 }
 
-export const encryptMessage = (message) => {
+export const encryptMessage = message => {
   return RSA.encrypt(message, publicKey)
 }
