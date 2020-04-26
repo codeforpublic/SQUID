@@ -1,5 +1,5 @@
 import React from 'react'
-import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
+import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../../styles'
 import {
   View,
   StyleSheet,
@@ -7,10 +7,9 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native'
-import { userPrivateData } from '../../state/userPrivateData'
-import { useSelfQR, QR_STATE } from '../../state/qr'
+import { QR_STATE } from '../../../state/qr'
 import { useNavigation } from 'react-navigation-hooks'
-import { useResetTo } from '../../utils/navigation'
+import { useResetTo } from '../../../utils/navigation'
 
 export const QRStateText = ({
   qrState,
