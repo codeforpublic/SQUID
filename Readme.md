@@ -4,6 +4,9 @@
 
 First follow this instruction to setup react-native https://reactnative.dev/docs/getting-started
 
+Create .env file by copy from .env.example
+<!-- หากต้องการพัฒนาผ่าน dev server กรุณาติดต่อผู้พัฒนาเพื่อขอ access เพิ่มเติม -->
+
 ### iOS
 
 1. Clone ```git clone https://github.com/Cleverse/fight-covid-19```
