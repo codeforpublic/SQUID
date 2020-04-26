@@ -20,6 +20,7 @@ import { CODEPUSH_DEPLOYMENT_KEY } from './config'
 import { compose } from './utils/compose'
 import { pushNotification, NOTIFICATION_TYPES } from './services/notification'
 import { refetchJWKs } from './utils/jwt'
+import { refetchDDCPublicKey } from './utils/crypto'
 
 const AppContainer = createAppContainer(Navigator)
 
@@ -64,6 +65,7 @@ class App extends React.Component {
     )    
     AppState.addEventListener('change', this.handleAppStateChange)    
 
+    refetchDDCPublicKey()
     this.setState({ loaded: true }, () => {
       SplashScreen.hide()
     })

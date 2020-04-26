@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import {
   StatusBar,
   StyleSheet,
@@ -7,29 +7,21 @@ import {
   Switch,
   ScrollView,
   TouchableHighlight,
-  NativeEventEmitter,
-  DeviceEventEmitter,
-  NativeModules,
-  Platform,
 } from 'react-native'
-import { StackActions, NavigationActions } from 'react-navigation'
-import { useNavigation } from 'react-navigation-hooks'
 import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useContactTracer } from '../../services/contact-tracing-provider'
+import { useNavigation } from 'react-navigation-hooks'
+import { userPrivateData } from '../../state/userPrivateData'
 
-export const Settings = ({ navigation }) => {
+export const Settings = () => {
+  const navigation = useNavigation()
   const { enable, disable, statusText, isServiceEnabled } = useContactTracer()
-  console.log('isServiceEnabled', isServiceEnabled)
-
+  const isRegistered = Boolean(userPrivateData.getData('authToken'))
   const _onPrivacyPolicyClicked = () => {
     navigation.navigate('PrivacyPolicy')
   }
-
-  const _onOpenSourceLicenseClicked = () => {}
-
-  const _onAboutUsClicked = () => {}
 
   return (
     <MyBackground variant="light">
@@ -92,16 +84,20 @@ export const Settings = ({ navigation }) => {
                   </Text>
                 </View>
               </TouchableHighlight>
-              {/* <TouchableHighlight onPress={_onOpenSourceLicenseClicked}>
+              {!isRegistered && <TouchableHighlight
+                onPress={() => navigation.navigate('AuthPhone', {
+                  onBack: () => {
+                    navigation.pop()
+                  },
+                  backIcon: 'close'
+                })}
+              >
                 <View style={styles.section}>
-                  <Text style={styles.sectionText}>Open Source Licenses</Text>
+                  <Text style={styles.sectionText}>
+                    ยืนยันตัวตน
+                  </Text>
                 </View>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={_onAboutUsClicked}>
-                <View style={styles.section}>
-                  <Text style={styles.sectionText}>เกี่ยวกับเรา</Text>
-                </View>
-              </TouchableHighlight> */}
+              </TouchableHighlight>}
             </View>
           </View>
         </ScrollView>

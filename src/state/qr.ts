@@ -1,5 +1,5 @@
 import { getQRData, getTagData } from '../api'
-import { useEffect, useState, useReducer, useRef } from 'react'
+import { useEffect, useReducer, useRef } from 'react'
 import moment from 'moment-timezone'
 import 'moment/locale/th'
 import AsyncStorage from '@react-native-community/async-storage'
@@ -128,7 +128,7 @@ type TagRole = {
   title: string
   color?: string
 }
-class SelfQR extends QR {
+export class SelfQR extends QR {
   qrData: QRData
   code: string
   tag?: Tag  

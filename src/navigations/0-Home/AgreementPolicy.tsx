@@ -1,18 +1,16 @@
-import React, { useState } from 'react'
-import { MyBackground } from '../../components/MyBackground'
+import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar, View, Text, StyleSheet, ScrollView } from 'react-native'
-import { PrimaryButton, DangerButton } from '../../components/Button'
+import { PrimaryButton } from '../../components/Button'
 import { useNavigation } from 'react-navigation-hooks'
 import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD, FONT_MED } from '../../styles'
-import { CheckBox, normalize, Button } from 'react-native-elements'
+import { normalize, Button } from 'react-native-elements'
 import { FormHeader } from '../../components/Form/FormHeader'
 import { agreementText } from '../const'
 import { applicationState } from '../../state/app-state'
 
 export const AgreementPolicy = () => {
   const navigation = useNavigation()
-  const [agree, setAgree] = useState(false)
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={'white'} barStyle="light-content" />

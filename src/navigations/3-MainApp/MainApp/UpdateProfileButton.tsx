@@ -3,7 +3,7 @@ import { StyleSheet, TouchableHighlight, Alert } from 'react-native'
 import FeatureIcon from 'react-native-vector-icons/Feather'
 import 'moment/locale/th'
 import { useNavigation } from 'react-navigation-hooks'
-import { useApplicationState } from '../../state/app-state'
+import { useApplicationState } from '../../../state/app-state'
 import moment from 'moment'
 
 const START_PERIODS = 3 // 3 first days, freely change image

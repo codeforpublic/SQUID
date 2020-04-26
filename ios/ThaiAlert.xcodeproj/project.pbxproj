@@ -25,9 +25,9 @@
 		AC463FAB5EA642DDA0E5AB58 /* DBHelvethaicaX-ThinIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C2F038AAB4E62AD96DA82 /* DBHelvethaicaX-ThinIt.ttf */; };
 		CD0F7327770B4E0A81D603D2 /* DBHelvethaicaX-Reg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90742424F7014571866EA086 /* DBHelvethaicaX-Reg.ttf */; };
 		D20BC62B371245BF95CF983C /* DBHelvethaicaX-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99E1DDFF5FA54CBE8DC665A2 /* DBHelvethaicaX-Thin.ttf */; };
-		D92CAD5F2443806A00A99087 /* thaialert.cer in Resources */ = {isa = PBXBuildFile; fileRef = D92CAD5E2443806A00A99087 /* thaialert.cer */; };
 		D92CAD612443823200A99087 /* thaialert-staging.cer in Resources */ = {isa = PBXBuildFile; fileRef = D92CAD602443823200A99087 /* thaialert-staging.cer */; };
 		D9459BA8243B91D900588DC9 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9459BA7243B91D900588DC9 /* AppCenter-Config.plist */; };
+		D973B9FD2456090D007B1425 /* thaialert.cer in Resources */ = {isa = PBXBuildFile; fileRef = D973B9FC2456090D007B1425 /* thaialert.cer */; };
 		D988E8EF24301732009500DC /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D988E8EE24301732009500DC /* Launch Screen.storyboard */; };
 		DB2A43B00A414B1EAF5EFFFA /* DBHelvethaicaX-BlkIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8207C214E52047A1870A3F21 /* DBHelvethaicaX-BlkIt.ttf */; };
 		E41DA6C4F20D4EE888A23CC1 /* DBHelvethaicaX-Med.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A93DDE0CF1104FC3A82164B9 /* DBHelvethaicaX-Med.ttf */; };
@@ -95,9 +95,10 @@
 		CB7B6B7E2CF44E8AABAFEC23 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		D6FA3B581FF54C45BD556396 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		D92A024D24360E0E00367D58 /* ThaiAlert.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ThaiAlert.entitlements; path = ThaiAlert/ThaiAlert.entitlements; sourceTree = "<group>"; };
-		D92CAD5E2443806A00A99087 /* thaialert.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = thaialert.cer; path = ../../../Downloads/thaialert.cer; sourceTree = "<group>"; };
 		D92CAD602443823200A99087 /* thaialert-staging.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "thaialert-staging.cer"; sourceTree = "<group>"; };
 		D9459BA7243B91D900588DC9 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "ThaiAlert/AppCenter-Config.plist"; sourceTree = "<group>"; };
+		D973B9FC2456090D007B1425 /* thaialert.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = thaialert.cer; sourceTree = "<group>"; };
+		D973B9FE24560912007B1425 /* cmdcenter.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = cmdcenter.cer; sourceTree = "<group>"; };
 		D9790A306A14407D95088CA1 /* Prompt-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-LightItalic.ttf"; path = "../assets/fonts/Prompt-LightItalic.ttf"; sourceTree = "<group>"; };
 		D988E8EE24301732009500DC /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		D9E6C21F42BB49F3A5F22BAB /* DBHelvethaicaX-It.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DBHelvethaicaX-It.ttf"; path = "../assets/fonts/DBHelvethaicaX-It.ttf"; sourceTree = "<group>"; };
@@ -143,8 +144,9 @@
 				839C411C23084F93008AF109 /* RNBackgroundFetch+AppDelegate.m */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				D973B9FE24560912007B1425 /* cmdcenter.cer */,
 				D92CAD602443823200A99087 /* thaialert-staging.cer */,
-				D92CAD5E2443806A00A99087 /* thaialert.cer */,
+				D973B9FC2456090D007B1425 /* thaialert.cer */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -341,7 +343,6 @@
 				40D279449FED4F8C9856C21F /* DBHelvethaicaX-Bd.ttf in Resources */,
 				98D101F8D70F49B38A5B30C1 /* DBHelvethaicaX-BdIt.ttf in Resources */,
 				D92CAD612443823200A99087 /* thaialert-staging.cer in Resources */,
-				D92CAD5F2443806A00A99087 /* thaialert.cer in Resources */,
 				2852A1D5467442B4ABC8BCDE /* DBHelvethaicaX-Blk.ttf in Resources */,
 				DB2A43B00A414B1EAF5EFFFA /* DBHelvethaicaX-BlkIt.ttf in Resources */,
 				2DEC04DBB57741BF8EDD3550 /* DBHelvethaicaX-It.ttf in Resources */,
@@ -352,6 +353,7 @@
 				D20BC62B371245BF95CF983C /* DBHelvethaicaX-Thin.ttf in Resources */,
 				AC463FAB5EA642DDA0E5AB58 /* DBHelvethaicaX-ThinIt.ttf in Resources */,
 				8332433AD6FF40BCACE127F0 /* DBHelvethaicaX-UlLi.ttf in Resources */,
+				D973B9FD2456090D007B1425 /* thaialert.cer in Resources */,
 				6307B650B6BE44DC9030AF83 /* DBHelvethaicaX-UlLiIt.ttf in Resources */,
 				CD0F7327770B4E0A81D603D2 /* DBHelvethaicaX-Reg.ttf in Resources */,
 			);
