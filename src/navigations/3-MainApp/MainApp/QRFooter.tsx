@@ -1,9 +1,8 @@
 import React from 'react'
 import { FONT_FAMILY, FONT_SIZES, COLORS } from '../../../styles'
-import { View, Text, Image, Dimensions } from 'react-native'
+import { View, Text, Image, Dimensions, TouchableOpacity } from 'react-native'
 import moment from 'moment-timezone'
 import 'moment/locale/th'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Link } from '../../../components/Base'
 import { useNavigation } from 'react-navigation-hooks'
 import { userPrivateData } from '../../../state/userPrivateData'
@@ -19,7 +18,7 @@ export const QRFooter = () => {
       {!isRegistered && (
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate('OnboardPhone', {
+            navigation.navigate('AuthPhone', {
               onBack: () => {
                 navigation.pop()
               },

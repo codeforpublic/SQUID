@@ -1,7 +1,6 @@
 import styled from '@emotion/native'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Dimensions, StatusBar, StyleSheet, Text, View, BackHandler } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { Dimensions, ScrollView, StatusBar, StyleSheet, Text, View, BackHandler } from 'react-native'
 import { useSafeArea } from 'react-native-safe-area-context'
 import { useIsFocused } from 'react-navigation-hooks'
 import { updateUserData } from '../../api'
