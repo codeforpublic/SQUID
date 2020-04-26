@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import {
   StatusBar,
   StyleSheet,
@@ -7,13 +7,7 @@ import {
   Switch,
   ScrollView,
   TouchableHighlight,
-  NativeEventEmitter,
-  DeviceEventEmitter,
-  NativeModules,
-  Platform,
 } from 'react-native'
-import { StackActions, NavigationActions } from 'react-navigation'
-import { useNavigation } from 'react-navigation-hooks'
 import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -26,10 +20,6 @@ export const Settings = ({ navigation }) => {
   const _onPrivacyPolicyClicked = () => {
     navigation.navigate('PrivacyPolicy')
   }
-
-  const _onOpenSourceLicenseClicked = () => {}
-
-  const _onAboutUsClicked = () => {}
 
   return (
     <MyBackground variant="light">
@@ -92,16 +82,6 @@ export const Settings = ({ navigation }) => {
                   </Text>
                 </View>
               </TouchableHighlight>
-              {/* <TouchableHighlight onPress={_onOpenSourceLicenseClicked}>
-                <View style={styles.section}>
-                  <Text style={styles.sectionText}>Open Source Licenses</Text>
-                </View>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={_onAboutUsClicked}>
-                <View style={styles.section}>
-                  <Text style={styles.sectionText}>เกี่ยวกับเรา</Text>
-                </View>
-              </TouchableHighlight> */}
             </View>
           </View>
         </ScrollView>

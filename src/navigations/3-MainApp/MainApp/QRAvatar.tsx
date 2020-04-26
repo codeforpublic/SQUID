@@ -10,7 +10,7 @@ import { CircularProgressAvatar } from '../../../components/CircularProgressAvat
 import { userPrivateData } from '../../../state/userPrivateData'
 import { QR_STATE, SelfQR } from '../../../state/qr'
 import { useResetTo } from '../../../utils/navigation'
-import { UpdateProfileButton } from '../UpdateProfileButton'
+import { UpdateProfileButton } from './UpdateProfileButton'
 
 export const QRAvatar = ({ qr, qrState }: { qr: SelfQR, qrState: QR_STATE }) => {
   const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
