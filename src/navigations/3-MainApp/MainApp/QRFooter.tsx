@@ -19,7 +19,7 @@ export const QRFooter = () => {
       {!isRegistered && (
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate('AuthPhone', {
+            navigation.navigate('OnboardPhone', {
               onBack: () => {
                 navigation.pop()
               },
