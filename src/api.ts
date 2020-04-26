@@ -6,7 +6,9 @@ import { encryptMessage, refetchDDCPublicKey } from './utils/crypto'
 import { fetch } from 'react-native-ssl-pinning'
 
 export const getPrivateHeaders = () => {
+  const authToken = userPrivateData.getData('authToken')
   return {
+    'Authorization': authToken? 'Bearer ' + authToken: void 0,
     'X-TH-API-Key': API_KEY,
     'X-TH-USER-ID': userPrivateData.getId(),
     'X-TH-ANONYMOUS-ID': userPrivateData.getAnonymousId(),
@@ -15,7 +17,9 @@ export const getPrivateHeaders = () => {
 }
 
 export const getAnonymousHeaders = () => {
+  const authToken = userPrivateData.getData('authToken')
   return {
+    'Authorization': authToken? 'Bearer ' + authToken: void 0,
     'X-TH-API-Key': API_KEY,
     'X-TH-ANONYMOUS-ID': userPrivateData.getAnonymousId(),
     'Content-Type': 'application/json',
@@ -92,7 +96,11 @@ export const mobileParing = async (mobileNo: string, otpCode: string) => {
     body: JSON.stringify({ otpCode, encryptedMobileNo }),
   })
   const result = await resp.json()
-  return result.status === 'ok'
+  if (result.status === 'ok') {
+    userPrivateData.setData('authToken', result.token)
+    return true
+  }
+  return false
 }
 
 export const updateUserData = async (data: { [key: string]: any }) => {

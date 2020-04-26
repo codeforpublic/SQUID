@@ -13,6 +13,7 @@ interface UserData {
   anonymousId: string
   faceURI?: string
   version?: number
+  authToken?: string
 }
 
 const SINFO_OPTIONS = {
@@ -55,7 +56,7 @@ class UserPrivateData extends HookState {
         this.data.version = LATEST_VERSION
         return this.save()
       })
-    }
+    }    
     if (this.data.version !== LATEST_VERSION) {
       /* wait to register */
       await register()
