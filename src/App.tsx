@@ -51,7 +51,7 @@ class App extends React.Component {
     ])
   }
   async load() {
-    if (process.env.NODE_ENV !== 'production') {
+    if (__DEV__) {
       // await this.purgeAll()
     }
 

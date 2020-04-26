@@ -85,7 +85,7 @@ export const Settings = () => {
                 </View>
               </TouchableHighlight>
               {!isRegistered && <TouchableHighlight
-                onPress={() => navigation.navigate('AuthPhone', {
+                onPress={() => navigation.navigate('OnboardPhone', {
                   onBack: () => {
                     navigation.pop()
                   },
