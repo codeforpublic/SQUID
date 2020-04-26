@@ -2,8 +2,8 @@ import DeviceInfo from 'react-native-device-info'
 import { userPrivateData } from './state/userPrivateData'
 import nanoid from 'nanoid'
 import { API_URL, API_KEY, SSL_PINNING_CERT_NAME } from './config'
+import { encryptMessage, refetchDDCPublicKey } from './utils/crypto'
 import { fetch } from 'react-native-ssl-pinning'
-import { encryptMessage } from './utils/crypto'
 
 export const getPrivateHeaders = () => {
   return {
@@ -31,7 +31,7 @@ export const fetchJWKs = async () => {
     headers: {
       'X-TH-API-Key': API_KEY,
       'Content-Type': 'application/json',
-    }
+    },
   })
   if (resp.status === 200) {
     return resp.json()
@@ -54,7 +54,6 @@ export const registerDevice = async (): Promise<{
     body: JSON.stringify({ deviceId: DeviceInfo.getUniqueId() }),
   })
   const result = await resp.json()
-  console.log('result', result)
   if (!result.anonymousId || !result.userId) {
     throw new Error('RegisterDevice failed')
   }
@@ -62,17 +61,15 @@ export const registerDevice = async (): Promise<{
   return { userId: result.userId, anonymousId: result.anonymousId }
 }
 
-export const requestOTP = async (mobileNo: string) => {
-  const hashedMobileNo = await encryptMessage(mobileNo)
+export const requestOTP = async (mobileNo: string) => {  
   const resp = await fetch(API_URL + `/requestOTP`, {
     method: 'POST',
     sslPinning: {
-      certs: ['thaialert'],
+      certs: [SSL_PINNING_CERT_NAME],
     },
     headers: getPrivateHeaders(),
     body: JSON.stringify({
-      mobileNo /* use to send sms only, never keep phone number in server */,
-      hashedMobileNo,
+      mobileNo /* use to send sms only, store only hashed phone number in server */
     }),
   })
   const result = await resp.json()
@@ -80,14 +77,19 @@ export const requestOTP = async (mobileNo: string) => {
   return result.status === 'ok'
 }
 
-export const verifyOTP = async (otpCode: string) => {
+/*
+  verify otp and save encryptedMobileNo
+*/
+export const mobileParing = async (mobileNo: string, otpCode: string) => {
+  await refetchDDCPublicKey()
+  const encryptedMobileNo = await encryptMessage(mobileNo)
   const resp = await fetch(API_URL + `/mobileParing`, {
     method: 'POST',
     sslPinning: {
-      certs: ['thaialert'],
+      certs: [SSL_PINNING_CERT_NAME],
     },
     headers: getPrivateHeaders(),
-    body: JSON.stringify({ otpCode }),
+    body: JSON.stringify({ otpCode, encryptedMobileNo }),
   })
   const result = await resp.json()
   return result.status === 'ok'
@@ -97,7 +99,7 @@ export const updateUserData = async (data: { [key: string]: any }) => {
   const resp = await fetch(API_URL + `/userdata`, {
     method: 'POST',
     sslPinning: {
-      certs: ['thaialert'],
+      certs: [SSL_PINNING_CERT_NAME],
     },
     headers: getAnonymousHeaders(),
     body: JSON.stringify({ data }),
@@ -109,7 +111,7 @@ export const getQRData = async () => {
   const resp = await fetch(API_URL + `/qr`, {
     method: 'GET',
     sslPinning: {
-      certs: ['thaialert'],
+      certs: [SSL_PINNING_CERT_NAME],
     },
     headers: getAnonymousHeaders(),
   })
@@ -122,7 +124,7 @@ export const getTagData = async () => {
   const resp = await fetch(API_URL + `/tags`, {
     method: 'GET',
     sslPinning: {
-      certs: ['thaialert'],
+      certs: [SSL_PINNING_CERT_NAME],
     },
     headers: getAnonymousHeaders(),
   })
@@ -142,7 +144,7 @@ export const scan = async (
   return fetch(API_URL + '/scan', {
     method: 'POST',
     sslPinning: {
-      certs: ['thaialert'],
+      certs: [SSL_PINNING_CERT_NAME],
     },
     headers: getAnonymousHeaders(),
     body: JSON.stringify({

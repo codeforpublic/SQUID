@@ -13,7 +13,6 @@ interface UserData {
   anonymousId: string
   faceURI?: string
   version?: number
-  mobileNumber?: string
 }
 
 const SINFO_OPTIONS = {
@@ -73,9 +72,6 @@ class UserPrivateData extends HookState {
   }
   getAnonymousId = () => {
     return this.data.anonymousId
-  }
-  getMobileNumber(): string {
-    return this.data?.mobileNumber
   }
   getData = (key: keyof UserData) => {
     return this.data && this.data[key]

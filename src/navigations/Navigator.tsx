@@ -1,5 +1,5 @@
-import React, { Component, Fragment, useEffect } from 'react'
-import { View, Text, StyleSheet, AsyncStorage } from 'react-native'
+import React, { useEffect } from 'react'
+import { View} from 'react-native'
 
 import {
   createStackNavigator,
@@ -9,15 +9,11 @@ import {
 import { COLORS } from '../styles'
 import { AuthStack } from './1-Auth/AuthStack'
 import { OnboardingStack } from './2-Onboarding/OnboardingStack'
-import { MainAppTab, MainAppStack } from './3-MainApp/MainAppStack'
+import { MainAppStack } from './3-MainApp/MainAppStack'
 import { applicationState } from '../state/app-state'
 import { QuestionaireStack } from './4-Questionaire/QuestionaireStack'
 import { PrivacyPolicy } from './PrivacyPolicy'
-
-const REDIRECT_PAGE = 'AuthOTP'
-const REDIRECT_PARAMS = {
-  data: { color: 'green', age: 25, gender: 'M', iat: 1585235348 },
-}
+import { HomeStack } from './0-Home/HomeStack'
 
 const Root = ({ navigation }) => {
   useEffect(() => {
@@ -37,23 +33,18 @@ const Root = ({ navigation }) => {
             ? 'MainApp'
             : 'Questionaire'
           : 'Onboarding'
-        : 'Auth'
+        : 'Home'
       
       const action = StackActions.reset({
         index: 0,
         actions: [
           NavigationActions.navigate({
-            routeName //: 'Auth',
+            routeName
           }),
         ],
         key: null,
       })
       navigation.dispatch(action)
-      // if (REDIRECT_PAGE) {
-      //   setTimeout(() => {
-      //     navigation.navigate(REDIRECT_PAGE, REDIRECT_PARAMS)
-      //   }, 500)
-      // }
     }
     redirect()
   }, [])
@@ -65,6 +56,9 @@ export default createStackNavigator(
   {
     Root: {
       screen: Root,
+    },
+    Home: {
+      screen: HomeStack
     },
     Auth: {
       screen: AuthStack,
@@ -85,9 +79,6 @@ export default createStackNavigator(
   {
     initialRouteName: 'Root',
     mode: 'modal',
-    headerMode: 'none',
-    onTransitionStart: (transition: any) => {
-      let routeName = transition.scene.route.routeName
-    },
+    headerMode: 'none'
   },
 )

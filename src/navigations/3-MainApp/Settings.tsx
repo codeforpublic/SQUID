@@ -12,11 +12,13 @@ import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useContactTracer } from '../../services/contact-tracing-provider'
+import { applicationState } from '../../state/app-state'
+import { useNavigation } from 'react-navigation-hooks'
 
-export const Settings = ({ navigation }) => {
+export const Settings = () => {
+  const navigation = useNavigation()
   const { enable, disable, statusText, isServiceEnabled } = useContactTracer()
-  console.log('isServiceEnabled', isServiceEnabled)
-
+  const isRegistered = applicationState.getData('isRegistered')
   const _onPrivacyPolicyClicked = () => {
     navigation.navigate('PrivacyPolicy')
   }
@@ -82,6 +84,20 @@ export const Settings = ({ navigation }) => {
                   </Text>
                 </View>
               </TouchableHighlight>
+              {<TouchableHighlight
+                onPress={() => navigation.navigate('AuthPhone', {
+                  onBack: () => {
+                    navigation.pop()
+                  },
+                  backIcon: 'close'
+                })}
+              >
+                <View style={styles.section}>
+                  <Text style={styles.sectionText}>
+                    ยืนยันตัวตน
+                  </Text>
+                </View>
+              </TouchableHighlight>}
             </View>
           </View>
         </ScrollView>

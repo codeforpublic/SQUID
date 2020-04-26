@@ -13,7 +13,7 @@ import {
 import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD } from '../../styles'
 import { PrimaryButton } from '../../components/Button'
 import AntIcon from 'react-native-vector-icons/AntDesign'
-import { requestOTP, verifyOTP } from '../../api'
+import { requestOTP, mobileParing } from '../../api'
 import { useHUD } from '../../HudView'
 import { useResetTo } from '../../utils/navigation'
 import { applicationState } from '../../state/app-state'
@@ -44,14 +44,13 @@ export const AuthOTP = () => {
   const onSubmit = async () => {
     showSpinner()
     try {
-      const bool = await verifyOTP(otp)
+      const bool = await mobileParing(mobileNumber.replace(/-/g, ''), otp)
       if (!bool) {
         Alert.alert('รหัสผ่านไม่ถูกต้อง')
         hide()
         return
       }
       hide()
-      userPrivateData.setData('mobileNumber', mobileNumber)
       applicationState.setData('isRegistered', true)
       if (applicationState.getData('isPassedOnboarding')) {
         resetTo({ routeName: 'MainApp' })

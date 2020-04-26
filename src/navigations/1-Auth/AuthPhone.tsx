@@ -20,12 +20,11 @@ import { Link } from '../../components/Base'
 import { applicationState } from '../../state/app-state'
 import { useResetTo } from '../../utils/navigation'
 import { FormHeader } from '../../components/Form/FormHeader'
-import { userPrivateData } from '../../state/userPrivateData'
 
 export const AuthPhone = () => {
   const navigation = useNavigation()
   const { showSpinner, hide } = useHUD()
-  const [phone, setPhone] = useState(userPrivateData.getMobileNumber() || '')
+  const [phone, setPhone] = useState('')
   const isValidPhone = useMemo(
     () => phone.replace(/-/g, '').match(/^(0|1)[0-9]{9}$/),
     [phone],
@@ -86,13 +85,13 @@ export const AuthPhone = () => {
             containerStyle={{ width: '100%' }}
             onPress={async () => {
               showSpinner()
+              const mobileNumber = phone.replace(/-/g, '')
               try {
-                await requestOTP(phone.replace(/-/g, ''))
+                await requestOTP(mobileNumber)
                 hide()
-                userPrivateData.setData('mobileNumber', phone)
                 navigation.navigate({
                   routeName: 'AuthOTP',
-                  params: { phone: phone.replace(/-/g, '') },
+                  params: { phone: mobileNumber },
                 })
               } catch (err) {
                 console.log(err)

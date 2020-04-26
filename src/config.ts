@@ -12,4 +12,4 @@ export const CODEPUSH_DEPLOYMENT_KEY = Platform.select({
   android: Config.CODE_PUSH_ANDROID,
 })
 export const PUBLIC_KEY_URL = Config.PUBLIC_KEY_URL
-export const PUBLIC_KEY_PINNING_CERT = Config.PUBLIC_KEY_URL
+export const PUBLIC_KEY_PINNING_CERT = Config.PUBLIC_KEY_PINNING_CERT
