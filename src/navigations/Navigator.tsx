@@ -18,16 +18,13 @@ import { HomeStack } from './0-Home/HomeStack'
 const Root = ({ navigation }) => {
   useEffect(() => {
     const redirect = async () => {
-      const registered = (
-        applicationState.getData('isRegistered') ||
-        applicationState.getData('skipRegistration')
-      )
+      const isSkipRegistration = applicationState.getData('skipRegistration')
       const onboarded = applicationState.getData('isPassedOnboarding')
       const isFilledQuestionaire = applicationState.getData(
         'filledQuestionaireV2',
       )
       
-      const routeName = registered
+      const routeName = isSkipRegistration
         ? onboarded
           ? isFilledQuestionaire
             ? 'MainApp'

@@ -12,13 +12,13 @@ import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useContactTracer } from '../../services/contact-tracing-provider'
-import { applicationState } from '../../state/app-state'
 import { useNavigation } from 'react-navigation-hooks'
+import { userPrivateData } from '../../state/userPrivateData'
 
 export const Settings = () => {
   const navigation = useNavigation()
   const { enable, disable, statusText, isServiceEnabled } = useContactTracer()
-  const isRegistered = applicationState.getData('isRegistered')
+  const isRegistered = Boolean(userPrivateData.getData('authToken'))
   const _onPrivacyPolicyClicked = () => {
     navigation.navigate('PrivacyPolicy')
   }
@@ -84,7 +84,7 @@ export const Settings = () => {
                   </Text>
                 </View>
               </TouchableHighlight>
-              {<TouchableHighlight
+              {!isRegistered && <TouchableHighlight
                 onPress={() => navigation.navigate('AuthPhone', {
                   onBack: () => {
                     navigation.pop()

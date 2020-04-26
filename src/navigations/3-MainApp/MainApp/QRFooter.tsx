@@ -1,27 +1,43 @@
 import React from 'react'
 import { FONT_FAMILY, FONT_SIZES, COLORS } from '../../../styles'
-import {
-  View,
-  Text,
-  Image,
-  Dimensions,
-} from 'react-native'
+import { View, Text, Image, Dimensions } from 'react-native'
 import moment from 'moment-timezone'
 import 'moment/locale/th'
-import { applicationState } from '../../../state/app-state'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { Link } from '../../../components/Base'
+import { useNavigation } from 'react-navigation-hooks'
+import { userPrivateData } from '../../../state/userPrivateData'
 
-export const QRFooter = () => {  
+export const QRFooter = () => {
+  const isRegistered = Boolean(userPrivateData.getData('authToken'))
+  const navigation = useNavigation()
   const date = moment().locale('th')
-  const smallDevice = Dimensions.get('window').height < 600  
+  const smallDevice = Dimensions.get('window').height < 600
+
   return (
     <View>
-      {/* {!isRegistered && (
-        <Text style={{
-          fontSize: FONT_SIZES[500],
-          color: COLORS.BLUE,
-          textAlign: 'center'
-        }}>ยืนยันตัวตัน</Text>
-      )} */}
+      {!isRegistered && (
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('AuthPhone', {
+              onBack: () => {
+                navigation.pop()
+              },
+              backIcon: 'close',
+            })
+          }
+        >
+          <Link
+            style={{
+              fontSize: FONT_SIZES[500],
+              color: '#576675',
+              textDecorationLine: 'underline',
+            }}
+          >
+            ยืนยันตัวตนที่นี่
+          </Link>
+        </TouchableOpacity>
+      )}
       <View
         style={{
           alignItems: 'center',
