@@ -19,7 +19,9 @@ platform :ios do
       include_bitcode: true,
     )
     set_info_plist_value(path: "./ios/ThaiAlert/Info.plist", key: "CodePushDeploymentKey", value: "")
-    upload_to_testflight
+    upload_to_testflight(
+      team_name: "Electronic Government Agency",
+    )
   end
 end
 

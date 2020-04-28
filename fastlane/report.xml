@@ -5,32 +5,32 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: Verifying fastlane version" time="0.012374">
+      <testcase classname="fastlane.lanes" name="0: Verifying fastlane version" time="0.021078">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: set_info_plist_value" time="0.006978">
+      <testcase classname="fastlane.lanes" name="1: set_info_plist_value" time="0.014734">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: increment_build_number" time="1.649515">
+      <testcase classname="fastlane.lanes" name="2: increment_build_number" time="4.332483">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: build_app" time="408.431372">
+      <testcase classname="fastlane.lanes" name="3: build_app" time="705.401195">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: set_info_plist_value" time="0.009244">
+      <testcase classname="fastlane.lanes" name="4: set_info_plist_value" time="0.027208">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: upload_to_testflight" time="572.240935">
+      <testcase classname="fastlane.lanes" name="5: upload_to_testflight" time="514.529132">
         
       </testcase>
     
