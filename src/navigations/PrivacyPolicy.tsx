@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: COLORS.GRAY_4,
     marginBottom: 16,
+    // textAlign: 'justify'
   },
   footer: {
     alignItems: 'center',

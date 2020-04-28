@@ -1,5 +1,12 @@
 import React, { useEffect } from 'react'
-import { Linking, Alert, Platform, AppState } from 'react-native'
+import {
+  Linking,
+  Alert,
+  Platform,
+  AppState,
+  View,
+  StyleSheet,
+} from 'react-native'
 
 export const withEnforceUpdate = isEnforced => Component => props => {
   useEffect(() => {
@@ -35,7 +42,16 @@ export const withEnforceUpdate = isEnforced => Component => props => {
     check()
   }, [])
   if (isEnforced) {
-    return null
+    return (
+      <View
+        style={[
+          StyleSheet.absoluteFill,
+          {
+            backgroundColor: '#00A0D7',
+          },
+        ]}
+      />
+    )
   }
   return <Component {...props} />
 }
