@@ -126,7 +126,7 @@ export const Settings = () => {
                 </TouchableHighlight>
               )}
               <TouchableHighlight
-                onPress={() => navigation.navigate('SetLocation')}
+                onPress={() => navigation.navigate('SetLocationHome')}
               >
                 <View style={styles.section}>
                   <Text style={styles.sectionText}>
