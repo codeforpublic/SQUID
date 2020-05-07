@@ -8,7 +8,8 @@
     "start": "react-native start",
     "link": "react-native link",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "postinstall": "node scripts/postinstall.js"
   },
   "workspaces": {
     "nohoist": [
