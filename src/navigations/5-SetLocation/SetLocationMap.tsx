@@ -13,11 +13,11 @@ import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from 'react-navigation-hooks'
 
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 
 export const SetLocationMap = () => {
   const navigation = useNavigation()
-  const [coordinate, setCoordinate] = useState(null)
+  const [coordinate, setCoordinate] = useState({latitude: 13.7698018, longitude: 100.6335734 })
 
   return (
     <MyBackground variant="light">
@@ -32,19 +32,18 @@ export const SetLocationMap = () => {
         >
           <Text>SET LOCATION MAP</Text>
           <View style={styles.container}>
-          <MapView
-             provider={PROVIDER_GOOGLE}
-             style={styles.map}
-             initialRegion={{
-              latitude: 13.7698018,
-              longitude: 100.6335734,
-              latitudeDelta: 0.015,
-              longitudeDelta: 0.0121,
-            }}>
-            <Marker draggable
-              coordinate={coordinate}
-              onDragEnd={(e) => setCoordinate(e.nativeEvent.coordinate)}
-            />
+            <MapView
+              style={styles.map}
+              initialRegion={{
+                latitude: 13.7698018,
+                longitude: 100.6335734,
+                latitudeDelta: 0.015,
+                longitudeDelta: 0.0121,
+              }}>
+              <Marker draggable
+                coordinate={coordinate}
+                onDragEnd={(e) => setCoordinate(e.nativeEvent.coordinate)}
+              />
             </MapView>
           </View>
         </ScrollView>
