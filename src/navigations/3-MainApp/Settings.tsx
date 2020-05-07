@@ -125,6 +125,15 @@ export const Settings = () => {
                   </View>
                 </TouchableHighlight>
               )}
+              <TouchableHighlight
+                onPress={() => navigation.navigate('SetLocation')}
+              >
+                <View style={styles.section}>
+                  <Text style={styles.sectionText}>
+                    Set Location
+                  </Text>
+                </View>
+              </TouchableHighlight>
             </View>
           </View>
         </ScrollView>
