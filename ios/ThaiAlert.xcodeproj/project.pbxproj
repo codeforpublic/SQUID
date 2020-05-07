@@ -27,6 +27,7 @@
 		D20BC62B371245BF95CF983C /* DBHelvethaicaX-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99E1DDFF5FA54CBE8DC665A2 /* DBHelvethaicaX-Thin.ttf */; };
 		D92CAD612443823200A99087 /* thaialert-staging.cer in Resources */ = {isa = PBXBuildFile; fileRef = D92CAD602443823200A99087 /* thaialert-staging.cer */; };
 		D9459BA8243B91D900588DC9 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9459BA7243B91D900588DC9 /* AppCenter-Config.plist */; };
+		D96F220C2464540300FFDDD2 /* thaialert-dev.cer in Resources */ = {isa = PBXBuildFile; fileRef = D96F220B2464540300FFDDD2 /* thaialert-dev.cer */; };
 		D973B9FD2456090D007B1425 /* thaialert.cer in Resources */ = {isa = PBXBuildFile; fileRef = D973B9FC2456090D007B1425 /* thaialert.cer */; };
 		D988E8EF24301732009500DC /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D988E8EE24301732009500DC /* Launch Screen.storyboard */; };
 		DB2A43B00A414B1EAF5EFFFA /* DBHelvethaicaX-BlkIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8207C214E52047A1870A3F21 /* DBHelvethaicaX-BlkIt.ttf */; };
@@ -97,7 +98,7 @@
 		D92A024D24360E0E00367D58 /* ThaiAlert.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ThaiAlert.entitlements; path = ThaiAlert/ThaiAlert.entitlements; sourceTree = "<group>"; };
 		D92CAD602443823200A99087 /* thaialert-staging.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "thaialert-staging.cer"; sourceTree = "<group>"; };
 		D9459BA7243B91D900588DC9 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "ThaiAlert/AppCenter-Config.plist"; sourceTree = "<group>"; };
-		D96F220A2464280300FFDDD2 /* thaialert-dev.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "thaialert-dev.cer"; sourceTree = "<group>"; };
+		D96F220B2464540300FFDDD2 /* thaialert-dev.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "thaialert-dev.cer"; sourceTree = "<group>"; };
 		D973B9FC2456090D007B1425 /* thaialert.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = thaialert.cer; sourceTree = "<group>"; };
 		D973B9FE24560912007B1425 /* cmdcenter.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = cmdcenter.cer; sourceTree = "<group>"; };
 		D9790A306A14407D95088CA1 /* Prompt-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-LightItalic.ttf"; path = "../assets/fonts/Prompt-LightItalic.ttf"; sourceTree = "<group>"; };
@@ -147,8 +148,8 @@
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				D973B9FE24560912007B1425 /* cmdcenter.cer */,
 				D92CAD602443823200A99087 /* thaialert-staging.cer */,
-				D96F220A2464280300FFDDD2 /* thaialert-dev.cer */,
 				D973B9FC2456090D007B1425 /* thaialert.cer */,
+				D96F220B2464540300FFDDD2 /* thaialert-dev.cer */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -342,6 +343,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				D988E8EF24301732009500DC /* Launch Screen.storyboard in Resources */,
 				D9459BA8243B91D900588DC9 /* AppCenter-Config.plist in Resources */,
+				D96F220C2464540300FFDDD2 /* thaialert-dev.cer in Resources */,
 				40D279449FED4F8C9856C21F /* DBHelvethaicaX-Bd.ttf in Resources */,
 				98D101F8D70F49B38A5B30C1 /* DBHelvethaicaX-BdIt.ttf in Resources */,
 				D92CAD612443823200A99087 /* thaialert-staging.cer in Resources */,

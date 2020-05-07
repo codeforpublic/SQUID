@@ -7,6 +7,7 @@ import { fetch } from 'react-native-ssl-pinning'
 
 export const getAnonymousHeaders = () => {
   const authToken = userPrivateData.getData('authToken')
+  console.log('authToken', authToken)
   return {
     Authorization: authToken ? 'Bearer ' + authToken : void 0,
     'X-TH-ANONYMOUS-ID': userPrivateData.getAnonymousId(),
@@ -21,6 +22,7 @@ export const fetchJWKs = async () => {
       certs: [SSL_PINNING_CERT_NAME],
     },
     headers: {
+      'X-TH-ANONYMOUS-ID': userPrivateData.getAnonymousId(),
       'Content-Type': 'application/json',
     },
   })
@@ -30,8 +32,8 @@ export const fetchJWKs = async () => {
 }
 
 export const registerDevice = async (): Promise<{
-  userId: string
   anonymousId: string
+  token: string
 }> => {
   const resp = await fetch(API_URL + `/registerDevice`, {
     method: 'POST',
@@ -44,11 +46,11 @@ export const registerDevice = async (): Promise<{
     body: JSON.stringify({ deviceId: DeviceInfo.getUniqueId() }),
   })
   const result = await resp.json()
-  if (!result.anonymousId || !result.userId) {
+  if (!result.anonymousId) {
     throw new Error('RegisterDevice failed')
   }
 
-  return { userId: result.userId, anonymousId: result.anonymousId }
+  return { anonymousId: result.anonymousId, token: result.token }
 }
 
 export const requestOTP = async (mobileNo: string) => {

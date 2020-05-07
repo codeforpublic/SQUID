@@ -20,7 +20,7 @@ const SINFO_OPTIONS = {
   sharedPreferencesName: 'ThaiAlert.UserPrivateData',
   keychainService: '@ThaiAlert/UserPrivateData',
 }
-const LATEST_VERSION = 2
+const LATEST_VERSION = 3
 
 class UserPrivateData extends HookState {
   data: UserData
@@ -42,21 +42,22 @@ class UserPrivateData extends HookState {
     if (userDataString) {
       this.data = JSON.parse(userDataString)
     }
-    
+
     if (!this.data) {
       this.data = {
         anonymousId: '',
         id: '',
-      }      
+      }
     }
     const register = () => {
-      return registerDevice().then(({ userId, anonymousId }) => {
+      return registerDevice().then(({ userId, anonymousId, token }) => {
         this.data.id = userId
         this.data.anonymousId = anonymousId
         this.data.version = LATEST_VERSION
+        this.data.authToken = token
         return this.save()
       })
-    }    
+    }
     if (this.data.version !== LATEST_VERSION) {
       /* wait to register */
       await register()
@@ -68,7 +69,7 @@ class UserPrivateData extends HookState {
     }
   }
 
-  getId = () => {    
+  getId = () => {
     return this.data.id
   }
   getAnonymousId = () => {
