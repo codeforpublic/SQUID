@@ -19,6 +19,7 @@
 #import <AppCenterReactNative.h>
 #import <AppCenterReactNativeAnalytics.h>
 #import <AppCenterReactNativeCrashes.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 @implementation AppDelegate
 
@@ -49,6 +50,7 @@
   [AppCenterReactNative register];
   [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
   [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
+  [GMSServices provideAPIKey:@"AIzaSyCz35l7nQGWdJCttPpaDvs1dFyS4p0vmw8"];
 
   
   [RNSplashScreen show];

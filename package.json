@@ -88,7 +88,7 @@
     "react-native-json-tree": "^1.2.0",
     "react-native-jwt-verifier": "^1.1.1",
     "react-native-keyboard-aware-scrollview": "^2.1.0",
-    "react-native-maps": "^0.26.1",
+    "react-native-maps": "0.27.1",
     "react-native-masked-text": "^1.13.0",
     "react-native-otp-inputs": "^5.0.1",
     "react-native-permissions": "^2.0.10",
