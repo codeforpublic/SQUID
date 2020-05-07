@@ -14,6 +14,7 @@ import { applicationState } from '../state/app-state'
 import { QuestionaireStack } from './4-Questionaire/QuestionaireStack'
 import { PrivacyPolicy } from './PrivacyPolicy'
 import { HomeStack } from './0-Home/HomeStack'
+import { SetLocationStack } from './5-SetLocation/SetLocationStack'
 
 const Root = ({ navigation }) => {
   useEffect(() => {
@@ -23,6 +24,7 @@ const Root = ({ navigation }) => {
       const isFilledQuestionaire = applicationState.getData(
         'filledQuestionaireV2',
       )
+      // const isEnterCoded = true; // TODO: waiting for next sprint
       
       const routeName = isSkipRegistration
         ? onboarded
@@ -71,6 +73,9 @@ export default createStackNavigator(
     },
     PrivacyPolicy: {
       screen: PrivacyPolicy,      
+    },
+    SetLocation: {
+      screen: SetLocationStack,
     }
   },
   {

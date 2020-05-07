@@ -15,7 +15,7 @@ import { useContactTracer } from '../../services/contact-tracing-provider'
 import { useNavigation } from 'react-navigation-hooks'
 import { userPrivateData } from '../../state/userPrivateData'
 
-export const Settings = () => {
+export const SetLocationStack = () => {
   const navigation = useNavigation()
   const { enable, disable, statusText, isServiceEnabled } = useContactTracer()
   const isRegistered = Boolean(userPrivateData.getData('authToken'))
@@ -36,56 +36,12 @@ export const Settings = () => {
         >
           <View>
             <View style={styles.sectionHeader}>
-              <Text style={styles.sectionHeaderText}>ระบบค้นหา</Text>
+              <Text style={styles.sectionHeaderText}>Set Location</Text>
             </View>
+            
             <View style={styles.settingsSection}>
-              <View style={[styles.section]}>
-                <View style={styles.horizontalRow}>
-                  <View style={styles.leftArea}>
-                    <Text style={styles.sectionText}>การค้นหาด้วยบลูทูธ: </Text>
-                  </View>
-                  <View style={styles.rightArea}>
-                    <Switch
-                      trackColor={{
-                        false: '#767577',
-                        true: COLORS.PRIMARY_DARK,
-                      }}
-                      ios_backgroundColor="#3e3e3e"
-                      onValueChange={() =>
-                        isServiceEnabled ? disable() : enable()
-                      }
-                      value={isServiceEnabled}
-                    />
-                  </View>
-                </View>
-                <Text style={styles.sectionDescription}>
-                  เปิดการค้นหาการเข้าใกล้บุคคลอื่นผ่านบลูทูธพลังงานต่ำโดยอัตโนมัติ
-                  อาจส่งผลให้มือถือมีการใช้พลังงานมากกว่าปกติ
-                  สามารถเลือกปิดได้ถ้าต้องการ
-                  แต่ระบบจะไม่สามารถค้นหาอุปกรณ์อื่นโดยอัตโนมัติได้
-                </Text>
-              </View>
-            </View>
-            <View style={styles.sectionHeader}>
-              <Text style={styles.sectionHeaderText}>ทั่วไป</Text>
-            </View>
-            <View style={styles.settingsSection}>
-              <TouchableHighlight onPress={_onPrivacyPolicyClicked}>
-                <View style={styles.section}>
-                  <Text style={styles.sectionText}>นโยบายความเป็นส่วนตัว</Text>
-                </View>
-              </TouchableHighlight>
               <TouchableHighlight
-                onPress={() => navigation.navigate('Questionaire')}
-              >
-                <View style={styles.section}>
-                  <Text style={styles.sectionText}>
-                    ทำแบบประเมินตนเองอีกครั้ง
-                  </Text>
-                </View>
-              </TouchableHighlight>
-              {!isRegistered && <TouchableHighlight
-                onPress={() => navigation.navigate('OnboardPhone', {
+                onPress={() => navigation.navigate('HomeLocaion', {
                   onBack: () => {
                     navigation.pop()
                   },
@@ -94,19 +50,26 @@ export const Settings = () => {
               >
                 <View style={styles.section}>
                   <Text style={styles.sectionText}>
-                    ยืนยันตัวตน
-                  </Text>
-                </View>
-              </TouchableHighlight>}
-              <TouchableHighlight
-                onPress={() => navigation.navigate('SetLocation')}
-              >
-                <View style={styles.section}>
-                  <Text style={styles.sectionText}>
-                    Set Location
+                    กำหนดที่อยู่บ้านของคุณ
                   </Text>
                 </View>
               </TouchableHighlight>
+              
+              {<TouchableHighlight
+                onPress={() => navigation.navigate('WorkLocation', {
+                  onBack: () => {
+                    navigation.pop()
+                  },
+                  backIcon: 'close'
+                })}
+              >
+                <View style={styles.section}>
+                  <Text style={styles.sectionText}>
+                    กำหนดที่อยู่ที่ทำงานของคุณ
+                  </Text>
+                </View>
+              </TouchableHighlight>}
+              
             </View>
           </View>
         </ScrollView>
