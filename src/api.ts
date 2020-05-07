@@ -1,26 +1,14 @@
 import DeviceInfo from 'react-native-device-info'
 import { userPrivateData } from './state/userPrivateData'
 import nanoid from 'nanoid'
-import { API_URL, API_KEY, SSL_PINNING_CERT_NAME } from './config'
+import { API_URL, SSL_PINNING_CERT_NAME } from './config'
 import { encryptMessage, refetchDDCPublicKey } from './utils/crypto'
 import { fetch } from 'react-native-ssl-pinning'
-
-export const getPrivateHeaders = () => {
-  const authToken = userPrivateData.getData('authToken')
-  return {
-    'Authorization': authToken? 'Bearer ' + authToken: void 0,
-    'X-TH-API-Key': API_KEY,
-    'X-TH-USER-ID': userPrivateData.getId(),
-    'X-TH-ANONYMOUS-ID': userPrivateData.getAnonymousId(),
-    'Content-Type': 'application/json',
-  }
-}
 
 export const getAnonymousHeaders = () => {
   const authToken = userPrivateData.getData('authToken')
   return {
-    'Authorization': authToken? 'Bearer ' + authToken: void 0,
-    'X-TH-API-Key': API_KEY,
+    Authorization: authToken ? 'Bearer ' + authToken : void 0,
     'X-TH-ANONYMOUS-ID': userPrivateData.getAnonymousId(),
     'Content-Type': 'application/json',
   }
@@ -33,7 +21,6 @@ export const fetchJWKs = async () => {
       certs: [SSL_PINNING_CERT_NAME],
     },
     headers: {
-      'X-TH-API-Key': API_KEY,
       'Content-Type': 'application/json',
     },
   })
@@ -52,7 +39,6 @@ export const registerDevice = async (): Promise<{
       certs: [SSL_PINNING_CERT_NAME],
     },
     headers: {
-      'X-TH-API-Key': API_KEY,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ deviceId: DeviceInfo.getUniqueId() }),
@@ -65,15 +51,15 @@ export const registerDevice = async (): Promise<{
   return { userId: result.userId, anonymousId: result.anonymousId }
 }
 
-export const requestOTP = async (mobileNo: string) => {  
+export const requestOTP = async (mobileNo: string) => {
   const resp = await fetch(API_URL + `/requestOTP`, {
     method: 'POST',
     sslPinning: {
       certs: [SSL_PINNING_CERT_NAME],
     },
-    headers: getPrivateHeaders(),
+    headers: getAnonymousHeaders(),
     body: JSON.stringify({
-      mobileNo /* use to send sms only, store only hashed phone number in server */
+      mobileNo /* use to send sms only, store only hashed phone number in server */,
     }),
   })
   const result = await resp.json()
@@ -92,7 +78,7 @@ export const mobileParing = async (mobileNo: string, otpCode: string) => {
     sslPinning: {
       certs: [SSL_PINNING_CERT_NAME],
     },
-    headers: getPrivateHeaders(),
+    headers: getAnonymousHeaders(),
     body: JSON.stringify({ otpCode, encryptedMobileNo }),
   })
   const result = await resp.json()
