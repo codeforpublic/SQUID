@@ -13,7 +13,7 @@ import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from 'react-navigation-hooks'
 
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 
 export const SetLocationMap = () => {
   const navigation = useNavigation()
@@ -31,17 +31,22 @@ export const SetLocationMap = () => {
           style={styles.scrollView}
         >
           <Text>SET LOCATION MAP</Text>
-          <MapView initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}>
+          <View style={styles.container}>
+          <MapView
+             provider={PROVIDER_GOOGLE}
+             style={styles.map}
+             initialRegion={{
+              latitude: 13.7698018,
+              longitude: 100.6335734,
+              latitudeDelta: 0.015,
+              longitudeDelta: 0.0121,
+            }}>
             <Marker draggable
               coordinate={coordinate}
               onDragEnd={(e) => setCoordinate(e.nativeEvent.coordinate)}
             />
-          </MapView>
+            </MapView>
+          </View>
         </ScrollView>
       </SafeAreaView>
     </MyBackground>
@@ -49,6 +54,15 @@ export const SetLocationMap = () => {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    ...StyleSheet.absoluteFillObject,
+    height: 400,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
   section: {
     backgroundColor: '#ffffff',
     padding: 24,
