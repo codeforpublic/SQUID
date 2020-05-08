@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
   StatusBar,
   StyleSheet,
@@ -12,12 +12,28 @@ import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from 'react-navigation-hooks'
+import AsyncStorage from '@react-native-community/async-storage'
+import { backgroundTracking } from '../../services/background-tracking'
 
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, AnimatedRegion, PROVIDER_DEFAULT } from 'react-native-maps';
+import { Button } from 'react-native-elements'
 
 export const SetLocationMap = () => {
-  const navigation = useNavigation()
-  const [coordinate, setCoordinate] = useState({latitude: 13.7698018, longitude: 100.6335734 })
+  const [coordinate, setCoordinate] = useState({latitude: 13.7698018, longitude: 100.6335734})
+  const [firstTime, setFirstTime] = useState(true)
+
+  const currentLocation = useCallback(async () => {
+    const location = await backgroundTracking.getLocation();
+    setCoordinate({latitude: location.coords.latitude, longitude: location.coords.longitude })
+  }, []);
+
+  useEffect(()=> {
+    currentLocation();
+  }, [coordinate])
+
+  const save = (col) => {
+    console.log('save location ', col);
+  }
 
   return (
     <MyBackground variant="light">
@@ -33,18 +49,18 @@ export const SetLocationMap = () => {
           <Text>SET LOCATION MAP</Text>
           <View style={styles.container}>
             <MapView
+              region={{...coordinate, latitudeDelta: 0.015, longitudeDelta: 0.0121}}
+              provider={PROVIDER_DEFAULT}
               style={styles.map}
-              initialRegion={{
-                latitude: 13.7698018,
-                longitude: 100.6335734,
-                latitudeDelta: 0.015,
-                longitudeDelta: 0.0121,
-              }}>
+              initialRegion={{...coordinate, latitudeDelta: 0.015, longitudeDelta: 0.0121}}>
               <Marker draggable
                 coordinate={coordinate}
                 onDragEnd={(e) => setCoordinate(e.nativeEvent.coordinate)}
               />
             </MapView>
+          </View>
+          <View>
+            <Button onPress={()=>save(coordinate)} title='SAVE' />
           </View>
         </ScrollView>
       </SafeAreaView>
