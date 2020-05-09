@@ -85,9 +85,9 @@ class App extends React.Component {
   }
   onNavigatorLoaded() {
     pushNotification.configure(this.onNotification)
-    setTimeout(() => {
-      pushNotification.testNoti()
-    }, 1000)
+    // setTimeout(() => {
+    //   pushNotification.testNoti()
+    // }, 1000)
   }
   onNotification = (notification) => {
     const notificationData = notification?.data?.data || notification?.data
@@ -100,7 +100,13 @@ class App extends React.Component {
         if (notificationData.routeName) {
           navigation.navigate(notificationData.routeName)
         } else if (notificationData.url) {
-          Linking.openURL(notificationData.url)
+          // Linking.openURL(notificationData.url)
+          navigation.navigate('Webview', {
+            uri: notificationData.url,
+            onClose: () => {
+              navigation.pop()
+            }
+          })
         }
         break
       }

@@ -8,41 +8,21 @@ import { AppState } from 'react-native'
 console.disableYellowBox = true
 
 export enum NOTIFICATION_TYPES {
-  OPEN = 'OPEN'
+  OPEN = 'OPEN',
+}
+
+const payload = {
+  title: 'here your questionaire',
+  message: 'test',
+  data: {
+    type: 'OPEN',
+    url:
+      'https://app.morchana.in.th/q/q1?x=1&token=eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbm9ueW1vdXNJZCI6Il9MdW1HNlBjRzMxNCIsImlhdCI6MTU4OTAxMjEwOSwiZXhwIjoxNTg5MDk4NTA5fQ.HbGjD1oS8Y0b5GAgyBNh3Zk-D0nI2MLBdjOgPkkRyjsck2xT6OBO2pOArann9w34m0ho32w3dT45JJNNvhKMyw',
+  },
 }
 
 class Notification {
   isConfigured = false
-  mockNotVerified() {
-    PushNotification.localNotificationSchedule({
-      title: 'กรุณายืนยันตัวตนด้วยเบอร์โทรศัพท์',
-      message: 'เพื่อนำผลประเมิน COVID-19 มาปรับปรุงผลการประเมิน',
-      date: new Date(Date.now() + 15 * 1000),
-    })
-  }
-  mockOrangeCode() {
-    PushNotification.localNotificationSchedule({
-      title: 'สถานะของคุณได้ถูกเปลี่ยนเป็นสีส้ม',
-      message:
-        'เนื่องจากท่านมีประวัติเดินทางจากพื้นที่เสี่ยง ให้กักตัว 14 วัน พร้อมเฝ้าระวังอาการ ถ้ามีอาการไข้ ร่วมกับ อาการระบบทางเดินหายใจ ให้ติดต่อสถานพยาบาลทันที',
-      date: new Date(Date.now() + 10 * 1000),
-    })
-  }
-  mockRedCode() {
-    PushNotification.localNotificationSchedule({
-      title: 'สถานะของคุณได้ถูกเปลี่ยนเป็นสีแดง',
-      message: 'คุณเข้าสู่สภาวะเสี่ยงสูง สถานพยาบาลกำลังจะติดต่อคุณกลับไปทันที',
-      date: new Date(Date.now() + 10 * 1000),
-    })
-  }
-  dailyAdvice() {
-    PushNotification.localNotificationSchedule({
-      title: 'คำแนะนำของคุณในวันนี้ (สีส้ม)',
-      message:
-        'เนื่องจากท่านมีประวัติเดินทางจากพื้นที่เสี่ยง ให้กักตัว 14 วัน พร้อมเฝ้าระวังอาการ ถ้ามีอาการไข้ ร่วมกับ อาการระบบทางเดินหายใจ ให้ติดต่อสถานพยาบาลทันที',
-      date: new Date(Date.now() + 10 * 1000),
-    })
-  }
   requestPermissions() {
     PushNotification.requestPermissions()
     applicationState.setData('isAllowNotification', true)
@@ -50,10 +30,18 @@ class Notification {
   popInitialNotification(calback) {
     PushNotification.popInitialNotification(calback)
   }
-  configure(onNotification) {    
-    const requestPermissions = applicationState.getData('isAllowNotification') as boolean
-    console.log('notification configure', requestPermissions)
-    // let appState 
+  testNoti() {
+    return PushNotification.localNotificationSchedule({
+      message: payload.message,
+      userInfo: payload,
+      date: new Date(Date.now() + 1000), // in 60 secs
+    })
+  }
+  configure(onNotification) {
+    const requestPermissions = applicationState.getData(
+      'isAllowNotification',
+    ) as boolean
+    // let appState
     // AppState.addEventListener('change', (state) => {
     //   if (appState !== state) {
     //     if (state === 'active') {
@@ -68,19 +56,20 @@ class Notification {
 
     return PushNotification.configure({
       // (optional) Called when Token is generated (iOS and Android)
-      onRegister: (pushToken) => {
+      onRegister: pushToken => {
         console.log('notification TOKEN:', pushToken)
         updateUserData({
           pushToken,
-        }).then((r) => {
+        }).then(r => {
           console.log('notification save push token', r)
         })
       },
-      senderID: "914417222955",
+      senderID: '914417222955',
 
       // (required) Called when a remote or local notification is opened or received
-      onNotification: async function (notification) {
-        backgroundTracking.getLocation() // trigger update location        
+      onNotification: async function(notification) {
+        console.log('onNotification')
+        backgroundTracking.getLocation() // trigger update location
         await onNotification(notification)
         // notification?.data?.
         // process the notification

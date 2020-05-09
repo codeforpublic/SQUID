@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View} from 'react-native'
+import { View } from 'react-native'
 
 import {
   createStackNavigator,
@@ -14,6 +14,7 @@ import { applicationState } from '../state/app-state'
 import { QuestionaireStack } from './4-Questionaire/QuestionaireStack'
 import { PrivacyPolicy } from './PrivacyPolicy'
 import { HomeStack } from './0-Home/HomeStack'
+import { WebviewScreen } from './Webview'
 
 const Root = ({ navigation }) => {
   useEffect(() => {
@@ -23,7 +24,7 @@ const Root = ({ navigation }) => {
       const isFilledQuestionaire = applicationState.getData(
         'filledQuestionaireV2',
       )
-      
+
       const routeName = isSkipRegistration
         ? onboarded
           ? isFilledQuestionaire
@@ -31,12 +32,12 @@ const Root = ({ navigation }) => {
             : 'Questionaire'
           : 'Onboarding'
         : 'Home'
-      
+
       const action = StackActions.reset({
         index: 0,
         actions: [
           NavigationActions.navigate({
-            routeName
+            routeName,
           }),
         ],
         key: null,
@@ -55,7 +56,7 @@ export default createStackNavigator(
       screen: Root,
     },
     Home: {
-      screen: HomeStack
+      screen: HomeStack,
     },
     Auth: {
       screen: AuthStack,
@@ -69,13 +70,16 @@ export default createStackNavigator(
     Questionaire: {
       screen: QuestionaireStack,
     },
+    Webview: {
+      screen: WebviewScreen,
+    },
     PrivacyPolicy: {
-      screen: PrivacyPolicy,      
-    }
+      screen: PrivacyPolicy,
+    },
   },
   {
     initialRouteName: 'Root',
     mode: 'modal',
-    headerMode: 'none'
+    headerMode: 'none',
   },
 )
