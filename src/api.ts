@@ -7,7 +7,6 @@ import { fetch } from 'react-native-ssl-pinning'
 
 export const getAnonymousHeaders = () => {
   const authToken = userPrivateData.getData('authToken')
-  console.log('authToken', authToken)
   return {
     Authorization: authToken ? 'Bearer ' + authToken : void 0,
     'X-TH-ANONYMOUS-ID': userPrivateData.getAnonymousId(),

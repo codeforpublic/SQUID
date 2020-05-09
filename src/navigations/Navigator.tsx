@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View} from 'react-native'
+import { View } from 'react-native'
 
 import {
   createStackNavigator,
@@ -16,6 +16,7 @@ import { PrivacyPolicy } from './PrivacyPolicy'
 import { HomeStack } from './0-Home/HomeStack'
 import { SetLocationStack } from './5-SetLocation/SetLocationStack'
 import { LocationReport } from './3-MainApp/LocationReport'
+import { WebviewScreen } from './Webview'
 
 const Root = ({ navigation }) => {
   useEffect(() => {
@@ -34,12 +35,12 @@ const Root = ({ navigation }) => {
             : 'Questionaire'
           : 'Onboarding'
         : 'Home'
-      
+
       const action = StackActions.reset({
         index: 0,
         actions: [
           NavigationActions.navigate({
-            routeName
+            routeName,
           }),
         ],
         key: null,
@@ -58,7 +59,7 @@ export default createStackNavigator(
       screen: Root,
     },
     Home: {
-      screen: HomeStack
+      screen: HomeStack,
     },
     Auth: {
       screen: AuthStack,
@@ -71,6 +72,9 @@ export default createStackNavigator(
     },
     Questionaire: {
       screen: QuestionaireStack,
+    },
+    Webview: {
+      screen: WebviewScreen,
     },
     PrivacyPolicy: {
       screen: PrivacyPolicy,      
@@ -85,6 +89,6 @@ export default createStackNavigator(
   {
     initialRouteName: 'Root',
     mode: 'modal',
-    headerMode: 'none'
+    headerMode: 'none',
   },
 )
