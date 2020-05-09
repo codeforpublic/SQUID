@@ -4,36 +4,65 @@ import {
   StyleSheet,
   View,
   Text,
-  Switch,
   ScrollView,
-  TouchableHighlight,
+  AsyncStorage,
+  Dimensions,
 } from 'react-native'
 import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { useNavigation } from 'react-navigation-hooks'
-import AsyncStorage from '@react-native-community/async-storage'
+import { SafeAreaView, useSafeArea } from 'react-native-safe-area-context'
 import { backgroundTracking } from '../../services/background-tracking'
+import styled from '@emotion/native'
+import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps';
+import { normalize } from 'react-native-elements'
+import { PrimaryButton } from '../../components/Button'
+interface Coordinate {
+  latitude: number;
+  longitude: number;
+}
+const padding = normalize(18)
 
-import MapView, { Marker, AnimatedRegion, PROVIDER_DEFAULT } from 'react-native-maps';
-import { Button } from 'react-native-elements'
+const Footer = styled(View)({
+  alignItems: 'center',
+  marginVertical: 12,
+  paddingHorizontal: padding
+})
 
-export const SetLocationMap = () => {
-  const [coordinate, setCoordinate] = useState({latitude: 13.7698018, longitude: 100.6335734})
-  const [firstTime, setFirstTime] = useState(true)
+export const SetLocationMap = ({ navigation }) => {
+  const [coordinate, setCoordinate] = useState<Coordinate>({ latitude: 13.7698018, longitude: 100.6335734 });
+  const inset = useSafeArea()
 
   const currentLocation = useCallback(async () => {
-    const location = await backgroundTracking.getLocation();
-    setCoordinate({latitude: location.coords.latitude, longitude: location.coords.longitude })
+    try {
+      const location = await backgroundTracking.getLocation();
+      setCoordinate({ latitude: location.coords.latitude, longitude: location.coords.longitude })
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
-  useEffect(()=> {
+  useEffect(() => {
     currentLocation();
-  }, [coordinate])
+  }, [])
 
-  const save = (col) => {
-    console.log('save location ', col);
+  const save = async () => {
+    const { mode = 'HOME' } = navigation.state.params;
+    await AsyncStorage.setItem(mode, JSON.stringify(coordinate));
+    navigation.pop()
   }
+
+  const footer = (
+    <Footer style={{ paddingBottom: inset.bottom }}>
+      <PrimaryButton
+        title={'บันทึก'}
+        style={{ width: '100%' }}
+        containerStyle={{ width: '100%' }}
+        disabled={!coordinate}
+        onPress={save}
+      />
+    </Footer>
+  );
+  const fixedFooter = Dimensions.get('window').height > 700
 
   return (
     <MyBackground variant="light">
@@ -46,23 +75,24 @@ export const SetLocationMap = () => {
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}
         >
-          <Text>SET LOCATION MAP</Text>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionHeaderText}>{navigation.state.params.title || 'ระบุตำแหน่ง'}</Text>
+          </View>
           <View style={styles.container}>
             <MapView
-              region={{...coordinate, latitudeDelta: 0.015, longitudeDelta: 0.0121}}
-              provider={PROVIDER_DEFAULT}
               style={styles.map}
-              initialRegion={{...coordinate, latitudeDelta: 0.015, longitudeDelta: 0.0121}}>
+              provider={PROVIDER_DEFAULT}
+              region={{ ...coordinate, latitudeDelta: 0.015, longitudeDelta: 0.0121 }}
+              initialRegion={{ ...coordinate, latitudeDelta: 0.015, longitudeDelta: 0.0121 }}>
               <Marker draggable
                 coordinate={coordinate}
-                onDragEnd={(e) => setCoordinate(e.nativeEvent.coordinate)}
+                onDragEnd={(e) => setCoordinate({ ...e.nativeEvent.coordinate })}
               />
             </MapView>
           </View>
-          <View>
-            <Button onPress={()=>save(coordinate)} title='SAVE' />
-          </View>
+          {fixedFooter ? null : footer}
         </ScrollView>
+        {fixedFooter ? footer : null}
       </SafeAreaView>
     </MyBackground>
   )
@@ -70,10 +100,10 @@ export const SetLocationMap = () => {
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
     height: 400,
     justifyContent: 'flex-end',
     alignItems: 'center',
+    display: 'flex',
   },
   map: {
     ...StyleSheet.absoluteFillObject,

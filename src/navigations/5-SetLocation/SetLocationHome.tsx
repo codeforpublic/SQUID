@@ -4,16 +4,13 @@ import {
   StyleSheet,
   View,
   Text,
-  Switch,
   ScrollView,
   TouchableHighlight,
 } from 'react-native'
 import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { useContactTracer } from '../../services/contact-tracing-provider'
 import { useNavigation } from 'react-navigation-hooks'
-import { userPrivateData } from '../../state/userPrivateData'
 
 export const SetLocationHome = () => {
   const navigation = useNavigation()
@@ -37,6 +34,8 @@ export const SetLocationHome = () => {
             <View style={styles.settingsSection}>
               <TouchableHighlight
                 onPress={() => navigation.navigate('SetLocationMap', {
+                  title: 'กำหนดที่อยู่บ้านของคุณ',
+                  mode: 'HOME',
                   onBack: () => {
                     navigation.pop()
                   },
@@ -51,7 +50,9 @@ export const SetLocationHome = () => {
               </TouchableHighlight>
               
               {<TouchableHighlight
-                onPress={() => navigation.navigate('WorkLocation', {
+                onPress={() => navigation.navigate('SetLocationMap', {
+                  title: 'กำหนดที่อยู่ที่ทำงานของคุณ',
+                  mode: 'OFFICE',
                   onBack: () => {
                     navigation.pop()
                   },
