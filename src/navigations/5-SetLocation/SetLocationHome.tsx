@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
   StatusBar,
   StyleSheet,
@@ -11,10 +11,23 @@ import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from 'react-navigation-hooks'
+import AsyncStorage from '@react-native-community/async-storage'
 
 export const SetLocationHome = () => {
   const navigation = useNavigation()
+  const [home, setHome] = useState(null)
+  const [office, setOffice] = useState(null)
+  const loadLocation = useCallback(async () => {
+    const homeLocation = await AsyncStorage.getItem('HOME');
+    setHome(homeLocation);
+    
+    const officeLocation = await AsyncStorage.getItem('OFFICE');
+    setOffice(officeLocation);
+  }, [home, office]);
 
+  useEffect(() => {
+    loadLocation();
+  }, []);
   return (
     <MyBackground variant="light">
       <SafeAreaView style={{ flex: 1 }}>
@@ -44,7 +57,7 @@ export const SetLocationHome = () => {
               >
                 <View style={styles.section}>
                   <Text style={styles.sectionText}>
-                    กำหนดที่อยู่บ้านของคุณ
+                    กำหนดที่อยู่บ้านของคุณ <Text style={{color: 'red', fontSize: FONT_SIZES[400] }}>{home ? 'ระบุแล้ว' : ''}</Text>
                   </Text>
                 </View>
               </TouchableHighlight>
@@ -61,7 +74,7 @@ export const SetLocationHome = () => {
               >
                 <View style={styles.section}>
                   <Text style={styles.sectionText}>
-                    กำหนดที่อยู่ที่ทำงานของคุณ
+                    กำหนดที่อยู่ที่ทำงานของคุณ <Text style={{color: 'red', fontSize: FONT_SIZES[400] }}>{office ? 'ระบุแล้ว' : ''}</Text>
                   </Text>
                 </View>
               </TouchableHighlight>}

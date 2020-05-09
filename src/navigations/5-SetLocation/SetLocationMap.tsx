@@ -5,7 +5,6 @@ import {
   View,
   Text,
   ScrollView,
-  AsyncStorage,
   Dimensions,
 } from 'react-native'
 import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
@@ -16,6 +15,7 @@ import styled from '@emotion/native'
 import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps';
 import { normalize } from 'react-native-elements'
 import { PrimaryButton } from '../../components/Button'
+import AsyncStorage from '@react-native-community/async-storage'
 interface Coordinate {
   latitude: number;
   longitude: number;
@@ -47,6 +47,7 @@ export const SetLocationMap = ({ navigation }) => {
 
   const save = async () => {
     const { mode = 'HOME' } = navigation.state.params;
+    console.log(mode, JSON.stringify(coordinate));
     await AsyncStorage.setItem(mode, JSON.stringify(coordinate));
     navigation.pop()
   }
