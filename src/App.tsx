@@ -85,9 +85,12 @@ class App extends React.Component {
   }
   onNavigatorLoaded() {
     pushNotification.configure(this.onNotification)
+    setTimeout(() => {
+      pushNotification.testNoti()
+    }, 1000)
   }
   onNotification = (notification) => {
-    const notificationData = notification?.data
+    const notificationData = notification?.data?.data || notification?.data
     if (!notificationData?.type) {
       return
     }
