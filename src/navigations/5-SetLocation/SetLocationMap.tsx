@@ -8,14 +8,16 @@ import {
   Dimensions,
 } from 'react-native'
 import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
-import { MyBackground } from '../../components/MyBackground'
-import { SafeAreaView, useSafeArea } from 'react-native-safe-area-context'
-import { backgroundTracking } from '../../services/background-tracking'
-import styled from '@emotion/native'
+import { MyBackground } from '../../components/MyBackground';
+import { SafeAreaView, useSafeArea } from 'react-native-safe-area-context';
+import { backgroundTracking } from '../../services/background-tracking';
+import styled from '@emotion/native';
 import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps';
-import { normalize } from 'react-native-elements'
-import { PrimaryButton } from '../../components/Button'
-import AsyncStorage from '@react-native-community/async-storage'
+import { normalize } from 'react-native-elements';
+import { PrimaryButton } from '../../components/Button';
+import AsyncStorage from '@react-native-community/async-storage';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+
 interface Coordinate {
   latitude: number;
   longitude: number;
@@ -73,16 +75,47 @@ export const SetLocationMap = ({ navigation }) => {
           backgroundColor={COLORS.PRIMARY_LIGHT}
         />
         <ScrollView
+          keyboardShouldPersistTaps={true}
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}
         >
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionHeaderText}>{navigation.state.params.title || 'ระบุตำแหน่ง'}</Text>
           </View>
+          <View style={{ flex: 1 }} >
+            <GooglePlacesAutocomplete
+              placeholder='Search'
+              minLength={2} 
+              autoFocus={false}
+              returnKeyType={'search'}
+              listViewDisplayed={false}
+              fetchDetails={true}
+              onPress={(data, details = null) => {
+                if (!details.geometry.location) { return; }
+                setCoordinate({ latitude: details.geometry.location.lat, longitude: details.geometry.location.lng })
+              }}
+              query={{
+                key: 'AIzaSyCINS2dyuBipK8MZzOQnzyKdrS2I1_b5I4',
+                language: 'th',
+                components: 'country:th'
+              }}
+              styles={{
+                textInputContainer: {
+                  width: '100%',
+                },
+                description: {
+                  fontWeight: 'bold',                },
+              }}
+              enablePoweredByContainer={false}
+              nearbyPlacesAPI='GooglePlacesSearch'
+              debounce={300}
+            />
+          </View>
           <View style={styles.container}>
             <MapView
               style={styles.map}
               provider={PROVIDER_DEFAULT}
+              showsUserLocation={true}
               region={{ ...coordinate, latitudeDelta: 0.015, longitudeDelta: 0.0121 }}
               initialRegion={{ ...coordinate, latitudeDelta: 0.015, longitudeDelta: 0.0121 }}>
               <Marker draggable
@@ -101,6 +134,7 @@ export const SetLocationMap = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     height: 400,
     justifyContent: 'flex-end',
     alignItems: 'center',
