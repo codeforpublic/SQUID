@@ -22,7 +22,14 @@ interface Coordinate {
   latitude: number;
   longitude: number;
 }
+interface ListCoordinate {
+  no: number;
+  latitude: number;
+  longitude: number;
+}
 const padding = normalize(18)
+const listOfHomeLocation: ListCoordinate[] = [];
+const listOfOfficeLocation: ListCoordinate[] = [];
 
 const Footer = styled(View)({
   alignItems: 'center',
@@ -33,6 +40,9 @@ const Footer = styled(View)({
 export const SetLocationMap = ({ navigation }) => {
   const [coordinate, setCoordinate] = useState<Coordinate>({ latitude: 13.7698018, longitude: 100.6335734 });
   const inset = useSafeArea()
+  // const listLocation: ListCoordinate[] = [{no: 0, ...coordinate}];
+  const [homeList, setHomeList] = useState<ListCoordinate[]>(listOfHomeLocation)
+  const [officeList, setOfficeList] = useState<ListCoordinate[]>(listOfOfficeLocation)
 
   const currentLocation = useCallback(async () => {
     try {
@@ -50,7 +60,15 @@ export const SetLocationMap = ({ navigation }) => {
   const save = async () => {
     const { mode = 'HOME' } = navigation.state.params;
     console.log(mode, JSON.stringify(coordinate));
-    await AsyncStorage.setItem(mode, JSON.stringify(coordinate));
+    if (mode === 'HOME') {
+      listOfHomeLocation.push({no: listOfHomeLocation.length+1 ,...coordinate});
+      setHomeList(listOfHomeLocation)
+      await AsyncStorage.setItem(mode, JSON.stringify(homeList));
+    } else {
+      listOfOfficeLocation.push({no: listOfOfficeLocation.length+1 ,...coordinate});
+      setOfficeList(listOfOfficeLocation)
+      await AsyncStorage.setItem(mode, JSON.stringify(officeList));
+    }
     navigation.pop()
   }
 
