@@ -20,7 +20,7 @@ import { OnboardHeader } from './OnboadHeader'
 import { normalize } from 'react-native-elements'
 
 import I18n from '../../../i18n/i18n';
-I18n.locale = 'en';
+I18n.locale = 'ma';
 
 const LOCATION_PERMISSION = Platform.select({
   ios: PERMISSIONS.IOS.LOCATION_ALWAYS,
