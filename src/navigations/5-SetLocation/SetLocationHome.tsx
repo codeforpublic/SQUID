@@ -18,10 +18,10 @@ export const SetLocationHome = () => {
   const [home, setHome] = useState(null)
   const [office, setOffice] = useState(null)
   const loadLocation = useCallback(async () => {
-    const homeLocation = await AsyncStorage.getItem('HOME');
+    const homeLocation = await AsyncStorage.getItem('HOME-LIST');
     setHome(homeLocation);
     
-    const officeLocation = await AsyncStorage.getItem('OFFICE');
+    const officeLocation = await AsyncStorage.getItem('OFFICE-LIST');
     setOffice(officeLocation);
   }, [home, office]);
 
@@ -48,7 +48,7 @@ export const SetLocationHome = () => {
               <TouchableHighlight
                 onPress={() => navigation.navigate('SetLocationMap', {
                   title: 'กำหนดที่อยู่บ้านของคุณ',
-                  mode: 'HOME',
+                  mode: 'HOME-LIST',
                   onBack: () => {
                     navigation.pop()
                   },
@@ -65,7 +65,7 @@ export const SetLocationHome = () => {
               {<TouchableHighlight
                 onPress={() => navigation.navigate('SetLocationMap', {
                   title: 'กำหนดที่อยู่ที่ทำงานของคุณ',
-                  mode: 'OFFICE',
+                  mode: 'OFFICE-LIST',
                   onBack: () => {
                     navigation.pop()
                   },
