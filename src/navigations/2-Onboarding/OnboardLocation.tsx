@@ -19,6 +19,9 @@ import { doctorSize, styles } from './const'
 import { OnboardHeader } from './OnboadHeader'
 import { normalize } from 'react-native-elements'
 
+import I18n from '../../../i18n/i18n';
+I18n.locale = 'en';
+
 const LOCATION_PERMISSION = Platform.select({
   ios: PERMISSIONS.IOS.LOCATION_ALWAYS,
   android: PERMISSIONS.ANDROID.ACCESS_BACKGROUND_LOCATION,
@@ -118,7 +121,7 @@ export const OnboardLocation = () => {
               resizeMode="contain"
               style={{ height: doctorSize }}
             />
-            <Text style={styles.title}>ขอสิทธิ์เข้าถึงข้อมูล</Text>
+            <Text style={styles.title}>{I18n.t('greeting')}</Text>
             <Text style={styles.subtitle}>
               เพื่อให้หมอประเมินความเสี่ยงของคุณ
             </Text>

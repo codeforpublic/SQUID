@@ -30,7 +30,7 @@ target "ThaiAlert" do
   pod "React-jsi", :path => "../node_modules/react-native/ReactCommon/jsi"
   pod "React-jsiexecutor", :path => "../node_modules/react-native/ReactCommon/jsiexecutor"
   pod "React-jsinspector", :path => "../node_modules/react-native/ReactCommon/jsinspector"
-  pod "ReactCommon/jscallinvoker", :path => "../node_modules/react-native/ReactCommon"
+  pod "ReactCommon/callinvoker", :path => "../node_modules/react-native/ReactCommon"
   pod "ReactCommon/turbomodule/core", :path => "../node_modules/react-native/ReactCommon"
   pod "Yoga", :path => "../node_modules/react-native/ReactCommon/yoga"
 
@@ -56,7 +56,8 @@ target "ThaiAlert" do
   pod "rn-fetch-blob", :path => "../node_modules/rn-fetch-blob"
   
   pod 'react-native-background-timer', :path => '../node_modules/react-native-background-timer'
-
+  
+  pod 'RNI18n', :path => '../node_modules/react-native-i18n'
 end
 
 post_install do |installer|
@@ -67,4 +68,5 @@ post_install do |installer|
       end
     end
   end
+
 end
