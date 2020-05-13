@@ -77,6 +77,7 @@ export const MainAppTab = createBottomTabNavigator(
         ),
       },
     },
+<<<<<<< HEAD
     // LocationReport: {
     //   screen: LocationReport,
     //   navigationOptions: {
@@ -92,6 +93,23 @@ export const MainAppTab = createBottomTabNavigator(
     //     )
     //   }
     // }
+=======
+    LocationReport: {
+      screen: LocationReport,
+      navigationOptions: {
+        tabBarLabel: ({ focused }) => (
+          <TabBarLabel title="Location" focused={focused} />
+        ),
+        tabBarIcon: ({ focused }) => (
+          <Icon
+            name="map"
+            color={focused ? '#303342' : COLORS.GRAY_2}
+            size={16}
+          />
+        )
+      }
+    }
+>>>>>>> add menu location report
     // Debug: {
     //   screen: Debug,
     //   navigationOptions: {
