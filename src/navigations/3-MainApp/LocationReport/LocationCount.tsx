@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   View,
   Text,
   StyleSheet
 } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../../styles'
 
 export const LocationCount = (props) => {
   const [locationName, setLocationName] = useState(props.name)
@@ -22,13 +22,40 @@ export const LocationCount = (props) => {
   }, [props.name]);
 
   return (
-    <View>
-      <Icon
-        name={iconName}
-        size={20}
-      >
-      </Icon>
-      <Text>{props.size}</Text>
+    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      {iconName === 'building' && (<Text style={styles.textLabel}>{locationName}</Text>)}
+      <View>
+        <Icon name={iconName} size={25} color={COLORS.GRAY_2} />
+        <View style={styles.badge}>
+          <Text style={styles.textBadge}>{props.size}</Text>
+        </View>
+      </View>
+      {iconName === 'home' && (<Text style={styles.textLabel}>{locationName}</Text>)}
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  badge: {
+    position: 'absolute',
+    top: -8,
+    right: -8,
+    minWidth: 20,
+    height: 20,
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: COLORS.DANGER
+  },
+  textBadge: {
+    color: COLORS.WHITE,
+    fontFamily: FONT_FAMILY,
+    fontSize: FONT_SIZES[400],
+  },
+  textLabel: {
+    margin: 8,
+    color: COLORS.GRAY_2,
+    fontFamily: FONT_FAMILY,
+    fontSize: FONT_SIZES[500],
+  }
+})
