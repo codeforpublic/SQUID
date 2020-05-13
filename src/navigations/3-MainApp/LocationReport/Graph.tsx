@@ -1,10 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import { VictoryChart, VictoryStack, VictoryBar, VictoryAxis } from 'victory-native'
-import { View } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
+import React, { useEffect, useState, useCallback } from 'react';
+import { VictoryChart, VictoryStack, VictoryBar, VictoryAxis } from 'victory-native';
+import { 
+  View, 
+  Text,
+  StyleSheet 
+} from 'react-native';
+import { LocationCount } from './LocationCount';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const Graph = () => {
 	const [location, setLocation] = useState([])
+	const [homes, setHomeList] = useState([])
+	const [offices, setOfficeList] = useState([])
+
+	const getLocationList = useCallback(async () => {
+    const homeLocation = await AsyncStorage.getItem('HOME-LIST');
+    const homes = homeLocation ? JSON.parse(homeLocation) : [];
+    setHomeList(homes);
+  
+    const officeLocation = await AsyncStorage.getItem('OFFICE-LIST');
+    const offices = officeLocation ? JSON.parse(officeLocation) : [];
+    setOfficeList(offices);
+  }, []);
+	
 	const myDataset = [
 		[
 			{ x: "a", y: 1 },
@@ -30,6 +48,7 @@ export const Graph = () => {
 	];
 
 	useEffect(() => {
+		getLocationList();
 		setLocation(transformData(myDataset));
 	}, [])
 
@@ -48,35 +67,54 @@ export const Graph = () => {
 
 	return (
 		<View>
-			<VictoryChart horizontal
-				domain={{ x: [0, 6.5], y: [-5, 100] }}
-			>
-				<VictoryStack horizontal
-					colorScale={["#4CA8D9", "#9FA5B1", "#2B3A8C"]}
-					style={{
-						parent: {
-							borderTopLeftRadius: 30,
-							borderTopRightRadius: 30,
-						}
-					}}
+			<View style={styles.locationHistory}>
+				<LocationCount name={"home"} size={homes.length}></LocationCount>
+				<LocationCount name={"work"} size={offices.length}></LocationCount>
+			</View>
+
+			<View>
+				<VictoryChart horizontal
+					domain={{ x: [0, 6.5], y: [-5, 100] }}
 				>
-					{location.map((data, i) => {
-						return <VictoryBar data={data} key={i} />;
-					})}
-				</VictoryStack>
-				<VictoryAxis dependentAxis
-					style={{
-						axis: { stroke: "none", display: "none" }
-					}}
-					tickFormat={[]}
-				/>
-				<VictoryAxis
-					style={{
-						axis: { stroke: "none", display: "none" }
-					}}
-					tickFormat={["14 วัน", "7 วัน", "5 วัน", "3 วัน", "1 วัน"]}
-				/>
-			</VictoryChart>
+					<VictoryStack horizontal
+						colorScale={["#4CA8D9", "#9FA5B1", "#2B3A8C"]}
+						style={{
+							parent: {
+								borderTopLeftRadius: 30,
+								borderTopRightRadius: 30,
+							}
+						}}
+					>
+						{location.map((data, i) => {
+							return <VictoryBar data={data} key={i} />;
+						})}
+					</VictoryStack>
+					<VictoryAxis dependentAxis
+						style={{
+							axis: { stroke: "none", display: "none" }
+						}}
+						tickFormat={[]}
+					/>
+					<VictoryAxis
+						style={{
+							axis: { stroke: "none", display: "none" }
+						}}
+						tickFormat={["14 วัน", "7 วัน", "5 วัน", "3 วัน", "1 วัน"]}
+					/>
+				</VictoryChart>
+			</View>
+		
 		</View>
 	)
 }
+
+const styles = StyleSheet.create({
+	locationHistory: {
+		display: "flex", 
+		flexDirection: "row",
+		paddingTop: 10,
+		justifyContent: "space-between",
+		paddingLeft: 55,
+		paddingRight: 55,
+	},
+})

@@ -23,7 +23,6 @@ export const LocationReport = () => {
   return (
     <View style={[styles.container, { paddingTop: inset.top, paddingBottom: 12 }]}>
       <Header qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
-      <LocationCount></LocationCount>
       <Graph></Graph>
     </View>
   )
