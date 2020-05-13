@@ -101,7 +101,7 @@ export default {
   none_of_above:'None of all above symptoms',
   travel_abroad:'Did you go oversea in the past 14 days?',
   went_oversea:'Went Oversea',
-  didnt_go_oversea:'Didn't Go Oversea',
+  didnt_go_oversea:'Did Not Go Oversea',
   get_near_covid_risk_ppl_past_14_days:'Did you get near person who had COVID-19 risk in the past 14 days?',
   more_than_5_ppl_with_fever_around_you:'Are there more than 5 people around you who have fever?',
   just_back_from_abroad_person_at_home:'There is a person living with you that just came back from abroad.',
