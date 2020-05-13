@@ -51,7 +51,6 @@
   [AppCenterReactNative register];
   [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
   [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
-  [GMSServices provideAPIKey:@"AIzaSyCz35l7nQGWdJCttPpaDvs1dFyS4p0vmw8"];
 
   
   [RNSplashScreen show];
