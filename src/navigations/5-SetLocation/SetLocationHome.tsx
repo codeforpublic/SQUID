@@ -6,15 +6,26 @@ import {
   Text,
   ScrollView,
   TouchableHighlight,
+  Dimensions,
 } from 'react-native'
 import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { SafeAreaView, useSafeArea } from 'react-native-safe-area-context'
 import { useNavigation } from 'react-navigation-hooks'
 import AsyncStorage from '@react-native-community/async-storage'
+import { PrimaryButton } from '../../components/Button'
+import { normalize } from 'react-native-elements'
+import styled from '@emotion/native';
 
+const padding = normalize(18)
+const Footer = styled(View)({
+  alignItems: 'center',
+  marginVertical: 12,
+  paddingHorizontal: padding
+})
 export const SetLocationHome = () => {
   const navigation = useNavigation()
+  const inset = useSafeArea()
   const [home, setHome] = useState(null)
   const [office, setOffice] = useState(null)
   const loadLocation = useCallback(async () => {
@@ -28,6 +39,19 @@ export const SetLocationHome = () => {
   useEffect(() => {
     loadLocation();
   }, []);
+
+  const footer = (
+    <Footer style={{ paddingBottom: inset.bottom }}>
+      <PrimaryButton
+        title={'ปิด'}
+        style={{ width: '100%' }}
+        containerStyle={{ width: '100%' }}
+        onPress={() => navigation.pop()}
+      />
+    </Footer>
+  );
+  const fixedFooter = Dimensions.get('window').height > 700;
+
   return (
     <MyBackground variant="light">
       <SafeAreaView style={{ flex: 1 }}>
@@ -81,7 +105,9 @@ export const SetLocationHome = () => {
 
             </View>
           </View>
+          {fixedFooter ? null : footer}
         </ScrollView>
+        {fixedFooter ? footer : null}
       </SafeAreaView>
     </MyBackground>
   )
