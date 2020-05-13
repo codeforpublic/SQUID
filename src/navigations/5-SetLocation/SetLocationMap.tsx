@@ -17,6 +17,7 @@ import { normalize } from 'react-native-elements';
 import { PrimaryButton } from '../../components/Button';
 import AsyncStorage from '@react-native-community/async-storage';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import MapHistoryList from './MapHistoryList';
 
 interface Coordinate {
   latitude: number;
@@ -60,11 +61,11 @@ export const SetLocationMap = ({ navigation }) => {
     const { mode = 'HOME-LIST' } = navigation.state.params;
     console.log(mode, JSON.stringify(coordinate));
     if (mode === 'HOME-LIST') {
-      listOfHomeLocation.push({no: listOfHomeLocation.length+1 ,...coordinate});
+      listOfHomeLocation.push({ no: listOfHomeLocation.length + 1, ...coordinate });
       setHomeList(listOfHomeLocation)
       await AsyncStorage.setItem(mode, JSON.stringify(homeList));
     } else {
-      listOfOfficeLocation.push({no: listOfOfficeLocation.length+1 ,...coordinate});
+      listOfOfficeLocation.push({ no: listOfOfficeLocation.length + 1, ...coordinate });
       setOfficeList(listOfOfficeLocation)
       await AsyncStorage.setItem(mode, JSON.stringify(officeList));
     }
@@ -102,7 +103,7 @@ export const SetLocationMap = ({ navigation }) => {
           <View style={{ flex: 1 }} >
             <GooglePlacesAutocomplete
               placeholder='Search'
-              minLength={2} 
+              minLength={2}
               autoFocus={false}
               returnKeyType={'search'}
               listViewDisplayed={false}
@@ -121,7 +122,8 @@ export const SetLocationMap = ({ navigation }) => {
                   width: '100%',
                 },
                 description: {
-                  fontWeight: 'bold',                },
+                  fontWeight: 'bold',
+                },
               }}
               enablePoweredByContainer={false}
               nearbyPlacesAPI='GooglePlacesSearch'
@@ -140,6 +142,9 @@ export const SetLocationMap = ({ navigation }) => {
                 onDragEnd={(e) => setCoordinate({ ...e.nativeEvent.coordinate })}
               />
             </MapView>
+          </View>
+          <View style={styles.historyContainer}>
+            <MapHistoryList />
           </View>
           {fixedFooter ? null : footer}
         </ScrollView>
@@ -218,4 +223,9 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY,
   },
   scrollView: {},
+  historyContainer: {
+    marginTop: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+  }
 })
