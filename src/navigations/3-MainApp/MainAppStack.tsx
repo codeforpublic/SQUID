@@ -11,6 +11,7 @@ import { MainApp } from './MainApp'
 import { MainAppFaceCamera } from './MainAppFaceCamera'
 import { QRCodeScan } from './QRCodeScan'
 import { Settings } from './Settings'
+import { LocationReport } from './LocationReport'
 
 const TabBarLabel = ({ title, focused }) => {
   return (
@@ -74,6 +75,21 @@ export const MainAppTab = createBottomTabNavigator(
         ),
       },
     },
+    LocationReport: {
+      screen: LocationReport,
+      navigationOptions: {
+        tabBarLabel: ({ focused }) => (
+          <TabBarLabel title="Location" focused={focused} />
+        ),
+        tabBarIcon: ({ focused }) => (
+          <Icon
+            name="map"
+            color={focused ? '#303342' : COLORS.GRAY_2}
+            size={16}
+          />
+        )
+      }
+    }
     // Debug: {
     //   screen: Debug,
     //   navigationOptions: {
