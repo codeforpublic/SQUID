@@ -43,6 +43,7 @@ export const SetLocationMap = ({ navigation }) => {
   const inset = useSafeArea()
   const [homeList, setHomeList] = useState<ListCoordinate[]>(listOfHomeLocation)
   const [officeList, setOfficeList] = useState<ListCoordinate[]>(listOfOfficeLocation)
+  const [mode, setMode] = useState('HOME-LIST');
 
   const currentLocation = useCallback(async () => {
     try {
@@ -53,8 +54,22 @@ export const SetLocationMap = ({ navigation }) => {
     }
   }, []);
 
+  const getLocationList = useCallback(async () => {
+    const { mode = 'HOME-LIST' } = navigation.state.params;
+    if (mode === 'HOME-LIST') {
+      const homeLocation = await AsyncStorage.getItem('HOME-LIST');
+      setHomeList(JSON.parse(homeLocation));
+    } else {
+      const officeLocation = await AsyncStorage.getItem('OFFICE-LIST');
+      setOfficeList(JSON.parse(officeLocation));
+    }
+  }, []);
+
   useEffect(() => {
+    const { mode = 'HOME-LIST' } = navigation.state.params;
+    setMode(mode);
     currentLocation();
+    getLocationList();
   }, [])
 
   const save = async () => {
@@ -144,7 +159,7 @@ export const SetLocationMap = ({ navigation }) => {
             </MapView>
           </View>
           <View style={styles.historyContainer}>
-            <MapHistoryList />
+            <MapHistoryList items={mode === 'HOME-LIST' ? homeList : officeList} />
           </View>
           {fixedFooter ? null : footer}
         </ScrollView>

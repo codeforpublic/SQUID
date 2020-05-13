@@ -5,15 +5,14 @@ import Carousel from 'react-native-snap-carousel';
 const SLIDER_WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = 80;
 
-const MapHistoryList = () => {
-
-  const [items, setItems] = useState(new Array(10).fill(1).map((_, i) => ({ id: i + 1 })));
+const MapHistoryList = (props) => {
+  const [items, setItems] = useState(props.items);
 
   const _renderButtonItem = ({ item }) => {
     return (
       <View style={styles.buttonContainer}>
         <View style={styles.buttonItem}>
-          <Text style={styles.buttonItemText}>{`Item ${item.id}`}</Text>
+          <Text style={styles.buttonItemText}>{`${item.no}`}</Text>
         </View>
       </View>
     );

@@ -20,7 +20,7 @@ export const SetLocationHome = () => {
   const loadLocation = useCallback(async () => {
     const homeLocation = await AsyncStorage.getItem('HOME-LIST');
     setHome(homeLocation);
-    
+
     const officeLocation = await AsyncStorage.getItem('OFFICE-LIST');
     setOffice(officeLocation);
   }, [home, office]);
@@ -43,7 +43,7 @@ export const SetLocationHome = () => {
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionHeaderText}>Set Location</Text>
             </View>
-            
+
             <View style={styles.settingsSection}>
               <TouchableHighlight
                 onPress={() => navigation.navigate('SetLocationMap', {
@@ -57,11 +57,11 @@ export const SetLocationHome = () => {
               >
                 <View style={styles.section}>
                   <Text style={styles.sectionText}>
-                    กำหนดที่อยู่บ้านของคุณ <Text style={{color: 'red', fontSize: FONT_SIZES[400] }}>{home ? 'ระบุแล้ว' : ''}</Text>
+                    กำหนดที่อยู่บ้านของคุณ <Text style={{ color: 'red', fontSize: FONT_SIZES[400] }}>{home ? 'ระบุแล้ว' : ''}</Text>
                   </Text>
                 </View>
               </TouchableHighlight>
-              
+
               {<TouchableHighlight
                 onPress={() => navigation.navigate('SetLocationMap', {
                   title: 'กำหนดที่อยู่ที่ทำงานของคุณ',
@@ -74,11 +74,11 @@ export const SetLocationHome = () => {
               >
                 <View style={styles.section}>
                   <Text style={styles.sectionText}>
-                    กำหนดที่อยู่ที่ทำงานของคุณ <Text style={{color: 'red', fontSize: FONT_SIZES[400] }}>{office ? 'ระบุแล้ว' : ''}</Text>
+                    กำหนดที่อยู่ที่ทำงานของคุณ <Text style={{ color: 'red', fontSize: FONT_SIZES[400] }}>{office ? 'ระบุแล้ว' : ''}</Text>
                   </Text>
                 </View>
               </TouchableHighlight>}
-              
+
             </View>
           </View>
         </ScrollView>
