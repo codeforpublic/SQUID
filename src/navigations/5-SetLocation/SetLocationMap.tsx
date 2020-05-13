@@ -41,8 +41,8 @@ const Footer = styled(View)({
 export const SetLocationMap = ({ navigation }) => {
   const [coordinate, setCoordinate] = useState<Coordinate>({ latitude: 13.7698018, longitude: 100.6335734 });
   const inset = useSafeArea()
-  const [homeList, setHomeList] = useState<ListCoordinate[]>(listOfHomeLocation)
-  const [officeList, setOfficeList] = useState<ListCoordinate[]>(listOfOfficeLocation);
+  const [homeList, setHomeList] = useState<ListCoordinate[]>([])
+  const [officeList, setOfficeList] = useState<ListCoordinate[]>([]);
   const [mode, setMode] = useState<string>('HOME_LIST');
 
   const currentLocation = useCallback(async () => {
@@ -76,15 +76,14 @@ export const SetLocationMap = ({ navigation }) => {
   }, [navigation.state.params.mode])
 
   const save = async () => {
-    const { mode = 'HOME-LIST' } = navigation.state.params;
     if (mode === 'HOME-LIST') {
-      listOfHomeLocation.push({ no: listOfHomeLocation.length + 1, ...coordinate });
-      setHomeList(listOfHomeLocation)
-      await AsyncStorage.setItem(mode, JSON.stringify(homeList));
+      const list = [...homeList, {no: homeList.length + 1, ...coordinate }];
+      setHomeList(list);
+      await AsyncStorage.setItem(mode, JSON.stringify(list));
     } else {
-      listOfOfficeLocation.push({ no: listOfOfficeLocation.length + 1, ...coordinate });
-      setOfficeList(listOfOfficeLocation)
-      await AsyncStorage.setItem(mode, JSON.stringify(officeList));
+      const list = [...officeList, {no: officeList.length + 1, ...coordinate }];
+      setOfficeList(list);
+      await AsyncStorage.setItem(mode, JSON.stringify(list));
     }
     navigation.pop()
   }
