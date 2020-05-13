@@ -20,7 +20,7 @@ import { OnboardHeader } from './OnboadHeader'
 import { normalize } from 'react-native-elements'
 
 import I18n from '../../../i18n/i18n';
-I18n.locale = 'id';
+I18n.locale = 'en';
 
 const LOCATION_PERMISSION = Platform.select({
   ios: PERMISSIONS.IOS.LOCATION_ALWAYS,
@@ -123,7 +123,7 @@ export const OnboardLocation = () => {
             />
             <Text style={styles.title}>{I18n.t('greeting')}</Text>
             <Text style={styles.subtitle}>
-              เพื่อให้หมอประเมินความเสี่ยงของคุณ
+            {I18n.t('greeting2')}
             </Text>
           </View>
         </View>
