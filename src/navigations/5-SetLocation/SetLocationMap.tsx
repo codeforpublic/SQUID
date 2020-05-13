@@ -20,11 +20,13 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import MapHistoryList from './MapHistoryList';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 interface Coordinate {
+  name?: string;
   latitude: number;
   longitude: number;
 }
 interface ListCoordinate {
   no: number;
+  name?: string;
   latitude: number;
   longitude: number;
 }
@@ -55,10 +57,12 @@ export const SetLocationMap = ({ navigation }) => {
     const { mode = 'HOME-LIST' } = navigation.state.params;
     if (mode === 'HOME-LIST') {
       const homeLocation = await AsyncStorage.getItem('HOME-LIST');
-      setHomeList(JSON.parse(homeLocation));
+      const homes = homeLocation ? JSON.parse(homeLocation) : [];
+      setHomeList(homes);
     } else {
       const officeLocation = await AsyncStorage.getItem('OFFICE-LIST');
-      setOfficeList(JSON.parse(officeLocation));
+      const offices = officeLocation ? JSON.parse(officeLocation) : [];
+      setOfficeList(offices);
     }
   }, []);
 
@@ -74,7 +78,9 @@ export const SetLocationMap = ({ navigation }) => {
 
   const save = async () => {
     if (mode === 'HOME-LIST') {
-      const list = [...homeList, { no: homeList.length + 1, ...coordinate }];
+      console.log({...coordinate})
+      const list = [...(homeList || []), { no: homeList.length + 1, ...coordinate }];
+      console.log([...list]);
       setHomeList(list);
       await AsyncStorage.setItem(mode, JSON.stringify(list));
     } else {
@@ -132,7 +138,7 @@ export const SetLocationMap = ({ navigation }) => {
                 onPress={(data, details = null) => {
                   if (!details.geometry.location) { return; }
                   console.log(details);
-                  setCoordinate({ latitude: details.geometry.location.lat, longitude: details.geometry.location.lng })
+                  setCoordinate({ name: details.name, latitude: details.geometry.location.lat, longitude: details.geometry.location.lng })
                 }}
                 query={{
                   key: 'AIzaSyCINS2dyuBipK8MZzOQnzyKdrS2I1_b5I4',

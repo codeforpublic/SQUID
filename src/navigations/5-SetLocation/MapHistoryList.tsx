@@ -3,7 +3,7 @@ import { View, Dimensions, Text, StyleSheet, TouchableOpacity } from "react-nati
 import Carousel from 'react-native-snap-carousel';
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
-const ITEM_WIDTH = 80;
+const ITEM_WIDTH = 120;
 
 const MapHistoryList = (props) => {
   const [items, setItems] = useState(props.items);
@@ -23,7 +23,7 @@ const MapHistoryList = (props) => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={onPressButton(item)}>
           <View style={styles.buttonItem}>
-            <Text style={styles.buttonItemText}>{`${item.no}`}</Text>
+            <Text numberOfLines={1}  style={styles.buttonItemText}>{`${item.name || 'unknown'}`}</Text>
           </View>
         </TouchableOpacity>
       </View>
