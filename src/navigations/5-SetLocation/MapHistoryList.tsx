@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FunctionComponent } from 'react';
 import { View, Dimensions, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Carousel from 'react-native-snap-carousel';
 
@@ -6,7 +6,7 @@ const SLIDER_WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = 120;
 const ITEM_HEIGHT = 80;
 
-const MapHistoryList = (props) => {
+const MapHistoryList: FunctionComponent<{ items: any[], onSelectHistoryItem: Function }> = (props) => {
   const [items, setItems] = useState(props.items);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const MapHistoryList = (props) => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={onPressButton(item)}>
           <View style={styles.buttonItem}>
-            <Text numberOfLines={1}  style={styles.buttonItemText}>{`${item.name || 'unknown'}`}</Text>
+            <Text numberOfLines={1} style={styles.buttonItemText}>{`${item.name || 'unknown'}`}</Text>
           </View>
         </TouchableOpacity>
       </View>
