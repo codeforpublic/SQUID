@@ -14,7 +14,7 @@ import { backgroundTracking } from '../../services/background-tracking';
 import styled from '@emotion/native';
 import MapViewAnimated, { PROVIDER_GOOGLE, MarkerAnimated } from 'react-native-maps';
 import { normalize } from 'react-native-elements';
-import { PrimaryButton } from '../../components/Button';
+import { PrimaryButton, RectButton } from '../../components/Button';
 import AsyncStorage from '@react-native-community/async-storage';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import MapHistoryList from './MapHistoryList';
@@ -98,6 +98,12 @@ export const SetLocationMap = ({ navigation }) => {
         containerStyle={{ width: '100%' }}
         disabled={!coordinate}
         onPress={save}
+      />
+      <RectButton
+        title={'ย้อนกลับ'}
+        style={{ width: '100%', marginTop: 10, backgroundColor: COLORS.GRAY_3 }}
+        containerStyle={{ width: '100%' }}
+        onPress={() => navigation.pop()}
       />
     </Footer>
   );
