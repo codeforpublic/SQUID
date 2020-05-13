@@ -4,6 +4,7 @@ import Carousel from 'react-native-snap-carousel';
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = 120;
+const ITEM_HEIGHT = 80;
 
 const MapHistoryList = (props) => {
   const [items, setItems] = useState(props.items);
@@ -48,6 +49,7 @@ const MapHistoryList = (props) => {
 const styles = StyleSheet.create({
   buttonContainer: {
     width: ITEM_WIDTH,
+    height: ITEM_HEIGHT,
     alignItems: 'center',
     justifyContent: 'center',
   },

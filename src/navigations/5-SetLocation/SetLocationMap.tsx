@@ -77,14 +77,13 @@ export const SetLocationMap = ({ navigation }) => {
   }, [navigation.state.params.mode])
 
   const save = async () => {
+    const no = new Date().getTime();
     if (mode === 'HOME-LIST') {
-      console.log({...coordinate})
-      const list = [...(homeList || []), { no: homeList.length + 1, ...coordinate }];
-      console.log([...list]);
+      const list = [{ no, ...coordinate }, ...(homeList || [])];
       setHomeList(list);
       await AsyncStorage.setItem(mode, JSON.stringify(list));
     } else {
-      const list = [...officeList, { no: officeList.length + 1, ...coordinate }];
+      const list = [{ no, ...coordinate }, ...officeList];
       setOfficeList(list);
       await AsyncStorage.setItem(mode, JSON.stringify(list));
     }
@@ -137,7 +136,6 @@ export const SetLocationMap = ({ navigation }) => {
                 fetchDetails={true}
                 onPress={(data, details = null) => {
                   if (!details.geometry.location) { return; }
-                  console.log(details);
                   setCoordinate({ name: details.name, latitude: details.geometry.location.lat, longitude: details.geometry.location.lng })
                 }}
                 query={{
