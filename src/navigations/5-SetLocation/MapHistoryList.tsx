@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Dimensions, Text, StyleSheet } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { View, Dimensions, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Carousel from 'react-native-snap-carousel';
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
@@ -8,12 +8,24 @@ const ITEM_WIDTH = 80;
 const MapHistoryList = (props) => {
   const [items, setItems] = useState(props.items);
 
+  useEffect(() => {
+    setItems(props.items);
+  }, [props.items]);
+
+  const onPressButton = (item) => () => {
+    if (props.onSelectHistoryItem) {
+      props.onSelectHistoryItem(item);
+    }
+  }
+
   const _renderButtonItem = ({ item }) => {
     return (
       <View style={styles.buttonContainer}>
-        <View style={styles.buttonItem}>
-          <Text style={styles.buttonItemText}>{`${item.no}`}</Text>
-        </View>
+        <TouchableOpacity onPress={onPressButton(item)}>
+          <View style={styles.buttonItem}>
+            <Text style={styles.buttonItemText}>{`${item.no}`}</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -28,6 +40,7 @@ const MapHistoryList = (props) => {
       activeSlideAlignment={'start'}
       inactiveSlideShift={0}
       swipeThreshold={0}
+      removeClippedSubviews={false}
     />
   )
 }
