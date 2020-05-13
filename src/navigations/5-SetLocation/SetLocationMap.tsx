@@ -12,7 +12,7 @@ import { MyBackground } from '../../components/MyBackground';
 import { SafeAreaView, useSafeArea } from 'react-native-safe-area-context';
 import { backgroundTracking } from '../../services/background-tracking';
 import styled from '@emotion/native';
-import MapView, { PROVIDER_GOOGLE, MarkerAnimated} from 'react-native-maps';
+import MapViewAnimated, { PROVIDER_GOOGLE, MarkerAnimated } from 'react-native-maps';
 import { normalize } from 'react-native-elements';
 import { PrimaryButton } from '../../components/Button';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -115,7 +115,7 @@ export const SetLocationMap = ({ navigation }) => {
           backgroundColor={COLORS.PRIMARY_LIGHT}
         />
         <ScrollView
-          keyboardShouldPersistTaps={true}
+          keyboardShouldPersistTaps={'always'}
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}
         >
@@ -167,7 +167,7 @@ export const SetLocationMap = ({ navigation }) => {
             </View>
           </View>
           <View style={styles.container}>
-            <MapView
+            <MapViewAnimated
               style={styles.map}
               provider={PROVIDER_GOOGLE}
               showsUserLocation={true}
@@ -183,7 +183,7 @@ export const SetLocationMap = ({ navigation }) => {
                 coordinate={coordinate}
                 onDragEnd={(e) => setCoordinate({ ...e.nativeEvent.coordinate })}
               />
-            </MapView>
+            </MapViewAnimated>
           </View>
           <View style={styles.historyContainer}>
             <MapHistoryList onSelectHistoryItem={onSelectHistoryItem} items={mode === 'HOME-LIST' ? homeList : officeList} />
