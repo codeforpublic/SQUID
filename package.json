@@ -131,6 +131,7 @@
     "vanilla-text-mask": "^5.1.1",
     "victory-native": "^34.1.0",
     "yarn": "^1.22.4",
+    "victory-native": "^34.1.0",
     "yup": "^0.28.3"
   },
   "devDependencies": {
