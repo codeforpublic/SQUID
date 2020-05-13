@@ -25,6 +25,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [GMSServices provideAPIKey:@"AIzaSyCINS2dyuBipK8MZzOQnzyKdrS2I1_b5I4"];
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   
   //NSURL *jsCodeLocation;
@@ -50,7 +51,6 @@
   [AppCenterReactNative register];
   [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
   [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
-  [GMSServices provideAPIKey:@"AIzaSyCz35l7nQGWdJCttPpaDvs1dFyS4p0vmw8"];
 
   
   [RNSplashScreen show];

@@ -12,7 +12,7 @@ import { MyBackground } from '../../components/MyBackground';
 import { SafeAreaView, useSafeArea } from 'react-native-safe-area-context';
 import { backgroundTracking } from '../../services/background-tracking';
 import styled from '@emotion/native';
-import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, MarkerAnimated} from 'react-native-maps';
 import { normalize } from 'react-native-elements';
 import { PrimaryButton } from '../../components/Button';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -169,11 +169,17 @@ export const SetLocationMap = ({ navigation }) => {
           <View style={styles.container}>
             <MapView
               style={styles.map}
-              provider={PROVIDER_DEFAULT}
+              provider={PROVIDER_GOOGLE}
               showsUserLocation={true}
+              showsMyLocationButton={true}
+              zoomEnabled={true}
+              zoomTapEnabled={true}
+              zoomControlEnabled={true}
+              toolbarEnabled={true}
               region={{ ...coordinate, latitudeDelta: 0.015, longitudeDelta: 0.0121 }}
-              initialRegion={{ ...coordinate, latitudeDelta: 0.015, longitudeDelta: 0.0121 }}>
-              <Marker draggable
+              initialRegion={{ ...coordinate, latitudeDelta: 0.015, longitudeDelta: 0.0121 }}
+              onPress={(e) => setCoordinate({ ...e.nativeEvent.coordinate })}>
+              <MarkerAnimated draggable
                 coordinate={coordinate}
                 onDragEnd={(e) => setCoordinate({ ...e.nativeEvent.coordinate })}
               />

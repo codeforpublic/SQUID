@@ -42,15 +42,27 @@ target "ThaiAlert" do
   pod "Permission-Motion", :path => "#{permissions_path}/Motion.podspec"
   pod "Permission-Camera", :path => "#{permissions_path}/Camera.podspec"
 
+  # React Native Maps dependencies
+  rn_maps_path = "../node_modules/react-native-maps"
+  pod "react-native-maps", :path => rn_maps_path
+  pod "react-native-google-maps", :path => rn_maps_path
+  pod "GoogleMaps"
+  pod "Google-Maps-iOS-Utils"
+
   use_native_modules!
 
   pod "react-native-image-editor", :path => "../node_modules/@react-native-community/image-editor"
 
   pod "rn-fetch-blob", :path => "../node_modules/rn-fetch-blob"
   
-  # React Native Maps dependencies
-  rn_maps_path = '../node_modules/react-native-maps'
-  pod 'react-native-google-maps', :path => rn_maps_path
-  pod 'GoogleMaps'
-  pod 'Google-Maps-iOS-Utils'
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if target.name == 'react-native-google-maps'
+      target.build_configurations.each do |config|
+        config.build_settings['CLANG_ENABLE_MODULES'] = 'No'
+      end
+    end
+  end
 end
