@@ -12,8 +12,7 @@ export enum NOTIFICATION_TYPES {
 }
 
 const payload = {
-  title: 'here your questionaire',
-  message: 'test',
+  message: 'แบบสอบถามสำหรับคุณ',
   data: {
     type: 'OPEN',
     url:

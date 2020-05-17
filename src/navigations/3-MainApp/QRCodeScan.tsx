@@ -48,6 +48,17 @@ export const QRCodeScan = ({ navigation }) => {
           }}
           onRead={async e => {
             try {
+              if (e?.data?.includes('https')) {
+                const closeStr = 'closeBtn=true'
+                const uri = e?.data?.includes('?')? (e?.data + '&' + closeStr): (e?.data + '?' + closeStr)
+                navigation.navigate('Webview', {
+                  uri,
+                  onClose: () => {
+                    navigation.pop()
+                  }
+                })
+                return
+              }
               await verifyToken(e?.data) 
               const decoded = decodeJWT(e?.data)
               if (!decoded?._) {
