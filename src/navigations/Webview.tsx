@@ -2,7 +2,21 @@ import React, { useEffect, useRef } from 'react'
 import { WebView } from 'react-native-webview'
 import { useNavigationParam } from 'react-navigation-hooks'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import { COLORS } from '../styles'
+import { View } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+
+const CloseButton = ({ onClose }) => (
+  <TouchableOpacity
+    activeOpacity={0.8}
+    onPress={() => {
+      onClose()
+    }}
+  >
+    <EvilIcons name="close" color="white" size={48} />
+  </TouchableOpacity>
+)
 
 export const WebviewScreen = () => {
   const webviewRef = useRef<WebView>()
@@ -13,9 +27,22 @@ export const WebviewScreen = () => {
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: COLORS.GRAY_1,
+        backgroundColor: COLORS.BLACK_1,
       }}
     >
+      <View
+        style={{
+          width: '100%',
+          alignItems: 'center',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          paddingHorizontal: 16,
+          backgroundColor: COLORS.BLACK_1,
+        }}
+      >
+        <View style={{ flex: 1 }} />
+        <CloseButton onClose={onClose} />
+      </View>
       <WebView
         source={{ uri }}
         ref={ref => {
