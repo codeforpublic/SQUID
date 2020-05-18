@@ -5,6 +5,8 @@ import { updateUserData } from '../api'
 import { applicationState } from '../state/app-state'
 import { AppState } from 'react-native'
 
+import I18n from '../../i18n/i18n';
+
 console.disableYellowBox = true
 
 export enum NOTIFICATION_TYPES {
@@ -15,31 +17,31 @@ class Notification {
   isConfigured = false
   mockNotVerified() {
     PushNotification.localNotificationSchedule({
-      title: 'กรุณายืนยันตัวตนด้วยเบอร์โทรศัพท์',
-      message: 'เพื่อนำผลประเมิน COVID-19 มาปรับปรุงผลการประเมิน',
+      title: I18n.t('pls_self_iden_with_phone_no'),
+      message: I18n.t('to_help_refining_risk_assessment_result'),
       date: new Date(Date.now() + 15 * 1000),
     })
   }
   mockOrangeCode() {
     PushNotification.localNotificationSchedule({
-      title: 'สถานะของคุณได้ถูกเปลี่ยนเป็นสีส้ม',
+      title: I18n.t('you_are_orange_now_title'),
       message:
-        'เนื่องจากท่านมีประวัติเดินทางจากพื้นที่เสี่ยง ให้กักตัว 14 วัน พร้อมเฝ้าระวังอาการ ถ้ามีอาการไข้ ร่วมกับ อาการระบบทางเดินหายใจ ให้ติดต่อสถานพยาบาลทันที',
+      I18n.t('went_to_risky_zone_quar_14d_observe_if_fever_respiratory_go_see_doc'),
       date: new Date(Date.now() + 10 * 1000),
     })
   }
   mockRedCode() {
     PushNotification.localNotificationSchedule({
-      title: 'สถานะของคุณได้ถูกเปลี่ยนเป็นสีแดง',
-      message: 'คุณเข้าสู่สภาวะเสี่ยงสูง สถานพยาบาลกำลังจะติดต่อคุณกลับไปทันที',
+      title: I18n.t('you_are_red_now_title'),
+      message: I18n.t('you_are_red_now_msg'),
       date: new Date(Date.now() + 10 * 1000),
     })
   }
   dailyAdvice() {
     PushNotification.localNotificationSchedule({
-      title: 'คำแนะนำของคุณในวันนี้ (สีส้ม)',
+      title: I18n.t('orange_suggestion'),
       message:
-        'เนื่องจากท่านมีประวัติเดินทางจากพื้นที่เสี่ยง ให้กักตัว 14 วัน พร้อมเฝ้าระวังอาการ ถ้ามีอาการไข้ ร่วมกับ อาการระบบทางเดินหายใจ ให้ติดต่อสถานพยาบาลทันที',
+      I18n.t('went_to_risky_zone_quar_14d_observe_if_fever_respiratory_go_see_doc'),
       date: new Date(Date.now() + 10 * 1000),
     })
   }

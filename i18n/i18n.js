@@ -11,10 +11,10 @@ I18n.fallbacks = true;
 I18n.translations = {
   th,
   en,
-  ma,
-  lo,
-  km,
-  id
+  // ma,
+  // lo,
+  // km,
+  // id
 };
  
 export default I18n;

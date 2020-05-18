@@ -121,9 +121,9 @@ export const OnboardLocation = () => {
               resizeMode="contain"
               style={{ height: doctorSize }}
             />
-            <Text style={styles.title}>{I18n.t('greeting')}</Text>
+            <Text style={styles.title}>{I18n.t('pls_grant_permission')}</Text>
             <Text style={styles.subtitle}>
-            {I18n.t('greeting2')}
+            {I18n.t('let_doc_estimate_your_risk')}
             </Text>
           </View>
         </View>
@@ -138,10 +138,9 @@ export const OnboardLocation = () => {
             </View>
 
             <View style={{ flex: 1 }}>
-              <Text style={styles.itemTitle}>ตำแหน่งของคุณ</Text>
+              <Text style={styles.itemTitle}>{I18n.t('your_position')}</Text>
               <Text style={styles.description}>
-                เพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่มี ความเสี่ยง
-                หรืออยู่ในพื้นที่เสี่ยง
+              {I18n.t('help_notify_if_you_get_near_risky_person_or_area')}
               </Text>
             </View>
           </View>
@@ -155,15 +154,15 @@ export const OnboardLocation = () => {
             </View>
 
             <View style={{ flex: 1 }}>
-              <Text style={styles.itemTitle}>การเคลื่อนที่ของคุณ (MOTION)</Text>
+              <Text style={styles.itemTitle}>{I18n.t('your_motion')}</Text>
               <Text style={styles.description}>
-                เพื่อจัดการการใช้พลังงานของมือถือ อย่างมีประสิทธิภาพ
+                {I18n.t('to_manage_mobile_energy_efficiently')}
               </Text>
             </View>
           </View>
           <PrimaryButton
             containerStyle={{ width: '100%' }}
-            title={'อนุญาตให้เข้าถึง'}
+            title={I18n.t('grant_permission')}
             style={{
               marginTop: 30,
               alignSelf: 'center',

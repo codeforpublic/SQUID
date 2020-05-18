@@ -7,6 +7,8 @@ import { Link } from '../../../components/Base'
 import { useNavigation } from 'react-navigation-hooks'
 import { userPrivateData } from '../../../state/userPrivateData'
 
+import I18n from '../../../../i18n/i18n';
+
 export const QRFooter = () => {
   const isRegistered = Boolean(userPrivateData.getData('authToken'))
   const navigation = useNavigation()
@@ -33,7 +35,7 @@ export const QRFooter = () => {
               textDecorationLine: 'underline',
             }}
           >
-            ยืนยันตัวตนที่นี่
+            {I18n.t('verify_iden_here')}
           </Link>
         </TouchableOpacity>
       )}
@@ -52,7 +54,7 @@ export const QRFooter = () => {
               textAlign: 'right',
             }}
           >
-            ตรวจโดยแอปพลิเคชัน
+            {I18n.t('check_by_app')}
           </Text>
           <Text
             style={{

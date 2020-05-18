@@ -37,6 +37,8 @@ import { SelfieCaptureGuideline } from '../../components/SelfieCaptureGuideline'
 import { RELATIVE_FACE_PATH } from '../const'
 import { FormHeader } from '../../components/Form/FormHeader'
 
+import I18n from '../../../i18n/i18n';
+
 const MUTATE_USER = gql`
   mutation($image: String) {
     updateUser(data: { image: $image }) @client
@@ -74,8 +76,8 @@ export const OnboardFace = () => {
       <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
       <FormHeader>
         <View style={styles.header}>
-          <Text style={styles.title}>ภาพโปรไฟล์</Text>
-          <Text style={styles.subtitle}>ถ่ายรูปหน้าตรง เห็นหน้าชัดเจน</Text>
+          <Text style={styles.title}>{I18n.t('profile_picture')}</Text>
+          <Text style={styles.subtitle}>{I18n.t('straight_and_clear_face_portrait')}</Text>
         </View>
       </FormHeader>
       <View style={styles.content}>
@@ -103,7 +105,7 @@ export const OnboardFace = () => {
         >
           <FeatherIcon name="camera" color={COLORS.BLUE} size={20} />
           <ColorText color={COLORS.BLUE} style={{ marginLeft: 12, fontSize: FONT_SIZES[700] }}>
-            {uri ? 'ถ่ายใหม่' : 'ถ่ายรูป'}
+            {uri ? I18n.t('retake_photo') : I18n.t('take_photo')}
           </ColorText>
         </TouchableOpacity>
       </View>
@@ -111,7 +113,7 @@ export const OnboardFace = () => {
         <PrimaryButton
           style={{ width: '100%' }}
           containerStyle={{ width: '100%'}}
-          title={'ถัดไป'}
+          title={I18n.t('next')}
           onPress={onSubmit}
           disabled={!uri}
         />

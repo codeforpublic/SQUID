@@ -13,6 +13,8 @@ import { Button, normalize } from 'react-native-elements'
 import { useSafeArea } from 'react-native-safe-area-view'
 import { PrimaryButton } from '../../components/Button'
 
+import I18n from '../../../i18n/i18n';
+
 const Container = styled(View)({
   backgroundColor: '#00A0D7',
   justifyContent: 'center',
@@ -68,18 +70,18 @@ export const QuestionaireHome = ({ navigation }) => {
       }}
     >
       <HomeListItem
-        title="รู้สถานะคนใกล้ชิด"
-        subtitle="ระวังและปฏิบัติตัวได้เหมาะสม"
+        title={I18n.t('know_status_of_ppl_around_you')}
+        subtitle={I18n.t('take_appropriate_action')}
         source={require('./assets/icon_1.png')}
       />
       <HomeListItem
-        title="ทราบข้อควรปฏิบัติ"
-        subtitle="เพื่อลดความเสี่ยงในการแพร่เชื้อ"
+        title={I18n.t('know_the_guideline')}
+        subtitle={I18n.t('reduce_covid_spread')}
         source={require('./assets/icon_2.png')}
       />
       <HomeListItem
-        title="เพิ่มความปลอดภัย"
-        subtitle="เหมือนมีหมออยู่ใกล้คุณ"
+        title={I18n.t('increase_safety')}
+        subtitle={I18n.t('like_having_doctor_with_you')}
         source={require('./assets/icon_3.png')}
       />
     </View>
@@ -121,12 +123,12 @@ export const QuestionaireHome = ({ navigation }) => {
           }}
         >
           <Text style={styles.title}>
-            หมอชนะแวะมาสอบถามอาการ{largeScreen ? 'ของคุณ' : ''}
+            {I18n.t('let_dr_chana_check_symptoms')}{largeScreen ? I18n.t('of_you') : ''}
           </Text>
           <Text style={styles.subtitle}>
-            สวัสดีครับ วันนี้หมอแวะมาประเมินอาการของคุณ
-            หมอจะแนะนำวิธีปฏิบัติตัวของคุณ
-            ให้เหมาะสมกับความเสี่ยงที่หมอประเมินได้
+            {I18n.t('hello_dr_chana_come_to_eval_u')}
+            {I18n.t('suggest_guideline')}
+            {I18n.t('for_appropriate_level')}
           </Text>
           <PrimaryButton
             containerStyle={{ width: '100%', marginTop: 32 }}
@@ -134,7 +136,7 @@ export const QuestionaireHome = ({ navigation }) => {
               width: '100%',
               backgroundColor: '#216DB8',
             }}
-            title={'เริ่มประเมิน'}
+            title={I18n.t('start_eval')}
             onPress={async () => {
               navigation.navigate('QuestionaireForm')
             }}

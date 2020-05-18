@@ -13,6 +13,8 @@ import { applicationState } from '../../state/app-state'
 import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import { dataInputTable } from './form-input'
 
+import I18n from '../../../i18n/i18n';
+
 const padding = normalize(18)
 
 const Container = styled(View)({
@@ -129,7 +131,7 @@ export const QuestionaireForm = ({ navigation }) => {
   const footer = (
     <Footer style={{ paddingBottom: inset.bottom }}>
       <PrimaryButton
-        title={'ถัดไป'}
+        title={I18n.t('next')}
         style={{
           width: '100%',
         }}

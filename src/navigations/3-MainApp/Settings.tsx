@@ -15,6 +15,8 @@ import { useContactTracer } from '../../services/contact-tracing-provider'
 import { useNavigation } from 'react-navigation-hooks'
 import { userPrivateData } from '../../state/userPrivateData'
 
+import I18n from '../../../i18n/i18n';
+
 export const Settings = () => {
   const navigation = useNavigation()
   const { enable, disable, statusText, isServiceEnabled } = useContactTracer()
@@ -36,13 +38,13 @@ export const Settings = () => {
         >
           <View>
             <View style={styles.sectionHeader}>
-              <Text style={styles.sectionHeaderText}>ระบบค้นหา</Text>
+              <Text style={styles.sectionHeaderText}>{I18n.t('tracking')}</Text>
             </View>
             <View style={styles.settingsSection}>
               <View style={[styles.section]}>
                 <View style={styles.horizontalRow}>
                   <View style={styles.leftArea}>
-                    <Text style={styles.sectionText}>การค้นหาด้วยบลูทูธ: </Text>
+                    <Text style={styles.sectionText}>{I18n.t('track_with_bluetooth')} </Text>
                   </View>
                   <View style={styles.rightArea}>
                     <Switch
@@ -59,20 +61,20 @@ export const Settings = () => {
                   </View>
                 </View>
                 <Text style={styles.sectionDescription}>
-                  เปิดการค้นหาการเข้าใกล้บุคคลอื่นผ่านบลูทูธพลังงานต่ำโดยอัตโนมัติ
-                  อาจส่งผลให้มือถือมีการใช้พลังงานมากกว่าปกติ
-                  สามารถเลือกปิดได้ถ้าต้องการ
-                  แต่ระบบจะไม่สามารถค้นหาอุปกรณ์อื่นโดยอัตโนมัติได้
+                  {I18n.t('auto_turn_on_bluetooth_tracing')}
+                  {I18n.t('may_cause_phone_to_consume_higher_energy')}
+                  {I18n.t('you_can_choose_to_turn_off')}
+                  {I18n.t('but_sys_will_not_auto_trace')}
                 </Text>
               </View>
             </View>
             <View style={styles.sectionHeader}>
-              <Text style={styles.sectionHeaderText}>ทั่วไป</Text>
+              <Text style={styles.sectionHeaderText}>{I18n.t('general')}</Text>
             </View>
             <View style={styles.settingsSection}>
               <TouchableHighlight onPress={_onPrivacyPolicyClicked}>
                 <View style={styles.section}>
-                  <Text style={styles.sectionText}>นโยบายความเป็นส่วนตัว</Text>
+                  <Text style={styles.sectionText}>{I18n.t('privacy_policy')}</Text>
                 </View>
               </TouchableHighlight>
               <TouchableHighlight
@@ -80,7 +82,7 @@ export const Settings = () => {
               >
                 <View style={styles.section}>
                   <Text style={styles.sectionText}>
-                    ทำแบบประเมินตนเองอีกครั้ง
+                    {I18n.t('do_questionaire_again')}
                   </Text>
                 </View>
               </TouchableHighlight>
@@ -94,7 +96,7 @@ export const Settings = () => {
               >
                 <View style={styles.section}>
                   <Text style={styles.sectionText}>
-                    ยืนยันตัวตน
+                    {I18n.t('identity_confirm')}
                   </Text>
                 </View>
               </TouchableHighlight>}

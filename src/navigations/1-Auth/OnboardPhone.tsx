@@ -6,6 +6,7 @@ import { Button } from 'react-native-elements'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { doctorSize, styles } from '../2-Onboarding/const'
 import { OnboardHeader } from '../2-Onboarding/OnboadHeader'
+import I18n from '../../../i18n/i18n';
 
 export const OnboardPhone = () => {
   const navigation = useNavigation()
@@ -51,9 +52,9 @@ export const OnboardPhone = () => {
               resizeMode="contain"
               style={{ height: doctorSize }}
             />
-            <Text style={styles.title}>ยืนยันเบอร์โทรศัพท์</Text>
+            <Text style={styles.title}>{I18n.t('confirm_phone_no')}</Text>
             <Text style={styles.subtitle}>
-              ยืนยันเบอร์โทรศัพท์ เพื่อให้เราติดต่อดูแลคุณได้
+              {I18n.t('confirm_phone_no_so_we_can_take_car')}
             </Text>
           </View>
 
@@ -64,7 +65,7 @@ export const OnboardPhone = () => {
               marginTop: 10,
               alignSelf: 'center',
             }}
-            title={'ยืนยันเลย'}
+            title={I18n.t('confirm_now')}
             style={{
               marginTop: 30,
               alignSelf: 'center',
@@ -80,7 +81,7 @@ export const OnboardPhone = () => {
               marginBottom: 16,
               alignSelf: 'center',
             }}
-            title={'ไว้ทีหลัง'}
+            title={I18n.t('later')}
             style={{
               alignSelf: 'center',
               width: '100%',
