@@ -19,6 +19,7 @@ class BackgroundTracking {
   private latestKnownedLogs: number = 0
 
   private debug: boolean = false
+  private latestKnownedLogs: number = 0;
   async setup(startImmediately?: boolean) {
     await this.stop()
     AppState.addEventListener('change', this.onAppStateChange)
@@ -26,7 +27,7 @@ class BackgroundTracking {
       let status = response.status
       console.log('BackgroundGeolocation [onHttp] ', status)
       this.latestKnownedUpdated = Date.now()
-    })
+    });
 
     this.onLocationTracking()
 
@@ -203,4 +204,4 @@ class BackgroundTracking {
   }
 }
 
-export const backgroundTracking = new BackgroundTracking()
+export const backgroundTracking = new BackgroundTracking();
