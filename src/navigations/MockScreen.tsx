@@ -8,6 +8,8 @@ import { PrimaryButton } from '../components/Button'
 import { MyBackground } from '../components/MyBackground'
 import { Title } from '../components/Base'
 
+import I18n from '../../i18n/i18n';
+
 export const MockScreen = ({
   title,
   content,
@@ -34,7 +36,7 @@ export const MockScreen = ({
         {(nextScreen || onNext) && (
           <View style={styles.footer}>
             <PrimaryButton
-              title={'ถัดไป'}
+              title={I18n.t('next')}
               onPress={
                 onNext
                   ? onNext

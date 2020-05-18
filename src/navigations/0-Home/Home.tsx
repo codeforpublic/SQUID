@@ -6,6 +6,8 @@ import { DebugTouchable } from '../../components/DebugTouchable'
 import { API_URL } from '../../config'
 import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 
+import I18n from '../../../i18n/i18n';
+
 export const Home = ({ navigation }) => {
   return (
     <View
@@ -33,11 +35,11 @@ export const Home = ({ navigation }) => {
           />
         </DebugTouchable>
         <Text style={styles.description}>
-          ร่วมโหลด ร่วมใช้ ร่วมใจ{'\n'}
-          พิชิตโควิด-19
+          {I18n.t('load_use_fight')}{'\n'}
+          {I18n.t('covid19_together')}
         </Text>
         <PrimaryButton
-          title="ลงทะเบียน"
+          title={I18n.t('register')}
           titleStyle={{
             color: '#00A0D7',
             width: 240,

@@ -8,6 +8,8 @@ import { distance } from '../utils/distance'
 import { StoreLocationHistoryService, LOCATION_TYPE } from './store-location-history.service'
 import BackgroundTimer from 'react-native-background-timer'
 
+import I18n from '../../i18n/i18n';
+
 class BackgroundTracking {
   private ready: boolean = false
   private started: boolean = false
@@ -49,17 +51,17 @@ class BackgroundTracking {
       preventSuspend: true,
       locationAuthorizationAlert: {
         titleWhenNotEnabled:
-          'กรุณาเปิด Location services เป็น Always ให้หมอชนะ',
-        titleWhenOff: 'กรุณาเปิด Location services เป็น Always ให้หมอชนะ',
+        I18n.t('pls_set_loc_serv_as_always'),
+        titleWhenOff: I18n.t('help_notify_if_you_get_near_risky_person_or_area'),
         instructions:
-          'เพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง หรืออยู่ในพื้นที่เสี่ยง',
+        I18n.t('so_we_can_warn_u'),
         cancelButton: 'Cancel',
         settingsButton: 'Settings',
       },
       notification: {
-        title: 'ระบบเฝ้าระวังของหมอชนะ ทำงาน',
+        title: I18n.t('morchana_tracking_is_on'),
         text:
-          'คุณจะได้รับการแจ้งเตือนทันที เมื่อคุณได้ไปใกล้ชิดกับคนที่มีความเสี่ยง',
+        I18n.t('you_will_be_notified_when_closed_to_risky_ppl'),
       },
       logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
     })

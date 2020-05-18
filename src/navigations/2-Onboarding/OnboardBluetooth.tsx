@@ -9,6 +9,8 @@ import { doctorSize, styles } from './const'
 import { OnboardHeader } from './OnboadHeader'
 import { normalize } from 'react-native-elements'
 
+import I18n from '../../../i18n/i18n';
+
 export const OnboardBluetooth = () => {
   const navigation = useNavigation()
   const contactTracer = useContactTracer()
@@ -49,8 +51,8 @@ export const OnboardBluetooth = () => {
             resizeMode="contain"
             style={{ height: doctorSize }}
           />
-          <Text style={styles.title}>มีคนเสี่ยงอยู่ใกล้ ๆ</Text>
-          <Text style={styles.subtitle}>หมอตรวจสอบได้ด้วยบลูทูธ</Text>
+          <Text style={styles.title}>{I18n.t('risky_ppl_nearby')}</Text>
+          <Text style={styles.subtitle}>{I18n.t('app_can_check_with_bluetooth')}</Text>
         </View>
       </View>
       <View
@@ -65,15 +67,15 @@ export const OnboardBluetooth = () => {
             />
           </View>
           <View style={{ flex: 1 }}>
-            <Text style={styles.itemTitle}>ขอสิทธิ์เข้าถึงบลูทูธ Bluetooth</Text>
+            <Text style={styles.itemTitle}>{I18n.t('pls_grant_bluetooth_access')}</Text>
             <Text style={styles.description}>
-              ใช้พลังงานต่ำ เพื่อคอยสแกนคนใกล้ตัวและแจ้งเตือนทันทีหากคุณได้ไปใกล้ชิดกับคนที่มีความเสี่ยง
+              {I18n.t('consume_low_energy_and_can_detect_closed_contact')}
             </Text>
           </View>
         </View>
         <PrimaryButton
           containerStyle={{ width: '100%' }}
-          title={'อนุญาตให้เข้าถึง'}
+          title={I18n.t('grant_permission')}
           style={{
             marginTop: 30,
             alignSelf: 'center',

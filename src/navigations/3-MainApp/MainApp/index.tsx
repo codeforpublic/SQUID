@@ -18,6 +18,8 @@ import { QRFooter } from './QRFooter'
 import { LocationBar } from './LocationBar'
 import { useNavigation } from 'react-navigation-hooks'
 
+import I18n from '../../../../i18n/i18n';
+
 export const MainApp = () => {
   const navigation = useNavigation();
   const inset = useSafeArea()

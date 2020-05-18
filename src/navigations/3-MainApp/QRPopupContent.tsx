@@ -3,6 +3,8 @@ import { Text, View, Image, StyleSheet } from 'react-native'
 import { QRResult } from '../../state/qr'
 import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
 
+import I18n from '../../../i18n/i18n';
+
 const Label = ({ label, color, role }) => {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
@@ -52,7 +54,7 @@ export const QRPopupContent = (props: any) => {
             fontSize: FONT_SIZES[500],
             color: 'white',
             paddingRight: 16,
-          }}>ลงทะเบียนมาแล้ว {age}</Text>
+          }}>{I18n.t('already_registered')} {age}</Text>
         </View>
       </View>
       <View style={styles.contentContainer}>
@@ -60,7 +62,7 @@ export const QRPopupContent = (props: any) => {
           <Text style={[styles.contentTitle, { color: qrResult.getStatusColor() }]}>{title || ''}</Text>
         </View>
         <View style={styles.contentTextContainer}>
-          <Text style={styles.contentText}>อัพเดทล่าสุด </Text><Text style={[styles.contentText, bodyStyle]}>{body}</Text>
+          <Text style={styles.contentText}>{I18n.t('last_update')} </Text><Text style={[styles.contentText, bodyStyle]}>{body}</Text>
         </View>
         {tag?.title? <Label color={tag.tagRole?.color} label={tag.title} role={tag.tagRole?.title}/>: void 0}
       </View>
