@@ -3,6 +3,8 @@ import BackgroundFetch from 'react-native-background-fetch'
 import { getAnonymousHeaders } from '../api'
 import { AppState, Alert, Platform } from 'react-native'
 import { API_URL } from '../config'
+import AsyncStorage from '@react-native-community/async-storage'
+import { distance } from '../utils/distance'
 
 class BackgroundTracking {
   private ready: boolean = false
@@ -10,6 +12,7 @@ class BackgroundTracking {
   private appState: string = 'active'
   private latestKnownedUpdated?: number
   private debug: boolean = false
+  private latestKnownedLogs: number = 0;
   async setup(startImmediately?: boolean) {
     await this.stop()
     AppState.addEventListener('change', this.onAppStateChange)
@@ -17,10 +20,12 @@ class BackgroundTracking {
       let status = response.status
       console.log('BackgroundGeolocation [onHttp] ', status)
       this.latestKnownedUpdated = Date.now()
-    })
+    });
+
+    // FIXME: POC tracking wfh
+    // this.wfhTracking();
 
     const headers = getAnonymousHeaders()
-
     await BackgroundGeolocation.ready({
       distanceFilter: Platform.OS === 'android' ? 0 : 25, // every 25 meter
       locationUpdateInterval: 15 * 60 * 1000, // every 15 minute
@@ -38,6 +43,7 @@ class BackgroundTracking {
       httpRootProperty: 'locations',
       locationsOrderDirection: 'ASC',
       heartbeatInterval: 60 * 15,
+      preventSuspend: true,
       locationAuthorizationAlert: {
         titleWhenNotEnabled:
           'กรุณาเปิด Location services เป็น Always ให้หมอชนะ',
@@ -105,6 +111,50 @@ class BackgroundTracking {
     }
     this.appState = state
   }
+
+  // FIXME: POC tracking wfh
+  wfhTracking = () => {
+    const TEN_MIN = 10 * 60 * 1000;
+    const calculateDistance = async(latitude: number, longitude: number) => {
+      const homeLocation = await AsyncStorage.getItem('HOME-LIST')
+      const homes = homeLocation ? JSON.parse(homeLocation) : []
+      const officeLocation = await AsyncStorage.getItem('OFFICE-LIST')
+      const offices = officeLocation ? JSON.parse(officeLocation) : []
+      const isHome = homes.length > 0
+        ? distance(latitude, longitude, homes[0].latitude, homes[0].longitude) > 0.1
+        : false
+      const isOffice = offices.length > 0
+        ? distance(latitude, longitude, offices[0].latitude, offices[0].longitude) > 0.1
+        : false
+      return isHome ? 'HOME' : isOffice ? 'OFFICE' : 'OTHER';
+    }
+
+    BackgroundGeolocation.onLocation(async (location) => {
+      console.log("[onLocation] ", new Date().toISOString())
+      if (Date.now().valueOf() - this.latestKnownedLogs > TEN_MIN) {
+        this.latestKnownedLogs = Date.now().valueOf()
+        const log = await calculateDistance(location.coords.latitude, location.coords.longitude)
+        const logsString = await AsyncStorage.getItem('history-wfh')
+        const logs = logsString ? JSON.parse(logsString) : {}
+        const newLogs = { ...logs, [Date.now()]: log }
+        await AsyncStorage.setItem('history-wfh', JSON.stringify(newLogs))
+        console.log('[wfhTracking] history-wfh =====', newLogs)
+      }
+    });
+
+    BackgroundGeolocation.onHeartbeat(async (event) => {
+      console.log("[onHeartbeat] ", new Date().toISOString())
+      if (Date.now().valueOf() - this.latestKnownedLogs > TEN_MIN) {
+        this.latestKnownedLogs = Date.now().valueOf()
+        const log = await calculateDistance(event.location.coords.latitude, event.location.coords.longitude)
+        const logsString = await AsyncStorage.getItem('history-wfh')
+        const logs = logsString ? JSON.parse(logsString) : {}
+        const newLogs = { ...logs, [Date.now()]: log }
+        await AsyncStorage.setItem('history-wfh', JSON.stringify(newLogs))
+        console.log('[wfhTracking] history-wfh =====', newLogs)
+      }
+    });
+  }
 }
 
-export const backgroundTracking = new BackgroundTracking()
+export const backgroundTracking = new BackgroundTracking();
