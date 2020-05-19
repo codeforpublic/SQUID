@@ -1,55 +1,54 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import moment from 'moment-timezone'
+import 'moment/locale/th'
 import { VictoryChart, VictoryStack, VictoryBar, VictoryAxis } from 'victory-native';
-import { 
-  View, 
-  Text,
-  StyleSheet 
+import {
+	View,
+	Text,
+	StyleSheet
 } from 'react-native';
 import { LocationCount } from './LocationCount';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const Graph = () => {
 	const [location, setLocation] = useState([])
+
 	const [homes, setHomeList] = useState([])
 	const [offices, setOfficeList] = useState([])
 
 	const getLocationList = useCallback(async () => {
-    const homeLocation = await AsyncStorage.getItem('HOME-LIST');
-    const homes = homeLocation ? JSON.parse(homeLocation) : [];
-    setHomeList(homes);
-  
-    const officeLocation = await AsyncStorage.getItem('OFFICE-LIST');
-    const offices = officeLocation ? JSON.parse(officeLocation) : [];
-    setOfficeList(offices);
-  }, []);
-	
-	const myDataset = [
-		[
-			{ x: "a", y: 1 },
-			{ x: "b", y: 2 },
-			{ x: "c", y: 3 },
-			{ x: "d", y: 2 },
-			{ x: "e", y: 1 }
-		],
-		[
-			{ x: "a", y: 2 },
-			{ x: "b", y: 3 },
-			{ x: "c", y: 4 },
-			{ x: "d", y: 5 },
-			{ x: "e", y: 5 }
-		],
-		[
-			{ x: "a", y: 1 },
-			{ x: "b", y: 2 },
-			{ x: "c", y: 3 },
-			{ x: "d", y: 4 },
-			{ x: "e", y: 4 }
-		]
-	];
+		const homeLocation = await AsyncStorage.getItem('HOME-LIST');
+		const homes = homeLocation ? JSON.parse(homeLocation) : [];
+		setHomeList(homes);
+
+		const officeLocation = await AsyncStorage.getItem('OFFICE-LIST');
+		const offices = officeLocation ? JSON.parse(officeLocation) : [];
+		setOfficeList(offices);
+	}, []);
+
+	const exampleData = () => {
+		let list = [];
+		let days = [0, 2, 4];
+		for (let d of days) {
+			let t = moment().add(d*(-1), "day").format("x");
+			for (let i = 0; i < 144; i++) {
+				let obj = {};
+				if (i+d < 80)
+					obj = {time: t, stay: "H"}
+				if (i+d >= 80 && i < 100) 
+					obj = {time: t, stay: "O"}
+				if (i+d >= 100) 
+					obj = {time: t, stay: "W"}
+				list.push(obj)
+			}
+		}
+		return list;
+	}
 
 	useEffect(() => {
 		getLocationList();
-		setLocation(transformData(myDataset));
+		let data = prepareFromGraph(exampleData());
+		setLocation(transformData(data));
 	}, [])
 
 	const transformData = (dataset) => {
@@ -65,6 +64,91 @@ export const Graph = () => {
 		});
 	}
 
+	/**
+	 * transform data to victory graph
+	 * @param data -> { time: '1589814473374', stay: 'H | W | O' } *time = unix timestamp
+	 */
+	const prepareFromGraph = (data = []) => {
+		let aDays = [], threeDays = [], fiveDays = [], aWeeks = [], twoWeeks = [];
+		data.map(d => {
+			let time = d.time;
+			if (isToday(time)) {
+				aDays.push(d)
+			}
+			if (isTheDayAgo(time, 3)) {
+				threeDays.push(d)
+			}
+			if (isTheDayAgo(time, 5)) {
+				fiveDays.push(d)
+			}
+			if (isTheDayAgo(time, 7)) {
+				aWeeks.push(d)
+			}
+			if (isTheDayAgo(time, 14)) {
+				twoWeeks.push(d)
+			}
+		});
+
+		let aDay = getData(aDays);
+		let threeDay = getData(threeDays);
+		let fiveDay = getData(fiveDays);
+		let sevenDay = getData(aWeeks);
+		let fourteenDay = getData(twoWeeks);
+
+		return [
+			[//HOME
+				{ x: "14", y: getPercentage(fourteenDay.home.length, 2016) },
+				{ x: "7",  y: getPercentage(sevenDay.home.length, 1008) },
+				{ x: "5",  y: getPercentage(fiveDay.home.length, 720) },
+				{ x: "3",  y: getPercentage(threeDay.home.length, 432) },
+				{ x: "1",  y: getPercentage(aDay.home.length, 144) }
+			],
+			[//OTHER
+				{ x: "14", y: getPercentage(fourteenDay.other.length, 2016) },
+				{ x: "7",  y: getPercentage(sevenDay.other.length, 1008) },
+				{ x: "5",  y: getPercentage(fiveDay.other.length, 720) },
+				{ x: "3",  y: getPercentage(threeDay.other.length, 432) },
+				{ x: "1",  y: getPercentage(aDay.other.length, 144) }
+			],
+			[//WORK
+				{ x: "14", y: getPercentage(fourteenDay.work.length, 2016) },
+				{ x: "7",  y: getPercentage(sevenDay.work.length, 1008) },
+				{ x: "5",  y: getPercentage(fiveDay.work.length, 720) },
+				{ x: "3",  y: getPercentage(threeDay.work.length, 432) },
+				{ x: "1",  y: getPercentage(aDay.work.length, 144) }
+			]
+		];
+	}
+
+	const getData = (list = []) => {
+		return {
+			home: getByType(list, "H"),
+			other: getByType(list, "O"),
+			work: getByType(list, "W"),
+			total: list.length,
+		}
+	}
+
+	const getByType = (list = [], stayAt) => {
+		return list.filter(d => d.stay === stayAt);
+	}
+
+	const isToday = (uxtime) => {
+		const toDay = moment();
+		return (moment(uxtime, "x").isSame(toDay, "day"))
+	}
+
+	const isTheDayAgo = (uxtime, dayAgo) => {
+		let modulus = dayAgo ? dayAgo * (-1) : 0;
+		const threeDayAgo = moment().add(modulus, "days");
+		return (moment(uxtime, "x").isSameOrAfter(threeDayAgo));
+	}
+
+	const getPercentage = (val, from) => {
+		let percent = ((val * 100) / from).toFixed(2);
+		return (percent && percent !== "NaN") ? parseFloat(percent) : 0;
+	}
+
 	return (
 		<View>
 			<View style={styles.locationHistory}>
@@ -74,7 +158,7 @@ export const Graph = () => {
 
 			<View>
 				<VictoryChart horizontal
-					domain={{ x: [0, 6.5], y: [-5, 100] }}
+					domain={{ x: [0, 5], y: [0, 100] }}
 				>
 					<VictoryStack horizontal
 						colorScale={["#4CA8D9", "#9FA5B1", "#2B3A8C"]}
@@ -89,6 +173,7 @@ export const Graph = () => {
 							return <VictoryBar data={data} key={i} />;
 						})}
 					</VictoryStack>
+
 					<VictoryAxis dependentAxis
 						style={{
 							axis: { stroke: "none", display: "none" }
@@ -103,14 +188,14 @@ export const Graph = () => {
 					/>
 				</VictoryChart>
 			</View>
-		
+
 		</View>
 	)
 }
 
 const styles = StyleSheet.create({
 	locationHistory: {
-		display: "flex", 
+		display: "flex",
 		flexDirection: "row",
 		paddingTop: 10,
 		justifyContent: "space-between",
