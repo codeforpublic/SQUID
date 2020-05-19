@@ -14,6 +14,7 @@ import { QRTagLabel } from './QRTagLabel'
 import { QRHeader } from './QRHeader'
 import { QRSection } from './QRSection'
 import { QRFooter } from './QRFooter'
+import { LocationBar } from './LocationBar'
 
 export const MainApp = () => {
   const inset = useSafeArea()  
@@ -36,6 +37,7 @@ export const MainApp = () => {
       <QRTagLabel qr={qrData} />
       <QRHeader qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
       <QRSection qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
+      <LocationBar />
       <QRFooter />
     </View>
   )
