@@ -185,7 +185,7 @@ class BackgroundTracking {
       }
     })
 
-    // สงบ นิ่ง
+
     BackgroundGeolocation.onHeartbeat(async event => {
       console.log('[onHeartbeat] ', new Date().toISOString())
       if (Date.now().valueOf() - this.latestKnownedLogs > FIFTEEN_MIN) {
