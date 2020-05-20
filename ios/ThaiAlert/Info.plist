@@ -1,5 +1,3 @@
-
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -64,7 +62,7 @@
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>เพื่อคอยสแกนคนใกล้ตัว และแจ้งเตือนทันทีหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง</string>
 	<key>NSCameraUsageDescription</key>
-	<string>I18n.t('need_for_pic_verification')</string>
+	<string>ต้องการใช้ถ่ายรูปยืนยันตัวตน</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>เพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง หรืออยู่ในพื้นที่เสี่ยง</string>
 	<key>NSLocationAlwaysUsageDescription</key>
