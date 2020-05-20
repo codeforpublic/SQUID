@@ -43,9 +43,9 @@ class BackgroundTracking {
       locationAuthorizationAlert: {
         titleWhenNotEnabled:
         I18n.t('pls_set_loc_serv_as_always'),
-        titleWhenOff: I18n.t('help_notify_if_you_get_near_risky_person_or_area'),
+        titleWhenOff: I18n.t('pls_set_loc_serv_as_always'),
         instructions:
-        I18n.t('so_we_can_warn_u'),
+        I18n.t('help_notify_if_you_get_near_risky_person_or_area'),
         cancelButton: 'Cancel',
         settingsButton: 'Settings',
       },

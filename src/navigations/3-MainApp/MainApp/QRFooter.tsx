@@ -9,10 +9,11 @@ import { userPrivateData } from '../../../state/userPrivateData'
 
 import I18n from '../../../../i18n/i18n';
 
+
 export const QRFooter = () => {
   const isRegistered = Boolean(userPrivateData.getData('authToken'))
   const navigation = useNavigation()
-  const date = moment().locale('th')
+  const date = moment().locale(I18n.currentLocale())
   const smallDevice = Dimensions.get('window').height < 600
 
   return (
@@ -65,7 +66,7 @@ export const QRFooter = () => {
               textAlign: 'right',
             }}
           >
-            วันที่ {date.format('D MMMM​')} พ.ศ. {date.year() + 543}
+            {date.format('D MMMM​')} {date.year() + (I18n.currentLocale() == 'th' ? 543:0)}
           </Text>
         </View>
         <Image
