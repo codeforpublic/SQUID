@@ -26,6 +26,13 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     color: COLORS.WHITE,
   },
+  titleEN: {
+    marginTop: 10,
+    fontFamily: FONT_BOLD,
+    fontSize: isSmallDevice ? FONT_SIZES[600] : FONT_SIZES[800],
+    alignSelf: 'center',
+    color: COLORS.WHITE,
+  },
   itemTitle: {
     fontFamily: FONT_BOLD,
     fontSize: FONT_SIZES[600],

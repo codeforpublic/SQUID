@@ -121,7 +121,7 @@ export const OnboardLocation = () => {
               resizeMode="contain"
               style={{ height: doctorSize }}
             />
-            <Text style={styles.title}>{I18n.t('pls_grant_permission')}</Text>
+            <Text style={I18n.currentLocale() == 'en'? styles.titleEN : styles.title}>{I18n.t('pls_grant_permission')}</Text>
             <Text style={styles.subtitle}>
             {I18n.t('let_doc_estimate_your_risk')}
             </Text>

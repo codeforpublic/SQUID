@@ -71,7 +71,7 @@ export const OnboardNotification = () => {
               resizeMode="contain"
               style={{ height: doctorSize }}
             />
-            <Text style={styles.title}>{I18n.t('let_doc_notify_you')}</Text>
+            <Text style={I18n.currentLocale() == 'en'? styles.titleEN : styles.title}>{I18n.t('let_doc_notify_you')}</Text>
             <Text style={styles.subtitle}>
               {I18n.t('when_you_are_closed_to_risky_ppl')}
             </Text>
