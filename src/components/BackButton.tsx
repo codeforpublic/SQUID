@@ -4,6 +4,8 @@ import { useNavigation } from 'react-navigation-hooks'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD } from '../styles'
 
+import I18n from '../../i18n/i18n';
+
 export const BackButton = ({
   onPress,
   backIcon = 'arrow-left',
@@ -27,7 +29,7 @@ export const BackButton = ({
           fontSize: FONT_SIZES[500],
         }}
       >
-        ย้อนกลับ
+        {I18n.t('back')}
       </Text>
     </TouchableOpacity>
   )

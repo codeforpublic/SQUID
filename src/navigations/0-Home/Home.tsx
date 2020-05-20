@@ -7,6 +7,15 @@ import { API_URL } from '../../config'
 import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 
 import I18n from '../../../i18n/i18n';
+// import { getLanguages } from 'react-native-i18n';
+
+// I18n.fallbacks = true;
+// I18n.defaultLocale = "th";
+// getLanguages().then(languages => {
+//   console.log(languages); // ['en-US', 'en']
+//   I18n.locale = languages(0);
+// });
+
 
 export const Home = ({ navigation }) => {
   return (

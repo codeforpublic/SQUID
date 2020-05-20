@@ -51,7 +51,7 @@ export const OnboardBluetooth = () => {
             resizeMode="contain"
             style={{ height: doctorSize }}
           />
-          <Text style={styles.title}>{I18n.t('risky_ppl_nearby')}</Text>
+          <Text style={I18n.currentLocale() == 'en'? styles.titleEN : styles.title}>{I18n.t('risky_ppl_nearby')}</Text>
           <Text style={styles.subtitle}>{I18n.t('app_can_check_with_bluetooth')}</Text>
         </View>
       </View>

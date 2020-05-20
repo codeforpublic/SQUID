@@ -65,6 +65,7 @@ export const QRHeader = ({ qr, qrState, onRefreshQR }: { qr: SelfQR, qrState: QR
                   marginTop: 12,
                   textDecorationLine: 'underline',
                   color,
+                  alignSelf: 'center',
                 }}
               >
                 {label}
