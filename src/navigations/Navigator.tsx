@@ -15,6 +15,7 @@ import { QuestionaireStack } from './4-Questionaire/QuestionaireStack'
 import { PrivacyPolicy } from './PrivacyPolicy'
 import { HomeStack } from './0-Home/HomeStack'
 import { SetLocationStack } from './5-SetLocation/SetLocationStack'
+import { LocationReport } from './3-MainApp/LocationReport'
 
 const Root = ({ navigation }) => {
   useEffect(() => {
@@ -76,6 +77,9 @@ export default createStackNavigator(
     },
     SetLocation: {
       screen: SetLocationStack,
+    },
+    LocationReport: {
+      screen: LocationReport,
     }
   },
   {

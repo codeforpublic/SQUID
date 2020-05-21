@@ -5,6 +5,7 @@ import {
   StatusBar,
   View,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native'
 import { useSelfQR } from '../../../state/qr'
 import { pushNotification } from '../../../services/notification'
@@ -15,14 +16,21 @@ import { QRHeader } from './QRHeader'
 import { QRSection } from './QRSection'
 import { QRFooter } from './QRFooter'
 import { LocationBar } from './LocationBar'
+import { useNavigation } from 'react-navigation-hooks'
 
 export const MainApp = () => {
-  const inset = useSafeArea()  
-  const { qrData, qrState, error, refreshQR } = useSelfQR()  
+  const navigation = useNavigation();
+  const inset = useSafeArea()
+  const { qrData, qrState, error, refreshQR } = useSelfQR()
 
   useEffect(() => {
     pushNotification.requestPermissions()
   }, [])
+
+  const _onLocationReport = () => {
+    console.log('click');
+    navigation.navigate('LocationReport');
+  }
 
   return (
     <View
@@ -37,7 +45,9 @@ export const MainApp = () => {
       <QRTagLabel qr={qrData} />
       <QRHeader qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
       <QRSection qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
-      <LocationBar />
+      <TouchableOpacity onPress={_onLocationReport}>
+        <LocationBar />
+      </TouchableOpacity>
       <QRFooter />
     </View>
   )
