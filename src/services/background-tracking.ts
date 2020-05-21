@@ -12,7 +12,7 @@ class BackgroundTracking {
   private started: boolean = false
   private appState: string = 'active'
   private latestKnownedUpdated?: number
-  
+
   private latestKnownedSummary: number = 0;
   private latestKnownedLogs: number = 0;
 
@@ -150,8 +150,8 @@ class BackgroundTracking {
         await AsyncStorage.setItem('history-wfh', JSON.stringify(newLogs));
         console.log('[wfhTracking] history-wfh =====', newLogs);
       }
-
-      if (Date.now().valueOf() - this.latestKnownedSummary > 60 * 60 * 1000) {
+      const ONE_HOUR = 60 * 60 * 1000;
+      if (Date.now().valueOf() - this.latestKnownedSummary > ONE_HOUR) {
         this.latestKnownedSummary = Date.now().valueOf();
         // summary data
         // remove summary old data
@@ -171,12 +171,6 @@ class BackgroundTracking {
         console.log('[wfhTracking] history-wfh =====', newLogs);
         StoreLocationHistoryService.trackLocationByTime(log);
       }
-    });
-
-    // Listen to #onSchedule events:
-    BackgroundGeolocation.onSchedule((state) => {
-      let enabled = state.enabled;
-      console.log("[onSchedule] - enabled? ", enabled, new Date().toISOString());
     });
   }
 }
