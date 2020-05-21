@@ -5,14 +5,16 @@ import { AppState, Alert, Platform } from 'react-native'
 import { API_URL } from '../config'
 import AsyncStorage from '@react-native-community/async-storage'
 import { distance } from '../utils/distance'
-
 class BackgroundTracking {
   private ready: boolean = false
   private started: boolean = false
   private appState: string = 'active'
   private latestKnownedUpdated?: number
-  private debug: boolean = false
+  
+  private latestKnownedSummary: number = 0;
   private latestKnownedLogs: number = 0;
+
+  private debug: boolean = false
   async setup(startImmediately?: boolean) {
     await this.stop()
     AppState.addEventListener('change', this.onAppStateChange)
@@ -22,8 +24,7 @@ class BackgroundTracking {
       this.latestKnownedUpdated = Date.now()
     });
 
-    // FIXME: POC tracking wfh
-    // this.wfhTracking();
+    this.onLocationTracking();
 
     const headers = getAnonymousHeaders()
     await BackgroundGeolocation.ready({
@@ -75,6 +76,7 @@ class BackgroundTracking {
     }
     this.started = true
     console.log('BackgroundGeolocation: started')
+    BackgroundGeolocation.startSchedule();
     await BackgroundGeolocation.start().catch(err => {
       this.started = false
       setTimeout(() => this.start(), 10 * 10000) // auto retry
@@ -83,6 +85,7 @@ class BackgroundTracking {
   stop() {
     this.started = false
     BackgroundGeolocation.removeAllListeners()
+    BackgroundGeolocation.stopSchedule();
     return BackgroundGeolocation.stop()
   }
   toggleDebug() {
@@ -112,9 +115,13 @@ class BackgroundTracking {
     this.appState = state
   }
 
-  // FIXME: POC tracking wfh
-  wfhTracking = () => {
-    const TEN_MIN = 10 * 60 * 1000;
+  onLocationTracking = () => { 
+    const FIFTEEN_MIN = 60 * 1000;
+    BackgroundGeolocation.setConfig({
+      heartbeatInterval: 60,
+      preventSuspend: true,
+    });
+
     const calculateDistance = async(latitude: number, longitude: number) => {
       const homeLocation = await AsyncStorage.getItem('HOME-LIST')
       const homes = homeLocation ? JSON.parse(homeLocation) : []
@@ -129,30 +136,44 @@ class BackgroundTracking {
       return isHome ? 'HOME' : isOffice ? 'OFFICE' : 'OTHER';
     }
 
+    // move
     BackgroundGeolocation.onLocation(async (location) => {
-      console.log("[onLocation] ", new Date().toISOString())
-      if (Date.now().valueOf() - this.latestKnownedLogs > TEN_MIN) {
-        this.latestKnownedLogs = Date.now().valueOf()
-        const log = await calculateDistance(location.coords.latitude, location.coords.longitude)
-        const logsString = await AsyncStorage.getItem('history-wfh')
-        const logs = logsString ? JSON.parse(logsString) : {}
-        const newLogs = { ...logs, [Date.now()]: log }
-        await AsyncStorage.setItem('history-wfh', JSON.stringify(newLogs))
-        console.log('[wfhTracking] history-wfh =====', newLogs)
+      console.log("[onLocation] ", new Date().toISOString());
+      if (Date.now().valueOf() - this.latestKnownedLogs > FIFTEEN_MIN) {
+        this.latestKnownedLogs = Date.now().valueOf();
+        const log = await calculateDistance(location.coords.latitude, location.coords.longitude);
+        const logsString = await AsyncStorage.getItem('history-wfh');
+        const logs = logsString ? JSON.parse(logsString) : {};
+        const newLogs = { ...logs, [Date.now()]: log };
+        await AsyncStorage.setItem('history-wfh', JSON.stringify(newLogs));
+        console.log('[wfhTracking] history-wfh =====', newLogs);
+      }
+
+      if (Date.now().valueOf() - this.latestKnownedSummary > 60 * 60 * 1000) {
+        this.latestKnownedSummary = Date.now().valueOf();
+        // summary data
+        // remove summary old data
       }
     });
 
+    // สงบ นิ่ง
     BackgroundGeolocation.onHeartbeat(async (event) => {
-      console.log("[onHeartbeat] ", new Date().toISOString())
-      if (Date.now().valueOf() - this.latestKnownedLogs > TEN_MIN) {
-        this.latestKnownedLogs = Date.now().valueOf()
-        const log = await calculateDistance(event.location.coords.latitude, event.location.coords.longitude)
-        const logsString = await AsyncStorage.getItem('history-wfh')
-        const logs = logsString ? JSON.parse(logsString) : {}
-        const newLogs = { ...logs, [Date.now()]: log }
-        await AsyncStorage.setItem('history-wfh', JSON.stringify(newLogs))
-        console.log('[wfhTracking] history-wfh =====', newLogs)
+      console.log("[onHeartbeat] ", new Date().toISOString());
+      if (Date.now().valueOf() - this.latestKnownedLogs > FIFTEEN_MIN) {
+        this.latestKnownedLogs = Date.now().valueOf();
+        const log = await calculateDistance(event.location.coords.latitude, event.location.coords.longitude);
+        const logsString = await AsyncStorage.getItem('history-wfh');
+        const logs = logsString ? JSON.parse(logsString) : {};
+        const newLogs = { ...logs, [Date.now()]: log };
+        await AsyncStorage.setItem('history-wfh', JSON.stringify(newLogs));
+        console.log('[wfhTracking] history-wfh =====', newLogs);
       }
+    });
+
+    // Listen to #onSchedule events:
+    BackgroundGeolocation.onSchedule((state) => {
+      let enabled = state.enabled;
+      console.log("[onSchedule] - enabled? ", enabled, new Date().toISOString());
     });
   }
 }
