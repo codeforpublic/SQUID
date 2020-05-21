@@ -19,6 +19,7 @@ import { LocationReport } from './3-MainApp/LocationReport'
 import { WebviewScreen } from './Webview'
 import { ChangeLanguageScreen } from './ChangeLanguage'
 import { SetLocationStack } from './5-SetLocation/SetLocationStack'
+import { LocationReport } from './3-MainApp/LocationReport'
 
 const Root = ({ navigation }) => {
   useEffect(() => {
