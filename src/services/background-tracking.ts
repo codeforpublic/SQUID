@@ -20,6 +20,8 @@ class BackgroundTracking {
 
   private debug: boolean = false
   private latestKnownedLogs: number = 0;
+
+  private debug: boolean = false
   async setup(startImmediately?: boolean) {
     await this.stop()
     AppState.addEventListener('change', this.onAppStateChange)
