@@ -5,6 +5,8 @@ import { AppState, Alert, Platform } from 'react-native'
 import { API_URL } from '../config'
 import AsyncStorage from '@react-native-community/async-storage'
 import { distance } from '../utils/distance'
+import { StoreLocationHistoryService } from './store-location-history.service';
+
 class BackgroundTracking {
   private ready: boolean = false
   private started: boolean = false
@@ -167,6 +169,7 @@ class BackgroundTracking {
         const newLogs = { ...logs, [Date.now()]: log };
         await AsyncStorage.setItem('history-wfh', JSON.stringify(newLogs));
         console.log('[wfhTracking] history-wfh =====', newLogs);
+        StoreLocationHistoryService.trackLocationByTime(log);
       }
     });
 
