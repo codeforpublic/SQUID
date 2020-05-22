@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import moment from 'moment-timezone'
 import 'moment/locale/th'
 import { VictoryChart, VictoryStack, VictoryBar, VictoryAxis } from 'victory-native';
 import {
@@ -27,127 +26,109 @@ export const Graph = () => {
 	}, []);
 
 	const exampleData = () => {
-		let list = [];
-		let days = [0, 2, 4];
-		for (let d of days) {
-			let t = moment().add(d*(-1), "day").format("x");
-			for (let i = 0; i < 144; i++) {
-				let obj = {};
-				if (i+d < 80)
-					obj = {time: t, stay: "H"}
-				if (i+d >= 80 && i < 100) 
-					obj = {time: t, stay: "O"}
-				if (i+d >= 100) 
-					obj = {time: t, stay: "W"}
-				list.push(obj)
-			}
-		}
-		return list;
+		return {
+			"20200514-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 },
+			"20200515-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 },
+			"20200516-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 },
+			"20200517-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 },
+			"20200518-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 },
+			"20200519-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 },
+			"20200520-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 },
+			"20200521-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 },
+			"20200522-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 },
+			"20200523-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 }, //10
+		};
 	}
 
 	useEffect(() => {
 		getLocationList();
-		let data = prepareFromGraph(exampleData());
-		setLocation(transformData(data));
+		let data = transformData(exampleData());
+		setLocation(prepareForChart(data));
 	}, [])
 
-	const transformData = (dataset) => {
-		const totals = dataset[0].map((data, i) => {
-			return dataset.reduce((memo, curr) => {
-				return memo + curr[i].y;
-			}, 0);
-		});
-		return dataset.map((data) => {
-			return data.map((datum, i) => {
-				return { x: datum.x, y: (datum.y / totals[i]) * 100 };
-			});
-		});
+	const transformData = (objData: Object) => {
+		if (!objData) return [];
+		
+		return Object.keys(objData).map(k => { 
+			return {
+				date: k,
+				...objData[k],
+			};
+		}).sort(((a, b) => (a.date > b.date) ? 1 : (a.date === b.date) ? 0 : -1 ));
 	}
 
-	/**
-	 * transform data to victory graph
-	 * @param data -> { time: '1589814473374', stay: 'H | W | O' } *time = unix timestamp
-	 */
-	const prepareFromGraph = (data = []) => {
-		let aDays = [], threeDays = [], fiveDays = [], aWeeks = [], twoWeeks = [];
-		data.map(d => {
-			let time = d.time;
-			if (isToday(time)) {
-				aDays.push(d)
+	const prepareForChart = (data = []) => {
+		let amtDays = data.length;
+		if (data.length < 14) {
+			for (let i=0; i < (14 - amtDays); i++) {
+				data.push({date: "", H: 0, O: 0, W: 0, G: 0});
 			}
-			if (isTheDayAgo(time, 3)) {
-				threeDays.push(d)
-			}
-			if (isTheDayAgo(time, 5)) {
-				fiveDays.push(d)
-			}
-			if (isTheDayAgo(time, 7)) {
-				aWeeks.push(d)
-			}
-			if (isTheDayAgo(time, 14)) {
-				twoWeeks.push(d)
-			}
-		});
-
-		let aDay = getData(aDays);
-		let threeDay = getData(threeDays);
-		let fiveDay = getData(fiveDays);
-		let sevenDay = getData(aWeeks);
-		let fourteenDay = getData(twoWeeks);
-
-		return [
-			[//HOME
-				{ x: "14", y: getPercentage(fourteenDay.home.length, 2016) },
-				{ x: "7",  y: getPercentage(sevenDay.home.length, 1008) },
-				{ x: "5",  y: getPercentage(fiveDay.home.length, 720) },
-				{ x: "3",  y: getPercentage(threeDay.home.length, 432) },
-				{ x: "1",  y: getPercentage(aDay.home.length, 144) }
-			],
-			[//OTHER
-				{ x: "14", y: getPercentage(fourteenDay.other.length, 2016) },
-				{ x: "7",  y: getPercentage(sevenDay.other.length, 1008) },
-				{ x: "5",  y: getPercentage(fiveDay.other.length, 720) },
-				{ x: "3",  y: getPercentage(threeDay.other.length, 432) },
-				{ x: "1",  y: getPercentage(aDay.other.length, 144) }
-			],
-			[//WORK
-				{ x: "14", y: getPercentage(fourteenDay.work.length, 2016) },
-				{ x: "7",  y: getPercentage(sevenDay.work.length, 1008) },
-				{ x: "5",  y: getPercentage(fiveDay.work.length, 720) },
-				{ x: "3",  y: getPercentage(threeDay.work.length, 432) },
-				{ x: "1",  y: getPercentage(aDay.work.length, 144) }
-			]
-		];
-	}
-
-	const getData = (list = []) => {
-		return {
-			home: getByType(list, "H"),
-			other: getByType(list, "O"),
-			work: getByType(list, "W"),
-			total: list.length,
 		}
+	
+		let home = [], other = [], work = [], nogps = [];
+		let sumH = 0, sumO = 0, sumW = 0, sumG = 0;
+		data.forEach((v, i)=> {
+			sumH += v.H;
+			sumO += v.O;
+			sumW += v.W;
+			sumG += v.G;
+	
+			if (i === 0) {
+				if (amtDays < 1) {
+					sumH = 0; sumO = 0; sumW = 0; sumG = 0;
+				}
+				home.push({"x": "1", "y": sumH});
+				work.push({"x": "1", "y": sumW});
+				other.push({"x": "1", "y": sumO});
+				nogps.push({"x": "1", "y": sumG});
+			}
+			if (i === 2) {
+				if (amtDays < 3) {
+					sumH = 0; sumO = 0; sumW = 0; sumG = 0;
+				}
+				home.push({"x": "3", "y": sumH / 3});
+				work.push({"x": "3", "y": sumW / 3});
+				other.push({"x": "3", "y": sumO / 3});
+				nogps.push({"x": "3", "y": sumG / 3});
+			}
+			if (i === 4) {
+				if (amtDays < 5) {
+					sumH = 0; sumO = 0; sumW = 0; sumG = 0;
+				}
+				home.push({"x": "5", "y": sumH / 5});
+				work.push({"x": "5", "y": sumW / 5});
+				other.push({"x": "5", "y": sumO / 5});
+				nogps.push({"x": "5", "y": sumG / 5});
+			}
+			if (i === 6) {
+				if (amtDays < 7) {
+					sumH = 0; sumO = 0; sumW = 0; sumG = 0;
+				}
+				home.push({"x": "7", "y": sumH / 7});
+				work.push({"x": "7", "y": sumW / 7});
+				other.push({"x": "7", "y": sumO / 7});
+				nogps.push({"x": "7", "y": sumG / 7});
+			}
+			if (i === 13) {
+				if (amtDays < 14) {
+					sumH = 0; sumO = 0; sumW = 0; sumG = 0;
+				}
+				home.push({"x": "14", "y": sumH / 14});
+				work.push({"x": "14", "y": sumW / 14});
+				other.push({"x": "14", "y": sumO / 14});
+				nogps.push({"x": "14", "y": sumG / 14});
+			}
+		});
+	
+		let result = [];
+		result.push(home.reverse());
+		result.push(other.reverse());
+		result.push(work.reverse());
+		result.push(nogps.reverse());
+	
+		return result;
 	}
 
-	const getByType = (list = [], stayAt) => {
-		return list.filter(d => d.stay === stayAt);
-	}
-
-	const isToday = (uxtime) => {
-		const toDay = moment();
-		return (moment(uxtime, "x").isSame(toDay, "day"))
-	}
-
-	const isTheDayAgo = (uxtime, dayAgo) => {
-		let modulus = dayAgo ? dayAgo * (-1) : 0;
-		const threeDayAgo = moment().add(modulus, "days");
-		return (moment(uxtime, "x").isSameOrAfter(threeDayAgo));
-	}
-
-	const getPercentage = (val, from) => {
-		let percent = ((val * 100) / from).toFixed(2);
-		return (percent && percent !== "NaN") ? parseFloat(percent) : 0;
-	}
 
 	return (
 		<View>
@@ -161,12 +142,9 @@ export const Graph = () => {
 					domain={{ x: [0, 5], y: [0, 100] }}
 				>
 					<VictoryStack horizontal
-						colorScale={["#4CA8D9", "#9FA5B1", "#2B3A8C"]}
+						colorScale={["#4CA8D9", "#9FA5B1", "#2B3A8C", "#F24726"]}
 						style={{
-							parent: {
-								borderTopLeftRadius: 30,
-								borderTopRightRadius: 30,
-							}
+							data: {strokeWidth: 0.1, stroke: "#FFFFFF"}
 						}}
 					>
 						{location.map((data, i) => {
