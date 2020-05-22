@@ -48,7 +48,7 @@ export const Graph = () => {
 
 	const transformData = (objData: Object) => {
 		if (!objData) return [];
-		
+
 		return Object.keys(objData).map(k => { 
 			return {
 				date: k,
@@ -144,23 +144,28 @@ export const Graph = () => {
 					<VictoryStack horizontal
 						colorScale={["#4CA8D9", "#9FA5B1", "#2B3A8C", "#F24726"]}
 						style={{
-							data: {strokeWidth: 0.1, stroke: "#FFFFFF"}
+							data: { stroke: "#FFFFFF"}
 						}}
 					>
 						{location.map((data, i) => {
-							return <VictoryBar data={data} key={i} />;
+							let rd = {};
+							if (i===0) rd = {bottom: 2};
+							if (i===3) rd = {top: 2};
+							return <VictoryBar
+								cornerRadius={ rd }
+								data={data} key={i} />;
 						})}
 					</VictoryStack>
 
 					<VictoryAxis dependentAxis
 						style={{
-							axis: { stroke: "none", display: "none" }
+							axis: { stroke: "none", display: "none", strokeWidth: "10" }
 						}}
 						tickFormat={[]}
 					/>
 					<VictoryAxis
 						style={{
-							axis: { stroke: "none", display: "none" }
+							axis: { stroke: "none", display: "none", strokeWidth: "10" }
 						}}
 						tickFormat={["14 วัน", "7 วัน", "5 วัน", "3 วัน", "1 วัน"]}
 					/>
