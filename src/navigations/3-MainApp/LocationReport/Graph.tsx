@@ -10,10 +10,11 @@ import { LocationCount } from './LocationCount';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const Graph = () => {
-	const [location, setLocation] = useState([])
+	const [location, setLocation] = useState([]);
 
-	const [homes, setHomeList] = useState([])
-	const [offices, setOfficeList] = useState([])
+	const [homes, setHomeList] = useState([]);
+	const [offices, setOfficeList] = useState([]);
+	const [locationTwoWeek, setLocationTwoWeek] = useState([]);
 
 	const getLocationList = useCallback(async () => {
 		const homeLocation = await AsyncStorage.getItem('HOME-LIST');
@@ -23,26 +24,29 @@ export const Graph = () => {
 		const officeLocation = await AsyncStorage.getItem('OFFICE-LIST');
 		const offices = officeLocation ? JSON.parse(officeLocation) : [];
 		setOfficeList(offices);
+
+		const wfhTwoWeek = await AsyncStorage.getItem('wfh-two-weeks');
+		const locationTwoWeek = wfhTwoWeek ? JSON.parse(wfhTwoWeek) : {};
+		setLocationTwoWeek(locationTwoWeek);
 	}, []);
 
 	const exampleData = () => {
 		return {
-			"20200514-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 },
+			"20200514-00:00": { "H": 20, "O": 20, "W": 40, "G": 20 },
 			"20200515-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 },
-			"20200516-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 },
-			"20200517-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 },
-			"20200518-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 },
+			"20200516-00:00": { "H": 0, "O": 80, "W": 0, "G": 20 },
+			"20200517-00:00": { "H": 0, "O": 50, "W": 0, "G": 50 },
+			"20200518-00:00": { "H": 50, "O": 0, "W": 0, "G": 50 },
 			"20200519-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 },
-			"20200520-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 },
-			"20200521-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 },
-			"20200522-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 },
-			"20200523-00:00": { "H": 20, "O": 10, "W": 50, "G": 20 }, //10
+			"20200520-00:00": { "H": 20, "O": 20, "W": 40, "G": 20 },
 		};
 	}
 
 	useEffect(() => {
 		getLocationList();
-		let data = transformData(exampleData());
+		
+		// let data = transformData(exampleData());
+		let data = transformData(locationTwoWeek);
 		setLocation(prepareForChart(data));
 	}, [])
 
