@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-community/async-storage";
+import moment from "moment";
 
 export class StoreLocationHistoryService {
 
@@ -34,6 +35,41 @@ export class StoreLocationHistoryService {
     transformed.forEach((element) => newObj[element.key] = element.value);
 
     await AsyncStorage.setItem(StoreLocationHistoryService.WFH_TWO_WEEKS, JSON.stringify(newObj));
+  }
+
+  /***
+   * Summarize data hourly
+   * ex.https://jsbin.com/paxelozixo/2/edit?js,console
+   */
+  public static async summaryHourly(data: {[key: string]: { H: number, O: number, W: number, G: number }}[]) {
+    const list = Object.keys(data);
+    const results = {};
+    for (let i = 0; i < list.length; i++) {
+      let homeValue = 0, otherValue = 0, workValue = 0, noGPS = 0;
+      const times = data[list[i]];
+      for (let j = 0; j < times.length; j++) {
+        const min = Object.keys(times[j])[0];
+        if (times[j][min] === 'HOME') {
+          homeValue++;
+        } else if (times[j][min] === 'WORK')  {
+          workValue++;
+        } else if (times[j][min] === 'OTHER')  {
+          otherValue++;
+        } else {
+          noGPS++;
+        }
+        const newKey = moment().add(Number(i), 'hour').format("YYYYMMDD-HH:00");
+        const PERCENT = 100;
+        results[newKey] = {
+          H: (homeValue/4) * PERCENT, 
+          O: (otherValue/4) * PERCENT, 
+          W: (workValue/4) * PERCENT, 
+          G: (noGPS/4) * PERCENT 
+        };
+      }
+    }
+    // should save results
+    console.log(results);
   }
 
 }
