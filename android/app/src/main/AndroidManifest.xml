@@ -1,98 +1,56 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.thaialert.app">
-
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <permission
-        android:name="com.thaialert.app.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-    <uses-permission android:name="com.thaialert.app.permission.C2D_MESSAGE" />
-    <!-- < Only if you're using GCM or localNotificationSchedule() > -->
-
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-
-
-    <!-- 2/3 [RELEASE:ADD] Add these in release -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove"/>
-
-    <!-- Required -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission-sdk-23 android:name="android.permission.CAMERA"/>
-    <uses-permission-sdk-23 android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-    <!-- Include this only if you are planning to use the camera roll -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
-    <!-- Include this only if you are planning to use the microphone for video recording -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <application
-      android:name=".MainApplication"
-      android:label="@string/app_name"
-      android:usesCleartextTraffic="true"
-      android:icon="@mipmap/ic_launcher"
-      android:allowBackup="true"
-      android:theme="@style/AppTheme"
-    >
-       <activity
-          android:name=".SplashActivity"
-          android:theme="@style/SplashTheme"
-          android:label="@string/app_name"
-          android:screenOrientation="portrait"
-          android:launchMode="singleTask"
-          >
-          <intent-filter>
-              <action android:name="android.intent.action.MAIN" />
-              <category android:name="android.intent.category.LAUNCHER" />
-          </intent-filter>
-           <intent-filter>
-               <action android:name="com.nuuneoi.lib.contacttracer.noti" />
-           </intent-filter>
-            <intent-filter android:label="filter_react_native">
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="morchana" android:host="app"/>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"
-        />
-      <!-- 3/3 [RELEASE:REMOVE] Remove for release
-      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-      -->
-
-      <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCINS2dyuBipK8MZzOQnzyKdrS2I1_b5I4"/>
-
-      <meta-data android:name="com.transistorsoft.locationmanager.license" android:value="47ab2c45c3db6e20a59e1f3d02b8d2ac8571b45e723610efbbdb601164cd2fa8" />
-      <meta-data android:name="com.transistorsoft.locationmanager.ENCRYPTION_PASSWORD" android:value="com.thaialert.app" />
-
-      <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_name"
-                android:value="Morchana"/>
-      <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_description"
-                  android:value="คุณจะได้รับการแจ้งเตือนทันที เมื่อคุณได้ไปใกล้ชิดกับคนที่มีความเสี่ยง"/>
-      <!-- Change the resource name to your App's accent color - or any other color you want -->
-      <meta-data  android:name="com.dieam.reactnativepushnotification.notification_color"
-                  android:resource="@android:color/white"/>
-
-      <service
-            android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-    </application>
-
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" package="com.thaialert.app">
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<permission android:name="com.thaialert.app.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+	<uses-permission android:name="com.thaialert.app.permission.C2D_MESSAGE" />
+	<!-- < Only if you're using GCM or localNotificationSchedule() > -->
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<!-- 2/3 [RELEASE:ADD] Add these in release -->
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove" />
+	<!-- Required -->
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-permission-sdk-23 android:name="android.permission.CAMERA" />
+	<uses-permission-sdk-23 android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<!-- Include this only if you are planning to use the camera roll -->
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<!-- Include this only if you are planning to use the microphone for video recording -->
+	<!-- <uses-permission android:name="android.permission.RECORD_AUDIO"/> -->
+	<uses-permission android:name="android.permission.INTERNET" />
+	<application android:name=".MainApplication" android:label="@string/app_name" android:usesCleartextTraffic="true" android:icon="@mipmap/ic_launcher" android:allowBackup="true" android:theme="@style/AppTheme">
+		<activity android:name=".SplashActivity" android:theme="@style/SplashTheme" android:label="@string/app_name" android:screenOrientation="portrait" android:launchMode="singleTask">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="com.nuuneoi.lib.contacttracer.noti" />
+			</intent-filter>
+			<intent-filter android:label="filter_react_native">
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="morchana" android:host="app" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".MainActivity" android:label="@string/app_name" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize" android:exported="true" android:screenOrientation="portrait" android:launchMode="singleTask" />
+		<!--
+		3/3 [RELEASE:REMOVE] Remove for release
+		<activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+		-->
+		<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCINS2dyuBipK8MZzOQnzyKdrS2I1_b5I4" />
+		<meta-data android:name="com.transistorsoft.locationmanager.license" android:value="47ab2c45c3db6e20a59e1f3d02b8d2ac8571b45e723610efbbdb601164cd2fa8" />
+		<meta-data android:name="com.transistorsoft.locationmanager.ENCRYPTION_PASSWORD" android:value="com.thaialert.app" />
+		<meta-data android:name="com.dieam.reactnativepushnotification.notification_channel_name" android:value="Morchana" />
+		<meta-data android:name="com.dieam.reactnativepushnotification.notification_channel_description" android:value="คุณจะได้รับการแจ้งเตือนทันที เมื่อคุณได้ไปใกล้ชิดกับคนที่มีความเสี่ยง" />
+		<!-- Change the resource name to your App's accent color - or any other color you want -->
+		<meta-data android:name="com.dieam.reactnativepushnotification.notification_color" android:resource="@android:color/white" />
+		<service android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService" android:exported="false">
+			<intent-filter>
+				<action android:name="com.google.firebase.MESSAGING_EVENT" />
+			</intent-filter>
+		</service>
+	</application>
 </manifest>

@@ -49,4 +49,5 @@ ios/Pods/
 หมอชนะ.app.dSYM.zip
 appcenter-config.json
 AppCenter-Config.plist
-sentry.properties 
+sentry.properties
+google-services.json

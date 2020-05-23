@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "914417222955",
+    "firebase_url": "https://thaialert-23ebe.firebaseio.com",
+    "project_id": "thaialert-23ebe",
+    "storage_bucket": "thaialert-23ebe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:914417222955:android:3dc894ec6bccbc9c55716e",
+        "android_client_info": {
+          "package_name": "com.thaialert.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "914417222955-os46gtaa3nl1iv3svukerfhl5rv0u9v4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": ""
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "914417222955-os46gtaa3nl1iv3svukerfhl5rv0u9v4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "914417222955-pv28mc71e2kaemthhgtpbbcca1t5tkme.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.thaialert.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
