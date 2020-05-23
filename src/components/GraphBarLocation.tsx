@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState, } from 'react';
-import { VictoryChart, VictoryStack, VictoryBar, VictoryAxis } from 'victory-native';
+import { VictoryChart, VictoryStack, VictoryBar, VictoryAxis, VictoryLine, VictoryGroup } from 'victory-native';
 import { Dimensions } from 'react-native';
 
 interface Props {
@@ -24,28 +24,32 @@ const GraphBarLocation: FunctionComponent<Props> = (props) => {
   }, [])
 
   return (
-    <VictoryChart horizontal
+    <VictoryChart
       domain={{ x: [-5.5, 0], y: [0, 100] }}
       domainPadding={{ x: -1, y: domainPaddingY }}
       width={width}
     >
-      <VictoryStack horizontal
-        colorScale={["#4CA8D9", "#9FA5B1", "#eb4034", "#2B3A8C"]}
-        style={{
-          data: { strokeWidth: 5, }
-        }}
-      >
-        <VictoryBar
-          cornerRadius={{ bottom: 2 }}
-          data={[{ x: "a", y: 20 }]} />
-        <VictoryBar data={[{ x: "a", y: 20 }]} />
-        <VictoryBar data={[{ x: "a", y: 30 }]} />
-        <VictoryBar
-          cornerRadius={{ top: 2 }}
-          data={[{ x: "a", y: 30 }]}
-        />
-      </VictoryStack>
-      {/* <VictoryLine /> */}
+      <VictoryGroup
+        style={{ data: { width: 4 } }}
+        horizontal>
+        <VictoryStack horizontal
+          colorScale={["#4CA8D9", "#9FA5B1", "#eb4034", "#2B3A8C"]}
+          style={{
+            data: { strokeWidth: 5, }
+          }}
+        >
+          <VictoryBar
+            cornerRadius={{ bottom: 2 }}
+            data={[{ x: "a", y: 20 }]} />
+          <VictoryBar data={[{ x: "a", y: 20 }]} />
+          <VictoryBar data={[{ x: "a", y: 30 }]} />
+          <VictoryBar
+            cornerRadius={{ top: 2 }}
+            data={[{ x: "a", y: 30 }]}
+          />
+        </VictoryStack>
+      </VictoryGroup>
+
       <VictoryAxis dependentAxis
         style={{
           axis: { stroke: "none", display: "none", strokeWidth: "10" }
@@ -56,8 +60,43 @@ const GraphBarLocation: FunctionComponent<Props> = (props) => {
         style={{
           axis: { stroke: "none", display: "none", strokeWidth: "10" }
         }}
-        tickFormat={[]}
       />
+      <VictoryBar
+        style={{
+          data: {
+            fill: '#9FA1A2',
+            width: 25,
+          }
+        }}
+        data={[
+          { x: 1, y: 25, y0: 24.5 },
+          { x: 2, y: 25, y0: 24.5 },
+          { x: 3, y: 25, y0: 24.5 },
+        ]} />
+      <VictoryBar
+        style={{
+          data: {
+            fill: '#9FA1A2',
+            width: 25,
+          }
+        }}
+        data={[
+          { x: 1, y: 50, y0: 49.5 },
+          { x: 2, y: 50, y0: 49.5 },
+          { x: 3, y: 50, y0: 49.5 },
+        ]} />
+      <VictoryBar
+        style={{
+          data: {
+            fill: '#9FA1A2',
+            width: 25,
+          }
+        }}
+        data={[
+          { x: 1, y: 75, y0: 74.5 },
+          { x: 2, y: 75, y0: 74.5 },
+          { x: 3, y: 75, y0: 74.5 },
+        ]} />
     </VictoryChart>
 
   )

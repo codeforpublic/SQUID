@@ -9,6 +9,7 @@ import {
 import { LocationCount } from './LocationCount';
 import AsyncStorage from '@react-native-community/async-storage';
 import GraphBarLocation from '../../../components/GraphBarLocation';
+import { FONT_SIZES } from '../../../styles';
 
 const getGraphWidth = (): number => {
 	const width = Dimensions.get('window').width;
@@ -157,7 +158,7 @@ export const Graph = () => {
 						return (
 							<View style={styles.listGraphItem}>
 								<View>
-									<Text>{day}</Text>
+									<Text style={styles.listGraphLabel}>{day}</Text>
 								</View>
 								<View>
 									<GraphBarLocation width={graphWidth} />
@@ -192,7 +193,13 @@ const styles = StyleSheet.create({
 	listGraphItem: {
 		display: 'flex',
 		flexDirection: 'row',
-		height: 30,
+		height: 25,
 		justifyContent: 'flex-end',
+		alignItems: 'flex-start',
+	},
+	listGraphLabel: {
+		color: '#9FA1A2',
+		fontSize: FONT_SIZES[300],
+		marginTop: 3
 	}
 })
