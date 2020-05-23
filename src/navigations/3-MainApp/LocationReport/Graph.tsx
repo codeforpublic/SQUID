@@ -22,6 +22,14 @@ export const Graph = () => {
 	const [homes, setHomeList] = useState([]);
 	const [offices, setOfficeList] = useState([]);
 	const [locationTwoWeek, setLocationTwoWeek] = useState([]);
+
+	const [items, setItmes] = useState([
+		{ title: "1 วัน", length: 1, item: null },
+		{ title: "3 วัน", length: 3, item: null },
+		{ title: "5 วัน", length: 5, item: null },
+		{ title: "7 วัน", length: 7, item: null },
+		{ title: "14 วัน", length: 14, item: null },
+	]);
 	const [graphWidth,] = useState(getGraphWidth());
 
 
@@ -37,6 +45,11 @@ export const Graph = () => {
 		const wfhTwoWeek = await AsyncStorage.getItem('wfh-two-weeks');
 		const locationTwoWeek = wfhTwoWeek ? JSON.parse(wfhTwoWeek) : {};
 		setLocationTwoWeek(locationTwoWeek);
+
+
+
+
+
 	}, []);
 
 
@@ -154,14 +167,14 @@ export const Graph = () => {
 
 			<View style={styles.listGraphContainer}>
 				{
-					["1 วัน", "3 วัน", "5 วัน", "7 วัน", "14 วัน"].map((day) => {
+					items.map(({ title, item }) => {
 						return (
 							<View style={styles.listGraphItem}>
 								<View>
-									<Text style={styles.listGraphLabel}>{day}</Text>
+									<Text style={styles.listGraphLabel}>{title}</Text>
 								</View>
 								<View>
-									<GraphBarLocation width={graphWidth} />
+									{item ? <GraphBarLocation width={graphWidth} /> : <View style={{ width: graphWidth }} />}
 								</View>
 							</View>
 						)
