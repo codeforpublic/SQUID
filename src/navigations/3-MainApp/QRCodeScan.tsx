@@ -50,7 +50,7 @@ export const QRCodeScan = ({ navigation }) => {
           }}
           onRead={async e => {
             try {
-              if (e?.data?.startsWith('https://qr.thaichana.com')) {
+              if (e?.data?.startsWith('https://qr.thaichana.com/?appId')) {
                 const closeStr = 'closeBtn=true'
                 const uri = e?.data?.includes('?')? (e?.data + '&' + closeStr): (e?.data + '?' + closeStr)
                 navigation.navigate('Webview', {
