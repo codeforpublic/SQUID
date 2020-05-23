@@ -9,7 +9,7 @@ interface Props {
 
 const GraphBarLocation: FunctionComponent<Props> = (props) => {
 
-  const [width, setWidth] = useState(props.width);
+  const [width, setWidth] = useState(Dimensions.get('window').width);
   const [domainPaddingY, setDomainPaddingY] = useState<[number, number]>([0, 0]);
 
   useEffect(() => {
