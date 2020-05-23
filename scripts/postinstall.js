@@ -13,6 +13,12 @@ if (!fs.existsSync(__dirname + '/../ios/sentry.properties')) {
     __dirname + '/../ios/sentry.properties',
   )
 }
+if (!fs.existsSync(__dirname + '/../android/app/google-services.json')) {
+  fs.copyFileSync(
+    __dirname + '/../android/app/google-services.json.example',
+    __dirname + '/../android/app/google-services.json',
+  )
+}
 
 if (!fs.existsSync(__dirname + '/../.env')) {
   fs.copyFileSync(__dirname + '/../.env.dev', __dirname + '/../.env')
