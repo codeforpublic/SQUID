@@ -50,12 +50,16 @@ const GraphBarLocation: FunctionComponent<Props> = (props) => {
           }}
         >
           <VictoryBar
-            cornerRadius={{ bottom: 2 }}
+            cornerRadius={{ bottom: 2, top: other + gps + office ? 0 : 2 }}
             data={[{ x: "a", y: home }]} />
-          <VictoryBar data={[{ x: "a", y: other }]} />
-          <VictoryBar data={[{ x: "a", y: gps }]} />
           <VictoryBar
-            cornerRadius={{ top: 2 }}
+            cornerRadius={{ bottom: home ? 0 : 2, top: gps + office ? 0 : 2 }}
+            data={[{ x: "a", y: other }]} />
+          <VictoryBar
+            cornerRadius={{ bottom: home + other ? 0 : 2, top: office ? 0 : 2 }}
+            data={[{ x: "a", y: gps }]} />
+          <VictoryBar
+            cornerRadius={{ bottom: home + other + gps ? 0 : 2, top: 2 }}
             data={[{ x: "a", y: office }]}
           />
         </VictoryStack>
