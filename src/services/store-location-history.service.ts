@@ -4,6 +4,8 @@ import moment from "moment";
 export class StoreLocationHistoryService {
 
   public static HISTORY_TRACK_BY_HOUR_MINUTE = 'history-track-by-hour-each-minute';
+  public static WFH_TODAY = 'wfh-today';
+  public static WFH_YESTERDAY = 'wfh-yesterday';
   public static WFH_TWO_WEEKS = 'wfh-two-weeks';
 
   public static async trackLocationByTime(type) {
@@ -20,11 +22,16 @@ export class StoreLocationHistoryService {
   }
 
   /***
-   * Append service 2 weeks
-   * ex.https://jsbin.com/gogehenicu/5/edit?js,console
+   * Append service 
+   * WFH_TWO_WEEKS
+   * ex.https://jsbin.com/niwokokadi/edit?js,console
+   * 
+   * WFH_TODAY, WFH_YESTERDAY
+   * ex.https://jsbin.com/zorijidepu/edit?js,console
    */
-  public static async appendTrackLocation(date: string, last: { H: number, O: number, W: number, G: number }, limit = 14) {
-    const logStr = await AsyncStorage.getItem(StoreLocationHistoryService.WFH_TWO_WEEKS);
+  public static async appendTrackLocation(date: string, last: { H: number, O: number, W: number, G: number }, storageType: string) {
+    const limit = StoreLocationHistoryService.getLimitByType(storageType);
+    const logStr = await AsyncStorage.getItem(storageType);
     const data = logStr === null ? {} : JSON.parse(logStr);
     
     const toKeyValue = (element) => ({ key: element, value: data[element] });
@@ -34,7 +41,9 @@ export class StoreLocationHistoryService {
     const transformed = Object.keys(data).map(toKeyValue).sort(byOlderFirst).slice(-limit);
     transformed.forEach((element) => newObj[element.key] = element.value);
 
-    await AsyncStorage.setItem(StoreLocationHistoryService.WFH_TWO_WEEKS, JSON.stringify(newObj));
+    newObj[date] = last;
+
+    await AsyncStorage.setItem(storageType, JSON.stringify(newObj));
   }
 
   /***
@@ -61,10 +70,10 @@ export class StoreLocationHistoryService {
         const newKey = moment().add(Number(i), 'hour').format("YYYYMMDD-HH:00");
         const PERCENT = 100;
         results[newKey] = {
-          H: (homeValue/4) * PERCENT, 
-          O: (otherValue/4) * PERCENT, 
-          W: (workValue/4) * PERCENT, 
-          G: (noGPS/4) * PERCENT 
+          H: (homeValue/times.length) * PERCENT, 
+          O: (otherValue/times.length) * PERCENT, 
+          W: (workValue/times.length) * PERCENT, 
+          G: (noGPS/times.length) * PERCENT 
         };
       }
     }
@@ -72,4 +81,17 @@ export class StoreLocationHistoryService {
     console.log(results);
   }
 
+  private static getLimitByType(type) { 
+    switch (type) {
+      case StoreLocationHistoryService.WFH_TODAY:
+        return 24;
+      case StoreLocationHistoryService.WFH_YESTERDAY:
+        return 24;
+      case StoreLocationHistoryService.WFH_TWO_WEEKS:
+        return 14;    
+      default:
+        return 14;
+        break;
+    }
+  }
 }
