@@ -4,6 +4,8 @@ import moment from 'moment-timezone'
 import 'moment/locale/th'
 import AsyncStorage from '@react-native-community/async-storage'
 import _ from 'lodash'
+
+import I18n from '../../i18n/i18n';
 interface QRData {
   data: {
     anonymousId: string
@@ -246,12 +248,12 @@ export class QRResult extends QR {
 const resolveAge = (age: string) => {
   if (!age) return
   const mapAge = [
-    ['y', ' ปี'],
-    ['w', ' สัปดาห์'],
-    ['d', ' วัน'],
-    ['h', ' ชม.'],
-    ['m', ' นาที'],
-    ['s', ' วินาที'],
+    ['y', I18n.t('year')],
+    ['w', I18n.t('week')],
+    ['d', I18n.t('day')],
+    ['h', I18n.t('hour')],
+    ['m', I18n.t('minute')],
+    ['s', I18n.t('second')],
   ]
   return _.reduce(mapAge, (p, c) => {
     return p.replace(c[0], c[1])
@@ -279,10 +281,10 @@ const SCORES = {
   red: 30,
 }
 const LABELS = {
-  green: 'ความเสี่ยงต่ำมาก',
-  yellow: 'ความเสี่ยงน้อย',
-  orange: 'ความเสี่ยงปานกลาง',
-  red: 'ความเสี่ยงสูงมาก',
+  green: I18n.t('very_low_risk'),
+  yellow: I18n.t('low_risk'),
+  orange: I18n.t('medium_risk'),
+  red: I18n.t('high_risk'),
 }
 const CODE_MAP = {
   G: 'green',
@@ -290,12 +292,12 @@ const CODE_MAP = {
   O: 'orange',
   R: 'red',
 }
-const GEN_ACTION = 'ล้างมือ สวมหน้ากาก หลีกเลี่ยงที่แออัด'
+const GEN_ACTION = I18n.t('wash_hand_wear_mask_avoid_crowd')
 const SPEC_ACTIONS = {
-  YELLOW: 'อาจเป็นโรคอื่น ถ้า 2 วัน อาการไม่ดีขึ้นให้ไปพบแพทย์',
+  YELLOW: I18n.t('maybe_other_disease_2d_not_better_go_see_doc'),
   ORANGE:
-    'เนื่องจากท่านมีประวัติเดินทางจากพื้นที่เสี่ยง ให้กักตัว 14 วัน พร้อมเฝ้าระวังอาการ ถ้ามีอาการไข้ ร่วมกับ อาการระบบทางเดินหายใจ ให้ติดต่อสถานพยาบาลทันที',
-  RED: 'ให้ติดต่อสถานพยาบาลทันที',
+  I18n.t('went_to_risky_zone_quar_14d_observe_if_fever_respiratory_go_see_doc'),
+  RED: I18n.t('go_see_doc'),
 }
 
 type TagMeta = {

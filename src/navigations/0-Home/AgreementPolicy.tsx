@@ -9,6 +9,8 @@ import { FormHeader } from '../../components/Form/FormHeader'
 import { agreementText } from '../const'
 import { applicationState } from '../../state/app-state'
 
+import I18n from '../../../i18n/i18n';
+
 export const AgreementPolicy = () => {
   const navigation = useNavigation()
   return (
@@ -16,9 +18,9 @@ export const AgreementPolicy = () => {
       <StatusBar backgroundColor={'white'} barStyle="light-content" />
       <FormHeader>
         <View style={styles.header}>
-          <Text style={styles.title}>ข้อตกลงและเงื่อนไข</Text>
-          <Text style={styles.subtitle}>ก่อนการเริ่มต้นใช้งาน</Text>
-          <Text style={styles.subtitle}>กรุณายอมรับข้อตกลงและเงื่อนไข</Text>
+          <Text style={styles.title}>{I18n.t('term_and_conditions')}</Text>
+          <Text style={styles.subtitle}>{I18n.t('before_usage')}</Text>
+          <Text style={styles.subtitle}>{I18n.t('please_accept_terms')}</Text>
         </View>
       </FormHeader>
       <View style={styles.content}>
@@ -34,7 +36,7 @@ export const AgreementPolicy = () => {
         </ScrollView>
       </View>
       {/* <CheckBox
-        title="ฉันยอมรับข้อตกลงและเงื่อนไข"
+        title="ฉันยอมรับ{I18n.t('term_and_conditions')}"
         containerStyle={{
           backgroundColor: 'transparent',
           borderWidth: 0,
@@ -49,7 +51,7 @@ export const AgreementPolicy = () => {
       <View style={styles.footer}>
         <PrimaryButton
           // disabled={!agree}
-          title={'ยอมรับ'}
+          title={I18n.t('accept')}
           style={{ width: '100%' }}
           containerStyle={{ width: '100%', marginTop: normalize(16) }}
           onPress={() => {
@@ -59,7 +61,7 @@ export const AgreementPolicy = () => {
         />
         <Button
           type="outline"
-          title={'ปฎิเสธ'}
+          title={I18n.t('deny')}
           style={{ width: '100%' }}
           titleStyle={{
             fontFamily: FONT_MED,

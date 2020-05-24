@@ -20,6 +20,7 @@ import { Link } from '../../components/Base'
 import { applicationState } from '../../state/app-state'
 import { useResetTo } from '../../utils/navigation'
 import { FormHeader } from '../../components/Form/FormHeader'
+import I18n from '../../../i18n/i18n';
 
 export const AuthPhone = () => {
   const navigation = useNavigation()
@@ -39,8 +40,8 @@ export const AuthPhone = () => {
         <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
         <FormHeader onBack={onBack} backIcon={backIcon}>
           <View style={styles.header}>
-            <Text style={styles.title}>กรอกเบอร์โทรศัพท์</Text>
-            <Text style={styles.subtitle}>เพื่อยืนยันรหัสผ่านจาก SMS</Text>
+            <Text style={styles.title}>{I18n.t('pls_input_phone_no')}</Text>
+            <Text style={styles.subtitle}>{I18n.t('confirm_otp_from_sms')}</Text>
           </View>
         </FormHeader>
         <View style={styles.content}>
@@ -65,7 +66,7 @@ export const AuthPhone = () => {
               }}
               value={phone}
               autoFocus
-              placeholder="เบอร์โทรศัพท์ของคุณ"
+              placeholder={I18n.t('your_phone_no')}
               maxLength={12}
               keyboardType={'phone-pad'}
               style={{
@@ -80,7 +81,7 @@ export const AuthPhone = () => {
         <View style={styles.footer}>
           <PrimaryButton
             disabled={!isValidPhone}
-            title={'ถัดไป'}
+            title={I18n.t('next')}
             style={{ width: '100%' }}
             containerStyle={{ width: '100%' }}
             onPress={async () => {
@@ -95,7 +96,7 @@ export const AuthPhone = () => {
                 })
               } catch (err) {
                 console.log(err)
-                Alert.alert('เกิดข้อผิดพลาด')
+                Alert.alert(I18n.t('error'))
                 hide()
               }
             }}
@@ -115,7 +116,7 @@ export const AuthPhone = () => {
             style={{ marginTop: 8 }}
           >
             <Link style={{ fontSize: FONT_SIZES[500], color: '#576675', textDecorationLine: 'underline' }}>
-              ใช้งานแบบไม่ยืนยันตัวตน
+              {I18n.t('use_without_iden_confirm')}
             </Link>
           </TouchableOpacity>
         </View>

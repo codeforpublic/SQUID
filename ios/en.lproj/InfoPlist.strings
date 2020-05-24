@@ -1,0 +1,17 @@
+/* 
+  InfoPlist.strings
+  ThaiAlert
+
+  Created by PichayaJongkamanont on 20/5/2563 BE.
+  Copyright © 2563 Facebook. All rights reserved.
+*/
+NSBluetoothAlwaysUsageDescription = "To scan people around you and notify you if you get closed to people who has COVID-19 risk";
+NSBluetoothPeripheralUsageDescription = "To scan people around you and notify you if you get closed to people who has COVID-19 risk";
+NSCameraUsageDescription = "Required for Taking Picture in Identity Verification";
+NSLocationAlwaysAndWhenInUseUsageDescription = "To notify if you get closed to people or area with COVID-19 risk";
+NSLocationAlwaysUsageDescription = "To notify if you get closed to people or area with COVID-19 risk";
+NSLocationWhenInUseUsageDescription = "To notify if you get closed to people or area with COVID-19 risk";
+NSMotionUsageDescription = "To help tracking movement and reduce unneccessary data collection";
+NSPhotoLibraryUsageDescription = "To allow you to choose preferred picture to use";
+
+

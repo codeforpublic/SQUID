@@ -12,6 +12,8 @@ import { MainAppFaceCamera } from './MainAppFaceCamera'
 import { QRCodeScan } from './QRCodeScan'
 import { Settings } from './Settings'
 
+import I18n from '../../../i18n/i18n';
+
 const TabBarLabel = ({ title, focused }) => {
   return (
     <Text
@@ -33,7 +35,7 @@ export const MainAppTab = createBottomTabNavigator(
       screen: MainApp,
       navigationOptions: {
         tabBarLabel: ({ focused }) => (
-          <TabBarLabel title="ข้อมูล" focused={focused} />
+          <TabBarLabel title={I18n.t('data')} focused={focused} />
         ),
         tabBarIcon: ({ focused }) => (
           <Icon
@@ -48,7 +50,7 @@ export const MainAppTab = createBottomTabNavigator(
       screen: QRCodeScan,
       navigationOptions: {
         tabBarLabel: ({ focused }) => (
-          <TabBarLabel title="สแกน QR" focused={focused} />
+          <TabBarLabel title={I18n.t('scan_qr')} focused={focused} />
         ),
         tabBarIcon: ({ focused }) => (
           <AntIcon
@@ -63,7 +65,7 @@ export const MainAppTab = createBottomTabNavigator(
       screen: Settings,
       navigationOptions: {
         tabBarLabel: ({ focused }) => (
-          <TabBarLabel title="ตั้งค่า" focused={focused} />
+          <TabBarLabel title={I18n.t('settings')} focused={focused} />
         ),
         tabBarIcon: ({ focused }) => (
           <AntIcon

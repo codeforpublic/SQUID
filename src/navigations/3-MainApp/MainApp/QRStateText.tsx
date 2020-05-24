@@ -11,6 +11,8 @@ import { QR_STATE } from '../../../state/qr'
 import { useNavigation } from 'react-navigation-hooks'
 import { useResetTo } from '../../../utils/navigation'
 
+import I18n from '../../../../i18n/i18n';
+
 export const QRStateText = ({
   qrState,
   refreshQR,
@@ -29,13 +31,13 @@ export const QRStateText = ({
           onPress={refreshQR}
           style={[styles.qrOverlay, { borderColor: COLORS.RED }]}
         >
-          <Text style={[styles.title, { color: COLORS.RED }]}>ไม่สามารถสร้าง QR ได้</Text>
+          <Text style={[styles.title, { color: COLORS.RED }]}>{I18n.t('can_not_generate_qr')}</Text>
           <Text
             style={styles.subtitle}
           >
-            เชื่อมต่ออินเทอร์เน็ตเพื่อสร้าง QR
+            {I18n.t('connect_internet_to_generate_qr')}
           </Text>
-          <Text style={styles.link}>ลองอีกครั้ง</Text>
+          <Text style={styles.link}>{I18n.t('try_again')}</Text>
         </TouchableOpacity>
       )
     case QR_STATE.LOADING:
@@ -52,10 +54,10 @@ export const QRStateText = ({
           style={[styles.qrOverlay, { borderColor: COLORS.RED }]}
         >
           <Text style={[styles.title, { color: COLORS.RED }]}>
-            QR หมดอายุแล้ว
+            {I18n.t('qr_expired')}
           </Text>
-          <Text style={styles.subtitle}>เชื่อมต่ออินเทอร์เน็ตเพื่ออัปเดต</Text>
-          <Text style={styles.link}>ลองอีกครั้ง</Text>
+          <Text style={styles.subtitle}>{I18n.t('connect_internet_to_update')}</Text>
+          <Text style={styles.link}>{I18n.t('try_again')}</Text>
         </TouchableOpacity>
       )
     case QR_STATE.NOT_VERIFIED:
@@ -74,9 +76,9 @@ export const QRStateText = ({
           style={styles.qrOverlay}
         >
           <View>
-            <Text style={styles.title}>ยืนยันเบอร์โทรศัพท์</Text>
-            <Text style={styles.subtitle}>สำหรับนำ QR Code ไปใช้ check-in</Text>
-            <Text style={styles.link}>กดเพื่อยืนยัน</Text>
+            <Text style={styles.title}>{I18n.t('confirm_phone_no')}</Text>
+            <Text style={styles.subtitle}>{I18n.t('for_checking_in_with_qr')}</Text>
+            <Text style={styles.link}>{I18n.t('press_to_confirm')}</Text>
           </View>
         </TouchableOpacity>
       )

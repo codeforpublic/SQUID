@@ -19,6 +19,8 @@ import { useResetTo } from '../../utils/navigation'
 import { isSmallDevice } from '../../utils/responsive'
 import { Button } from 'react-native-elements'
 
+import I18n from '../../../i18n/i18n';
+
 const Container = styled(View)({
   backgroundColor: '#00A0D7',
   height: '100%',
@@ -40,10 +42,10 @@ const Card = styled.View`
 `
 
 const risks = [
-  { text: 'ต่ำมาก', color: COLORS.GREEN },
-  { text: 'ต่ำ', color: COLORS.YELLOW },
-  { text: Dimensions.get('window').width < 360? 'กลาง': 'ปานกลาง', color: COLORS.ORANGE },
-  { text: 'สูงมาก', color: COLORS.RED },
+  { text: I18n.t('very_low'), color: COLORS.GREEN },
+  { text: I18n.t('low'), color: COLORS.YELLOW },
+  { text: Dimensions.get('window').width < 360? I18n.t('medium'): I18n.t('med_panklang'), color: COLORS.ORANGE },
+  { text: I18n.t('very_high'), color: COLORS.RED },
 ]
 
 const RiskLevel = ({ level }) => {
@@ -137,7 +139,7 @@ export const QuestionaireSummary = ({ navigation }) => {
                 color: 'black',
               }}
             >
-              หมอจะให้ QR Code
+              {I18n.t('doc_will_give_u_qr')}
             </Text>
             <Text
               style={{
@@ -146,7 +148,7 @@ export const QuestionaireSummary = ({ navigation }) => {
                 color: 'black',
               }}
             >
-              สำหรับตรวจสอบความเสี่ยง
+              {I18n.t('for_risk_assessment')}
             </Text>
             <Text
               style={{
@@ -157,7 +159,7 @@ export const QuestionaireSummary = ({ navigation }) => {
                 color: '#576675',
               }}
             >
-              ระดับความเสี่ยง
+              {I18n.t('risk_level')}
             </Text>
             <RiskLevel level={qrData.getLevel()} />
             <View
@@ -167,7 +169,7 @@ export const QuestionaireSummary = ({ navigation }) => {
               }}
             >
               <PrimaryButton
-                title={'รับ QR Code'}
+                title={I18n.t('receive_qr_code')}
                 style={{
                   width: '100%',
                 }}
@@ -179,7 +181,7 @@ export const QuestionaireSummary = ({ navigation }) => {
                 }}
               />
               <Button
-                title={'ทำแบบประเมินตนเองอีกครั้ง'}
+                title={I18n.t('do_questionaire_again')}
                 style={{
                   width: '100%',
                 }}
