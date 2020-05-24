@@ -113,7 +113,7 @@ class QR {
     return SCORES[this.code]
   }
   getLabel() {
-    return LABELS[this.code]
+    return getLabel(this.code)
   }
 }
 
@@ -280,24 +280,19 @@ const SCORES = {
   orange: 50,
   red: 30,
 }
-const LABELS = {
-  green: I18n.t('very_low_risk'),
-  yellow: I18n.t('low_risk'),
-  orange: I18n.t('medium_risk'),
-  red: I18n.t('high_risk'),
+const getLabel = code => {
+  return {
+    green: I18n.t('very_low_risk'),
+    yellow: I18n.t('low_risk'),
+    orange: I18n.t('medium_risk'),
+    red: I18n.t('high_risk'),
+  }[code]
 }
 const CODE_MAP = {
   G: 'green',
   Y: 'yellow',
   O: 'orange',
   R: 'red',
-}
-const GEN_ACTION = I18n.t('wash_hand_wear_mask_avoid_crowd')
-const SPEC_ACTIONS = {
-  YELLOW: I18n.t('maybe_other_disease_2d_not_better_go_see_doc'),
-  ORANGE:
-  I18n.t('went_to_risky_zone_quar_14d_observe_if_fever_respiratory_go_see_doc'),
-  RED: I18n.t('go_see_doc'),
 }
 
 type TagMeta = {
