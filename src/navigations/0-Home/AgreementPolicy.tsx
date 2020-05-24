@@ -3,13 +3,19 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar, View, Text, StyleSheet, ScrollView } from 'react-native'
 import { PrimaryButton } from '../../components/Button'
 import { useNavigation } from 'react-navigation-hooks'
-import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD, FONT_MED } from '../../styles'
+import {
+  COLORS,
+  FONT_FAMILY,
+  FONT_SIZES,
+  FONT_BOLD,
+  FONT_MED,
+} from '../../styles'
 import { normalize, Button } from 'react-native-elements'
 import { FormHeader } from '../../components/Form/FormHeader'
-import { agreementText } from '../const'
+import { getAgreementText } from '../const'
 import { applicationState } from '../../state/app-state'
 
-import I18n from '../../../i18n/i18n';
+import I18n from '../../../i18n/i18n'
 
 export const AgreementPolicy = () => {
   const navigation = useNavigation()
@@ -31,7 +37,7 @@ export const AgreementPolicy = () => {
           }}
         >
           <View style={{ paddingHorizontal: 24 }}>
-            <Text style={styles.agreement}>{agreementText} </Text>
+            <Text style={styles.agreement}>{getAgreementText()} </Text>
           </View>
         </ScrollView>
       </View>

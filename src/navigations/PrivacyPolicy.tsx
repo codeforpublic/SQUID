@@ -7,9 +7,9 @@ import { useNavigation } from 'react-navigation-hooks'
 import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../styles'
 import { CheckBox, normalize } from 'react-native-elements'
 import { FormHeader } from '../components/Form/FormHeader'
-import { agreementText } from './const'
+import { getAgreementText } from './const'
 
-import I18n from '../../i18n/i18n';
+import I18n from '../../i18n/i18n'
 
 export const PrivacyPolicy = () => {
   const navigation = useNavigation()
@@ -36,13 +36,13 @@ export const PrivacyPolicy = () => {
           }}
         >
           <View style={{ padding: 16 }}>
-            <Text style={styles.agreement}>{agreementText} </Text>
+            <Text style={styles.agreement}>{getAgreementText()} </Text>
           </View>
         </ScrollView>
       </View>
       <View style={styles.footer}>
-          <PrimaryButton
-            title={I18n.t('close')}
+        <PrimaryButton
+          title={I18n.t('close')}
           style={{ width: '100%' }}
           containerStyle={{ width: '100%' }}
           onPress={() => {
@@ -55,7 +55,6 @@ export const PrivacyPolicy = () => {
 }
 
 const padding = normalize(16)
-
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: 'white' },

@@ -1,5 +1,5 @@
 import styled from '@emotion/native'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, useMemo } from 'react'
 import { Dimensions, ScrollView, StatusBar, StyleSheet, Text, View, BackHandler } from 'react-native'
 import { useSafeArea } from 'react-native-safe-area-context'
 import { useIsFocused } from 'react-navigation-hooks'
@@ -11,7 +11,7 @@ import { useHUD } from '../../HudView'
 import { Button, normalize } from 'react-native-elements'
 import { applicationState } from '../../state/app-state'
 import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../styles'
-import { dataInputTable } from './form-input'
+import { getDataInputTable } from './form-input'
 
 import I18n from '../../../i18n/i18n';
 
@@ -113,7 +113,7 @@ export const QuestionaireForm = ({ navigation }) => {
   const inset = useSafeArea()
   const [index, setIndex] = useState(0)
   const isFocused = useIsFocused()
-
+  const dataInputTable = useMemo(() => getDataInputTable(), [])
   const di = dataInputTable[index]
   const value = formValue[di.id]
 

@@ -12,14 +12,13 @@ import { applicationState } from '../../state/app-state'
 import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
 import { useResetTo } from '../../utils/navigation'
 
-import I18n from '../../../i18n/i18n';
-
-const STRING = {
-  TITLE: I18n.t('in_progress'),
-  SUB_TITLE: I18n.t('please_wait'),
-}
+import I18n from '../../../i18n/i18n'
 
 export const OnboardProgressing = () => {
+  const STRING = {
+    TITLE: I18n.t('in_progress'),
+    SUB_TITLE: I18n.t('please_wait'),
+  }
   const navigation = useNavigation()
   const resetTo = useResetTo()
   useEffect(() => {
