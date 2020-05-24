@@ -75,6 +75,8 @@ post_install do |installer|
   pod 'GoogleMaps'
   pod 'Google-Maps-iOS-Utils'
   
+  pod 'react-native-background-timer', :path => '../node_modules/react-native-background-timer'
+
 end
 
 post_install do |installer|
