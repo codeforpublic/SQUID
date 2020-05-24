@@ -9,6 +9,7 @@ export enum LOCATION_TYPE {
 export class StoreLocationHistoryService {
 
   public static HOUR_FORMAT = 'YYYYMMDD-HH:00';
+  public static DAY_FORMAT = 'YYYYMMDD-00:00';
 
   // 15 minute
   public static HISTORY_TRACK_BY_HOUR_MINUTE = 'history-track-by-hour-each-minute';
@@ -61,13 +62,15 @@ export class StoreLocationHistoryService {
     // 15 minute
     await this.summaryHourly(data ? JSON.parse(data) : {});
     // today by hour
-    await this.appendTrackLocation(dateByHour, {G:0,H:0,O:25, W:75}, this.WFH_TODAY);
+    await this.appendTrackLocation(dateByHour, { G: 0, H: 0, O: 25, W: 75 }, this.WFH_TODAY);
 
     // clear data;
     // 15 minute
     await this.clearDataTrackTodayHour();
     // move data from yester
     await this.moveDataFromYesterday();
+    // append data yester day to 2weeks
+    await this.summaryYesterdayForAppend();
   }
 
 
@@ -131,6 +134,40 @@ export class StoreLocationHistoryService {
     }
     data[hour].push({[date.valueOf()]: type});
     return await AsyncStorage.setItem(this.HISTORY_TRACK_BY_HOUR_MINUTE, JSON.stringify(data));
+  }
+
+  public static async summaryYesterdayForAppend() {
+    const date = moment().subtract(1, 'day');
+    const rawYesterday = await AsyncStorage.getItem(this.WFH_YESTERDAY);
+    const dataYesterday = rawYesterday ? JSON.parse(rawYesterday) : null;
+
+    const keyDataYesterday = Object.keys(dataYesterday);
+    if (keyDataYesterday.length < 24) {
+      return;
+    }
+
+    let latest = {
+      H: 0,
+      O: 0,
+      W: 0,
+      G: 0
+    };
+    
+    for (let i = 0; i < keyDataYesterday.length; i++) {
+      if (dataYesterday[keyDataYesterday[i]]) {
+        latest.H += dataYesterday[keyDataYesterday[i]].H;
+        latest.O += dataYesterday[keyDataYesterday[i]].O;
+        latest.W += dataYesterday[keyDataYesterday[i]].W;
+        latest.G += dataYesterday[keyDataYesterday[i]].G;
+      }
+    }
+
+    latest.H = latest.H / keyDataYesterday.length;
+    latest.O = latest.O / keyDataYesterday.length;
+    latest.W = latest.W / keyDataYesterday.length;
+    latest.G = latest.G / keyDataYesterday.length;
+
+    await this.appendTrackLocation(date.format(this.DAY_FORMAT), latest, this.WFH_TWO_WEEKS);
   }
 
   /***

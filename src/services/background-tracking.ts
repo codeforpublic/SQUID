@@ -14,7 +14,6 @@ class BackgroundTracking {
   private appState: string = 'active'
   private latestKnownedUpdated?: number
 
-  private latestKnownedSummary: number = 0
   private latestKnownedLogs: number = 0
 
   private debug: boolean = false
@@ -180,13 +179,6 @@ class BackgroundTracking {
         const logs = logsString ? JSON.parse(logsString) : {}
         const newLogs = { ...logs, [Date.now()]: log }
         await AsyncStorage.setItem('history-wfh', JSON.stringify(newLogs))
-        console.log('[wfhTracking] history-wfh =====', newLogs)
-      }
-      const ONE_HOUR = 60 * 60 * 1000
-      if (Date.now().valueOf() - this.latestKnownedSummary > ONE_HOUR) {
-        this.latestKnownedSummary = Date.now().valueOf()
-        // summary data
-        // remove summary old data
       }
     })
 
