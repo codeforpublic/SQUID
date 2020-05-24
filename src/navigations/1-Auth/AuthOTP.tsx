@@ -22,6 +22,8 @@ import { Link } from '../../components/Base'
 import { userPrivateData } from '../../state/userPrivateData'
 import { FormHeader } from '../../components/Form/FormHeader'
 
+import I18n from '../../../i18n/i18n';
+
 function formatPhoneNumber(phoneNumberString) {
   var cleaned = ('' + phoneNumberString).replace(/\D/g, '')
   var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/)
@@ -46,7 +48,7 @@ export const AuthOTP = () => {
     try {
       const bool = await mobileParing(mobileNumber.replace(/-/g, ''), otp)
       if (!bool) {
-        Alert.alert('รหัสผ่านไม่ถูกต้อง')
+        Alert.alert(I18n.t('wrong_pwd'))
         hide()
         return
       }
@@ -60,7 +62,7 @@ export const AuthOTP = () => {
     } catch (err) {
       console.log(err)
       hide()
-      Alert.alert('เกิดข้อผิดพลาด')
+      Alert.alert(I18n.t('error'))
     }
   }
   useEffect(() => {
@@ -74,7 +76,7 @@ export const AuthOTP = () => {
       await requestOTP(phone)
       hide()
     } catch (err) {
-      Alert.alert('เกิดข้อผิดพลาด')
+      Alert.alert(I18n.t('error'))
       hide()
     }
   }
@@ -90,9 +92,9 @@ export const AuthOTP = () => {
         <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
         <FormHeader onBack={onBack} backIcon={backIcon}>
           <View style={styles.header}>
-            <Text style={styles.title}>กรอกรหัสจาก SMS</Text>
+            <Text style={styles.title}>{I18n.t('enter_otp_from_sms')}</Text>
             <Text style={styles.subtitle}>
-              ส่งไปที่เบอร์ {formatPhoneNumber(mobileNumber)}
+              {I18n.t('send_to_phone_no')} {formatPhoneNumber(mobileNumber)}
             </Text>
           </View>
         </FormHeader>
@@ -133,7 +135,7 @@ export const AuthOTP = () => {
             }}
           >
             <AntIcon name="reload1" size={24} color={COLORS.BLACK_1} />
-            <Text style={styles.text}>ส่งรหัสใหม่</Text>
+            <Text style={styles.text}>{I18n.t('resend_the_code')}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.footer}>
@@ -141,7 +143,7 @@ export const AuthOTP = () => {
             disabled={otp.length !== 4}
             style={{ width: '100%' }}
             containerStyle={{ width: '100%' }}
-            title={'ถัดไป'}
+            title={I18n.t('next')}
             onPress={onSubmit}
           />
           <TouchableOpacity
@@ -159,7 +161,7 @@ export const AuthOTP = () => {
             }}
           >
             <Link style={{ color: '#576675', textDecorationLine: 'underline' }}>
-              ใช้งานแบบไม่ยืนยันตัวตน >
+              {I18n.t('use_without_iden_confirm')} >
             </Link>
           </TouchableOpacity>
         </View>

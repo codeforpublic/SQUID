@@ -12,6 +12,8 @@ import moment from 'moment-timezone'
 import 'moment/locale/th'
 import { QRResult } from '../../state/qr'
 
+import I18n from '../../../i18n/i18n';
+
 const Content = styled(View)({
   flex: 1,
   alignItems: 'center',
@@ -38,7 +40,7 @@ const RiskLabel = ({ label, color, style }) => {
       }}
     >
       <Image source={require('./risk_icon.png')} width={100} height={100} />
-      <Subtitle style={{ marginTop: 4 }}>ความเสี่ยง</Subtitle>
+      <Subtitle style={{ marginTop: 4 }}>{I18n.t('risk')}</Subtitle>
       <Title
         style={{
           fontWeight: '600',
@@ -65,7 +67,7 @@ export const QRCodeResult = ({
     <MyBackground variant="light">
       <SafeAreaView style={{ flex: 1 }}>
         <Header>
-          <Title>ผลลัพธ์การสแกน</Title>
+          <Title>{I18n.t('scan_result')}</Title>
         </Header>
         <Content>
           <CircularProgressAvatar
@@ -84,11 +86,11 @@ export const QRCodeResult = ({
         </Content>
         <Footer>
           <DateLabel>
-            ข้อมูลวันที่ {qrResult.getCreatedDate().format('D MMMM​')} พ.ศ.{' '}
+            {I18n.t('data_at')} {qrResult.getCreatedDate().format('D MMMM​')} {I18n.t('por_sor')}.{' '}
             {qrResult.getCreatedDate().year() + 543}
             {qrResult.getCreatedDate().format(' HH:mm น.')}
           </DateLabel>
-          <PrimaryButton title={'สแกนใหม่อีกครั้ง'} onPress={onRescan} />
+          <PrimaryButton title={I18n.t('scan_again')} onPress={onRescan} />
         </Footer>
       </SafeAreaView>
     </MyBackground>

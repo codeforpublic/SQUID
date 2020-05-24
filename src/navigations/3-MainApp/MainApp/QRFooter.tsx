@@ -7,10 +7,13 @@ import { Link } from '../../../components/Base'
 import { useNavigation } from 'react-navigation-hooks'
 import { userPrivateData } from '../../../state/userPrivateData'
 
+import I18n from '../../../../i18n/i18n';
+
+
 export const QRFooter = () => {
   const isRegistered = Boolean(userPrivateData.getData('authToken'))
   const navigation = useNavigation()
-  const date = moment().locale('th')
+  const date = moment().locale(I18n.currentLocale())
   const smallDevice = Dimensions.get('window').height < 600
 
   return (
@@ -33,7 +36,7 @@ export const QRFooter = () => {
               textDecorationLine: 'underline',
             }}
           >
-            ยืนยันตัวตนที่นี่
+            {I18n.t('verify_iden_here')}
           </Link>
         </TouchableOpacity>
       )}
@@ -52,7 +55,7 @@ export const QRFooter = () => {
               textAlign: 'right',
             }}
           >
-            ตรวจโดยแอปพลิเคชัน
+            {I18n.t('check_by_app')}
           </Text>
           <Text
             style={{
@@ -63,7 +66,7 @@ export const QRFooter = () => {
               textAlign: 'right',
             }}
           >
-            วันที่ {date.format('D MMMM​')} พ.ศ. {date.year() + 543}
+            {date.format('D MMMM​')} {date.year() + (I18n.currentLocale() == 'th' ? 543:0)}
           </Text>
         </View>
         <Image

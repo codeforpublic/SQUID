@@ -12,9 +12,11 @@ import { applicationState } from '../../state/app-state'
 import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
 import { useResetTo } from '../../utils/navigation'
 
+import I18n from '../../../i18n/i18n';
+
 const STRING = {
-  TITLE: 'กำลังดำเนินการ...',
-  SUB_TITLE: 'กรุณารอสักครู่',
+  TITLE: I18n.t('in_progress'),
+  SUB_TITLE: I18n.t('please_wait'),
 }
 
 export const OnboardProgressing = () => {

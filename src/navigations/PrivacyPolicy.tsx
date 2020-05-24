@@ -9,6 +9,8 @@ import { CheckBox, normalize } from 'react-native-elements'
 import { FormHeader } from '../components/Form/FormHeader'
 import { agreementText } from './const'
 
+import I18n from '../../i18n/i18n';
+
 export const PrivacyPolicy = () => {
   const navigation = useNavigation()
   const [agree, setAgree] = useState(false)
@@ -17,8 +19,8 @@ export const PrivacyPolicy = () => {
       <StatusBar backgroundColor={'white'} barStyle="dark-content" />
       <FormHeader backIcon="close">
         <View style={styles.header}>
-          <Text style={styles.title}>นโยบายความเป็นส่วนตัว </Text>
-          <Text style={styles.subtitle}>ในการใช้บริการ</Text>
+          <Text style={styles.title}>{I18n.t('privacy_policy')} </Text>
+          <Text style={styles.subtitle}>{I18n.t('for_using_service')}</Text>
         </View>
       </FormHeader>
       <View style={styles.content}>
@@ -39,8 +41,8 @@ export const PrivacyPolicy = () => {
         </ScrollView>
       </View>
       <View style={styles.footer}>
-        <PrimaryButton
-          title={'ปิด'}
+          <PrimaryButton
+            title={I18n.t('close')}
           style={{ width: '100%' }}
           containerStyle={{ width: '100%' }}
           onPress={() => {

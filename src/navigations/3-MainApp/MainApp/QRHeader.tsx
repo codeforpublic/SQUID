@@ -9,6 +9,8 @@ import {
 import { QR_STATE, SelfQR } from '../../../state/qr'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
+import I18n from '../../../../i18n/i18n';
+
 export const QRHeader = ({ qr, qrState, onRefreshQR }: { qr: SelfQR, qrState: QR_STATE, onRefreshQR: any }) => {
   const timeSinceLastUpdate = qr ? Date.now() - qr.timestamp : 0  
   const color = qr
@@ -19,11 +21,11 @@ export const QRHeader = ({ qr, qrState, onRefreshQR }: { qr: SelfQR, qrState: QR
   const label = qr
     ? qr.getLabel()
     : qrState === QR_STATE.NOT_VERIFIED
-    ? 'ยังไม่ทราบความเสี่ยง'
+    ? I18n.t('undetermined_risk')
     : qrState === QR_STATE.LOADING
-    ? 'รอสักครู่...'
+    ? I18n.t('wait_a_moment')
     : qrState === QR_STATE.FAILED
-    ? 'เกิดข้อผิดพลาด'
+    ? I18n.t('undetermined_risk')
     : ''
     
   return (
@@ -63,6 +65,7 @@ export const QRHeader = ({ qr, qrState, onRefreshQR }: { qr: SelfQR, qrState: QR
                   marginTop: 12,
                   textDecorationLine: 'underline',
                   color,
+                  alignSelf: 'center',
                 }}
               >
                 {label}
@@ -80,8 +83,8 @@ export const QRHeader = ({ qr, qrState, onRefreshQR }: { qr: SelfQR, qrState: QR
                   alignSelf: 'center',
                 }}
               >
-                ไม่ได้อัปเดตเป็นเวลา {Math.floor(timeSinceLastUpdate / 60000)}{' '}
-                นาที
+                {I18n.t('no_update_for')} {Math.floor(timeSinceLastUpdate / 60000)}{' '}
+                {I18n.t('minute_s')}
               </Text>
             ) : qr ? (
               <Text
@@ -92,7 +95,7 @@ export const QRHeader = ({ qr, qrState, onRefreshQR }: { qr: SelfQR, qrState: QR
                   color: COLORS.GRAY_4,
                 }}
               >
-                {`อัปเดตล่าสุด ${qr.getCreatedDate().format('HH:mm น.')}`}
+                {I18n.t('last_update')}{` ${qr.getCreatedDate().format(I18n.t('hh_mm'))}`}
               </Text>
             ) : (
               void 0

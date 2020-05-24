@@ -1,0 +1,15 @@
+/* 
+  InfoPlist.strings
+  ThaiAlert
+
+  Created by PichayaJongkamanont on 20/5/2563 BE.
+  Copyright © 2563 Facebook. All rights reserved.
+*/
+NSBluetoothAlwaysUsageDescription = "เพื่อคอยสแกนคนใกล้ตัว และแจ้งเตือนทันทีหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง";
+NSBluetoothPeripheralUsageDescription = "เพื่อคอยสแกนคนใกล้ตัว และแจ้งเตือนทันทีหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง";
+NSCameraUsageDescription = "ต้องการใช้ถ่ายรูปยืนยันตัวตน";
+NSLocationAlwaysAndWhenInUseUsageDescription = "เพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง หรืออยู่ในพื้นที่เสี่ยง";
+NSLocationAlwaysUsageDescription = "เพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง หรืออยู่ในพื้นที่เสี่ยง";
+NSLocationWhenInUseUsageDescription = "เพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่ความเสี่ยง หรืออยู่ในพื้นที่เสี่ยง";
+NSMotionUsageDescription = "เพื่อช่วยจับการเคลื่อนไหว และลดการเก็บข้อมูลที่ไม่จำเป็น";
+NSPhotoLibraryUsageDescription = "เพื่อให้คุณเลือกรูปที่คุณต้องการมาแสดงผลได้";

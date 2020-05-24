@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Alert, AppState } from 'react-native'
 import { backgroundTracking } from './background-tracking'
 
+import I18n from '../../i18n/i18n';
+
 export const isServiceAvailable = async () => {
   const t = Date.now()
   const resp = await fetch(
@@ -30,7 +32,7 @@ export const useSystemAvailable = () => {
         } else {
           backgroundTracking.stop()
           setIsAvailable(false)
-          Alert.alert('ระบบได้ปิดให้บริการแล้ว')
+          Alert.alert(I18n.t('system_closed'))
         }
       }).catch()
     }

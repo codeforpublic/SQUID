@@ -6,6 +6,8 @@ import { useNavigation } from 'react-navigation-hooks'
 import { useApplicationState } from '../../../state/app-state'
 import moment from 'moment'
 
+import I18n from '../../../../i18n/i18n';
+
 const START_PERIODS = 3 // 3 first days, freely change image
 const DEFAULT_PERIODS = 7 // 7 days per time
 export const UpdateProfileButton = ({ width, style, onChange }) => {
@@ -26,20 +28,20 @@ export const UpdateProfileButton = ({ width, style, onChange }) => {
         if (isLock) {
           const day = DEFAULT_PERIODS - daySinceUpdated
           Alert.alert(
-            'ไม่สามารถเปลี่ยนรูปได้',
-            'คุณจะสามารถเปลี่ยนรูปได้อีกใน ' + day + ' วัน',
+            I18n.t('can_not_change_picture'),
+            'คุณจะสามารถเปลี่ยนรูปได้อีกใน ' + day + I18n.t('day_s'),
           )
         } else {
           navigation.navigate('MainAppFaceCamera', {
             setUri: uri => {
               if (daySinceCreated >= 3) {
                 Alert.alert(
-                  'คุณแน่ใจไหม ?',
-                  `เมื่อคุณเปลี่ยนรูปแล้ว ในอีก ${DEFAULT_PERIODS} วันคุณจะไม่สามารถเปลี่ยนรูปได้อีกครั้ง`,
+                  I18n.t('are_you_sure'),
+                  `I18n.t('after_changed_pic_you_will_not_be_able_to_change_until') ${DEFAULT_PERIODS} I18n.t('day_s_have_passed')`,
                   [
-                    { text: 'ยกเลิก', style: 'cancel' },
+                    { text: I18n.t('cancel'), style: 'cancel' },
                     {
-                      text: 'ยืนยัน',
+                      text: I18n.t('confirm'),
                       onPress: () => {
                         onChange(uri)
                       },

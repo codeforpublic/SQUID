@@ -11,6 +11,8 @@ import NotificationPopup from 'react-native-push-notification-popup'
 import { QRPopupContent } from './QRPopupContent'
 import { scanManager } from '../../services/contact-scanner'
 
+import I18n from '../../../i18n/i18n';
+
 export const QRCodeScan = ({ navigation }) => {
   const isFocused = useIsFocused()
   const [qrResult, setQRResult] = useState<QRResult>(null)
@@ -23,7 +25,7 @@ export const QRCodeScan = ({ navigation }) => {
   useEffect(() => {
     if (qrResult) {      
       popupRef.current.show({
-        appTitle: 'ระดับความเสี่ยง',
+        appTitle: I18n.t('risk_level'),
         title: qrResult.getLabel(),
         timeText: qrResult.getTag()?.title,
       })
@@ -55,7 +57,7 @@ export const QRCodeScan = ({ navigation }) => {
               }
               setQRResult(new QRResult(decoded))
             } catch (err) {
-              alert('ข้อมูลไม่ถูกต้อง')
+              alert(I18n.t('wrong_data'))
             }
           }}
           fadeIn={false}
@@ -64,8 +66,8 @@ export const QRCodeScan = ({ navigation }) => {
           containerStyle={{ flex: 1 }}
           topContent={
             <Header>
-              <Title>สแกน QR</Title>
-              <Subtitle>เพื่อบันทึกการเข้าใกล้และตรวจสอบความเสี่ยง</Subtitle>
+              <Title>{I18n.t('scan_qr')}</Title>
+              <Subtitle>{I18n.t('record_contact_and_estimate_risk')}</Subtitle>
             </Header>
           }
         />

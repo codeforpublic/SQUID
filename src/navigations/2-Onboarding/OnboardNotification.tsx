@@ -8,6 +8,8 @@ import { COLORS } from '../../styles'
 import { doctorSize, styles } from './const'
 import { OnboardHeader } from './OnboadHeader'
 
+import I18n from '../../../i18n/i18n';
+
 export const OnboardNotification = () => {
   const navigation = useNavigation()
 
@@ -69,9 +71,9 @@ export const OnboardNotification = () => {
               resizeMode="contain"
               style={{ height: doctorSize }}
             />
-            <Text style={styles.title}>ให้หมอแจ้งเตือนคุณ</Text>
+            <Text style={I18n.currentLocale() == 'en'? styles.titleEN : styles.title}>{I18n.t('let_doc_notify_you')}</Text>
             <Text style={styles.subtitle}>
-              เมื่อคุณอยู่ใกล้ชิดกับคนที่มีความเสี่ยง
+              {I18n.t('when_you_are_closed_to_risky_ppl')}
             </Text>
           </View>
 
@@ -81,7 +83,7 @@ export const OnboardNotification = () => {
               padding: 30,
               alignSelf: 'center'
             }}
-            title={'เปิดการแจ้งเตือน'}
+            title={I18n.t('turn_on_notification')}
             style={{
               marginTop: 30,
               alignSelf: 'center',

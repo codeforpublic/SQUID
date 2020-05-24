@@ -8,17 +8,19 @@ import {
   StyleSheet,
 } from 'react-native'
 
+import I18n from '../../i18n/i18n';
+
 export const withEnforceUpdate = isEnforced => Component => props => {
   useEffect(() => {
     const check = () => {
       if (isEnforced) {
         Alert.alert(
-          'อัพเดทสำคัญ',
-          'กรุณาอัพเดทเวอร์ชั่นล่าสุดจาก' +
+          I18n.t('important_update'),
+          I18n.t('pls_update_latest_version_from') +
             (Platform.OS === 'ios' ? 'App Store' : 'Play Store'),
           [
             {
-              text: 'ตกลง',
+              text: I18n.t('ok'),
               onPress: async () => {
                 const url =
                   Platform.OS === 'ios'

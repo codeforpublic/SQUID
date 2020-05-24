@@ -2,6 +2,8 @@ import JwtUtils from 'react-native-jwt-verifier'
 import jwtDecode from 'jwt-decode'
 import { fetchJWKs } from '../api'
 
+import I18n from '../../i18n/i18n';
+
 let jwks
 export const refetchJWKs = async () => {
   const result = await fetchJWKs()
@@ -19,6 +21,6 @@ export const decodeJWT = token => {
     return jwtDecode(token)
   } catch (e) {
     console.log(e)
-    return { error: 'QR Code ไม่ถูกต้อง' }
+    return { error: I18n.t('incorrect_qr') }
   }
 }
