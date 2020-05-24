@@ -355,7 +355,7 @@ PODS:
     - React
   - RNCClipboard (1.2.0):
     - React
-  - RNCPushNotificationIOS (1.1.1):
+  - RNCPushNotificationIOS (1.2.0):
     - React
   - RNDeviceInfo (5.5.4):
     - React
@@ -661,7 +661,7 @@ SPEC CHECKSUMS:
   RNBackgroundGeolocation: 8f0a20788100fbf08987d80f2053ae6eba79c566
   RNCAsyncStorage: e0dd7c8a36543b4ef84969acd9f8aceba3a92dc2
   RNCClipboard: e8d99575c2917c338e0765d37cf46ff932377d26
-  RNCPushNotificationIOS: a0b6894f4ad9b93d9dac467fdf4d055660ac8a0d
+  RNCPushNotificationIOS: 4d9ffd08f00ef6c1029ebbf4d72fc711eca3ff01
   RNDeviceInfo: 6a3d16fce033f6979c4a6a41e62244d183e8c765
   RNFS: 2bd9eb49dc82fa9676382f0585b992c424cd59df
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
