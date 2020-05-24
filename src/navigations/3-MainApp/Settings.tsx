@@ -14,8 +14,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useContactTracer } from '../../services/contact-tracing-provider'
 import { useNavigation } from 'react-navigation-hooks'
 import { userPrivateData } from '../../state/userPrivateData'
-
-import I18n from '../../../i18n/i18n';
+import I18n from '../../../i18n/i18n'
 
 export const Settings = () => {
   const navigation = useNavigation()
@@ -44,7 +43,9 @@ export const Settings = () => {
               <View style={[styles.section]}>
                 <View style={styles.horizontalRow}>
                   <View style={styles.leftArea}>
-                    <Text style={styles.sectionText}>{I18n.t('track_with_bluetooth')} </Text>
+                    <Text style={styles.sectionText}>
+                      {I18n.t('track_with_bluetooth')}{' '}
+                    </Text>
                   </View>
                   <View style={styles.rightArea}>
                     <Switch
@@ -74,7 +75,9 @@ export const Settings = () => {
             <View style={styles.settingsSection}>
               <TouchableHighlight onPress={_onPrivacyPolicyClicked}>
                 <View style={styles.section}>
-                  <Text style={styles.sectionText}>{I18n.t('privacy_policy')}</Text>
+                  <Text style={styles.sectionText}>
+                    {I18n.t('privacy_policy')}
+                  </Text>
                 </View>
               </TouchableHighlight>
               <TouchableHighlight
@@ -86,20 +89,33 @@ export const Settings = () => {
                   </Text>
                 </View>
               </TouchableHighlight>
-              {!isRegistered && <TouchableHighlight
-                onPress={() => navigation.navigate('OnboardPhone', {
-                  onBack: () => {
-                    navigation.pop()
-                  },
-                  backIcon: 'close'
-                })}
+              <TouchableHighlight
+                onPress={() => navigation.navigate('ChangeLanguage')}
               >
                 <View style={styles.section}>
                   <Text style={styles.sectionText}>
-                    {I18n.t('identity_confirm')}
+                    {I18n.t('change_lang')}
                   </Text>
                 </View>
-              </TouchableHighlight>}
+              </TouchableHighlight>
+              {!isRegistered && (
+                <TouchableHighlight
+                  onPress={() =>
+                    navigation.navigate('OnboardPhone', {
+                      onBack: () => {
+                        navigation.pop()
+                      },
+                      backIcon: 'close',
+                    })
+                  }
+                >
+                  <View style={styles.section}>
+                    <Text style={styles.sectionText}>
+                      {I18n.t('identity_confirm')}
+                    </Text>
+                  </View>
+                </TouchableHighlight>
+              )}
             </View>
           </View>
         </ScrollView>
@@ -125,7 +141,7 @@ const styles = StyleSheet.create({
   sectionHeaderText: {
     color: '#AAAAAA',
     fontSize: FONT_SIZES[600],
-    fontFamily: FONT_FAMILY
+    fontFamily: FONT_FAMILY,
   },
   settingsSection: {
     borderTopWidth: 1,

@@ -15,6 +15,7 @@ import { QuestionaireStack } from './4-Questionaire/QuestionaireStack'
 import { PrivacyPolicy } from './PrivacyPolicy'
 import { HomeStack } from './0-Home/HomeStack'
 import { WebviewScreen } from './Webview'
+import { ChangeLanguageScreen } from './ChangeLanguage'
 
 const Root = ({ navigation }) => {
   useEffect(() => {
@@ -75,6 +76,9 @@ export default createStackNavigator(
     },
     PrivacyPolicy: {
       screen: PrivacyPolicy,
+    },
+    ChangeLanguage: {
+      screen: ChangeLanguageScreen,
     },
   },
   {

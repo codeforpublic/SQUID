@@ -4,9 +4,12 @@ import CodePush from 'react-native-code-push'
 import { PrimaryButton } from '../../components/Button'
 import { DebugTouchable } from '../../components/DebugTouchable'
 import { API_URL } from '../../config'
-import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
+import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD } from '../../styles'
 
-import I18n from '../../../i18n/i18n';
+import I18n from '../../../i18n/i18n'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useSafeArea } from 'react-native-safe-area-view'
+import { changeLangTo } from '../../utils/change-lang'
 // import { getLanguages } from 'react-native-i18n';
 
 // I18n.fallbacks = true;
@@ -16,8 +19,8 @@ import I18n from '../../../i18n/i18n';
 //   I18n.locale = languages(0);
 // });
 
-
 export const Home = ({ navigation }) => {
+  const inset = useSafeArea()
   return (
     <View
       style={{
@@ -44,7 +47,8 @@ export const Home = ({ navigation }) => {
           />
         </DebugTouchable>
         <Text style={styles.description}>
-          {I18n.t('load_use_fight')}{'\n'}
+          {I18n.t('load_use_fight')}
+          {'\n'}
           {I18n.t('covid19_together')}
         </Text>
         <PrimaryButton
@@ -54,12 +58,29 @@ export const Home = ({ navigation }) => {
             width: 240,
           }}
           buttonStyle={{
-            backgroundColor: 'white',            
+            backgroundColor: 'white',
           }}
           onPress={async () => {
             navigation.navigate('AgreementPolicy')
           }}
         />
+      </View>
+      <View style={[styles.footer, { bottom: inset.bottom }]}>
+        <TouchableOpacity
+          onPress={() => {
+            changeLangTo('th')
+          }}
+        >
+          <Text style={styles.changeLang}>ไทย</Text>
+        </TouchableOpacity>
+        <Text style={styles.changeLangSeparator}>/</Text>
+        <TouchableOpacity
+          onPress={() => {
+            changeLangTo('en')
+          }}
+        >
+          <Text style={styles.changeLang}>English</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )
@@ -79,6 +100,25 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES[700],
     textAlign: 'center',
     color: COLORS.PRIMARY_LIGHT,
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  changeLangSeparator: {
+    color: 'white',
+    fontSize: FONT_SIZES[700],
+    marginHorizontal: 8,
+  },
+  changeLang: {
+    color: 'white',
+    fontFamily: FONT_BOLD,
+    fontSize: FONT_SIZES[700],
   },
   button: {},
 })

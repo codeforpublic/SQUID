@@ -250,6 +250,8 @@ PODS:
     - React
   - react-native-maps (0.26.1):
     - React
+  - react-native-restart (0.0.17):
+    - React
   - react-native-rsa-native (1.1.4):
     - React
   - react-native-safe-area-context (0.7.3):
@@ -395,6 +397,7 @@ DEPENDENCIES:
   - "react-native-image-editor (from `../node_modules/@react-native-community/image-editor`)"
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-maps (from `../node_modules/react-native-maps`)
+  - react-native-restart (from `../node_modules/react-native-restart`)
   - react-native-rsa-native (from `../node_modules/react-native-rsa-native`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-sensitive-info (from `../node_modules/react-native-sensitive-info`)
@@ -502,6 +505,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-picker"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
+  react-native-restart:
+    :path: "../node_modules/react-native-restart"
   react-native-rsa-native:
     :path: "../node_modules/react-native-rsa-native"
   react-native-safe-area-context:
@@ -606,21 +611,22 @@ SPEC CHECKSUMS:
   react-native-image-editor: 9361a215c3991cafbe5e7f28cbbad6e72c9c2705
   react-native-image-picker: 6a850c41f57f0848d918c2a77aedd7aa272ffa30
   react-native-maps: 6e499eee4eabf422ba8b6f94e993cc768bf35153
+  react-native-restart: d19a0f8d053d065fe64cd2baebb6487111c77149
   react-native-rsa-native: 348b5057073920db0e154724c3a49e6b34e1da6b
   react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
   react-native-sensitive-info: 4629b223484a08225c3eb088ff3f91b03097b5e5
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-webview: cf5527893252b3b036eea024a1da6996f7344c74
-  React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
-  React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
-  React-RCTBlob: d89293cc0236d9cb0933d85e430b0bbe81ad1d72
-  React-RCTImage: 6b8e8df449eb7c814c99a92d6b52de6fe39dea4e
-  React-RCTLinking: 121bb231c7503cf9094f4d8461b96a130fabf4a5
-  React-RCTNetwork: fb353640aafcee84ca8b78957297bd395f065c9a
-  React-RCTSettings: 8db258ea2a5efee381fcf7a6d5044e2f8b68b640
-  React-RCTText: 9ccc88273e9a3aacff5094d2175a605efa854dbe
-  React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
-  ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
+  React-RCTActionSheet: f41ea8a811aac770e0cc6e0ad6b270c644ea8b7c
+  React-RCTAnimation: 49ab98b1c1ff4445148b72a3d61554138565bad0
+  React-RCTBlob: a332773f0ebc413a0ce85942a55b064471587a71
+  React-RCTImage: e70be9b9c74fe4e42d0005f42cace7981c994ac3
+  React-RCTLinking: c1b9739a88d56ecbec23b7f63650e44672ab2ad2
+  React-RCTNetwork: 73138b6f45e5a2768ad93f3d57873c2a18d14b44
+  React-RCTSettings: 6e3738a87e21b39a8cb08d627e68c44acf1e325a
+  React-RCTText: fae545b10cfdb3d247c36c56f61a94cfd6dba41d
+  React-RCTVibration: 4356114dbcba4ce66991096e51a66e61eda51256
+  ReactCommon: ed4e11d27609d571e7eee8b65548efc191116eb3
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNBackgroundFetch: 8d8d66b47eafcb9e772b2eb95057939038b3ef95
   RNBackgroundGeolocation: 8f0a20788100fbf08987d80f2053ae6eba79c566
@@ -642,6 +648,6 @@ SPEC CHECKSUMS:
   SSZipArchive: fa16b8cc4cdeceb698e5e5d9f67e9558532fbf23
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
 
-PODFILE CHECKSUM: 4b5083c33cd55af1a94b0909736ae9ca8a56769a
+PODFILE CHECKSUM: 8117516fc6f4e633efaf5d17cab75434848319ae
 
 COCOAPODS: 1.9.1

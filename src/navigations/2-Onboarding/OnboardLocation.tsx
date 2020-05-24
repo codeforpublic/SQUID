@@ -19,8 +19,7 @@ import { doctorSize, styles } from './const'
 import { OnboardHeader } from './OnboadHeader'
 import { normalize } from 'react-native-elements'
 
-import I18n from '../../../i18n/i18n';
-I18n.locale = 'en';
+import I18n from '../../../i18n/i18n'
 
 const LOCATION_PERMISSION = Platform.select({
   ios: PERMISSIONS.IOS.LOCATION_ALWAYS,
@@ -121,9 +120,15 @@ export const OnboardLocation = () => {
               resizeMode="contain"
               style={{ height: doctorSize }}
             />
-            <Text style={I18n.currentLocale() == 'en'? styles.titleEN : styles.title}>{I18n.t('pls_grant_permission')}</Text>
+            <Text
+              style={
+                I18n.currentLocale() == 'en' ? styles.titleEN : styles.title
+              }
+            >
+              {I18n.t('pls_grant_permission')}
+            </Text>
             <Text style={styles.subtitle}>
-            {I18n.t('let_doc_estimate_your_risk')}
+              {I18n.t('let_doc_estimate_your_risk')}
             </Text>
           </View>
         </View>
@@ -140,7 +145,7 @@ export const OnboardLocation = () => {
             <View style={{ flex: 1 }}>
               <Text style={styles.itemTitle}>{I18n.t('your_position')}</Text>
               <Text style={styles.description}>
-              {I18n.t('help_notify_if_you_get_near_risky_person_or_area')}
+                {I18n.t('help_notify_if_you_get_near_risky_person_or_area')}
               </Text>
             </View>
           </View>
