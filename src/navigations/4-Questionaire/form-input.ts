@@ -1,6 +1,6 @@
-import I18n from '../../../i18n/i18n';
+import I18n from '../../../i18n/i18n'
 
-export const dataInputTable: DataInput[] = [
+export const getDataInputTable = (): DataInput[] => [
   {
     id: 'one_uri_symp',
     name: 'data:covid:one_uri_symp',
@@ -46,11 +46,14 @@ export const dataInputTable: DataInput[] = [
         value: 'close_risk_country',
       },
       {
-        label:
-          I18n.t('closed_contact_with_covid19_confirmed_case'),
+        label: I18n.t('closed_contact_with_covid19_confirmed_case'),
         value: 'covid19_contact',
       },
-      { label: I18n.t('none_of_history_above'), value: 'none', clearOther: true },
+      {
+        label: I18n.t('none_of_history_above'),
+        value: 'none',
+        clearOther: true,
+      },
     ],
   },
   {
