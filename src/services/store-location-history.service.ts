@@ -1,24 +1,78 @@
 import AsyncStorage from "@react-native-community/async-storage";
 import moment from "moment";
 
+export enum LOCATION_TYPE {
+  HOME = 'HOME',
+  OTHER = 'OTHER',
+  OFFICE = 'OFFICE',
+}
 export class StoreLocationHistoryService {
 
+  public static HOUR_FORMAT = 'YYYYMMDD-HH:00';
+
+  // 15 minute
   public static HISTORY_TRACK_BY_HOUR_MINUTE = 'history-track-by-hour-each-minute';
+  // today by hour
   public static WFH_TODAY = 'wfh-today';
+  // data yesterday
   public static WFH_YESTERDAY = 'wfh-yesterday';
+  // data 14 day
   public static WFH_TWO_WEEKS = 'wfh-two-weeks';
 
-  public static async trackLocationByTime(type) {
+
+  public static async callStackData(type: LOCATION_TYPE) {
+    const date = new Date();
+    const hour = date.getHours();
+    const day  = date.getDate();
+    console.log(hour, day, type);
+    // today minute
+    const dateByHour = moment().format(this.HOUR_FORMAT);
+    await StoreLocationHistoryService.trackLocationByTime(type);
+    let data = await AsyncStorage.getItem(this.HISTORY_TRACK_BY_HOUR_MINUTE);
+    // console.log('data: ', data ? JSON.parse(data) : {});
+    await this.summaryHourly(data ? JSON.parse(data) : {});
+    await StoreLocationHistoryService.appendTrackLocation(dateByHour, {G:0,H:0,O:25, W:75}, StoreLocationHistoryService.WFH_TODAY);
+
+    // clear data;
+    // 15 minute
+    await this.clearDataTrackTodayHour();
+  }
+
+
+  public static async clearDataTrackTodayHour() {
+    const date = moment().add(1, 'hour').set('minute', 0).set('second', 0).set('millisecond', 0);
+    let raw = await AsyncStorage.getItem(this.WFH_TODAY);
+    let data = raw ? JSON.parse(raw) : {};
+    if (data[date.format(this.HOUR_FORMAT)]) {
+      raw = await AsyncStorage.getItem(this.HISTORY_TRACK_BY_HOUR_MINUTE);
+      data = raw ? JSON.parse(raw) : {};
+      const result = {};
+      let date = moment().set('minute', 0).set('second', 0).set('millisecond', 0);
+      Object.keys(data).forEach((hour) => {
+        const d =  data[hour].filter((a) => {
+          const timestamp = Object.keys(a)[0];
+          return !moment(Number(timestamp)).isBefore(date);
+        })
+        console.log(d);
+        if (d.length > 0) {
+          result[hour] = d;
+        }
+      })
+      await AsyncStorage.setItem(StoreLocationHistoryService.HISTORY_TRACK_BY_HOUR_MINUTE, JSON.stringify(result));
+    }
+  }
+
+  public static async trackLocationByTime(type: LOCATION_TYPE) {
     const date = new Date();
     const hour = date.getHours();
     const logsString = await AsyncStorage.getItem(StoreLocationHistoryService.HISTORY_TRACK_BY_HOUR_MINUTE);
     let data = logsString === null ? {} : JSON.parse(logsString);
-    if (!data[hour]) {
-      data[hour] = {};
+    if (!Array.isArray(data[hour])) {
+      data[hour] = [];
     }
-    data[hour][date.valueOf()] = type;
-    console.log('data: ', data);
-    await AsyncStorage.setItem(StoreLocationHistoryService.HISTORY_TRACK_BY_HOUR_MINUTE, JSON.stringify(data));
+    data[hour].push({[date.valueOf()]: type});
+    // console.log('data: ', data);
+    return await AsyncStorage.setItem(StoreLocationHistoryService.HISTORY_TRACK_BY_HOUR_MINUTE, JSON.stringify(data));
   }
 
   /***
@@ -33,7 +87,7 @@ export class StoreLocationHistoryService {
     const limit = StoreLocationHistoryService.getLimitByType(storageType);
     const logStr = await AsyncStorage.getItem(storageType);
     const data = logStr === null ? {} : JSON.parse(logStr);
-    
+
     const toKeyValue = (element) => ({ key: element, value: data[element] });
     const byOlderFirst = (a, b): number => +(a.key > b.key) || -(a.key < b.key);
 
@@ -58,37 +112,44 @@ export class StoreLocationHistoryService {
       const times = data[list[i]];
       for (let j = 0; j < times.length; j++) {
         const min = Object.keys(times[j])[0];
-        if (times[j][min] === 'HOME') {
-          homeValue++;
-        } else if (times[j][min] === 'WORK')  {
-          workValue++;
-        } else if (times[j][min] === 'OTHER')  {
-          otherValue++;
-        } else {
-          noGPS++;
+        switch (times[j][min]) {
+          case LOCATION_TYPE.HOME:
+            homeValue++;
+            break;
+          case LOCATION_TYPE.OFFICE:
+            workValue++;
+            break;
+          case LOCATION_TYPE.OTHER:
+            otherValue++;
+            break;
+          default:
+            noGPS++;
+            break;
         }
         const newKey = moment().add(Number(i), 'hour').format("YYYYMMDD-HH:00");
         const PERCENT = 100;
         results[newKey] = {
-          H: (homeValue/times.length) * PERCENT, 
-          O: (otherValue/times.length) * PERCENT, 
-          W: (workValue/times.length) * PERCENT, 
-          G: (noGPS/times.length) * PERCENT 
+          H: (homeValue/times.length) * PERCENT,
+          O: (otherValue/times.length) * PERCENT,
+          W: (workValue/times.length) * PERCENT,
+          G: (noGPS/times.length) * PERCENT
         };
       }
     }
     // should save results
-    console.log(results);
+    const raw = await AsyncStorage.getItem(this.WFH_TODAY);
+    const item = raw ? {...JSON.parse(raw), ...results} : results;
+    await AsyncStorage.setItem(this.WFH_TODAY, JSON.stringify(item));
   }
 
-  private static getLimitByType(type) { 
+  private static getLimitByType(type) {
     switch (type) {
       case StoreLocationHistoryService.WFH_TODAY:
         return 24;
       case StoreLocationHistoryService.WFH_YESTERDAY:
         return 24;
       case StoreLocationHistoryService.WFH_TWO_WEEKS:
-        return 14;    
+        return 14;
       default:
         return 14;
         break;

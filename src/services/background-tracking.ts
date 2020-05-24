@@ -5,7 +5,8 @@ import { AppState, Alert, Platform } from 'react-native'
 import { API_URL } from '../config'
 import AsyncStorage from '@react-native-community/async-storage'
 import { distance } from '../utils/distance'
-import { StoreLocationHistoryService } from './store-location-history.service';
+import { StoreLocationHistoryService, LOCATION_TYPE } from './store-location-history.service'
+import BackgroundTimer from 'react-native-background-timer'
 
 class BackgroundTracking {
   private ready: boolean = false
@@ -13,8 +14,8 @@ class BackgroundTracking {
   private appState: string = 'active'
   private latestKnownedUpdated?: number
 
-  private latestKnownedSummary: number = 0;
-  private latestKnownedLogs: number = 0;
+  private latestKnownedSummary: number = 0
+  private latestKnownedLogs: number = 0
 
   private debug: boolean = false
   async setup(startImmediately?: boolean) {
@@ -24,9 +25,9 @@ class BackgroundTracking {
       let status = response.status
       console.log('BackgroundGeolocation [onHttp] ', status)
       this.latestKnownedUpdated = Date.now()
-    });
+    })
 
-    this.onLocationTracking();
+    this.onLocationTracking()
 
     const headers = getAnonymousHeaders()
     await BackgroundGeolocation.ready({
@@ -78,7 +79,7 @@ class BackgroundTracking {
     }
     this.started = true
     console.log('BackgroundGeolocation: started')
-    BackgroundGeolocation.startSchedule();
+    BackgroundGeolocation.startSchedule()
     await BackgroundGeolocation.start().catch(err => {
       this.started = false
       setTimeout(() => this.start(), 10 * 10000) // auto retry
@@ -87,7 +88,8 @@ class BackgroundTracking {
   stop() {
     this.started = false
     BackgroundGeolocation.removeAllListeners()
-    BackgroundGeolocation.stopSchedule();
+    BackgroundGeolocation.stopSchedule()
+    BackgroundTimer.stopBackgroundTimer()
     return BackgroundGeolocation.stop()
   }
   toggleDebug() {
@@ -117,62 +119,89 @@ class BackgroundTracking {
     this.appState = state
   }
 
-  onLocationTracking = () => { 
-    const FIFTEEN_MIN = 60 * 1000;
+  onLocationTracking = () => {
+    // AsyncStorage.setItem('bcount', '0');
+    BackgroundTimer.runBackgroundTimer(async () => {
+      const { coords } = await this.getLocation()
+      const type = await calculateDistance(coords.latitude, coords.longitude)
+      //code that will be called every 60 seconds
+      StoreLocationHistoryService.callStackData(type);
+    }, 6000)
+    //rest of code will be performing for iOS on background too
+
+    // BackgroundTimer.stopBackgroundTimer();
+    const FIFTEEN_MIN = 60 * 1000
     BackgroundGeolocation.setConfig({
       heartbeatInterval: 60,
       preventSuspend: true,
-    });
+    })
 
-    const calculateDistance = async(latitude: number, longitude: number) => {
+    const calculateDistance = async (latitude: number, longitude: number) => {
       const homeLocation = await AsyncStorage.getItem('HOME-LIST')
       const homes = homeLocation ? JSON.parse(homeLocation) : []
       const officeLocation = await AsyncStorage.getItem('OFFICE-LIST')
       const offices = officeLocation ? JSON.parse(officeLocation) : []
-      const isHome = homes.length > 0
-        ? distance(latitude, longitude, homes[0].latitude, homes[0].longitude) > 0.1
-        : false
-      const isOffice = offices.length > 0
-        ? distance(latitude, longitude, offices[0].latitude, offices[0].longitude) > 0.1
-        : false
-      return isHome ? 'HOME' : isOffice ? 'OFFICE' : 'OTHER';
+      const isHome =
+        homes.length > 0
+          ? distance(
+              latitude,
+              longitude,
+              homes[0].latitude,
+              homes[0].longitude,
+            ) > 0.1
+          : false
+      const isOffice =
+        offices.length > 0
+          ? distance(
+              latitude,
+              longitude,
+              offices[0].latitude,
+              offices[0].longitude,
+            ) > 0.1
+          : false
+      return isHome ? LOCATION_TYPE.HOME : isOffice ? LOCATION_TYPE.OFFICE : LOCATION_TYPE.OTHER;
     }
 
     // move
-    BackgroundGeolocation.onLocation(async (location) => {
-      console.log("[onLocation] ", new Date().toISOString());
+    BackgroundGeolocation.onLocation(async location => {
+      console.log('[onLocation] ', new Date().toISOString())
       if (Date.now().valueOf() - this.latestKnownedLogs > FIFTEEN_MIN) {
-        this.latestKnownedLogs = Date.now().valueOf();
-        const log = await calculateDistance(location.coords.latitude, location.coords.longitude);
-        const logsString = await AsyncStorage.getItem('history-wfh');
-        const logs = logsString ? JSON.parse(logsString) : {};
-        const newLogs = { ...logs, [Date.now()]: log };
-        await AsyncStorage.setItem('history-wfh', JSON.stringify(newLogs));
-        console.log('[wfhTracking] history-wfh =====', newLogs);
+        this.latestKnownedLogs = Date.now().valueOf()
+        const log = await calculateDistance(
+          location.coords.latitude,
+          location.coords.longitude,
+        )
+        const logsString = await AsyncStorage.getItem('history-wfh')
+        const logs = logsString ? JSON.parse(logsString) : {}
+        const newLogs = { ...logs, [Date.now()]: log }
+        await AsyncStorage.setItem('history-wfh', JSON.stringify(newLogs))
+        console.log('[wfhTracking] history-wfh =====', newLogs)
       }
-      const ONE_HOUR = 60 * 60 * 1000;
+      const ONE_HOUR = 60 * 60 * 1000
       if (Date.now().valueOf() - this.latestKnownedSummary > ONE_HOUR) {
-        this.latestKnownedSummary = Date.now().valueOf();
+        this.latestKnownedSummary = Date.now().valueOf()
         // summary data
         // remove summary old data
       }
-    });
+    })
 
     // สงบ นิ่ง
-    BackgroundGeolocation.onHeartbeat(async (event) => {
-      console.log("[onHeartbeat] ", new Date().toISOString());
+    BackgroundGeolocation.onHeartbeat(async event => {
+      console.log('[onHeartbeat] ', new Date().toISOString())
       if (Date.now().valueOf() - this.latestKnownedLogs > FIFTEEN_MIN) {
-        this.latestKnownedLogs = Date.now().valueOf();
-        const log = await calculateDistance(event.location.coords.latitude, event.location.coords.longitude);
-        const logsString = await AsyncStorage.getItem('history-wfh');
-        const logs = logsString ? JSON.parse(logsString) : {};
-        const newLogs = { ...logs, [Date.now()]: log };
-        await AsyncStorage.setItem('history-wfh', JSON.stringify(newLogs));
-        console.log('[wfhTracking] history-wfh =====', newLogs);
-        StoreLocationHistoryService.trackLocationByTime(log);
+        this.latestKnownedLogs = Date.now().valueOf()
+        const log = await calculateDistance(
+          event.location.coords.latitude,
+          event.location.coords.longitude,
+        )
+        const logsString = await AsyncStorage.getItem('history-wfh')
+        const logs = logsString ? JSON.parse(logsString) : {}
+        const newLogs = { ...logs, [Date.now()]: log }
+        await AsyncStorage.setItem('history-wfh', JSON.stringify(newLogs))
+        await StoreLocationHistoryService.trackLocationByTime(log)
       }
-    });
+    })
   }
 }
 
-export const backgroundTracking = new BackgroundTracking();
+export const backgroundTracking = new BackgroundTracking()
