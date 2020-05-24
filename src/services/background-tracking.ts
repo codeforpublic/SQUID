@@ -126,7 +126,9 @@ class BackgroundTracking {
       const type = await calculateDistance(coords.latitude, coords.longitude)
       //code that will be called every 60 seconds
       StoreLocationHistoryService.callStackData(type);
+      console.log('6')
     }, 6000)
+
     //rest of code will be performing for iOS on background too
 
     // BackgroundTimer.stopBackgroundTimer();

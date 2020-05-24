@@ -10,6 +10,8 @@ import { LocationCount } from './LocationCount';
 import AsyncStorage from '@react-native-community/async-storage';
 import GraphBarLocation from '../../../components/GraphBarLocation';
 import { FONT_SIZES } from '../../../styles';
+import { StoreLocationHistoryService } from '../../../services/store-location-history.service';
+import moment from 'moment';
 
 const getGraphWidth = (): number => {
 	const width = Dimensions.get('window').width;
@@ -23,7 +25,7 @@ export const Graph = () => {
 	const [offices, setOfficeList] = useState([]);
 	const [locationTwoWeek, setLocationTwoWeek] = useState([]);
 
-	const [items, setItmes] = useState([
+	const [items, setItems] = useState([
 		{ title: "1 วัน", length: 1, item: null },
 		{ title: "3 วัน", length: 3, item: null },
 		{ title: "5 วัน", length: 5, item: null },
@@ -47,8 +49,42 @@ export const Graph = () => {
 		setLocationTwoWeek(locationTwoWeek);
 
 
-
-
+		const dataTwoWeek = await StoreLocationHistoryService.getDataTwoWeek();
+		if (dataTwoWeek) {
+			console.log(dataTwoWeek);
+			const format = 'YYYYMMDD-00:00';
+			const result = items.map((item) => {
+				// const date = moment().subtract(1, 'day');
+				item.item = null;
+				if (Object.keys(dataTwoWeek).length >= item.length) {
+					const data = { H: 0, W: 0, O: 0, G: 0 };
+					for (let i = 0; i < item.length; i++) {
+						const date = moment().subtract(i + 1, 'day');
+						const d = dataTwoWeek[date.format(format)];
+						if (d) {
+							data.H = d.H;
+							data.W = d.W;
+							data.O = d.O;
+							data.G = d.G;
+						} else {
+							data.G = 100;
+						}
+					}
+					console.log(data);
+					const sum = Object.keys(data).reduce((acc, k) =>  acc + data[k], 0);
+					console.log('sum: ', sum);
+					item.item = {
+						H: (data.H/sum) * 100,
+						O: (data.O/sum) * 100,
+						W: (data.W/sum) * 100,
+						G: (data.G/sum) * 100
+					}
+				}
+				return item;
+			});
+			console.log(result);
+			setItems(result);
+		}
 
 	}, []);
 
@@ -174,7 +210,7 @@ export const Graph = () => {
 									<Text style={styles.listGraphLabel}>{title}</Text>
 								</View>
 								<View>
-									{item ? <GraphBarLocation width={graphWidth} /> : <View style={{ width: graphWidth }} />}
+									{item ? <GraphBarLocation width={graphWidth} HOME={item.H} OFFICE={item.W} OTHER={item.O} GPS={item.G} /> : <View style={{ width: graphWidth }} />}
 								</View>
 							</View>
 						)

@@ -5,12 +5,20 @@ import { Dimensions } from 'react-native';
 interface Props {
   width?: number;
   domainPaddingY?: [number, number];
+  HOME?: number;
+  OFFICE?: number;
+  OTHER?: number;
+  GPS?: number;
 }
 
 const GraphBarLocation: FunctionComponent<Props> = (props) => {
 
   const [width, setWidth] = useState(Dimensions.get('window').width);
   const [domainPaddingY, setDomainPaddingY] = useState<[number, number]>([0, 0]);
+  const [home, setHome] = useState<number>(props.HOME || 0);
+  const [office, setOffice] = useState<number>(props.OFFICE || 0);
+  const [other, setOther] = useState<number>(props.OTHER || 0);
+  const [gps, setGps] = useState<number>(props.GPS || 0);
 
   useEffect(() => {
     if (props.width) {
@@ -20,6 +28,9 @@ const GraphBarLocation: FunctionComponent<Props> = (props) => {
       setDomainPaddingY(props.domainPaddingY);
     } else {
       setDomainPaddingY([-50, -50]);
+    }
+    if (home + other + gps + office < 100) {
+      setGps(100 - (home + other + office) + gps)
     }
   }, [])
 
@@ -40,12 +51,12 @@ const GraphBarLocation: FunctionComponent<Props> = (props) => {
         >
           <VictoryBar
             cornerRadius={{ bottom: 2 }}
-            data={[{ x: "a", y: 20 }]} />
-          <VictoryBar data={[{ x: "a", y: 20 }]} />
-          <VictoryBar data={[{ x: "a", y: 30 }]} />
+            data={[{ x: "a", y: home }]} />
+          <VictoryBar data={[{ x: "a", y: other }]} />
+          <VictoryBar data={[{ x: "a", y: gps }]} />
           <VictoryBar
             cornerRadius={{ top: 2 }}
-            data={[{ x: "a", y: 30 }]}
+            data={[{ x: "a", y: office }]}
           />
         </VictoryStack>
       </VictoryGroup>

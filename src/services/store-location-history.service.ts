@@ -20,6 +20,22 @@ export class StoreLocationHistoryService {
   public static WFH_TWO_WEEKS = 'wfh-two-weeks';
 
 
+  public static async getDataYesterday() {
+    const raw = await AsyncStorage.getItem(this.WFH_YESTERDAY);
+    return raw ? JSON.parse(raw) : null;
+  }
+
+  public static async getDataTwoWeek() {
+    const raw = await AsyncStorage.getItem(this.WFH_TWO_WEEKS);
+    // return raw ? JSON.parse(raw) : null;
+    return {
+      "20200523-00:00": { "H": 20, "O": 10, "W": 60, "G": 10 },
+      "20200522-00:00": { "H": 0, "O": 10, "W": 60, "G": 30 },
+      "20200521-00:00": { "H": 0, "O": 30, "W": 60, "G": 10 },
+    }
+  }
+
+
   public static async callStackData(type: LOCATION_TYPE) {
     const date = new Date();
     const hour = date.getHours();
@@ -27,15 +43,20 @@ export class StoreLocationHistoryService {
     console.log(hour, day, type);
     // today minute
     const dateByHour = moment().format(this.HOUR_FORMAT);
-    await StoreLocationHistoryService.trackLocationByTime(type);
+    await this.trackLocationByTime(type);
     let data = await AsyncStorage.getItem(this.HISTORY_TRACK_BY_HOUR_MINUTE);
-    // console.log('data: ', data ? JSON.parse(data) : {});
+
+    // append data
+    // 15 minute
     await this.summaryHourly(data ? JSON.parse(data) : {});
-    await StoreLocationHistoryService.appendTrackLocation(dateByHour, {G:0,H:0,O:25, W:75}, StoreLocationHistoryService.WFH_TODAY);
+    // today by hour
+    await this.appendTrackLocation(dateByHour, {G:0,H:0,O:25, W:75}, this.WFH_TODAY);
 
     // clear data;
     // 15 minute
     await this.clearDataTrackTodayHour();
+    // move data from yester
+    await this.moveDataFromYesterday();
   }
 
 
@@ -62,17 +83,43 @@ export class StoreLocationHistoryService {
     }
   }
 
+  public static async moveDataFromYesterday() {
+    const date = moment().subtract(1, 'day');
+    const rawYesterday = await AsyncStorage.getItem(this.WFH_YESTERDAY);
+    const dataYesterday = rawYesterday ? JSON.parse(rawYesterday) : null;
+    if (dataYesterday && Object.keys(dataYesterday).length > 0 && dataYesterday[date.format(this.HOUR_FORMAT)]) {
+      return;
+    }
+    const rawToday = await AsyncStorage.getItem(this.WFH_TODAY);
+    const dataToday = rawToday ? JSON.parse(rawToday) : {};
+    if (Object.keys(dataToday).length === 0) {
+      return;
+    }
+
+    const result = {}
+    for(let i = 0;i < 24;i++) {
+      const dateFormat = date.set('hour', i).format(this.HOUR_FORMAT);
+      if (dataToday[dateFormat]) {
+        result[dateFormat] = {...dataToday[dateFormat]};
+        delete dataToday[dateFormat];
+      } else {
+        result[dateFormat] = {G: 100, H: 0, O: 0, W: 0};
+      }
+    }
+    await AsyncStorage.setItem(this.WFH_YESTERDAY, JSON.stringify(result));
+    await AsyncStorage.setItem(this.WFH_TODAY, JSON.stringify(dataToday));
+  }
+
   public static async trackLocationByTime(type: LOCATION_TYPE) {
     const date = new Date();
     const hour = date.getHours();
-    const logsString = await AsyncStorage.getItem(StoreLocationHistoryService.HISTORY_TRACK_BY_HOUR_MINUTE);
+    const logsString = await AsyncStorage.getItem(this.HISTORY_TRACK_BY_HOUR_MINUTE);
     let data = logsString === null ? {} : JSON.parse(logsString);
     if (!Array.isArray(data[hour])) {
       data[hour] = [];
     }
     data[hour].push({[date.valueOf()]: type});
-    // console.log('data: ', data);
-    return await AsyncStorage.setItem(StoreLocationHistoryService.HISTORY_TRACK_BY_HOUR_MINUTE, JSON.stringify(data));
+    return await AsyncStorage.setItem(this.HISTORY_TRACK_BY_HOUR_MINUTE, JSON.stringify(data));
   }
 
   /***

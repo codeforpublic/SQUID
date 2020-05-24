@@ -17,7 +17,7 @@ export const LocationReport = () => {
   const { qrData, qrState, error, refreshQR } = useSelfQR()  
 
   useEffect(() => {
-    pushNotification.requestPermissions()
+    pushNotification.requestPermissions();
   }, [])
 
   return (
