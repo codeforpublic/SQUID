@@ -275,6 +275,8 @@ PODS:
     - React
   - react-native-maps (0.27.1):
     - React
+  - react-native-restart (0.0.17):
+    - React
   - react-native-rsa-native (1.1.4):
     - React
   - react-native-safe-area-context (0.7.3):
@@ -423,6 +425,7 @@ DEPENDENCIES:
   - "react-native-image-editor (from `../node_modules/@react-native-community/image-editor`)"
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-maps (from `../node_modules/react-native-maps`)
+  - react-native-restart (from `../node_modules/react-native-restart`)
   - react-native-rsa-native (from `../node_modules/react-native-rsa-native`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-sensitive-info (from `../node_modules/react-native-sensitive-info`)
@@ -534,6 +537,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-picker"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
+  react-native-restart:
+    :path: "../node_modules/react-native-restart"
   react-native-rsa-native:
     :path: "../node_modules/react-native-rsa-native"
   react-native-safe-area-context:
@@ -640,7 +645,8 @@ SPEC CHECKSUMS:
   react-native-google-maps: 0a989abda71059db2caa98b9dacca7a8f38a47d0
   react-native-image-editor: 9361a215c3991cafbe5e7f28cbbad6e72c9c2705
   react-native-image-picker: 6a850c41f57f0848d918c2a77aedd7aa272ffa30
-  react-native-maps: f4b89da81626ad7f151a8bfcb79733295d31ce5c
+  react-native-maps: 6e499eee4eabf422ba8b6f94e993cc768bf35153
+  react-native-restart: d19a0f8d053d065fe64cd2baebb6487111c77149
   react-native-rsa-native: 348b5057073920db0e154724c3a49e6b34e1da6b
   react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
   react-native-sensitive-info: 4629b223484a08225c3eb088ff3f91b03097b5e5

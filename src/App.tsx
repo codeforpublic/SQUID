@@ -21,6 +21,7 @@ import { compose } from './utils/compose'
 import { pushNotification, NOTIFICATION_TYPES } from './services/notification'
 import { refetchJWKs } from './utils/jwt'
 import { refetchDDCPublicKey } from './utils/crypto'
+import I18n from '../i18n/i18n'
 
 const AppContainer = createAppContainer(Navigator)
 
@@ -54,6 +55,11 @@ class App extends React.Component {
     if (__DEV__) {
       // await this.purgeAll()
     }
+    const locale = await AsyncStorage.getItem('locale')
+    if (locale) {
+      I18n.locale = locale
+    }
+    
 
     await Promise.all([applicationState.load(), userPrivateData.load(), refetchJWKs()])
     await backgroundTracking.setup(

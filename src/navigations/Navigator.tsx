@@ -17,6 +17,7 @@ import { HomeStack } from './0-Home/HomeStack'
 import { SetLocationStack } from './5-SetLocation/SetLocationStack'
 import { LocationReport } from './3-MainApp/LocationReport'
 import { WebviewScreen } from './Webview'
+import { ChangeLanguageScreen } from './ChangeLanguage'
 
 const Root = ({ navigation }) => {
   useEffect(() => {
@@ -81,6 +82,9 @@ export default createStackNavigator(
     },
     SetLocation: {
       screen: SetLocationStack,
+    },
+    ChangeLanguage: {
+      screen: ChangeLanguageScreen,
     },
     LocationReport: {
       screen: LocationReport,
