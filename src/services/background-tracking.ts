@@ -120,14 +120,17 @@ class BackgroundTracking {
   }
 
   onLocationTracking = () => {
-    // AsyncStorage.setItem('bcount', '0');
-    BackgroundTimer.runBackgroundTimer(async () => {
+    const runBackgroundCallStackData = async() => {
       const { coords } = await this.getLocation()
       const type = await calculateDistance(coords.latitude, coords.longitude)
       //code that will be called every 60 seconds
       StoreLocationHistoryService.callStackData(type);
-      console.log('6')
-    }, 6000)
+    }
+
+    BackgroundTimer.runBackgroundTimer(async () => {
+      await runBackgroundCallStackData();
+    }, 600000); // 10 minute
+    runBackgroundCallStackData();
 
     //rest of code will be performing for iOS on background too
 
