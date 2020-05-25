@@ -74,7 +74,7 @@ const GraphBarLocation: FunctionComponent<Props> = (props) => {
           />
           <VictoryBar
             cornerRadius={{ bottom: 2, top: 2 }}
-            style={{ data: { stroke: '#9FA5B1', fill: '#FFFFF', width: 5, strokeWidth: 1 } }} data={[{ x: "a", y: sum === 0 ? 100 : 0 }]} />
+            style={{ data: { stroke: '#9FA5B1', fill: '#FFFFFF', width: 5, strokeWidth: 1 } }} data={[{ x: "a", y: sum === 0 ? 100 : 0 }]} />
         </VictoryStack>
       </VictoryGroup>
 
