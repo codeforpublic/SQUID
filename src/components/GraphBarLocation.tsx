@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState, } from 'react';
-import { VictoryChart, VictoryStack, VictoryBar, VictoryAxis, VictoryLine, VictoryGroup } from 'victory-native';
+import { VictoryChart, VictoryStack, VictoryBar, VictoryAxis, VictoryGroup } from 'victory-native';
 import { Dimensions } from 'react-native';
 
 interface Props {
@@ -19,6 +19,7 @@ const GraphBarLocation: FunctionComponent<Props> = (props) => {
   const [office, setOffice] = useState<number>(props.OFFICE || 0);
   const [other, setOther] = useState<number>(props.OTHER || 0);
   const [gps, setGps] = useState<number>(props.GPS || 0);
+  const [sum, setSum] = useState<number>(0);
 
   useEffect(() => {
     if (props.width) {
@@ -29,10 +30,19 @@ const GraphBarLocation: FunctionComponent<Props> = (props) => {
     } else {
       setDomainPaddingY([-50, -50]);
     }
-    if (home + other + gps + office < 100) {
+    setHome(props.HOME || 0);
+    setOffice(props.OFFICE || 0);
+    setOther(props.OTHER || 0);
+    setGps(props.GPS || 0);
+  }, [props]);
+
+  useEffect(() => {
+    const sum = home + other + gps + office;
+    if (sum > 0 && sum < 100) {
       setGps(100 - (home + other + office) + gps)
     }
-  }, [])
+    setSum(sum);
+  }, [home, office, other, gps]);
 
   return (
     <VictoryChart
@@ -46,7 +56,7 @@ const GraphBarLocation: FunctionComponent<Props> = (props) => {
         <VictoryStack horizontal
           colorScale={["#4CA8D9", "#9FA5B1", "#eb4034", "#2B3A8C"]}
           style={{
-            data: { strokeWidth: 5, }
+            data: { strokeWidth: 5 }
           }}
         >
           <VictoryBar
@@ -62,6 +72,9 @@ const GraphBarLocation: FunctionComponent<Props> = (props) => {
             cornerRadius={{ bottom: home + other + gps ? 0 : 2, top: 2 }}
             data={[{ x: "a", y: office }]}
           />
+          <VictoryBar
+            cornerRadius={{ bottom: 2, top: 2 }}
+            style={{ data: { stroke: '#9FA5B1', fill: '#FFFFF', width: 5, strokeWidth: 1 } }} data={[{ x: "a", y: sum === 0 ? 100 : 0 }]} />
         </VictoryStack>
       </VictoryGroup>
 

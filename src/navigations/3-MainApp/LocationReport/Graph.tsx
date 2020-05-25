@@ -72,13 +72,13 @@ export const Graph = () => {
 						}
 					}
 					console.log(data);
-					const sum = Object.keys(data).reduce((acc, k) =>  acc + data[k], 0);
+					const sum = Object.keys(data).reduce((acc, k) => acc + data[k], 0);
 					console.log('sum: ', sum);
 					item.item = {
-						H: (data.H/sum) * 100,
-						O: (data.O/sum) * 100,
-						W: (data.W/sum) * 100,
-						G: (data.G/sum) * 100
+						H: (data.H / sum) * 100,
+						O: (data.O / sum) * 100,
+						W: (data.W / sum) * 100,
+						G: (data.G / sum) * 100
 					}
 				}
 				return item;
@@ -211,7 +211,7 @@ export const Graph = () => {
 									<Text style={styles.listGraphLabel}>{title}</Text>
 								</View>
 								<View>
-									{item ? <GraphBarLocation width={graphWidth} HOME={item.H} OFFICE={item.W} OTHER={item.O} GPS={item.G} /> : <View style={{ width: graphWidth }} />}
+									<GraphBarLocation width={graphWidth} HOME={item ? item.H : 0} OFFICE={item ? item.W : 0} OTHER={item ? item.O : 0} GPS={item ? item.G : 0} />
 								</View>
 							</View>
 						)
