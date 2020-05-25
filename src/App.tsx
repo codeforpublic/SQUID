@@ -58,6 +58,8 @@ class App extends React.Component {
     const locale = await AsyncStorage.getItem('locale')
     if (locale) {
       I18n.locale = locale
+    } else {
+      I18n.locale = 'th'
     }
     
 

@@ -1,5 +1,13 @@
 import React from 'react'
-import { Alert, Image, StatusBar, StyleSheet, Text, View } from 'react-native'
+import {
+  Alert,
+  Image,
+  StatusBar,
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 import CodePush from 'react-native-code-push'
 import { PrimaryButton } from '../../components/Button'
 import { DebugTouchable } from '../../components/DebugTouchable'
@@ -7,7 +15,6 @@ import { API_URL } from '../../config'
 import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD } from '../../styles'
 
 import I18n from '../../../i18n/i18n'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useSafeArea } from 'react-native-safe-area-view'
 import { changeLangTo } from '../../utils/change-lang'
 // import { getLanguages } from 'react-native-i18n';
