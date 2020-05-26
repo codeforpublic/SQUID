@@ -15,10 +15,11 @@ import { useContactTracer } from '../../services/contact-tracing-provider'
 import { useNavigation } from 'react-navigation-hooks'
 import { userPrivateData } from '../../state/userPrivateData'
 import I18n from '../../../i18n/i18n'
+import FoundBluetooth from './FoundBluetooth'
 
 export const Settings = () => {
   const navigation = useNavigation()
-  const { enable, disable, statusText, isServiceEnabled } = useContactTracer()
+  const { enable, disable, statusText, count, isServiceEnabled } = useContactTracer()
   const isRegistered = Boolean(userPrivateData.getData('authToken'))
   const _onPrivacyPolicyClicked = () => {
     navigation.navigate('PrivacyPolicy')
@@ -67,6 +68,7 @@ export const Settings = () => {
                   {I18n.t('you_can_choose_to_turn_off')}
                   {I18n.t('but_sys_will_not_auto_trace')}
                 </Text>
+                {isServiceEnabled && <FoundBluetooth count={count}/>}
               </View>
             </View>
             <View style={styles.sectionHeader}>

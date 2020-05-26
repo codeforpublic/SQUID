@@ -18,6 +18,7 @@ import { WebviewScreen } from './Webview'
 import { ChangeLanguageScreen } from './ChangeLanguage'
 import { SetLocationStack } from './5-SetLocation/SetLocationStack'
 import { LocationReport } from './3-MainApp/LocationReport'
+import { SetLocationHome } from './5-SetLocation/SetLocationHome'
 
 const Root = ({ navigation }) => {
   useEffect(() => {
@@ -28,7 +29,7 @@ const Root = ({ navigation }) => {
         'filledQuestionaireV2',
       )
       // const isEnterCoded = true; // TODO: waiting for next sprint
-      
+
       const routeName = isSkipRegistration
         ? onboarded
           ? isFilledQuestionaire
@@ -78,7 +79,7 @@ export default createStackNavigator(
       screen: WebviewScreen,
     },
     PrivacyPolicy: {
-      screen: PrivacyPolicy,      
+      screen: PrivacyPolicy,
     },
     SetLocation: {
       screen: SetLocationStack,
@@ -88,6 +89,9 @@ export default createStackNavigator(
     },
     LocationReport: {
       screen: LocationReport,
+    },
+    SetLocationHome: {
+      screen: SetLocationHome
     }
   },
   {

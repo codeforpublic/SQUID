@@ -22,7 +22,8 @@ interface ContactTracerState {
   anonymousId: string
   statusText: string
   enable: () => void
-  disable: () => void
+  disable: () => void,
+  count: number,
 }
 
 const Context = React.createContext<ContactTracerState>(null)
@@ -46,6 +47,7 @@ export class ContactTracerProvider extends React.Component<
       statusText: this.statusText,
       enable: this.enable.bind(this),
       disable: this.disable.bind(this),
+      count: 0,
     }
   }
 
@@ -165,6 +167,9 @@ export class ContactTracerProvider extends React.Component<
     this.setState({
       isServiceEnabled: true,
     })
+    setInterval(() => {
+     this.onNearbyDeviceFoundReceived({rssi: Math.random().toString(), name: "test" + this.state.count});
+    }, 5000)
   }
 
   /**
@@ -275,6 +280,7 @@ export class ContactTracerProvider extends React.Component<
     if (Date.now() - bluetoothScanner.oldestItemTS > 30 * 60 * 1000) {
       bluetoothScanner.upload()
     }
+    this.setState({count: (bluetoothScanner.list || []).length});
   }
 
   render() {    
