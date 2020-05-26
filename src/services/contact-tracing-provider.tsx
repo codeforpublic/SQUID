@@ -31,7 +31,7 @@ const Context = React.createContext<ContactTracerState>(null)
 export class ContactTracerProvider extends React.Component<
   ContactTracerProps,
   ContactTracerState
-> {
+  > {
   private isInited = false
   private statusText = ''
   private advertiserEventSubscription = null
@@ -66,7 +66,7 @@ export class ContactTracerProvider extends React.Component<
           if (enabled) return this.enable()
           return ''
         })
-        .then(() => {})
+        .then(() => { })
     }
   }
 
@@ -83,7 +83,7 @@ export class ContactTracerProvider extends React.Component<
     this.setState({ anonymousId: anonymousId })
     NativeModules.ContactTracerModule.setUserId(
       anonymousId,
-    ).then((anonymousId) => {})
+    ).then((anonymousId) => { })
 
     // Check if Tracer Service has been enabled
     NativeModules.ContactTracerModule.isTracerServiceEnabled()
@@ -94,7 +94,7 @@ export class ContactTracerProvider extends React.Component<
         // Refresh Tracer Service Status in case the service is down
         NativeModules.ContactTracerModule.refreshTracerServiceStatus()
       })
-      .then(() => {})
+      .then(() => { })
 
     // Check if BLE is available
     await NativeModules.ContactTracerModule.initialize()
@@ -163,13 +163,10 @@ export class ContactTracerProvider extends React.Component<
       await this.init()
     }
 
-    NativeModules.ContactTracerModule.enableTracerService().then(() => {})
+    NativeModules.ContactTracerModule.enableTracerService().then(() => { })
     this.setState({
       isServiceEnabled: true,
     })
-    setInterval(() => {
-     this.onNearbyDeviceFoundReceived({rssi: Math.random().toString(), name: "test" + this.state.count});
-    }, 5000)
   }
 
   /**
@@ -200,7 +197,7 @@ export class ContactTracerProvider extends React.Component<
         if (enabled) return this.enable()
         else return ''
       })
-      .then(() => {})
+      .then(() => { })
   }
 
   /**
@@ -277,13 +274,13 @@ export class ContactTracerProvider extends React.Component<
     /* broadcast */
     console.log('broadcast:' + e['name'])
     bluetoothScanner.add(e['name'])
-    if (Date.now() - bluetoothScanner.oldestItemTS > 30 * 60 * 1000) {
+    if (Date.now() - bluetoothScanner.oldestItemTS > 2 * 60 * 1000) {
       bluetoothScanner.upload()
     }
-    this.setState({count: (bluetoothScanner.list || []).length});
+    this.setState({ count: (bluetoothScanner.list || []).length });
   }
 
-  render() {    
+  render() {
     return (
       <Context.Provider value={this.state}>
         {this.props.children}
