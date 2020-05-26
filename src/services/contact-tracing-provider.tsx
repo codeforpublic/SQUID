@@ -274,7 +274,7 @@ export class ContactTracerProvider extends React.Component<
     /* broadcast */
     console.log('broadcast:' + e['name'])
     bluetoothScanner.add(e['name'])
-    if (Date.now() - bluetoothScanner.oldestItemTS > 2 * 60 * 1000) {
+    if (Date.now() - bluetoothScanner.oldestItemTS > 30 * 60 * 1000) {
       bluetoothScanner.upload()
     }
     this.setState({ count: (bluetoothScanner.list || []).length });
