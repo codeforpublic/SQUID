@@ -1,0 +1,8 @@
+app_identifier("team.odds.thaialert.app") # The bundle identifier of your app
+apple_id("kan@odds.team") # Your Apple email address
+
+itc_team_id("121460208") # App Store Connect Team ID
+team_id("SMWG75F5SY") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
