@@ -292,8 +292,8 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				839C280B22D65FFB00BD4FDC /* ShellScript */,
-				8FF8B7A04A4244C4A1FEE396 /* Upload Debug Symbols to Sentry */,
 				7CEC233EAB151DC324DC0FEF /* [CP] Copy Pods Resources */,
+				A34AE52AA14344D19DDB159F /* Upload Debug Symbols to Sentry */,
 			);
 			buildRules = (
 			);
@@ -384,7 +384,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh\n\nif [ \"${CONFIGURATION}\" == \"Release\" ]; then\n    echo \"Delete sourcemaps $CONFIGURATION_BUILD_DIR\"\n    rm \"$CONFIGURATION_BUILD_DIR/$EXECUTABLE_NAME.app/main.jsbundle.map\"\nfi\n\n";
+			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport EXTRA_PACKAGER_ARGS=\"--sourcemap-output $DERIVED_FILE_DIR/main.jsbundle.map\"\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh\n\nif [ \"${CONFIGURATION}\" == \"Release\" ]; then\n    echo \"Delete sourcemaps $CONFIGURATION_BUILD_DIR\"\n    rm \"$CONFIGURATION_BUILD_DIR/$EXECUTABLE_NAME.app/main.jsbundle.map\"\nfi\n\n";
 		};
 		7CEC233EAB151DC324DC0FEF /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -473,7 +473,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8FF8B7A04A4244C4A1FEE396 /* Upload Debug Symbols to Sentry */ = {
+		A34AE52AA14344D19DDB159F /* Upload Debug Symbols to Sentry */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -485,7 +485,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=sentry.properties\n../node_modules/@sentry/cli/bin/sentry-cli upload-dsym";
+			shellScript = "export SENTRY_PROPERTIES=sentry.properties\n../node_modules/@sentry/cli/bin/sentry-cli upload-dsym\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
