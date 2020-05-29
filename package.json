@@ -133,10 +133,10 @@
     "@babel/core": "^7.6.2",
     "@babel/runtime": "^7.6.2",
     "@react-native-community/eslint-config": "^1.1.0",
-    "@types/jest": "^24.0.18",
-    "@types/react": "^16.9.2",
-    "@types/react-native": "^0.60.15",
-    "@types/react-test-renderer": "^16.9.0",
+    "@types/jest": "^25.2.3",
+    "@types/react": "^16.9.35",
+    "@types/react-native": "^0.62.12",
+    "@types/react-test-renderer": "^16.9.2",
     "babel-jest": "^24.9.0",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "eslint": "^7.1.0",
@@ -146,7 +146,7 @@
     "metro-react-native-babel-preset": "^0.56.0",
     "prettier": "^2.0.5",
     "react-test-renderer": "16.9.0",
-    "typescript": "3.7.5"
+    "typescript": "^3.9.3"
   },
   "husky": {
     "hooks": {
@@ -162,8 +162,5 @@
       "prettier --write",
       "git add --force"
     ]
-  },
-  "jest": {
-    "preset": "react-native"
   }
 }
