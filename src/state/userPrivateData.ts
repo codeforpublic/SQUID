@@ -35,7 +35,9 @@ class UserPrivateData extends HookState {
       USER_DATA_KEY,
       JSON.stringify(this.data),
       SINFO_OPTIONS,
-    )
+    ).catch(() => {
+      console.log('save failed')
+    })
   }
   async load() {
     const userDataString = await SInfo.getItem(USER_DATA_KEY, SINFO_OPTIONS)
