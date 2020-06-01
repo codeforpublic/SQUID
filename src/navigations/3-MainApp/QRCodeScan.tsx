@@ -12,6 +12,7 @@ import { QRPopupContent } from './QRPopupContent'
 import { scanManager } from '../../services/contact-scanner'
 
 import I18n from '../../../i18n/i18n';
+import { backgroundTracking } from '../../services/background-tracking'
 
 export const QRCodeScan = ({ navigation }) => {
   const isFocused = useIsFocused()
@@ -59,6 +60,7 @@ export const QRCodeScan = ({ navigation }) => {
                     navigation.pop()
                   }
                 })
+                backgroundTracking.getLocation({ extras: { triggerType: 'thaichana', url: e.data } })
                 return
               }
               await verifyToken(e?.data) 
