@@ -152,8 +152,8 @@ android {
         applicationId "com.thaialert.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 30
-        versionName "1.8.2"
+        versionCode 31
+        versionName "1.8.3"
         multiDexEnabled true
         missingDimensionStrategy 'react-native-camera', 'general' 
         resValue "string", "build_config_package", "com.thaialert.app"

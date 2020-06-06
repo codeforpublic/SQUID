@@ -97,7 +97,7 @@
     "react-native-picker-select": "^7.0.0",
     "react-native-prompt-android": "https://github.com/transistorsoft/react-native-prompt-android.git",
     "react-native-pure-jwt": "^2.1.1",
-    "react-native-push-notification": "^3.4.0",
+    "react-native-push-notification": "https://github.com/codeforpublic/react-native-push-notification.git#1e1a0ca",
     "react-native-push-notification-popup": "^1.4.0",
     "react-native-qrcode-scanner": "^1.4.0",
     "react-native-qrcode-svg": "^6.0.6",
