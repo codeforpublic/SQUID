@@ -8,14 +8,14 @@ Create .env file by rename from .env.dev
 
 ### iOS
 
-1. Clone ```git clone https://github.com/Cleverse/fight-covid-19```
-2. Install Dependencies `cd fight-covid-19 && yarn && (cd ios; pod install)`
+1. Clone ```https://github.com/codeforpublic/morchana-app.git```
+2. Install Dependencies `cd /morchana-app && yarn && (cd ios; pod install)`
 3. Start `npx react-native run-ios`
 
 ### Android
 
-1. Clone ```git clone https://github.com/Cleverse/fight-covid-19```
-2. Install Dependencies `cd fight-covid-19 && yarn`
+1. Clone ```git clone https://github.com/codeforpublic/morchana-app.git```
+2. Install Dependencies `cd morchana-app && yarn`
 3. Start `npx react-native run-android`
 
 ## App Flow
