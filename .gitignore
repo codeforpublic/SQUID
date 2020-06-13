@@ -47,7 +47,4 @@ ios/Pods/
 .env.production
 .env
 หมอชนะ.app.dSYM.zip
-appcenter-config.json
-AppCenter-Config.plist
 sentry.properties
-google-services.json
