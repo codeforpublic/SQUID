@@ -47,4 +47,4 @@ ios/Pods/
 .env.production
 .env
 หมอชนะ.app.dSYM.zip
-sentry.properties
+# sentry.properties
