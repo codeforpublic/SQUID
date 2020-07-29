@@ -650,7 +650,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.thaialert.app;
-				PRODUCT_NAME = "หมอชนะ";
+				PRODUCT_NAME = "หมอชนะ-stg.";
 				PROVISIONING_PROFILE_SPECIFIER = "ThaiAlert Profile Adhoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "ThaiAlert-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
