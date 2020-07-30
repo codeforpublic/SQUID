@@ -631,7 +631,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2E509E76A94022662453910C /* Pods-ThaiAlert.staging.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-stg";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ThaiAlert/ThaiAlert.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Electronic Government Agency (N5WRT2798G)";
@@ -650,7 +650,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.thaialert.app;
-				PRODUCT_NAME = "หมอชนะ-stg.";
+				PRODUCT_NAME = "หมอชนะ";
 				PROVISIONING_PROFILE_SPECIFIER = "ThaiAlert Profile Adhoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "ThaiAlert-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
