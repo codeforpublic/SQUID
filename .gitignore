@@ -46,5 +46,5 @@ ios/Pods/
 *.hprof
 .env.production
 .env
-หมอชนะ.app.dSYM.zip
+ThaiAlert.app.dSYM.zip
 # sentry.properties
