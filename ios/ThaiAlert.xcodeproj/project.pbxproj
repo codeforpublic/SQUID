@@ -405,7 +405,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Increase build version number by Unix TimeStamp\nif [ \"${CONFIGURATION}\" !== \"Debug\" ]\nthen\n    buildTimestamp=$(date +%s)\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildTimestamp\" \"$PRODUCT_SETTINGS_PATH\"\n    echo \"Increase build bundle version to ${buildTimestamp}\"\nfi\n";
+			shellScript = "# Increase build version number by Unix TimeStamp\nif [ \"${CONFIGURATION}\" != \"Debug\" ]\nthen\n    buildTimestamp=$(date +%s)\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildTimestamp\" \"$PRODUCT_SETTINGS_PATH\"\n    echo \"Increase build bundle version to ${buildTimestamp}\"\nfi\n";
 		};
 		7CEC233EAB151DC324DC0FEF /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -545,7 +545,7 @@
 				CODE_SIGN_ENTITLEMENTS = ThaiAlert/ThaiAlert.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 99;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -577,7 +577,7 @@
 				CODE_SIGN_ENTITLEMENTS = ThaiAlert/ThaiAlert.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Electronic Government Agency (N5WRT2798G)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 99;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = N5WRT2798G;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -655,7 +655,7 @@
 				CODE_SIGN_ENTITLEMENTS = ThaiAlert/ThaiAlert.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Electronic Government Agency (N5WRT2798G)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 99;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = N5WRT2798G;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
