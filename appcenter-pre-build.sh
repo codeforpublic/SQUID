@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Creates an .env from ENV variables for use with react-native-config
-if [ "$APPCENTER_BRANCH" == "master" ]; 
+if [ "$ENVIRONMENT_VARIABLE" == "production" ]; 
 then  
   ENV_WHITELIST=${ENV_WHITELIST:-"^RN_"}
   printf "Creating an .env.production file with the following whitelist:\n"
