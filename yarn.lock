@@ -7406,10 +7406,9 @@ react-native-confirm@^0.0.1:
     react-native-input-xg "^0.0.2"
     react-native-stylesheet-xg "^1.1.0"
 
-react-native-contact-tracer@^1.1.9:
+"react-native-contact-tracer@git://github.com/Morchana/contact-tracer.git":
   version "1.1.9"
-  resolved "https://registry.yarnpkg.com/react-native-contact-tracer/-/react-native-contact-tracer-1.1.9.tgz#eb94a7656c1d2bf386c4fcecc7b0d7e38a09cead"
-  integrity sha512-yBg/QFkXlCrh0YbWnQZn3HF/JRFaSck4OYF3WPCeGOSOOPLrY9krQuIW+aBMV22ylrEIWQ0ZZynL9uxAXFpgVQ==
+  resolved "git://github.com/Morchana/contact-tracer.git#aaf70da7e40505eb9601d352e89a08c4c6f25d3a"
 
 react-native-datepicker@^1.4.4:
   version "1.7.2"
