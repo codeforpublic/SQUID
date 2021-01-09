@@ -7882,23 +7882,23 @@ react-native-appstate-hook@^1.0.3:
   resolved "https://registry.yarnpkg.com/react-native-appstate-hook/-/react-native-appstate-hook-1.0.3.tgz#4f4f86e63127e7b06e53ccc286ec9a6e545d9d59"
   integrity sha512-iVoTUMnlJiU4DldhoEdE0uecr9AuC84tq+ftvfCYbZowirPTxlqAkvi/42sjlUDMFsG6BB8PoWci94qmz15w5Q==
 
-react-native-background-fetch@2.7.1, react-native-background-fetch@~2.7.1:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/react-native-background-fetch/-/react-native-background-fetch-2.7.1.tgz#1467aed0fd2851edfdf10d3d9ac4ffd0cf069a85"
-  integrity sha512-BNWBVL3kewDJL+B+0gF84iF8viws3AGHwxsWPp+MhWvgb/Su6BPWjgi8u0A9fRYhacozmAcNEPT7E3tah1P8lg==
+react-native-background-fetch@^3.1.0, react-native-background-fetch@~3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-background-fetch/-/react-native-background-fetch-3.1.0.tgz#5ec182662e76bd8257f21c6f65cdcb73e87a0708"
+  integrity sha512-dnrfX3Od4r3aKuRSwDkpaPFXc3dYD5DbIW7CWC41M1CdEZEXNIWfZRvJPMVa72iflOzAh68ZTfZ3PgBK/NDtsQ==
   dependencies:
     fast-plist "^0.1.2"
     plist "^3.0.1"
     xcode "^2.0.0"
 
-react-native-background-geolocation@^3.4.2:
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/react-native-background-geolocation/-/react-native-background-geolocation-3.4.2.tgz#77875eeaccfee0d0fab684012bf9e668b77cedb7"
-  integrity sha512-L2o7q21ih0Ckv1x8hzZoTeW8Wj9gu3fRfMgKhEBG4uRRTGXUBeIQnAk2nRgyHX0Jmj1JnQ0txs1PESZDVBt6vw==
+react-native-background-geolocation@^3.9.3:
+  version "3.9.3"
+  resolved "https://registry.yarnpkg.com/react-native-background-geolocation/-/react-native-background-geolocation-3.9.3.tgz#7bab17653c852e3b54fa2765a85f1ae3d6bf548a"
+  integrity sha512-XfONtcTL7W2qsZxHzqQomIcza3IrjqvEujeqViHuGRc+sQjeQAm8rqTzbuBNx/QNuLIuerdBy3lzwd89myz7Cw==
   dependencies:
     fast-plist "^0.1.2"
     plist "^2.0.1"
-    react-native-background-fetch "~2.7.1"
+    react-native-background-fetch "~3.1.0"
     xcode "^0.9.1"
 
 react-native-buttons@^0.0.3:
