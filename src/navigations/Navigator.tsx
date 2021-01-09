@@ -22,15 +22,20 @@ const Root = ({ navigation }) => {
     const redirect = async () => {
       const isSkipRegistration = applicationState.getData('skipRegistration')
       const onboarded = applicationState.getData('isPassedOnboarding')
-      const isFilledQuestionaire = applicationState.getData(
-        'filledQuestionaireV2',
-      )
-
+      // const isFilledQuestionaire = applicationState.getData(
+      //   'filledQuestionaireV2',
+      // )
+      // const routeName = isSkipRegistration
+      //   ? onboarded
+      //     ? isFilledQuestionaire
+      //       ? 'MainApp'
+      //       : 'Questionaire'
+      //     : 'Onboarding'
+      //   : 'Home'
+      
       const routeName = isSkipRegistration
         ? onboarded
-          ? isFilledQuestionaire
-            ? 'MainApp'
-            : 'Questionaire'
+          ? 'MainApp'
           : 'Onboarding'
         : 'Home'
 
