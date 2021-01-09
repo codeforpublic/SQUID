@@ -90,15 +90,6 @@ export const Settings = () => {
                 </View>
               </TouchableHighlight> */}
               <TouchableHighlight
-                onPress={() => navigation.navigate('Questionaire')}
-              >
-                <View style={styles.section}>
-                  <Text style={styles.sectionText}>
-                    {I18n.t('do_questionaire_again')}
-                  </Text>
-                </View>
-              </TouchableHighlight>
-              <TouchableHighlight
                 onPress={() => navigation.navigate('ChangeLanguage')}
               >
                 <View style={styles.section}>

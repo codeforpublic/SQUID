@@ -35,9 +35,7 @@ const Root = ({ navigation }) => {
       
       const routeName = isSkipRegistration
         ? onboarded
-          ? isFilledQuestionaire
-            ? 'MainApp'
-            : 'Questionaire'
+          ? 'MainApp'
           : 'Onboarding'
         : 'Home'
 
