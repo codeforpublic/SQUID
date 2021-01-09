@@ -3,13 +3,13 @@ import 'react-native-get-random-values'
 import * as Sentry from '@sentry/react-native'
 import { AppRegistry, Text, KeyboardAvoidingView, Platform } from 'react-native'
 import App from './src/App'
-
+import { backgroundTracking } from './src/services/background-tracking'
 import BackgroundGeolocation from './src/react-native-background-geolocation'
 
 Text.defaultProps = Text.defaultProps || {}
 Text.defaultProps.allowFontScaling = false
 KeyboardAvoidingView.defaultProps.behavior =
-  Platform.OS == 'ios' ? 'padding' : null
+  Platform.OS === 'ios' ? 'padding' : null
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
@@ -28,14 +28,15 @@ AppRegistry.registerComponent('ThaiAlert', () => App)
  * BackgroundGeolocation Headless JS task.
  * For more information, see:  https://github.com/transistorsoft/react-native-background-geolocation/wiki/Android-Headless-Mode
  */
-let BackgroundGeolocationHeadlessTask = async event => {
+
+let BackgroundGeolocationHeadlessTask = async (event) => {
   let params = event.params
   console.log('[BackgroundGeolocation HeadlessTask] -', event.name, params)
 
   switch (event.name) {
     case 'heartbeat':
       // Use await for async tasks
-      let location = await BackgroundGeolocation.getCurrentPosition({
+      let location = await backgroundTracking.getLocation({
         samples: 1,
         persist: false,
         extras: {
@@ -56,7 +57,7 @@ BackgroundGeolocation.registerHeadlessTask(BackgroundGeolocationHeadlessTask)
  * BackgroundFetch Headless JS Task.
  * For more information, see:  https://github.com/transistorsoft/react-native-background-fetch#config-boolean-enableheadless-false
  */
-let BackgroundFetchHeadlessTask = async event => {
+let BackgroundFetchHeadlessTask = async (event) => {
   console.log('[BackgroundFetch HeadlessTask] start')
   // Important:  await asychronous tasks when using HeadlessJS.
   /* DISABLED
