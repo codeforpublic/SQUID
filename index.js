@@ -11,11 +11,11 @@ Text.defaultProps.allowFontScaling = false
 KeyboardAvoidingView.defaultProps.behavior =
   Platform.OS === 'ios' ? 'padding' : null
 
-if (process.env.NODE_ENV === 'production') {
-  Sentry.init({
-    dsn: 'https://9ba1ba3df3174145b8d276c9d84b6b52@sentry.io/5175128',
-  })
-}
+// if (process.env.NODE_ENV === 'production') {
+//   Sentry.init({
+//     dsn: 'https://9ba1ba3df3174145b8d276c9d84b6b52@sentry.io/5175128',
+//   })
+// }
 
 // Make BackgroundGeolocation API global for handy access in Javascript Debugger console
 global.BackgroundGeolocation = BackgroundGeolocation
