@@ -39,13 +39,14 @@ export const OnboardComplete = () => {
           style={{ width: '100%' }}
           containerStyle={{ width: '100%' }}
           onPress={() => {
-            if (applicationState.getData(
-              'filledQuestionaireV2',
-            )) {
-              resetTo({ routeName: 'MainApp' })
-            } else {
-              resetTo({ routeName: 'Questionaire' })
-            }
+            // if (applicationState.getData(
+            //   'filledQuestionaireV2',
+            // )) {
+            //   resetTo({ routeName: 'MainApp' })
+            // } else {
+            //   resetTo({ routeName: 'Questionaire' })
+            // }
+            resetTo({ routeName: 'MainApp' })
           }}
         />
       </View>

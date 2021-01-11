@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { COLORS } from '../../../styles'
+import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../../styles'
 import { useSafeArea } from 'react-native-safe-area-context'
 import {
   StatusBar,
@@ -14,13 +14,14 @@ import { QRTagLabel } from './QRTagLabel'
 import { QRHeader } from './QRHeader'
 import { QRSection } from './QRSection'
 import { QRFooter } from './QRFooter'
-
+import DeviceInfo from 'react-native-device-info'
 import I18n from '../../../../i18n/i18n';
+import { Text } from 'react-native-elements'
 
 export const MainApp = () => {
   const inset = useSafeArea()  
   const { qrData, qrState, error, refreshQR } = useSelfQR()  
-
+  const appVersion = DeviceInfo.getVersion();
   useEffect(() => {
     pushNotification.requestPermissions()
   }, [])
@@ -39,6 +40,20 @@ export const MainApp = () => {
       <QRHeader qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
       <QRSection qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
       <QRFooter />
+      <Text
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            right: 0,
+            paddingRight: 5,
+            fontFamily: FONT_FAMILY,
+            fontSize: FONT_SIZES[500] * 0.85,
+            textAlign: 'right',
+            color: '#0FA7DC'
+          }}
+        >
+        V {appVersion} 
+      </Text>
     </View>
   )
 }

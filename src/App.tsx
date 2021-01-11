@@ -1,27 +1,35 @@
-import React, { Component, Context } from 'react'
-import { NativeModules, Dimensions, Linking, AppState, AppStateStatus } from 'react-native'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
+import React from 'react'
 import AsyncStorage from '@react-native-community/async-storage'
-import { createAppContainer } from 'react-navigation'
-import Navigator from './navigations/Navigator'
-import { View, Alert } from 'react-native'
-import { NavigationContainerComponent } from 'react-navigation'
-import { HUDProvider } from './HudView'
-import SplashScreen from 'react-native-splash-screen'
-import { COLORS } from './styles'
+import { ThemeProvider } from 'emotion-theming'
+import {
+  Alert,
+  AppState,
+  AppStateStatus,
+  Dimensions,
+  NativeModules,
+  View,
+} from 'react-native'
 import codePush from 'react-native-code-push'
-import { userPrivateData } from './state/userPrivateData'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import SplashScreen from 'react-native-splash-screen'
+import {
+  createAppContainer,
+  NavigationContainerComponent,
+} from 'react-navigation'
+import I18n from '../i18n/i18n'
+import { CODEPUSH_DEPLOYMENT_KEY } from './config'
+import { HUDProvider } from './HudView'
+import Navigator from './navigations/Navigator'
+import { withSystemAvailable } from './services/available'
 import { backgroundTracking } from './services/background-tracking'
 import { ContactTracerProvider } from './services/contact-tracing-provider'
+import { NOTIFICATION_TYPES, pushNotification } from './services/notification'
 import { applicationState } from './state/app-state'
-import { ThemeProvider } from 'emotion-theming'
-import { withSystemAvailable } from './services/available'
-import { CODEPUSH_DEPLOYMENT_KEY } from './config'
+import { userPrivateData } from './state/userPrivateData'
+import { COLORS } from './styles'
 import { compose } from './utils/compose'
-import { pushNotification, NOTIFICATION_TYPES } from './services/notification'
-import { refetchJWKs } from './utils/jwt'
 import { refetchDDCPublicKey } from './utils/crypto'
-import I18n from '../i18n/i18n'
+import { refetchJWKs } from './utils/jwt'
 
 const AppContainer = createAppContainer(Navigator)
 
@@ -39,8 +47,8 @@ class App extends React.Component {
       loaded: false,
     }
   }
-  componentDidMount() {    
-    this.load().catch(err => {
+  componentDidMount() {
+    this.load().catch((err) => {
       console.log('err', err)
       Alert.alert('Load app failed')
     })
@@ -55,28 +63,42 @@ class App extends React.Component {
     if (__DEV__) {
       // await this.purgeAll()
     }
-    const locale = await AsyncStorage.getItem('locale')
-    if (locale) {
-      I18n.locale = locale
-    } else {
-      I18n.locale = 'th'
-    }
-    
 
-    await Promise.all([applicationState.load(), userPrivateData.load(), refetchJWKs()])
-    await backgroundTracking.setup(
-      Boolean(applicationState.getData('isPassedOnboarding')),
-    )
+    AppState.addEventListener('change', this.handleAppStateChange)
 
-    await NativeModules.ContactTracerModule.setUserId(
-      userPrivateData.getAnonymousId(),
-    )    
-    AppState.addEventListener('change', this.handleAppStateChange)    
+    const locale = () => AsyncStorage.getItem('locale')
 
-    refetchDDCPublicKey()
-    this.setState({ loaded: true }, () => {
-      SplashScreen.hide()
-    })
+    const credential = () =>
+      Promise.all([
+        applicationState.load(),
+        userPrivateData.load(),
+        refetchJWKs(),
+      ])
+
+    const setUpId = () =>
+      NativeModules.ContactTracerModule.setUserId(
+        userPrivateData.getAnonymousId(),
+      )
+
+    return Promise.all([
+      locale(),
+      credential(),
+      setUpId(),
+      refetchDDCPublicKey(),
+    ])
+      .then((resp) => {
+        const lng = resp[0]
+        I18n.locale = lng ? lng : 'th'
+
+        backgroundTracking.setup(
+          Boolean(applicationState.getData('isPassedOnboarding')),
+        )
+
+        this.setState({ loaded: true }, () => {
+          SplashScreen.hide()
+        })
+      })
+      .catch(console.log)
   }
   handleAppStateChange(state: AppStateStatus) {
     if (this.appState !== state) {
@@ -92,7 +114,7 @@ class App extends React.Component {
     }
   }
   onNavigatorLoaded() {
-    pushNotification.configure(this.onNotification)    
+    pushNotification.configure(this.onNotification)
   }
   onNotification = (notification) => {
     const notificationData = notification?.data?.data || notification?.data
@@ -110,7 +132,7 @@ class App extends React.Component {
             uri: notificationData.url,
             onClose: () => {
               navigation.pop()
-            }
+            },
           })
         }
         break
@@ -135,11 +157,11 @@ class App extends React.Component {
               <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }}>
                 <AppContainer
                   uriPrefix="morchana://"
-                  ref={navigator => {
+                  ref={(navigator) => {
                     if (!this._navigator) {
                       this._navigator = navigator
                       this.onNavigatorLoaded()
-                    }                    
+                    }
                   }}
                 />
               </View>
@@ -152,11 +174,13 @@ class App extends React.Component {
 }
 
 export default compose(
-  CODEPUSH_DEPLOYMENT_KEY? codePush({
-    // @ts-ignore
-    installMode: codePush.InstallMode.IMMEDIATE,
-    checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-    deploymentKey: CODEPUSH_DEPLOYMENT_KEY,
-  }): c => c,
+  CODEPUSH_DEPLOYMENT_KEY
+    ? codePush({
+        // @ts-ignore
+        installMode: codePush.InstallMode.IMMEDIATE,
+        checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+        deploymentKey: CODEPUSH_DEPLOYMENT_KEY,
+      })
+    : (c) => c,
   withSystemAvailable,
 )(App)
