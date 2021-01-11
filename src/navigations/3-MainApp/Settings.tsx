@@ -80,7 +80,7 @@ export const Settings = () => {
                   </Text>
                 </View>
               </TouchableHighlight>
-              <TouchableHighlight
+              {/* <TouchableHighlight
                 onPress={() => navigation.navigate('Questionaire')}
               >
                 <View style={styles.section}>
@@ -88,7 +88,7 @@ export const Settings = () => {
                     {I18n.t('do_questionaire_again')}
                   </Text>
                 </View>
-              </TouchableHighlight>
+              </TouchableHighlight> */}
               <TouchableHighlight
                 onPress={() => navigation.navigate('ChangeLanguage')}
               >

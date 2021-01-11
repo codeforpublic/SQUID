@@ -1,5 +1,4 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     // check googlePlayService latest version here, https://developers.google.com/android/guides/setup
     ext {
@@ -8,10 +7,10 @@ buildscript {
         googlePlayServicesVersion = "17.0.0"
         firebaseVersion = "+"
         removeBackgroundGeolocationDebugSoundsInRelease = false
-        buildToolsVersion = "28.0.3"
+        buildToolsVersion = "29.0.3"
         minSdkVersion = 21
-        compileSdkVersion = 28
-        targetSdkVersion = 28
+        compileSdkVersion = 29
+        targetSdkVersion = 29
         supportLibVersion = "1.0.2"
         appCompatVersion = "1.0.2"
         supportV4Version = "1.0.0"
@@ -25,12 +24,10 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.2'
         classpath('com.google.gms:google-services:4.3.3')
-
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
-
 allprojects {
     repositories {
         mavenLocal()
@@ -45,10 +42,16 @@ allprojects {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
         }
+        maven {
+            // Required for react-native-background-geolocation
+            url("${project(':react-native-background-geolocation').projectDir}/libs")
+        }
+        maven {
+            // react-native-background-fetch
+            url("${project(':react-native-background-fetch').projectDir}/libs")
+        }
     }
 }
-
-
 subprojects {
     afterEvaluate {
         project ->
