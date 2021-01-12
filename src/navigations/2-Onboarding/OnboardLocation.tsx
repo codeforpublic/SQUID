@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { NativeModules } from 'react-native';
+
 import {
   ActivityIndicator,
   Image,
@@ -45,7 +47,9 @@ export const OnboardLocation = () => {
       check(ACTIVITY_PERMISSION),
     ])
     if (perms[0] === 'granted' && perms[1] === 'granted') {
-      await backgroundTracking.start()
+      if(Platform.OS === 'ios' ||  NativeModules.HMSBase.isGmsAvailable() === true){
+        backgroundTracking.start()
+      }
       navigation.navigate('OnboardProgressing')
     } else {
       setLocationPerm(perms[0])
@@ -60,12 +64,16 @@ export const OnboardLocation = () => {
   const handleSubmit = async () => {
     showSpinner()
 
+    //this does not request location for android
     await request(LOCATION_PERMISSION)
     await request(ACTIVITY_PERMISSION)
 
     hide()
-
-    backgroundTracking.start()
+    //this will request location, but for non-gms phone will see the 'Require GMS Dialog
+    //this is being remove also because non-gms can not retrieve location from GMS anyway
+    if(Platform.OS === 'ios' ||  NativeModules.HMSBase.isGmsAvailable() === true){
+      backgroundTracking.start()
+    }
 
     setTimeout(() => {
       navigation.navigate('OnboardBluetooth')
