@@ -10,7 +10,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;echo &quot;.env&quot; &gt; /tmp/envfile   # replace .env.staging for your file&#10;">
+               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;echo &quot;.env.dev&quot; &gt; /tmp/envfile   # replace .env.staging for your file&#10;">
             </ActionContent>
          </ExecutionAction>
       </PreActions>
@@ -24,7 +24,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "&#xe2b;&#xe21;&#xe2d;&#xe0a;&#xe19;&#xe30;.app"
+               BuildableName = "ThaiAlert.app"
                BlueprintName = "ThaiAlert"
                ReferencedContainer = "container:ThaiAlert.xcodeproj">
             </BuildableReference>
@@ -40,11 +40,9 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Staging"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = "th"
-      region = "TH"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -56,14 +54,14 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "&#xe2b;&#xe21;&#xe2d;&#xe0a;&#xe19;&#xe30;.app"
+            BuildableName = "ThaiAlert.app"
             BlueprintName = "ThaiAlert"
             ReferencedContainer = "container:ThaiAlert.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Staging"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -73,7 +71,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "&#xe2b;&#xe21;&#xe2d;&#xe0a;&#xe19;&#xe30;.app"
+            BuildableName = "ThaiAlert.app"
             BlueprintName = "ThaiAlert"
             ReferencedContainer = "container:ThaiAlert.xcodeproj">
          </BuildableReference>
@@ -83,7 +81,7 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Staging"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

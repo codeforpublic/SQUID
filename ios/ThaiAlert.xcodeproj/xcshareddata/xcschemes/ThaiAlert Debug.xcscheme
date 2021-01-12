@@ -10,7 +10,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;echo &quot;.env.production&quot; &gt; /tmp/envfile   # replace .env.staging for your file&#10;">
+               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;echo &quot;.env.dev&quot; &gt; /tmp/envfile   # replace .env.staging for your file&#10;">
             </ActionContent>
          </ExecutionAction>
       </PreActions>
@@ -40,9 +40,11 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = "th"
+      region = "TH"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
