@@ -239,8 +239,8 @@ PODS:
   - react-native-image-editor (2.3.0):
     - React
     - React-RCTImage
-  - react-native-image-picker (2.3.1):
-    - React
+  - react-native-image-picker (3.1.3):
+    - React-Core
   - react-native-maps (0.26.1):
     - React
   - react-native-restart (0.0.17):
@@ -602,7 +602,7 @@ SPEC CHECKSUMS:
   react-native-config: 7db9b96479164dfd7b2be68eb9079e08279511c4
   react-native-get-random-values: 148a42f97f2ce180a52d219144e83c278d4fe24b
   react-native-image-editor: 9361a215c3991cafbe5e7f28cbbad6e72c9c2705
-  react-native-image-picker: 6a850c41f57f0848d918c2a77aedd7aa272ffa30
+  react-native-image-picker: 98920a299f85c566800d5b0a884352504a7585eb
   react-native-maps: 6e499eee4eabf422ba8b6f94e993cc768bf35153
   react-native-restart: d19a0f8d053d065fe64cd2baebb6487111c77149
   react-native-rsa-native: 348b5057073920db0e154724c3a49e6b34e1da6b

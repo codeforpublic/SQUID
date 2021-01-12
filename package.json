@@ -86,7 +86,7 @@
     "react-native-gesture-handler": "^1.6.0",
     "react-native-get-random-values": "^1.3.0",
     "react-native-i18n": "^2.0.15",
-    "react-native-image-picker": "^2.3.1",
+    "react-native-image-picker": "^3.1.3",
     "react-native-json-tree": "^1.2.0",
     "react-native-jwt-verifier": "^1.1.1",
     "react-native-keyboard-aware-scrollview": "^2.1.0",
