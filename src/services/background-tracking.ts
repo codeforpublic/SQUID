@@ -35,6 +35,7 @@ class BackgroundTracking {
       startOnBoot: true,
       batchSync: true,
       maxBatchSize: 20,
+      autoSyncThreshold: 10,
       headers,
       url: API_URL + '/location',
       httpRootProperty: 'locations',
