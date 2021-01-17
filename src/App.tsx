@@ -20,7 +20,6 @@ import I18n from '../i18n/i18n'
 import { CODEPUSH_DEPLOYMENT_KEY } from './config'
 import { HUDProvider } from './HudView'
 import Navigator from './navigations/Navigator'
-import { withSystemAvailable } from './services/available'
 import { backgroundTracking } from './services/background-tracking'
 import { ContactTracerProvider } from './services/contact-tracing-provider'
 import { NOTIFICATION_TYPES, pushNotification } from './services/notification'
@@ -182,5 +181,4 @@ export default compose(
         deploymentKey: CODEPUSH_DEPLOYMENT_KEY,
       })
     : (c) => c,
-  withSystemAvailable,
 )(App)
