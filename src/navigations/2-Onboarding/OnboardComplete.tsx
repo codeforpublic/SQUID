@@ -11,13 +11,13 @@ import { applicationState } from '../../state/app-state'
 
 import I18n from '../../../i18n/i18n';
 
-const STRING = {
-  TITLE: I18n.t('register_successfully'),
-  SUB_TITLE: I18n.t('can_start_using_now'),
-  NEXT_BUTTON: I18n.t('start'),
-}
-
 export const OnboardComplete = () => {
+  
+  const STRING = {
+    TITLE: I18n.t('register_successfully'),
+    SUB_TITLE: I18n.t('can_start_using_now'),
+    NEXT_BUTTON: I18n.t('start'),
+  }
   const navigation = useNavigation()
   const resetTo = useResetTo()
   return (
