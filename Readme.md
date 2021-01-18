@@ -9,8 +9,8 @@ Create .env file by rename from .env.dev
 ### iOS
 
 1. Clone ```git clone https://github.com/codeforpublic/SQUID.git```
-2. Install Dependencies `cd SQUID && yarn ios && (cd ios; pod install)`
-3. Start `npx react-native run-ios`
+2. Install Dependencies `cd SQUID && yarn && (cd ios; pod install)`
+3. Start `yarn ios`
 
 ### Android
 
