@@ -3,6 +3,7 @@ import { getAnonymousHeaders } from '../api'
 import { Platform } from 'react-native'
 import { API_URL } from '../config'
 import I18n from '../../i18n/i18n'
+import DeviceInfo from 'react-native-device-info'
 class BackgroundTracking {
   setup(startImmediately?: boolean) {
     if (startImmediately) {
@@ -57,6 +58,9 @@ class BackgroundTracking {
   }
 
   start() {
+    if (!this.canUseGeoLocation) {
+      return Promise.resolve()
+    }
     return this.registerGeoLocation().then((state) => {
       if (!state.enabled) {
         BackgroundGeolocation.start().catch(console.log)
@@ -65,21 +69,35 @@ class BackgroundTracking {
   }
 
   stop() {
+    if (!this.canUseGeoLocation) {
+      return Promise.resolve()
+    }
     BackgroundGeolocation.removeAllListeners()
     return BackgroundGeolocation.stop()
   }
 
   destroyLocations() {
+    if (!this.canUseGeoLocation) {
+      return Promise.resolve()
+    }
     return BackgroundGeolocation.destroyLocations()
   }
 
   getLocation(extras: any = {}) {
+    if (!this.canUseGeoLocation) {
+      return Promise.resolve({ ...extras })
+    }
     return this.registerGeoLocation().then(() => {
       return BackgroundGeolocation.getCurrentPosition({
         samples: 1,
         ...extras,
       })
     })
+  }
+
+  get canUseGeoLocation() {
+    const hasGMS = DeviceInfo.hasGmsSync()
+    return Platform.OS === 'ios' || hasGMS
   }
 }
 

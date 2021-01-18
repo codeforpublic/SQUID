@@ -78,7 +78,7 @@
     "react-native-code-push": "^6.2.0",
     "react-native-config": "^1.0.0",
     "react-native-contact-tracer": "git://github.com/Morchana/contact-tracer.git",
-    "react-native-device-info": "^5.5.3",
+    "react-native-device-info": "^8.0.0",
     "react-native-easy-grid": "^0.2.0",
     "react-native-elements": "^1.2.7",
     "react-native-event-listeners": "^1.0.7",
