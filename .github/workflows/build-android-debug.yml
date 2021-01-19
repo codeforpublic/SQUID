@@ -1,0 +1,16 @@
+name: Build Debug Android Package
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          docker-compose run builder bash -c 'yarn && cd android && ./gradlew assembleDebug'
+      - uses: actions/upload-artifact@v2
+        with:
+          name: app-debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
