@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  builder:
+    image: reactnativecommunity/react-native-android
+    working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
