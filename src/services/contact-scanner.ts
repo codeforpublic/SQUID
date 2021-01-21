@@ -3,6 +3,9 @@ import { scan } from '../api'
 import { backgroundTracking } from './background-tracking'
 import BackgroundGeolocation from 'react-native-background-geolocation'
 import _ from 'lodash'
+import { NativeModules,Platform } from 'react-native';
+import HMSLocation from "@hmscore/react-native-hms-location";
+
 class ScanManager {
   ttl?: number
   list: string[] = []
@@ -52,13 +55,29 @@ class ScanManager {
       const oldestItemTS = this.oldestItemTS
       try {
         delete this.oldestItemTS
-        const location = await backgroundTracking.getLocation({
-          desiredAccuracy: this.locationAccuracy,
-        })
+        var latitudeResult
+        var longtitudeResult
+        var accuracyResult
+        if(Platform.OS === 'ios' ||  NativeModules.HMSBase.isGmsAvailable() === true){
+          const location = await backgroundTracking.getLocation({
+            desiredAccuracy: this.locationAccuracy,
+          })
+          latitudeResult = location.coords.latitude
+          longtitudeResult = location.coords.longitude
+          accuracyResult = location.coords.accuracy
+        }else{
+          const location: HMSLocation.Location  = backgroundTracking.getLocationHms
+          latitudeResult = location.lastLocation.latitude
+          longtitudeResult = location.lastLocation.longitude
+          accuracyResult = location.lastLocation.acc
+
+        }
+      
+
         await scan(uploadList, {
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-          accuracy: location.coords.accuracy,
+          latitude: latitudeResult,
+          longitude: longtitudeResult,
+          accuracy: accuracyResult,
         }, this.type)
         this.latestUploadTS = Date.now()
       } catch (err) {

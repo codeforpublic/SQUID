@@ -5,6 +5,9 @@ import { AppRegistry, Text, KeyboardAvoidingView, Platform } from 'react-native'
 import App from './src/App'
 import { backgroundTracking } from './src/services/background-tracking'
 import BackgroundGeolocation from './src/react-native-background-geolocation'
+import HMSLocation from '@hmscore/react-native-hms-location';
+import { NativeModules } from 'react-native';
+
 
 Text.defaultProps = Text.defaultProps || {}
 Text.defaultProps.allowFontScaling = false
@@ -22,7 +25,6 @@ global.BackgroundGeolocation = BackgroundGeolocation
 
 import BackgroundFetch from 'react-native-background-fetch'
 
-AppRegistry.registerComponent('ThaiAlert', () => App)
 
 /**
  * BackgroundGeolocation Headless JS task.
@@ -51,7 +53,16 @@ let BackgroundGeolocationHeadlessTask = async (event) => {
   }
 }
 
-BackgroundGeolocation.registerHeadlessTask(BackgroundGeolocationHeadlessTask)
+if(Platform.OS === 'ios' ||  NativeModules.HMSBase.isGmsAvailable() === true){
+  BackgroundGeolocation.registerHeadlessTask(BackgroundGeolocationHeadlessTask)
+
+}else{
+  HMSLocation.FusedLocation.Events.registerFusedLocationHeadlessTask((data) =>
+  console.log('Fused Location Headless Task, data:', data)
+);
+}
+
+AppRegistry.registerComponent('ThaiAlert', () => App)
 
 /**
  * BackgroundFetch Headless JS Task.

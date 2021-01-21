@@ -4,6 +4,7 @@ import { backgroundTracking } from './background-tracking'
 import { updateUserData } from '../api'
 import { applicationState } from '../state/app-state'
 import { AppState } from 'react-native'
+import { NativeModules,Platform } from 'react-native';
 
 import I18n from '../../i18n/i18n'
 
@@ -102,7 +103,10 @@ class Notification {
       // (required) Called when a remote or local notification is opened or received
       onNotification: async function(notification) {
         console.log('onNotification')
-        backgroundTracking.getLocation() // trigger update location
+        if(Platform.OS === 'ios' ||  NativeModules.HMSBase.isGmsAvailable() === true){
+          backgroundTracking.getLocation() // trigger update location
+
+        }
         await onNotification(notification)
         // notification?.data?.
         // process the notification

@@ -49,5 +49,17 @@
 				<action android:name="com.google.firebase.MESSAGING_EVENT" />
 			</intent-filter>
 		</service>
+		<receiver
+            android:name="com.huawei.hms.rn.location.RNLocationBroadcastReceiver"
+            android:exported="false"
+            android:enabled="true">
+        <intent-filter>
+            <action android:name="${applicationId}.ACTION_HMS_LOCATION" />
+            <action android:name="${applicationId}.ACTION_HMS_ACTIVITY_IDENTIFICATION" />
+            <action android:name="${applicationId}.ACTION_HMS_ACTIVITY_CONVERSION" />
+            <action android:name="${applicationId}.ACTION_HMS_GEOFENCE" />
+        </intent-filter>
+        </receiver>
+        <service android:name="com.huawei.hms.rn.location.RNTaskService" />
 	</application>
 </manifest>

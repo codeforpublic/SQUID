@@ -32,6 +32,7 @@
     "@apollo/react-hooks": "3.1.3",
     "@emotion/core": "^10.0.28",
     "@emotion/native": "^10.0.27",
+    "@hmscore/react-native-hms-location": "^5.0.4-300",
     "@react-hook/throttle": "^1.0.12",
     "@react-native-community/async-storage": "^1.6.1",
     "@react-native-community/clipboard": "^1.1.0",

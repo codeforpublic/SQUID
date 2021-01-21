@@ -10,6 +10,8 @@ import { QRResult, tagManager } from '../../state/qr'
 import NotificationPopup from 'react-native-push-notification-popup'
 import { QRPopupContent } from './QRPopupContent'
 import { scanManager } from '../../services/contact-scanner'
+import { NativeModules } from 'react-native';
+
 
 import I18n from '../../../i18n/i18n';
 import { backgroundTracking } from '../../services/background-tracking'
@@ -60,7 +62,9 @@ export const QRCodeScan = ({ navigation }) => {
                     navigation.pop()
                   }
                 })
-                backgroundTracking.getLocation({ extras: { triggerType: 'thaichana', url: e.data } })
+                if(Platform.OS === 'ios' ||  NativeModules.HMSBase.isGmsAvailable() === true){
+                  backgroundTracking.getLocation({ extras: { triggerType: 'thaichana', url: e.data } })
+                }
                 return
               }
               await verifyToken(e?.data) 
