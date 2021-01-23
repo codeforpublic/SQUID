@@ -271,4 +271,5 @@ export default {
   privacy_policy_version: 'Version 2020.2',
   back: 'BACK',
   change_lang: 'Change Language',
+  beacon_header: 'Found Beacon',
 }

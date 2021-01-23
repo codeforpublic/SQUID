@@ -269,4 +269,5 @@ export default {
   privacy_policy_version: 'เวอร์ชั่น 2020.2',
   change_lang: 'เปลี่ยนภาษา',
   back: 'ย้อนกลับ',
+  beacon_header: 'คุณได้พบ Beacon',
 }

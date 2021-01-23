@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../../styles'
 import { useSafeArea } from 'react-native-safe-area-context'
 import {
@@ -15,15 +15,29 @@ import { QRHeader } from './QRHeader'
 import { QRSection } from './QRSection'
 import { QRFooter } from './QRFooter'
 import DeviceInfo from 'react-native-device-info'
-import I18n from '../../../../i18n/i18n';
 import { Text } from 'react-native-elements'
+import { Beancon } from './Beacon'
+import AsyncStorage from '@react-native-community/async-storage'
 
 export const MainApp = () => {
-  const inset = useSafeArea()  
-  const { qrData, qrState, error, refreshQR } = useSelfQR()  
+  const inset = useSafeArea()
+  const { qrData, qrState, error, refreshQR } = useSelfQR()
   const appVersion = DeviceInfo.getVersion();
+
+  const [location, setLocation] = useState('')
+  const getBeacon = async () => {
+    //TEST
+    // let lc = 'ห้าง Tesco lotus สาขาอโศก ตรงข้ามห้างดัง ตรงรถไฟฟ้ามหานครอมรรัตน'
+    // AsyncStorage.setItem('beacon-location', lc);
+    let beacon = await AsyncStorage.getItem('beacon-location');
+    if (beacon) {
+      setLocation(beacon)
+    }
+  }
+
   useEffect(() => {
     pushNotification.requestPermissions()
+    getBeacon()
   }, [])
 
   return (
@@ -37,6 +51,7 @@ export const MainApp = () => {
       <QRBackground qr={qrData} />
       <QRAvatar qr={qrData} qrState={qrState} />
       <QRTagLabel qr={qrData} />
+      <Beancon location={location} />
       <QRHeader qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
       <QRSection qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
       <QRFooter />
@@ -52,7 +67,7 @@ export const MainApp = () => {
             color: '#0FA7DC'
           }}
         >
-        V {appVersion} 
+        V {appVersion}
       </Text>
     </View>
   )
