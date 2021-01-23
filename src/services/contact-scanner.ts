@@ -83,3 +83,8 @@ export const bluetoothScanner = new ScanManager({
   type: 'bluetooth',
   locationAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_LOW,
 })
+
+export const beaconScanner = new ScanManager({
+  type: 'bluetooth',
+  locationAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_LOW,
+})

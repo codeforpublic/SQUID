@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-community/async-storage'
 import React, { useContext } from 'react'
 import {
   NativeEventEmitter,
@@ -6,7 +7,8 @@ import {
   Platform,
 } from 'react-native'
 import { requestLocationPermission } from '../utils/Permission'
-import { bluetoothScanner } from './contact-scanner'
+import { beaconLookup } from './beacon-lookup'
+import { beaconScanner, bluetoothScanner } from './contact-scanner'
 
 const eventEmitter = new NativeEventEmitter(NativeModules.ContactTracerModule)
 
@@ -293,7 +295,7 @@ export class ContactTracerProvider extends React.Component<
     }
   }
 
-  onNearbyBeaconFoundReceived = (e) => {
+  onNearbyBeaconFoundReceived = async (e: any) => {
     console.log(e)
     this.appendStatusText('')
     this.appendStatusText('***** Found Beacon: ' + e['uuid'])
@@ -301,15 +303,19 @@ export class ContactTracerProvider extends React.Component<
     this.appendStatusText('***** minor: ' + e['minor'])
     this.appendStatusText('')
 
-    let name = e['uuid'] + '.' + e['major'] + '.' + e['minor']
-    console.log('broadcast:' + name)
-    bluetoothScanner.add(name)
-    if (Date.now() - bluetoothScanner.oldestItemTS > 30 * 60 * 1000) {
-      bluetoothScanner.upload()
+    let oldestItemTS = beaconScanner.oldestItemTS || 0;
+
+    if ((Date.now() - oldestItemTS) > (30 * 1000)) {
+      const anonymousId = await beaconLookup.getBeaconInfo(e.uuid, e.major, e.minor)
+      beaconScanner.add(anonymousId)
     }
+
+    // if (Date.now() - bluetoothScanner.oldestItemTS > 30 * 60 * 1000) {
+    //   bluetoothScanner.upload()
+    // }
   }
 
-  render() {    
+  render() {
     return (
       <Context.Provider value={this.state}>
         {this.props.children}
