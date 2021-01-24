@@ -271,4 +271,5 @@ export default {
   change_lang: 'เปลี่ยนภาษา',
   back: 'ย้อนกลับ',
   beacon_header: 'คุณได้พบ Beacon',
+  notification_history: 'แจ้งเตือน'
 }

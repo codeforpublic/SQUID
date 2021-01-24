@@ -11,7 +11,7 @@ import { MainApp } from './NewMainApp'
 import { MainAppFaceCamera } from './MainAppFaceCamera'
 import { QRCodeScan } from './QRCodeScan'
 import { Settings } from './Settings'
-
+import { NotificationHistory } from './NotificationHistory'
 import I18n from '../../../i18n/i18n';
 
 const TabBarLabel = ({ title, focused }: any) => {
@@ -76,8 +76,23 @@ export const MainAppTab = createBottomTabNavigator(
         ),
       },
     },
-    // Notification: {
-    //   screen: Settings,
+    NotificationHistory: {
+      screen: NotificationHistory,
+      navigationOptions: {
+        tabBarLabel: ({ focused }: any) => (
+          <TabBarLabel title={I18n.t('notification_history')} focused={focused} />
+        ),
+        tabBarIcon: ({ focused }: any) => (
+          <AntIcon
+            name="bells"
+            color={focused ? '#303342' : COLORS.GRAY_2}
+            size={16}
+          />
+        ),
+      },
+    },
+    // Debug: {
+    //   screen: Debug,
     //   navigationOptions: {
     //     tabBarLabel: ({ focused }: any) => (
     //       <TabBarLabel title={I18n.t('settings')} focused={focused} />

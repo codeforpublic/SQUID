@@ -273,4 +273,5 @@ export default {
   back: 'BACK',
   change_lang: 'Change Language',
   beacon_header: 'Found Beacon',
+  notification_history: 'Notification'
 }
