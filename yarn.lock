@@ -7983,10 +7983,10 @@ react-native-datepicker@^1.4.4:
   dependencies:
     moment "^2.22.0"
 
-react-native-device-info@^5.5.3:
-  version "5.5.4"
-  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-5.5.4.tgz#470770db4e8a35c55b8269473d81790102074057"
-  integrity sha512-koR7ZvL4V+34GwhjQxb3PNZLElpEzAvDG5AE4KIc70ufKMEHJL9VCpRXBMelihlA0u9PlYzuMgBs7tovNRAzFw==
+react-native-device-info@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-8.0.0.tgz#a481ea6d445483329aefcb91c753987931ad4756"
+  integrity sha512-7/DOEhg8GtyW1hpVtWf8F6RvGLaFaOGmex+IkmiBWQC2uW4NFDcfXm+lMMZnduFavTyUTX7AF6lAM3y286cEfA==
 
 react-native-drawer-menu@^0.2.3:
   version "0.2.5"
@@ -8058,10 +8058,10 @@ react-native-i18n@^2.0.15:
   dependencies:
     i18n-js "3.0.11"
 
-react-native-image-picker@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-2.3.1.tgz#1977b65e07793d2c0b2d1976fb675c5f75ad7f11"
-  integrity sha512-c/a2h7/T7yBo5KlNQhcSn4xf4+6Li6LfJ59+GZT1ZzzWrj/6X8DiJ/TJBOlOZMC5tJriZKuRkWSsr74k6z+brw==
+react-native-image-picker@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-3.1.3.tgz#88e747d010c4095febb0797d895b80c0c25b114f"
+  integrity sha512-3T4sVBBhGhNoVW7x7lqyxOENNUbBTu68yGTDQUWd8VQHA6EezAcV+4ixOxD2VyeLMDGj/Ar3O+siaC5F45Y7YA==
 
 react-native-input-xg@^0.0.2:
   version "0.0.2"

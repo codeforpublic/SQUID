@@ -97,20 +97,8 @@ const CloseButton = ({onClose}) => (
 )
 
 const DEFAULT_OPTIONS = {
-  title: 'Select a Photo',
-  cancelButtonTitle: 'Cancel',
-  takePhotoButtonTitle: 'Take Photo…',
-  chooseFromLibraryButtonTitle: 'Choose from Library…',
+  mediaType: 'photo',
   quality: 1.0,
-  allowsEditing: false,
-  permissionDenied: {
-    title: 'Permission denied',
-    text:
-      'To be able to take pictures with your camera and choose images from your library.',
-    reTryTitle: 're-try',
-    okTitle: "I'm sure",
-  },
-  tintColor: '',
 }
 
 const isImagePickerAvailable = Boolean(NativeModules.ImagePickerManager)
@@ -118,7 +106,7 @@ const SelectImageButton = ({onSelectImage}) => {
   if (!isImagePickerAvailable) {
     return null
   }
-  const ImagePicker = require('react-native-image-picker').default
+  const ImagePicker = require('react-native-image-picker')
   const options = {
     ...DEFAULT_OPTIONS,
     title: 'Select Avatar',
