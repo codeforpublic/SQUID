@@ -11,9 +11,7 @@ import {
   Image,
   Dimensions,
 } from 'react-native'
-import {
-  ColorText,
-} from '../../components/Base'
+import { ColorText } from '../../components/Base'
 import { PrimaryButton } from '../../components/Button'
 import { useNavigation } from 'react-navigation-hooks'
 import { gql } from 'apollo-boost'
@@ -22,7 +20,7 @@ import { userPrivateData } from '../../state/userPrivateData'
 import FeatherIcon from 'react-native-vector-icons/Feather'
 import { FormHeader } from '../../components/Form/FormHeader'
 
-import I18n from '../../../i18n/i18n';
+import I18n from '../../../i18n/i18n'
 
 const MUTATE_USER = gql`
   mutation($image: String) {
@@ -32,11 +30,11 @@ const MUTATE_USER = gql`
 
 export const OnboardFace = () => {
   const [uri, setUri] = useState(userPrivateData.getFace())
-  var {width} = Dimensions.get('window');
+  var { width } = Dimensions.get('window')
 
   useEffect(() => {
     if (uri) {
-      RNFS.exists(uri).then(exists => {
+      RNFS.exists(uri).then((exists) => {
         if (!exists) {
           setUri(null)
         }
@@ -63,7 +61,9 @@ export const OnboardFace = () => {
       <FormHeader>
         <View style={styles.header}>
           <Text style={styles.title}>{I18n.t('profile_picture')}</Text>
-          <Text style={styles.subtitle}>{I18n.t('straight_and_clear_face_portrait')}</Text>
+          <Text style={styles.subtitle}>
+            {I18n.t('straight_and_clear_face_portrait')}
+          </Text>
         </View>
       </FormHeader>
       <View style={styles.content}>
@@ -90,43 +90,57 @@ export const OnboardFace = () => {
           onPress={navigateToCamera}
         >
           <FeatherIcon name="camera" color={COLORS.BLUE} size={20} />
-          <ColorText color={COLORS.BLUE} style={{ marginLeft: 12, fontSize: FONT_SIZES[700] }}>
+          <ColorText
+            color={COLORS.BLUE}
+            style={{ marginLeft: 12, fontSize: FONT_SIZES[700] }}
+          >
             {uri ? I18n.t('retake_photo') : I18n.t('take_photo')}
           </ColorText>
         </TouchableOpacity>
       </View>
       <View style={styles.secondContent}>
-        <View style= {{position: 'relative', height: '30%'}}>
+        <View style={{ position: 'relative', height: '30%' }}>
           <View style={{ paddingRight: 10, position: 'absolute' }}>
-            <Image source={require('../../assets/bx_bxs-face.png')}
-              resizeMode="cover" 
-              style={{width: width * 0.01, overflow: 'visible'}}
-              />
+            <Image
+              source={require('../../assets/bx_bxs-face.png')}
+              resizeMode="cover"
+              style={{ width: width * 0.01, overflow: 'visible' }}
+            />
           </View>
-          <View style={{position: 'absolute'}}>
-            <Text style={[styles.subtitle2, {paddingLeft: '13%'}]}>{I18n.t('straight_and_clear_face_portrait')}</Text>
-            <Text style={styles.subtitle2}></Text>
+          <View style={{ position: 'absolute' }}>
+            <Text style={[styles.subtitle2, { paddingLeft: '13%' }]}>
+              {I18n.t('straight_and_clear_face_portrait')}
+            </Text>
+            <Text style={styles.subtitle2} />
           </View>
-
         </View>
-        <View style= {{position: 'relative' , height: '20%'}}>
+        <View style={{ position: 'relative', height: '20%' }}>
           <View style={{ paddingRight: 16, position: 'absolute' }}>
-            <Image source={require('../../assets/refresh.png')}
-              resizeMode="cover" 
-              style={{width: width * 0.01, overflow: 'visible'}}
-              />
+            <Image
+              source={require('../../assets/refresh.png')}
+              resizeMode="cover"
+              style={{ width: width * 0.01, overflow: 'visible' }}
+            />
           </View>
-          <View style={{position: 'absolute'}}>
-            <Text style={[styles.subtitle2, {paddingLeft: '12%'}]}>{I18n.t('change_picture_condition_1')}</Text>
-            <Text style={[styles.subtitle2, { paddingLeft: '8%', marginTop: '-3%'}]}>{I18n.t('change_picture_condition_2')}</Text>
+          <View style={{ position: 'absolute' }}>
+            <Text style={[styles.subtitle2, { paddingLeft: '12%' }]}>
+              {I18n.t('change_picture_condition_1')}
+            </Text>
+            <Text
+              style={[
+                styles.subtitle2,
+                { paddingLeft: '8%', marginTop: '-3%' },
+              ]}
+            >
+              {I18n.t('change_picture_condition_2')}
+            </Text>
           </View>
-
         </View>
       </View>
       <View style={styles.footer}>
         <PrimaryButton
           style={{ width: '100%' }}
-          containerStyle={{ width: '100%'}}
+          containerStyle={{ width: '100%' }}
           title={I18n.t('next')}
           onPress={onSubmit}
           disabled={!uri}
@@ -143,7 +157,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     marginBottom: 20,
-    marginTop: 20
+    marginTop: 20,
   },
   secondContent: {
     flex: 3,
@@ -151,7 +165,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     paddingTop: '60%',
     height: '50%',
-    paddingLeft: '15%'
+    paddingLeft: '15%',
   },
   footer: {
     alignItems: 'center',
