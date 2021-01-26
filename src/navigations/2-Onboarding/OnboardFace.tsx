@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Text,
   Image,
+  Dimensions,
 } from 'react-native'
 import {
   ColorText,
@@ -31,6 +32,7 @@ const MUTATE_USER = gql`
 
 export const OnboardFace = () => {
   const [uri, setUri] = useState(userPrivateData.getFace())
+  var {width} = Dimensions.get('window');
 
   useEffect(() => {
     if (uri) {
@@ -94,38 +96,32 @@ export const OnboardFace = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.secondContent}>
-        <View style= {{position: 'relative', height: '20%'}}>
-          <View style={{ paddingLeft: 30, paddingRight: 16, position: 'absolute' }}>
+        <View style= {{position: 'relative', height: '30%'}}>
+          <View style={{ paddingRight: 10, position: 'absolute' }}>
             <Image source={require('../../assets/bx_bxs-face.png')}
-              resizeMode="contain" 
-              style={{width: normalize(40)}}
+              resizeMode="cover" 
+              style={{width: width * 0.01, overflow: 'visible'}}
               />
           </View>
           <View style={{position: 'absolute'}}>
-            <Text style={[styles.subtitle2, {paddingLeft: '28%'}]}>{I18n.t('straight_and_clear_face_portrait')}</Text>
+            <Text style={[styles.subtitle2, {paddingLeft: '13%'}]}>{I18n.t('straight_and_clear_face_portrait')}</Text>
             <Text style={styles.subtitle2}></Text>
           </View>
 
         </View>
         <View style= {{position: 'relative' , height: '20%'}}>
-          <View style={{ paddingLeft: 30, paddingRight: 16, position: 'absolute' }}>
+          <View style={{ paddingRight: 16, position: 'absolute' }}>
             <Image source={require('../../assets/refresh.png')}
-              resizeMode="contain" 
-              style={{width: normalize(40)}}
+              resizeMode="cover" 
+              style={{width: width * 0.01, overflow: 'visible'}}
               />
           </View>
           <View style={{position: 'absolute'}}>
-            <Text style={styles.subtitle2}>{I18n.t('change_picture_condition_1')}</Text>
-            <Text style={styles.subtitle2}>{I18n.t('change_picture_condition_2')}</Text>
+            <Text style={[styles.subtitle2, {paddingLeft: '12%'}]}>{I18n.t('change_picture_condition_1')}</Text>
+            <Text style={[styles.subtitle2, { paddingLeft: '8%', marginTop: '-3%'}]}>{I18n.t('change_picture_condition_2')}</Text>
           </View>
 
         </View>
-        {/* <View style={styles.viewLayer}>
-          <Image source={require('../../assets/refresh.png')}
-            style={styles.faceIcon}
-            resizeMode="contain" />
-          <Text style={styles.subtitle2}>คุณสามารถเปลี่ยนรูปภาพได้ 3 ครั้งภายใน 24 ชม. หลังติดตั้งโปรแกรม</Text>
-        </View> */}
       </View>
       <View style={styles.footer}>
         <PrimaryButton
@@ -150,10 +146,12 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   secondContent: {
-    flex: 2,
+    flex: 3,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    paddingTop: '40%'
+    paddingTop: '60%',
+    height: '50%',
+    paddingLeft: '15%'
   },
   footer: {
     alignItems: 'center',
@@ -175,13 +173,6 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: COLORS.SECONDARY_DIM,
   },
-  faceIcon: {
-    height: '100%',
-    width: '100%',
-    paddingRight: 70,
-    position: 'absolute',
-    left: 2,
-  },
   subtitle2: {
     fontFamily: FONT_FAMILY,
     fontSize: FONT_SIZES[600],
@@ -189,24 +180,8 @@ const styles = StyleSheet.create({
     lineHeight: 40,
     textAlign: 'center',
     justifyContent: 'center',
-    height: '50%',
+    height: '55%',
     width: '100%',
     position: 'relative',
-    paddingLeft: '25%'
   },
-  subtitle3: {
-    fontFamily: FONT_FAMILY,
-    fontSize: FONT_SIZES[600],
-    color: COLORS.SECONDARY_DIM,
-    lineHeight: 40,
-    textAlign: 'center',
-    justifyContent: 'center',
-    height: '100%',
-    width: '100%',
-    position: 'relative',
-    paddingLeft: '25%'
-  },
-  viewLayer: {
-    flex: 1
-  }
 })
