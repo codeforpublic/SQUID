@@ -1,40 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { MockScreen } from '../MockScreen'
-import { Avatar } from 'react-native-elements'
-import { Camera, TakePictureResponse, RNCamera } from '../../components/Camera'
+import React, { useState, useEffect } from 'react'
+import { Avatar, normalize } from 'react-native-elements'
 import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
-import styled, { css } from '@emotion/native'
-import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {
   StatusBar,
   View,
   StyleSheet,
   TouchableOpacity,
-  Alert,
-  Platform,
-  BackHandler,
   Text,
+  Image,
 } from 'react-native'
 import {
-  Title,
-  Subtitle,
-  Header,
-  WhiteText,
   ColorText,
 } from '../../components/Base'
 import { PrimaryButton } from '../../components/Button'
-import { useNavigation, useNavigationParam } from 'react-navigation-hooks'
-import { BackButton } from '../../components/BackButton'
-import { useMutation } from '@apollo/react-hooks'
+import { useNavigation } from 'react-navigation-hooks'
 import { gql } from 'apollo-boost'
-import AsyncStorage from '@react-native-community/async-storage'
 import RNFS from 'react-native-fs'
 import { userPrivateData } from '../../state/userPrivateData'
-import { useHUD } from '../../HudView'
 import FeatherIcon from 'react-native-vector-icons/Feather'
-import { SelfieCaptureGuideline } from '../../components/SelfieCaptureGuideline'
-import { RELATIVE_FACE_PATH } from '../const'
 import { FormHeader } from '../../components/Form/FormHeader'
 
 import I18n from '../../../i18n/i18n';
@@ -109,6 +93,40 @@ export const OnboardFace = () => {
           </ColorText>
         </TouchableOpacity>
       </View>
+      <View style={styles.secondContent}>
+        <View style= {{position: 'relative', height: '20%'}}>
+          <View style={{ paddingLeft: 30, paddingRight: 16, position: 'absolute' }}>
+            <Image source={require('../../assets/bx_bxs-face.png')}
+              resizeMode="contain" 
+              style={{width: normalize(40)}}
+              />
+          </View>
+          <View style={{position: 'absolute'}}>
+            <Text style={[styles.subtitle2, {paddingLeft: '28%'}]}>{I18n.t('straight_and_clear_face_portrait')}</Text>
+            <Text style={styles.subtitle2}></Text>
+          </View>
+
+        </View>
+        <View style= {{position: 'relative' , height: '20%'}}>
+          <View style={{ paddingLeft: 30, paddingRight: 16, position: 'absolute' }}>
+            <Image source={require('../../assets/refresh.png')}
+              resizeMode="contain" 
+              style={{width: normalize(40)}}
+              />
+          </View>
+          <View style={{position: 'absolute'}}>
+            <Text style={styles.subtitle2}>{I18n.t('change_picture_condition_1')}</Text>
+            <Text style={styles.subtitle2}>{I18n.t('change_picture_condition_2')}</Text>
+          </View>
+
+        </View>
+        {/* <View style={styles.viewLayer}>
+          <Image source={require('../../assets/refresh.png')}
+            style={styles.faceIcon}
+            resizeMode="contain" />
+          <Text style={styles.subtitle2}>คุณสามารถเปลี่ยนรูปภาพได้ 3 ครั้งภายใน 24 ชม. หลังติดตั้งโปรแกรม</Text>
+        </View> */}
+      </View>
       <View style={styles.footer}>
         <PrimaryButton
           style={{ width: '100%' }}
@@ -126,16 +144,24 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.WHITE, marginHorizontal: 24 },
   content: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     marginBottom: 20,
+    marginTop: 20
+  },
+  secondContent: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    paddingTop: '40%'
   },
   footer: {
     alignItems: 'center',
     marginBottom: 12,
   },
   header: {
-    textAlign: 'left',
+    alignItems: 'center',
+    textAlign: 'center',
     marginBottom: 16,
   },
   title: {
@@ -149,4 +175,38 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: COLORS.SECONDARY_DIM,
   },
+  faceIcon: {
+    height: '100%',
+    width: '100%',
+    paddingRight: 70,
+    position: 'absolute',
+    left: 2,
+  },
+  subtitle2: {
+    fontFamily: FONT_FAMILY,
+    fontSize: FONT_SIZES[600],
+    color: COLORS.SECONDARY_DIM,
+    lineHeight: 40,
+    textAlign: 'center',
+    justifyContent: 'center',
+    height: '50%',
+    width: '100%',
+    position: 'relative',
+    paddingLeft: '25%'
+  },
+  subtitle3: {
+    fontFamily: FONT_FAMILY,
+    fontSize: FONT_SIZES[600],
+    color: COLORS.SECONDARY_DIM,
+    lineHeight: 40,
+    textAlign: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    width: '100%',
+    position: 'relative',
+    paddingLeft: '25%'
+  },
+  viewLayer: {
+    flex: 1
+  }
 })

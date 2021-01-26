@@ -269,4 +269,12 @@ export default {
   privacy_policy_version: 'เวอร์ชั่น 2020.2',
   change_lang: 'เปลี่ยนภาษา',
   back: 'ย้อนกลับ',
+  change_picture_condition_1: 'คุณสามารถเปลี่ยนรูปภาพได้ 3 ครั้ง',
+  change_picture_condition_2: 'ภายใน 24 ชม. หลังติดตั้งโปรแกรม',
+  alert_change_picture: 'แจ้งเตือนผู้ใช้',
+  you_can_change_picture: 'คุณจะสามารถเปลี่ยนรูปได้อีก ',
+  time_or_within: ' ครั้ง หรือ ภายใน ',
+  hours_after_that_you_can_not_change: ' ชั่วโมง หลังจากนั้นคุณจะไม่สามารถเปลี่ยนรูปได้อีก',
+  you_can_not_change_picture: 'คุณไม่สามารถเปลี่ยนรูปได้ในขณะนี',
+  after_change_picture_will_can_not_change_again: 'หลังจากการเปลี่ยนรูปครั้งนี้ คุณจะไม่สามารถเปลี่ยนรูปได้อีก'
 }

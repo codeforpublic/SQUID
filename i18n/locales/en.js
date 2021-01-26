@@ -271,4 +271,12 @@ export default {
   privacy_policy_version: 'Version 2020.2',
   back: 'BACK',
   change_lang: 'Change Language',
+  change_picture_condition_1: 'You can change the picture 3 times',
+  change_picture_condition_2: 'within 24 hours after installing the application',
+  alert_change_picture: 'Alert user',
+  you_can_change_picture: 'You have time to change profile picture ',
+  time_or_within: ' times or within ',
+  hours_after_that_you_can_not_change: ' hours, after which you will not be able to change it again',
+  you_can_not_change_picture: 'You cannot change your picture',
+  after_change_picture_will_can_not_change_again: 'After this change, You will not be able to change your photos again'
 }

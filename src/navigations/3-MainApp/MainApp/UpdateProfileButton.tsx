@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, Fragment, useMemo } from 'react'
+import React from 'react'
 import { StyleSheet, TouchableHighlight, Alert } from 'react-native'
 import FeatureIcon from 'react-native-vector-icons/Feather'
 import 'moment/locale/th'
@@ -8,8 +8,6 @@ import moment from 'moment'
 
 import I18n from '../../../../i18n/i18n'
 
-const START_PERIODS = 3 // 3 first days, freely change image
-const DEFAULT_PERIODS = 7 // 7 days per time
 const TIME_TO_CHANGE_PICTURE: number = 3
 export const UpdateProfileButton = ({ width, style, onChange }) => {
   const navigation = useNavigation()
@@ -49,19 +47,19 @@ export const UpdateProfileButton = ({ width, style, onChange }) => {
         if (isLock) {
           Alert.alert(
             I18n.t('can_not_change_picture'),
-            'คุณไม่สามารถเปลี่ยนรูปได้ในขณะนี',
+            I18n.t('you_can_not_change_picture'),
             // I18n.t('day_s'),
           )
         } else {
           Alert.alert(
-            I18n.t('can_not_change_picture'),
+            I18n.t('alert_change_picture'),
             TIME_TO_CHANGE_PICTURE - (timeToChangePicture + 1) !== 0
-              ? 'คุณจะสามารถเปลี่ยนรูปได้อีก ' +
+              ? I18n.t('you_can_change_picture') +
                   (TIME_TO_CHANGE_PICTURE - (timeToChangePicture + 1)) +
-                  ' ครั้ง หรือ ภายใน ' +
+                  I18n.t('time_or_within') +
                   timeCounting +
-                  ' ชั่วโมง หลังจากนี้คุณจะไม่สามารถเปลี่ยนรูปได้อีก'
-              : 'หลังจากการเปลี่ยนรูปครั้งนี้ คุณจะไม่สามารถเปลี่ยนรูปได้อีก',
+                  I18n.t('hours_after_that_you_can_not_change')
+              : I18n.t('after_change_picture_will_can_not_change_again'),
             // I18n.t('day_s'),
           )
           navigation.navigate('MainAppFaceCamera', {
