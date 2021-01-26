@@ -7,7 +7,7 @@ import {
   createStackNavigator,
 } from 'react-navigation'
 import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
-import { MainApp } from './MainApp'
+import { MainApp } from './NewMainApp'
 import { MainAppFaceCamera } from './MainAppFaceCamera'
 import { QRCodeScan } from './QRCodeScan'
 import { Settings } from './Settings'
@@ -70,6 +70,21 @@ export const MainAppTab = createBottomTabNavigator(
         tabBarIcon: ({ focused }) => (
           <AntIcon
             name="profile"
+            color={focused ? '#303342' : COLORS.GRAY_2}
+            size={16}
+          />
+        ),
+      },
+    },
+    Notification: {
+      screen: Settings,
+      navigationOptions: {
+        tabBarLabel: ({ focused }) => (
+          <TabBarLabel title={I18n.t('settings')} focused={focused} />
+        ),
+        tabBarIcon: ({ focused }) => (
+          <AntIcon
+            name="bells"
             color={focused ? '#303342' : COLORS.GRAY_2}
             size={16}
           />

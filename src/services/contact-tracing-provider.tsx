@@ -23,6 +23,7 @@ interface ContactTracerState {
   isBluetoothOn: boolean
   anonymousId: string
   statusText: string
+  beaconLocationName: any
   enable: () => void
   disable: () => void
 }
@@ -35,6 +36,7 @@ export class ContactTracerProvider extends React.Component<
 > {
   private isInited = false
   private statusText = ''
+  private beaconLocationName = {}
   private advertiserEventSubscription = null
   private nearbyDeviceFoundEventSubscription = null
   private nearbyBeaconFoundEventSubscription = null
@@ -47,6 +49,7 @@ export class ContactTracerProvider extends React.Component<
       isBluetoothOn: false,
       anonymousId: '',
       statusText: this.statusText,
+      beaconLocationName: this.beaconLocationName,
       enable: this.enable.bind(this),
       disable: this.disable.bind(this),
     }
@@ -301,13 +304,17 @@ export class ContactTracerProvider extends React.Component<
     this.appendStatusText('***** Found Beacon: ' + e['uuid'])
     this.appendStatusText('***** major: ' + e['major'])
     this.appendStatusText('***** minor: ' + e['minor'])
-    this.appendStatusText('')
-
+    this.appendStatusText('')    
     let oldestItemTS = beaconScanner.oldestItemTS || 0;
 
     if ((Date.now() - oldestItemTS) > (30 * 1000)) {
-      const anonymousId = await beaconLookup.getBeaconInfo(e.uuid, e.major, e.minor)
-      beaconScanner.add(anonymousId)
+      const { anonymousId, name } = await beaconLookup.getBeaconInfo(e.uuid, e.major, e.minor)
+      if (anonymousId) { 
+        this.appendStatusText('***** anonymousId: ' + anonymousId)
+        this.appendStatusText('***** name: ' + name)
+        this.setState({ beaconLocationName: { anonymousId, name, time: Date.now(), uuid: e.uuid } })
+        beaconScanner.add(anonymousId)
+      }
     }
 
     // if (Date.now() - bluetoothScanner.oldestItemTS > 30 * 60 * 1000) {
