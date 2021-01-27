@@ -35,13 +35,7 @@ export const MainAppTab = createBottomTabNavigator(
       screen: MainApp,
       navigationOptions: {
         tabBarLabel: ({ focused }: any) => (
-          <View
-            style={{
-              marginBottom: FONT_SIZES[500],
-            }}
-          >
             <TabBarLabel title={I18n.t('data')} focused={focused} />
-          </View>
         ),
         tabBarIcon: ({ focused }: any) => (
           <Icon
@@ -56,13 +50,7 @@ export const MainAppTab = createBottomTabNavigator(
       screen: QRCodeScan,
       navigationOptions: {
         tabBarLabel: ({ focused }: any) => (
-          <View
-            style={{
-              marginBottom: FONT_SIZES[500],
-            }}
-          >
             <TabBarLabel title={I18n.t('scan_qr')} focused={focused} />
-          </View>
         ),
         tabBarIcon: ({ focused }: any) => (
           <AntIcon
@@ -77,13 +65,7 @@ export const MainAppTab = createBottomTabNavigator(
       screen: Settings,
       navigationOptions: {
         tabBarLabel: ({ focused }: any) => (
-          <View
-            style={{
-              marginBottom: FONT_SIZES[500],
-            }}
-          >
-            <TabBarLabel title={I18n.t('settings')} focused={focused} />
-          </View>
+          <TabBarLabel title={I18n.t('settings')} focused={focused} />
         ),
         tabBarIcon: ({ focused }: any) => (
           <AntIcon
@@ -98,13 +80,7 @@ export const MainAppTab = createBottomTabNavigator(
     //   screen: Settings,
     //   navigationOptions: {
     //     tabBarLabel: ({ focused }: any) => (
-    //       <View
-    //         style={{
-    //           marginBottom: FONT_SIZES[500],
-    //         }}
-    //       >  
     //       <TabBarLabel title={I18n.t('settings')} focused={focused} />
-    //     </View>
     //     ),
     //     tabBarIcon: ({ focused }: any) => (
     //       <AntIcon
@@ -118,16 +94,8 @@ export const MainAppTab = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
-      labelStyle: {
-        marginTop: FONT_SIZES[500] / 2,
-      },
-      tabStyle: {
-        height: FONT_SIZES[500] * 5,
-        paddingVertical: FONT_SIZES[500],
-      },
       style: {
-        marginBottom:10,
-        backgroundColor:'#F9F9F9', 
+        backgroundColor: '#F9F9F9', 
         borderTopColor: 'transparent',
       },
     }

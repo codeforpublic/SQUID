@@ -305,21 +305,23 @@ export class ContactTracerProvider extends React.Component<
     this.appendStatusText('***** major: ' + e['major'])
     this.appendStatusText('***** minor: ' + e['minor'])
     this.appendStatusText('')    
-    let oldestItemTS = beaconScanner.oldestItemTS || 0;
-
-    if ((Date.now() - oldestItemTS) > (30 * 1000)) {
+    let oldestBeaconFoundTS = beaconScanner.oldestBeaconFoundTS || 0;
+    
+    if ((Date.now() - oldestBeaconFoundTS) > (30 * 1000)) {
       const { anonymousId, name } = await beaconLookup.getBeaconInfo(e.uuid, e.major, e.minor)
       if (anonymousId) { 
         this.appendStatusText('***** anonymousId: ' + anonymousId)
         this.appendStatusText('***** name: ' + name)
         this.setState({ beaconLocationName: { anonymousId, name, time: Date.now(), uuid: e.uuid } })
+        beaconScanner.maskBeaconFound()
         beaconScanner.add(anonymousId)
       }
     }
-
-    // if (Date.now() - bluetoothScanner.oldestItemTS > 30 * 60 * 1000) {
-    //   bluetoothScanner.upload()
-    // }
+    
+    let oldestItemTS = beaconScanner.oldestItemTS || 0;
+    if (Date.now() - oldestItemTS > 30 * 60 * 1000) {
+      beaconScanner.upload()
+    }
   }
 
   render() {

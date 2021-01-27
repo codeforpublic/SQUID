@@ -159,7 +159,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 2.84,
-    elevation: 1,
   },
   textHeader: {
     marginTop: 10,
@@ -171,7 +170,8 @@ const styles = StyleSheet.create({
   },
 
   containerCard: {
-    height: Dimensions.get('window').height * 0.6,
+    flex: 1,
+    maxHeight: 550,
     padding: 10,
     margin: 15,
     borderRadius: 14,

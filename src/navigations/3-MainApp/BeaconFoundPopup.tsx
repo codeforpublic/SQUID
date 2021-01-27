@@ -14,7 +14,7 @@ export const BeaconFoundPopupContent = (props: any) => {
             <Text style={styles.contentTitle}>{I18n.t('beacon_header')}</Text>
           </View>
           <View style={styles.contentTextContainer}>
-            <Text style={styles.contentText} numberOfLines={1} ellipsizeMode='tail'>{result}</Text>
+            <Text style={styles.contentText} numberOfLines={1} ellipsizeMode='tail'>{result ? result : 'unknown'}</Text>
           </View>
         </View>
       </View>
