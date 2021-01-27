@@ -191,7 +191,7 @@ export class SelfQR extends QR {
     return `data:${this.qrData.qr.type};base64,` + this.qrData.qr.base64
   }
   getCreatedDate(): moment {
-    return moment(this.timestamp).locale('th')
+    return moment(this.timestamp).locale(I18n.locale || 'th')
   }
   getTagTitle(): string | undefined {
     return this.tag?.title
@@ -229,10 +229,10 @@ export class QRResult extends QR {
     if (!this.age) {
       return null
     }
-    return moment().subtract(this.age, 'days').locale('th')
+    return moment().subtract(this.age, 'days').locale(I18n.locale || 'th')
   }
   getCreatedDate(): moment {
-    return moment(this.iat * 1000).locale('th')
+    return moment(this.iat * 1000).locale(I18n.locale || 'th')
   }
   getTag(): Tag | undefined {
     if (!this.tagId) {

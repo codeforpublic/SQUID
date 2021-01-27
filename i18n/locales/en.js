@@ -57,6 +57,7 @@ export default {
   no_update_for: 'no update for ',
   minute_s: 'minute(s)',
   last_update: 'Last Update at',
+  fully_date: 'DD MMMM Y HH:mm',
   hh_mm: 'HH:mm',
   can_not_generate_qr: 'can not generate QR code',
   connect_internet_to_generate_qr: 'connect internet to generate QR',

@@ -31,7 +31,7 @@ import RNFS from 'react-native-fs'
 export const MainApp = () => {
   const inset = useSafeArea()
   const { qrData, qrState, refreshQR } = useSelfQR()
-  const { beaconLocationName } = useContactTracer()
+  const { beaconLocationName, enable, disable, isServiceEnabled } = useContactTracer()
   const appVersion = DeviceInfo.getVersion();
   const [location, setLocation] = useState('')
   const popupRef = useRef<NotificationPopup | any>()
@@ -70,15 +70,28 @@ export const MainApp = () => {
             <FontAwesome name="refresh" color={COLORS.GRAY_4} size={24} style={{ marginLeft: 10 }} />
           </TouchableOpacity>
           <Text style={styles.textHeader}>
-            {I18n.t('last_update')} {qrData && (`${qrData.getCreatedDate().format(I18n.t('hh_mm'))}`)}
+            {qrData && (`${qrData.getCreatedDate().format(I18n.t('fully_date'))}`)}
           </Text>
-          <TouchableOpacity onPress={() => { }}>
+          <TouchableOpacity onPress={() => {
+            isServiceEnabled ? disable() : enable()
+           }}>
             <FontAwesome
               name="bluetooth-b"
               color={COLORS.GRAY_4}
               size={24}
               style={{ marginRight: 10 }}
             />
+            {isServiceEnabled ? (
+              <View style={{
+                width: 10,
+                height: 10,
+                backgroundColor: COLORS.GREEN,
+                position: 'absolute',
+                borderRadius: 50,
+                borderTopWidth: Math.floor((4 / 100) * 24),
+                right: Math.floor((8 / 100) * 50)
+              }} />
+            ) : void 0}
           </TouchableOpacity>
         </View>
           <View style={styles.containerCard}>
