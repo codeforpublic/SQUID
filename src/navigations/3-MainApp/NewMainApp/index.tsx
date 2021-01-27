@@ -227,7 +227,7 @@ export const MainApp = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.WHITE,
+    backgroundColor: '#F9F9F9',
     justifyContent: 'center',
   },
 })

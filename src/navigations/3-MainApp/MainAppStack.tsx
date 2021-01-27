@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { Platform, Text, View } from 'react-native'
 import AntIcon from 'react-native-vector-icons/AntDesign'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {
@@ -35,7 +35,13 @@ export const MainAppTab = createBottomTabNavigator(
       screen: MainApp,
       navigationOptions: {
         tabBarLabel: ({ focused }) => (
-          <TabBarLabel title={I18n.t('data')} focused={focused} />
+          <View
+            style={{
+              marginBottom: FONT_SIZES[500],
+            }}
+          >
+            <TabBarLabel title={I18n.t('data')} focused={focused} />
+          </View>
         ),
         tabBarIcon: ({ focused }) => (
           <Icon
@@ -50,7 +56,13 @@ export const MainAppTab = createBottomTabNavigator(
       screen: QRCodeScan,
       navigationOptions: {
         tabBarLabel: ({ focused }) => (
-          <TabBarLabel title={I18n.t('scan_qr')} focused={focused} />
+          <View
+            style={{
+              marginBottom: FONT_SIZES[500],
+            }}
+          >
+            <TabBarLabel title={I18n.t('scan_qr')} focused={focused} />
+          </View>
         ),
         tabBarIcon: ({ focused }) => (
           <AntIcon
@@ -65,7 +77,13 @@ export const MainAppTab = createBottomTabNavigator(
       screen: Settings,
       navigationOptions: {
         tabBarLabel: ({ focused }) => (
-          <TabBarLabel title={I18n.t('settings')} focused={focused} />
+          <View
+            style={{
+              marginBottom: FONT_SIZES[500],
+            }}
+          >
+            <TabBarLabel title={I18n.t('settings')} focused={focused} />
+          </View>
         ),
         tabBarIcon: ({ focused }) => (
           <AntIcon
@@ -80,7 +98,13 @@ export const MainAppTab = createBottomTabNavigator(
       screen: Settings,
       navigationOptions: {
         tabBarLabel: ({ focused }) => (
+          <View
+            style={{
+              marginBottom: FONT_SIZES[500],
+            }}
+          >  
           <TabBarLabel title={I18n.t('settings')} focused={focused} />
+        </View>
         ),
         tabBarIcon: ({ focused }) => (
           <AntIcon
@@ -119,11 +143,19 @@ export const MainAppTab = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
-      style: {
-        paddingTop: 8,
+      labelStyle: {
+        marginTop: FONT_SIZES[500] / 2,
       },
-    },
-  },
+      tabStyle: {
+        height: FONT_SIZES[500] * 5,
+        paddingVertical: FONT_SIZES[500],
+      },
+      style: {
+        backgroundColor:'#F9F9F9', 
+        borderTopColor: 'transparent',
+      },
+    }
+  }
 )
 
 export const MainAppStack = createStackNavigator(
