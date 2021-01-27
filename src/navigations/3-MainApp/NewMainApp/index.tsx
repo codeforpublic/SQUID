@@ -48,9 +48,6 @@ export const MainApp = () => {
 
   useEffect(() => {
     pushNotification.requestPermissions()
-    popupRef.current.show({
-      slideOutTime: 7000
-    })
   }, [])
 
   return (
