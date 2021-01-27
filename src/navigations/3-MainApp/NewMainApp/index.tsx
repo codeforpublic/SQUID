@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../../styles'
-import { useSafeArea } from 'react-native-safe-area-context'
+import { SafeAreaView, useSafeArea } from 'react-native-safe-area-context'
 import {
   StatusBar,
   View,
@@ -48,82 +48,87 @@ export const MainApp = () => {
 
   useEffect(() => {
     pushNotification.requestPermissions()
+    popupRef.current.show({
+      slideOutTime: 7000
+    })
   }, [])
 
   return (
-    <View
-      style={[styles.container, { paddingTop: inset.top, paddingBottom: inset.bottom }]}
-    >
-      <NotificationPopup
-        ref={popupRef}
-        renderPopupContent={props => (
-          <BeaconFoundPopupContent {...props} result={location} />
-        )}
-      />
-      <StatusBar
-        barStyle={qrData?.getTagColor() ? 'light-content' : 'dark-content'}
-        backgroundColor={qrData?.getTagColor() ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT}
-      />
-      <View style={styles.containerTop}>
-        <View style={styles.containerHeader}>
-          <TouchableOpacity style={styles.circularButton} onPress={refreshQR}>
-            <FontAwesome name="refresh" color={COLORS.GRAY_4} size={24} style={{ marginLeft: 10 }} />
-          </TouchableOpacity>
-          <Text style={styles.textHeader}>
-            {qrData && (`${qrData.getCreatedDate().format(I18n.t('fully_date'))}`)}
-          </Text>
-          <TouchableOpacity onPress={() => {
-            isServiceEnabled ? disable() : enable()
-           }}>
-            <FontAwesome
-              name="bluetooth-b"
-              color={COLORS.GRAY_4}
-              size={24}
-              style={{ marginRight: 10 }}
-            />
-            {isServiceEnabled ? (
-              <View style={{
-                width: 10,
-                height: 10,
-                backgroundColor: COLORS.GREEN,
-                position: 'absolute',
-                borderRadius: 50,
-                borderTopWidth: Math.floor((4 / 100) * 24),
-                right: Math.floor((8 / 100) * 50)
-              }} />
-            ) : void 0}
-          </TouchableOpacity>
-        </View>
-          <View style={styles.containerCard}>
-            <View style={styles.card}>
-              <View style={styles.cardHeader}>
-                <View style={{ flex: 1, padding: 10 }}>
-                  <AvatarProfile qr={qrData} qrState={qrState} />
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#F9F9F9'}}>
+      <View
+        style={[styles.container, { paddingTop: inset.top, paddingBottom: inset.bottom }]}
+      >
+        <StatusBar
+          barStyle={qrData?.getTagColor() ? 'light-content' : 'dark-content'}
+          backgroundColor={qrData?.getTagColor() ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT}
+        />
+        <View style={styles.containerTop}>
+          <View style={styles.containerHeader}>
+            <TouchableOpacity style={styles.circularButton} onPress={refreshQR}>
+              <FontAwesome name="refresh" color={COLORS.GRAY_4} size={24} style={{ marginLeft: 10 }} />
+            </TouchableOpacity>
+            <Text style={styles.textHeader}>
+              {qrData && (`${qrData.getCreatedDate().format(I18n.t('fully_date'))}`)}
+            </Text>
+            <TouchableOpacity onPress={() => {
+              isServiceEnabled ? disable() : enable()
+            }}>
+              <FontAwesome
+                name="bluetooth-b"
+                color={COLORS.GRAY_4}
+                size={24}
+                style={{ marginRight: 10 }}
+              />
+              {isServiceEnabled ? (
+                <View style={{
+                  width: 10,
+                  height: 10,
+                  backgroundColor: COLORS.GREEN,
+                  position: 'absolute',
+                  borderRadius: 50,
+                  borderTopWidth: Math.floor((4 / 100) * 24),
+                  right: Math.floor((8 / 100) * 50)
+                }} />
+              ) : void 0}
+            </TouchableOpacity>
+          </View>
+            <View style={styles.containerCard}>
+              <View style={styles.card}>
+                <View style={styles.cardHeader}>
+                  <View style={{ flex: 1, padding: 10 }}>
+                    <AvatarProfile qr={qrData} qrState={qrState} />
+                  </View>
+                  <View style={{ flex: 2, alignContent: 'flex-start' }}>
+                    <RiskLabel qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
+                  </View>
                 </View>
-                <View style={{ flex: 2, alignContent: 'flex-start' }}>
-                  <RiskLabel qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
+                <View style={{ flex: 3 }}>
+                  <QRImage qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
                 </View>
-              </View>
-              <View style={{ flex: 3 }}>
-                <QRImage qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
-              </View>
-              <View style={styles.cardFooter}>
-                <Image
-                  source={require('./logo-pin-morchana.png')}
-                  style={{
-                    height: smallDevice ? 20 : 30,
-                    width: (smallDevice ? 20 : 30) * (260 / 140),
-                  }}
-                  resizeMode="contain"
-                />
-                <Text style={styles.textVersion}>
-                  แอปพลิเคชันหมอชนะ <Text style={{ color: '#0FA7DC', fontSize: FONT_SIZES[600] * 0.85, fontFamily: FONT_FAMILY }}>V{appVersion}</Text>
-                </Text>
+                <View style={styles.cardFooter}>
+                  <Image
+                    source={require('./logo-pin-morchana.png')}
+                    style={{
+                      height: smallDevice ? 20 : 30,
+                      width: (smallDevice ? 20 : 30) * (260 / 140),
+                    }}
+                    resizeMode="contain"
+                  />
+                  <Text style={styles.textVersion}>
+                    แอปพลิเคชันหมอชนะ <Text style={{ color: '#0FA7DC', fontSize: FONT_SIZES[600] * 0.85, fontFamily: FONT_FAMILY }}>V{appVersion}</Text>
+                  </Text>
+                </View>
               </View>
             </View>
-          </View>
+        </View>
+        <NotificationPopup
+          ref={popupRef}
+          renderPopupContent={props => (
+            <BeaconFoundPopupContent {...props} result={location} />
+          )}
+        />
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -137,7 +142,9 @@ const styles = StyleSheet.create({
   containerHeader: {
     justifyContent: 'space-between',
     flexDirection: 'row',
-    padding: 15,
+    paddingTop: 0,
+    paddingLeft: 15,
+    paddingRight: 15,
     height: 68,
     alignItems: 'center'
   },

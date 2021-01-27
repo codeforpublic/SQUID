@@ -94,27 +94,27 @@ export const MainAppTab = createBottomTabNavigator(
         ),
       },
     },
-    Notification: {
-      screen: Settings,
-      navigationOptions: {
-        tabBarLabel: ({ focused }: any) => (
-          <View
-            style={{
-              marginBottom: FONT_SIZES[500],
-            }}
-          >  
-          <TabBarLabel title={I18n.t('settings')} focused={focused} />
-        </View>
-        ),
-        tabBarIcon: ({ focused }: any) => (
-          <AntIcon
-            name="bells"
-            color={focused ? '#303342' : COLORS.GRAY_2}
-            size={16}
-          />
-        ),
-      },
-    },
+    // Notification: {
+    //   screen: Settings,
+    //   navigationOptions: {
+    //     tabBarLabel: ({ focused }: any) => (
+    //       <View
+    //         style={{
+    //           marginBottom: FONT_SIZES[500],
+    //         }}
+    //       >  
+    //       <TabBarLabel title={I18n.t('settings')} focused={focused} />
+    //     </View>
+    //     ),
+    //     tabBarIcon: ({ focused }: any) => (
+    //       <AntIcon
+    //         name="bells"
+    //         color={focused ? '#303342' : COLORS.GRAY_2}
+    //         size={16}
+    //       />
+    //     ),
+    //   },
+    // },
   },
   {
     tabBarOptions: {
