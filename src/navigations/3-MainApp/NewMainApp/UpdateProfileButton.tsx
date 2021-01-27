@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, Fragment, useMemo } from 'react'
+import React, {  } from 'react'
 import { StyleSheet, TouchableHighlight, Alert } from 'react-native'
 import FeatureIcon from 'react-native-vector-icons/Feather'
 import 'moment/locale/th'
