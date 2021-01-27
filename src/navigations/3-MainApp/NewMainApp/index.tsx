@@ -6,8 +6,8 @@ import {
   View,
   StyleSheet,
   Image,
-  Dimensions,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native'
 import { useSelfQR } from '../../../state/qr'
 import { pushNotification } from '../../../services/notification'
@@ -50,15 +50,15 @@ export const MainApp = () => {
 
   return (
     <View
-        style={[styles.container, { paddingTop: inset.top, paddingBottom: 12 }]}
-    > 
+      style={[styles.container, { paddingTop: inset.top, paddingBottom: 12 }]}
+    >
       <NotificationPopup
         ref={popupRef}
         renderPopupContent={props => (
           <BeaconFoundPopupContent {...props} result={location} />
         )}
       />
-     <StatusBar
+      <StatusBar
         barStyle={qrData?.getTagColor() ? 'light-content' : 'dark-content'}
         backgroundColor={qrData?.getTagColor() ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT}
       />
@@ -70,38 +70,55 @@ export const MainApp = () => {
           height: 68,
           alignItems: 'center'
         }}>
-          <TouchableOpacity onPress={refreshQR}>
+          <TouchableOpacity
+            style={{
+              height: 40,
+              width: 40,
+              justifyContent: 'center',
+              backgroundColor: 'white',
+              borderColor: "rgba(16, 170, 174, 0.2)",
+              borderRadius: 50,
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 1,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 2.84,
+              elevation: 1,
+            }}
+            onPress={refreshQR}>
             <FontAwesome
               name="refresh"
               color={COLORS.GRAY_4}
               size={24}
               style={{ marginLeft: 10 }}
             />
-          </TouchableOpacity> 
+          </TouchableOpacity>
           <Text
             style={{
               marginTop: 10,
-              lineHeight: FONT_SIZES[600], 
+              lineHeight: FONT_SIZES[600],
               fontFamily: FONT_FAMILY,
               fontSize: FONT_SIZES[600],
               textAlign: 'center',
               color: COLORS.BLACK_1
             }}
           >
-            {I18n.t('last_update')}{` ${qrData.getCreatedDate().format(I18n.t('hh_mm'))}`}
-          </Text> 
-          <TouchableOpacity onPress={() =>{}}>
+            {I18n.t('last_update')} {qrData && (`${qrData.getCreatedDate().format(I18n.t('hh_mm'))}`)}
+          </Text>
+          <TouchableOpacity onPress={() => { }}>
             <FontAwesome
               name="bluetooth-b"
               color={COLORS.GRAY_4}
               size={24}
               style={{ marginRight: 10 }}
             />
-          </TouchableOpacity> 
+          </TouchableOpacity>
         </View>
         <View style={{ flex: 1 }}>
           <View style={{
-            height: Dimensions.get('window').height * 0.7,
+            height: Dimensions.get('window').height * 0.6,
             padding: 10,
             margin: 15,
             borderRadius: 14,
@@ -121,40 +138,45 @@ export const MainApp = () => {
               flexDirection: 'column',
               alignItems: 'center',
             }}>
-              <View style={{ height: Dimensions.get('window').height * 0.15, flexDirection: 'row', alignContent: 'center', alignItems: 'center' }}>
+              <View style={{flex: 1, flexDirection: 'row', alignContent: 'center', alignItems: 'center' }}>
                 <View style={{ flex: 1 }}>
                   <QRAvatar qr={qrData} qrState={qrState} />
                 </View>
                 <View style={{ flex: 2 }}>
-                  <QRHeader qr={qrData} qrState={qrState} onRefreshQR={refreshQR} /> 
+                  <QRHeader qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
                 </View>
               </View>
-              <View style={{ height: Dimensions.get('window').height * 0.45 }}>
+              <View style={{ flex: 3 }}>
                 <QRSection qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
               </View>
-              <View style={{ height: Dimensions.get('window').height * 0.1,  width: '100%' }}>
-                <View style={{ borderBottomColor: COLORS.GRAY_1, borderWidth: 1, width: '100%', opacity: 0.1 }}></View>
+              <View style={{ borderBottomColor: COLORS.GRAY_1, borderWidth: 1, width: '100%', opacity: 0.2 }}></View>
+              <View style={{
+                flex: 0,
+                marginTop: 5,
+                marginBottom: 5,
+                width: '100%',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <Image
+                  source={require('./logo-pin-morchana.png')}
+                  style={{
+                    height: smallDevice ? 20 : 30,
+                    width: (smallDevice ? 20 : 30) * (260 / 140),
+                  }}
+                  resizeMode="contain"
+                />
                 <Text
                   style={{
-                    flex: 0,
-                    alignItems: 'center',
-                    marginTop: 10,
-                    lineHeight: FONT_SIZES[600], 
+                    lineHeight: FONT_SIZES[600],
                     fontFamily: FONT_FAMILY,
                     fontSize: FONT_SIZES[600] * 0.85,
+                    color: COLORS.BLACK_1,
                     textAlign: 'center',
-                    color: COLORS.BLACK_1
                   }}
                 >
-                   <Image
-                      source={require('../../../assets/logo_header.png')}
-                      style={{
-                          height: smallDevice ? 20 : 30,
-                          width: (smallDevice ? 20 : 30) * (260 / 140),
-                      }}
-                      resizeMode="contain"
-                  />
-                    แอปพลิเคชันหมอชนะ <Text style={{ color: '#0FA7DC', fontSize: FONT_SIZES[600] * 0.85, fontFamily: FONT_FAMILY }}>V{appVersion}</Text>
+                  แอปพลิเคชันหมอชนะ <Text style={{ color: '#0FA7DC', fontSize: FONT_SIZES[600] * 0.85, fontFamily: FONT_FAMILY }}>V{appVersion}</Text>
                 </Text>
               </View>
             </View>

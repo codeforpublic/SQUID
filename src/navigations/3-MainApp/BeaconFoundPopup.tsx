@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import I18n from '../../../i18n/i18n';
-import { Text, View, StyleSheet, Image, StatusBar, Platform } from 'react-native'
+import { Text, View, StyleSheet, Image, StatusBar, Platform, Dimensions } from 'react-native'
 import { FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
 
 export const BeaconFoundPopupContent = (props: any) => {

@@ -61,7 +61,7 @@ export const QRHeader = ({ qr, qrState, onRefreshQR }: { qr: SelfQR, qrState: QR
             ) : (
               void 0
             )}
-            {qrState === QR_STATE.OUTDATE || qrState === QR_STATE.EXPIRE ? (
+            {/* {qrState === QR_STATE.OUTDATE || qrState === QR_STATE.EXPIRE ? (
               <Text
                 style={{
                   color: COLORS.ORANGE_2,
@@ -87,7 +87,7 @@ export const QRHeader = ({ qr, qrState, onRefreshQR }: { qr: SelfQR, qrState: QR
               </Text>
             ) : (
               void 0
-            )}
+            )} */}
           </View>
           {/* {qr || qrState !== QR_STATE.LOADING ? (
             <TouchableOpacity onPress={onRefreshQR}>
