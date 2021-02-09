@@ -78,11 +78,11 @@ export default {
   settings: 'ตั้งค่า',
   risk: 'ความเสี่ยง',
   scan_result: 'ผลลัพธ์การสแกน',
-  low_risk: 'เสี่ยงน้อย',
+  // low_risk: 'เสี่ยงน้อย',
   data_at: 'ข้อมูลวันที่',
   por_sor: 'พ.ศ',
   scan_again: 'สแกนใหม่อีกครั้ง',
-  risk_level: 'ระดับความเสี่ยง',
+  // risk_level: 'ระดับความเสี่ยง',
   wrong_data: 'ข้อมูลไม่ถูกต้อง',
   record_contact_and_estimate_risk:
     'เพื่อบันทึกการเข้าใกล้และตรวจสอบความเสี่ยง',
@@ -272,9 +272,10 @@ export default {
   change_picture_condition_1: 'คุณสามารถเปลี่ยนรูปภาพได้ 3 ครั้ง',
   change_picture_condition_2: 'ภายใน 24 ชม. หลังติดตั้งโปรแกรม',
   alert_change_picture: 'แจ้งเตือนผู้ใช้',
-  you_can_change_picture: 'คุณจะสามารถเปลี่ยนรูปได้อีก ',
-  time_or_within: ' ครั้ง หรือ ภายใน ',
-  hours_after_that_you_can_not_change: ' ชั่วโมง หลังจากนั้นคุณจะไม่สามารถเปลี่ยนรูปได้อีก',
+  you_have_time_to_change_picture: 'คุณเหลือเวลาเปลี่ยนรูปอีก ',
+  hours_you_can_change_picture: 'ชั่วโมง \nคุณเปลี่ยนรูปได้อีก ',
+  time: ' ครั้ง',
   you_can_not_change_picture: 'คุณไม่สามารถเปลี่ยนรูปได้ในขณะนี',
-  after_change_picture_will_can_not_change_again: 'หลังจากการเปลี่ยนรูปครั้งนี้ คุณจะไม่สามารถเปลี่ยนรูปได้อีก'
+  after_change_picture_will_can_not_change_again:
+    'หลังจากการเปลี่ยนรูปครั้งนี้ คุณจะไม่สามารถเปลี่ยนรูปได้อีก',
 }

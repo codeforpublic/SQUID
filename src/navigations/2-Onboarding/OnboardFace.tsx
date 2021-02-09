@@ -61,9 +61,9 @@ export const OnboardFace = () => {
       <FormHeader>
         <View style={styles.header}>
           <Text style={styles.title}>{I18n.t('profile_picture')}</Text>
-          <Text style={styles.subtitle}>
+          {/* <Text style={styles.subtitle}>
             {I18n.t('straight_and_clear_face_portrait')}
-          </Text>
+          </Text> */}
         </View>
       </FormHeader>
       <View style={styles.content}>

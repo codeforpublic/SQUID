@@ -54,11 +54,11 @@ export const UpdateProfileButton = ({ width, style, onChange }) => {
           Alert.alert(
             I18n.t('alert_change_picture'),
             TIME_TO_CHANGE_PICTURE - (timeToChangePicture + 1) !== 0
-              ? I18n.t('you_can_change_picture') +
-                  (TIME_TO_CHANGE_PICTURE - (timeToChangePicture + 1)) +
-                  I18n.t('time_or_within') +
+              ? I18n.t('you_have_time_to_change_picture') +
                   timeCounting +
-                  I18n.t('hours_after_that_you_can_not_change')
+                  I18n.t('hours_you_can_change_picture') +
+                  (TIME_TO_CHANGE_PICTURE - (timeToChangePicture + 1)) +
+                  I18n.t('time')
               : I18n.t('after_change_picture_will_can_not_change_again'),
             // I18n.t('day_s'),
           )
