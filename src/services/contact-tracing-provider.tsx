@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-community/async-storage'
 import React, { useContext } from 'react'
 import {
   NativeEventEmitter,
@@ -299,17 +298,16 @@ export class ContactTracerProvider extends React.Component<
   }
 
   onNearbyBeaconFoundReceived = async (e: any) => {
-    console.log(e)
     this.appendStatusText('')
     this.appendStatusText('***** Found Beacon: ' + e['uuid'])
     this.appendStatusText('***** major: ' + e['major'])
     this.appendStatusText('***** minor: ' + e['minor'])
-    this.appendStatusText('')    
+    this.appendStatusText('')
+
     let oldestBeaconFoundTS = beaconScanner.oldestBeaconFoundTS || 0;
-    
-    if ((Date.now() - oldestBeaconFoundTS) > (30 * 1000)) {
+    if ((Date.now() - oldestBeaconFoundTS) > (30 * 1000) || !oldestBeaconFoundTS) {
       const { anonymousId, name } = await beaconLookup.getBeaconInfo(e.uuid, e.major, e.minor)
-      if (anonymousId) { 
+      if (anonymousId) {
         this.appendStatusText('***** anonymousId: ' + anonymousId)
         this.appendStatusText('***** name: ' + name)
         this.setState({ beaconLocationName: { anonymousId, name, time: Date.now(), uuid: e.uuid } })
@@ -317,7 +315,7 @@ export class ContactTracerProvider extends React.Component<
         beaconScanner.add(anonymousId)
       }
     }
-    
+
     let oldestItemTS = beaconScanner.oldestItemTS || 0;
     if (Date.now() - oldestItemTS > 30 * 60 * 1000) {
       beaconScanner.upload()

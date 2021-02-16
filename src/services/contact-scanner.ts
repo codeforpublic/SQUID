@@ -33,7 +33,7 @@ class ScanManager {
   }
 
   maskBeaconFound() {
-    if (!this.oldestBeaconFoundTS) {
+    if (!this.oldestBeaconFoundTS || (Date.now() - this.oldestBeaconFoundTS) > (30 * 1000)) {
       this.oldestBeaconFoundTS = Date.now()
     }
   }
