@@ -9,7 +9,6 @@ import {
 import I18n from '../../../../i18n/i18n';
 
 export const Beancon = ({location}: {location: string}) => {
-  console.log('>>>>> ', location);
   if (location) {
     return (
       <View style={styles.container}>
