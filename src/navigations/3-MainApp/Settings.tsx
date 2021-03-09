@@ -97,15 +97,6 @@ export const Settings = () => {
                   </Text>
                 </View>
               </TouchableHighlight>
-              <TouchableHighlight
-                onPress={() => navigation.navigate('Debug')}
-              >
-                <View style={styles.section}>
-                  <Text style={styles.sectionText}>
-                  Debug
-                  </Text>
-                </View>
-              </TouchableHighlight>
               {!isRegistered && (
                 <TouchableHighlight
                   onPress={() =>

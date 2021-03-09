@@ -86,9 +86,6 @@ export default createStackNavigator(
     ChangeLanguage: {
       screen: ChangeLanguageScreen,
     },
-    Debug: {
-      screen: Debug,
-    },
   },
   {
     initialRouteName: 'Root',
