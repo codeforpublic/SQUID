@@ -41,7 +41,7 @@ export const MainApp = () => {
     setLocation(beaconLocationName.name)
     if (location && popupRef && popupRef.current) {
       popupRef.current.show({
-        slideOutTime: 10 * 1000
+        slideOutTime: 20 * 1000
       })
     }
   }, [beaconLocationName])
