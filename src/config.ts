@@ -12,3 +12,7 @@ export const CODEPUSH_DEPLOYMENT_KEY = Platform.select({
 })
 export const PUBLIC_KEY_URL = Config.PUBLIC_KEY_URL
 export const PUBLIC_KEY_PINNING_CERT = Config.PUBLIC_KEY_PINNING_CERT
+export const SHOP_API_NAME = Config.SHOP_API_NAME
+export const SHOP_API_KEY = Config.SHOP_API_KEY
+export const SHOP_API_URL = Config.SHOP_API_URL
+export const SHOP_QR_PINNING_CERT = Config.SHOP_QR_PINNING_CERT

@@ -1,7 +1,14 @@
 import DeviceInfo from 'react-native-device-info'
 import { userPrivateData } from './state/userPrivateData'
 import nanoid from 'nanoid'
-import { API_URL, SSL_PINNING_CERT_NAME } from './config'
+import {
+  API_URL,
+  SSL_PINNING_CERT_NAME,
+  SHOP_API_KEY,
+  SHOP_API_NAME,
+  SHOP_API_URL,
+  SHOP_QR_PINNING_CERT
+} from './config'
 import { encryptMessage, refetchDDCPublicKey } from './utils/crypto'
 import { fetch } from 'react-native-ssl-pinning'
 
@@ -150,4 +157,24 @@ export const scan = async (
       type,
     }),
   })
+}
+
+export const beaconinfo = async (uuid: string, major: string, minor: string) => {
+  const resp = await fetch(SHOP_API_URL + '/beaconinfo?' +
+    new URLSearchParams({
+      uuid,
+      major,
+      minor
+    }), {
+    method: 'GET',
+    headers: {
+      'X-TH-SHOP-API-USER': SHOP_API_NAME,
+      'X-TH-SHOP-API-KEY': SHOP_API_KEY,
+    },
+    sslPinning: {
+      certs: [SHOP_QR_PINNING_CERT],
+    },
+  })
+  const result = await resp.json()
+  return result as any
 }

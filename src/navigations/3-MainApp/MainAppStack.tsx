@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { Platform, Text, View } from 'react-native'
 import AntIcon from 'react-native-vector-icons/AntDesign'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {
@@ -7,14 +7,14 @@ import {
   createStackNavigator,
 } from 'react-navigation'
 import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
-import { MainApp } from './MainApp'
+import { MainApp } from './NewMainApp'
 import { MainAppFaceCamera } from './MainAppFaceCamera'
 import { QRCodeScan } from './QRCodeScan'
 import { Settings } from './Settings'
 
 import I18n from '../../../i18n/i18n';
 
-const TabBarLabel = ({ title, focused }) => {
+const TabBarLabel = ({ title, focused }: any) => {
   return (
     <Text
       style={{
@@ -34,10 +34,10 @@ export const MainAppTab = createBottomTabNavigator(
     MainApp: {
       screen: MainApp,
       navigationOptions: {
-        tabBarLabel: ({ focused }) => (
-          <TabBarLabel title={I18n.t('data')} focused={focused} />
+        tabBarLabel: ({ focused }: any) => (
+            <TabBarLabel title={I18n.t('data')} focused={focused} />
         ),
-        tabBarIcon: ({ focused }) => (
+        tabBarIcon: ({ focused }: any) => (
           <Icon
             name="user"
             color={focused ? '#303342' : COLORS.GRAY_2}
@@ -49,10 +49,10 @@ export const MainAppTab = createBottomTabNavigator(
     QRCodeScan: {
       screen: QRCodeScan,
       navigationOptions: {
-        tabBarLabel: ({ focused }) => (
-          <TabBarLabel title={I18n.t('scan_qr')} focused={focused} />
+        tabBarLabel: ({ focused }: any) => (
+            <TabBarLabel title={I18n.t('scan_qr')} focused={focused} />
         ),
-        tabBarIcon: ({ focused }) => (
+        tabBarIcon: ({ focused }: any) => (
           <AntIcon
             name="scan1"
             color={focused ? '#303342' : COLORS.GRAY_2}
@@ -64,10 +64,10 @@ export const MainAppTab = createBottomTabNavigator(
     Settings: {
       screen: Settings,
       navigationOptions: {
-        tabBarLabel: ({ focused }) => (
+        tabBarLabel: ({ focused }: any) => (
           <TabBarLabel title={I18n.t('settings')} focused={focused} />
         ),
-        tabBarIcon: ({ focused }) => (
+        tabBarIcon: ({ focused }: any) => (
           <AntIcon
             name="profile"
             color={focused ? '#303342' : COLORS.GRAY_2}
@@ -76,27 +76,17 @@ export const MainAppTab = createBottomTabNavigator(
         ),
       },
     },
-    // Debug: {
-    //   screen: Debug,
+    // Notification: {
+    //   screen: Settings,
     //   navigationOptions: {
-    //     tabBarLabel: ({ focused }) => (
-    //       <Text
-    //         style={{
-    //           textAlign: 'center',
-    //           fontSize: FONT_SIZES[500],
-    //           fontFamily: FONT_FAMILY,
-    //
-    //           color: focused ? '#303342' : COLORS.GRAY_2,
-    //         }}
-    //       >
-    //         Debug
-    //       </Text>
+    //     tabBarLabel: ({ focused }: any) => (
+    //       <TabBarLabel title={I18n.t('settings')} focused={focused} />
     //     ),
-    //     tabBarIcon: ({ focused }) => (
+    //     tabBarIcon: ({ focused }: any) => (
     //       <AntIcon
-    //         name="BugOutlined"
+    //         name="bells"
     //         color={focused ? '#303342' : COLORS.GRAY_2}
-    //         size={18}
+    //         size={16}
     //       />
     //     ),
     //   },
@@ -105,10 +95,11 @@ export const MainAppTab = createBottomTabNavigator(
   {
     tabBarOptions: {
       style: {
-        paddingTop: 8,
+        backgroundColor: '#F9F9F9', 
+        borderTopColor: 'transparent',
       },
-    },
-  },
+    }
+  }
 )
 
 export const MainAppStack = createStackNavigator(

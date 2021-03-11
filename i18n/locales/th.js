@@ -56,6 +56,7 @@ export default {
   no_update_for: 'ไม่ได้อัปเดตเป็นเวลา',
   minute_s: 'นาที',
   last_update: 'อัปเดตล่าสุด',
+  fully_date: 'DD MMMM Y HH:mm น.',
   hh_mm: 'HH:mm น.',
   can_not_generate_qr: 'ไม่สามารถสร้าง QR ได้',
   connect_internet_to_generate_qr: 'เชื่อมต่ออินเทอร์เน็ตเพื่อสร้าง QR',
@@ -269,4 +270,5 @@ export default {
   privacy_policy_version: 'เวอร์ชั่น 2020.2',
   change_lang: 'เปลี่ยนภาษา',
   back: 'ย้อนกลับ',
+  beacon_header: 'คุณได้พบ Beacon',
 }
