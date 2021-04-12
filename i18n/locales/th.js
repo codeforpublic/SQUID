@@ -63,15 +63,15 @@ export default {
   try_again: 'ลองอีกครั้ง',
   qr_expired: 'QR หมดอายุแล้ว',
   connect_internet_to_update: 'เชื่อมต่ออินเทอร์เน็ตเพื่ออัปเดต',
-  for_checking_in_with_qr: 'สำหรับนำ QR Code ไปใช้ check-in',
+  for_checking_in_with_qr: 'สำหรับนำ QR Code ไปใช้เช็กอิน',
   press_to_confirm: 'กดเพื่อยืนยัน',
   can_not_change_picture: 'ไม่สามารถเปลี่ยนรูปได้',
-  can_change_pic_again_in: 'คุณจะสามารถเปลี่ยนรูปได้อีกใน',
-  day_s: ' วัน',
+  can_change_pic_again_in: 'คุณจะเปลี่ยนรูปได้อีกครั้งใน',
+  day_s: 'วัน',
   are_you_sure: 'คุณแน่ใจไหม ?',
   after_changed_pic_you_will_not_be_able_to_change_until:
-    'เมื่อเปลี่ยนรูปแล้ว ในอีก',
-  day_s_have_passed: 'วัน คุณจะไม่สามารถเปลี่ยนรูปได้อีก',
+    'เมื่อเปลี่ยนรูปแล้ว คุณจะเปลี่ยนรูปไม่ได้อีกจนกว่าจะครบ',
+  day_s_have_passed: 'วัน',
   cancel: 'ยกเลิก',
   confirm: 'ยืนยัน',
   data: 'ข้อมูล',
@@ -93,7 +93,7 @@ export default {
   auto_turn_on_bluetooth_tracing:
     'เปิดการค้นหาการเข้าใกล้บุคคลอื่นผ่านบลูทูธพลังงานต่ำโดยอัตโนมัติ',
   may_cause_phone_to_consume_higher_energy:
-    'อาจส่งผลให้มือถือมีการใช้พลังงานมากกว่าปกติ',
+    'อาจส่งผลให้มือถือใช้พลังงานมากกว่าปกติ',
   you_can_choose_to_turn_off: 'สามารถเลือกปิดได้ถ้าต้องการ',
   but_sys_will_not_auto_trace:
     'แต่ระบบจะไม่สามารถค้นหาอุปกรณ์อื่นโดยอัตโนมัติได้',
