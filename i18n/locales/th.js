@@ -63,15 +63,15 @@ export default {
   try_again: 'ลองอีกครั้ง',
   qr_expired: 'QR หมดอายุแล้ว',
   connect_internet_to_update: 'เชื่อมต่ออินเทอร์เน็ตเพื่ออัปเดต',
-  for_checking_in_with_qr: 'สำหรับนำ QR Code ไปใช้ check-in',
+  for_checking_in_with_qr: 'สำหรับนำ QR Code ไปใช้เช็กอิน',
   press_to_confirm: 'กดเพื่อยืนยัน',
   can_not_change_picture: 'ไม่สามารถเปลี่ยนรูปได้',
-  can_change_pic_again_in: 'คุณจะสามารถเปลี่ยนรูปได้อีกใน',
-  day_s: ' วัน',
+  can_change_pic_again_in: 'คุณจะเปลี่ยนรูปได้อีกครั้งใน',
+  day_s: 'วัน',
   are_you_sure: 'คุณแน่ใจไหม ?',
   after_changed_pic_you_will_not_be_able_to_change_until:
-    'เมื่อคุณเปลี่ยนรูปแล้ว ในอีก',
-  day_s_have_passed: 'วันคุณจะไม่สามารถเปลี่ยนรูปได้อีกครั้ง',
+    'เมื่อเปลี่ยนรูปแล้ว คุณจะเปลี่ยนรูปไม่ได้อีกจนกว่าจะครบ',
+  day_s_have_passed: 'วัน',
   cancel: 'ยกเลิก',
   confirm: 'ยืนยัน',
   data: 'ข้อมูล',
@@ -81,7 +81,7 @@ export default {
   scan_result: 'ผลลัพธ์การสแกน',
   low_risk: 'เสี่ยงน้อย',
   data_at: 'ข้อมูลวันที่',
-  por_sor: 'พ.ศ',
+  por_sor: 'พ.ศ.',
   scan_again: 'สแกนใหม่อีกครั้ง',
   risk_level: 'ระดับความเสี่ยง',
   wrong_data: 'ข้อมูลไม่ถูกต้อง',
@@ -93,7 +93,7 @@ export default {
   auto_turn_on_bluetooth_tracing:
     'เปิดการค้นหาการเข้าใกล้บุคคลอื่นผ่านบลูทูธพลังงานต่ำโดยอัตโนมัติ',
   may_cause_phone_to_consume_higher_energy:
-    'อาจส่งผลให้มือถือมีการใช้พลังงานมากกว่าปกติ',
+    'อาจส่งผลให้มือถือใช้พลังงานมากกว่าปกติ',
   you_can_choose_to_turn_off: 'สามารถเลือกปิดได้ถ้าต้องการ',
   but_sys_will_not_auto_trace:
     'แต่ระบบจะไม่สามารถค้นหาอุปกรณ์อื่นโดยอัตโนมัติได้',
@@ -125,7 +125,7 @@ export default {
   yes: 'ใช่',
   no: 'ไม่ใช่',
   is_medical_staff: 'เป็นบุคลากรทางการแพทย์',
-  you_are_a_medical_staff: 'คุณเป็นเป็นบุคลากรทางการแพทย์',
+  you_are_a_medical_staff: 'คุณเป็นบุคลากรทางการแพทย์',
   know_status_of_ppl_around_you: 'รู้สถานะคนใกล้ชิด',
   take_appropriate_action: 'ระวังและปฏิบัติตัวได้เหมาะสม',
   know_the_guideline: 'ทราบข้อควรปฏิบัติ',
@@ -165,7 +165,7 @@ export default {
   you_are_red_now_msg:
     'คุณเข้าสู่สภาวะเสี่ยงสูง สถานพยาบาลกำลังจะติดต่อคุณกลับไปทันที',
   orange_suggestion: 'คำแนะนำของคุณในวันนี้ (สีส้ม)',
-  year: ' ปี',
+  year: 'ปี',
   week: 'สัปดาห์',
   day: 'วัน',
   hour: 'ชม.',
@@ -179,8 +179,8 @@ export default {
   maybe_other_disease_2d_not_better_go_see_doc:
     'อาจเป็นโรคอื่น ถ้า 2 วัน อาการไม่ดีขึ้นให้ไปพบแพทย์',
   go_see_doc: 'ให้ติดต่อสถานพยาบาลทันที',
-  important_update: 'อัพเดทสำคัญ',
-  pls_update_latest_version_from: 'กรุณาอัพเดทเวอร์ชั่นล่าสุดจาก',
+  important_update: 'อัปเดตสำคัญ',
+  pls_update_latest_version_from: 'กรุณาอัปเดตรุ่นล่าสุดจาก',
   ok: 'ตกลง',
   incorrect_qr: 'QR Code ไม่ถูกต้อง',
   privacy_policy_intro_01:
@@ -267,7 +267,7 @@ export default {
     '    สพร. จะพยายามอย่างเต็มที่ในการช่วยเหลือ แก้ไขข้อกังวลและปัญหาต่างๆ ที่ท่านแจ้งมายังเรา',
   privacy_policy_ending02:
     'นโยบายความเป็นส่วนตัวนี้มีผลบังคับใช้ตั้งแต่วันที่ 27 เมษายน 2563',
-  privacy_policy_version: 'เวอร์ชั่น 2020.2',
+  privacy_policy_version: 'รุ่น 2020.2',
   change_lang: 'เปลี่ยนภาษา',
   back: 'ย้อนกลับ',
   beacon_header: 'คุณได้พบ Beacon',
