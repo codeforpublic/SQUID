@@ -66,8 +66,8 @@ export default {
   connect_internet_to_update: 'connect the internet to update',
   for_checking_in_with_qr: 'for checking in with QR Code',
   press_to_confirm: 'Confirm',
-  can_not_change_picture: 'Can not change picture',
-  can_change_pic_again_in: 'You can change picture again in ',
+  can_not_change_picture: 'Cannot change picture',
+  can_change_pic_again_in: 'You can change picture again in',
   day_s: 'day(s)',
   are_you_sure: 'Are you sure?',
   after_changed_pic_you_will_not_be_able_to_change_until:

@@ -29,7 +29,7 @@ export const UpdateProfileButton = ({ width, style, onChange }) => {
           const day = DEFAULT_PERIODS - daySinceUpdated
           Alert.alert(
             I18n.t('can_not_change_picture'),
-            'คุณจะสามารถเปลี่ยนรูปได้อีกใน ' + day + I18n.t('day_s'),
+            I18n.t('can_change_pic_again_in') + ' ' + day + ' ' + I18n.t('day_s'),
           )
         } else {
           navigation.navigate('MainAppFaceCamera', {
@@ -37,7 +37,7 @@ export const UpdateProfileButton = ({ width, style, onChange }) => {
               if (daySinceCreated >= 3) {
                 Alert.alert(
                   I18n.t('are_you_sure'),
-                  `I18n.t('after_changed_pic_you_will_not_be_able_to_change_until') ${DEFAULT_PERIODS} I18n.t('day_s_have_passed')`,
+                  `${I18n.t('after_changed_pic_you_will_not_be_able_to_change_until')} ${DEFAULT_PERIODS} ${I18n.t('day_s_have_passed')}`,
                   [
                     { text: I18n.t('cancel'), style: 'cancel' },
                     {
