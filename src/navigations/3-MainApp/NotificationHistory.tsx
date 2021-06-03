@@ -84,12 +84,10 @@ export const NotificationHistory = () => {
           refreshing={refreshing}
           onRefresh={async () => {
             setRefreshing(true)
-            console.log('refresinnn')
             const notifications = await getNotifications({
               skip: 0,
               limit: PAGE_SIZE,
             })
-            console.log('refreshed')
             setHistory(notifications)
             setEndOfList(false)
             setRefreshing(false)
