@@ -11,6 +11,7 @@ export const getNotifications = async (param: {
   try {
     const res = await fetch(
       NOTIFICATION_API_URL +
+        '/notifications' +
         (param
           ? `?${new URLSearchParams(param as Record<string, string>)}`
           : ''),
@@ -24,7 +25,9 @@ export const getNotifications = async (param: {
     )
     const json = await res.json()
 
-    if (_.isArray(json)) return json as NotificationHistoryModel[]
+    if (_.isArray(json)) {
+      return json as NotificationHistoryModel[]
+    }
   } catch (error) {
     // console.error('Failed', json);
   }
@@ -35,7 +38,7 @@ export const getNotifications = async (param: {
 /*
 export const patchNotifications = async () => {
   try {
-    const res = await fetch(NOTIFICATION_API_URL, {
+    const res = await fetch(NOTIFICATION_API_URL + '/notifications', {
       sslPinning: {
         certs: [SSL_PINNING_CERT_NAME],
       },
