@@ -107,7 +107,7 @@ export const NotificationHistory = () => {
           }}
           renderItem={({ item, index }) => {
             return (
-              <View style={styles.sectionLine} key={index}>
+              <View style={styles.sectionLine} key={'c' + index}>
                 <View style={styles.titleSection}>
                   <View>
                     <AntIcon
