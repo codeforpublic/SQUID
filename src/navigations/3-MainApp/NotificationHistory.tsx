@@ -6,6 +6,7 @@ import AntIcon from 'react-native-vector-icons/AntDesign'
 import { getNotifications } from '../../api-notification'
 import { MyBackground } from '../../components/MyBackground'
 import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
+import I18n from '../../../i18n/i18n'
 
 export interface NotificationHistoryModel {
   title: string
@@ -28,44 +29,44 @@ export const NotificationHistory = () => {
   historyRef.current = history
 
   /*
-  const getNotifications = useCallback(
-    () =>
-      new Promise<NotificationHistoryModel[]>((success) =>
-        _.debounce(() => {
-          cnt++
-          if (cnt > 4) {
-            success([])
-            return
-          }
-          
-          const mockHistory: NotificationHistoryModel[] = [
-            {
-              type: 'ALERT',
-              title: 'ด่วน กรุณาโทรกลับ',
-              message:
-                'กรมควบคุมโรคต้องการติดต่อคุณ กรุณาติดต่อกลับด้วยที่เบอร์ 0821920192',
-              sendedAt: new Date().toISOString(),
-            },
-            {
-              type: 'INFO',
-              title: 'กรอกแบบสอบถาม',
-              message:
-                'กรุณากรอกแบบสอบถามความพึงพอใจการใช้งาน Link: bitly.com/xieoak',
-              sendedAt: new Date().toISOString(),
-            },
-            {
-              type: 'ALERT',
-              title: 'สถานะความเสี่ยงถูกเปลี่ยน',
-              message:
-                'สถานะการติดเชื้อถูกเปลี่ยนเป็น “เสี่ยงมาก” (สีแดง) คลิกเพื่ออ่านสาเหตุ',
-              sendedAt: new Date().toISOString(),
-            },
-          ]
-          success(mockHistory)
-        }, 1000)(),
-      ),
-    [],
-  )
+const getNotifications = useCallback(
+() =>
+new Promise<NotificationHistoryModel[]>((success) =>
+_.debounce(() => {
+cnt++
+if (cnt > 4) {
+success([])
+return
+}
+
+const mockHistory: NotificationHistoryModel[] = [
+{
+type: 'ALERT',
+title: 'ด่วน กรุณาโทรกลับ',
+message:
+'กรมควบคุมโรคต้องการติดต่อคุณ กรุณาติดต่อกลับด้วยที่เบอร์ 0821920192',
+sendedAt: new Date().toISOString(),
+},
+{
+type: 'INFO',
+title: 'กรอกแบบสอบถาม',
+message:
+'กรุณากรอกแบบสอบถามความพึงพอใจการใช้งาน Link: bitly.com/xieoak',
+sendedAt: new Date().toISOString(),
+},
+{
+type: 'ALERT',
+title: 'สถานะความเสี่ยงถูกเปลี่ยน',
+message:
+'สถานะการติดเชื้อถูกเปลี่ยนเป็น “เสี่ยงมาก” (สีแดง) คลิกเพื่ออ่านสาเหตุ',
+sendedAt: new Date().toISOString(),
+},
+]
+success(mockHistory)
+}, 1000)(),
+),
+[],
+)
   */
 
   useEffect(() => {
@@ -81,6 +82,13 @@ export const NotificationHistory = () => {
         />
         <FlatList
           data={history}
+          ListEmptyComponent={() => (
+            <View style={styles.emptyTextView}>
+              <Text style={styles.emptyText}>
+                {I18n.t('notification_history_empty')}
+              </Text>
+            </View>
+          )}
           refreshing={refreshing}
           onRefresh={async () => {
             setRefreshing(true)
@@ -187,5 +195,21 @@ const styles = StyleSheet.create({
     color: COLORS.GRAY_4,
     fontSize: FONT_SIZES[400],
     fontFamily: FONT_FAMILY,
+  },
+  emptyTextView: {
+    flex: 1,
+    height: '100%',
+    marginTop: 100,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyText: {
+    fontSize: 18,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    fontWeight: 'bold',
+    flex: 1,
+    color: '#A0A4B1',
   },
 })
