@@ -23,11 +23,11 @@ export default {
     'ยืนยันเบอร์โทรศัพท์ เพื่อให้เราติดต่อดูแลคุณได้',
   confirm_now: 'ยืนยันเลย',
   later: 'ไว้ทีหลัง',
-  risky_ppl_nearby: 'มีคนเสี่ยงอยู่ใกล้ ๆ',
+  risky_ppl_nearby: 'เคยอยู่ใกล้ผู้ติดเชื้อ',
   app_can_check_with_bluetooth: 'หมอตรวจสอบได้ด้วยบลูทูธ',
   pls_grant_bluetooth_access: 'ขอสิทธิ์เข้าถึงบลูทูธ Bluetooth',
   consume_low_energy_and_can_detect_closed_contact:
-    'ใช้พลังงานต่ำ เพื่อคอยสแกนคนใกล้ตัวและแจ้งเตือนทันทีหากคุณได้ไปใกล้ชิดกับคนที่มีความเสี่ยง',
+    'ใช้พลังงานต่ำ เพื่อคอยสแกนคนใกล้ตัวและแจ้งเตือนหากคุณเคยใกล้ชิดกับผู้ติดเชื้อ',
   grant_permission: 'อนุญาตให้เข้าถึง',
   register_successfully: 'ลงทะเบียนสำเร็จ',
   can_start_using_now: 'เริ่มใช้งานได้ทันที',
@@ -40,12 +40,12 @@ export default {
   let_doc_estimate_your_risk: 'เพื่อให้หมอประเมินความเสี่ยงของคุณ',
   your_position: 'ตำแหน่งของคุณ',
   help_notify_if_you_get_near_risky_person_or_area:
-    'เพื่อคอยแจ้งเตือนหากคุณได้ไปใกล้ชิดกับคนที่มี ความเสี่ยง หรืออยู่ในพื้นที่เสี่ยง',
+    'เพื่อคอยแจ้งเตือนหากคุณเคยใกล้ชิดกับผู้ติดเชื้อ หรืออยู่ในพื้นที่เสี่ยง',
   your_motion: 'การเคลื่อนที่ของคุณ (MOTION)',
   to_manage_mobile_energy_efficiently:
     'เพื่อจัดการการใช้พลังงานของมือถือ อย่างมีประสิทธิภาพ',
   let_doc_notify_you: 'ให้หมอแจ้งเตือนคุณ',
-  when_you_are_closed_to_risky_ppl: 'เมื่อคุณอยู่ใกล้ชิดกับคนที่มีความเสี่ยง',
+  when_you_are_closed_to_risky_ppl: 'เมื่อคุณเคยใกล้ชิดกับผู้ติดเชื้อ',
   turn_on_notification: 'เปิดการแจ้งเตือน',
   in_progress: 'กำลังดำเนินการ...',
   please_wait: 'กรุณารอสักครู่',
@@ -179,8 +179,8 @@ export default {
   maybe_other_disease_2d_not_better_go_see_doc:
     'อาจเป็นโรคอื่น ถ้า 2 วัน อาการไม่ดีขึ้นให้ไปพบแพทย์',
   go_see_doc: 'ให้ติดต่อสถานพยาบาลทันที',
-  important_update: 'อัพเดทสำคัญ',
-  pls_update_latest_version_from: 'กรุณาอัพเดทเวอร์ชั่นล่าสุดจาก',
+  important_update: 'อัปเดตสำคัญ',
+  pls_update_latest_version_from: 'กรุณาอัปเดตเวอร์ชั่นล่าสุดจาก',
   ok: 'ตกลง',
   incorrect_qr: 'QR Code ไม่ถูกต้อง',
   privacy_policy_intro_01:
