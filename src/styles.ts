@@ -1,4 +1,3 @@
-import { normalize } from 'react-native-elements'
 
 export const COLORS = {
   WHITE: '#FAFDFF',
@@ -10,6 +9,7 @@ export const COLORS = {
   GRAY_2: '#A1A4B1',
   GRAY_3: '#E5E5E5',
   GRAY_4: '#505565',
+  GRAY_5: '#E0E0E0',
   DANGER: '#DF4A4A',
   BLACK_1: '#1F1D1D',
   BLACK_2: '#171717',
@@ -25,6 +25,8 @@ export const COLORS = {
   SECONDARY_DIM: '#576675',
   LIGHT_BLUE: '#FAFDFF',
   BORDER_LIGHT_BLUE: '#E6F2FA',
+  RED_WARNING: '#B82020',
+  BLUE_INFO: '#205DB8'
 }
 
 export const FONT_FAMILY = 'DBHelvethaicaX-Reg'

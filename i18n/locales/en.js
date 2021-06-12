@@ -80,11 +80,9 @@ export default {
   settings: 'Settings',
   risk: 'risk',
   scan_result: 'scan result',
-  low_risk: 'Low Risk',
   data_at: 'data at',
   por_sor: 'BE',
   scan_again: 'scan again',
-  risk_level: 'risk level',
   wrong_data: 'wrong data',
   record_contact_and_estimate_risk: 'Record Contact and Estimate Risk',
   already_registered: 'already registered',
@@ -273,4 +271,6 @@ export default {
   back: 'BACK',
   change_lang: 'Change Language',
   beacon_header: 'Found Beacon',
+  notification_history: 'Notification',
+  notification_history_empty: 'This list is empty.',
 }
