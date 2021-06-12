@@ -1,108 +1,98 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import moment from 'moment'
+import React, { useEffect, useState } from 'react'
 import { FlatList, StatusBar, StyleSheet, Text, View } from 'react-native'
-import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
-import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import AntIcon from 'react-native-vector-icons/AntDesign'
-import moment from 'moment'
-import _ from 'lodash'
-interface NotificationHistoryModel {
-  status: string
+import { getNotifications } from '../../api-notification'
+import { MyBackground } from '../../components/MyBackground'
+import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
+import I18n from '../../../i18n/i18n'
+import { ContractTracerContext } from '../../services/contact-tracing-provider'
+import { useFocusEffect } from 'react-navigation-hooks'
+
+export interface NotificationHistoryModel {
   title: string
-  description: string
-  date: Date
+  type: string
+  message: string
+  sendedAt: string
+  anonymousId: string
+  isRead: true
 }
+
+const PAGE_SIZE = 20
+// let cnt = 0
+
 export const NotificationHistory = () => {
   const [history, setHistory] = useState<NotificationHistoryModel[]>([])
-  const [totalHistoryCount, setTotalHistoryCount] = useState<number>(0)
+  const [endOfList, setEndOfList] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
+
+  const { notificationTriggerNumber } = React.useContext(ContractTracerContext)
 
   const historyRef = React.useRef(history)
   historyRef.current = history
 
-  const fetchData = useCallback(
-    () =>
-      new Promise<NotificationHistoryModel[]>((success) =>
-        _.debounce(() => {
-          const mockHistory: NotificationHistoryModel[] = [
-            {
-              status: 'WARNING',
-              title: 'ด่วน กรุณาโทรกลับ',
-              description:
-                'กรมควบคุมโรคต้องการติดต่อคุณ กรุณาติดต่อกลับด้วยที่เบอร์ 0821920192',
-              date: new Date(),
-            },
-            {
-              status: 'INFO',
-              title: 'กรอกแบบสอบถาม',
-              description:
-                'กรุณากรอกแบบสอบถามความพึงพอใจการใช้งาน Link: bitly.com/xieoak',
-              date: new Date(),
-            },
-            {
-              status: 'WARNING',
-              title: 'สถานะความเสี่ยงถูกเปลี่ยน',
-              description:
-                'สถานะการติดเชื้อถูกเปลี่ยนเป็น “เสี่ยงมาก” (สีแดง) คลิกเพื่ออ่านสาเหตุ',
-              date: new Date(),
-            },
-          ]
-          success(mockHistory)
-        }, 1000)(),
-      ),
-    [],
-  )
-
-  const refreshHistory = async () => {
-    const newHistory = await fetchData()
-    const total = 20 // history.total
-
-    setTotalHistoryCount(total)
-    setHistory(newHistory)
-  }
+  useFocusEffect(
+    React.useCallback(() => {
+      getNotifications({ skip: 0, limit: PAGE_SIZE }).then(setHistory)
+    }, [])
+  );
 
   useEffect(() => {
-    fetchData().then((newHistory) => {
-      const total = 20 // history.total
-
-      setTotalHistoryCount(total)
-      setHistory(newHistory)
-    })
-  }, [fetchData])
+    getNotifications({ skip: 0, limit: PAGE_SIZE }).then(setHistory)
+  }, [notificationTriggerNumber])
 
   return (
     <MyBackground variant="light">
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={styles.safeAreaView}>
         <StatusBar
           barStyle="dark-content"
           backgroundColor={COLORS.PRIMARY_LIGHT}
         />
         <FlatList
+          key={'list' + (notificationTriggerNumber ?? 0)}
           data={history}
+          ListEmptyComponent={() => (
+            <View style={styles.emptyTextView}>
+              <Text style={styles.emptyText}>
+                {I18n.t('notification_history_empty')}
+              </Text>
+            </View>
+          )}
           refreshing={refreshing}
           onRefresh={async () => {
             setRefreshing(true)
-            await refreshHistory()
+            const notifications = await getNotifications({
+              skip: 0,
+              limit: PAGE_SIZE,
+            })
+            setHistory(notifications)
+            setEndOfList(false)
             setRefreshing(false)
           }}
           onEndReachedThreshold={0.5}
           onEndReached={async () => {
-            if (historyRef.current.length >= totalHistoryCount) return
-            const newHistory = await fetchData()
-            setHistory(historyRef.current.concat(newHistory))
+            if (endOfList) return
+            const newHistory = await getNotifications({
+              skip: historyRef.current.length,
+              limit: PAGE_SIZE,
+            })
+            if (newHistory.length) {
+              setHistory(historyRef.current.concat(newHistory))
+            } else {
+              setEndOfList(true)
+            }
           }}
           renderItem={({ item, index }) => {
             return (
-              <View style={styles.sectionLine} key={index}>
+              <View style={styles.sectionLine} key={'c' + index}>
                 <View style={styles.titleSection}>
                   <View>
                     <AntIcon
                       style={styles.iconStyle}
-                      name={
-                        item.status === 'WARNING' ? 'warning' : 'infocirlceo'
-                      }
+                      name={item.type === 'ALERT' ? 'warning' : 'infocirlceo'}
                       color={
-                        item.status === 'WARNING'
+                        item.type === 'ALERT'
                           ? COLORS.RED_WARNING
                           : COLORS.BLUE_INFO
                       }
@@ -112,7 +102,7 @@ export const NotificationHistory = () => {
                   <View>
                     <Text
                       style={
-                        item.status === 'WARNING'
+                        item.type === 'ALERT'
                           ? styles.titleWarning
                           : styles.titleInfo
                       }
@@ -121,9 +111,11 @@ export const NotificationHistory = () => {
                     </Text>
                   </View>
                 </View>
-                <Text style={styles.descriptionStyle}>{item.description}</Text>
+                <Text style={styles.descriptionStyle}>{item.message}</Text>
                 <Text style={styles.dateStyle}>
-                  {moment(item.date).format('DD MMM YYYY HH:mm น.').toString()}
+                  {moment(item.sendedAt)
+                    .format('DD MMM YYYY HH:mm น.')
+                    .toString()}
                 </Text>
               </View>
             )
@@ -135,6 +127,9 @@ export const NotificationHistory = () => {
 }
 
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1,
+  },
   sectionLine: {
     padding: 24,
     borderBottomWidth: 1,
@@ -170,5 +165,21 @@ const styles = StyleSheet.create({
     color: COLORS.GRAY_4,
     fontSize: FONT_SIZES[400],
     fontFamily: FONT_FAMILY,
+  },
+  emptyTextView: {
+    flex: 1,
+    height: '100%',
+    marginTop: 100,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyText: {
+    fontSize: 18,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    fontWeight: 'bold',
+    flex: 1,
+    color: '#A0A4B1',
   },
 })
