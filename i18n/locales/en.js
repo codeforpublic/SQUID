@@ -57,6 +57,7 @@ export default {
   no_update_for: 'no update for ',
   minute_s: 'minute(s)',
   last_update: 'Last Update at',
+  fully_date: 'DD MMMM Y HH:mm',
   hh_mm: 'HH:mm',
   can_not_generate_qr: 'can not generate QR code',
   connect_internet_to_generate_qr: 'connect internet to generate QR',
@@ -280,4 +281,5 @@ export default {
   you_can_not_change_picture: 'You cannot change your picture right now',
   after_change_picture_will_can_not_change_again:
     'This is last time to change your picture',
+  beacon_header: 'Found Beacon',
 }

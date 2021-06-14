@@ -16,6 +16,7 @@ import { PrivacyPolicy } from './PrivacyPolicy'
 import { HomeStack } from './0-Home/HomeStack'
 import { WebviewScreen } from './Webview'
 import { ChangeLanguageScreen } from './ChangeLanguage'
+import { Debug } from './3-MainApp/Debug'
 
 const Root = ({ navigation }) => {
   useEffect(() => {

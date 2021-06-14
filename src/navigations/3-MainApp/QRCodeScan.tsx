@@ -34,7 +34,7 @@ export const QRCodeScan = ({ navigation }) => {
     }
   }, [qrResult])
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+    <SafeAreaView style={{ flex: 1,backgroundColor: '#F9F9F9'}}>
       <StatusBar barStyle="dark-content" backgroundColor={COLORS.WHITE} />
       {isFocused ? (
         <QRCodeScanner

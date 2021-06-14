@@ -25,8 +25,7 @@ export const Settings = () => {
   }
 
   return (
-    <MyBackground variant="light">
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#F9F9F9' }}>
         <StatusBar
           barStyle="dark-content"
           backgroundColor={COLORS.PRIMARY_LIGHT}
@@ -120,7 +119,6 @@ export const Settings = () => {
           </View>
         </ScrollView>
       </SafeAreaView>
-    </MyBackground>
   )
 }
 
