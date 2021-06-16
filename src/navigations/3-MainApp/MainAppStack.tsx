@@ -1,5 +1,5 @@
 import React from 'react'
-import { Platform, Text, View } from 'react-native'
+import { Text } from 'react-native'
 import AntIcon from 'react-native-vector-icons/AntDesign'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {
@@ -12,7 +12,7 @@ import { MainAppFaceCamera } from './MainAppFaceCamera'
 import { QRCodeScan } from './QRCodeScan'
 import { Settings } from './Settings'
 
-import I18n from '../../../i18n/i18n';
+import I18n from '../../../i18n/i18n'
 
 const TabBarLabel = ({ title, focused }: any) => {
   return (
@@ -35,7 +35,7 @@ export const MainAppTab = createBottomTabNavigator(
       screen: MainApp,
       navigationOptions: {
         tabBarLabel: ({ focused }: any) => (
-            <TabBarLabel title={I18n.t('data')} focused={focused} />
+          <TabBarLabel title={I18n.t('data')} focused={focused} />
         ),
         tabBarIcon: ({ focused }: any) => (
           <Icon
@@ -50,7 +50,7 @@ export const MainAppTab = createBottomTabNavigator(
       screen: QRCodeScan,
       navigationOptions: {
         tabBarLabel: ({ focused }: any) => (
-            <TabBarLabel title={I18n.t('scan_qr')} focused={focused} />
+          <TabBarLabel title={I18n.t('scan_qr')} focused={focused} />
         ),
         tabBarIcon: ({ focused }: any) => (
           <AntIcon
@@ -95,11 +95,12 @@ export const MainAppTab = createBottomTabNavigator(
   {
     tabBarOptions: {
       style: {
-        backgroundColor: '#F9F9F9', 
+        marginBottom: 18,
+        backgroundColor: '#F9F9F9',
         borderTopColor: 'transparent',
       },
-    }
-  }
+    },
+  },
 )
 
 export const MainAppStack = createStackNavigator(
