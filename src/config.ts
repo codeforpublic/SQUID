@@ -16,3 +16,6 @@ export const SHOP_API_NAME = Config.SHOP_API_NAME
 export const SHOP_API_KEY = Config.SHOP_API_KEY
 export const SHOP_API_URL = Config.SHOP_API_URL
 export const SHOP_QR_PINNING_CERT = Config.SHOP_QR_PINNING_CERT
+
+// Notification api config
+export const NOTIFICATION_API_URL = Config.NOTIFICATION_API_URL
