@@ -24,7 +24,6 @@ const PAGE_SIZE = 20
 
 export const NotificationHistory = () => {
   const [history, setHistory] = useState<NotificationHistoryModel[]>([])
-  const [endOfList, setEndOfList] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
 
   const { notificationTriggerNumber } = React.useContext(ContractTracerContext)
@@ -35,8 +34,8 @@ export const NotificationHistory = () => {
   useFocusEffect(
     React.useCallback(() => {
       getNotifications({ skip: 0, limit: PAGE_SIZE }).then(setHistory)
-    }, [])
-  );
+    }, []),
+  )
 
   useEffect(() => {
     getNotifications({ skip: 0, limit: PAGE_SIZE }).then(setHistory)
@@ -67,12 +66,10 @@ export const NotificationHistory = () => {
               limit: PAGE_SIZE,
             })
             setHistory(notifications)
-            setEndOfList(false)
             setRefreshing(false)
           }}
           onEndReachedThreshold={0.5}
           onEndReached={async () => {
-            if (endOfList) return
             const newHistory = await getNotifications({
               skip: historyRef.current.length,
               limit: PAGE_SIZE,
