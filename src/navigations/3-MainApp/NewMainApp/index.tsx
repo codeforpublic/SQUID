@@ -92,12 +92,12 @@ export const MainApp = () => {
             <View style={styles.containerCard}>
               <View style={styles.card}>
                 <View style={styles.cardHeader}>
-                  <View style={{ flex: 1, padding: 10 }}>
-                    <AvatarProfile qr={qrData} qrState={qrState} />
-                  </View>
-                  <View style={{ flex: 2, alignContent: 'flex-start' }}>
-                    <RiskLabel qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
-                  </View>
+                <View style={{ flex: 1, padding: 10 }}>
+                  <AvatarProfile qr={qrData} qrState={qrState} />
+                </View>
+                <View style={{ flex: 2, alignContent: 'flex-start' }}>
+                  <RiskLabel qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
+                </View>
                 </View>
                 <View style={{ flex: 3 }}>
                   <QRImage qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
@@ -301,11 +301,12 @@ const AvatarProfile = ({ qr, qrState }: { qr: SelfQR, qrState: QR_STATE }) => {
     : COLORS.GRAY_2
 
 
-  const avatarWidth = Math.min(
-    100,
-    Math.floor((20 / 100) * Dimensions.get('screen').height),
-  )
+  // const avatarWidth = Math.min(
+  //   100,
+  //   Math.floor((20 / 100) * Dimensions.get('screen').height),
+  // )
 
+  const avatarWidth = 100
   useEffect(() => {
     RNFS.exists(faceURI).then(exists => {
       console.log('exists', exists)

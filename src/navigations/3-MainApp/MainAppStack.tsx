@@ -110,6 +110,7 @@ export const MainAppTab = createBottomTabNavigator(
   {
     tabBarOptions: {
       style: {
+        marginBottom: 18,
         backgroundColor: '#F9F9F9', 
         borderTopColor: 'transparent',
       },
