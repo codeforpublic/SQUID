@@ -2581,6 +2581,13 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
+autolinker@^3.14.3:
+  version "3.14.3"
+  resolved "https://registry.yarnpkg.com/autolinker/-/autolinker-3.14.3.tgz#c61c424bc6077bcf2fc62803803ec2f58e15a7ec"
+  integrity sha512-t81i2bCpS+s+5FIhatoww9DmpjhbdiimuU9ATEuLxtZMQ7jLv9fyFn7SWNG8IkEfD4AmYyirL1ss9k1aqVWRvg==
+  dependencies:
+    tslib "^1.9.3"
+
 aws-sign2@~0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.7.0.tgz#b46e890934a9591f2d2f6f86d7e6a9f1b3fe76a8"
@@ -7881,6 +7888,13 @@ react-native-appstate-hook@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/react-native-appstate-hook/-/react-native-appstate-hook-1.0.3.tgz#4f4f86e63127e7b06e53ccc286ec9a6e545d9d59"
   integrity sha512-iVoTUMnlJiU4DldhoEdE0uecr9AuC84tq+ftvfCYbZowirPTxlqAkvi/42sjlUDMFsG6BB8PoWci94qmz15w5Q==
+
+react-native-autolink@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-autolink/-/react-native-autolink-4.0.0.tgz#7005ec490b6bfe9d75ae4bcb3357da0175e6ec5c"
+  integrity sha512-58wV7lBkS+JmTDzuN4v5OqSz5cIc0lI3PlIV1WIVhxlitI1Yhl5UQWum4y31bV83faA9we7gynvi8xV/I0TWLg==
+  dependencies:
+    autolinker "^3.14.3"
 
 react-native-background-fetch@^3.1.0, react-native-background-fetch@~3.1.0:
   version "3.1.0"

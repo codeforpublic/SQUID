@@ -9,6 +9,7 @@ import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import I18n from '../../../i18n/i18n'
 import { ContractTracerContext } from '../../services/contact-tracing-provider'
 import { useFocusEffect } from 'react-navigation-hooks'
+import Autolink from 'react-native-autolink'
 
 export interface NotificationHistoryModel {
   title: string
@@ -108,7 +109,7 @@ export const NotificationHistory = () => {
                     </Text>
                   </View>
                 </View>
-                <Text style={styles.descriptionStyle}>{item.message}</Text>
+                <Autolink style={styles.descriptionStyle} text={item.message} />
                 <Text style={styles.dateStyle}>
                   {moment(item.sendedAt)
                     .format('DD MMM YYYY HH:mm น.')
