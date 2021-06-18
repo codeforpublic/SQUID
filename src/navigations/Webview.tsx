@@ -4,8 +4,7 @@ import { useNavigationParam } from 'react-navigation-hooks'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import { COLORS } from '../styles'
-import { View } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { View, TouchableOpacity } from 'react-native'
 
 const CloseButton = ({ onClose }) => (
   <TouchableOpacity
