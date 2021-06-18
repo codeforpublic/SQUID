@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  cardHeader: { flex: 1, flexDirection: 'row', alignContent: 'center', alignItems: 'center' },
+  cardHeader: { height: 128, flexDirection: 'row', alignContent: 'center', alignItems: 'center' },
   cardFooter: {
     flex: 0,
     marginTop: 5,
@@ -327,7 +327,7 @@ const AvatarProfile = ({ qr, qrState }: { qr: SelfQR, qrState: QR_STATE }) => {
             marginTop: 10,
           }}
         >
-          <View style={{  }}>
+          <View>
             <CircularProgressAvatar
               key={qr ? qr.getCreatedDate() : 0}
               image={faceURI ? { uri: faceURI } : void 0}
