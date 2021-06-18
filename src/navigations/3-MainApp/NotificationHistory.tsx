@@ -20,7 +20,8 @@ export interface NotificationHistoryModel {
   isRead: true
 }
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 10
+const PAGE_SIZE_LIMIT = 30
 // let cnt = 0
 
 export const NotificationHistory = () => {
@@ -71,14 +72,17 @@ export const NotificationHistory = () => {
           }}
           onEndReachedThreshold={0.5}
           onEndReached={async () => {
+            if (historyRef.current.length >= PAGE_SIZE_LIMIT) return
             const newHistory = await getNotifications({
               skip: historyRef.current.length,
               limit: PAGE_SIZE,
             })
             if (newHistory.length) {
-              setHistory(historyRef.current.concat(newHistory))
-            } else {
-              setEndOfList(true)
+              const newList = historyRef.current.concat(newHistory)
+              if (newList.length > PAGE_SIZE_LIMIT) {
+                newList.length = PAGE_SIZE_LIMIT
+              }
+              setHistory(newList)
             }
           }}
           renderItem={({ item, index }) => {
