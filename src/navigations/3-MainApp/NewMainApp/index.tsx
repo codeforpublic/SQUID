@@ -46,7 +46,7 @@ export const MainApp = () => {
         slideOutTime: 20 * 1000,
       })
     }
-  }, [beaconLocationName])
+  }, [beaconLocationName, location])
 
   useEffect(() => {
     pushNotification.requestPermissions()
@@ -82,7 +82,25 @@ export const MainApp = () => {
             </Text>
             <TouchableOpacity
               onPress={() => {
-                isServiceEnabled ? disable() : enable()
+                if (isServiceEnabled) {
+                  Alert.alert(
+                    I18n.t('bluetooth_disable_alert_title'),
+                    I18n.t('bluetooth_disable_alert_message'),
+                    [
+                      {
+                        text: I18n.t('cancel'),
+                        onPress: () => console.log('Cancel Pressed'),
+                        style: 'cancel',
+                      },
+                      {
+                        text: I18n.t('bluetooth_disable_alert_accept'),
+                        onPress: disable,
+                      },
+                    ],
+                  )
+                } else {
+                  enable()
+                }
               }}
             >
               <FontAwesome
