@@ -273,4 +273,7 @@ export default {
   beacon_header: 'Found Beacon',
   notification_history: 'Notification',
   notification_history_empty: 'This list is empty.',
+  bluetooth_disable_alert_title: 'bluetooth_disable_alert_title',
+  bluetooth_disable_alert_message: 'bluetooth_disable_alert_message',
+  bluetooth_disable_alert_accept: 'bluetooth_disable_alert_accept',
 }

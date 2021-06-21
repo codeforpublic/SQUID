@@ -271,4 +271,7 @@ export default {
   beacon_header: 'คุณได้พบ Beacon',
   notification_history: 'แจ้งเตือน',
   notification_history_empty: 'ไม่มีการแจ้งเตือน',
+  bluetooth_disable_alert_title: 'bluetooth_disable_alert_title',
+  bluetooth_disable_alert_message: 'bluetooth_disable_alert_message',
+  bluetooth_disable_alert_accept: 'bluetooth_disable_alert_accept',
 }
