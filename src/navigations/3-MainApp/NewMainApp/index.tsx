@@ -32,8 +32,12 @@ import { UpdateProfileButton } from './UpdateProfileButton'
 export const MainApp = () => {
   const inset = useSafeArea()
   const { qrData, qrState, refreshQR } = useSelfQR()
-  const { beaconLocationName, enable, disable, isServiceEnabled } =
-    useContactTracer()
+  const {
+    beaconLocationName,
+    enable,
+    disable,
+    isServiceEnabled,
+  } = useContactTracer()
   const appVersion = DeviceInfo.getVersion()
   const [location, setLocation] = useState('')
   const popupRef = useRef<NotificationPopup | any>()
@@ -80,51 +84,40 @@ export const MainApp = () => {
               {qrData &&
                 `${qrData.getCreatedDate().format(I18n.t('fully_date'))}`}
             </Text>
-            <TouchableOpacity
-              onPress={() => {
-                if (isServiceEnabled) {
-                  Alert.alert(
-                    I18n.t('bluetooth_disable_alert_title'),
-                    I18n.t('bluetooth_disable_alert_message'),
-                    [
-                      {
-                        text: I18n.t('cancel'),
-                        onPress: () => console.log('Cancel Pressed'),
-                        style: 'cancel',
-                      },
-                      {
-                        text: I18n.t('bluetooth_disable_alert_accept'),
-                        onPress: disable,
-                      },
-                    ],
-                  )
-                } else {
-                  enable()
-                }
-              }}
-            >
-              <FontAwesome
-                name="bluetooth-b"
-                color={COLORS.GRAY_4}
-                size={24}
-                style={{ marginRight: 10 }}
-              />
-              {isServiceEnabled ? (
-                <View
-                  style={{
-                    width: 10,
-                    height: 10,
-                    backgroundColor: COLORS.GREEN,
-                    position: 'absolute',
-                    borderRadius: 50,
-                    borderTopWidth: Math.floor((4 / 100) * 24),
-                    right: Math.floor((8 / 100) * 50),
-                  }}
+            <View style={{ flexDirection: 'row' }}>
+              <TouchableOpacity
+                style={{ position: 'relative' }}
+                onPress={() => {
+                  if (isServiceEnabled) {
+                    Alert.alert(
+                      I18n.t('bluetooth_disable_alert_title'),
+                      I18n.t('bluetooth_disable_alert_message'),
+                      [
+                        {
+                          text: I18n.t('cancel'),
+                          onPress: () => console.log('Cancel Pressed'),
+                          style: 'cancel',
+                        },
+                        {
+                          text: I18n.t('bluetooth_disable_alert_accept'),
+                          onPress: disable,
+                        },
+                      ],
+                    )
+                  } else {
+                    enable()
+                  }
+                }}
+              >
+                <FontAwesome
+                  name="bluetooth-b"
+                  color={COLORS.GRAY_4}
+                  size={24}
+                  style={{ marginRight: 10 }}
                 />
-              ) : (
-                void 0
-              )}
-            </TouchableOpacity>
+                {isServiceEnabled ? <View style={styles.greenDot} /> : null}
+              </TouchableOpacity>
+            </View>
           </View>
           <View style={styles.containerCard}>
             <View style={styles.card}>
@@ -140,7 +133,7 @@ export const MainApp = () => {
                   />
                 </View>
               </View>
-              <View style={{ flex: 3 }}>
+              <View style={{ flex: 2 }}>
                 <QRImage
                   qr={qrData}
                   qrState={qrState}
@@ -246,6 +239,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cardHeader: {
+    flex: 1,
     height: 128,
     flexDirection: 'row',
     alignContent: 'center',
@@ -266,6 +260,15 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES[600] * 0.85,
     color: COLORS.BLACK_1,
     textAlign: 'center',
+  },
+  greenDot: {
+    width: 10,
+    height: 10,
+    backgroundColor: COLORS.GREEN,
+    position: 'absolute',
+    borderRadius: 50,
+    borderTopWidth: Math.floor((4 / 100) * 24),
+    right: Math.floor((8 / 100) * 50),
   },
 })
 

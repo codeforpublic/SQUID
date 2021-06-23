@@ -73,7 +73,7 @@ class App extends React.Component {
         applicationState.load(),
         userPrivateData.load(),
         refetchJWKs(),
-      ])
+      ]).catch((e) => console.log('CREDENTIAL ERROR', e))
 
     const setUpId = () =>
       NativeModules.ContactTracerModule.setUserId(
@@ -117,8 +117,11 @@ class App extends React.Component {
     pushNotification.configure(this.onNotification)
   }
   onNotification = (notification) => {
-    this.setState({notificationTriggerNumber:(this.state.notificationTriggerNumber ?? 0) + 1})
-    
+    this.setState({
+      notificationTriggerNumber:
+        (this.state.notificationTriggerNumber ?? 0) + 1,
+    })
+
     const notificationData = notification?.data?.data || notification?.data
     if (!notificationData?.type) {
       return

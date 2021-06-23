@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import QRCodeScanner from 'react-native-qrcode-scanner'
 import { Dimensions, StatusBar, Platform } from 'react-native'
-import { COLORS } from '../../styles'
+import { COLORS, FONT_MED } from '../../styles'
 import { Title, Subtitle, Header } from '../../components/Base'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { verifyToken, decodeJWT } from '../../utils/jwt'
@@ -11,7 +11,7 @@ import NotificationPopup from 'react-native-push-notification-popup'
 import { QRPopupContent } from './QRPopupContent'
 import { scanManager } from '../../services/contact-scanner'
 
-import I18n from '../../../i18n/i18n';
+import I18n from '../../../i18n/i18n'
 import { backgroundTracking } from '../../services/background-tracking'
 
 export const QRCodeScan = ({ navigation }) => {
@@ -24,7 +24,7 @@ export const QRCodeScan = ({ navigation }) => {
   }, [isFocused])
 
   useEffect(() => {
-    if (qrResult) {      
+    if (qrResult) {
       popupRef.current.show({
         appTitle: I18n.t('risk_level'),
         title: qrResult.getLabel(),
@@ -34,7 +34,7 @@ export const QRCodeScan = ({ navigation }) => {
     }
   }, [qrResult])
   return (
-    <SafeAreaView style={{ flex: 1,backgroundColor: '#F9F9F9'}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#F9F9F9' }}>
       <StatusBar barStyle="dark-content" backgroundColor={COLORS.WHITE} />
       {isFocused ? (
         <QRCodeScanner
@@ -49,21 +49,25 @@ export const QRCodeScan = ({ navigation }) => {
             width: Dimensions.get('window').width - 16,
             overflow: 'hidden',
           }}
-          onRead={async e => {
+          onRead={async (e) => {
             try {
               if (e?.data?.startsWith('https://qr.thaichana.com/?appId')) {
                 const closeStr = 'closeBtn=true'
-                const uri = e?.data?.includes('?')? (e?.data + '&' + closeStr): (e?.data + '?' + closeStr)
+                const uri = e?.data?.includes('?')
+                  ? e?.data + '&' + closeStr
+                  : e?.data + '?' + closeStr
                 navigation.navigate('Webview', {
                   uri,
                   onClose: () => {
                     navigation.pop()
-                  }
+                  },
                 })
-                backgroundTracking.getLocation({ extras: { triggerType: 'thaichana', url: e.data } })
+                backgroundTracking.getLocation({
+                  extras: { triggerType: 'thaichana', url: e.data },
+                })
                 return
               }
-              await verifyToken(e?.data) 
+              await verifyToken(e?.data)
               const decoded = decodeJWT(e?.data)
               if (!decoded?._) {
                 throw new Error('Invalid')
@@ -80,7 +84,9 @@ export const QRCodeScan = ({ navigation }) => {
           topContent={
             <Header>
               <Title>{I18n.t('scan_qr')}</Title>
-              <Subtitle>{I18n.t('record_contact_and_estimate_risk')}</Subtitle>
+              <Subtitle style={{ fontFamily: FONT_MED }}>
+                {I18n.t('record_contact_and_estimate_risk')}
+              </Subtitle>
             </Header>
           }
         />
@@ -89,7 +95,7 @@ export const QRCodeScan = ({ navigation }) => {
       )}
       <NotificationPopup
         ref={popupRef}
-        renderPopupContent={props => (
+        renderPopupContent={(props) => (
           <QRPopupContent {...props} qrResult={qrResult} />
         )}
       />
