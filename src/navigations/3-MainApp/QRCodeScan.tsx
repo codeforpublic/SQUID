@@ -84,7 +84,7 @@ export const QRCodeScan = ({ navigation }) => {
           topContent={
             <Header>
               <Title>{I18n.t('scan_qr')}</Title>
-              <Subtitle style={{ fontFamily: FONT_MED }}>
+              <Subtitle>
                 {I18n.t('record_contact_and_estimate_risk')}
               </Subtitle>
             </Header>
