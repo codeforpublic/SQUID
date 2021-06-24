@@ -21,7 +21,6 @@ export const Title = styled(Text)({
 export const Subtitle = styled(Text)({
   fontFamily: FONT_FAMILY,
   fontSize: FONT_SIZES[600],
-  lineHeight: 24,
   alignItems: 'center',
   color: COLORS.GRAY_2,
   textAlign: 'center',
