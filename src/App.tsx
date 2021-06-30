@@ -1,6 +1,6 @@
-import React from 'react'
 import AsyncStorage from '@react-native-community/async-storage'
 import { ThemeProvider } from 'emotion-theming'
+import React from 'react'
 import {
   Alert,
   AppState,
@@ -59,6 +59,7 @@ class App extends React.Component {
       backgroundTracking.destroyLocations(),
     ])
   }
+
   async load() {
     if (__DEV__) {
       // await this.purgeAll()
@@ -88,7 +89,7 @@ class App extends React.Component {
     ])
       .then((resp) => {
         const lng = resp[0]
-        I18n.locale = lng ? lng : 'th'
+        if (lng) I18n.locale = lng
 
         backgroundTracking.setup(
           Boolean(applicationState.getData('isPassedOnboarding')),
