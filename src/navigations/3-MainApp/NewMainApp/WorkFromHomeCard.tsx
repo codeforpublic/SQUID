@@ -8,7 +8,7 @@ import { QR_STATE, SelfQR, useSelfQR } from '../../../state/qr'
 import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../../styles'
 import { QRStateText } from './QRStateText'
 
-const QRCard: React.FC = () => {
+const WorkFromHomeCard: React.FC = () => {
   const { qrData, qrState, refreshQR } = useSelfQR()
   const appVersion = DeviceInfo.getVersion()
 
@@ -186,4 +186,4 @@ const styles = StyleSheet.create({
     color: '#222222',
   },
 })
-export default QRCard
+export default WorkFromHomeCard

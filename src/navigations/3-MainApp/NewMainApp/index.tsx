@@ -21,6 +21,8 @@ import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../../styles'
 import { BeaconFoundPopupContent } from '../BeaconFoundPopup'
 import QRCard from './QRCard'
 import { UpdateProfileButton } from './UpdateProfileButton'
+import VaccineCard from './VaccineCard'
+import WorkFromHomeCard from './WorkFromHomeCard'
 
 const carouselItems = ['qr', 'vaccine', 'wfh']
 
@@ -133,9 +135,9 @@ export const MainApp = () => {
                 case 'qr':
                   return <QRCard key={index} />
                 case 'vaccine':
-                  return <QRCard key={index} />
+                  return <VaccineCard key={index} />
                 case 'wfh':
-                  return <QRCard key={index} />
+                  return <WorkFromHomeCard key={index} />
               }
               return <View />
             }}

@@ -8,7 +8,7 @@ import { QR_STATE, SelfQR, useSelfQR } from '../../../state/qr'
 import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../../styles'
 import { QRStateText } from './QRStateText'
 
-const QRCard: React.FC = () => {
+const VaccineCard: React.FC = () => {
   const { qrData, qrState, refreshQR } = useSelfQR()
   const appVersion = DeviceInfo.getVersion()
 
@@ -27,7 +27,7 @@ const QRCard: React.FC = () => {
   return (
     <MainCard>
       <View style={styles.cardHeader}>
-        <Text style={styles.cardHeaderText}>My ID</Text>
+        <Text style={styles.cardHeaderText}>My Vaccinations</Text>
       </View>
       <Text style={styles.textUpdate}>{updateTime}</Text>
       <View style={styles.flex1}>
@@ -186,4 +186,4 @@ const styles = StyleSheet.create({
     color: '#222222',
   },
 })
-export default QRCard
+export default VaccineCard
