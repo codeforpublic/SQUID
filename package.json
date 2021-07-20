@@ -67,7 +67,7 @@
     "nanoid": "git://github.com/skaldo/nanoid.git#2ebcc6e",
     "react": "16.13.1",
     "react-fetch-hook": "^1.8.0",
-    "react-native": "0.63.3",
+    "react-native": "0.64.1",
     "react-native-action-button": "^2.8.5",
     "react-native-appstate-hook": "^1.0.3",
     "react-native-background-fetch": "^3.1.0",
