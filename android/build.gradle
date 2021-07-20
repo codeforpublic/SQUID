@@ -15,6 +15,7 @@ buildscript {
         appCompatVersion = "1.0.2"
         supportV4Version = "1.0.0"
         mediaCompatVersion = "1.0.1"
+        firebaseMessagingVersion = '21.1.0'
     }
     repositories {
         jcenter()

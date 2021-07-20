@@ -1,6 +1,6 @@
-import React from 'react'
 import AsyncStorage from '@react-native-community/async-storage'
 import { ThemeProvider } from 'emotion-theming'
+import React from 'react'
 import {
   Alert,
   AppState,
@@ -20,7 +20,6 @@ import I18n from '../i18n/i18n'
 import { CODEPUSH_DEPLOYMENT_KEY } from './config'
 import { HUDProvider } from './HudView'
 import Navigator from './navigations/Navigator'
-import { withSystemAvailable } from './services/available'
 import { backgroundTracking } from './services/background-tracking'
 import { ContactTracerProvider } from './services/contact-tracing-provider'
 import { NOTIFICATION_TYPES, pushNotification } from './services/notification'
@@ -38,6 +37,7 @@ class App extends React.Component {
   state: {
     loaded: boolean
     activateCallback?: Function
+    notificationTriggerNumber?: number
   }
   appState: AppStateStatus
   constructor(props) {
@@ -59,6 +59,7 @@ class App extends React.Component {
       backgroundTracking.destroyLocations(),
     ])
   }
+
   async load() {
     if (__DEV__) {
       // await this.purgeAll()
@@ -73,7 +74,7 @@ class App extends React.Component {
         applicationState.load(),
         userPrivateData.load(),
         refetchJWKs(),
-      ])
+      ]).catch((e) => console.log('CREDENTIAL ERROR', e))
 
     const setUpId = () =>
       NativeModules.ContactTracerModule.setUserId(
@@ -88,7 +89,7 @@ class App extends React.Component {
     ])
       .then((resp) => {
         const lng = resp[0]
-        I18n.locale = lng ? lng : 'th'
+        if (lng) I18n.locale = lng
 
         backgroundTracking.setup(
           Boolean(applicationState.getData('isPassedOnboarding')),
@@ -117,6 +118,11 @@ class App extends React.Component {
     pushNotification.configure(this.onNotification)
   }
   onNotification = (notification) => {
+    this.setState({
+      notificationTriggerNumber:
+        (this.state.notificationTriggerNumber ?? 0) + 1,
+    })
+
     const notificationData = notification?.data?.data || notification?.data
     if (!notificationData?.type) {
       return
@@ -151,6 +157,7 @@ class App extends React.Component {
         <ContactTracerProvider
           anonymousId={userPrivateData.getAnonymousId()}
           isPassedOnboarding={applicationState.getData('isPassedOnboarding')}
+          notificationTriggerNumber={this.state.notificationTriggerNumber ?? 0}
         >
           <SafeAreaProvider>
             <HUDProvider>
@@ -182,5 +189,4 @@ export default compose(
         deploymentKey: CODEPUSH_DEPLOYMENT_KEY,
       })
     : (c) => c,
-  withSystemAvailable,
 )(App)

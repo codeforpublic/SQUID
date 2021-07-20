@@ -32,6 +32,8 @@
 		D973B9FD2456090D007B1425 /* thaialert.cer in Resources */ = {isa = PBXBuildFile; fileRef = D973B9FC2456090D007B1425 /* thaialert.cer */; };
 		D988E8EF24301732009500DC /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D988E8EE24301732009500DC /* Launch Screen.storyboard */; };
 		DB2A43B00A414B1EAF5EFFFA /* DBHelvethaicaX-BlkIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8207C214E52047A1870A3F21 /* DBHelvethaicaX-BlkIt.ttf */; };
+		DB4347B125C10CE400EFAB2B /* shopqr-dev.cer in Resources */ = {isa = PBXBuildFile; fileRef = DB4347AF25C10CE400EFAB2B /* shopqr-dev.cer */; };
+		DB4347B225C10CE400EFAB2B /* shopqr.cer in Resources */ = {isa = PBXBuildFile; fileRef = DB4347B025C10CE400EFAB2B /* shopqr.cer */; };
 		E41DA6C4F20D4EE888A23CC1 /* DBHelvethaicaX-Med.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A93DDE0CF1104FC3A82164B9 /* DBHelvethaicaX-Med.ttf */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +110,8 @@
 		D9790A306A14407D95088CA1 /* Prompt-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-LightItalic.ttf"; path = "../assets/fonts/Prompt-LightItalic.ttf"; sourceTree = "<group>"; };
 		D988E8EE24301732009500DC /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		D9E6C21F42BB49F3A5F22BAB /* DBHelvethaicaX-It.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DBHelvethaicaX-It.ttf"; path = "../assets/fonts/DBHelvethaicaX-It.ttf"; sourceTree = "<group>"; };
+		DB4347AF25C10CE400EFAB2B /* shopqr-dev.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "shopqr-dev.cer"; sourceTree = "<group>"; };
+		DB4347B025C10CE400EFAB2B /* shopqr.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = shopqr.cer; sourceTree = "<group>"; };
 		E84E96F9CF18434ABD271A01 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		E9F8201E607CA56D9B1DEEA8 /* Pods-ThaiAlert.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThaiAlert.release.xcconfig"; path = "Target Support Files/Pods-ThaiAlert/Pods-ThaiAlert.release.xcconfig"; sourceTree = "<group>"; };
 		F27A3CF1E48C46D6BE032711 /* Prompt-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Prompt-SemiBold.ttf"; path = "../assets/fonts/Prompt-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -249,6 +253,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				DB4347AF25C10CE400EFAB2B /* shopqr-dev.cer */,
+				DB4347B025C10CE400EFAB2B /* shopqr.cer */,
 				13B07FAE1A68108700A75B9A /* ThaiAlert */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* ThaiAlertTests */,
@@ -348,6 +354,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB4347B125C10CE400EFAB2B /* shopqr-dev.cer in Resources */,
+				DB4347B225C10CE400EFAB2B /* shopqr.cer in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				8AAF0852247594CA00DF6761 /* InfoPlist.strings in Resources */,
 				D988E8EF24301732009500DC /* Launch Screen.storyboard in Resources */,
@@ -554,7 +562,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ThaiAlert/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.8.5;
+				MARKETING_VERSION = 2.1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -586,7 +594,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ThaiAlert/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.8.5;
+				MARKETING_VERSION = 2.1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -664,7 +672,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ThaiAlert/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.8.5;
+				MARKETING_VERSION = 2.1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

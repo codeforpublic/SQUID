@@ -1,0 +1,20 @@
+name: Build Debug Android Package
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      # https://github.com/expo/expo-github-action/issues/20#issuecomment-541676895
+      - name: Setup kernel for React Native, increase watchers
+        run: |
+          echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+      - run: |
+          docker-compose run builder bash -c 'yarn && cd android && ./gradlew assembleDebug'
+      - uses: actions/upload-artifact@v2
+        with:
+          name: app-debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk

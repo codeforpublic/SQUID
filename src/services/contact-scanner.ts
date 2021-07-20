@@ -10,6 +10,7 @@ class ScanManager {
   locationAccuracy?: number
   latestUploadTS?: number
   oldestItemTS?: number
+  oldestBeaconFoundTS?: number
   type: 'bluetooth' | 'qrscan'
   constructor({ ttl, locationAccuracy, type }: { ttl?: number, locationAccuracy?: number, type: 'bluetooth' | 'qrscan' }) {
     this.locationAccuracy = locationAccuracy
@@ -30,11 +31,18 @@ class ScanManager {
       this.timeout = setTimeout(() => this.upload(), this.ttl) // 30 sec
     }
   }
-  add(annonymousId: string): boolean {
-    if (this.list.find(id => id === annonymousId)) {
+
+  maskBeaconFound() {
+    if (!this.oldestBeaconFoundTS || (Date.now() - this.oldestBeaconFoundTS) > (30 * 1000)) {
+      this.oldestBeaconFoundTS = Date.now()
+    }
+  }
+
+  add(anonymousId: string): boolean {
+    if (this.list.find(id => id === anonymousId)) {
       return false
     }
-    this.list.push(annonymousId)
+    this.list.push(anonymousId)
     if (!this.oldestItemTS) {
       this.oldestItemTS = Date.now()
     }
@@ -52,6 +60,7 @@ class ScanManager {
       const oldestItemTS = this.oldestItemTS
       try {
         delete this.oldestItemTS
+        delete this.oldestBeaconFoundTS
         const location = await backgroundTracking.getLocation({
           desiredAccuracy: this.locationAccuracy,
         })
@@ -80,6 +89,11 @@ export const scanManager = new ScanManager({
 })
 
 export const bluetoothScanner = new ScanManager({
+  type: 'bluetooth',
+  locationAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_LOW,
+})
+
+export const beaconScanner = new ScanManager({
   type: 'bluetooth',
   locationAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_LOW,
 })
