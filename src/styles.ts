@@ -26,7 +26,13 @@ export const COLORS = {
   LIGHT_BLUE: '#FAFDFF',
   BORDER_LIGHT_BLUE: '#E6F2FA',
   RED_WARNING: '#B82020',
-  BLUE_INFO: '#205DB8'
+  BLUE_INFO: '#205DB8',
+  WFH_HOME: '#3663D7',
+  WFH_WORK: '#8DB4EF',
+  WFH_OTHER: '#070C38',
+  WFH_CLOSED_GPS: '#E75858',
+  WFH_NOT_TIME: '#E1E1E1',
+  WFH_NOT_TIME_TEXT: 'rgba(0, 0, 0, 0.4)',
 }
 
 export const FONT_FAMILY = 'DBHelvethaicaX-Reg'
@@ -43,3 +49,6 @@ export const FONT_SIZES = {
   800: 37,
   900: 47,
 }
+
+export const BASE_LINE = FONT_SIZES[500]
+export const GUTTER = BASE_LINE * 2

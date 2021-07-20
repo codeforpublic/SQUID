@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { View } from 'react-native'
-
 import {
   createStackNavigator,
   StackActions,
@@ -12,6 +11,9 @@ import { OnboardingStack } from './2-Onboarding/OnboardingStack'
 import { MainAppStack } from './3-MainApp/MainAppStack'
 import { applicationState } from '../state/app-state'
 import { QuestionaireStack } from './4-Questionaire/QuestionaireStack'
+import { SetLocationHome } from './5-SetLocation/SetLocationHome'
+import { SetLocationMapWebView } from './5-SetLocation/SetLocationMapWebView'
+import { SetLocationStack } from './5-SetLocation/SetLocationStack'
 import { PrivacyPolicy } from './PrivacyPolicy'
 import { HomeStack } from './0-Home/HomeStack'
 import { WebviewScreen } from './Webview'
@@ -33,7 +35,7 @@ const Root = ({ navigation }) => {
       //       : 'Questionaire'
       //     : 'Onboarding'
       //   : 'Home'
-      
+
       const routeName = isSkipRegistration
         ? onboarded
           ? 'MainApp'
@@ -85,6 +87,15 @@ export default createStackNavigator(
     },
     ChangeLanguage: {
       screen: ChangeLanguageScreen,
+    },
+    SetLocationHome: {
+      screen: SetLocationHome,
+    },
+    SetLocationMapWebView: {
+      screen: SetLocationMapWebView,
+    },
+    SetLocation: {
+      screen: SetLocationStack,
     },
   },
   {
