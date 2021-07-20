@@ -1,40 +1,39 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {
-  Alert,
+  Dimensions,
   StyleSheet,
   Text,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native'
 import RNFS from 'react-native-fs'
 import NotificationPopup from 'react-native-push-notification-popup'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { useSafeArea } from 'react-native-safe-area-view'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import I18n from '../../../../i18n/i18n'
+import Carousel from '../../../../src/components/Carousel'
 import { CircularProgressAvatar } from '../../../../src/components/CircularProgressAvatar'
 import { userPrivateData } from '../../../../src/state/userPrivateData'
 import { useResetTo } from '../../../../src/utils/navigation'
 import { useContactTracer } from '../../../services/contact-tracing-provider'
 import { pushNotification } from '../../../services/notification'
 import { QR_STATE, SelfQR, useSelfQR } from '../../../state/qr'
-import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../../styles'
+import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../../styles'
 import { BeaconFoundPopupContent } from '../BeaconFoundPopup'
 import QRCard from './QRCard'
 import { UpdateProfileButton } from './UpdateProfileButton'
-import Carousel from 'react-native-snap-carousel'
+
+const carouselItems = ['qr', 'vaccine', 'wfh']
 
 export const MainApp = () => {
-  // const inset = useSafeArea()
+  const inset = useSafeArea()
   const { qrData, qrState } = useSelfQR()
-  const {
-    beaconLocationName,
-    enable,
-    disable,
-    isServiceEnabled,
-  } = useContactTracer()
+  const { beaconLocationName, isServiceEnabled } = useContactTracer()
   const [location, setLocation] = useState('')
   const popupRef = useRef<NotificationPopup | any>()
+
+  const windowWidth = Dimensions.get('window').width
+
+  const isGPSEnabled = false
 
   useEffect(() => {
     setLocation(beaconLocationName.name)
@@ -51,117 +50,118 @@ export const MainApp = () => {
 
   const firstName = 'Smith'
   const lastName = 'Johnson'
+  const vaccineNumber = 2
+
+  // console.log('windowWidth', windowWidth)
+  const containerStyle = {
+    marginTop: inset.top,
+    marginLeft: inset.left,
+    marginRight: inset.right,
+    flex: 1,
+  }
 
   return (
-    <SafeAreaView style={styles.root}>
-      <View style={styles.container}>
-        {
-          // <StatusBar
-          //   barStyle={qrData?.getTagColor() ? 'light-content' : 'dark-content'}
-          //   backgroundColor={
-          //     qrData?.getTagColor() ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT
-          //   }
-          // />
-        }
-        <View style={styles.containerTop}>
-          <View style={styles.containerHeader}>
-            {
-              // <TouchableOpacity style={styles.circularButton} onPress={refreshQR}>
-              //   <FontAwesome
-              //     name="refresh"
-              //     color={COLORS.GRAY_4}
-              //     size={24}
-              //     style={{ marginLeft: 10 }}
-              //   />
-              // </TouchableOpacity>
-              // <Text style={styles.textHeader}>
-              //   {qrData &&
-              //     `${qrData.getCreatedDate().format(I18n.t('fully_date'))}`}
-              // </Text>
-            }
-            <View style={{ flexDirection: 'row' }}>
-              <TouchableOpacity
-                style={{ position: 'relative' }}
-                onPress={() => {
-                  if (isServiceEnabled) {
-                    Alert.alert(
-                      I18n.t('bluetooth_disable_alert_title'),
-                      I18n.t('bluetooth_disable_alert_message'),
-                      [
-                        {
-                          text: I18n.t('cancel'),
-                          onPress: () => console.log('Cancel Pressed'),
-                          style: 'cancel',
-                        },
-                        {
-                          text: I18n.t('bluetooth_disable_alert_accept'),
-                          onPress: disable,
-                        },
-                      ],
-                    )
-                  } else {
-                    enable()
-                  }
-                }}
-              >
-                <FontAwesome
-                  name="bluetooth-b"
-                  color={COLORS.GRAY_4}
-                  size={24}
-                  style={{ marginRight: 10 }}
-                />
-                {isServiceEnabled ? <View style={styles.greenDot} /> : null}
-              </TouchableOpacity>
-            </View>
+    <View style={containerStyle}>
+      {
+        // <StatusBar
+        //   barStyle={qrData?.getTagColor() ? 'light-content' : 'dark-content'}
+        //   backgroundColor={
+        //     qrData?.getTagColor() ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT
+        //   }
+        // />
+      }
+      <View style={styles.containerTop}>
+        <View style={styles.containerHeader}>
+          {
+            // <TouchableOpacity style={styles.circularButton} onPress={refreshQR}>
+            //   <FontAwesome
+            //     name="refresh"
+            //     color={COLORS.GRAY_4}
+            //     size={24}
+            //     style={{ marginLeft: 10 }}
+            //   />
+            // </TouchableOpacity>
+            // <Text style={styles.textHeader}>
+            //   {qrData &&
+            //     `${qrData.getCreatedDate().format(I18n.t('fully_date'))}`}
+            // </Text>
+          }
+          <View style={{ flexDirection: 'row', paddingTop: 10, height: 45 }}>
+            <FontAwesome
+              name="map-marker"
+              color={isGPSEnabled ? '#10A7DC' : '#C1C1C1'}
+              size={24}
+              style={{ marginRight: 10 }}
+            />
+            <FontAwesome
+              name="bluetooth-b"
+              color={isServiceEnabled ? '#10A7DC' : '#C1C1C1'}
+              size={24}
+              style={{ marginRight: 10 }}
+            />
+            {/* {isServiceEnabled ? <View style={styles.greenDot} /> : null} */}
           </View>
-          <View style={styles.profileHeader}>
-            <View style={styles.profileContainer}>
-              {qrData && qrState && (
-                <AvatarProfile qr={qrData} qrState={qrState} />
-              )}
-            </View>
-            {firstName && (
-              <Text style={styles.textFirstName}>
-                {firstName}
-                {'\n'}
-                {lastName && (
-                  <Text style={styles.textLastName}>{lastName}</Text>
-                )}
-              </Text>
+        </View>
+        <View style={styles.profileHeader}>
+          <View style={styles.profileContainer}>
+            {qrData && qrState && (
+              <AvatarProfile qr={qrData} qrState={qrState} />
             )}
           </View>
-          <Carousel layout={'default'} />
-
-          <QRCard />
+          <View style={styles.w100}>
+            {firstName ? (
+              <Text style={styles.firstNameText} numberOfLines={1}>
+                {firstName}
+              </Text>
+            ) : null}
+            {lastName ? (
+              <Text style={styles.lastNameText} numberOfLines={1}>
+                {lastName}
+              </Text>
+            ) : null}
+            <View style={styles.w100}>
+              <Text style={styles.vaccineText}>{vaccineNumber}</Text>
+            </View>
+          </View>
         </View>
-        <NotificationPopup
-          ref={popupRef}
-          renderPopupContent={(props) => (
-            <BeaconFoundPopupContent {...props} result={location} />
-          )}
-        />
+        {windowWidth && (
+          <Carousel
+            data={carouselItems}
+            renderItem={(index) => {
+              // console.log('index', index)
+              switch (index) {
+                case 'qr':
+                  return <QRCard key={index} />
+                case 'vaccine':
+                  return <QRCard key={index} />
+                case 'wfh':
+                  return <QRCard key={index} />
+              }
+              return <View />
+            }}
+          />
+        )}
       </View>
-    </SafeAreaView>
+      <NotificationPopup
+        ref={popupRef}
+        renderPopupContent={(props) => (
+          <BeaconFoundPopupContent {...props} result={location} />
+        )}
+      />
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: '#F9F9F9' },
-  container: {
-    flex: 1,
-    backgroundColor: '#F9F9F9',
-    justifyContent: 'center',
-  },
   containerTop: { flex: 1, flexDirection: 'column' },
   containerHeader: {
-    // backgroundColor: 'red',
-    justifyContent: 'flex-end',
-    flexDirection: 'row',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
     paddingTop: 0,
     paddingLeft: 15,
     paddingRight: 15,
-    height: 40,
-    alignItems: 'center',
+    height: 0,
   },
   circularButton: {
     height: 40,
@@ -186,21 +186,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: COLORS.BLACK_1,
   },
-  profileTextContent: {
-    paddingTop: 12,
-    // backgroundColor: 'green',
-  },
   profileHeader: {
-    // flexDirection: 'row',
-    width: '100%',
     height: 180,
     marginLeft: 15,
     marginRight: 15,
-    textAlign: 'left',
+    marginBottom: 15,
+    marginTop: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   profileContainer: {
-    width: '100%',
-    height: 100,
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   greenDot: {
     width: 10,
@@ -211,15 +208,30 @@ const styles = StyleSheet.create({
     borderTopWidth: Math.floor((4 / 100) * 24),
     right: Math.floor((8 / 100) * 50),
   },
-  textFirstName: {
+  firstNameText: {
     color: '#222222',
-    fontSize: FONT_SIZES[800],
-    fontFamily: FONT_BOLD,
+    fontSize: FONT_SIZES[850],
+    fontWeight: 'bold',
     paddingTop: 3,
+    width: '100%',
   },
-  textLastName: {
+  lastNameText: {
     color: '#222222',
-    fontSize: FONT_SIZES[500],
+    fontSize: FONT_SIZES[700],
+    fontWeight: 'normal',
+    width: '100%',
+  },
+  w100: {
+    width: '100%',
+  },
+  vaccineText: {
+    fontWeight: 'bold',
+    position: 'absolute',
+    color: '#26C8FF',
+    opacity: 0.2,
+    fontSize: 115,
+    right: 0,
+    bottom: -25,
   },
   flex1: {
     flex: 1,
@@ -253,11 +265,6 @@ const AvatarProfile = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE }) => {
     })
   }, [faceURI, resetTo])
 
-  const buttonViewStyle = {
-    flex: 1,
-    alignItems: 'flex-start',
-  } as const
-
   const buttonStyle = {
     position: 'absolute',
     bottom: Math.floor((4 / 100) * avatarWidth),
@@ -266,21 +273,19 @@ const AvatarProfile = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE }) => {
 
   return (
     <TouchableWithoutFeedback>
-      <View style={buttonViewStyle}>
-        <View>
-          <CircularProgressAvatar
-            key={qr ? qr.getCreatedDate() : 0}
-            image={faceURI ? { uri: faceURI } : void 0}
-            color={color}
-            progress={100}
-            width={avatarWidth}
-          />
-          <UpdateProfileButton
-            width={Math.floor(avatarWidth / 4)}
-            style={buttonStyle}
-            onChange={setFaceURI}
-          />
-        </View>
+      <View>
+        <CircularProgressAvatar
+          key={qr ? qr.getCreatedDate() : 0}
+          image={faceURI ? { uri: faceURI } : void 0}
+          color={color}
+          progress={100}
+          width={avatarWidth}
+        />
+        <UpdateProfileButton
+          width={Math.floor(avatarWidth / 4)}
+          style={buttonStyle}
+          onChange={setFaceURI}
+        />
       </View>
     </TouchableWithoutFeedback>
   )

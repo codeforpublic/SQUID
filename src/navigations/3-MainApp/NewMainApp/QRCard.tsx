@@ -159,14 +159,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textVersion: {
-    lineHeight: FONT_SIZES[600],
     fontFamily: FONT_FAMILY,
     fontSize: FONT_SIZES[600] * 0.85,
     color: COLORS.BLACK_1,
     textAlign: 'center',
   },
   textVersionNumber: {
-    color: '#0FA7DC',
+    color: '#222222',
     fontSize: FONT_SIZES[600] * 0.85,
     fontFamily: FONT_FAMILY,
   },
