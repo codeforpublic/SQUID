@@ -1,21 +1,15 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
-  ActivityIndicator,
   Alert,
-  Dimensions,
-  Image,
-  StatusBar,
   StyleSheet,
+  Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native'
-import DeviceInfo from 'react-native-device-info'
-import { Text } from 'react-native-elements'
 import RNFS from 'react-native-fs'
 import NotificationPopup from 'react-native-push-notification-popup'
-import { SafeAreaView, useSafeArea } from 'react-native-safe-area-context'
-import Sizer from 'react-native-size'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import I18n from '../../../../i18n/i18n'
 import { CircularProgressAvatar } from '../../../../src/components/CircularProgressAvatar'
@@ -26,22 +20,21 @@ import { pushNotification } from '../../../services/notification'
 import { QR_STATE, SelfQR, useSelfQR } from '../../../state/qr'
 import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../../styles'
 import { BeaconFoundPopupContent } from '../BeaconFoundPopup'
-import { QRStateText } from './QRStateText'
+import QRCard from './QRCard'
 import { UpdateProfileButton } from './UpdateProfileButton'
+import Carousel from 'react-native-snap-carousel'
 
 export const MainApp = () => {
-  const inset = useSafeArea()
-  const { qrData, qrState, refreshQR } = useSelfQR()
+  // const inset = useSafeArea()
+  const { qrData, qrState } = useSelfQR()
   const {
     beaconLocationName,
     enable,
     disable,
     isServiceEnabled,
   } = useContactTracer()
-  const appVersion = DeviceInfo.getVersion()
   const [location, setLocation] = useState('')
   const popupRef = useRef<NotificationPopup | any>()
-  const smallDevice = Dimensions.get('window').height < 600
 
   useEffect(() => {
     setLocation(beaconLocationName.name)
@@ -56,34 +49,36 @@ export const MainApp = () => {
     pushNotification.requestPermissions()
   }, [])
 
+  const firstName = 'Smith'
+  const lastName = 'Johnson'
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#F9F9F9' }}>
-      <View
-        style={[
-          styles.container,
-          { paddingTop: inset.top, paddingBottom: inset.bottom },
-        ]}
-      >
-        <StatusBar
-          barStyle={qrData?.getTagColor() ? 'light-content' : 'dark-content'}
-          backgroundColor={
-            qrData?.getTagColor() ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT
-          }
-        />
+    <SafeAreaView style={styles.root}>
+      <View style={styles.container}>
+        {
+          // <StatusBar
+          //   barStyle={qrData?.getTagColor() ? 'light-content' : 'dark-content'}
+          //   backgroundColor={
+          //     qrData?.getTagColor() ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT
+          //   }
+          // />
+        }
         <View style={styles.containerTop}>
           <View style={styles.containerHeader}>
-            <TouchableOpacity style={styles.circularButton} onPress={refreshQR}>
-              <FontAwesome
-                name="refresh"
-                color={COLORS.GRAY_4}
-                size={24}
-                style={{ marginLeft: 10 }}
-              />
-            </TouchableOpacity>
-            <Text style={styles.textHeader}>
-              {qrData &&
-                `${qrData.getCreatedDate().format(I18n.t('fully_date'))}`}
-            </Text>
+            {
+              // <TouchableOpacity style={styles.circularButton} onPress={refreshQR}>
+              //   <FontAwesome
+              //     name="refresh"
+              //     color={COLORS.GRAY_4}
+              //     size={24}
+              //     style={{ marginLeft: 10 }}
+              //   />
+              // </TouchableOpacity>
+              // <Text style={styles.textHeader}>
+              //   {qrData &&
+              //     `${qrData.getCreatedDate().format(I18n.t('fully_date'))}`}
+              // </Text>
+            }
             <View style={{ flexDirection: 'row' }}>
               <TouchableOpacity
                 style={{ position: 'relative' }}
@@ -119,51 +114,25 @@ export const MainApp = () => {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.containerCard}>
-            <View style={styles.card}>
-              <View style={styles.cardHeader}>
-                <View style={{ flex: 1, padding: 10 }}>
-                  <AvatarProfile qr={qrData} qrState={qrState} />
-                </View>
-                <View style={{ flex: 2, alignContent: 'flex-start' }}>
-                  <RiskLabel
-                    qr={qrData}
-                    qrState={qrState}
-                    onRefreshQR={refreshQR}
-                  />
-                </View>
-              </View>
-              <View style={{ flex: 2 }}>
-                <QRImage
-                  qr={qrData}
-                  qrState={qrState}
-                  onRefreshQR={refreshQR}
-                />
-              </View>
-              <View style={styles.cardFooter}>
-                <Image
-                  source={require('./logo-pin-morchana.png')}
-                  style={{
-                    height: smallDevice ? 20 : 30,
-                    width: (smallDevice ? 20 : 30) * (260 / 140),
-                  }}
-                  resizeMode="contain"
-                />
-                <Text style={styles.textVersion}>
-                  แอปพลิเคชันหมอชนะ{' '}
-                  <Text
-                    style={{
-                      color: '#0FA7DC',
-                      fontSize: FONT_SIZES[600] * 0.85,
-                      fontFamily: FONT_FAMILY,
-                    }}
-                  >
-                    V{appVersion}
-                  </Text>
-                </Text>
-              </View>
+          <View style={styles.profileHeader}>
+            <View style={styles.profileContainer}>
+              {qrData && qrState && (
+                <AvatarProfile qr={qrData} qrState={qrState} />
+              )}
             </View>
+            {firstName && (
+              <Text style={styles.textFirstName}>
+                {firstName}
+                {'\n'}
+                {lastName && (
+                  <Text style={styles.textLastName}>{lastName}</Text>
+                )}
+              </Text>
+            )}
           </View>
+          <Carousel layout={'default'} />
+
+          <QRCard />
         </View>
         <NotificationPopup
           ref={popupRef}
@@ -177,6 +146,7 @@ export const MainApp = () => {
 }
 
 const styles = StyleSheet.create({
+  root: { flex: 1, backgroundColor: '#F9F9F9' },
   container: {
     flex: 1,
     backgroundColor: '#F9F9F9',
@@ -184,12 +154,13 @@ const styles = StyleSheet.create({
   },
   containerTop: { flex: 1, flexDirection: 'column' },
   containerHeader: {
-    justifyContent: 'space-between',
+    // backgroundColor: 'red',
+    justifyContent: 'flex-end',
     flexDirection: 'row',
     paddingTop: 0,
     paddingLeft: 15,
     paddingRight: 15,
-    height: 68,
+    height: 40,
     alignItems: 'center',
   },
   circularButton: {
@@ -215,51 +186,21 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: COLORS.BLACK_1,
   },
-
-  containerCard: {
-    flex: 1,
-    maxHeight: 550,
-    padding: 10,
-    margin: 15,
-    borderRadius: 14,
-    backgroundColor: '#FFF',
-    borderColor: 'rgba(16, 170, 174, 0.2)',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 2.84,
-    elevation: 1,
+  profileTextContent: {
+    paddingTop: 12,
+    // backgroundColor: 'green',
   },
-  card: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  cardHeader: {
-    flex: 1,
-    height: 128,
-    flexDirection: 'row',
-    alignContent: 'center',
-    alignItems: 'center',
-  },
-  cardFooter: {
-    flex: 0,
-    marginTop: 5,
-    marginBottom: 5,
+  profileHeader: {
+    // flexDirection: 'row',
     width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: 180,
+    marginLeft: 15,
+    marginRight: 15,
+    textAlign: 'left',
   },
-  textVersion: {
-    lineHeight: FONT_SIZES[600],
-    fontFamily: FONT_FAMILY,
-    fontSize: FONT_SIZES[600] * 0.85,
-    color: COLORS.BLACK_1,
-    textAlign: 'center',
+  profileContainer: {
+    width: '100%',
+    height: 100,
   },
   greenDot: {
     width: 10,
@@ -270,114 +211,20 @@ const styles = StyleSheet.create({
     borderTopWidth: Math.floor((4 / 100) * 24),
     right: Math.floor((8 / 100) * 50),
   },
+  textFirstName: {
+    color: '#222222',
+    fontSize: FONT_SIZES[800],
+    fontFamily: FONT_BOLD,
+    paddingTop: 3,
+  },
+  textLastName: {
+    color: '#222222',
+    fontSize: FONT_SIZES[500],
+  },
+  flex1: {
+    flex: 1,
+  },
 })
-
-const QRImage = ({
-  qr,
-  qrState,
-  onRefreshQR,
-}: {
-  qr: SelfQR
-  qrState: QR_STATE
-  onRefreshQR: any
-}) => {
-  const qrUri = qr?.getQRImageURL()
-  return (
-    <Sizer
-      style={{
-        alignItems: 'center',
-        flex: 1,
-        justifyContent: 'center',
-        backgroundColor: COLORS.WHITE,
-        borderColor: COLORS.GRAY_1,
-        borderStyle: 'solid',
-        maxHeight: 350,
-      }}
-    >
-      {({ height }: any) => {
-        const size = height ? Math.min(350, height) : 0
-        const qrPadding = (20 / 300) * size
-        return size ? (
-          <Fragment>
-            {qr ? (
-              <Image
-                style={{
-                  width: size,
-                  height: size,
-                  opacity: qrState === QR_STATE.EXPIRE ? 0.05 : 1,
-                }}
-                source={{
-                  uri: qrUri,
-                }}
-              />
-            ) : (
-              <Image
-                style={{
-                  width: size - qrPadding * 2,
-                  height: size - qrPadding * 2,
-                  padding: qrPadding,
-                }}
-                source={require('../../../assets/qr-placeholder.png')}
-              />
-            )}
-            <QRStateText qrState={qrState} refreshQR={onRefreshQR} />
-          </Fragment>
-        ) : (
-          <ActivityIndicator size="large" />
-        )
-      }}
-    </Sizer>
-  )
-}
-
-const RiskLabel = ({
-  qr,
-  qrState,
-}: {
-  qr: SelfQR
-  qrState: QR_STATE
-  onRefreshQR: any
-}) => {
-  const color = qr
-    ? qr.getStatusColor()
-    : qrState === QR_STATE.NOT_VERIFIED || qrState === QR_STATE.FAILED
-    ? COLORS.ORANGE_2
-    : COLORS.GRAY_2
-  const label = qr
-    ? qr.getLabel()
-    : qrState === QR_STATE.NOT_VERIFIED
-    ? I18n.t('undetermined_risk')
-    : qrState === QR_STATE.LOADING
-    ? I18n.t('wait_a_moment')
-    : qrState === QR_STATE.FAILED
-    ? I18n.t('undetermined_risk')
-    : ''
-
-  return (
-    <View style={{ backgroundColor: 'white' }}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <View>
-          <Text
-            style={{
-              fontFamily: FONT_BOLD,
-              fontSize: FONT_SIZES[700],
-              color,
-              alignSelf: 'center',
-            }}
-          >
-            {label}
-          </Text>
-        </View>
-      </View>
-    </View>
-  )
-}
 
 const AvatarProfile = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE }) => {
   const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
@@ -404,17 +251,22 @@ const AvatarProfile = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE }) => {
         })
       }
     })
-  }, [])
+  }, [faceURI, resetTo])
+
+  const buttonViewStyle = {
+    flex: 1,
+    alignItems: 'flex-start',
+  } as const
+
+  const buttonStyle = {
+    position: 'absolute',
+    bottom: Math.floor((4 / 100) * avatarWidth),
+    right: Math.floor((4 / 100) * avatarWidth),
+  } as const
 
   return (
     <TouchableWithoutFeedback>
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'flex-start',
-          marginTop: 10,
-        }}
-      >
+      <View style={buttonViewStyle}>
         <View>
           <CircularProgressAvatar
             key={qr ? qr.getCreatedDate() : 0}
@@ -425,11 +277,7 @@ const AvatarProfile = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE }) => {
           />
           <UpdateProfileButton
             width={Math.floor(avatarWidth / 4)}
-            style={{
-              position: 'absolute',
-              bottom: Math.floor((4 / 100) * avatarWidth),
-              right: Math.floor((4 / 100) * avatarWidth),
-            }}
+            style={buttonStyle}
             onChange={setFaceURI}
           />
         </View>

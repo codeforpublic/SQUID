@@ -1,10 +1,10 @@
+import { AppRegistry, KeyboardAvoidingView, Platform, Text } from 'react-native'
+import BackgroundFetch from 'react-native-background-fetch'
 import 'react-native-gesture-handler'
 import 'react-native-get-random-values'
-import * as Sentry from '@sentry/react-native'
-import { AppRegistry, Text, KeyboardAvoidingView, Platform } from 'react-native'
 import App from './src/App'
-import { backgroundTracking } from './src/services/background-tracking'
 import BackgroundGeolocation from './src/react-native-background-geolocation'
+import { backgroundTracking } from './src/services/background-tracking'
 
 Text.defaultProps = Text.defaultProps || {}
 Text.defaultProps.allowFontScaling = false
@@ -19,8 +19,6 @@ KeyboardAvoidingView.defaultProps.behavior =
 
 // Make BackgroundGeolocation API global for handy access in Javascript Debugger console
 global.BackgroundGeolocation = BackgroundGeolocation
-
-import BackgroundFetch from 'react-native-background-fetch'
 
 AppRegistry.registerComponent('ThaiAlert', () => App)
 
