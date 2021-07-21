@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Dimensions, StatusBar, Alert } from 'react-native'
+import { Alert, Dimensions, StatusBar } from 'react-native'
 import NotificationPopup from 'react-native-push-notification-popup'
 import QRCodeScanner from 'react-native-qrcode-scanner'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -8,14 +8,16 @@ import I18n from '../../../i18n/i18n'
 import { Header, Subtitle, Title } from '../../components/Base'
 import { backgroundTracking } from '../../services/background-tracking'
 import { scanManager } from '../../services/contact-scanner'
+import { isMorpromURL, useVaccine } from '../../services/use-morprom'
 import { QRResult, tagManager } from '../../state/qr'
 import { COLORS } from '../../styles'
 import { decodeJWT, verifyToken } from '../../utils/jwt'
+import PopupImportVaccine from './NewMainApp/PopupImportVaccine'
 import { QRPopupContent } from './QRPopupContent'
-import { isMorpromURL, useVaccine } from '../../services/use-morprom'
 
 export const QRCodeScan = ({ navigation }) => {
-  const { requestMorprom } = useVaccine()
+  const [popupVisible, setPopupVisible] = useState(false)
+  const { requestMorprom, resetVaccine } = useVaccine()
   const isFocused = useIsFocused()
   const [qrResult, setQRResult] = useState<QRResult>(null)
   const popupRef = useRef<NotificationPopup>()
@@ -66,7 +68,6 @@ export const QRCodeScan = ({ navigation }) => {
                   extras: { triggerType: 'thaichana', url: e.data },
                 })
               } else if (requestMorprom && (await isMorpromURL(url))) {
-                console.log('is morprom', url)
                 const result = await requestMorprom(url)
                 try {
                   if (result.status === 'ERROR') {
@@ -74,7 +75,7 @@ export const QRCodeScan = ({ navigation }) => {
                     return
                   }
 
-                  Alert.alert('SUCCESS', 'loaded Morprom')
+                  setPopupVisible(true)
                 } catch (err) {
                   console.error('qr scan catch', err)
                 }
@@ -106,6 +107,17 @@ export const QRCodeScan = ({ navigation }) => {
         ref={popupRef as any}
         renderPopupContent={(props) => <QRPopupContent {...props} qrResult={qrResult} />}
       />
+      {popupVisible ? (
+        <PopupImportVaccine
+          onSelect={(status) => {
+            if (status === 'ok') {
+              navigation.navigate('MainApp', { card: 0 })
+            } else {
+              resetVaccine()
+            }
+          }}
+        />
+      ) : null}
     </SafeAreaView>
   )
 }

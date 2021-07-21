@@ -35,7 +35,7 @@ const VaccineCard: React.FC = () => {
               style={styles.ButtonScan}
               activeOpacity={0.6}
               underlayColor="#DDDDDD"
-              onPress={() => navigation.navigate('QRCodeScan')}
+              onPress={() => navigation.navigate('NewMainApp', { card: 1 })}
             >
               <Text style={styles.textScanButton}>{I18n.t('scan_qr_button')}</Text>
             </TouchableHighlight>

@@ -269,6 +269,6 @@ export default {
   morprom_invalid_qrcode_message: 'Make sure the QR is from your vaccine certificate',
   morprom_record_not_found_title: 'Record not found',
   morprom_record_not_found_message: '',
-  morprom_connection_failed_title: 'เชื่อมต่อหมอพร้อมไม่สำเร็จ',
-  morprom_connection_failed_message: 'กรุณาลองใหม่อีกครั้ง',
+  morprom_connection_failed_title: 'Connection failed.',
+  morprom_connection_failed_message: 'Try again later',
 }

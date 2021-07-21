@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
-import {
-  Alert,
-  Modal,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import I18n from '../../../../i18n/i18n'
+import { useVaccine } from '../../../services/use-morprom'
 import { FONT_BOLD, FONT_FAMILY } from '../../../styles'
 
-const PopupImportVaccine: React.FC = ({ name }: { name: string }) => {
+const PopupImportVaccine: React.FC<{ onSelect: (status: 'ok' | 'cancel') => void }> = ({ onSelect }) => {
   const [modalVisible, setModalVisible] = useState(true)
+  const { vaccineList } = useVaccine()
+  const vaccine = vaccineList && vaccineList[0]
+
+  const name = vaccine ? (I18n.locale === 'th' ? vaccine.fullThaiName : vaccine.fullEngName) : ''
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -36,19 +35,21 @@ const PopupImportVaccine: React.FC = ({ name }: { name: string }) => {
             <View style={styles.buttonSection}>
               <TouchableOpacity
                 style={[styles.button, styles.buttonCancel]}
-                onPress={() => setModalVisible(!modalVisible)}
+                onPress={() => {
+                  setModalVisible(!modalVisible)
+                  onSelect('cancel')
+                }}
               >
-                <Text style={[styles.textStyle, styles.textCancelButton]}>
-                  {I18n.t('cancel')}
-                </Text>
+                <Text style={[styles.textStyle, styles.textCancelButton]}>{I18n.t('cancel')}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.button, styles.buttonOk]}
-                onPress={() => setModalVisible(!modalVisible)}
+                onPress={() => {
+                  setModalVisible(!modalVisible)
+                  onSelect('ok')
+                }}
               >
-                <Text style={[styles.textStyle, styles.textOkButton]}>
-                  {I18n.t('ok')}
-                </Text>
+                <Text style={[styles.textStyle, styles.textOkButton]}>{I18n.t('ok')}</Text>
               </TouchableOpacity>
             </View>
           </View>

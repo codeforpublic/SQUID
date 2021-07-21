@@ -63,10 +63,11 @@ function Pagination({
 type CarouselType<T> = {
   renderItem: (obj: T) => JSX.Element
   data: T[]
+  defaultIndex?: number
 }
 
-export default function Carousel<T>({ renderItem, data }: CarouselType<T>) {
-  const [pageIndex, setPageIndex] = useState(0)
+export default function Carousel<T>({ renderItem, data, defaultIndex }: CarouselType<T>) {
+  const [pageIndex, setPageIndex] = useState(defaultIndex)
   const indexRef = useRef(pageIndex)
   indexRef.current = pageIndex
 

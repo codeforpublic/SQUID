@@ -3,6 +3,7 @@ import axios from 'axios'
 import { get } from 'lodash'
 import moment, { Moment } from 'moment'
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import { fetch } from 'react-native-ssl-pinning'
 import I18n from '../../i18n/i18n'
 import { getAnonymousHeaders } from '../api'
 import defaultConfig from '../assets/config.json'
@@ -142,10 +143,11 @@ const VaccineContext = createContext<{
   requestMorprom?: (url: string) => Promise<{ status: 'ERROR' | 'SUCCESS'; errorTitle?: string; errorMessage?: string }>
   getUpdateTime?: () => Moment | null
   reloadMorprom?: () => void
+  resetVaccine?: () => void
 }>({})
 
 export const VaccineProvider: React.FC = ({ children }) => {
-  const [[vaccineList, cid, updateTime], setVaccineList] = useState<[Vaccination[], string, string]>([])
+  const [[vaccineList, cid, updateTime], setVaccineList] = useState<[Vaccination[], string, string]>([[], '', ''])
 
   useEffect(() => {
     AsyncStorage.getItem(MORPROM_DATA_KEY).then((res) => {
@@ -183,6 +185,12 @@ export const VaccineProvider: React.FC = ({ children }) => {
     return { status: 'SUCCESS' } as const
   }, [])
 
+  const resetVaccine = React.useCallback(() => {
+    sendVaccineLog({ event: 'CLEAR', cid })
+    setVaccineList([[], '', ''])
+    AsyncStorage.removeItem(MORPROM_DATA_KEY)
+  }, [cid])
+
   const reloadMorprom = React.useCallback(() => {
     sendVaccineLog({ event: 'REFRESH', cid })
     requestAndSave(cid)
@@ -206,7 +214,7 @@ export const VaccineProvider: React.FC = ({ children }) => {
   }, [updateTime])
 
   return (
-    <VaccineContext.Provider value={{ vaccineList, requestMorprom, getUpdateTime, cid, reloadMorprom }}>
+    <VaccineContext.Provider value={{ vaccineList, requestMorprom, getUpdateTime, cid, reloadMorprom, resetVaccine }}>
       {children}
     </VaccineContext.Provider>
   )

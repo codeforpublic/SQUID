@@ -266,6 +266,6 @@ export default {
   morprom_invalid_qrcode_message: 'กรุณาตรวจสอบ QR code ใหม่อีกครั้ง',
   morprom_record_not_found_title: 'ไม่พบข้อมูลจากฐานข้อมูล หมอพร้อม',
   morprom_record_not_found_message: '',
-  morprom_connection_failed_title: 'Connection failed.',
-  morprom_connection_failed_message: 'Try again later',
+  morprom_connection_failed_title: 'เชื่อมต่อหมอพร้อมไม่สำเร็จ',
+  morprom_connection_failed_message: 'กรุณาลองใหม่อีกครั้ง',
 }

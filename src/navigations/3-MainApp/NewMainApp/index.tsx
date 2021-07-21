@@ -30,7 +30,7 @@ const mapQrStatusColor = (qr?: SelfQR, qrState?: QR_STATE) =>
     ? COLORS.ORANGE_2
     : COLORS.GRAY_2
 
-export const MainApp = () => {
+export const MainApp = ({ route }) => {
   const inset = useSafeArea()
   const { qrData, qrState } = useSelfQR()
   const { beaconLocationName, isServiceEnabled, locationPermissionLevel } = useContactTracer()
@@ -38,6 +38,7 @@ export const MainApp = () => {
   const popupRef = useRef<NotificationPopup | any>()
   const activeDotAnim = useRef(new Animated.Value(0)).current
   const { vaccineList } = useVaccine()
+  const { card } = route?.params || { card: 0 }
 
   const windowWidth = Dimensions.get('window').width
 
@@ -211,7 +212,9 @@ export const MainApp = () => {
         <PopupImportVaccine />
         {windowWidth && (
           <Carousel
+            key={'c' + card}
             data={carouselItems}
+            defaultIndex={card}
             renderItem={(index) => {
               // console.log('index', index)
               switch (index) {
