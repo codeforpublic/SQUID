@@ -111,7 +111,7 @@ export const QRCodeScan = ({ navigation }) => {
         <PopupImportVaccine
           onSelect={(status) => {
             if (status === 'ok') {
-              navigation.navigate('MainApp', { card: 0 })
+              navigation.navigate('MainApp', { card: 1 })
             } else {
               resetVaccine()
             }
