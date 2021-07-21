@@ -29,13 +29,15 @@ const carouselItems = ['qr', 'vaccine'] //, 'wfh']
 export const MainApp = () => {
   const inset = useSafeArea()
   const { qrData, qrState } = useSelfQR()
-  const { beaconLocationName, isServiceEnabled } = useContactTracer()
+  const {
+    beaconLocationName,
+    isServiceEnabled,
+    locationPermissionLevel,
+  } = useContactTracer()
   const [location, setLocation] = useState('')
   const popupRef = useRef<NotificationPopup | any>()
 
   const windowWidth = Dimensions.get('window').width
-
-  const isGPSEnabled = false
 
   useEffect(() => {
     setLocation(beaconLocationName.name)
@@ -91,7 +93,7 @@ export const MainApp = () => {
           <View style={{ flexDirection: 'row', paddingTop: 10, height: 45 }}>
             <FontAwesome
               name="map-marker"
-              color={isGPSEnabled ? '#10A7DC' : '#C1C1C1'}
+              color={locationPermissionLevel === 3 ? '#10A7DC' : '#C1C1C1'}
               size={24}
               style={{ marginRight: 10 }}
             />
