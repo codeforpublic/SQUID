@@ -5,9 +5,8 @@ import moment, { Moment } from 'moment'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import I18n from '../../i18n/i18n'
 import { getAnonymousHeaders } from '../api'
-import { API_URL, SSL_PINNING_CERT_NAME } from '../config'
 import defaultConfig from '../assets/config.json'
-import { userPrivateData } from '../state/userPrivateData'
+import { API_URL, SSL_PINNING_CERT_NAME } from '../config'
 
 export type Vaccination = {
   fullThaiName: string
@@ -63,18 +62,19 @@ const getConfig = async () => {
 }
 
 const sendVaccineLog = (data: { event: string; cid: string; status?: string; data?: any; error?: any }) => {
+  console.log('sendVaccineLog', data)
   fetch(API_URL + '/log-scan-vaccine', {
     sslPinning: {
       certs: [SSL_PINNING_CERT_NAME],
     },
     headers: getAnonymousHeaders() as any,
     method: 'POST',
-    body: {
-      data: { ...data, aid: userPrivateData.getAnonymousId() },
-    },
+    body: JSON.stringify({
+      data,
+    }),
   })
     .then((res) => res.json())
-    .then((result) => console.log('sendVaccineLog', result))
+    .then((result) => console.log('sendVaccineLog RESULT:', result))
 }
 
 const getConfigPath = (path: string, index = '', cid = '') => path.replace('<INDEX>', index).replace('<CID>', cid)
@@ -159,7 +159,7 @@ export const VaccineProvider: React.FC = ({ children }) => {
       const list = await requestMorpromData(_cid)
       const ts = new Date().toISOString()
       if (!Array.isArray(list) || !list.length) {
-        sendVaccineLog({ event: 'SAVE', status: 'FAILED', cid: _cid })
+        sendVaccineLog({ event: 'PARSE', status: 'FAILED', cid: _cid })
         return {
           status: 'ERROR',
           errorMessage: I18n.t('morprom_record_not_found_title'),
@@ -171,7 +171,7 @@ export const VaccineProvider: React.FC = ({ children }) => {
 
       AsyncStorage.setItem(MORPROM_DATA_KEY, JSON.stringify([list, _cid, ts]))
     } catch (e) {
-      sendVaccineLog({ event: 'SAVE', status: 'FAILED', cid: _cid })
+      sendVaccineLog({ event: 'PARSE', status: 'FAILED', cid: _cid })
       return {
         status: 'ERROR',
         errorMessage: I18n.t('morprom_connection_failed_title'),
@@ -179,7 +179,7 @@ export const VaccineProvider: React.FC = ({ children }) => {
       } as const
     }
 
-    sendVaccineLog({ event: 'SAVE', status: 'SUCCESS', cid: _cid })
+    sendVaccineLog({ event: 'PARSE', status: 'SUCCESS', cid: _cid })
     return { status: 'SUCCESS' } as const
   }, [])
 
