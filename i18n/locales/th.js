@@ -279,4 +279,7 @@ export default {
   no_vac_text_2: 'ใบรับรองการฉีดวัคซีน',
   no_vac_text_3: 'หรือ แอปพลิเคชั่น หมอพร้อม',
   scan_qr_button: 'สแกน QR Code',
+  vaccine_number: 'เข็มที่',
+  days: 'วัน',
+  my_vaccinations_header: 'ประวัติการรับวัคซีนป้องกัน COVID-19',
 }

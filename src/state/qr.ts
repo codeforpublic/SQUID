@@ -160,7 +160,7 @@ export class SelfQR extends QR {
     } catch (error) {
       console.log(error)
     }
-    console.log('this.currentQR = ', qrData)
+    // console.log('this.currentQR = ', qrData)
     this.currentQR = new SelfQR(qrData)
     return this.currentQR
   }

@@ -281,4 +281,7 @@ export default {
   no_vac_text_2: 'on your vaccine certification sheet',
   no_vac_text_3: 'or Morprom application.',
   scan_qr_button: 'Scan QR Code',
+  vaccine_number: 'No.',
+  days: 'Day(s)',
+  my_vaccinations_header: 'My Vaccinations',
 }
