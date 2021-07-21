@@ -1,13 +1,7 @@
 import React from 'react'
-import {
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-} from 'react-native'
+import { FlatList, Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
+import { useMorprom, Vaccination } from '../../../services/morprom'
 import I18n from '../../../../i18n/i18n'
 import MainCard from '../../../components/MainCard'
 import { useSelfQR } from '../../../state/qr'
@@ -17,46 +11,20 @@ const VaccineCard: React.FC = () => {
   const navigation = useNavigation()
   const { qrData } = useSelfQR()
 
-  const updateTime = qrData
-    ? `${I18n.t('last_update')} ${qrData
-        .getCreatedDate()
-        .format(I18n.t('fully_date'))}`
-    : ''
+  const updateTime = qrData ? `${I18n.t('last_update')} ${qrData.getCreatedDate().format(I18n.t('fully_date'))}` : ''
   // const smallDevice = Dimensions.get('window').height < 600
   // const logoStyle = {
   //   height: smallDevice ? 20 : 30,
   //   width: (smallDevice ? 20 : 30) * (260 / 140),
   // }
-  const data: Vaccine = {
-    url: 'url',
-    get_url: 'get_url',
-    fullThaiName: 'fullThaiName',
-    fullEngName: 'fullEngName',
-    passportNo: 'passportNo',
-    vaccineRefName: 'vaccineRefName',
-    percentComplete: 'percentComplete',
-    visitImmunization: new Array(3).fill({
-      immunizationDate: 'immunizationDate',
-      hospitalName: 'hospitalName',
-    }),
-    certificateSerialNo: 'certificateSerialNo',
-    complete: 'complete',
-  }
+  const cid: string = ''
+  const { data } = useMorprom(cid)
 
   return (
     <MainCard>
       <View style={styles.cardHeader}>
-        <View style={styles.cardHeaderView}>
-          <Image
-            source={require('../../../assets/morprom-icon.png')}
-            width={36}
-            height={36}
-            resizeMode="contain"
-          />
-          <Text style={styles.cardHeaderText} numberOfLines={1}>
-            {I18n.t('my_vaccinations_header')}
-          </Text>
-        </View>
+        <Image source={require('../../../assets/morprom-icon.png')} width={20} height={20} />
+        <Text style={styles.cardHeaderText}>{I18n.t('my_vaccinations_header')}</Text>
       </View>
       {!data ? (
         <>
@@ -72,9 +40,7 @@ const VaccineCard: React.FC = () => {
               underlayColor="#DDDDDD"
               onPress={() => navigation.navigate('QRCodeScan')}
             >
-              <Text style={styles.textScanButton}>
-                {I18n.t('scan_qr_button')}
-              </Text>
+              <Text style={styles.textScanButton}>{I18n.t('scan_qr_button')}</Text>
             </TouchableHighlight>
           </View>
         </>
@@ -90,23 +56,7 @@ const VaccineCard: React.FC = () => {
   )
 }
 
-type Vaccine = {
-  url: string
-  get_url: string
-  fullThaiName: string
-  fullEngName: string
-  passportNo: string
-  vaccineRefName: string
-  percentComplete: string
-  visitImmunization: {
-    immunizationDate: string
-    hospitalName: string
-  }[]
-  certificateSerialNo: string
-  complete: string
-}
-
-const VaccineList = ({ data }: { data: Vaccine }) => {
+const VaccineList = ({ data }: { data: Vaccination }) => {
   const len = data.visitImmunization.length
 
   return (
@@ -114,10 +64,7 @@ const VaccineList = ({ data }: { data: Vaccine }) => {
       style={styles.listView}
       data={data.visitImmunization}
       renderItem={({ item, index }) => {
-        const itemListStyle =
-          index === 0
-            ? styles.listItem
-            : { ...styles.listItem, ...styles.listBorder }
+        const itemListStyle = index === 0 ? styles.listItem : { ...styles.listItem, ...styles.listBorder }
 
         const vacNo = len - index
         return (
@@ -130,9 +77,7 @@ const VaccineList = ({ data }: { data: Vaccine }) => {
               />
             </View>
             <View style={styles.informationView}>
-              <Text style={styles.vaccineNo}>
-                {I18n.t('vaccine_number') + vacNo}
-              </Text>
+              <Text style={styles.vaccineNo}>{I18n.t('vaccine_number') + vacNo}</Text>
               <Text style={styles.vaccineInfo}>{data.vaccineRefName}</Text>
               <Text style={styles.vaccineInfo}>{item.hospitalName}</Text>
               <Text style={styles.vaccineInfo}>{item.immunizationDate}</Text>
