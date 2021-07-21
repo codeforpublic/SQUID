@@ -113,7 +113,7 @@ export const QRCodeScan = ({ navigation }) => {
             if (status === 'ok') {
               navigation.navigate('MainApp', { card: 1 })
             } else {
-              resetVaccine()
+              resetVaccine && resetVaccine()
             }
           }}
         />

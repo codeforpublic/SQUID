@@ -19,7 +19,6 @@ import QRCard from './QRCard'
 import { UpdateProfileButton } from './UpdateProfileButton'
 import VaccineCard from './VaccineCard'
 import WorkFromHomeCard from './WorkFromHomeCard'
-import PopupImportVaccine from './PopupImportVaccine'
 
 const carouselItems = ['qr', 'vaccine'] //, 'wfh']
 
@@ -209,7 +208,6 @@ export const MainApp = ({ route }) => {
             </View>
           </View>
         </View>
-        <PopupImportVaccine />
         {windowWidth && (
           <Carousel
             key={'c' + card}
