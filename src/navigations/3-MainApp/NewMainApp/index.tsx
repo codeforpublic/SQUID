@@ -1,47 +1,41 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
-  ActivityIndicator,
-  Alert,
   Dimensions,
-  Image,
-  StatusBar,
   StyleSheet,
-  TouchableOpacity,
+  Text,
   TouchableWithoutFeedback,
   View,
 } from 'react-native'
-import DeviceInfo from 'react-native-device-info'
-import { Text } from 'react-native-elements'
 import RNFS from 'react-native-fs'
 import NotificationPopup from 'react-native-push-notification-popup'
-import { SafeAreaView, useSafeArea } from 'react-native-safe-area-context'
-import Sizer from 'react-native-size'
+import { useSafeArea } from 'react-native-safe-area-view'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import I18n from '../../../../i18n/i18n'
+import Carousel from '../../../../src/components/Carousel'
 import { CircularProgressAvatar } from '../../../../src/components/CircularProgressAvatar'
 import { userPrivateData } from '../../../../src/state/userPrivateData'
 import { useResetTo } from '../../../../src/utils/navigation'
 import { useContactTracer } from '../../../services/contact-tracing-provider'
 import { pushNotification } from '../../../services/notification'
 import { QR_STATE, SelfQR, useSelfQR } from '../../../state/qr'
-import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../../styles'
+import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../../styles'
 import { BeaconFoundPopupContent } from '../BeaconFoundPopup'
-import { QRStateText } from './QRStateText'
+import QRCard from './QRCard'
 import { UpdateProfileButton } from './UpdateProfileButton'
+import VaccineCard from './VaccineCard'
+import WorkFromHomeCard from './WorkFromHomeCard'
+
+const carouselItems = ['qr', 'vaccine', 'wfh']
 
 export const MainApp = () => {
   const inset = useSafeArea()
-  const { qrData, qrState, refreshQR } = useSelfQR()
-  const {
-    beaconLocationName,
-    enable,
-    disable,
-    isServiceEnabled,
-  } = useContactTracer()
-  const appVersion = DeviceInfo.getVersion()
+  const { qrData, qrState } = useSelfQR()
+  const { beaconLocationName, isServiceEnabled } = useContactTracer()
   const [location, setLocation] = useState('')
   const popupRef = useRef<NotificationPopup | any>()
-  const smallDevice = Dimensions.get('window').height < 600
+
+  const windowWidth = Dimensions.get('window').width
+
+  const isGPSEnabled = false
 
   useEffect(() => {
     setLocation(beaconLocationName.name)
@@ -56,141 +50,120 @@ export const MainApp = () => {
     pushNotification.requestPermissions()
   }, [])
 
+  const firstName = 'Smith'
+  const lastName = 'Johnson'
+  const vaccineNumber = 2
+
+  // console.log('windowWidth', windowWidth)
+  const containerStyle = {
+    marginTop: inset.top,
+    marginLeft: inset.left,
+    marginRight: inset.right,
+    flex: 1,
+  }
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#F9F9F9' }}>
-      <View
-        style={[
-          styles.container,
-          { paddingTop: inset.top, paddingBottom: inset.bottom },
-        ]}
-      >
-        <StatusBar
-          barStyle={qrData?.getTagColor() ? 'light-content' : 'dark-content'}
-          backgroundColor={
-            qrData?.getTagColor() ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT
+    <View style={containerStyle}>
+      {
+        // <StatusBar
+        //   barStyle={qrData?.getTagColor() ? 'light-content' : 'dark-content'}
+        //   backgroundColor={
+        //     qrData?.getTagColor() ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT
+        //   }
+        // />
+      }
+      <View style={styles.containerTop}>
+        <View style={styles.containerHeader}>
+          {
+            // <TouchableOpacity style={styles.circularButton} onPress={refreshQR}>
+            //   <FontAwesome
+            //     name="refresh"
+            //     color={COLORS.GRAY_4}
+            //     size={24}
+            //     style={{ marginLeft: 10 }}
+            //   />
+            // </TouchableOpacity>
+            // <Text style={styles.textHeader}>
+            //   {qrData &&
+            //     `${qrData.getCreatedDate().format(I18n.t('fully_date'))}`}
+            // </Text>
           }
-        />
-        <View style={styles.containerTop}>
-          <View style={styles.containerHeader}>
-            <TouchableOpacity style={styles.circularButton} onPress={refreshQR}>
-              <FontAwesome
-                name="refresh"
-                color={COLORS.GRAY_4}
-                size={24}
-                style={{ marginLeft: 10 }}
-              />
-            </TouchableOpacity>
-            <Text style={styles.textHeader}>
-              {qrData &&
-                `${qrData.getCreatedDate().format(I18n.t('fully_date'))}`}
-            </Text>
-            <View style={{ flexDirection: 'row' }}>
-              <TouchableOpacity
-                style={{ position: 'relative' }}
-                onPress={() => {
-                  if (isServiceEnabled) {
-                    Alert.alert(
-                      I18n.t('bluetooth_disable_alert_title'),
-                      I18n.t('bluetooth_disable_alert_message'),
-                      [
-                        {
-                          text: I18n.t('cancel'),
-                          onPress: () => console.log('Cancel Pressed'),
-                          style: 'cancel',
-                        },
-                        {
-                          text: I18n.t('bluetooth_disable_alert_accept'),
-                          onPress: disable,
-                        },
-                      ],
-                    )
-                  } else {
-                    enable()
-                  }
-                }}
-              >
-                <FontAwesome
-                  name="bluetooth-b"
-                  color={COLORS.GRAY_4}
-                  size={24}
-                  style={{ marginRight: 10 }}
-                />
-                {isServiceEnabled ? <View style={styles.greenDot} /> : null}
-              </TouchableOpacity>
-            </View>
+          <View style={{ flexDirection: 'row', paddingTop: 10, height: 45 }}>
+            <FontAwesome
+              name="map-marker"
+              color={isGPSEnabled ? '#10A7DC' : '#C1C1C1'}
+              size={24}
+              style={{ marginRight: 10 }}
+            />
+            <FontAwesome
+              name="bluetooth-b"
+              color={isServiceEnabled ? '#10A7DC' : '#C1C1C1'}
+              size={24}
+              style={{ marginRight: 10 }}
+            />
+            {/* {isServiceEnabled ? <View style={styles.greenDot} /> : null} */}
           </View>
-          <View style={styles.containerCard}>
-            <View style={styles.card}>
-              <View style={styles.cardHeader}>
-                <View style={{ flex: 1, padding: 10 }}>
-                  <AvatarProfile qr={qrData} qrState={qrState} />
-                </View>
-                <View style={{ flex: 2, alignContent: 'flex-start' }}>
-                  <RiskLabel
-                    qr={qrData}
-                    qrState={qrState}
-                    onRefreshQR={refreshQR}
-                  />
-                </View>
-              </View>
-              <View style={{ flex: 2 }}>
-                <QRImage
-                  qr={qrData}
-                  qrState={qrState}
-                  onRefreshQR={refreshQR}
-                />
-              </View>
-              <View style={styles.cardFooter}>
-                <Image
-                  source={require('./logo-pin-morchana.png')}
-                  style={{
-                    height: smallDevice ? 20 : 30,
-                    width: (smallDevice ? 20 : 30) * (260 / 140),
-                  }}
-                  resizeMode="contain"
-                />
-                <Text style={styles.textVersion}>
-                  แอปพลิเคชันหมอชนะ{' '}
-                  <Text
-                    style={{
-                      color: '#0FA7DC',
-                      fontSize: FONT_SIZES[600] * 0.85,
-                      fontFamily: FONT_FAMILY,
-                    }}
-                  >
-                    V{appVersion}
-                  </Text>
-                </Text>
-              </View>
+        </View>
+        <View style={styles.profileHeader}>
+          <View style={styles.profileContainer}>
+            {qrData && qrState && (
+              <AvatarProfile qr={qrData} qrState={qrState} />
+            )}
+          </View>
+          <View style={styles.w100}>
+            {firstName ? (
+              <Text style={styles.firstNameText} numberOfLines={1}>
+                {firstName}
+              </Text>
+            ) : null}
+            {lastName ? (
+              <Text style={styles.lastNameText} numberOfLines={1}>
+                {lastName}
+              </Text>
+            ) : null}
+            <View style={styles.w100}>
+              <Text style={styles.vaccineText}>{vaccineNumber}</Text>
             </View>
           </View>
         </View>
-        <NotificationPopup
-          ref={popupRef}
-          renderPopupContent={(props) => (
-            <BeaconFoundPopupContent {...props} result={location} />
-          )}
-        />
+        {windowWidth && (
+          <Carousel
+            data={carouselItems}
+            renderItem={(index) => {
+              // console.log('index', index)
+              switch (index) {
+                case 'qr':
+                  return <QRCard key={index} />
+                case 'vaccine':
+                  return <VaccineCard key={index} />
+                case 'wfh':
+                  return <WorkFromHomeCard key={index} />
+              }
+              return <View />
+            }}
+          />
+        )}
       </View>
-    </SafeAreaView>
+      <NotificationPopup
+        ref={popupRef}
+        renderPopupContent={(props) => (
+          <BeaconFoundPopupContent {...props} result={location} />
+        )}
+      />
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F9F9F9',
-    justifyContent: 'center',
-  },
   containerTop: { flex: 1, flexDirection: 'column' },
   containerHeader: {
-    justifyContent: 'space-between',
-    flexDirection: 'row',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
     paddingTop: 0,
     paddingLeft: 15,
     paddingRight: 15,
-    height: 68,
-    alignItems: 'center',
+    height: 0,
   },
   circularButton: {
     height: 40,
@@ -215,51 +188,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: COLORS.BLACK_1,
   },
-
-  containerCard: {
-    flex: 1,
-    maxHeight: 550,
-    padding: 10,
-    margin: 15,
-    borderRadius: 14,
-    backgroundColor: '#FFF',
-    borderColor: 'rgba(16, 170, 174, 0.2)',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 2.84,
-    elevation: 1,
-  },
-  card: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  cardHeader: {
-    flex: 1,
-    height: 128,
-    flexDirection: 'row',
-    alignContent: 'center',
-    alignItems: 'center',
-  },
-  cardFooter: {
-    flex: 0,
+  profileHeader: {
+    height: 180,
+    marginLeft: 15,
+    marginRight: 15,
+    marginBottom: 15,
     marginTop: 5,
-    marginBottom: 5,
-    width: '100%',
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  textVersion: {
-    lineHeight: FONT_SIZES[600],
-    fontFamily: FONT_FAMILY,
-    fontSize: FONT_SIZES[600] * 0.85,
-    color: COLORS.BLACK_1,
-    textAlign: 'center',
+  profileContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   greenDot: {
     width: 10,
@@ -270,114 +210,35 @@ const styles = StyleSheet.create({
     borderTopWidth: Math.floor((4 / 100) * 24),
     right: Math.floor((8 / 100) * 50),
   },
+  firstNameText: {
+    color: '#222222',
+    fontSize: FONT_SIZES[850],
+    fontWeight: 'bold',
+    paddingTop: 3,
+    width: '100%',
+  },
+  lastNameText: {
+    color: '#222222',
+    fontSize: FONT_SIZES[700],
+    fontWeight: 'normal',
+    width: '100%',
+  },
+  w100: {
+    width: '100%',
+  },
+  vaccineText: {
+    fontWeight: 'bold',
+    position: 'absolute',
+    color: '#26C8FF',
+    opacity: 0.2,
+    fontSize: 115,
+    right: 0,
+    bottom: -25,
+  },
+  flex1: {
+    flex: 1,
+  },
 })
-
-const QRImage = ({
-  qr,
-  qrState,
-  onRefreshQR,
-}: {
-  qr: SelfQR
-  qrState: QR_STATE
-  onRefreshQR: any
-}) => {
-  const qrUri = qr?.getQRImageURL()
-  return (
-    <Sizer
-      style={{
-        alignItems: 'center',
-        flex: 1,
-        justifyContent: 'center',
-        backgroundColor: COLORS.WHITE,
-        borderColor: COLORS.GRAY_1,
-        borderStyle: 'solid',
-        maxHeight: 350,
-      }}
-    >
-      {({ height }: any) => {
-        const size = height ? Math.min(350, height) : 0
-        const qrPadding = (20 / 300) * size
-        return size ? (
-          <Fragment>
-            {qr ? (
-              <Image
-                style={{
-                  width: size,
-                  height: size,
-                  opacity: qrState === QR_STATE.EXPIRE ? 0.05 : 1,
-                }}
-                source={{
-                  uri: qrUri,
-                }}
-              />
-            ) : (
-              <Image
-                style={{
-                  width: size - qrPadding * 2,
-                  height: size - qrPadding * 2,
-                  padding: qrPadding,
-                }}
-                source={require('../../../assets/qr-placeholder.png')}
-              />
-            )}
-            <QRStateText qrState={qrState} refreshQR={onRefreshQR} />
-          </Fragment>
-        ) : (
-          <ActivityIndicator size="large" />
-        )
-      }}
-    </Sizer>
-  )
-}
-
-const RiskLabel = ({
-  qr,
-  qrState,
-}: {
-  qr: SelfQR
-  qrState: QR_STATE
-  onRefreshQR: any
-}) => {
-  const color = qr
-    ? qr.getStatusColor()
-    : qrState === QR_STATE.NOT_VERIFIED || qrState === QR_STATE.FAILED
-    ? COLORS.ORANGE_2
-    : COLORS.GRAY_2
-  const label = qr
-    ? qr.getLabel()
-    : qrState === QR_STATE.NOT_VERIFIED
-    ? I18n.t('undetermined_risk')
-    : qrState === QR_STATE.LOADING
-    ? I18n.t('wait_a_moment')
-    : qrState === QR_STATE.FAILED
-    ? I18n.t('undetermined_risk')
-    : ''
-
-  return (
-    <View style={{ backgroundColor: 'white' }}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <View>
-          <Text
-            style={{
-              fontFamily: FONT_BOLD,
-              fontSize: FONT_SIZES[700],
-              color,
-              alignSelf: 'center',
-            }}
-          >
-            {label}
-          </Text>
-        </View>
-      </View>
-    </View>
-  )
-}
 
 const AvatarProfile = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE }) => {
   const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
@@ -404,35 +265,29 @@ const AvatarProfile = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE }) => {
         })
       }
     })
-  }, [])
+  }, [faceURI, resetTo])
+
+  const buttonStyle = {
+    position: 'absolute',
+    bottom: Math.floor((4 / 100) * avatarWidth),
+    right: Math.floor((4 / 100) * avatarWidth),
+  } as const
 
   return (
     <TouchableWithoutFeedback>
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'flex-start',
-          marginTop: 10,
-        }}
-      >
-        <View>
-          <CircularProgressAvatar
-            key={qr ? qr.getCreatedDate() : 0}
-            image={faceURI ? { uri: faceURI } : void 0}
-            color={color}
-            progress={100}
-            width={avatarWidth}
-          />
-          <UpdateProfileButton
-            width={Math.floor(avatarWidth / 4)}
-            style={{
-              position: 'absolute',
-              bottom: Math.floor((4 / 100) * avatarWidth),
-              right: Math.floor((4 / 100) * avatarWidth),
-            }}
-            onChange={setFaceURI}
-          />
-        </View>
+      <View>
+        <CircularProgressAvatar
+          key={qr ? qr.getCreatedDate() : 0}
+          image={faceURI ? { uri: faceURI } : void 0}
+          color={color}
+          progress={100}
+          width={avatarWidth}
+        />
+        <UpdateProfileButton
+          width={Math.floor(avatarWidth / 4)}
+          style={buttonStyle}
+          onChange={setFaceURI}
+        />
       </View>
     </TouchableWithoutFeedback>
   )

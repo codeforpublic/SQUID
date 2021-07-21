@@ -2,23 +2,21 @@ import React, { useEffect } from 'react'
 import { View } from 'react-native'
 import {
   createStackNavigator,
-  StackActions,
   NavigationActions,
+  StackActions,
 } from 'react-navigation'
+import { applicationState } from '../state/app-state'
 import { COLORS } from '../styles'
-import { AuthStack } from './1-Auth/AuthStack'
+import { HomeStack } from './0-Home/HomeStack'
 import { OnboardingStack } from './2-Onboarding/OnboardingStack'
 import { MainAppStack } from './3-MainApp/MainAppStack'
-import { applicationState } from '../state/app-state'
 import { QuestionaireStack } from './4-Questionaire/QuestionaireStack'
 import { SetLocationHome } from './5-SetLocation/SetLocationHome'
 import { SetLocationMapWebView } from './5-SetLocation/SetLocationMapWebView'
 import { SetLocationStack } from './5-SetLocation/SetLocationStack'
-import { PrivacyPolicy } from './PrivacyPolicy'
-import { HomeStack } from './0-Home/HomeStack'
-import { WebviewScreen } from './Webview'
 import { ChangeLanguageScreen } from './ChangeLanguage'
-import { Debug } from './3-MainApp/Debug'
+import { PrivacyPolicy } from './PrivacyPolicy'
+import { WebviewScreen } from './Webview'
 
 const Root = ({ navigation }) => {
   useEffect(() => {
@@ -54,7 +52,7 @@ const Root = ({ navigation }) => {
       navigation.dispatch(action)
     }
     redirect()
-  }, [])
+  }, [navigation])
 
   return <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }} />
 }
@@ -67,9 +65,9 @@ export default createStackNavigator(
     Home: {
       screen: HomeStack,
     },
-    Auth: {
-      screen: AuthStack,
-    },
+    // Auth: {
+    //   screen: AuthStack,
+    // },
     Onboarding: {
       screen: OnboardingStack,
     },
