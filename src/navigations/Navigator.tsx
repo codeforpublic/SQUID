@@ -11,6 +11,9 @@ import { HomeStack } from './0-Home/HomeStack'
 import { OnboardingStack } from './2-Onboarding/OnboardingStack'
 import { MainAppStack } from './3-MainApp/MainAppStack'
 import { QuestionaireStack } from './4-Questionaire/QuestionaireStack'
+import { SetLocationHome } from './5-SetLocation/SetLocationHome'
+import { SetLocationMapWebView } from './5-SetLocation/SetLocationMapWebView'
+import { SetLocationStack } from './5-SetLocation/SetLocationStack'
 import { ChangeLanguageScreen } from './ChangeLanguage'
 import { PrivacyPolicy } from './PrivacyPolicy'
 import { WebviewScreen } from './Webview'
@@ -82,6 +85,15 @@ export default createStackNavigator(
     },
     ChangeLanguage: {
       screen: ChangeLanguageScreen,
+    },
+    SetLocationHome: {
+      screen: SetLocationHome,
+    },
+    SetLocationMapWebView: {
+      screen: SetLocationMapWebView,
+    },
+    SetLocation: {
+      screen: SetLocationStack,
     },
   },
   {
