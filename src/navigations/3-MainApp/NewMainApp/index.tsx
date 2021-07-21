@@ -1,12 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import {
-  Animated,
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native'
+import { Animated, Easing, Dimensions, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import RNFS from 'react-native-fs'
 import NotificationPopup from 'react-native-push-notification-popup'
 import { useSafeArea } from 'react-native-safe-area-view'
@@ -37,11 +30,7 @@ const mapQrStatusColor = (qr?: SelfQR, qrState?: QR_STATE) =>
 export const MainApp = () => {
   const inset = useSafeArea()
   const { qrData, qrState } = useSelfQR()
-  const {
-    beaconLocationName,
-    isServiceEnabled,
-    locationPermissionLevel,
-  } = useContactTracer()
+  const { beaconLocationName, isServiceEnabled, locationPermissionLevel } = useContactTracer()
   const [location, setLocation] = useState('')
   const popupRef = useRef<NotificationPopup | any>()
   const activeDotAnim = useRef(new Animated.Value(0)).current
@@ -61,7 +50,8 @@ export const MainApp = () => {
     () =>
       Animated.timing(activeDotAnim, {
         toValue: 1,
-        duration: 5000,
+        duration: 10000,
+        easing: Easing.linear,
         useNativeDriver: true,
       }).start(() => {
         activeDotAnim.setValue(0)
@@ -80,22 +70,29 @@ export const MainApp = () => {
   const vaccineNumber = 2
 
   const generateCircularTransform = (
-    snapshot = 50,
-    radius = 60,
+    snapshot = 500,
+    radius = 50,
   ): [
     {
       translateX: Animated.AnimatedInterpolation
       translateY: Animated.AnimatedInterpolation
     },
   ] => {
+    let target = 1.8 //per round
+    let rounds = 5
+    let snapshotPerRound = snapshot / rounds
+
+    let k = snapshotPerRound / target
     const inputRangeX = []
     const outputRangeX = []
+    var value = 0
     for (let i = 0; i <= snapshot; ++i) {
-      let value = i / snapshot
+      value += (Math.sin(-Math.PI / 2 + (i * 2 * Math.PI) / snapshotPerRound) + 1) / k
       let move = Math.sin(value * Math.PI * 2) * radius
-      inputRangeX.push(value)
+      inputRangeX.push(i / snapshot)
       outputRangeX.push(move)
     }
+
     const translateX = activeDotAnim.interpolate({
       inputRange: inputRangeX,
       outputRange: outputRangeX,
@@ -103,11 +100,11 @@ export const MainApp = () => {
 
     const inputRangeY = []
     const outputRangeY = []
-
+    value = 0
     for (let i = 0; i <= snapshot; ++i) {
-      let value = i / snapshot
+      value += (Math.sin(-Math.PI / 2 + (i * 2 * Math.PI) / snapshotPerRound) + 1) / k
       let move = -Math.cos(value * Math.PI * 2) * radius
-      inputRangeY.push(value)
+      inputRangeY.push(i / snapshot)
       outputRangeY.push(move)
     }
 
@@ -218,9 +215,7 @@ export const MainApp = () => {
       </View>
       <NotificationPopup
         ref={popupRef}
-        renderPopupContent={(props) => (
-          <BeaconFoundPopupContent {...props} result={location} />
-        )}
+        renderPopupContent={(props) => <BeaconFoundPopupContent {...props} result={location} />}
       />
     </View>
   )
@@ -363,11 +358,7 @@ const AvatarProfile = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE }) => {
           progress={100}
           width={avatarWidth}
         />
-        <UpdateProfileButton
-          width={Math.floor(avatarWidth / 4)}
-          style={buttonStyle}
-          onChange={setFaceURI}
-        />
+        <UpdateProfileButton width={Math.floor(avatarWidth / 4)} style={buttonStyle} onChange={setFaceURI} />
       </View>
     </TouchableWithoutFeedback>
   )
