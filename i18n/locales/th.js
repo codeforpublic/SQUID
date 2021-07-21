@@ -275,4 +275,8 @@ export default {
   bluetooth_disable_alert_message:
     'คุณจะไม่ได้รับการแจ้งเตือนหากคุณเข้าใกล้ผู้มีความเสี่ยง',
   bluetooth_disable_alert_accept: 'ปิดการค้นหาบุคคลอื่นผ่านบลูทูธ',
+  no_vac_text_1: 'เพิ่มประวัติการฉีดวัคซีนโดยการสแกน QR จาก',
+  no_vac_text_2: 'ใบรับรองการฉีดวัคซีน',
+  no_vac_text_3: 'หรือ แอปพลิเคชั่น หมอพร้อม',
+  scan_qr_button: 'สแกน QR Code',
 }

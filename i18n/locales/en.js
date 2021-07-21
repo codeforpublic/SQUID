@@ -277,4 +277,8 @@ export default {
   bluetooth_disable_alert_message:
     'You will not be able to detect hight risk person near you.',
   bluetooth_disable_alert_accept: 'Disable Bluetooth Contact Tracing',
+  no_vac_text_1: 'Add your vaccinations by scanning QR',
+  no_vac_text_2: 'on your vaccine certification sheet',
+  no_vac_text_3: 'or Morprom application.',
+  scan_qr_button: 'Scan QR Code',
 }
