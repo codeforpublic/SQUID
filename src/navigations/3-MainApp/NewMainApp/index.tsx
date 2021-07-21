@@ -37,6 +37,15 @@ export const MainApp = () => {
 
   const isGPSEnabled = false
 
+  const UserActiveDot = (backgroundColor = COLORS.GREEN) => (
+    <View
+      style={{
+        ...styles.userActiveDot,
+        backgroundColor,
+      }}
+    />
+  )
+
   useEffect(() => {
     setLocation(beaconLocationName.name)
     if (location && popupRef && popupRef.current) {
@@ -106,6 +115,7 @@ export const MainApp = () => {
         </View>
         <View style={styles.profileHeader}>
           <View style={styles.profileContainer}>
+            {UserActiveDot()}
             {qrData && qrState && (
               <AvatarProfile qr={qrData} qrState={qrState} />
             )}
@@ -209,6 +219,13 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderTopWidth: Math.floor((4 / 100) * 24),
     right: Math.floor((8 / 100) * 50),
+  },
+  userActiveDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 100 / 2,
+    position: 'absolute',
+    top: 0,
   },
   firstNameText: {
     color: '#222222',
