@@ -281,7 +281,14 @@ export default {
   no_vac_text_2: 'on your vaccine certification sheet',
   no_vac_text_3: 'or Morprom application.',
   scan_qr_button: 'Scan QR Code',
-  vaccine_number: 'No.',
-  days: 'Day(s)',
+  vaccine_number: 'Dose',
+  days: 'days',
   my_vaccinations_header: 'My Vaccinations',
+  morprom_invalid_qrcode_title: 'QR code not recognized',
+  morprom_invalid_qrcode_message:
+    'Make sure the QR is from your vaccine certificate',
+  morprom_record_not_found_title: 'Record not found',
+  morprom_record_not_found_message: '',
+  morprom_connection_failed_title: 'เชื่อมต่อหมอพร้อมไม่สำเร็จ',
+  morprom_connection_failed_message: 'กรุณาลองใหม่อีกครั้ง',
 }
