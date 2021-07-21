@@ -279,4 +279,8 @@ export default {
   bluetooth_disable_alert_accept: 'Disable Bluetooth Contact Tracing',
   vaccine_number: 'No.',
   days: 'Day(s)',
+  record_found: 'Record found',
+  vaccination_record_of: 'Vaccination record of',
+  found_from_mhopromt: 'found form MhoPromt',
+  import_this_record: 'Import this record?',
 }

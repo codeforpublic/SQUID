@@ -277,4 +277,8 @@ export default {
   bluetooth_disable_alert_accept: 'ปิดการค้นหาบุคคลอื่นผ่านบลูทูธ',
   vaccine_number: 'เข็มที่',
   days: 'วัน',
+  record_found: 'พบข้อมูล',
+  vaccination_record_of: 'พบผลการฉีดวัคซีนของ',
+  found_from_mhopromt: 'จาก "หมอพร้อม"',
+  import_this_record: 'ให้นำข้อมูล บรรจุและแสดงผลบน หมอชนะ',
 }
