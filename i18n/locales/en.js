@@ -19,8 +19,7 @@ export default {
   confirm_otp_from_sms: 'to confirm the one time password from SMS',
   your_phone_no: 'Your Phone No.',
   confirm_phone_no: 'Confirm Telephone No.',
-  confirm_phone_no_so_we_can_take_care:
-    'Confirm your Telephone No. to let us take care of you',
+  confirm_phone_no_so_we_can_take_care: 'Confirm your Telephone No. to let us take care of you',
   confirm_now: 'Confirm Now',
   later: 'Later',
   risky_ppl_nearby: 'If COVID-19 Risk is nearby',
@@ -42,11 +41,9 @@ export default {
   help_notify_if_you_get_near_risky_person_or_area:
     'To help notify you if you get near the high COVID-19 Risk person or in the risky area',
   your_motion: 'Your motion',
-  to_manage_mobile_energy_efficiently:
-    'To efficiently manage mobile energy usage',
+  to_manage_mobile_energy_efficiently: 'To efficiently manage mobile energy usage',
   let_doc_notify_you: 'Let the doctor notify you',
-  when_you_are_closed_to_risky_ppl:
-    'When you are closed to people with COVID-19 risk',
+  when_you_are_closed_to_risky_ppl: 'When you are closed to people with COVID-19 risk',
   turn_on_notification: 'Turn on Notification',
   in_progress: 'In progress...',
   please_wait: 'Please wait',
@@ -58,6 +55,7 @@ export default {
   minute_s: 'minute(s)',
   last_update: 'Last Update ',
   fully_date: 'DD MMMM Y HH:mm',
+  date: 'DD MMMM YYYY',
   hh_mm: 'HH:mm',
   can_not_generate_qr: 'can not generate QR code',
   connect_internet_to_generate_qr: 'connect internet to generate QR',
@@ -88,20 +86,16 @@ export default {
   already_registered: 'already registered',
   tracking: 'Tracking System',
   track_with_bluetooth: 'Track with Bluetooth',
-  auto_turn_on_bluetooth_tracing:
-    'Turn on Low Energy Bluetooth Contact Tracing automatically ',
-  may_cause_phone_to_consume_higher_energy:
-    'may cause the mobile phone to consume higher energy more than normal. ',
+  auto_turn_on_bluetooth_tracing: 'Turn on Low Energy Bluetooth Contact Tracing automatically ',
+  may_cause_phone_to_consume_higher_energy: 'may cause the mobile phone to consume higher energy more than normal. ',
   you_can_choose_to_turn_off: 'You can turn off if you would like to ',
-  but_sys_will_not_auto_trace:
-    'but the system will not be able to locate other device(s) automatically',
+  but_sys_will_not_auto_trace: 'but the system will not be able to locate other device(s) automatically',
   general: 'General',
   privacy_policy: 'Privacy Policy',
   do_questionaire_again: 'Do Risk Estimation Questionaire Again',
   identity_confirm: 'Identity Confirmation',
   any_symptom: 'Do you have any following symptom(s)?',
-  q_any_symptom:
-    'Please select the symptom(s) that you have. (can select more than one)',
+  q_any_symptom: 'Please select the symptom(s) that you have. (can select more than one)',
   high_fever: 'Fever at 37.5 Celsius degree or higher',
   cough: 'Coughing',
   sore_throat: 'Sore Throat',
@@ -111,17 +105,13 @@ export default {
   travel_abroad: 'Did you go oversea in the past 14 days?',
   went_oversea: 'Went Oversea',
   didnt_go_oversea: 'Did not go Oversea',
-  get_near_covid_risk_ppl_past_14_days:
-    'Did you get near person who had COVID-19 risk in the past 14 days?',
-  more_than_5_ppl_with_fever_around_you:
-    'More than 5 people around you are having fever.',
-  just_back_from_abroad_person_at_home:
-    'There is a person living with you who just came back from abroad.',
+  get_near_covid_risk_ppl_past_14_days: 'Did you get near person who had COVID-19 risk in the past 14 days?',
+  more_than_5_ppl_with_fever_around_you: 'More than 5 people around you are having fever.',
+  just_back_from_abroad_person_at_home: 'There is a person living with you who just came back from abroad.',
   closed_contact_with_covid19_confirmed_case:
     'You are in closed contact with confirmed COVID-19 case (closer than 1 metre longer than 5 min)',
   none_of_history_above: 'None of all above',
-  occupation_involving_foreigners:
-    'Do you have an occupation that need to be closed to Foreigner(s) frequently?',
+  occupation_involving_foreigners: 'Do you have an occupation that need to be closed to Foreigner(s) frequently?',
   yes: 'Yes',
   no: 'No',
   is_medical_staff: 'Being a medical staff',
@@ -150,20 +140,16 @@ export default {
   for_using_service: 'For using the service',
   close: 'Close',
   system_closed: 'System is no longer in service',
-  pls_set_loc_serv_as_always:
-    'Please allow MorChana to use Location Services in "Always" mode',
+  pls_set_loc_serv_as_always: 'Please allow MorChana to use Location Services in "Always" mode',
   morchana_tracking_is_on: 'MorChana Tracking System is ON',
-  you_will_be_notified_when_closed_to_risky_ppl:
-    'You will be notifid when you get closed to COVID-19 risky people',
+  you_will_be_notified_when_closed_to_risky_ppl: 'You will be notifid when you get closed to COVID-19 risky people',
   pls_self_iden_with_phone_no: 'Please verify yourself with Phone No.',
-  to_help_refining_risk_assessment_result:
-    'to use COVID-19 risk assessment result to improve ',
+  to_help_refining_risk_assessment_result: 'to use COVID-19 risk assessment result to improve ',
   you_are_orange_now_title: 'Your Risk Level has changed to Medium (Orange)',
   went_to_risky_zone_quar_14d_observe_if_fever_respiratory_go_see_doc:
     'Because you travelled from COVID-19 risky area, please quarantine 14 days and observe. If you have fever and respiratory problem, please go to see doctor immediately',
   you_are_red_now_title: 'Your Risk Level has changed to HIGH (Red)',
-  you_are_red_now_msg:
-    'You have HIGH risk of COVID-19. The Health Institute will contact you immediately',
+  you_are_red_now_msg: 'You have HIGH risk of COVID-19. The Health Institute will contact you immediately',
   orange_suggestion: "Today's Suggestion",
   year: 'year',
   week: 'week',
@@ -208,15 +194,12 @@ export default {
   privacy_policy_body_03: '3. What information do we collect?',
   privacy_policy_body_03_00:
     '    The information we gather from you is necessary for this App to monitor and prevent the spread of COVID-19. The following information will be collected from you.',
-  privacy_policy_body_03_01:
-    '    3.1        Mobile number which is registered through the App',
+  privacy_policy_body_03_01: '    3.1        Mobile number which is registered through the App',
   privacy_policy_body_03_02: '    3.2        Selfie photograph(s)',
   privacy_policy_body_03_03: '    3.3        Age',
-  privacy_policy_body_03_04:
-    '    3.4        Address, only district and province (city) ',
+  privacy_policy_body_03_04: '    3.4        Address, only district and province (city) ',
   privacy_policy_body_03_05: '    3.5        Check-in or location information',
-  privacy_policy_body_03_06:
-    '    3.6        Contact tracing information which is determined and collected by the App ',
+  privacy_policy_body_03_06: '    3.6        Contact tracing information which is determined and collected by the App ',
   privacy_policy_body_03_07:
     '    3.7        COVID-19 exposure risk such as traveling to high risk areas or being in close contact with an infected individual according to a hospital self-assessment form.',
   privacy_policy_body_03_08:
@@ -252,21 +235,16 @@ export default {
   privacy_policy_body_09_00:
     '    We may occasionally make changes to the Data Protection Policy. Therefore, we encourage you to periodically review this page for the latest information on our Policy. If you continue to use the App after the Policy has been revised and updated, we will assume that you have agreed with all the terms of our Policy including all subsequent changes. ',
   privacy_policy_body_10: '10. Contact Us',
-  privacy_policy_body_10_00:
-    '    If you have any concerns or queries regarding personal data, please contact:  ',
-  privacy_policy_dga_contact_name:
-    '    Digital Government Development Agency (Public Organization) (DGA)',
-  privacy_policy_dga_contact_address_01:
-    '    17th Floor, Bangkok Thai Tower Building 108 Rangnam Rd. Phayathai, ',
+  privacy_policy_body_10_00: '    If you have any concerns or queries regarding personal data, please contact:  ',
+  privacy_policy_dga_contact_name: '    Digital Government Development Agency (Public Organization) (DGA)',
+  privacy_policy_dga_contact_address_01: '    17th Floor, Bangkok Thai Tower Building 108 Rangnam Rd. Phayathai, ',
   privacy_policy_dga_contact_address_02: '    Ratchatewi, Bangkok 10400',
   privacy_policy_dga_contact_tel: '    Contact Center : (+66) 0 2612 6060 ',
   privacy_policy_dga_contact_email: 'E-mail : contact@dga.or.th',
   privacy_policy_contact_call_center:
     '    If you have any problems with the App, please call: 1111 (Government Contact Center: GCC)  ',
-  privacy_policy_ending01:
-    '    We will try our best to help or resolve your problems.',
-  privacy_policy_ending02:
-    'This Data Protection Policy became effective on 27 April 2020',
+  privacy_policy_ending01: '    We will try our best to help or resolve your problems.',
+  privacy_policy_ending02: 'This Data Protection Policy became effective on 27 April 2020',
   privacy_policy_version: 'Version 2020.2',
   back: 'BACK',
   change_lang: 'Change Language',
@@ -274,8 +252,7 @@ export default {
   notification_history: 'Notification',
   notification_history_empty: 'This list is empty.',
   bluetooth_disable_alert_title: 'This is not turning off Bluetooth!',
-  bluetooth_disable_alert_message:
-    'You will not be able to detect hight risk person near you.',
+  bluetooth_disable_alert_message: 'You will not be able to detect hight risk person near you.',
   bluetooth_disable_alert_accept: 'Disable Bluetooth Contact Tracing',
   no_vac_text_1: 'Add your vaccinations by scanning QR',
   no_vac_text_2: 'on your vaccine certification sheet',
@@ -283,10 +260,9 @@ export default {
   scan_qr_button: 'Scan QR Code',
   vaccine_number: 'Dose',
   days: 'days',
-  my_vaccinations_header: 'My Vaccinations',
+  my_vaccinations_header: 'COVID-19 vaccination records',
   morprom_invalid_qrcode_title: 'QR code not recognized',
-  morprom_invalid_qrcode_message:
-    'Make sure the QR is from your vaccine certificate',
+  morprom_invalid_qrcode_message: 'Make sure the QR is from your vaccine certificate',
   morprom_record_not_found_title: 'Record not found',
   morprom_record_not_found_message: '',
   morprom_connection_failed_title: 'เชื่อมต่อหมอพร้อมไม่สำเร็จ',

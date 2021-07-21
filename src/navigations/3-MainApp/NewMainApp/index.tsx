@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Animated, Easing, Dimensions, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
+import { Animated, Dimensions, Easing, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import RNFS from 'react-native-fs'
 import NotificationPopup from 'react-native-push-notification-popup'
 import { useSafeArea } from 'react-native-safe-area-view'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import I18n from '../../../../i18n/i18n'
 import Carousel from '../../../../src/components/Carousel'
 import { CircularProgressAvatar } from '../../../../src/components/CircularProgressAvatar'
+import { useVaccine } from '../../../../src/services/use-morprom'
 import { userPrivateData } from '../../../../src/state/userPrivateData'
 import { useResetTo } from '../../../../src/utils/navigation'
 import { useContactTracer } from '../../../services/contact-tracing-provider'
@@ -34,6 +36,7 @@ export const MainApp = () => {
   const [location, setLocation] = useState('')
   const popupRef = useRef<NotificationPopup | any>()
   const activeDotAnim = useRef(new Animated.Value(0)).current
+  const { vaccineList } = useVaccine()
 
   const windowWidth = Dimensions.get('window').width
 
@@ -65,8 +68,17 @@ export const MainApp = () => {
     startAnimated()
   }, [startAnimated])
 
-  const firstName = 'Smith'
-  const lastName = 'Johnson'
+  const vac = vaccineList && vaccineList[0]
+  let firstName = null
+  let lastName = null
+  if (vac) {
+    const name = I18n.locale === 'th' ? vac.fullThaiName : vac.fullEngName
+    const names = name.split(' ')
+
+    lastName = names.pop()
+    firstName = names.join(' ')
+  }
+
   const vaccineNumber = 2
 
   const generateCircularTransform = (
@@ -120,7 +132,7 @@ export const MainApp = () => {
 
   // console.log('windowWidth', windowWidth)
   const containerStyle = {
-    marginTop: inset.top,
+    marginTop: inset.top + 15,
     marginLeft: inset.left,
     marginRight: inset.right,
     flex: 1,

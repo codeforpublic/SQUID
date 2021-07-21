@@ -1,32 +1,29 @@
+import moment from 'moment'
 import React from 'react'
 import { FlatList, Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 import { useNavigation } from 'react-navigation-hooks'
-import { useMorprom, Vaccination } from '../../../services/morprom'
 import I18n from '../../../../i18n/i18n'
 import MainCard from '../../../components/MainCard'
-import { useSelfQR } from '../../../state/qr'
+import ReloadButton from '../../../components/ReloadButton'
+import { useVaccine, Vaccination } from '../../../services/use-morprom'
 import { FONT_BOLD, FONT_SIZES } from '../../../styles'
 
 const VaccineCard: React.FC = () => {
   const navigation = useNavigation()
-  const { qrData } = useSelfQR()
+  const { vaccineList, getUpdateTime, reloadMorprom } = useVaccine()
 
-  const updateTime = qrData ? `${I18n.t('last_update')} ${qrData.getCreatedDate().format(I18n.t('fully_date'))}` : ''
-  // const smallDevice = Dimensions.get('window').height < 600
-  // const logoStyle = {
-  //   height: smallDevice ? 20 : 30,
-  //   width: (smallDevice ? 20 : 30) * (260 / 140),
-  // }
-  const cid: string = ''
-  const { data } = useMorprom(cid)
+  const ts = getUpdateTime && getUpdateTime()
+  const updateTime = ts ? `${I18n.t('last_update')} ${ts.format(I18n.t('fully_date'))}` : ''
 
   return (
     <MainCard>
       <View style={styles.cardHeader}>
-        <Image source={require('../../../assets/morprom-icon.png')} width={20} height={20} />
-        <Text style={styles.cardHeaderText}>{I18n.t('my_vaccinations_header')}</Text>
+        <View style={styles.cardHeaderView}>
+          <Image source={require('../../../assets/morprom-icon.png')} width={20} height={20} />
+          <Text style={styles.cardHeaderText}>{I18n.t('my_vaccinations_header')}</Text>
+        </View>
       </View>
-      {!data ? (
+      {!vaccineList?.length ? (
         <>
           <View style={styles.cardTextView}>
             <Text style={styles.textNoVaccine}>{I18n.t('no_vac_text_1')}</Text>
@@ -46,9 +43,12 @@ const VaccineCard: React.FC = () => {
         </>
       ) : (
         <>
-          <Text style={styles.textUpdate}>{updateTime}</Text>
+          <View style={styles.textUpdateView}>
+            <Text style={styles.textUpdate}>{updateTime}</Text>
+            <ReloadButton onClick={reloadMorprom} />
+          </View>
           <View style={styles.vaccineListContianer}>
-            <VaccineList data={data} />
+            <VaccineList data={vaccineList} />
           </View>
         </>
       )}
@@ -56,17 +56,19 @@ const VaccineCard: React.FC = () => {
   )
 }
 
-const VaccineList = ({ data }: { data: Vaccination }) => {
-  const len = data.visitImmunization.length
+const VaccineList = ({ data }: { data: Vaccination[] }) => {
+  const len = data.length
+  const today = moment()
 
   return (
     <FlatList
       style={styles.listView}
-      data={data.visitImmunization}
+      data={data}
       renderItem={({ item, index }) => {
         const itemListStyle = index === 0 ? styles.listItem : { ...styles.listItem, ...styles.listBorder }
-
         const vacNo = len - index
+        const date = moment(item.immunizationDate).locale(I18n.locale || 'th')
+        const days = today.diff(date, 'days')
         return (
           <View style={itemListStyle} key={'c' + index}>
             <View style={styles.vaccineImageView}>
@@ -78,13 +80,12 @@ const VaccineList = ({ data }: { data: Vaccination }) => {
             </View>
             <View style={styles.informationView}>
               <Text style={styles.vaccineNo}>{I18n.t('vaccine_number') + vacNo}</Text>
-              <Text style={styles.vaccineInfo}>{data.vaccineRefName}</Text>
-              <Text style={styles.vaccineInfo}>{item.hospitalName}</Text>
-              <Text style={styles.vaccineInfo}>{item.immunizationDate}</Text>
+              <Text style={styles.vaccineInfo}>{item.vaccineRefName}</Text>
+              <Text style={styles.vaccineInfo}>{date.format(I18n.t('date'))}</Text>
             </View>
             <View style={styles.dayView}>
               <View style={styles.dayTextContainer}>
-                <Text style={styles.dayText}>{'20'}</Text>
+                <Text style={styles.dayText}>{days}</Text>
                 <Text style={styles.daySuffix}>{I18n.t('days')}</Text>
               </View>
             </View>
@@ -99,6 +100,7 @@ const styles = StyleSheet.create({
   cardHeader: {
     borderTopEndRadius: 14,
     borderTopStartRadius: 14,
+    width: '100%',
     height: 50,
     flexDirection: 'row',
     alignContent: 'center',
@@ -113,9 +115,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   cardHeaderText: {
-    marginLeft: 15,
+    marginLeft: 20,
     color: 'white',
-    fontSize: FONT_SIZES[500],
+    fontSize: FONT_SIZES[600],
     fontFamily: FONT_BOLD,
   },
   cardTextView: {
@@ -130,7 +132,8 @@ const styles = StyleSheet.create({
     height: 80,
   },
   textUpdate: {
-    marginTop: 10,
+    marginVertical: 10,
+    marginRight: 10,
     color: '#222222',
   },
   listView: {
@@ -165,12 +168,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   dayText: {
-    fontSize: 42,
+    fontSize: 52,
     fontWeight: 'bold',
     color: '#1E4E87',
   },
   daySuffix: {
-    fontSize: FONT_SIZES[400],
+    fontSize: FONT_SIZES[500],
     color: '#1E4E87',
     marginBottom: 6,
   },
@@ -183,7 +186,7 @@ const styles = StyleSheet.create({
     height: 20,
   },
   vaccineNo: {
-    fontSize: FONT_SIZES[400],
+    fontSize: FONT_SIZES[500],
     fontWeight: 'bold',
     lineHeight: 30,
   },
@@ -208,6 +211,9 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     backgroundColor: '#1E4E87',
+  },
+  textUpdateView: {
+    flexDirection: 'row',
   },
 })
 export default VaccineCard
