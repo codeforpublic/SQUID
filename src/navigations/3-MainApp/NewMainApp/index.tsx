@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
+  Animated,
   Dimensions,
   StyleSheet,
   Text,
@@ -26,6 +27,13 @@ import WorkFromHomeCard from './WorkFromHomeCard'
 
 const carouselItems = ['qr', 'vaccine'] //, 'wfh']
 
+const mapQrStatusColor = (qr?: SelfQR, qrState?: QR_STATE) =>
+  qr
+    ? qr.getStatusColor()
+    : qrState === QR_STATE.NOT_VERIFIED || qrState === QR_STATE.FAILED
+    ? COLORS.ORANGE_2
+    : COLORS.GRAY_2
+
 export const MainApp = () => {
   const inset = useSafeArea()
   const { qrData, qrState } = useSelfQR()
@@ -36,6 +44,7 @@ export const MainApp = () => {
   } = useContactTracer()
   const [location, setLocation] = useState('')
   const popupRef = useRef<NotificationPopup | any>()
+  const activeDotAnim = useRef(new Animated.Value(0)).current
 
   const windowWidth = Dimensions.get('window').width
 
@@ -48,13 +57,69 @@ export const MainApp = () => {
     }
   }, [beaconLocationName, location])
 
+  const startAnimated = useCallback(
+    () =>
+      Animated.timing(activeDotAnim, {
+        toValue: 1,
+        duration: 5000,
+        useNativeDriver: true,
+      }).start(() => {
+        activeDotAnim.setValue(0)
+        startAnimated()
+      }),
+    [activeDotAnim],
+  )
+
   useEffect(() => {
     pushNotification.requestPermissions()
-  }, [])
+    startAnimated()
+  }, [startAnimated])
 
   const firstName = 'Smith'
   const lastName = 'Johnson'
   const vaccineNumber = 2
+
+  const generateCircularTransform = (
+    snapshot = 50,
+    radius = 60,
+  ): [
+    {
+      translateX: Animated.AnimatedInterpolation
+      translateY: Animated.AnimatedInterpolation
+    },
+  ] => {
+    const inputRangeX = []
+    const outputRangeX = []
+    for (let i = 0; i <= snapshot; ++i) {
+      let value = i / snapshot
+      let move = Math.sin(value * Math.PI * 2) * radius
+      inputRangeX.push(value)
+      outputRangeX.push(move)
+    }
+    const translateX = activeDotAnim.interpolate({
+      inputRange: inputRangeX,
+      outputRange: outputRangeX,
+    })
+
+    const inputRangeY = []
+    const outputRangeY = []
+
+    for (let i = 0; i <= snapshot; ++i) {
+      let value = i / snapshot
+      let move = -Math.cos(value * Math.PI * 2) * radius
+      inputRangeY.push(value)
+      outputRangeY.push(move)
+    }
+
+    const translateY = activeDotAnim.interpolate({
+      inputRange: inputRangeY,
+      outputRange: outputRangeY,
+    })
+
+    return [{ translateX, translateY }]
+  }
+
+  const transform = generateCircularTransform()
 
   // console.log('windowWidth', windowWidth)
   const containerStyle = {
@@ -109,7 +174,12 @@ export const MainApp = () => {
         <View style={styles.profileHeader}>
           <View style={styles.profileContainer}>
             {qrData && qrState && (
-              <AvatarProfile qr={qrData} qrState={qrState} />
+              <>
+                <Animated.View style={[{ transform }]}>
+                  <UserActiveDot color={mapQrStatusColor(qrData, qrState)} />
+                </Animated.View>
+                <AvatarProfile qr={qrData} qrState={qrState} />
+              </>
             )}
           </View>
           <View style={styles.w100}>
@@ -212,6 +282,14 @@ const styles = StyleSheet.create({
     borderTopWidth: Math.floor((4 / 100) * 24),
     right: Math.floor((8 / 100) * 50),
   },
+  userActiveDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 100 / 2,
+    position: 'absolute',
+    top: 45,
+    left: 45,
+  },
   firstNameText: {
     color: '#222222',
     fontSize: FONT_SIZES[850],
@@ -294,3 +372,12 @@ const AvatarProfile = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE }) => {
     </TouchableWithoutFeedback>
   )
 }
+
+const UserActiveDot: React.FC<{ color: string }> = ({ color }) => (
+  <View
+    style={{
+      ...styles.userActiveDot,
+      backgroundColor: color,
+    }}
+  />
+)
