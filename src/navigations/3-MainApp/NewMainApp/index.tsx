@@ -24,7 +24,7 @@ import { UpdateProfileButton } from './UpdateProfileButton'
 import VaccineCard from './VaccineCard'
 import WorkFromHomeCard from './WorkFromHomeCard'
 
-const carouselItems = ['qr', 'vaccine', 'wfh']
+const carouselItems = ['qr', 'vaccine'] //, 'wfh']
 
 export const MainApp = () => {
   const inset = useSafeArea()

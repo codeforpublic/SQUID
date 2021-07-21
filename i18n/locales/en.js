@@ -277,4 +277,6 @@ export default {
   bluetooth_disable_alert_message:
     'You will not be able to detect hight risk person near you.',
   bluetooth_disable_alert_accept: 'Disable Bluetooth Contact Tracing',
+  vaccine_number: 'No.',
+  days: 'Day(s)',
 }

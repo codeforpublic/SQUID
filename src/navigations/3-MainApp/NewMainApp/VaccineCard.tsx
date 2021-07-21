@@ -1,22 +1,33 @@
-import React, { Fragment } from 'react'
-import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native'
-import DeviceInfo from 'react-native-device-info'
-import Sizer from 'react-native-size'
+import React from 'react'
+import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import I18n from '../../../../i18n/i18n'
 import MainCard from '../../../components/MainCard'
-import { QR_STATE, SelfQR, useSelfQR } from '../../../state/qr'
-import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../../styles'
-import { QRStateText } from './QRStateText'
+import { useSelfQR } from '../../../state/qr'
+import { FONT_BOLD, FONT_SIZES } from '../../../styles'
 
 const VaccineCard: React.FC = () => {
-  const { qrData, qrState, refreshQR } = useSelfQR()
-  const appVersion = DeviceInfo.getVersion()
+  const { qrData } = useSelfQR()
 
   // const smallDevice = Dimensions.get('window').height < 600
   // const logoStyle = {
   //   height: smallDevice ? 20 : 30,
   //   width: (smallDevice ? 20 : 30) * (260 / 140),
   // }
+  const data: Vaccine = {
+    url: 'url',
+    get_url: 'get_url',
+    fullThaiName: 'fullThaiName',
+    fullEngName: 'fullEngName',
+    passportNo: 'passportNo',
+    vaccineRefName: 'vaccineRefName',
+    percentComplete: 'percentComplete',
+    visitImmunization: new Array(3).fill({
+      immunizationDate: 'immunizationDate',
+      hospitalName: 'hospitalName',
+    }),
+    certificateSerialNo: 'certificateSerialNo',
+    complete: 'complete',
+  }
 
   const updateTime = qrData
     ? `${I18n.t('last_update')} ${qrData
@@ -30,105 +41,70 @@ const VaccineCard: React.FC = () => {
         <Text style={styles.cardHeaderText}>My Vaccinations</Text>
       </View>
       <Text style={styles.textUpdate}>{updateTime}</Text>
-      <View style={styles.flex1}>
-        <QRImage qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
-      </View>
-      <View style={styles.cardFooter}>
-        {
-          // <Image
-          //   source={require('./logo-pin-morchana.png')}
-          //   resizeMode="contain"
-          //   style={logoStyle}
-          // />
-        }
-        {qrData && qrState && (
-          <RiskLabel qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
-        )}
-        <Text style={styles.textVersionNumber}>V{appVersion}</Text>
+      <View style={styles.vaccineListContianer}>
+        <VaccineList data={data} />
       </View>
     </MainCard>
   )
 }
 
-const RiskLabel = ({
-  qr,
-  qrState,
-}: {
-  qr: SelfQR
-  qrState: QR_STATE
-  onRefreshQR: any
-}) => {
-  // const color = qr
-  //   ? qr.getStatusColor()
-  //   : qrState === QR_STATE.NOT_VERIFIED || qrState === QR_STATE.FAILED
-  //   ? COLORS.ORANGE_2
-  //   : COLORS.GRAY_2
-  const label = qr
-    ? qr.getLabel()
-    : qrState === QR_STATE.NOT_VERIFIED
-    ? I18n.t('undetermined_risk')
-    : qrState === QR_STATE.LOADING
-    ? I18n.t('wait_a_moment')
-    : qrState === QR_STATE.FAILED
-    ? I18n.t('undetermined_risk')
-    : ''
-  return (
-    <Text
-      style={{
-        fontSize: FONT_SIZES[400],
-      }}
-    >
-      {label}
-    </Text>
-  )
+type Vaccine = {
+  url: string
+  get_url: string
+  fullThaiName: string
+  fullEngName: string
+  passportNo: string
+  vaccineRefName: string
+  percentComplete: string
+  visitImmunization: {
+    immunizationDate: string
+    hospitalName: string
+  }[]
+  certificateSerialNo: string
+  complete: string
 }
 
-const QRImage = ({
-  qr,
-  qrState,
-  onRefreshQR,
-}: {
-  qr?: SelfQR | null
-  qrState?: QR_STATE | null
-  onRefreshQR: any
-}) => {
-  const qrUri = qr?.getQRImageURL()
+const VaccineList = ({ data }: { data: Vaccine }) => {
+  const len = data.visitImmunization.length
+
   return (
-    <Sizer style={styles.sizer}>
-      {({ height }: any) => {
-        const size = height ? Math.min(350, height) : 0
-        const qrPadding = Math.min((20 / 300) * size, 10)
+    <FlatList
+      style={styles.listView}
+      data={data.visitImmunization}
+      renderItem={({ item, index }) => {
+        const itemListStyle =
+          index === 0
+            ? styles.listItem
+            : { ...styles.listItem, ...styles.listBorder }
 
-        const imageStyle = qr
-          ? ({
-              resizeMode: 'contain',
-              width: size - qrPadding * 2,
-              height: size - qrPadding * 2,
-              opacity: qrState === QR_STATE.EXPIRE ? 0.05 : 1,
-            } as const)
-          : ({
-              resizeMode: 'contain',
-              width: size - qrPadding * 2,
-              height: size - qrPadding * 2,
-              padding: qrPadding,
-            } as const)
-
-        const source = qr
-          ? { uri: qrUri }
-          : require('../../../assets/qr-placeholder.png')
-
-        return size ? (
-          <Fragment>
-            <Image style={imageStyle} source={source} />
-            {qrState && (
-              <QRStateText qrState={qrState} refreshQR={onRefreshQR} />
-            )}
-          </Fragment>
-        ) : (
-          <ActivityIndicator size="large" />
+        const vacNo = len - index
+        return (
+          <View style={itemListStyle} key={'c' + index}>
+            <View style={styles.vaccineImageView}>
+              <Image
+                source={require('../../../assets/vaccine-shot.png')}
+                style={styles.vaccineImage}
+                resizeMode="contain"
+              />
+            </View>
+            <View style={styles.informationView}>
+              <Text style={styles.vaccineNo}>
+                {I18n.t('vaccine_number') + vacNo}
+              </Text>
+              <Text style={styles.vaccineInfo}>{data.vaccineRefName}</Text>
+              <Text style={styles.vaccineInfo}>{item.hospitalName}</Text>
+              <Text style={styles.vaccineInfo}>{item.immunizationDate}</Text>
+            </View>
+            <View style={styles.dayView}>
+              <View style={styles.dayTextContainer}>
+                <Text style={styles.dayText}>{'20'}</Text>
+                <Text style={styles.daySuffix}>{I18n.t('days')}</Text>
+              </View>
+            </View>
+          </View>
         )
       }}
-    </Sizer>
+    />
   )
 }
 
@@ -150,40 +126,68 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES[600],
     fontFamily: FONT_BOLD,
   },
-  cardFooter: {
-    marginTop: 5,
-    marginBottom: 5,
-    width: '100%',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textVersion: {
-    fontFamily: FONT_FAMILY,
-    fontSize: FONT_SIZES[600] * 0.85,
-    color: COLORS.BLACK_1,
-    textAlign: 'center',
-  },
-  textVersionNumber: {
-    color: '#222222',
-    fontSize: FONT_SIZES[600] * 0.85,
-    fontFamily: FONT_FAMILY,
-  },
-  sizer: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: COLORS.WHITE,
-    borderColor: COLORS.GRAY_1,
-    borderStyle: 'solid',
-    maxHeight: 350,
-  },
-  flex1: {
-    flex: 1,
-  },
   textUpdate: {
     marginTop: 10,
     color: '#222222',
+  },
+  listView: {
+    flex: 1,
+    width: '100%',
+  },
+  listItem: {
+    flex: 1,
+    flexDirection: 'row',
+    width: '100%',
+    padding: 20,
+  },
+  listBorder: {
+    borderTopWidth: 1,
+    borderTopColor: '#DBDBDB',
+  },
+  vaccineImageView: {
+    width: 25,
+  },
+  informationView: {
+    flex: 1,
+    flexDirection: 'column',
+    alignContent: 'flex-start',
+  },
+  dayView: {
+    flexDirection: 'row',
+    alignContent: 'flex-start',
+    alignItems: 'flex-start',
+  },
+  dayTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  dayText: {
+    fontSize: 42,
+    fontWeight: 'bold',
+    color: '#1E4E87',
+  },
+  daySuffix: {
+    fontSize: FONT_SIZES[400],
+    color: '#1E4E87',
+    marginBottom: 6,
+  },
+  vaccineListContianer: {
+    width: '100%',
+    flex: 1,
+  },
+  vaccineImage: {
+    width: 20,
+    height: 20,
+  },
+  vaccineNo: {
+    fontSize: FONT_SIZES[400],
+    fontWeight: 'bold',
+    lineHeight: 30,
+  },
+  vaccineInfo: {
+    fontSize: FONT_SIZES[400],
+    color: '#808080',
+    lineHeight: 25,
   },
 })
 export default VaccineCard
