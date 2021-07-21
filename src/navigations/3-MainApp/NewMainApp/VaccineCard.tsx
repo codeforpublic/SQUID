@@ -46,14 +46,17 @@ const VaccineCard: React.FC = () => {
   return (
     <MainCard>
       <View style={styles.cardHeader}>
-        <Image
-          source={require('../../../assets/morprom-icon.png')}
-          width={20}
-          height={20}
-        />
-        <Text style={styles.cardHeaderText}>
-          {I18n.t('my_vaccinations_header')}
-        </Text>
+        <View style={styles.cardHeaderView}>
+          <Image
+            source={require('../../../assets/morprom-icon.png')}
+            width={36}
+            height={36}
+            resizeMode="contain"
+          />
+          <Text style={styles.cardHeaderText} numberOfLines={1}>
+            {I18n.t('my_vaccinations_header')}
+          </Text>
+        </View>
       </View>
       {!data ? (
         <>
@@ -151,18 +154,23 @@ const styles = StyleSheet.create({
   cardHeader: {
     borderTopEndRadius: 14,
     borderTopStartRadius: 14,
-    width: '100%',
     height: 50,
     flexDirection: 'row',
     alignContent: 'center',
     alignItems: 'center',
     backgroundColor: '#1E4E87',
   },
+  cardHeaderView: {
+    width: '100%',
+    flexDirection: 'row',
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   cardHeaderText: {
-    marginHorizontal: 10,
+    marginLeft: 15,
     color: 'white',
-    textAlign: 'center',
-    fontSize: FONT_SIZES[600],
+    fontSize: FONT_SIZES[500],
     fontFamily: FONT_BOLD,
   },
   cardTextView: {

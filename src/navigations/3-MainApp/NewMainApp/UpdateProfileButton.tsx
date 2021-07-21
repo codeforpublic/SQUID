@@ -14,8 +14,7 @@ const MAX_CHANGE_PROFILE_LIMIT = 3
 // const DEFAULT_PERIODS = 7 // 7 days per time
 export const UpdateProfileButton: React.FC<{
   onChange: (uri: string) => void
-  width?: number
-  height?: number
+  width: number
   style?: React.CSSProperties
 }> = ({ width, style, onChange }) => {
   const navigation = useNavigation()
