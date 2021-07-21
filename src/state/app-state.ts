@@ -1,5 +1,5 @@
-import AsyncStorage from "@react-native-community/async-storage"
-import { HookState, createUseHookState } from "../utils/hook-state"
+import AsyncStorage from '@react-native-community/async-storage'
+import { HookState, createUseHookState } from '../utils/hook-state'
 
 const ApplicationStateKey = '@applicationState'
 type valueof<T> = T[keyof T]
@@ -12,7 +12,9 @@ interface ApplicationStateData {
   isAllowNotification?: boolean
   createdDate?: string
   updateProfileDate?: string
+  changeCount?: number
 }
+
 class ApplicationState extends HookState {
   data: ApplicationStateData
   constructor() {
@@ -28,7 +30,7 @@ class ApplicationState extends HookState {
       this.data = {
         isPassedOnboarding: false,
         isRegistered: false,
-        skipRegistration: false
+        skipRegistration: false,
       }
     }
     if (!this.data.createdDate) {
@@ -40,8 +42,18 @@ class ApplicationState extends HookState {
     super.save()
     return AsyncStorage.setItem(ApplicationStateKey, JSON.stringify(this.data))
   }
-  setData = (key: keyof ApplicationStateData, value: valueof<ApplicationStateData>) => {
-    this.data[key] = value
+
+  setData2(props: Partial<ApplicationStateData>) {
+    // console.log('setData2', props)
+    this.data = Object.assign(this.data, props)
+    return this.save()
+  }
+
+  setData = (
+    key: keyof ApplicationStateData,
+    value: valueof<ApplicationStateData>,
+  ) => {
+    this.data[key] = value as any
     return this.save()
   }
   getData = (key: keyof ApplicationStateData) => {
@@ -50,4 +62,6 @@ class ApplicationState extends HookState {
 }
 
 export const applicationState = new ApplicationState()
-export const useApplicationState = createUseHookState<ApplicationStateData>(applicationState)
+export const useApplicationState = createUseHookState<ApplicationStateData>(
+  applicationState,
+)

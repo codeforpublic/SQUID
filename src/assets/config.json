@@ -1,0 +1,17 @@
+{
+  "url": "co19cert.moph.go.th",
+  "get_url": "https://co19cert.moph.go.th/moph-backend/api/immunization-stat/get",
+  "get_url_method": "post",
+  "get_url_body": "{\"cid\":\"{<CID>}\"}",
+  "length": "data.visitImmunization.length",
+  "fullThaiName": "data.fullThaiName",
+  "fullEngName": "data.fullEngName",
+  "passportNo": "data.passportNo",
+  "vaccineRefName": "data.vaccineRefName",
+  "percentComplete": "data.percentComplete",
+  "visitImmunization": "data.visitImmunization",
+  "immunizationDate": "data.visitImmunization[<INDEX>].immunizationDate",
+  "hospitalName": "data.visitImmunization[<INDEX>].hospitalName",
+  "certificateSerialNo": "certificateSerialNo",
+  "complete": "complete"
+}

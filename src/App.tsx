@@ -1,21 +1,11 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import { ThemeProvider } from 'emotion-theming'
 import React from 'react'
-import {
-  Alert,
-  AppState,
-  AppStateStatus,
-  Dimensions,
-  NativeModules,
-  View,
-} from 'react-native'
+import { Alert, AppState, AppStateStatus, Dimensions, NativeModules, View } from 'react-native'
 import codePush from 'react-native-code-push'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import SplashScreen from 'react-native-splash-screen'
-import {
-  createAppContainer,
-  NavigationContainerComponent,
-} from 'react-navigation'
+import { createAppContainer, NavigationContainerComponent } from 'react-navigation'
 import I18n from '../i18n/i18n'
 import { CODEPUSH_DEPLOYMENT_KEY } from './config'
 import { HUDProvider } from './HudView'
@@ -29,6 +19,7 @@ import { COLORS } from './styles'
 import { compose } from './utils/compose'
 import { refetchDDCPublicKey } from './utils/crypto'
 import { refetchJWKs } from './utils/jwt'
+import { VaccineProvider } from './services/use-morprom'
 
 const AppContainer = createAppContainer(Navigator)
 
@@ -54,10 +45,7 @@ class App extends React.Component {
     })
   }
   purgeAll() {
-    return Promise.all([
-      AsyncStorage.clear(),
-      backgroundTracking.destroyLocations(),
-    ])
+    return Promise.all([AsyncStorage.clear(), backgroundTracking.destroyLocations()])
   }
 
   async load() {
@@ -70,36 +58,24 @@ class App extends React.Component {
     const locale = () => AsyncStorage.getItem('locale')
 
     const credential = () =>
-      Promise.all([
-        applicationState.load(),
-        userPrivateData.load(),
-        refetchJWKs(),
-      ]).catch((e) => console.log('CREDENTIAL ERROR', e))
-
-    const setUpId = () =>
-      NativeModules.ContactTracerModule.setUserId(
-        userPrivateData.getAnonymousId(),
+      Promise.all([applicationState.load(), userPrivateData.load(), refetchJWKs()]).catch((e) =>
+        console.log('CREDENTIAL ERROR', e),
       )
 
-    return Promise.all([
-      locale(),
-      credential(),
-      setUpId(),
-      refetchDDCPublicKey(),
-    ])
+    const setUpId = () => NativeModules.ContactTracerModule.setUserId(userPrivateData.getAnonymousId())
+
+    return Promise.all([locale(), credential(), setUpId(), refetchDDCPublicKey()])
       .then((resp) => {
         const lng = resp[0]
         if (lng) I18n.locale = lng
 
-        backgroundTracking.setup(
-          Boolean(applicationState.getData('isPassedOnboarding')),
-        )
+        backgroundTracking.setup(Boolean(applicationState.getData('isPassedOnboarding')))
 
         this.setState({ loaded: true }, () => {
           SplashScreen.hide()
         })
       })
-      .catch(console.log)
+      .catch(console.error)
   }
   handleAppStateChange(state: AppStateStatus) {
     if (this.appState !== state) {
@@ -119,8 +95,7 @@ class App extends React.Component {
   }
   onNotification = (notification) => {
     this.setState({
-      notificationTriggerNumber:
-        (this.state.notificationTriggerNumber ?? 0) + 1,
+      notificationTriggerNumber: (this.state.notificationTriggerNumber ?? 0) + 1,
     })
 
     const notificationData = notification?.data?.data || notification?.data
@@ -161,17 +136,19 @@ class App extends React.Component {
         >
           <SafeAreaProvider>
             <HUDProvider>
-              <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }}>
-                <AppContainer
-                  uriPrefix="morchana://"
-                  ref={(navigator) => {
-                    if (!this._navigator) {
-                      this._navigator = navigator
-                      this.onNavigatorLoaded()
-                    }
-                  }}
-                />
-              </View>
+              <VaccineProvider>
+                <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }}>
+                  <AppContainer
+                    uriPrefix="morchana://"
+                    ref={(navigator) => {
+                      if (!this._navigator) {
+                        this._navigator = navigator
+                        this.onNavigatorLoaded()
+                      }
+                    }}
+                  />
+                </View>
+              </VaccineProvider>
             </HUDProvider>
           </SafeAreaProvider>
         </ContactTracerProvider>

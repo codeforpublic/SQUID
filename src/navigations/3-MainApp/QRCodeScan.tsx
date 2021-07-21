@@ -1,20 +1,21 @@
-import React, { useState, useRef, useEffect } from 'react'
-import QRCodeScanner from 'react-native-qrcode-scanner'
-import { Dimensions, StatusBar, Platform } from 'react-native'
-import { COLORS, FONT_MED } from '../../styles'
-import { Title, Subtitle, Header } from '../../components/Base'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { verifyToken, decodeJWT } from '../../utils/jwt'
-import { useIsFocused } from 'react-navigation-hooks'
-import { QRResult, tagManager } from '../../state/qr'
+import React, { useEffect, useRef, useState } from 'react'
+import { Dimensions, StatusBar, Alert } from 'react-native'
 import NotificationPopup from 'react-native-push-notification-popup'
-import { QRPopupContent } from './QRPopupContent'
-import { scanManager } from '../../services/contact-scanner'
-
+import QRCodeScanner from 'react-native-qrcode-scanner'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { useIsFocused } from 'react-navigation-hooks'
 import I18n from '../../../i18n/i18n'
+import { Header, Subtitle, Title } from '../../components/Base'
 import { backgroundTracking } from '../../services/background-tracking'
+import { scanManager } from '../../services/contact-scanner'
+import { QRResult, tagManager } from '../../state/qr'
+import { COLORS } from '../../styles'
+import { decodeJWT, verifyToken } from '../../utils/jwt'
+import { QRPopupContent } from './QRPopupContent'
+import { isMorpromURL, useVaccine } from '../../services/use-morprom'
 
 export const QRCodeScan = ({ navigation }) => {
+  const { requestMorprom } = useVaccine()
   const isFocused = useIsFocused()
   const [qrResult, setQRResult] = useState<QRResult>(null)
   const popupRef = useRef<NotificationPopup>()
@@ -25,7 +26,7 @@ export const QRCodeScan = ({ navigation }) => {
 
   useEffect(() => {
     if (qrResult) {
-      popupRef.current.show({
+      popupRef.current?.show({
         appTitle: I18n.t('risk_level'),
         title: qrResult.getLabel(),
         timeText: qrResult.getTag()?.title,
@@ -51,11 +52,10 @@ export const QRCodeScan = ({ navigation }) => {
           }}
           onRead={async (e) => {
             try {
-              if (e?.data?.startsWith('https://qr.thaichana.com/?appId')) {
+              const url = e?.data
+              if (url?.startsWith('https://qr.thaichana.com/?appId')) {
                 const closeStr = 'closeBtn=true'
-                const uri = e?.data?.includes('?')
-                  ? e?.data + '&' + closeStr
-                  : e?.data + '?' + closeStr
+                const uri = e?.data?.includes('?') ? e?.data + '&' + closeStr : e?.data + '?' + closeStr
                 navigation.navigate('Webview', {
                   uri,
                   onClose: () => {
@@ -65,16 +65,29 @@ export const QRCodeScan = ({ navigation }) => {
                 backgroundTracking.getLocation({
                   extras: { triggerType: 'thaichana', url: e.data },
                 })
-                return
+              } else if (requestMorprom && (await isMorpromURL(url))) {
+                console.log('is morprom', url)
+                const result = await requestMorprom(url)
+                try {
+                  if (result.status === 'ERROR') {
+                    Alert.alert(result.errorTitle || '', result.errorMessage || '')
+                    return
+                  }
+
+                  Alert.alert('SUCCESS', 'loaded Morprom')
+                } catch (err) {
+                  console.error('qr scan catch', err)
+                }
+              } else {
+                await verifyToken(e?.data)
+                const decoded = decodeJWT(e?.data)
+                if (!decoded?._) {
+                  throw new Error('Invalid')
+                }
+                setQRResult(new QRResult(decoded))
               }
-              await verifyToken(e?.data)
-              const decoded = decodeJWT(e?.data)
-              if (!decoded?._) {
-                throw new Error('Invalid')
-              }
-              setQRResult(new QRResult(decoded))
             } catch (err) {
-              alert(I18n.t('wrong_data'))
+              Alert.alert(I18n.t('wrong_data'))
             }
           }}
           fadeIn={false}
@@ -84,20 +97,14 @@ export const QRCodeScan = ({ navigation }) => {
           topContent={
             <Header>
               <Title>{I18n.t('scan_qr')}</Title>
-              <Subtitle>
-                {I18n.t('record_contact_and_estimate_risk')}
-              </Subtitle>
+              <Subtitle>{I18n.t('record_contact_and_estimate_risk')}</Subtitle>
             </Header>
           }
         />
-      ) : (
-        void 0
-      )}
+      ) : null}
       <NotificationPopup
-        ref={popupRef}
-        renderPopupContent={(props) => (
-          <QRPopupContent {...props} qrResult={qrResult} />
-        )}
+        ref={popupRef as any}
+        renderPopupContent={(props) => <QRPopupContent {...props} qrResult={qrResult} />}
       />
     </SafeAreaView>
   )

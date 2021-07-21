@@ -4,6 +4,7 @@ import DeviceInfo from 'react-native-device-info'
 import Sizer from 'react-native-size'
 import I18n from '../../../../i18n/i18n'
 import MainCard from '../../../components/MainCard'
+import ReloadButton from '../../../components/ReloadButton'
 import { QR_STATE, SelfQR, useSelfQR } from '../../../state/qr'
 import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../../styles'
 import { QRStateText } from './QRStateText'
@@ -18,18 +19,18 @@ const QRCard: React.FC = () => {
   //   width: (smallDevice ? 20 : 30) * (260 / 140),
   // }
 
-  const updateTime = qrData
-    ? `${I18n.t('last_update')} ${qrData
-        .getCreatedDate()
-        .format(I18n.t('fully_date'))}`
-    : ''
+  const updateTime = qrData ? `${I18n.t('last_update')} ${qrData.getCreatedDate().format(I18n.t('fully_date'))}` : ''
 
   return (
     <MainCard>
       <View style={styles.cardHeader}>
         <Text style={styles.cardHeaderText}>My ID</Text>
       </View>
-      <Text style={styles.textUpdate}>{updateTime}</Text>
+      <View style={styles.updateView}>
+        <Text style={styles.textUpdate}>{updateTime}</Text>
+        <ReloadButton onClick={refreshQR} />
+      </View>
+
       <View style={styles.flex1}>
         <QRImage qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
       </View>
@@ -41,23 +42,14 @@ const QRCard: React.FC = () => {
           //   style={logoStyle}
           // />
         }
-        {qrData && qrState && (
-          <RiskLabel qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
-        )}
+        {qrData && qrState && <RiskLabel qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />}
         <Text style={styles.textVersionNumber}>V{appVersion}</Text>
       </View>
     </MainCard>
   )
 }
 
-const RiskLabel = ({
-  qr,
-  qrState,
-}: {
-  qr: SelfQR
-  qrState: QR_STATE
-  onRefreshQR: any
-}) => {
+const RiskLabel = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE; onRefreshQR: any }) => {
   // const color = qr
   //   ? qr.getStatusColor()
   //   : qrState === QR_STATE.NOT_VERIFIED || qrState === QR_STATE.FAILED
@@ -83,15 +75,7 @@ const RiskLabel = ({
   )
 }
 
-const QRImage = ({
-  qr,
-  qrState,
-  onRefreshQR,
-}: {
-  qr?: SelfQR | null
-  qrState?: QR_STATE | null
-  onRefreshQR: any
-}) => {
+const QRImage = ({ qr, qrState, onRefreshQR }: { qr?: SelfQR | null; qrState?: QR_STATE | null; onRefreshQR: any }) => {
   const qrUri = qr?.getQRImageURL()
   return (
     <Sizer style={styles.sizer}>
@@ -113,16 +97,12 @@ const QRImage = ({
               padding: qrPadding,
             } as const)
 
-        const source = qr
-          ? { uri: qrUri }
-          : require('../../../assets/qr-placeholder.png')
+        const source = qr ? { uri: qrUri } : require('../../../assets/qr-placeholder.png')
 
         return size ? (
           <Fragment>
             <Image style={imageStyle} source={source} />
-            {qrState && (
-              <QRStateText qrState={qrState} refreshQR={onRefreshQR} />
-            )}
+            {qrState && <QRStateText qrState={qrState} refreshQR={onRefreshQR} />}
           </Fragment>
         ) : (
           <ActivityIndicator size="large" />
@@ -181,8 +161,12 @@ const styles = StyleSheet.create({
   flex1: {
     flex: 1,
   },
+  updateView: {
+    flexDirection: 'row',
+  },
   textUpdate: {
     marginTop: 10,
+    marginRight: 5,
     color: '#222222',
   },
 })

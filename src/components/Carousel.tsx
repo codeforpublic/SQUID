@@ -1,11 +1,5 @@
 import React, { memo, useCallback, useRef, useState } from 'react'
-import {
-  Dimensions,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { Dimensions, FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
 
 const { width: windowWidth } = Dimensions.get('window')
 
@@ -57,12 +51,7 @@ function Pagination({
           <TouchableOpacity onPress={() => setPageIndex(i)}>
             <View
               key={i}
-              style={[
-                styles.paginationDot,
-                index === i
-                  ? styles.paginationDotActive
-                  : styles.paginationDotInactive,
-              ]}
+              style={[styles.paginationDot, index === i ? styles.paginationDotActive : styles.paginationDotInactive]}
             />
           </TouchableOpacity>
         )
@@ -100,7 +89,7 @@ export default function Carousel<T>({ renderItem, data }: CarouselType<T>) {
 
   const render = useCallback(
     ({ item }) => {
-      return <Slide>{renderItem(item)}</Slide>
+      return <Slide key={item}>{renderItem(item)}</Slide>
     },
     [renderItem],
   )

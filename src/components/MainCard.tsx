@@ -11,9 +11,13 @@ const MainCard: React.FC = ({ children }) => {
 
 const styles = StyleSheet.create({
   containerCard: {
+    width: '100%',
+    flex: 1,
+  },
+  card: {
     flex: 1,
     maxHeight: 550,
-    margin: 15,
+    margin: 20,
     borderRadius: 14,
     backgroundColor: '#FFF',
     borderColor: 'rgba(16, 170, 174, 0.2)',
@@ -25,9 +29,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 2.84,
     elevation: 1,
-  },
-  card: {
-    flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
   },

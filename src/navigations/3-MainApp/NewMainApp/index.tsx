@@ -1,17 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react'
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { Animated, Dimensions, Easing, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import RNFS from 'react-native-fs'
 import NotificationPopup from 'react-native-push-notification-popup'
 import { useSafeArea } from 'react-native-safe-area-view'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import I18n from '../../../../i18n/i18n'
 import Carousel from '../../../../src/components/Carousel'
 import { CircularProgressAvatar } from '../../../../src/components/CircularProgressAvatar'
+import { useVaccine } from '../../../../src/services/use-morprom'
 import { userPrivateData } from '../../../../src/state/userPrivateData'
 import { useResetTo } from '../../../../src/utils/navigation'
 import { useContactTracer } from '../../../services/contact-tracing-provider'
@@ -27,16 +23,23 @@ import PopupImportVaccine from './PopupImportVaccine'
 
 const carouselItems = ['qr', 'vaccine'] //, 'wfh']
 
+const mapQrStatusColor = (qr?: SelfQR, qrState?: QR_STATE) =>
+  qr
+    ? qr.getStatusColor()
+    : qrState === QR_STATE.NOT_VERIFIED || qrState === QR_STATE.FAILED
+    ? COLORS.ORANGE_2
+    : COLORS.GRAY_2
+
 export const MainApp = () => {
   const inset = useSafeArea()
   const { qrData, qrState } = useSelfQR()
-  const { beaconLocationName, isServiceEnabled } = useContactTracer()
+  const { beaconLocationName, isServiceEnabled, locationPermissionLevel } = useContactTracer()
   const [location, setLocation] = useState('')
   const popupRef = useRef<NotificationPopup | any>()
+  const activeDotAnim = useRef(new Animated.Value(0)).current
+  const { vaccineList } = useVaccine()
 
   const windowWidth = Dimensions.get('window').width
-
-  const isGPSEnabled = false
 
   useEffect(() => {
     setLocation(beaconLocationName.name)
@@ -47,17 +50,90 @@ export const MainApp = () => {
     }
   }, [beaconLocationName, location])
 
+  const startAnimated = useCallback(
+    () =>
+      Animated.timing(activeDotAnim, {
+        toValue: 1,
+        duration: 10000,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }).start(() => {
+        activeDotAnim.setValue(0)
+        startAnimated()
+      }),
+    [activeDotAnim],
+  )
+
   useEffect(() => {
     pushNotification.requestPermissions()
-  }, [])
+    startAnimated()
+  }, [startAnimated])
 
-  const firstName = 'Smith'
-  const lastName = 'Johnson'
+  const vac = vaccineList && vaccineList[0]
+  let firstName = null
+  let lastName = null
+  if (vac) {
+    const name = I18n.locale === 'th' ? vac.fullThaiName : vac.fullEngName
+    const names = name.split(' ')
+
+    lastName = names.pop()
+    firstName = names.join(' ')
+  }
+
   const vaccineNumber = 2
+
+  const generateCircularTransform = (
+    snapshot = 500,
+    radius = 50,
+  ): [
+    {
+      translateX: Animated.AnimatedInterpolation
+      translateY: Animated.AnimatedInterpolation
+    },
+  ] => {
+    let target = 1.8 //per round
+    let rounds = 5
+    let snapshotPerRound = snapshot / rounds
+
+    let k = snapshotPerRound / target
+    const inputRangeX = []
+    const outputRangeX = []
+    var value = 0
+    for (let i = 0; i <= snapshot; ++i) {
+      value += (Math.sin(-Math.PI / 2 + (i * 2 * Math.PI) / snapshotPerRound) + 1) / k
+      let move = Math.sin(value * Math.PI * 2) * radius
+      inputRangeX.push(i / snapshot)
+      outputRangeX.push(move)
+    }
+
+    const translateX = activeDotAnim.interpolate({
+      inputRange: inputRangeX,
+      outputRange: outputRangeX,
+    })
+
+    const inputRangeY = []
+    const outputRangeY = []
+    value = 0
+    for (let i = 0; i <= snapshot; ++i) {
+      value += (Math.sin(-Math.PI / 2 + (i * 2 * Math.PI) / snapshotPerRound) + 1) / k
+      let move = -Math.cos(value * Math.PI * 2) * radius
+      inputRangeY.push(i / snapshot)
+      outputRangeY.push(move)
+    }
+
+    const translateY = activeDotAnim.interpolate({
+      inputRange: inputRangeY,
+      outputRange: outputRangeY,
+    })
+
+    return [{ translateX, translateY }]
+  }
+
+  const transform = generateCircularTransform()
 
   // console.log('windowWidth', windowWidth)
   const containerStyle = {
-    marginTop: inset.top,
+    marginTop: inset.top + 15,
     marginLeft: inset.left,
     marginRight: inset.right,
     flex: 1,
@@ -92,7 +168,7 @@ export const MainApp = () => {
           <View style={{ flexDirection: 'row', paddingTop: 10, height: 45 }}>
             <FontAwesome
               name="map-marker"
-              color={isGPSEnabled ? '#10A7DC' : '#C1C1C1'}
+              color={locationPermissionLevel === 3 ? '#10A7DC' : '#C1C1C1'}
               size={24}
               style={{ marginRight: 10 }}
             />
@@ -108,7 +184,12 @@ export const MainApp = () => {
         <View style={styles.profileHeader}>
           <View style={styles.profileContainer}>
             {qrData && qrState && (
-              <AvatarProfile qr={qrData} qrState={qrState} />
+              <>
+                <Animated.View style={[{ transform }]}>
+                  <UserActiveDot color={mapQrStatusColor(qrData, qrState)} />
+                </Animated.View>
+                <AvatarProfile qr={qrData} qrState={qrState} />
+              </>
             )}
           </View>
           <View style={styles.w100}>
@@ -148,9 +229,7 @@ export const MainApp = () => {
       </View>
       <NotificationPopup
         ref={popupRef}
-        renderPopupContent={(props) => (
-          <BeaconFoundPopupContent {...props} result={location} />
-        )}
+        renderPopupContent={(props) => <BeaconFoundPopupContent {...props} result={location} />}
       />
     </View>
   )
@@ -211,6 +290,14 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderTopWidth: Math.floor((4 / 100) * 24),
     right: Math.floor((8 / 100) * 50),
+  },
+  userActiveDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 100 / 2,
+    position: 'absolute',
+    top: 45,
+    left: 45,
   },
   firstNameText: {
     color: '#222222',
@@ -285,12 +372,17 @@ const AvatarProfile = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE }) => {
           progress={100}
           width={avatarWidth}
         />
-        <UpdateProfileButton
-          width={Math.floor(avatarWidth / 4)}
-          style={buttonStyle}
-          onChange={setFaceURI}
-        />
+        <UpdateProfileButton width={Math.floor(avatarWidth / 4)} style={buttonStyle} onChange={setFaceURI} />
       </View>
     </TouchableWithoutFeedback>
   )
 }
+
+const UserActiveDot: React.FC<{ color: string }> = ({ color }) => (
+  <View
+    style={{
+      ...styles.userActiveDot,
+      backgroundColor: color,
+    }}
+  />
+)
