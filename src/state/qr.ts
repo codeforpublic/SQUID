@@ -1,16 +1,16 @@
 import { getQRData, getTagData } from '../api'
-import { useEffect, useReducer, useRef } from 'react'
+import { useEffect, useReducer, useRef, useCallback } from 'react'
 import moment from 'moment-timezone'
 import 'moment/locale/th'
 import AsyncStorage from '@react-native-community/async-storage'
 import _ from 'lodash'
 
-import I18n from '../../i18n/i18n';
+import I18n from '../../i18n/i18n'
 interface QRData {
   data: {
     anonymousId: string
     code: string
-    tag?: Tag    
+    tag?: Tag
   }
   qr: {
     type: string
@@ -24,29 +24,32 @@ export enum QR_STATE {
   NORMAL = 'normal',
   OUTDATE = 'outdate',
   EXPIRE = 'expire',
-  NOT_VERIFIED = 'not_verified'
+  NOT_VERIFIED = 'not_verified',
 }
 enum QR_ACTION {
   UPDATE = 'update',
-  LOADING = 'loading'
+  LOADING = 'loading',
 }
 
 type SelfQRType = {
-  qrData: SelfQR,
-  qrState: QR_STATE,
-  error: any,
+  qrData?: SelfQR | null
+  qrState?: QR_STATE
+  error?: any
 }
 
 export const useSelfQR = () => {
-  const [state, dispatch] = useReducer<(state: SelfQRType, action: any) => SelfQRType>(
-    (state, action) => {
+  const [state, dispatch] = useReducer(
+    (
+      prevState: SelfQRType,
+      action: { type: QR_ACTION; payload?: Partial<SelfQRType> },
+    ) => {
       switch (action.type) {
         case QR_ACTION.LOADING:
-          return { ...state, qrState: QR_STATE.LOADING }
+          return { ...prevState, qrState: QR_STATE.LOADING }
         case QR_ACTION.UPDATE:
-          return { ...state, ...action.payload }
+          return { ...prevState, ...action.payload }
         default:
-          return state
+          return prevState
       }
     },
     {
@@ -55,35 +58,33 @@ export const useSelfQR = () => {
       error: null,
     },
   )
-  const tlRef = useRef<NodeJS.Timeout>()  
+  const tlRef = useRef(0)
 
-  const refreshQR = async () => {
+  const refreshQR = useCallback(async () => {
     clearTimeout(tlRef.current)
     try {
       dispatch({
-        type: QR_ACTION.LOADING
+        type: QR_ACTION.LOADING,
       })
-      const _qrData = await getQRData()
+      const _qrData = (await getQRData()) as QRData
       const qrData = await SelfQR.setCurrentQRFromQRData(_qrData)
       const qrState = SelfQR.getCurrentState()
       dispatch({
         type: QR_ACTION.UPDATE,
         payload: { qrData, qrState, error: null },
       })
-      tlRef.current = setTimeout(refreshQR, 2 * 60 * 1000) // Update after 2 min
+      tlRef.current = +setTimeout(refreshQR, 2 * 60 * 1000) // Update after 2 min
     } catch (error) {
       const qrState = SelfQR.getCurrentState()
       dispatch({
         type: QR_ACTION.UPDATE,
         payload: { qrState, error },
       })
-      tlRef.current = setTimeout(refreshQR, 10 * 1000) // Retry after 10 sec
+      tlRef.current = +setTimeout(refreshQR, 10 * 1000) // Retry after 10 sec
     }
-  }
-  
-  useEffect(() => {
-    
+  }, [])
 
+  useEffect(() => {
     const setQRFromStorage = async () => {
       const qrData = await SelfQR.getCurrentQR()
       dispatch({ type: QR_ACTION.UPDATE, payload: { qrData } })
@@ -93,14 +94,14 @@ export const useSelfQR = () => {
     return () => {
       clearTimeout(tlRef.current)
     }
-  }, [])
+  }, [refreshQR])
 
   return { ...state, refreshQR }
 }
 
 class QR {
   code: string
-  constructor(code) {
+  constructor(code: keyof typeof STATUS_COLORS) {
     this.code = code
   }
   getStatusColor() {
@@ -133,7 +134,7 @@ type TagRole = {
 export class SelfQR extends QR {
   qrData: QRData
   code: string
-  tag?: Tag  
+  tag?: Tag
   timestamp: number
 
   private static currentQR: SelfQR = null
@@ -142,10 +143,9 @@ export class SelfQR extends QR {
     if (!this.currentQR) {
       try {
         const selfQRData = await AsyncStorage.getItem('selfQRData')
+        console.log('selfQRData', selfQRData)
         if (selfQRData) {
-          this.currentQR = new SelfQR(
-            JSON.parse(selfQRData),
-          )
+          this.currentQR = new SelfQR(JSON.parse(selfQRData))
         }
       } catch (error) {
         console.log(error)
@@ -160,6 +160,7 @@ export class SelfQR extends QR {
     } catch (error) {
       console.log(error)
     }
+    console.log('this.currentQR = ', qrData)
     this.currentQR = new SelfQR(qrData)
     return this.currentQR
   }
@@ -229,7 +230,9 @@ export class QRResult extends QR {
     if (!this.age) {
       return null
     }
-    return moment().subtract(this.age, 'days').locale(I18n.locale || 'th')
+    return moment()
+      .subtract(this.age, 'days')
+      .locale(I18n.locale || 'th')
   }
   getCreatedDate(): moment {
     return moment(this.iat * 1000).locale(I18n.locale || 'th')
@@ -255,9 +258,13 @@ const resolveAge = (age: string) => {
     ['m', I18n.t('minute')],
     ['s', I18n.t('second')],
   ]
-  return _.reduce(mapAge, (p, c) => {
-    return p.replace(c[0], c[1])
-  }, age)
+  return _.reduce(
+    mapAge,
+    (p, c) => {
+      return p.replace(c[0], c[1])
+    },
+    age,
+  )
   // return age.replace('')
 }
 
@@ -267,20 +274,21 @@ const STATUS_COLORS = {
   orange: '#E18518',
   red: '#EC3131',
   DEFAULT: '#B4B5C1',
-}
+} as const
 const LEVELS = {
   green: 1,
   yellow: 2,
   orange: 3,
   red: 4,
-}
+} as const
 const SCORES = {
   green: 100,
   yellow: 80,
   orange: 50,
   red: 30,
-}
-const getLabel = code => {
+} as const
+
+const getLabel = (code: keyof typeof LEVELS) => {
   return {
     green: I18n.t('very_low_risk'),
     yellow: I18n.t('low_risk'),
@@ -302,8 +310,8 @@ type TagMeta = {
 
 class TagManager {
   tagMeta?: TagMeta
-  mapRoles?: {[name: string]: TagRole}
-  mapTags?: {[name: string]: Tag}
+  mapRoles?: { [name: string]: TagRole }
+  mapTags?: { [name: string]: Tag }
   constructor() {
     this.load()
   }
@@ -316,15 +324,15 @@ class TagManager {
   async update() {
     const result: TagMeta = await getTagData()
     this.tagMeta = result
-    this.mapRoles = _.mapKeys(result.tagRoles, r => r.id)  
-    this.mapTags = _.mapKeys(result.tags, r => r.id)
+    this.mapRoles = _.mapKeys(result.tagRoles, (r) => r.id)
+    this.mapTags = _.mapKeys(result.tags, (r) => r.id)
 
     AsyncStorage.setItem('TagMeta', JSON.stringify(this.tagMeta))
   }
   getTag(tagId) {
     if (!this.tagMeta) {
       return
-    }    
+    }
     const resolveTag = (tag: Tag): Tag => {
       if (tag) {
         const r = {

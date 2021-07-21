@@ -56,7 +56,7 @@ export default {
   wait_a_moment: 'Please wait...',
   no_update_for: 'no update for ',
   minute_s: 'minute(s)',
-  last_update: 'Last Update at',
+  last_update: 'Last Update ',
   fully_date: 'DD MMMM Y HH:mm',
   hh_mm: 'HH:mm',
   can_not_generate_qr: 'can not generate QR code',

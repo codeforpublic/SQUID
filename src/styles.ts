@@ -1,4 +1,3 @@
-
 export const COLORS = {
   WHITE: '#FAFDFF',
   PRIMARY_DARK: '#00A0D7',
@@ -26,7 +25,7 @@ export const COLORS = {
   LIGHT_BLUE: '#FAFDFF',
   BORDER_LIGHT_BLUE: '#E6F2FA',
   RED_WARNING: '#B82020',
-  BLUE_INFO: '#205DB8'
+  BLUE_INFO: '#205DB8',
 }
 
 export const FONT_FAMILY = 'DBHelvethaicaX-Reg'
@@ -41,5 +40,6 @@ export const FONT_SIZES = {
   600: 24,
   700: 28,
   800: 37,
+  850: 40,
   900: 47,
 }
