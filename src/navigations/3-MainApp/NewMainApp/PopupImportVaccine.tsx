@@ -1,9 +1,16 @@
 import React, { useState } from 'react'
-import { Alert, Modal, StyleSheet, Text, Pressable, View } from 'react-native'
-import { FONT_BOLD, FONT_FAMILY } from '../../../styles'
+import {
+  Alert,
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import I18n from '../../../../i18n/i18n'
+import { FONT_BOLD, FONT_FAMILY } from '../../../styles'
 
-const PopupImportVaccine: React.FC = () => {
+const PopupImportVaccine: React.FC = ({ name }: { name: string }) => {
   const [modalVisible, setModalVisible] = useState(true)
   return (
     <View style={styles.centeredView}>
@@ -21,28 +28,28 @@ const PopupImportVaccine: React.FC = () => {
             <Text style={styles.title}>{I18n.t('record_found')}</Text>
             <Text style={styles.description}>
               {I18n.t('vaccination_record_of')}
-              {'\n'}สมิธ จอห์นสัน{'\n'}
+              {`\n${name}\n`}
               {I18n.t('found_from_mhopromt')}
-              {'\n'}
+              {'\n\n'}
               {I18n.t('import_this_record')}
             </Text>
             <View style={styles.buttonSection}>
-              <Pressable
+              <TouchableOpacity
                 style={[styles.button, styles.buttonCancel]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
                 <Text style={[styles.textStyle, styles.textCancelButton]}>
                   {I18n.t('cancel')}
                 </Text>
-              </Pressable>
-              <Pressable
+              </TouchableOpacity>
+              <TouchableOpacity
                 style={[styles.button, styles.buttonOk]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
                 <Text style={[styles.textStyle, styles.textOkButton]}>
                   {I18n.t('ok')}
                 </Text>
-              </Pressable>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -76,13 +83,10 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 5,
     elevation: 2,
-    justifyContent: 'center',
-    maxWidth: 128,
-    width: '100%',
+    paddingVertical: 5,
+    width: 115,
   },
   textStyle: {
-    marginLeft: 48,
-    marginRight: 48,
     fontFamily: FONT_FAMILY,
     fontSize: 20,
     textAlign: 'center',
@@ -97,7 +101,7 @@ const styles = StyleSheet.create({
     color: '#1E4E87',
     fontFamily: FONT_BOLD,
     fontSize: 32,
-    marginTop: 40,
+    marginTop: 15,
     textAlign: 'center',
   },
   description: {
@@ -107,19 +111,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   buttonSection: {
-    display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
     marginTop: 48,
     marginRight: 24,
     marginLeft: 24,
     marginBottom: 24,
   },
   buttonOk: {
+    marginLeft: 10,
     backgroundColor: '#1E4E87',
     color: '#fff',
   },
   buttonCancel: {
+    marginRight: 10,
     backgroundColor: '#fff',
     borderColor: '#1E4E87',
     borderWidth: 1,
