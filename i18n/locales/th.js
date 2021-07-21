@@ -282,4 +282,10 @@ export default {
   vaccine_number: 'เข็มที่',
   days: 'วัน',
   my_vaccinations_header: 'ประวัติการรับวัคซีนป้องกัน COVID-19',
+  morprom_invalid_qrcode_title: 'QR code หมอพร้อมไม่ถูกต้อง',
+  morprom_invalid_qrcode_message: 'กรุณาตรวจสอบ QR code ใหม่อีกครั้ง',
+  morprom_record_not_found_title: 'ไม่พบข้อมูลจากฐานข้อมูล หมอพร้อม',
+  morprom_record_not_found_message: '',
+  morprom_connection_failed_title: 'Connection failed.',
+  morprom_connection_failed_message: 'Try again later',
 }
