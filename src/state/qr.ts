@@ -6,10 +6,11 @@ import AsyncStorage from '@react-native-community/async-storage'
 import _ from 'lodash'
 
 import I18n from '../../i18n/i18n'
+
 interface QRData {
   data: {
     anonymousId: string
-    code: string
+    code: StatusCode
     tag?: Tag
   }
   qr: {
@@ -26,6 +27,7 @@ export enum QR_STATE {
   EXPIRE = 'expire',
   NOT_VERIFIED = 'not_verified',
 }
+
 enum QR_ACTION {
   UPDATE = 'update',
   LOADING = 'loading',
@@ -39,10 +41,7 @@ type SelfQRType = {
 
 export const useSelfQR = () => {
   const [state, dispatch] = useReducer(
-    (
-      prevState: SelfQRType,
-      action: { type: QR_ACTION; payload?: Partial<SelfQRType> },
-    ) => {
+    (prevState: SelfQRType, action: { type: QR_ACTION; payload?: Partial<SelfQRType> }) => {
       switch (action.type) {
         case QR_ACTION.LOADING:
           return { ...prevState, qrState: QR_STATE.LOADING }
@@ -100,7 +99,7 @@ export const useSelfQR = () => {
 }
 
 class QR {
-  code: string
+  code: StatusCode
   constructor(code: keyof typeof STATUS_COLORS) {
     this.code = code
   }
@@ -131,25 +130,23 @@ type TagRole = {
   title: string
   color?: string
 }
+
 export class SelfQR extends QR {
   qrData: QRData
-  code: string
+  code: StatusCode = STATUS_CODE.GREEN
   tag?: Tag
   timestamp: number
 
-  private static currentQR: SelfQR = null
+  private static currentQR: SelfQR
 
   public static async getCurrentQR() {
     if (!this.currentQR) {
       try {
         const selfQRData = await AsyncStorage.getItem('selfQRData')
-        console.log('selfQRData', selfQRData)
         if (selfQRData) {
           this.currentQR = new SelfQR(JSON.parse(selfQRData))
         }
-      } catch (error) {
-        console.log(error)
-      }
+      } catch (error) {}
     }
     return this.currentQR
   }
@@ -157,10 +154,7 @@ export class SelfQR extends QR {
   public static async setCurrentQRFromQRData(qrData: QRData) {
     try {
       await AsyncStorage.setItem('selfQRData', JSON.stringify(qrData))
-    } catch (error) {
-      console.log(error)
-    }
-    // console.log('this.currentQR = ', qrData)
+    } catch (error) {}
     this.currentQR = new SelfQR(qrData)
     return this.currentQR
   }
@@ -210,15 +204,15 @@ interface DecodedResult {
   iat: number
   iss: string
 }
+
 export class QRResult extends QR {
   iat: number
-  code: string
+  code: StatusCode = STATUS_CODE.GREEN
   annonymousId: string
   tagId?: string
   age?: string
   iss: string
   constructor(decodedResult: DecodedResult) {
-    // console.log('decodedResult', decodedResult)
     super(CODE_MAP[decodedResult._[1]])
     this.annonymousId = decodedResult._[0]
     this.tagId = decodedResult._[2]
@@ -247,7 +241,6 @@ export class QRResult extends QR {
     return resolveAge(this.age)
   }
 }
-
 const resolveAge = (age: string) => {
   if (!age) return
   const mapAge = [
@@ -265,7 +258,15 @@ const resolveAge = (age: string) => {
     },
     age,
   )
-  // return age.replace('')
+}
+
+type StatusCode = 'green' | 'yellow' | 'orange' | 'red'
+
+enum STATUS_CODE {
+  GREEN = 'green',
+  YELLOW = 'yellow',
+  ORANGE = 'orange',
+  RED = 'red',
 }
 
 const STATUS_COLORS = {
@@ -273,14 +274,15 @@ const STATUS_COLORS = {
   yellow: '#E5DB5C',
   orange: '#E18518',
   red: '#EC3131',
-  DEFAULT: '#B4B5C1',
 } as const
+
 const LEVELS = {
   green: 1,
   yellow: 2,
   orange: 3,
   red: 4,
 } as const
+
 const SCORES = {
   green: 100,
   yellow: 80,
@@ -296,6 +298,7 @@ const getLabel = (code: keyof typeof LEVELS) => {
     red: I18n.t('high_risk'),
   }[code]
 }
+
 const CODE_MAP = {
   G: 'green',
   Y: 'yellow',
@@ -345,7 +348,6 @@ class TagManager {
       return null
     }
     const tag = this.mapTags[tagId]
-    console.log('tagId', tagId, tag)
     return resolveTag(tag)
   }
 }

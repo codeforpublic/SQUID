@@ -55,6 +55,7 @@
     "appcenter": "^3.0.1",
     "appcenter-analytics": "^3.0.1",
     "appcenter-crashes": "^3.0.1",
+    "axios": "^0.21.1",
     "color": "^3.1.2",
     "emotion-theming": "^10.0.27",
     "formik": "^2.1.4",
