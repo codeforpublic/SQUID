@@ -16,7 +16,7 @@ import PopupImportVaccine from './NewMainApp/PopupImportVaccine'
 import { QRPopupContent } from './QRPopupContent'
 
 export const QRCodeScan = ({ navigation }) => {
-  const [popupVisible, setPopupVisible] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false)
   const { requestMorprom, resetVaccine } = useVaccine()
   const isFocused = useIsFocused()
   const [qrResult, setQRResult] = useState<QRResult>(null)
@@ -75,7 +75,7 @@ export const QRCodeScan = ({ navigation }) => {
                     return
                   }
 
-                  setPopupVisible(true)
+                  setModalVisible(true)
                 } catch (err) {
                   console.error('qr scan catch', err)
                 }
@@ -107,8 +107,10 @@ export const QRCodeScan = ({ navigation }) => {
         ref={popupRef as any}
         renderPopupContent={(props) => <QRPopupContent {...props} qrResult={qrResult} />}
       />
-      {popupVisible ? (
+      {modalVisible ? (
         <PopupImportVaccine
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
           onSelect={(status) => {
             if (status === 'ok') {
               navigation.navigate('MainApp', { card: 1 })

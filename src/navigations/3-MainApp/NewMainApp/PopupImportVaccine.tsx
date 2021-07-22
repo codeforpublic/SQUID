@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import I18n from '../../../../i18n/i18n'
 import { useVaccine } from '../../../services/use-morprom'
 import { FONT_BOLD, FONT_FAMILY } from '../../../styles'
 
-const PopupImportVaccine: React.FC<{ onSelect: (status: 'ok' | 'cancel') => void }> = ({ onSelect }) => {
-  const [modalVisible, setModalVisible] = useState(true)
+const PopupImportVaccine: React.FC<{
+  onSelect: (status: 'ok' | 'cancel') => void
+  modalVisible: boolean
+  setModalVisible: (visible: boolean) => void
+}> = ({ onSelect, modalVisible, setModalVisible }) => {
   const { vaccineList } = useVaccine()
   const vaccine = vaccineList && vaccineList[0]
 
@@ -19,7 +22,7 @@ const PopupImportVaccine: React.FC<{ onSelect: (status: 'ok' | 'cancel') => void
         visible={modalVisible}
         onRequestClose={() => {
           Alert.alert('Modal has been closed.')
-          setModalVisible(!modalVisible)
+          setModalVisible(false)
         }}
       >
         <View style={styles.centeredView}>
@@ -36,7 +39,7 @@ const PopupImportVaccine: React.FC<{ onSelect: (status: 'ok' | 'cancel') => void
               <TouchableOpacity
                 style={[styles.button, styles.buttonCancel]}
                 onPress={() => {
-                  setModalVisible(!modalVisible)
+                  setModalVisible(false)
                   onSelect('cancel')
                 }}
               >
@@ -45,7 +48,7 @@ const PopupImportVaccine: React.FC<{ onSelect: (status: 'ok' | 'cancel') => void
               <TouchableOpacity
                 style={[styles.button, styles.buttonOk]}
                 onPress={() => {
-                  setModalVisible(!modalVisible)
+                  setModalVisible(false)
                   onSelect('ok')
                 }}
               >
