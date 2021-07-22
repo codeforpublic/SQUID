@@ -80,7 +80,7 @@ export const MainApp = ({ route }) => {
     firstName = names.join(' ')
   }
 
-  const vaccineNumber = 2
+  const vaccineNumber = vaccineList?.length
 
   const generateCircularTransform = (
     snapshot = 500,
@@ -204,7 +204,7 @@ export const MainApp = ({ route }) => {
               </Text>
             ) : null}
             <View style={styles.w100}>
-              <Text style={styles.vaccineText}>{vaccineNumber}</Text>
+              {vaccineNumber ? <Text style={styles.vaccineText}>{vaccineNumber}</Text> : null}
             </View>
           </View>
         </View>
@@ -368,7 +368,7 @@ const AvatarProfile = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE }) => {
       <View>
         <CircularProgressAvatar
           key={qr ? qr.getCreatedDate() : 0}
-          image={faceURI ? { uri: faceURI } : void 0}
+          image={faceURI ? { uri: faceURI } : undefined}
           color={color}
           progress={100}
           width={avatarWidth}
