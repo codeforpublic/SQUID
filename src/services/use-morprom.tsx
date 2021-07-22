@@ -63,7 +63,6 @@ const getConfig = async () => {
 }
 
 const sendVaccineLog = (data: { event: string; cid: string; status?: string; data?: any; error?: any }) => {
-  console.log('sendVaccineLog', data)
   fetch(API_URL + '/log-scan-vaccine', {
     sslPinning: {
       certs: [SSL_PINNING_CERT_NAME],
@@ -75,7 +74,7 @@ const sendVaccineLog = (data: { event: string; cid: string; status?: string; dat
     }),
   })
     .then((res) => res.json())
-    .then((result) => console.log('sendVaccineLog RESULT:', result))
+    .then()
 }
 
 const getConfigPath = (path: string, index = '', cid = '') => path.replace('<INDEX>', index).replace('<CID>', cid)
@@ -88,8 +87,6 @@ const getMorpromValue = (data: any, path: string, index = '', cid = '') => {
 
 const parseVaccineList = (data: any, cid: string, config: typeof defaultConfig) => {
   const length = +getMorpromValue(data, config.length, '', cid)
-
-  // console.log('config', config)
   const list: Vaccination[] = []
   for (let i = 0; i < length; i++) {
     let idx = i + ''
@@ -120,14 +117,10 @@ const requestMorpromData = async (cid: string) => {
   const method = config.get_url_method
   const url = getConfigPath(config.get_url, '', cid)
   const body = getConfigPath(config.get_url_body, '', cid)
-  // console.log('requestMorpromData', method, url, body)
 
   try {
     const { data } = await (axios as any)[method](url, JSON.parse(body))
-    // console.log('morprom data', data)
-
     sendVaccineLog({ event: 'REQUEST', status: 'SUCCESS', data, cid })
-
     return parseVaccineList(data, cid, config)
   } catch (error) {
     console.error(error)
@@ -151,7 +144,6 @@ export const VaccineProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     AsyncStorage.getItem(MORPROM_DATA_KEY).then((res) => {
-      // console.log('storage morprom get data', res)
       res && setVaccineList(JSON.parse(res))
     })
   }, [])
