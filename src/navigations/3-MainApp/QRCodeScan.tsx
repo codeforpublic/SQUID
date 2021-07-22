@@ -8,7 +8,7 @@ import I18n from '../../../i18n/i18n'
 import { Header, Subtitle, Title } from '../../components/Base'
 import { backgroundTracking } from '../../services/background-tracking'
 import { scanManager } from '../../services/contact-scanner'
-import { isMorpromURL, useVaccine } from '../../services/use-morprom'
+import { isVaccineURL, useVaccine } from '../../services/use-vaccine'
 import { QRResult, tagManager } from '../../state/qr'
 import { COLORS } from '../../styles'
 import { decodeJWT, verifyToken } from '../../utils/jwt'
@@ -17,7 +17,7 @@ import { QRPopupContent } from './QRPopupContent'
 
 export const QRCodeScan = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false)
-  const { requestMorprom, resetVaccine } = useVaccine()
+  const { requestVaccine, resetVaccine } = useVaccine()
   const isFocused = useIsFocused()
   const [qrResult, setQRResult] = useState<QRResult>(null)
   const popupRef = useRef<NotificationPopup>()
@@ -67,8 +67,8 @@ export const QRCodeScan = ({ navigation }) => {
                 backgroundTracking.getLocation({
                   extras: { triggerType: 'thaichana', url: e.data },
                 })
-              } else if (requestMorprom && (await isMorpromURL(url))) {
-                const result = await requestMorprom(url)
+              } else if (requestVaccine && (await isVaccineURL(url))) {
+                const result = await requestVaccine(url)
                 try {
                   if (result.status === 'ERROR') {
                     Alert.alert(result.errorTitle || '', result.errorMessage || '')

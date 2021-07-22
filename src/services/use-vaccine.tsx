@@ -21,8 +21,8 @@ export type Vaccination = {
   complete: boolean
 }
 
-const MORPROM_DATA_KEY = 'morpromData'
-const MORPROM_CONFIG_KEY = 'morpromConfig'
+const VACCINE_DATA_KEY = 'vaccineData'
+const VACCINE_CONFIG_KEY = 'vaccineConfig'
 
 let _data = defaultConfig
 const getConfig = async () => {
@@ -30,9 +30,9 @@ const getConfig = async () => {
 
   let saveData = null
   try {
-    saveData = await AsyncStorage.getItem(MORPROM_CONFIG_KEY)
+    saveData = await AsyncStorage.getItem(VACCINE_CONFIG_KEY)
   } catch (e) {
-    console.error('Failed get  Morprom config from storage\n', e)
+    console.error('Failed get  Vaccine config from storage\n', e)
   }
 
   if (saveData) {
@@ -43,20 +43,20 @@ const getConfig = async () => {
         return _data
       }
     } catch (e) {
-      console.error('Failed to use save Morprom config\n', e)
+      console.error('Failed to use save Vaccine config\n', e)
     }
   }
 
-  const url = process.env.MORPROM_CONFIG || 'https://files.thaialert.com/config.json'
+  const url = process.env.VACCINE_CONFIG || 'https://files.thaialert.com/config.json'
   try {
     const data = (await axios.get(url)).data
     data.ts = new Date().toISOString()
 
-    await AsyncStorage.setItem(MORPROM_CONFIG_KEY, JSON.stringify(_data))
+    await AsyncStorage.setItem(VACCINE_CONFIG_KEY, JSON.stringify(_data))
 
     _data = data
   } catch (e) {
-    console.error('Failed load Morprom config\n', e)
+    console.error('Failed load Vaccine config\n', e)
   }
 
   return _data
@@ -79,39 +79,39 @@ const sendVaccineLog = (data: { event: string; cid: string; status?: string; dat
 
 const getConfigPath = (path: string, index = '', cid = '') => path.replace('<INDEX>', index).replace('<CID>', cid)
 
-const getMorpromValue = (data: any, path: string, index = '', cid = '') => {
+const getVaccineValue = (data: any, path: string, index = '', cid = '') => {
   const cp = getConfigPath(path, index, cid)
   const p = get(data, cp)
   return p
 }
 
 const parseVaccineList = (data: any, cid: string, config: typeof defaultConfig) => {
-  const length = +getMorpromValue(data, config.length, '', cid)
+  const length = +getVaccineValue(data, config.length, '', cid)
   const list: Vaccination[] = []
   for (let i = 0; i < length; i++) {
     let idx = i + ''
     list.push({
-      fullThaiName: getMorpromValue(data, config.fullThaiName, idx, cid),
-      fullEngName: getMorpromValue(data, config.fullEngName, idx, cid),
-      passportNo: getMorpromValue(data, config.passportNo, idx, cid),
-      vaccineRefName: getMorpromValue(data, config.vaccineRefName, idx, cid),
-      percentComplete: +getMorpromValue(data, config.percentComplete, idx, cid),
-      immunizationDate: getMorpromValue(data, config.immunizationDate, idx, cid),
-      hospitalName: getMorpromValue(data, config.hospitalName, idx, cid),
-      certificateSerialNo: getMorpromValue(data, config.certificateSerialNo, idx, cid),
-      complete: !!getMorpromValue(data, config.complete, idx, cid),
+      fullThaiName: getVaccineValue(data, config.fullThaiName, idx, cid),
+      fullEngName: getVaccineValue(data, config.fullEngName, idx, cid),
+      passportNo: getVaccineValue(data, config.passportNo, idx, cid),
+      vaccineRefName: getVaccineValue(data, config.vaccineRefName, idx, cid),
+      percentComplete: +getVaccineValue(data, config.percentComplete, idx, cid),
+      immunizationDate: getVaccineValue(data, config.immunizationDate, idx, cid),
+      hospitalName: getVaccineValue(data, config.hospitalName, idx, cid),
+      certificateSerialNo: getVaccineValue(data, config.certificateSerialNo, idx, cid),
+      complete: !!getVaccineValue(data, config.complete, idx, cid),
     })
   }
 
   return list
 }
 
-export const isMorpromURL = async (url: string) => {
+export const isVaccineURL = async (url: string) => {
   const config = await getConfig()
   return url && url.includes(config.url)
 }
 
-const requestMorpromData = async (cid: string) => {
+const requestVaccineData = async (cid: string) => {
   const config = await getConfig()
 
   const method = config.get_url_method
@@ -133,9 +133,9 @@ const requestMorpromData = async (cid: string) => {
 const VaccineContext = createContext<{
   cid?: string
   vaccineList?: Vaccination[]
-  requestMorprom?: (url: string) => Promise<{ status: 'ERROR' | 'SUCCESS'; errorTitle?: string; errorMessage?: string }>
+  requestVaccine?: (url: string) => Promise<{ status: 'ERROR' | 'SUCCESS'; errorTitle?: string; errorMessage?: string }>
   getUpdateTime?: () => Moment | null
-  reloadMorprom?: () => void
+  reloadVaccine?: () => void
   resetVaccine?: () => void
 }>({})
 
@@ -143,33 +143,33 @@ export const VaccineProvider: React.FC = ({ children }) => {
   const [[vaccineList, cid, updateTime], setVaccineList] = useState<[Vaccination[], string, string]>([[], '', ''])
 
   useEffect(() => {
-    AsyncStorage.getItem(MORPROM_DATA_KEY).then((res) => {
+    AsyncStorage.getItem(VACCINE_DATA_KEY).then((res) => {
       res && setVaccineList(JSON.parse(res))
     })
   }, [])
 
   const requestAndSave = React.useCallback(async (_cid: string) => {
     try {
-      const list = await requestMorpromData(_cid)
+      const list = await requestVaccineData(_cid)
       const ts = new Date().toISOString()
       if (!Array.isArray(list) || !list.length) {
         sendVaccineLog({ event: 'PARSE', status: 'FAILED', cid: _cid })
         return {
           status: 'ERROR',
-          errorMessage: I18n.t('morprom_record_not_found_title'),
-          errorTitle: I18n.t('morprom_record_not_found_message'),
+          errorMessage: I18n.t('vaccine_record_not_found_title'),
+          errorTitle: I18n.t('vaccine_record_not_found_message'),
         } as const
       }
 
       setVaccineList([list, _cid, ts])
 
-      AsyncStorage.setItem(MORPROM_DATA_KEY, JSON.stringify([list, _cid, ts]))
+      AsyncStorage.setItem(VACCINE_DATA_KEY, JSON.stringify([list, _cid, ts]))
     } catch (e) {
       sendVaccineLog({ event: 'PARSE', status: 'FAILED', cid: _cid })
       return {
         status: 'ERROR',
-        errorMessage: I18n.t('morprom_connection_failed_title'),
-        errorTitle: I18n.t('morprom_connection_failed_message'),
+        errorMessage: I18n.t('vaccine_connection_failed_title'),
+        errorTitle: I18n.t('vaccine_connection_failed_message'),
       } as const
     }
 
@@ -180,15 +180,15 @@ export const VaccineProvider: React.FC = ({ children }) => {
   const resetVaccine = React.useCallback(() => {
     sendVaccineLog({ event: 'CLEAR', cid })
     setVaccineList([[], '', ''])
-    AsyncStorage.removeItem(MORPROM_DATA_KEY)
+    AsyncStorage.removeItem(VACCINE_DATA_KEY)
   }, [cid])
 
-  const reloadMorprom = React.useCallback(() => {
+  const reloadVaccine = React.useCallback(() => {
     sendVaccineLog({ event: 'REFRESH', cid })
     requestAndSave(cid)
   }, [cid, requestAndSave])
 
-  const requestMorprom = React.useCallback(
+  const requestVaccine = React.useCallback(
     async (url: string) => {
       sendVaccineLog({ event: 'QRSCAN', cid, data: url })
 
@@ -206,7 +206,7 @@ export const VaccineProvider: React.FC = ({ children }) => {
   }, [updateTime])
 
   return (
-    <VaccineContext.Provider value={{ vaccineList, requestMorprom, getUpdateTime, cid, reloadMorprom, resetVaccine }}>
+    <VaccineContext.Provider value={{ vaccineList, requestVaccine, getUpdateTime, cid, reloadVaccine, resetVaccine }}>
       {children}
     </VaccineContext.Provider>
   )

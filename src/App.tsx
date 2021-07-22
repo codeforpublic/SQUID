@@ -19,7 +19,7 @@ import { COLORS } from './styles'
 import { compose } from './utils/compose'
 import { refetchDDCPublicKey } from './utils/crypto'
 import { refetchJWKs } from './utils/jwt'
-import { VaccineProvider } from './services/use-morprom'
+import { VaccineProvider } from './services/use-vaccine'
 
 const AppContainer = createAppContainer(Navigator)
 

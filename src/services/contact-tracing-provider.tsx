@@ -300,7 +300,7 @@ export class ContactTracerProvider extends React.Component<ContactTracerProps, C
    * @param text Message to be appended
    */
   appendStatusText(text) {
-    console.log('tracing status', text)
+    // console.log('tracing status', text)
     this.statusText = text + '\n' + this.statusText
     this.setState({
       statusText: this.statusText,

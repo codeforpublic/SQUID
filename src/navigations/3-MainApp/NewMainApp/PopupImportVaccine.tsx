@@ -1,7 +1,7 @@
 import React from 'react'
 import { Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import I18n from '../../../../i18n/i18n'
-import { useVaccine } from '../../../services/use-morprom'
+import { useVaccine } from '../../../services/use-vaccine'
 import { FONT_BOLD, FONT_FAMILY } from '../../../styles'
 
 const PopupImportVaccine: React.FC<{

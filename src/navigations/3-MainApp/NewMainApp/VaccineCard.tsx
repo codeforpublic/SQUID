@@ -5,12 +5,12 @@ import { useNavigation } from 'react-navigation-hooks'
 import I18n from '../../../../i18n/i18n'
 import MainCard from '../../../components/MainCard'
 import ReloadButton from '../../../components/ReloadButton'
-import { useVaccine, Vaccination } from '../../../services/use-morprom'
+import { useVaccine, Vaccination } from '../../../services/use-vaccine'
 import { FONT_BOLD, FONT_SIZES } from '../../../styles'
 
 const VaccineCard: React.FC = () => {
   const navigation = useNavigation()
-  const { vaccineList, getUpdateTime, reloadMorprom } = useVaccine()
+  const { vaccineList, getUpdateTime, reloadVaccine } = useVaccine()
 
   const ts = getUpdateTime && getUpdateTime()
   const updateTime = ts ? `${I18n.t('last_update')} ${ts.format(I18n.t('fully_date'))}` : ''
@@ -19,7 +19,6 @@ const VaccineCard: React.FC = () => {
     <MainCard>
       <View style={styles.cardHeader}>
         <View style={styles.cardHeaderView}>
-          <Image source={require('../../../assets/morprom-icon.png')} width={20} height={20} />
           <Text style={styles.cardHeaderText}>{I18n.t('my_vaccinations_header')}</Text>
         </View>
       </View>
@@ -28,7 +27,6 @@ const VaccineCard: React.FC = () => {
           <View style={styles.cardTextView}>
             <Text style={styles.textNoVaccine}>{I18n.t('no_vac_text_1')}</Text>
             <Text style={styles.textNoVaccine}>{I18n.t('no_vac_text_2')}</Text>
-            <Text style={styles.textNoVaccine}>{I18n.t('no_vac_text_3')}</Text>
           </View>
           <View style={styles.cardButtonView}>
             <TouchableHighlight
@@ -45,10 +43,10 @@ const VaccineCard: React.FC = () => {
         <>
           <View style={styles.textUpdateView}>
             <Text style={styles.textUpdate}>{updateTime}</Text>
-            <ReloadButton onClick={reloadMorprom} />
+            <ReloadButton onClick={reloadVaccine} />
           </View>
           <View style={styles.vaccineListContianer}>
-            <VaccineList data={vaccineList} />
+            <VaccineList data={vaccineList.concat().reverse()} />
           </View>
         </>
       )}
