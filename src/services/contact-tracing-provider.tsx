@@ -1,14 +1,10 @@
 import React, { useContext } from 'react'
-import {
-  NativeEventEmitter,
-  DeviceEventEmitter,
-  NativeModules,
-  Platform,
-} from 'react-native'
+import { NativeEventEmitter, DeviceEventEmitter, NativeModules, Platform } from 'react-native'
 import { requestLocationPermission } from '../utils/Permission'
 import { beaconLookup } from './beacon-lookup'
 import { beaconScanner, bluetoothScanner } from './contact-scanner'
 import BackgroundGeolocation from 'react-native-background-geolocation'
+import BluetoothStateManager from 'react-native-bluetooth-state-manager'
 
 const eventEmitter = new NativeEventEmitter(NativeModules.ContactTracerModule)
 
@@ -31,14 +27,9 @@ interface ContactTracerState {
   disable: () => void
 }
 
-export const ContractTracerContext = React.createContext<ContactTracerState>(
-  null,
-)
+export const ContractTracerContext = React.createContext<ContactTracerState>(null)
 
-export class ContactTracerProvider extends React.Component<
-  ContactTracerProps,
-  ContactTracerState
-> {
+export class ContactTracerProvider extends React.Component<ContactTracerProps, ContactTracerState> {
   private isInited = false
   private statusText = ''
   private beaconLocationName = {}
@@ -152,10 +143,29 @@ export class ContactTracerProvider extends React.Component<
       })
       // For NativeModules.ContactTracerModule.isMultipleAdvertisementSupported()
       .then((supported) => {
-        if (supported)
-          this.appendStatusText('Multitple Advertisement is supported')
+        if (supported) this.appendStatusText('Multitple Advertisement is supported')
         else this.appendStatusText('Multitple Advertisement is NOT supported')
       })
+
+    BluetoothStateManager.onStateChange((bluetoothState) => {
+      switch (bluetoothState) {
+        case 'Unsupported':
+        case 'Unauthorized':
+        case 'PoweredOff':
+          this.setState({
+            isBluetoothOn: false,
+          })
+          break
+        case 'PoweredOn':
+          this.setState({
+            isBluetoothOn: true,
+          })
+          break
+
+        default:
+          break
+      }
+    }, true)
 
     console.log('init complete')
   }
@@ -215,10 +225,7 @@ export class ContactTracerProvider extends React.Component<
     // Register Event Emitter
     if (Platform.OS == 'ios') {
       console.log('add listener')
-      this.advertiserEventSubscription = eventEmitter.addListener(
-        'AdvertiserMessage',
-        this.onAdvertiserMessageReceived,
-      )
+      this.advertiserEventSubscription = eventEmitter.addListener('AdvertiserMessage', this.onAdvertiserMessageReceived)
 
       this.nearbyDeviceFoundEventSubscription = eventEmitter.addListener(
         'NearbyDeviceFound',
@@ -330,11 +337,7 @@ export class ContactTracerProvider extends React.Component<
 
     let oldestBeaconFoundTS = beaconScanner.oldestBeaconFoundTS || 0
     if (Date.now() - oldestBeaconFoundTS > 30 * 1000 || !oldestBeaconFoundTS) {
-      const { anonymousId, name } = await beaconLookup.getBeaconInfo(
-        e.uuid,
-        e.major,
-        e.minor,
-      )
+      const { anonymousId, name } = await beaconLookup.getBeaconInfo(e.uuid, e.major, e.minor)
       if (anonymousId) {
         this.appendStatusText('***** anonymousId: ' + anonymousId)
         this.appendStatusText('***** name: ' + name)

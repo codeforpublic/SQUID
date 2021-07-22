@@ -32,7 +32,7 @@ const mapQrStatusColor = (qr?: SelfQR, qrState?: QR_STATE) =>
 export const MainApp = ({ route }) => {
   const inset = useSafeArea()
   const { qrData, qrState } = useSelfQR()
-  const { beaconLocationName, isServiceEnabled, locationPermissionLevel } = useContactTracer()
+  const { beaconLocationName, isBluetoothOn, locationPermissionLevel } = useContactTracer()
   const [location, setLocation] = useState('')
   const popupRef = useRef<NotificationPopup | any>()
   const activeDotAnim = useRef(new Animated.Value(0)).current
@@ -174,7 +174,7 @@ export const MainApp = ({ route }) => {
             />
             <FontAwesome
               name="bluetooth-b"
-              color={isServiceEnabled ? '#10A7DC' : '#C1C1C1'}
+              color={isBluetoothOn ? '#10A7DC' : '#C1C1C1'}
               size={24}
               style={{ marginRight: 10 }}
             />
