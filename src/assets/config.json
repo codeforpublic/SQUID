@@ -1,5 +1,9 @@
 {
   "url": "co19cert.moph.go.th",
+  "matchers": [
+    ["cid=\\{([^\\}]+)\\}", 1],
+    ["id=\\{([^\\}]+)\\}", 1]
+  ],
   "get_url": "https://co19cert.moph.go.th/moph-backend/api/immunization-stat/get",
   "get_url_method": "post",
   "get_url_body": "{\"cid\":\"{<CID>}\"}",

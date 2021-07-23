@@ -4,10 +4,9 @@ import RNFS from 'react-native-fs'
 import NotificationPopup from 'react-native-push-notification-popup'
 import { useSafeArea } from 'react-native-safe-area-view'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import I18n from '../../../../i18n/i18n'
 import Carousel from '../../../../src/components/Carousel'
 import { CircularProgressAvatar } from '../../../../src/components/CircularProgressAvatar'
-import { useVaccine } from '../../../../src/services/use-vaccine'
+import { getVaccineUserName, useVaccine } from '../../../../src/services/use-vaccine'
 import { userPrivateData } from '../../../../src/state/userPrivateData'
 import { useResetTo } from '../../../../src/utils/navigation'
 import { useContactTracer } from '../../../services/contact-tracing-provider'
@@ -73,7 +72,7 @@ export const MainApp = ({ route }) => {
   let firstName = null
   let lastName = null
   if (vac) {
-    const name = I18n.locale === 'th' ? vac.fullThaiName : vac.fullEngName
+    const name = getVaccineUserName(vac)
     const names = name.split(' ')
 
     lastName = names.pop()

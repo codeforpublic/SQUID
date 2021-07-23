@@ -1,7 +1,7 @@
 import React from 'react'
 import { Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import I18n from '../../../../i18n/i18n'
-import { useVaccine } from '../../../services/use-vaccine'
+import { getVaccineUserName, useVaccine } from '../../../services/use-vaccine'
 import { FONT_BOLD, FONT_FAMILY } from '../../../styles'
 
 const PopupImportVaccine: React.FC<{
@@ -12,7 +12,7 @@ const PopupImportVaccine: React.FC<{
   const { vaccineList } = useVaccine()
   const vaccine = vaccineList && vaccineList[0]
 
-  const name = vaccine ? (I18n.locale === 'th' ? vaccine.fullThaiName : vaccine.fullEngName) : ''
+  const name = vaccine ? getVaccineUserName(vaccine) : ''
 
   return (
     <View style={styles.centeredView}>

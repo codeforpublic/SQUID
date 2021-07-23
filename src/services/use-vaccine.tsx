@@ -39,7 +39,7 @@ const getConfig = async () => {
     try {
       const data = JSON.parse(saveData)
       if (moment().diff(data.ts, 'week') < 4) {
-        _data = data
+        _data = { ...defaultConfig, ...data }
         return _data
       }
     } catch (e) {
@@ -49,12 +49,10 @@ const getConfig = async () => {
 
   const url = process.env.VACCINE_CONFIG || 'https://files.thaialert.com/config.json'
   try {
-    const data = (await axios.get(url)).data
-    data.ts = new Date().toISOString()
-
-    await AsyncStorage.setItem(VACCINE_CONFIG_KEY, JSON.stringify(_data))
-
+    const data = { ...defaultConfig, ...(await axios.get(url)).data, ts: new Date().toISOString() }
     _data = data
+
+    await AsyncStorage.setItem(VACCINE_CONFIG_KEY, JSON.stringify(data))
   } catch (e) {
     console.error('Failed load Vaccine config\n', e)
   }
@@ -74,7 +72,7 @@ const sendVaccineLog = (data: { event: string; cid: string; status?: string; dat
     }),
   })
     .then((res) => res.json())
-    .then()
+    .catch((e) => console.error('sendVaccineLog', e))
 }
 
 const getConfigPath = (path: string, index = '', cid = '') => path.replace('<INDEX>', index).replace('<CID>', cid)
@@ -191,10 +189,16 @@ export const VaccineProvider: React.FC = ({ children }) => {
   const requestVaccine = React.useCallback(
     async (url: string) => {
       sendVaccineLog({ event: 'QRSCAN', cid, data: url })
+      const config = await getConfig()
 
-      const urlParam = url.split('?')[1]
-      const m = decodeURIComponent(urlParam).match(/cid=\{([^}]+)\}/)
-      const id = (m && m[1]) + ''
+      let id = ''
+      for (let matcher of config.matchers) {
+        let idx = matcher[1]
+        let m = url.match(new RegExp('' + matcher[0]))
+        if (m && m[+idx]) {
+          id = m[+idx]
+        }
+      }
 
       return await requestAndSave(id)
     },
@@ -214,4 +218,10 @@ export const VaccineProvider: React.FC = ({ children }) => {
 
 export const useVaccine = () => {
   return useContext(VaccineContext)
+}
+
+export const getVaccineUserName = (vac: Vaccination) => {
+  console.log('getVaccineUserName', vac)
+  return I18n.locale === 'th' ? vac.fullThaiName || vac.fullEngName : vac.fullEngName || vac.fullThaiName
+  // : vac.fullEngName.split(' ').reduce((acc, s, i) => (i === 0 ? acc : acc + (acc && s ? ' ' : '') + s), '') ||
 }
