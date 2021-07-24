@@ -258,7 +258,7 @@ export default {
   days: 'วัน',
   record_found: 'พบข้อมูล',
   vaccination_record_of: 'พบผลการฉีดวัคซีนของ',
-  found_from_mhopromt: 'จาก "หมอพร้อม"',
+  vaccination_found: '',
   import_this_record: 'ให้นำข้อมูล บรรจุและแสดงผลบน หมอชนะ',
   my_vaccinations_header: 'ประวัติการรับวัคซีนป้องกัน COVID-19',
   vaccine_invalid_qrcode_title: 'QR code ไม่ถูกต้อง',

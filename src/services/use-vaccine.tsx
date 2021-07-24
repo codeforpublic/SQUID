@@ -21,12 +21,31 @@ export type Vaccination = {
   complete: boolean
 }
 
+type VaccineContextType = Partial<{
+  cid: string
+  vaccineList: Vaccination[]
+  requestVaccine: (url: string) => Promise<{ status: 'ERROR' | 'SUCCESS'; errorTitle?: string; errorMessage?: string }>
+  getUpdateTime: () => Moment | null
+  reloadVaccine: () => void
+  resetVaccine: () => void
+  isVaccineURL: (url: string) => void
+  getVaccineUserName: (vaccine: Vaccination) => string
+}>
+
 const VACCINE_DATA_KEY = 'vaccineData'
 const VACCINE_CONFIG_KEY = 'vaccineConfig'
 
-let _data = defaultConfig
 const getConfig = async () => {
-  if (_data === defaultConfig) return _data
+  const url = process.env.VACCINE_CONFIG || 'https://files.thaialert.com/config.json'
+  try {
+    const data = { ...defaultConfig, ...(await axios.get(url)).data, ts: new Date().toISOString() }
+    if (data) {
+      await AsyncStorage.setItem(VACCINE_CONFIG_KEY, JSON.stringify(data))
+      return data
+    }
+  } catch (e) {
+    console.error('Failed load Vaccine config\n', e)
+  }
 
   let saveData = null
   try {
@@ -37,27 +56,13 @@ const getConfig = async () => {
 
   if (saveData) {
     try {
-      const data = JSON.parse(saveData)
-      if (moment().diff(data.ts, 'week') < 4) {
-        _data = { ...defaultConfig, ...data }
-        return _data
-      }
+      return { ...defaultConfig, ...JSON.parse(saveData) }
     } catch (e) {
       console.error('Failed to use save Vaccine config\n', e)
     }
   }
 
-  const url = process.env.VACCINE_CONFIG || 'https://files.thaialert.com/config.json'
-  try {
-    const data = { ...defaultConfig, ...(await axios.get(url)).data, ts: new Date().toISOString() }
-    _data = data
-
-    await AsyncStorage.setItem(VACCINE_CONFIG_KEY, JSON.stringify(data))
-  } catch (e) {
-    console.error('Failed load Vaccine config\n', e)
-  }
-
-  return _data
+  return defaultConfig
 }
 
 const sendVaccineLog = (data: { event: string; cid: string; status?: string; data?: any; error?: any }) => {
@@ -104,14 +109,7 @@ const parseVaccineList = (data: any, cid: string, config: typeof defaultConfig) 
   return list
 }
 
-export const isVaccineURL = async (url: string) => {
-  const config = await getConfig()
-  return url && url.includes(config.url)
-}
-
-const requestVaccineData = async (cid: string) => {
-  const config = await getConfig()
-
+const requestVaccineData = async (cid: string, config: typeof defaultConfig) => {
   const method = config.get_url_method
   const url = getConfigPath(config.get_url, '', cid)
   const body = getConfigPath(config.get_url_body, '', cid)
@@ -128,58 +126,79 @@ const requestVaccineData = async (cid: string) => {
   return []
 }
 
-const VaccineContext = createContext<{
-  cid?: string
-  vaccineList?: Vaccination[]
-  requestVaccine?: (url: string) => Promise<{ status: 'ERROR' | 'SUCCESS'; errorTitle?: string; errorMessage?: string }>
-  getUpdateTime?: () => Moment | null
-  reloadVaccine?: () => void
-  resetVaccine?: () => void
-}>({})
+const VaccineContext = createContext<VaccineContextType>({})
 
 export const VaccineProvider: React.FC = ({ children }) => {
   const [[vaccineList, cid, updateTime], setVaccineList] = useState<[Vaccination[], string, string]>([[], '', ''])
+  const [config, setConfig] = useState(defaultConfig)
 
   useEffect(() => {
     AsyncStorage.getItem(VACCINE_DATA_KEY).then((res) => {
       res && setVaccineList(JSON.parse(res))
     })
+    getConfig().then(setConfig)
   }, [])
 
-  const requestAndSave = React.useCallback(async (_cid: string) => {
-    try {
-      const list = await requestVaccineData(_cid)
-      const ts = new Date().toISOString()
-      if (!Array.isArray(list) || !list.length) {
+  const isVaccineURL = React.useCallback(
+    (url: string) => {
+      return url && url.includes(config.url)
+    },
+    [config],
+  )
+
+  const requestAndSave = React.useCallback(
+    async (_cid: string) => {
+      try {
+        const list = await requestVaccineData(_cid, config)
+        const ts = new Date().toISOString()
+        if (!Array.isArray(list) || !list.length) {
+          sendVaccineLog({ event: 'PARSE', status: 'FAILED', cid: _cid })
+          return {
+            status: 'ERROR',
+            errorMessage: I18n.t('vaccine_record_not_found_title'),
+            errorTitle: I18n.t('vaccine_record_not_found_message'),
+          } as const
+        }
+
+        setVaccineList([list, _cid, ts])
+
+        AsyncStorage.setItem(VACCINE_DATA_KEY, JSON.stringify([list, _cid, ts]))
+      } catch (e) {
         sendVaccineLog({ event: 'PARSE', status: 'FAILED', cid: _cid })
         return {
           status: 'ERROR',
-          errorMessage: I18n.t('vaccine_record_not_found_title'),
-          errorTitle: I18n.t('vaccine_record_not_found_message'),
+          errorMessage: I18n.t('vaccine_connection_failed_title'),
+          errorTitle: I18n.t('vaccine_connection_failed_message'),
         } as const
       }
 
-      setVaccineList([list, _cid, ts])
+      sendVaccineLog({ event: 'PARSE', status: 'SUCCESS', cid: _cid })
+      return { status: 'SUCCESS' } as const
+    },
+    [config],
+  )
 
-      AsyncStorage.setItem(VACCINE_DATA_KEY, JSON.stringify([list, _cid, ts]))
-    } catch (e) {
-      sendVaccineLog({ event: 'PARSE', status: 'FAILED', cid: _cid })
-      return {
-        status: 'ERROR',
-        errorMessage: I18n.t('vaccine_connection_failed_title'),
-        errorTitle: I18n.t('vaccine_connection_failed_message'),
-      } as const
+  const getVaccineUserName = (vac: Vaccination) => {
+    if (I18n.locale === 'th') {
+      const pf = vac.fullThaiName ? config.thPrefixName.find((prefix) => vac.fullThaiName?.indexOf(prefix) === 0) : null
+      if (pf && vac.fullThaiName.replace(pf, '').replace('.', '').replace(',', '').trim() === '') {
+        return vac.fullEngName
+      }
+      return vac.fullThaiName
+    } else {
+      const pf = vac.fullEngName ? config.enPrefixName.find((prefix) => vac.fullEngName?.indexOf(prefix) === 0) : null
+      if (pf && vac.fullEngName.replace(pf, '').replace('.', '').replace(',', '').trim() === '') {
+        return vac.fullThaiName
+      }
+      return vac.fullEngName
     }
-
-    sendVaccineLog({ event: 'PARSE', status: 'SUCCESS', cid: _cid })
-    return { status: 'SUCCESS' } as const
-  }, [])
+  }
 
   const resetVaccine = React.useCallback(() => {
-    sendVaccineLog({ event: 'CLEAR', cid })
+    // sendVaccineLog({ event: 'CLEAR', cid })
     setVaccineList([[], '', ''])
     AsyncStorage.removeItem(VACCINE_DATA_KEY)
-  }, [cid])
+  }, [])
 
   const reloadVaccine = React.useCallback(() => {
     sendVaccineLog({ event: 'REFRESH', cid })
@@ -189,20 +208,23 @@ export const VaccineProvider: React.FC = ({ children }) => {
   const requestVaccine = React.useCallback(
     async (url: string) => {
       sendVaccineLog({ event: 'QRSCAN', cid, data: url })
-      const config = await getConfig()
 
       let id = ''
       for (let matcher of config.matchers) {
         let idx = matcher[1]
         let m = url.match(new RegExp('' + matcher[0]))
+        console.log('url', url)
+        console.log('m', m)
+        console.log('id', id)
         if (m && m[+idx]) {
           id = m[+idx]
+          break
         }
       }
 
       return await requestAndSave(id)
     },
-    [requestAndSave, cid],
+    [requestAndSave, cid, config],
   )
 
   const getUpdateTime = React.useCallback(() => {
@@ -210,7 +232,18 @@ export const VaccineProvider: React.FC = ({ children }) => {
   }, [updateTime])
 
   return (
-    <VaccineContext.Provider value={{ vaccineList, requestVaccine, getUpdateTime, cid, reloadVaccine, resetVaccine }}>
+    <VaccineContext.Provider
+      value={{
+        cid,
+        vaccineList,
+        requestVaccine,
+        getUpdateTime,
+        reloadVaccine,
+        resetVaccine,
+        isVaccineURL,
+        getVaccineUserName,
+      }}
+    >
       {children}
     </VaccineContext.Provider>
   )
@@ -218,10 +251,4 @@ export const VaccineProvider: React.FC = ({ children }) => {
 
 export const useVaccine = () => {
   return useContext(VaccineContext)
-}
-
-export const getVaccineUserName = (vac: Vaccination) => {
-  console.log('getVaccineUserName', vac)
-  return I18n.locale === 'th' ? vac.fullThaiName || vac.fullEngName : vac.fullEngName || vac.fullThaiName
-  // : vac.fullEngName.split(' ').reduce((acc, s, i) => (i === 0 ? acc : acc + (acc && s ? ' ' : '') + s), '') ||
 }

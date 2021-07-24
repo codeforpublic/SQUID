@@ -1,9 +1,13 @@
 {
   "url": "co19cert.moph.go.th",
   "matchers": [
-    ["cid=\\{([^\\}]+)\\}", 1],
-    ["id=\\{([^\\}]+)\\}", 1]
+    ["cid={(.+)}", 1],
+    ["cid=%7B(.+)%7D", 1],
+    ["id={(.+)}", 1],
+    ["id=%7B(.+)%7D", 1]
   ],
+  "thPrefixName": ["นาย", "นาง", "นางสาว"],
+  "enPrefixName": ["Mr", "Mrs", "Miss", "Ms", "Mx", "Sir", "Dr", "Lady", "Lord"],
   "get_url": "https://co19cert.moph.go.th/moph-backend/api/immunization-stat/get",
   "get_url_method": "post",
   "get_url_body": "{\"cid\":\"{<CID>}\"}",

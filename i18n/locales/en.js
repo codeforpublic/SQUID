@@ -256,7 +256,7 @@ export default {
   bluetooth_disable_alert_accept: 'Disable Bluetooth Contact Tracing',
   record_found: 'Record found',
   vaccination_record_of: 'Vaccination record of',
-  found_from_mhopromt: 'found',
+  vaccination_found: 'found',
   import_this_record: 'Import this record?',
   no_vac_text_1: 'Import your vaccination record by scanning',
   no_vac_text_2: 'from a compatible QR code',

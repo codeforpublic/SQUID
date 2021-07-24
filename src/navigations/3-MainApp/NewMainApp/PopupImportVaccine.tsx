@@ -1,7 +1,7 @@
 import React from 'react'
 import { Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import I18n from '../../../../i18n/i18n'
-import { getVaccineUserName, useVaccine } from '../../../services/use-vaccine'
+import { useVaccine } from '../../../services/use-vaccine'
 import { FONT_BOLD, FONT_FAMILY } from '../../../styles'
 
 const PopupImportVaccine: React.FC<{
@@ -9,10 +9,10 @@ const PopupImportVaccine: React.FC<{
   modalVisible: boolean
   setModalVisible: (visible: boolean) => void
 }> = ({ onSelect, modalVisible, setModalVisible }) => {
-  const { vaccineList } = useVaccine()
+  const { vaccineList, getVaccineUserName } = useVaccine()
   const vaccine = vaccineList && vaccineList[0]
 
-  const name = vaccine ? getVaccineUserName(vaccine) : ''
+  const name = vaccine && getVaccineUserName ? getVaccineUserName(vaccine) : ''
 
   return (
     <View style={styles.centeredView}>
@@ -31,7 +31,7 @@ const PopupImportVaccine: React.FC<{
             <Text style={styles.description}>
               {I18n.t('vaccination_record_of')}
               {`\n${name}\n`}
-              {I18n.t('found_from_mhopromt')}
+              {I18n.t('vaccination_found')}
               {'\n\n'}
               {I18n.t('import_this_record')}
             </Text>

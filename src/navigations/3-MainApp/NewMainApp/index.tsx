@@ -6,7 +6,7 @@ import { useSafeArea } from 'react-native-safe-area-view'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Carousel from '../../../../src/components/Carousel'
 import { CircularProgressAvatar } from '../../../../src/components/CircularProgressAvatar'
-import { getVaccineUserName, useVaccine } from '../../../../src/services/use-vaccine'
+import { useVaccine } from '../../../../src/services/use-vaccine'
 import { userPrivateData } from '../../../../src/state/userPrivateData'
 import { useResetTo } from '../../../../src/utils/navigation'
 import { useContactTracer } from '../../../services/contact-tracing-provider'
@@ -35,7 +35,7 @@ export const MainApp = ({ route }) => {
   const [location, setLocation] = useState('')
   const popupRef = useRef<NotificationPopup | any>()
   const activeDotAnim = useRef(new Animated.Value(0)).current
-  const { vaccineList } = useVaccine()
+  const { vaccineList, getVaccineUserName } = useVaccine()
   const { card } = route?.params || { card: 0 }
 
   const windowWidth = Dimensions.get('window').width
@@ -72,10 +72,10 @@ export const MainApp = ({ route }) => {
   let firstName = null
   let lastName = null
   if (vac) {
-    const name = getVaccineUserName(vac)
+    const name = getVaccineUserName ? getVaccineUserName(vac) : ''
     const names = name.split(' ')
 
-    lastName = names.pop()
+    lastName = names.pop() || ''
     firstName = names.join(' ')
   }
 
