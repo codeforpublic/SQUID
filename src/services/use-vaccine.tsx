@@ -179,18 +179,37 @@ export const VaccineProvider: React.FC = ({ children }) => {
   )
 
   const getVaccineUserName = (vac: Vaccination) => {
+    let unusedString = [',', '.']
+
+    function removePrefixName(name: string, prefixNames: string[]) {
+      function compare(pf: string) {
+        return name.toLocaleLowerCase().indexOf(pf.toLocaleLowerCase()) === 0
+      }
+      const prefix = prefixNames.find(compare)
+      if (prefix) {
+        name = name.replace(prefix, '')
+      }
+      for (let char of unusedString) {
+        name = name.replace(char, '')
+      }
+      return name.trim()
+    }
+
+    const thaiName = removePrefixName(vac.fullThaiName || '', config.thPrefixName)
+    const engName = removePrefixName(vac.fullEngName || '', config.enPrefixName)
+
     if (I18n.locale === 'th') {
-      const pf = vac.fullThaiName ? config.thPrefixName.find((prefix) => vac.fullThaiName?.indexOf(prefix) === 0) : null
-      if (pf && vac.fullThaiName.replace(pf, '').replace('.', '').replace(',', '').trim() === '') {
-        return vac.fullEngName
+      if (thaiName) {
+        return thaiName
+      } else {
+        return engName
       }
-      return vac.fullThaiName
     } else {
-      const pf = vac.fullEngName ? config.enPrefixName.find((prefix) => vac.fullEngName?.indexOf(prefix) === 0) : null
-      if (pf && vac.fullEngName.replace(pf, '').replace('.', '').replace(',', '').trim() === '') {
-        return vac.fullThaiName
+      if (engName) {
+        return engName
+      } else {
+        return thaiName
       }
-      return vac.fullEngName
     }
   }
 
