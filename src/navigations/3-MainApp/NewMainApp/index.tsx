@@ -79,6 +79,8 @@ export const MainApp = ({ route }) => {
     firstName = names.join(' ')
   }
 
+  let profileStyle = { justifyContent: firstName || lastName ? 'flex-start' : 'center' } as const
+
   const vaccineNumber = vaccineList?.length
 
   const generateCircularTransform = (
@@ -164,7 +166,7 @@ export const MainApp = ({ route }) => {
             //     `${qrData.getCreatedDate().format(I18n.t('fully_date'))}`}
             // </Text>
           }
-          <View style={{ flexDirection: 'row', paddingTop: 10, height: 45 }}>
+          <View style={{ flexDirection: 'row', paddingTop: 16, height: 45 }}>
             <FontAwesome
               name="map-marker"
               color={locationPermissionLevel === 3 ? '#10A7DC' : '#C1C1C1'}
@@ -180,7 +182,7 @@ export const MainApp = ({ route }) => {
             {/* {isServiceEnabled ? <View style={styles.greenDot} /> : null} */}
           </View>
         </View>
-        <View style={styles.profileHeader}>
+        <View style={[styles.profileHeader, profileStyle]}>
           <View style={styles.profileContainer}>
             {qrData && qrState && (
               <>
@@ -276,7 +278,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginTop: 5,
     alignItems: 'center',
-    justifyContent: 'center',
   },
   profileContainer: {
     flexDirection: 'column',
