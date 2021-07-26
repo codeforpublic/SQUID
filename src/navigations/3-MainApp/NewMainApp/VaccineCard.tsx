@@ -203,12 +203,12 @@ const styles = StyleSheet.create({
   textNoVaccine: {
     marginTop: 10,
     color: '#808080',
-    fontSize: 116,
+    fontSize: 20,
     fontFamily: FONT_FAMILY,
   },
   textScanButton: {
     color: '#FFFFFF',
-    fontSize: FONT_SIZES[400] * 0.83,
+    fontSize: 20,
     fontFamily: FONT_FAMILY,
   },
   ButtonScan: {
@@ -220,7 +220,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E4E87',
   },
   textUpdateView: {
+    marginTop: 12,
     flexDirection: 'row',
+    alignItems: 'center',
   },
 })
 export default VaccineCard

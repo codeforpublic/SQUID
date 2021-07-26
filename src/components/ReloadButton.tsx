@@ -13,15 +13,6 @@ const ReloadButton: React.FC<{ onClick?: () => void }> = ({ onClick }) => {
 
 const styles = StyleSheet.create({
   reloadButton: {
-    marginVertical: 5,
-    backgroundColor: 'white',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 2.56,
     width: 24,
     height: 24,
     flexDirection: 'row',

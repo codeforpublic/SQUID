@@ -163,12 +163,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   updateView: {
+    marginTop: 12,
     flexDirection: 'row',
+    alignItems: 'center',
   },
   textUpdate: {
     fontFamily: FONT_FAMILY,
     fontSize: 20,
-    marginTop: 10,
     marginRight: 5,
     color: '#222222',
   },
