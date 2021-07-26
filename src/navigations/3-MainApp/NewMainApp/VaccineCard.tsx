@@ -6,7 +6,7 @@ import I18n from '../../../../i18n/i18n'
 import MainCard from '../../../components/MainCard'
 import ReloadButton from '../../../components/ReloadButton'
 import { useVaccine, Vaccination } from '../../../services/use-vaccine'
-import { FONT_BOLD, FONT_SIZES } from '../../../styles'
+import { FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../../styles'
 
 const VaccineCard: React.FC = () => {
   const navigation = useNavigation()
@@ -133,6 +133,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginRight: 10,
     color: '#222222',
+    fontFamily: FONT_FAMILY,
+    fontSize: 20,
   },
   listView: {
     flex: 1,
@@ -162,18 +164,21 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   dayTextContainer: {
+    fontFamily: FONT_FAMILY,
     flexDirection: 'row',
     alignItems: 'flex-end',
   },
   dayText: {
+    fontFamily: FONT_BOLD,
     fontSize: 52,
-    fontWeight: 'bold',
     color: '#1E4E87',
   },
   daySuffix: {
+    fontFamily: FONT_FAMILY,
     fontSize: FONT_SIZES[500],
     color: '#1E4E87',
-    marginBottom: 6,
+    marginLeft: 8,
+    marginBottom: 12,
   },
   vaccineListContianer: {
     width: '100%',
@@ -184,23 +189,27 @@ const styles = StyleSheet.create({
     height: 20,
   },
   vaccineNo: {
-    fontSize: FONT_SIZES[500],
+    fontFamily: FONT_FAMILY,
+    fontSize: 24,
     fontWeight: 'bold',
     lineHeight: 30,
   },
   vaccineInfo: {
-    fontSize: FONT_SIZES[400],
+    fontFamily: FONT_FAMILY,
+    fontSize: 22,
     color: '#808080',
     lineHeight: 25,
   },
   textNoVaccine: {
     marginTop: 10,
     color: '#808080',
-    fontSize: FONT_SIZES[500] * 0.7,
+    fontSize: 116,
+    fontFamily: FONT_FAMILY,
   },
   textScanButton: {
     color: '#FFFFFF',
     fontSize: FONT_SIZES[400] * 0.83,
+    fontFamily: FONT_FAMILY,
   },
   ButtonScan: {
     borderRadius: 5,

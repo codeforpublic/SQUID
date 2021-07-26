@@ -12,7 +12,7 @@ import { useResetTo } from '../../../../src/utils/navigation'
 import { useContactTracer } from '../../../services/contact-tracing-provider'
 import { pushNotification } from '../../../services/notification'
 import { QR_STATE, SelfQR, useSelfQR } from '../../../state/qr'
-import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../../styles'
+import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../../styles'
 import { BeaconFoundPopupContent } from '../BeaconFoundPopup'
 import QRCard from './QRCard'
 import { UpdateProfileButton } from './UpdateProfileButton'
@@ -301,14 +301,15 @@ const styles = StyleSheet.create({
   },
   firstNameText: {
     color: '#222222',
-    fontSize: FONT_SIZES[850],
-    fontWeight: 'bold',
+    fontFamily: FONT_BOLD,
+    fontSize: 40,
     paddingTop: 3,
     width: '100%',
   },
   lastNameText: {
     color: '#222222',
-    fontSize: FONT_SIZES[700],
+    fontFamily: FONT_FAMILY,
+    fontSize: 28,
     fontWeight: 'normal',
     width: '100%',
   },
@@ -316,6 +317,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   vaccineText: {
+    fontFamily: FONT_FAMILY,
     fontWeight: 'bold',
     position: 'absolute',
     color: '#26C8FF',

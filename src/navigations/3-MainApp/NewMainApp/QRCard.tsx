@@ -67,7 +67,8 @@ const RiskLabel = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE; onRefreshQR
   return (
     <Text
       style={{
-        fontSize: FONT_SIZES[400],
+        fontFamily: FONT_FAMILY,
+        fontSize: 22,
       }}
     >
       {label}
@@ -165,6 +166,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   textUpdate: {
+    fontFamily: FONT_FAMILY,
+    fontSize: 20,
     marginTop: 10,
     marginRight: 5,
     color: '#222222',
