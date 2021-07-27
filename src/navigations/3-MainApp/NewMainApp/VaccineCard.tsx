@@ -164,13 +164,15 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   dayTextContainer: {
-    fontFamily: FONT_FAMILY,
     flexDirection: 'row',
     alignItems: 'flex-end',
+    position: 'absolute',
+    right: 0,
+    top: -12,
   },
   dayText: {
     fontFamily: FONT_BOLD,
-    fontSize: 52,
+    fontSize: 72,
     color: '#1E4E87',
   },
   daySuffix: {
@@ -178,7 +180,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES[500],
     color: '#1E4E87',
     marginLeft: 8,
-    marginBottom: 12,
+    marginBottom: 22,
   },
   vaccineListContianer: {
     width: '100%',
@@ -189,9 +191,8 @@ const styles = StyleSheet.create({
     height: 20,
   },
   vaccineNo: {
-    fontFamily: FONT_FAMILY,
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: FONT_BOLD,
+    fontSize: 26,
     lineHeight: 30,
   },
   vaccineInfo: {

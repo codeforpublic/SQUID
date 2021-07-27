@@ -31,7 +31,7 @@ const QRCard: React.FC = () => {
         <ReloadButton onClick={refreshQR} />
       </View>
 
-      <View style={styles.flex1}>
+      <View style={styles.cardContent}>
         <QRImage qr={qrData} qrState={qrState} onRefreshQR={refreshQR} />
       </View>
       <View style={styles.cardFooter}>
@@ -159,7 +159,8 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     maxHeight: 350,
   },
-  flex1: {
+  cardContent: {
+    backgroundColor: '#FFF',
     flex: 1,
   },
   updateView: {

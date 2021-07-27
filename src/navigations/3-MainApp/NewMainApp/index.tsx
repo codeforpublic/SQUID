@@ -35,10 +35,9 @@ const mapQrStatusColor = (qr?: SelfQR, qrState?: QR_STATE) =>
     : COLORS.GRAY_2
 
 export const MainApp = ({ route }) => {
-  const [triggerGps, setTriggerGps] = useState<number>(0)
   const inset = useSafeArea()
   const { qrData, qrState } = useSelfQR()
-  const { beaconLocationName, isBluetoothOn } = useContactTracer()
+  const { beaconLocationName, isBluetoothOn, locationPermissionLevel } = useContactTracer()
   const [location, setLocation] = useState('')
   const popupRef = useRef<NotificationPopup | any>()
   const activeDotAnim = useRef(new Animated.Value(0)).current
@@ -47,11 +46,27 @@ export const MainApp = ({ route }) => {
 
   const windowWidth = Dimensions.get('window').width
 
-  useEffect(() => {
+  const [triggerGps, setTriggerGps] = useState<number>(0)
+  const gpsRef = React.useRef({ triggerGps, locationPermissionLevel, loading: false })
+  const requestGPS = React.useCallback(() => {
+    if (gpsRef.current.loading) return
+    gpsRef.current.loading = true
+
     GPSState.getStatus().then((status: number) => {
-      setTriggerGps(status)
+      gpsRef.current.loading = false
+
+      if (gpsRef.current.triggerGps !== status) {
+        gpsRef.current.triggerGps = status
+        setTriggerGps(status)
+      }
     })
-  })
+  }, [])
+
+  if (gpsRef.current.locationPermissionLevel !== locationPermissionLevel) {
+    gpsRef.current.locationPermissionLevel = locationPermissionLevel
+    requestGPS()
+  }
+  useEffect(requestGPS)
 
   useEffect(() => {
     setLocation(beaconLocationName.name)
@@ -331,14 +346,13 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   vaccineText: {
-    fontFamily: FONT_FAMILY,
-    fontWeight: 'bold',
+    fontFamily: FONT_BOLD,
     position: 'absolute',
     color: '#26C8FF',
     opacity: 0.2,
-    fontSize: 115,
+    fontSize: 135,
     right: 0,
-    bottom: -25,
+    bottom: -40,
   },
   flex1: {
     flex: 1,
