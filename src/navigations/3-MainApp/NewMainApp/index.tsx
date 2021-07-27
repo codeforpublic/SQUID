@@ -18,6 +18,7 @@ import QRCard from './QRCard'
 import { UpdateProfileButton } from './UpdateProfileButton'
 import VaccineCard from './VaccineCard'
 import WorkFromHomeCard from './WorkFromHomeCard'
+import GPSState from 'react-native-gps-state'
 
 const carouselItems = ['qr', 'vaccine'] //, 'wfh']
 
@@ -29,9 +30,10 @@ const mapQrStatusColor = (qr?: SelfQR, qrState?: QR_STATE) =>
     : COLORS.GRAY_2
 
 export const MainApp = ({ route }) => {
+  const [triggerGps, setTriggerGps] = useState<number>(0)
   const inset = useSafeArea()
   const { qrData, qrState } = useSelfQR()
-  const { beaconLocationName, isBluetoothOn, locationPermissionLevel } = useContactTracer()
+  const { beaconLocationName, isBluetoothOn } = useContactTracer()
   const [location, setLocation] = useState('')
   const popupRef = useRef<NotificationPopup | any>()
   const activeDotAnim = useRef(new Animated.Value(0)).current
@@ -39,6 +41,12 @@ export const MainApp = ({ route }) => {
   const { card } = route?.params || { card: 0 }
 
   const windowWidth = Dimensions.get('window').width
+
+  useEffect(() => {
+    GPSState.getStatus().then((status: number) => {
+      setTriggerGps(status)
+    })
+  })
 
   useEffect(() => {
     setLocation(beaconLocationName.name)
@@ -169,7 +177,7 @@ export const MainApp = ({ route }) => {
           <View style={{ flexDirection: 'row', paddingTop: 16, height: 45 }}>
             <FontAwesome
               name="map-marker"
-              color={locationPermissionLevel === 3 ? '#10A7DC' : '#C1C1C1'}
+              color={triggerGps === 3 ? '#10A7DC' : '#C1C1C1'}
               size={24}
               style={{ marginRight: 10 }}
             />
