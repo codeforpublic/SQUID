@@ -1,9 +1,13 @@
+import I18n from 'i18n-js'
+import moment from 'moment'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Animated, Dimensions, Easing, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
+import { Alert, Animated, Dimensions, Easing, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import RNFS from 'react-native-fs'
 import NotificationPopup from 'react-native-push-notification-popup'
 import { useSafeArea } from 'react-native-safe-area-view'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import { useNavigation } from 'react-navigation-hooks'
+import { applicationState, useApplicationState } from '../../../../src/state/app-state'
 import Carousel from '../../../../src/components/Carousel'
 import { CircularProgressAvatar } from '../../../../src/components/CircularProgressAvatar'
 import { useVaccine } from '../../../../src/services/use-vaccine'
@@ -20,7 +24,8 @@ import VaccineCard from './VaccineCard'
 import WorkFromHomeCard from './WorkFromHomeCard'
 
 const carouselItems = ['qr', 'vaccine'] //, 'wfh']
-
+// Can change up to 3 picture a week.
+export const MAX_CHANGE_PROFILE_LIMIT = 3
 const mapQrStatusColor = (qr?: SelfQR, qrState?: QR_STATE) =>
   qr
     ? qr.getStatusColor()
@@ -364,9 +369,55 @@ const AvatarProfile = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE }) => {
     bottom: Math.floor((4 / 100) * avatarWidth),
     right: Math.floor((4 / 100) * avatarWidth),
   } as const
+  const navigation = useNavigation()
+  let [{ updateProfileDate, changeCount }] = useApplicationState()
 
+  const today = moment()
+  const isSameWeek = today.isSame(updateProfileDate || new Date().toISOString(), 'weeks')
+  const days = moment().endOf('weeks').diff(today, 'days')
+  const isLock = (changeCount || 0) >= MAX_CHANGE_PROFILE_LIMIT && isSameWeek
   return (
-    <TouchableWithoutFeedback>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        if (isLock) {
+          Alert.alert(
+            I18n.t('can_not_change_picture'),
+            I18n.t('can_change_pic_again_in') + (days || 1) + I18n.t('day_s'),
+          )
+        } else {
+          navigation.navigate('MainAppFaceCamera', {
+            setUri: (uri: string) => {
+              applicationState.setData2({
+                changeCount: (changeCount || 0) + 1,
+                updateProfileDate: new Date().toISOString(),
+              })
+              setFaceURI(uri)
+            },
+            // setUri: (uri) => {
+            //   if (daySinceCreated >= 3) {
+            //     Alert.alert(
+            //       I18n.t('are_you_sure'),
+            //       `${I18n.t(
+            //         'after_changed_pic_you_will_not_be_able_to_change_until',
+            //       )} ${DEFAULT_PERIODS} ${I18n.t('day_s_have_passed')}`,
+            //       [
+            //         { text: I18n.t('cancel'), style: 'cancel' },
+            //         {
+            //           text: I18n.t('confirm'),
+            //           onPress: () => {
+            //             onChange(uri)
+            //           },
+            //         },
+            //       ],
+            //     )
+            //   } else {
+            //     onChange(uri)
+            //   }
+            // },
+          })
+        }
+      }}
+    >
       <View>
         <CircularProgressAvatar
           key={qr ? qr.getCreatedDate() : 0}
