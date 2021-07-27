@@ -221,7 +221,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E4E87',
   },
   textUpdateView: {
-    marginTop: 12,
     flexDirection: 'row',
     alignItems: 'center',
   },

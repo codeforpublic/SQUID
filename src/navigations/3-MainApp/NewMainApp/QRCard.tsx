@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   updateView: {
-    marginTop: 12,
+    marginTop: 8,
     flexDirection: 'row',
     alignItems: 'center',
   },
