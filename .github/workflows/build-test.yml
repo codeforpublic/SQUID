@@ -18,7 +18,7 @@ jobs:
     - name: Setup Node.js environment
       uses: actions/setup-node@v2
       with:
-        node-version: '10'
+        node-version: '12'
         check-latest: true
     # Runs a set of commands using the runners shell
       
