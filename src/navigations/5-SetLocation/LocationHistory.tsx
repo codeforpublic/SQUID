@@ -20,7 +20,7 @@ import moment from 'moment'
 import { LocationMode } from './const'
 import I18n from '../../../i18n/i18n'
 
-export const LocationHistory = ({ navigation }) => {
+export const LocationHistory = ({ navigation, route }) => {
   const scroll = useRef<any>(null)
   const webviewRef = useRef<WebView>()
   const [mode, setMode] = useState<LocationMode | null>(null)
@@ -32,7 +32,7 @@ export const LocationHistory = ({ navigation }) => {
   }, [navigation])
 
   const loadLocation = useCallback(() => {
-    const mode = navigation.state.params.mode
+    const mode = route.params.mode
     if (mode) {
       setMode(mode)
       AsyncStorage.getItem(mode).then((response) => {
@@ -43,15 +43,10 @@ export const LocationHistory = ({ navigation }) => {
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigation.state.params.mode])
+  }, [route.params.mode])
 
   useEffect(() => {
-    if (
-      webviewRef &&
-      webviewRef.current &&
-      Array.isArray(locations) &&
-      locations.length > 0
-    ) {
+    if (webviewRef && webviewRef.current && Array.isArray(locations) && locations.length > 0) {
       setTimeout(() => {
         setCoordinate(locations[0])
       }, 1000)
@@ -125,20 +120,10 @@ export const LocationHistory = ({ navigation }) => {
 
   const getPinComponent = (selected: boolean): JSX.Element => {
     if (selected) {
-      return (
-        <Image
-          resizeMode="contain"
-          style={{ height: 40 }}
-          source={require('../../assets/icons/pin-blue.png')}
-        />
-      )
+      return <Image resizeMode='contain' style={{ height: 40 }} source={require('../../assets/icons/pin-blue.png')} />
     }
     return (
-      <Image
-        resizeMode="contain"
-        style={{ height: 40 }}
-        source={require('../../assets/icons/pin-blue-white.png')}
-      />
+      <Image resizeMode='contain' style={{ height: 40 }} source={require('../../assets/icons/pin-blue-white.png')} />
     )
   }
 
@@ -150,9 +135,7 @@ export const LocationHistory = ({ navigation }) => {
     if (index === 0) {
       return (
         <Text style={styles.textTitleLastPin}>
-          {mode === 'OFFICE-LIST'
-            ? I18n.t('lasted_office_location')
-            : I18n.t('lasted_home_location')}
+          {mode === 'OFFICE-LIST' ? I18n.t('lasted_office_location') : I18n.t('lasted_home_location')}
         </Text>
       )
     }
@@ -189,11 +172,7 @@ export const LocationHistory = ({ navigation }) => {
           white
           whiteLogo
           style={[styles.flexContainer, styles.paddingTop]}
-          title={
-            coordinate?.name ||
-            navigation.state.params.title ||
-            displayLatitudeLongitude(coordinate)
-          }
+          title={coordinate?.name || route.params.title || displayLatitudeLongitude(coordinate)}
         >
           <View style={styles.container} />
           <View style={styles.formContainer}>
@@ -219,7 +198,7 @@ export const LocationHistory = ({ navigation }) => {
             return (
               <View style={styles.separatorBox}>
                 <Image
-                  resizeMode="contain"
+                  resizeMode='contain'
                   style={styles.separator}
                   source={require('../../assets/icons/arrow_right_black.png')}
                 />
@@ -247,7 +226,7 @@ export const LocationHistory = ({ navigation }) => {
                       {getPinComponent(selected)}
                       {index === 0 ? (
                         <Image
-                          resizeMode="contain"
+                          resizeMode='contain'
                           style={styles.imageHome}
                           source={require('../../assets/icons/icon-home.png')}
                         />
@@ -257,9 +236,7 @@ export const LocationHistory = ({ navigation }) => {
                     </View>
                     <View>
                       {getTitleLocation(index)}
-                      <Text style={styles.textLocationName}>
-                        {location.name || displayLatitudeLongitude(location)}
-                      </Text>
+                      <Text style={styles.textLocationName}>{location.name || displayLatitudeLongitude(location)}</Text>
                     </View>
                   </View>
                 </TouchableOpacity>

@@ -3,7 +3,7 @@ import { MyBackground } from '../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar, View, Text, StyleSheet, ScrollView } from 'react-native'
 import { PrimaryButton } from '../components/Button'
-import { useNavigation } from 'react-navigation-hooks'
+import { useNavigation } from '@react-navigation/native'
 import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../styles'
 import { CheckBox, normalize } from 'react-native-elements'
 import { FormHeader } from '../components/Form/FormHeader'
@@ -16,8 +16,8 @@ export const PrivacyPolicy = () => {
   const [agree, setAgree] = useState(false)
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={'white'} barStyle="dark-content" />
-      <FormHeader backIcon="close">
+      <StatusBar backgroundColor={'white'} barStyle='dark-content' />
+      <FormHeader backIcon='close'>
         <View style={styles.header}>
           <Text style={styles.title}>{I18n.t('privacy_policy')} </Text>
           <Text style={styles.subtitle}>{I18n.t('for_using_service')}</Text>

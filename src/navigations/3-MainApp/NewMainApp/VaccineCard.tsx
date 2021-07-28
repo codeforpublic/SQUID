@@ -1,7 +1,7 @@
 import moment from 'moment'
 import React from 'react'
 import { FlatList, Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
-import { useNavigation } from 'react-navigation-hooks'
+import { useNavigation } from '@react-navigation/native'
 import I18n from '../../../../i18n/i18n'
 import MainCard from '../../../components/MainCard'
 import ReloadButton from '../../../components/ReloadButton'
@@ -32,7 +32,7 @@ const VaccineCard: React.FC = () => {
             <TouchableHighlight
               style={styles.ButtonScan}
               activeOpacity={0.6}
-              underlayColor="#DDDDDD"
+              underlayColor='#DDDDDD'
               onPress={() => navigation.navigate('QRCodeScan')}
             >
               <Text style={styles.textScanButton}>{I18n.t('scan_qr_button')}</Text>
@@ -73,7 +73,7 @@ const VaccineList = ({ data }: { data: Vaccination[] }) => {
               <Image
                 source={require('../../../assets/vaccine-shot.png')}
                 style={styles.vaccineImage}
-                resizeMode="contain"
+                resizeMode='contain'
               />
             </View>
             <View style={styles.informationView}>

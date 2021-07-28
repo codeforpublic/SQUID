@@ -2,7 +2,7 @@ import styled from '@emotion/native'
 import React, { useCallback, useEffect, useState, useMemo } from 'react'
 import { Dimensions, ScrollView, StatusBar, StyleSheet, Text, View, BackHandler } from 'react-native'
 import { useSafeArea } from 'react-native-safe-area-context'
-import { useIsFocused } from 'react-navigation-hooks'
+import { useIsFocused } from '@react-navigation/native'
 import { updateUserData } from '../../api'
 import { PrimaryButton } from '../../components/Button'
 import { FormHeader } from '../../components/Form/FormHeader'
@@ -13,7 +13,7 @@ import { applicationState } from '../../state/app-state'
 import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import { getDataInputTable } from './form-input'
 
-import I18n from '../../../i18n/i18n';
+import I18n from '../../../i18n/i18n'
 
 const padding = normalize(18)
 
@@ -24,7 +24,7 @@ const Container = styled(View)({
 const Footer = styled(View)({
   alignItems: 'center',
   marginVertical: 12,
-  paddingHorizontal: padding
+  paddingHorizontal: padding,
 })
 
 export const FormDataInput = ({
@@ -48,14 +48,7 @@ export const FormDataInput = ({
     )
   }
   if (di.inputType === 'Select') {
-    return (
-      <QuestionaireSelect
-        options={di.options}
-        value={value}
-        defaultValue={di.defaultValue}
-        onChange={setValue}
-      />
-    )
+    return <QuestionaireSelect options={di.options} value={value} defaultValue={di.defaultValue} onChange={setValue} />
   }
   throw new Error('not FormInput type')
 }
@@ -66,11 +59,7 @@ interface ProgressProps {
   height: number
   width?: number | string
 }
-const Progress = ({
-  style = {},
-  progress = 0.5,
-  height = 8,
-}: ProgressProps) => {
+const Progress = ({ style = {}, progress = 0.5, height = 8 }: ProgressProps) => {
   return (
     <View
       style={{
@@ -94,15 +83,12 @@ const Progress = ({
 
 const FormBackHandler = ({ onBack }) => {
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      () => {
-        onBack()
-        return true
-      }
-    )
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      onBack()
+      return true
+    })
 
-    return () => backHandler.remove();
+    return () => backHandler.remove()
   }, [onBack])
   return null
 }
@@ -158,21 +144,11 @@ export const QuestionaireForm = ({ navigation }) => {
   return (
     <Container>
       {isFocused ? <FormBackHandler onBack={onBack} /> : null}
-      <StatusBar
-        backgroundColor={COLORS.WHITE}
-        barStyle="dark-content"
-      />
-      <FormHeader
-        style={{ backgroundColor: 'white', paddingTop: inset.top }}
-        onBack={onBack}
-      >
+      <StatusBar backgroundColor={COLORS.WHITE} barStyle='dark-content' />
+      <FormHeader style={{ backgroundColor: 'white', paddingTop: inset.top }} onBack={onBack}>
         <View style={styles.header}>
           <Text style={styles.title}>{di.title}</Text>
-          {di.subtitle ? (
-            <Text style={styles.subtitle}>{di.subtitle}</Text>
-          ) : (
-            void 0
-          )}
+          {di.subtitle ? <Text style={styles.subtitle}>{di.subtitle}</Text> : void 0}
           <View
             style={{
               flexDirection: 'row',
@@ -180,16 +156,10 @@ export const QuestionaireForm = ({ navigation }) => {
               marginTop: 16,
             }}
           >
-            <Text
-              style={{ fontFamily: FONT_BOLD, color:'#C4CCD4', marginRight: 12, fontSize: FONT_SIZES[500] }}
-            >
+            <Text style={{ fontFamily: FONT_BOLD, color: '#C4CCD4', marginRight: 12, fontSize: FONT_SIZES[500] }}>
               {index + 1} / {dataInputTable.length}
             </Text>
-            <Progress
-              height={8}
-              style={{ flex: 1 }}
-              progress={(index + 1) / dataInputTable.length}
-            />
+            <Progress height={8} style={{ flex: 1 }} progress={(index + 1) / dataInputTable.length} />
           </View>
         </View>
       </FormHeader>
@@ -199,19 +169,12 @@ export const QuestionaireForm = ({ navigation }) => {
           borderTopColor: '#E3F4FF',
           borderTopWidth: 1,
         }}
-        contentContainerStyle={{ justifyContent: 'center'  }}
+        contentContainerStyle={{ justifyContent: 'center' }}
       >
-        {di ? (
-          <FormDataInput
-            key={di.id}
-            di={di}
-            setValue={setValue}
-            value={value}
-          />
-        ) : null}
-        {fixedFooter? null: footer}
+        {di ? <FormDataInput key={di.id} di={di} setValue={setValue} value={value} /> : null}
+        {fixedFooter ? null : footer}
       </ScrollView>
-      {fixedFooter? footer: null}
+      {fixedFooter ? footer : null}
     </Container>
   )
 }

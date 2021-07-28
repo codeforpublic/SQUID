@@ -8,10 +8,7 @@ if (!fs.existsSync(__dirname + '/../ios/ThaiAlert/AppCenter-Config.plist')) {
 }
 
 if (!fs.existsSync(__dirname + '/../ios/sentry.properties')) {
-  fs.copyFileSync(
-    __dirname + '/../ios/sentry.properties.example',
-    __dirname + '/../ios/sentry.properties',
-  )
+  fs.copyFileSync(__dirname + '/../ios/sentry.properties.example', __dirname + '/../ios/sentry.properties')
 }
 if (!fs.existsSync(__dirname + '/../android/app/google-services.json')) {
   fs.copyFileSync(

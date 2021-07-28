@@ -1,17 +1,16 @@
-import { createStackNavigator } from 'react-navigation'
+import React from 'react'
+import { createStackNavigator } from '@react-navigation/stack'
 import { LocationHistory } from './LocationHistory'
 import { SetLocationHome } from './SetLocationHome'
-// import { SetLocationMap } from './SetLocationMap'
 import { SetLocationMapWebView } from './SetLocationMapWebView'
 
-export const SetLocationStack = createStackNavigator(
-  {
-    LocationHistory: LocationHistory,
-    SetLocationHome: SetLocationHome,
-    // SetLocationMap: SetLocationMap,
-    SetLocationTemplate: SetLocationMapWebView,
-  },
-  {
-    headerMode: 'none',
-  },
-)
+const Stack = createStackNavigator()
+export const SetLocationStack = () => {
+  return (
+    <Stack.Navigator headerMode='none'>
+      <Stack.Screen name='LocationHistory' component={LocationHistory} />
+      <Stack.Screen name='SetLocationHome' component={SetLocationHome} />
+      <Stack.Screen name='SetLocationTemplate' component={SetLocationMapWebView} />
+    </Stack.Navigator>
+  )
+}

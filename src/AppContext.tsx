@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
 interface ContextType {
   [name: string]: any
 }
 
-export const AppContext = React.createContext<ContextType>({});
+export const AppContext = React.createContext<ContextType>({})

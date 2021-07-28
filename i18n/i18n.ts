@@ -15,10 +15,7 @@ function getSystemLocale() {
       NativeModules.SettingsManager.settings.AppleLocale ||
       NativeModules.SettingsManager.settings.AppleLanguages[0] ||
       ''
-    console.log(
-      'Apple Locale',
-      NativeModules.SettingsManager.settings.AppleLocale,
-    )
+    console.log('Apple Locale', NativeModules.SettingsManager.settings.AppleLocale)
   } else {
     locale = NativeModules.I18nManager.localeIdentifier || ''
     console.log('Android Locale', locale)

@@ -32,6 +32,7 @@ export const COLORS = {
   WFH_CLOSED_GPS: '#E75858',
   WFH_NOT_TIME: '#E1E1E1',
   WFH_NOT_TIME_TEXT: 'rgba(0, 0, 0, 0.4)',
+  BACKGROUND: '#F9F9F9',
 }
 
 export const FONT_FAMILY = 'DBHelvethaicaX-Reg'

@@ -3,12 +3,12 @@ import { View, StyleSheet, Text, StatusBar } from 'react-native'
 import { COLORS, FONT_FAMILY, FONT_BOLD } from '../styles'
 import SafeAreaView from 'react-native-safe-area-view'
 
-import { useNavigation } from 'react-navigation-hooks'
+import { useNavigation } from '@react-navigation/native'
 import { PrimaryButton } from '../components/Button'
 import { MyBackground } from '../components/MyBackground'
 import { Title } from '../components/Base'
 
-import I18n from '../../i18n/i18n';
+import I18n from '../../i18n/i18n'
 
 export const MockScreen = ({
   title,
@@ -25,10 +25,9 @@ export const MockScreen = ({
 }) => {
   const navigation = useNavigation()
   return (
-    <MyBackground variant="light">
+    <MyBackground variant='light'>
       <SafeAreaView style={styles.container}>
-        <StatusBar   backgroundColor={COLORS.WHITE} 
- barStyle="dark-content" />
+        <StatusBar backgroundColor={COLORS.WHITE} barStyle='dark-content' />
         <View style={styles.header}>
           <Title>{title}</Title>
         </View>

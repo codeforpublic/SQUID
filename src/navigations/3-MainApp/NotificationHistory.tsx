@@ -1,15 +1,14 @@
+import { useFocusEffect } from '@react-navigation/native'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { FlatList, StatusBar, StyleSheet, Text, View } from 'react-native'
+import Autolink from 'react-native-autolink'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import AntIcon from 'react-native-vector-icons/AntDesign'
-import { getNotifications } from '../../api-notification'
-import { MyBackground } from '../../components/MyBackground'
-import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import I18n from '../../../i18n/i18n'
+import { getNotifications } from '../../api-notification'
 import { ContractTracerContext } from '../../services/contact-tracing-provider'
-import { useFocusEffect } from 'react-navigation-hooks'
-import Autolink from 'react-native-autolink'
+import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 
 export interface NotificationHistoryModel {
   title: string
@@ -44,92 +43,70 @@ export const NotificationHistory = () => {
   }, [notificationTriggerNumber])
 
   return (
-    <MyBackground variant="light">
-      <SafeAreaView style={styles.safeAreaView}>
-        <StatusBar
-          barStyle="dark-content"
-          backgroundColor={COLORS.PRIMARY_LIGHT}
-        />
-        <FlatList
-          key={'list' + (notificationTriggerNumber ?? 0)}
-          data={history}
-          ListEmptyComponent={() => (
-            <View style={styles.emptyTextView}>
-              <Text style={styles.emptyText}>
-                {I18n.t('notification_history_empty')}
-              </Text>
-            </View>
-          )}
-          refreshing={refreshing}
-          onRefresh={async () => {
-            setRefreshing(true)
-            const notifications = await getNotifications({
-              skip: 0,
-              limit: PAGE_SIZE,
-            })
-            setHistory(notifications)
-            setRefreshing(false)
-          }}
-          onEndReachedThreshold={0.5}
-          onEndReached={async () => {
-            if (historyRef.current.length >= PAGE_SIZE_LIMIT) return
-            const newHistory = await getNotifications({
-              skip: historyRef.current.length,
-              limit: PAGE_SIZE,
-            })
-            if (newHistory.length) {
-              const newList = historyRef.current.concat(newHistory)
-              if (newList.length > PAGE_SIZE_LIMIT) {
-                newList.length = PAGE_SIZE_LIMIT
-              }
-              setHistory(newList)
+    <SafeAreaView style={styles.safeAreaView}>
+      <StatusBar barStyle='dark-content' backgroundColor={COLORS.PRIMARY_LIGHT} />
+      <FlatList
+        key={'list' + (notificationTriggerNumber ?? 0)}
+        data={history}
+        ListEmptyComponent={() => (
+          <View style={styles.emptyTextView}>
+            <Text style={styles.emptyText}>{I18n.t('notification_history_empty')}</Text>
+          </View>
+        )}
+        refreshing={refreshing}
+        onRefresh={async () => {
+          setRefreshing(true)
+          const notifications = await getNotifications({
+            skip: 0,
+            limit: PAGE_SIZE,
+          })
+          setHistory(notifications)
+          setRefreshing(false)
+        }}
+        onEndReachedThreshold={0.5}
+        onEndReached={async () => {
+          if (historyRef.current.length >= PAGE_SIZE_LIMIT) return
+          const newHistory = await getNotifications({
+            skip: historyRef.current.length,
+            limit: PAGE_SIZE,
+          })
+          if (newHistory.length) {
+            const newList = historyRef.current.concat(newHistory)
+            if (newList.length > PAGE_SIZE_LIMIT) {
+              newList.length = PAGE_SIZE_LIMIT
             }
-          }}
-          renderItem={({ item, index }) => {
-            return (
-              <View style={styles.sectionLine} key={'c' + index}>
-                <View style={styles.titleSection}>
-                  <View>
-                    <AntIcon
-                      style={styles.iconStyle}
-                      name={item.type === 'ALERT' ? 'warning' : 'infocirlceo'}
-                      color={
-                        item.type === 'ALERT'
-                          ? COLORS.RED_WARNING
-                          : COLORS.BLUE_INFO
-                      }
-                      size={16}
-                    />
-                  </View>
-                  <View>
-                    <Text
-                      style={
-                        item.type === 'ALERT'
-                          ? styles.titleWarning
-                          : styles.titleInfo
-                      }
-                    >
-                      {item.title}
-                    </Text>
-                  </View>
+            setHistory(newList)
+          }
+        }}
+        renderItem={({ item, index }) => {
+          return (
+            <View style={styles.sectionLine} key={'c' + index}>
+              <View style={styles.titleSection}>
+                <View>
+                  <AntIcon
+                    style={styles.iconStyle}
+                    name={item.type === 'ALERT' ? 'warning' : 'infocirlceo'}
+                    color={item.type === 'ALERT' ? COLORS.RED_WARNING : COLORS.BLUE_INFO}
+                    size={16}
+                  />
                 </View>
-                <Autolink style={styles.descriptionStyle} text={item.message} />
-                <Text style={styles.dateStyle}>
-                  {moment(item.sendedAt)
-                    .format('DD MMM YYYY HH:mm น.')
-                    .toString()}
-                </Text>
+                <View>
+                  <Text style={item.type === 'ALERT' ? styles.titleWarning : styles.titleInfo}>{item.title}</Text>
+                </View>
               </View>
-            )
-          }}
-        />
-      </SafeAreaView>
-    </MyBackground>
+              <Autolink style={styles.descriptionStyle} text={item.message} />
+              <Text style={styles.dateStyle}>{moment(item.sendedAt).format('DD MMM YYYY HH:mm น.').toString()}</Text>
+            </View>
+          )
+        }}
+      />
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   safeAreaView: {
+    backgroundColor: COLORS.BACKGROUND,
     flex: 1,
   },
   sectionLine: {

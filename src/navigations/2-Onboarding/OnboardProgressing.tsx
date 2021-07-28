@@ -1,18 +1,10 @@
+import { useNavigation } from '@react-navigation/native'
 import React, { useEffect } from 'react'
-import {
-  ActivityIndicator,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native'
+import { ActivityIndicator, StatusBar, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { useNavigation } from 'react-navigation-hooks'
-import { applicationState } from '../../state/app-state'
-import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
-import { useResetTo } from '../../utils/navigation'
-
 import I18n from '../../../i18n/i18n'
+import { applicationState } from '../../state/app-state'
+import { COLORS, FONT_BOLD, FONT_SIZES } from '../../styles'
 
 export const OnboardProgressing = () => {
   const STRING = {
@@ -20,7 +12,7 @@ export const OnboardProgressing = () => {
     SUB_TITLE: I18n.t('please_wait'),
   }
   const navigation = useNavigation()
-  const resetTo = useResetTo()
+  // const resetTo = useResetTo()
   useEffect(() => {
     setTimeout(() => {
       applicationState.setData('isPassedOnboarding', true)
@@ -34,14 +26,14 @@ export const OnboardProgressing = () => {
   }, [])
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
+      <StatusBar backgroundColor={COLORS.WHITE} barStyle='dark-content' />
       <View style={{ height: 56 }} />
       <View style={styles.header}>
         <Text style={styles.title}>{STRING.TITLE}</Text>
         <Text style={styles.subtitle}>{STRING.SUB_TITLE}</Text>
       </View>
       <View style={styles.content}>
-        <ActivityIndicator size="large" color={COLORS.BLACK_1} />
+        <ActivityIndicator size='large' color={COLORS.BLACK_1} />
       </View>
     </SafeAreaView>
   )

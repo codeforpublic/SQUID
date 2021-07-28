@@ -44,21 +44,21 @@ const getConfig = async () => {
       return data
     }
   } catch (e) {
-    console.error('Failed load Vaccine config\n', e)
+    console.warn('Failed load Vaccine config\n', e)
   }
 
   let saveData = null
   try {
     saveData = await AsyncStorage.getItem(VACCINE_CONFIG_KEY)
   } catch (e) {
-    console.error('Failed get  Vaccine config from storage\n', e)
+    console.warn('Failed get  Vaccine config from storage\n', e)
   }
 
   if (saveData) {
     try {
       return { ...defaultConfig, ...JSON.parse(saveData) }
     } catch (e) {
-      console.error('Failed to use save Vaccine config\n', e)
+      console.warn('Failed to use save Vaccine config\n', e)
     }
   }
 
@@ -77,7 +77,7 @@ const sendVaccineLog = (data: { event: string; cid: string; status?: string; dat
     }),
   })
     .then((res) => res.json())
-    .catch((e) => console.error('sendVaccineLog', e))
+    .catch((e) => console.warn('sendVaccineLog', e))
 }
 
 const getConfigPath = (path: string, index = '', cid = '') => path.replace('<INDEX>', index).replace('<CID>', cid)
@@ -119,7 +119,7 @@ const requestVaccineData = async (cid: string, config: typeof defaultConfig) => 
     sendVaccineLog({ event: 'REQUEST', status: 'SUCCESS', data, cid })
     return parseVaccineList(data, cid, config)
   } catch (error) {
-    console.error(error)
+    console.warn(error)
     sendVaccineLog({ event: 'REQUEST', status: 'ERROR', error, cid })
   }
 

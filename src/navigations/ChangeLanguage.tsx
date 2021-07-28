@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableHighlight } from 'react-native'
-import { useNavigation } from 'react-navigation-hooks'
+import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { FONT_SIZES, FONT_FAMILY, COLORS, FONT_BOLD } from '../styles'
 import { changeLangTo } from '../utils/change-lang'

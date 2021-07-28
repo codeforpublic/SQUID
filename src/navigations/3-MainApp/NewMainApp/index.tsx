@@ -1,16 +1,27 @@
+import { useNavigation } from '@react-navigation/native'
 import I18n from 'i18n-js'
 import moment from 'moment'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Alert, Animated, Dimensions, Easing, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
+import {
+  Alert,
+  Animated,
+  Dimensions,
+  Easing,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native'
 import RNFS from 'react-native-fs'
+import GPSState from 'react-native-gps-state'
 import NotificationPopup from 'react-native-push-notification-popup'
-import { useSafeArea } from 'react-native-safe-area-view'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import { useNavigation } from 'react-navigation-hooks'
-import { applicationState, useApplicationState } from '../../../../src/state/app-state'
 import Carousel from '../../../../src/components/Carousel'
 import { CircularProgressAvatar } from '../../../../src/components/CircularProgressAvatar'
 import { useVaccine } from '../../../../src/services/use-vaccine'
+import { applicationState, useApplicationState } from '../../../../src/state/app-state'
 import { userPrivateData } from '../../../../src/state/userPrivateData'
 import { useResetTo } from '../../../../src/utils/navigation'
 import { useContactTracer } from '../../../services/contact-tracing-provider'
@@ -22,7 +33,6 @@ import QRCard from './QRCard'
 import { UpdateProfileButton } from './UpdateProfileButton'
 import VaccineCard from './VaccineCard'
 import WorkFromHomeCard from './WorkFromHomeCard'
-import GPSState from 'react-native-gps-state'
 
 const carouselItems = ['qr', 'vaccine'] //, 'wfh']
 // Can change up to 3 picture a week.
@@ -34,43 +44,41 @@ const mapQrStatusColor = (qr?: SelfQR, qrState?: QR_STATE) =>
     ? COLORS.ORANGE_2
     : COLORS.GRAY_2
 
-export const MainApp = ({ route }) => {
-  const inset = useSafeArea()
+export const MainApp = () => {
   const { qrData, qrState } = useSelfQR()
-  const { beaconLocationName, isBluetoothOn, locationPermissionLevel } = useContactTracer()
+  const { beaconLocationName, isBluetoothOn } = useContactTracer()
   const [location, setLocation] = useState('')
   const popupRef = useRef<NotificationPopup | any>()
   const activeDotAnim = useRef(new Animated.Value(0)).current
   const { vaccineList, getVaccineUserName } = useVaccine()
-  const { card } = route?.params || { card: 0 }
+  const [{ updateProfileDate, changeCount, card }] = useApplicationState()
 
   const windowWidth = Dimensions.get('window').width
 
+  console.log('INDEX', card)
+
   const [triggerGps, setTriggerGps] = useState<number>(0)
-  const gpsRef = React.useRef({ triggerGps, locationPermissionLevel, loading: false })
-  const requestGPS = React.useCallback(() => {
-    if (gpsRef.current.loading) return
-    gpsRef.current.loading = true
+  const gpsRef = React.useRef({ triggerGps })
 
-    GPSState.getStatus().then((status: number) => {
-      gpsRef.current.loading = false
+  React.useEffect(() => {
+    const timer = setInterval(
+      () =>
+        GPSState.getStatus().then((status: number) => {
+          if (gpsRef.current.triggerGps !== status) {
+            gpsRef.current.triggerGps = status
 
-      if (gpsRef.current.triggerGps !== status) {
-        gpsRef.current.triggerGps = status
-        setTriggerGps(status)
-      }
-    })
+            setTriggerGps(status)
+          }
+        }),
+      2000,
+    )
+    return () => clearInterval(timer)
   }, [])
-
-  if (gpsRef.current.locationPermissionLevel !== locationPermissionLevel) {
-    gpsRef.current.locationPermissionLevel = locationPermissionLevel
-    requestGPS()
-  }
-  useEffect(requestGPS)
 
   useEffect(() => {
     setLocation(beaconLocationName.name)
     if (location && popupRef && popupRef.current) {
+      console.log('loooo', location, beaconLocationName)
       popupRef.current.show({
         slideOutTime: 20 * 1000,
       })
@@ -160,108 +168,108 @@ export const MainApp = ({ route }) => {
 
   const transform = generateCircularTransform()
 
-  // console.log('windowWidth', windowWidth)
-  const containerStyle = {
-    marginTop: inset.top + 15,
-    marginLeft: inset.left,
-    marginRight: inset.right,
-    flex: 1,
-  }
-
   return (
-    <View style={containerStyle}>
-      {
-        // <StatusBar
-        //   barStyle={qrData?.getTagColor() ? 'light-content' : 'dark-content'}
-        //   backgroundColor={
-        //     qrData?.getTagColor() ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT
-        //   }
-        // />
-      }
-      <View style={styles.containerTop}>
-        <View style={styles.containerHeader}>
-          {
-            // <TouchableOpacity style={styles.circularButton} onPress={refreshQR}>
-            //   <FontAwesome
-            //     name="refresh"
-            //     color={COLORS.GRAY_4}
-            //     size={24}
-            //     style={{ marginLeft: 10 }}
-            //   />
-            // </TouchableOpacity>
-            // <Text style={styles.textHeader}>
-            //   {qrData &&
-            //     `${qrData.getCreatedDate().format(I18n.t('fully_date'))}`}
-            // </Text>
-          }
-          <View style={{ flexDirection: 'row', paddingTop: 16, height: 45 }}>
-            <FontAwesome
-              name="map-marker"
-              color={triggerGps === 3 ? '#10A7DC' : '#C1C1C1'}
-              size={24}
-              style={{ marginRight: 10 }}
-            />
-            <FontAwesome
-              name="bluetooth-b"
-              color={isBluetoothOn ? '#10A7DC' : '#C1C1C1'}
-              size={24}
-              style={{ marginRight: 10 }}
-            />
-            {/* {isServiceEnabled ? <View style={styles.greenDot} /> : null} */}
-          </View>
-        </View>
-        <View style={[styles.profileHeader, profileStyle]}>
-          <View style={styles.profileContainer}>
-            {qrData && qrState && (
-              <>
-                <Animated.View style={[{ transform }]}>
-                  <UserActiveDot color={mapQrStatusColor(qrData, qrState)} />
-                </Animated.View>
-                <AvatarProfile qr={qrData} qrState={qrState} />
-              </>
-            )}
-          </View>
-          <View style={styles.w100}>
-            {firstName ? (
-              <Text style={styles.firstNameText} numberOfLines={1}>
-                {firstName}
-              </Text>
-            ) : null}
-            {lastName ? (
-              <Text style={styles.lastNameText} numberOfLines={1}>
-                {lastName}
-              </Text>
-            ) : null}
-            <View style={styles.w100}>
-              {vaccineNumber ? <Text style={styles.vaccineText}>{vaccineNumber}</Text> : null}
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#F9F9F9' }}>
+      <StatusBar barStyle='dark-content' backgroundColor={COLORS.WHITE} />
+      <View style={{ flex: 1 }}>
+        {
+          // <StatusBar
+          //   barStyle={qrData?.getTagColor() ? 'light-content' : 'dark-content'}
+          //   backgroundColor={
+          //     qrData?.getTagColor() ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT
+          //   }
+          // />
+        }
+        <View style={styles.containerTop}>
+          <View style={styles.containerHeader}>
+            {
+              // <TouchableOpacity style={styles.circularButton} onPress={refreshQR}>
+              //   <FontAwesome
+              //     name="refresh"
+              //     color={COLORS.GRAY_4}
+              //     size={24}
+              //     style={{ marginLeft: 10 }}
+              //   />
+              // </TouchableOpacity>
+              // <Text style={styles.textHeader}>
+              //   {qrData &&
+              //     `${qrData.getCreatedDate().format(I18n.t('fully_date'))}`}
+              // </Text>
+            }
+            <View style={{ flexDirection: 'row', paddingTop: 16, height: 45 }}>
+              <FontAwesome
+                name='map-marker'
+                color={triggerGps === 3 ? '#10A7DC' : '#C1C1C1'}
+                size={24}
+                style={{ marginRight: 10 }}
+              />
+              <FontAwesome
+                name='bluetooth-b'
+                color={isBluetoothOn ? '#10A7DC' : '#C1C1C1'}
+                size={24}
+                style={{ marginRight: 10 }}
+              />
+              {/* {isServiceEnabled ? <View style={styles.greenDot} /> : null} */}
             </View>
           </View>
+          <View style={[styles.profileHeader, profileStyle]}>
+            <View style={styles.profileContainer}>
+              {qrData && qrState && (
+                <>
+                  <Animated.View style={[{ transform }]}>
+                    <UserActiveDot color={mapQrStatusColor(qrData, qrState)} />
+                  </Animated.View>
+                  <AvatarProfile
+                    qr={qrData}
+                    qrState={qrState}
+                    changeCount={changeCount}
+                    updateProfileDate={updateProfileDate}
+                  />
+                </>
+              )}
+            </View>
+            <View style={styles.w100}>
+              {firstName ? (
+                <Text style={styles.firstNameText} numberOfLines={1}>
+                  {firstName}
+                </Text>
+              ) : null}
+              {lastName ? (
+                <Text style={styles.lastNameText} numberOfLines={1}>
+                  {lastName}
+                </Text>
+              ) : null}
+              <View style={styles.w100}>
+                {vaccineNumber ? <Text style={styles.vaccineText}>{vaccineNumber}</Text> : null}
+              </View>
+            </View>
+          </View>
+          {windowWidth && (
+            <Carousel
+              key={'c' + card}
+              data={carouselItems}
+              defaultIndex={card}
+              renderItem={(index) => {
+                // console.log('index', index)
+                switch (index) {
+                  case 'qr':
+                    return <QRCard key={index} />
+                  case 'vaccine':
+                    return <VaccineCard key={index} />
+                  case 'wfh':
+                    return <WorkFromHomeCard key={index} />
+                }
+                return <View />
+              }}
+            />
+          )}
         </View>
-        {windowWidth && (
-          <Carousel
-            key={'c' + card}
-            data={carouselItems}
-            defaultIndex={card}
-            renderItem={(index) => {
-              // console.log('index', index)
-              switch (index) {
-                case 'qr':
-                  return <QRCard key={index} />
-                case 'vaccine':
-                  return <VaccineCard key={index} />
-                case 'wfh':
-                  return <WorkFromHomeCard key={index} />
-              }
-              return <View />
-            }}
-          />
-        )}
+        <NotificationPopup
+          ref={popupRef}
+          renderPopupContent={(props) => <BeaconFoundPopupContent {...props} result={location} />}
+        />
       </View>
-      <NotificationPopup
-        ref={popupRef}
-        renderPopupContent={(props) => <BeaconFoundPopupContent {...props} result={location} />}
-      />
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -359,7 +367,17 @@ const styles = StyleSheet.create({
   },
 })
 
-const AvatarProfile = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE }) => {
+const AvatarProfile = ({
+  qr,
+  qrState,
+  changeCount,
+  updateProfileDate,
+}: {
+  qr: SelfQR
+  qrState: QR_STATE
+  updateProfileDate?: string
+  changeCount?: number
+}) => {
   const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
   const resetTo = useResetTo()
 
@@ -380,7 +398,7 @@ const AvatarProfile = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE }) => {
       console.log('exists', exists)
       if (!exists) {
         resetTo({
-          routeName: 'Onboarding',
+          name: 'Onboarding',
         })
       }
     })
@@ -392,7 +410,6 @@ const AvatarProfile = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE }) => {
     right: Math.floor((4 / 100) * avatarWidth),
   } as const
   const navigation = useNavigation()
-  let [{ updateProfileDate, changeCount }] = useApplicationState()
 
   const today = moment()
   const isSameWeek = today.isSame(updateProfileDate || new Date().toISOString(), 'weeks')

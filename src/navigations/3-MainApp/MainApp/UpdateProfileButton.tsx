@@ -2,11 +2,11 @@ import React, { useEffect, useState, useRef, Fragment, useMemo } from 'react'
 import { StyleSheet, TouchableHighlight, Alert } from 'react-native'
 import FeatureIcon from 'react-native-vector-icons/Feather'
 import 'moment/locale/th'
-import { useNavigation } from 'react-navigation-hooks'
+import { useNavigation } from '@react-navigation/native'
 import { useApplicationState } from '../../../state/app-state'
 import moment from 'moment'
 
-import I18n from '../../../../i18n/i18n';
+import I18n from '../../../../i18n/i18n'
 
 const START_PERIODS = 3 // 3 first days, freely change image
 const DEFAULT_PERIODS = 7 // 7 days per time
@@ -15,29 +15,26 @@ export const UpdateProfileButton = ({ width, style, onChange }) => {
   const [data] = useApplicationState()
   const daySinceCreated = moment().diff(data.createdDate, 'days')
   const daySinceUpdated = moment().diff(data.updateProfileDate, 'days')
-  const isLock = !(
-    daySinceCreated < START_PERIODS || daySinceUpdated >= DEFAULT_PERIODS
-  )
+  const isLock = !(daySinceCreated < START_PERIODS || daySinceUpdated >= DEFAULT_PERIODS)
 
   return (
     <TouchableHighlight
       hitSlop={{ top: 48, left: 48, right: 24, bottom: 24 }}
       activeOpacity={0.6}
-      underlayColor="#DDDDDD"
+      underlayColor='#DDDDDD'
       onPress={() => {
         if (isLock) {
           const day = DEFAULT_PERIODS - daySinceUpdated
-          Alert.alert(
-            I18n.t('can_not_change_picture'),
-            'คุณจะสามารถเปลี่ยนรูปได้อีกใน ' + day + I18n.t('day_s'),
-          )
+          Alert.alert(I18n.t('can_not_change_picture'), 'คุณจะสามารถเปลี่ยนรูปได้อีกใน ' + day + I18n.t('day_s'))
         } else {
           navigation.navigate('MainAppFaceCamera', {
-            setUri: uri => {
+            setUri: (uri) => {
               if (daySinceCreated >= 3) {
                 Alert.alert(
                   I18n.t('are_you_sure'),
-                  `${I18n.t('after_changed_pic_you_will_not_be_able_to_change_until')} ${DEFAULT_PERIODS} ${I18n.t('day_s_have_passed')}`,
+                  `${I18n.t('after_changed_pic_you_will_not_be_able_to_change_until')} ${DEFAULT_PERIODS} ${I18n.t(
+                    'day_s_have_passed',
+                  )}`,
                   [
                     { text: I18n.t('cancel'), style: 'cancel' },
                     {
@@ -65,10 +62,7 @@ export const UpdateProfileButton = ({ width, style, onChange }) => {
         style,
       ]}
     >
-      <FeatureIcon
-        name={isLock ? 'lock' : 'camera'}
-        size={Math.floor((60 / 100) * width)}
-      />
+      <FeatureIcon name={isLock ? 'lock' : 'camera'} size={Math.floor((60 / 100) * width)} />
     </TouchableHighlight>
   )
 }

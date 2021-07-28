@@ -19,26 +19,14 @@ export const CheckBoxItem = ({
       <View style={liStyles.container}>
         <View style={liStyles.iconContainer}>
           {checked ? (
-            <Icon
-              style={liStyles.icon}
-              type="font-awesome"
-              name="dot-circle-o"
-              color={COLORS.ORANGE}
-            />
+            <Icon style={liStyles.icon} type='font-awesome' name='dot-circle-o' color={COLORS.ORANGE} />
           ) : (
-            <Icon
-              style={liStyles.icon}
-              type="font-awesome"
-              name="circle-o"
-              color={COLORS.GRAY_2}
-            />
+            <Icon style={liStyles.icon} type='font-awesome' name='circle-o' color={COLORS.GRAY_2} />
           )}
         </View>
         <View>
           <Text style={liStyles.title}>{title}</Text>
-          {description && (
-            <Text style={liStyles.description}>{description}</Text>
-          )}
+          {description && <Text style={liStyles.description}>{description}</Text>}
         </View>
       </View>
     </TouchableOpacity>
