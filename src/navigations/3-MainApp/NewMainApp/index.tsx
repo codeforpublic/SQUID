@@ -246,9 +246,12 @@ export const MainApp = () => {
           </View>
           {windowWidth && (
             <Carousel
-              key={'c' + card}
               data={carouselItems}
-              defaultIndex={card}
+              pageIndex={card || 0}
+              setPageIndex={(index) => {
+                console.log('setPageIndex', index)
+                applicationState.setData('card', index)
+              }}
               renderItem={(index) => {
                 // console.log('index', index)
                 switch (index) {

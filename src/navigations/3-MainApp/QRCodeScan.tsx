@@ -14,7 +14,7 @@ import { COLORS } from '../../styles'
 import { decodeJWT, verifyToken } from '../../utils/jwt'
 import PopupImportVaccine from './NewMainApp/PopupImportVaccine'
 import { QRPopupContent } from './QRPopupContent'
-import { applicationState } from 'src/state/app-state'
+import { useApplicationState } from '../../state/app-state'
 
 export const QRCodeScan = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false)
@@ -22,6 +22,7 @@ export const QRCodeScan = ({ navigation }) => {
   const isFocused = useIsFocused()
   const [qrResult, setQRResult] = useState<QRResult>(null)
   const popupRef = useRef<NotificationPopup>()
+  const [, setData] = useApplicationState()
 
   useEffect(() => {
     tagManager.update()
@@ -114,7 +115,7 @@ export const QRCodeScan = ({ navigation }) => {
           setModalVisible={setModalVisible}
           onSelect={(status) => {
             if (status === 'ok') {
-              applicationState.setData('card', 1)
+              setData('card', 1)
               navigation.navigate('Home')
             } else {
               resetVaccine && resetVaccine()

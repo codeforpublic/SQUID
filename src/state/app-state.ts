@@ -50,7 +50,7 @@ class ApplicationState extends HookState {
     return this.save()
   }
 
-  setData = (key: keyof ApplicationStateData, value: valueof<ApplicationStateData>) => {
+  setData = (key: keyof ApplicationStateData, value: any) => {
     this.data[key] = value as any
     return this.save()
   }
