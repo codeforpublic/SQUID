@@ -33,6 +33,7 @@ import QRCard from './QRCard'
 import { UpdateProfileButton } from './UpdateProfileButton'
 import VaccineCard from './VaccineCard'
 import WorkFromHomeCard from './WorkFromHomeCard'
+import { useSafeArea } from 'react-native-safe-area-view'
 
 const carouselItems = ['qr', 'vaccine'] //, 'wfh']
 // Can change up to 3 picture a week.
@@ -45,6 +46,7 @@ const mapQrStatusColor = (qr?: SelfQR, qrState?: QR_STATE) =>
     : COLORS.GRAY_2
 
 export const MainApp = () => {
+  const inset = useSafeArea()
   const { qrData, qrState } = useSelfQR()
   const { beaconLocationName, isBluetoothOn } = useContactTracer()
   const [location, setLocation] = useState('')
@@ -55,14 +57,13 @@ export const MainApp = () => {
 
   const windowWidth = Dimensions.get('window').width
 
-  console.log('INDEX', card)
-
   const [triggerGps, setTriggerGps] = useState<number>(0)
   const gpsRef = React.useRef({ triggerGps })
 
   React.useEffect(() => {
     const updateGPS = async () => {
-      const status = GPSState.getStatus()
+      const status = await GPSState.getStatus()
+
       if (gpsRef.current.triggerGps !== status) {
         gpsRef.current.triggerGps = status
 
@@ -78,7 +79,6 @@ export const MainApp = () => {
   useEffect(() => {
     setLocation(beaconLocationName.name)
     if (location && popupRef && popupRef.current) {
-      console.log('loooo', location, beaconLocationName)
       popupRef.current.show({
         slideOutTime: 20 * 1000,
       })
@@ -168,10 +168,19 @@ export const MainApp = () => {
 
   const transform = generateCircularTransform()
 
+  const containerStyle = {
+    marginTop: inset.top,
+    marginLeft: inset.left,
+    marginRight: inset.right,
+    backgroundColor: '#F9F9F9',
+    height: '100%',
+    width: '100%',
+  }
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#F9F9F9' }}>
+    <SafeAreaView style={{ backgroundColor: '#F9F9F9' }}>
       <StatusBar barStyle='dark-content' backgroundColor={COLORS.WHITE} />
-      <View style={{ flex: 1 }}>
+      <View style={containerStyle}>
         {
           // <StatusBar
           //   barStyle={qrData?.getTagColor() ? 'light-content' : 'dark-content'}
@@ -249,11 +258,9 @@ export const MainApp = () => {
               data={carouselItems}
               pageIndex={card || 0}
               setPageIndex={(index) => {
-                console.log('setPageIndex', index)
                 applicationState.setData('card', index)
               }}
               renderItem={(index) => {
-                // console.log('index', index)
                 switch (index) {
                   case 'qr':
                     return <QRCard key={index} />
@@ -398,7 +405,6 @@ const AvatarProfile = ({
   const avatarWidth = 100
   useEffect(() => {
     RNFS.exists(faceURI).then((exists) => {
-      console.log('exists', exists)
       if (!exists) {
         resetTo({
           name: 'Onboarding',

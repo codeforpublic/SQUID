@@ -78,7 +78,7 @@ export default function Carousel<T>({ renderItem, data, pageIndex, setPageIndex 
     const roundIndex = Math.round(idx)
 
     const distance = Math.abs(roundIndex - idx)
-    console.log('onScroll', idx, roundIndex, slideSize)
+    // console.log('onScroll', idx, roundIndex, slideSize)
 
     // Prevent one pixel triggering setIndex in the middle
     // of the transition. With this we have to scroll a bit
