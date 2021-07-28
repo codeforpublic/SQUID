@@ -46,5 +46,5 @@ export const ColorText = styled(Text)`
   font-family: ${FONT_FAMILY};
   font-size: ${FONT_SIZES[600]};
   line-height: 30px;
-  color: ${props => props.color};
+  color: ${(props) => props.color};
 `

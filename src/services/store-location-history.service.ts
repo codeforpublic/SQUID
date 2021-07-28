@@ -21,8 +21,7 @@ export class StoreLocationHistoryService {
   public static DAY_FORMAT = 'YYYYMMDD-00:00'
 
   // 15 minute
-  public static HISTORY_TRACK_BY_HOUR_MINUTE =
-    'history-track-by-hour-each-minute'
+  public static HISTORY_TRACK_BY_HOUR_MINUTE = 'history-track-by-hour-each-minute'
   // today by hour
   public static WFH_TODAY = 'wfh-today'
   // data yesterday
@@ -100,11 +99,7 @@ export class StoreLocationHistoryService {
   }
 
   public static async clearDataTrackTodayHour() {
-    let date = moment()
-      .add(1, 'hour')
-      .set('minute', 0)
-      .set('second', 0)
-      .set('millisecond', 0)
+    let date = moment().add(1, 'hour').set('minute', 0).set('second', 0).set('millisecond', 0)
     let raw = await AsyncStorage.getItem(this.WFH_TODAY)
     let data = raw ? JSON.parse(raw) : {}
     if (data[date.format(this.HOUR_FORMAT)]) {
@@ -122,10 +117,7 @@ export class StoreLocationHistoryService {
           result[hour] = d
         }
       })
-      await AsyncStorage.setItem(
-        StoreLocationHistoryService.HISTORY_TRACK_BY_HOUR_MINUTE,
-        JSON.stringify(result),
-      )
+      await AsyncStorage.setItem(StoreLocationHistoryService.HISTORY_TRACK_BY_HOUR_MINUTE, JSON.stringify(result))
     }
   }
 
@@ -133,11 +125,7 @@ export class StoreLocationHistoryService {
     const date = moment().subtract(1, 'day')
     const rawYesterday = await AsyncStorage.getItem(this.WFH_YESTERDAY)
     const dataYesterday = rawYesterday ? JSON.parse(rawYesterday) : null
-    if (
-      dataYesterday &&
-      Object.keys(dataYesterday).length > 0 &&
-      dataYesterday[date.format(this.HOUR_FORMAT)]
-    ) {
+    if (dataYesterday && Object.keys(dataYesterday).length > 0 && dataYesterday[date.format(this.HOUR_FORMAT)]) {
       return
     }
     const rawToday = await AsyncStorage.getItem(this.WFH_TODAY)
@@ -163,18 +151,13 @@ export class StoreLocationHistoryService {
   public static async trackLocationByTime(type: LOCATION_TYPE) {
     const date = new Date()
     const hour = date.getHours()
-    const logsString = await AsyncStorage.getItem(
-      this.HISTORY_TRACK_BY_HOUR_MINUTE,
-    )
+    const logsString = await AsyncStorage.getItem(this.HISTORY_TRACK_BY_HOUR_MINUTE)
     let data = logsString === null ? {} : JSON.parse(logsString)
     if (!Array.isArray(data[hour])) {
       data[hour] = []
     }
     data[hour].push({ [date.valueOf()]: type })
-    return await AsyncStorage.setItem(
-      this.HISTORY_TRACK_BY_HOUR_MINUTE,
-      JSON.stringify(data),
-    )
+    return await AsyncStorage.setItem(this.HISTORY_TRACK_BY_HOUR_MINUTE, JSON.stringify(data))
   }
 
   public static async summaryYesterdayForAppend() {
@@ -208,11 +191,7 @@ export class StoreLocationHistoryService {
     latest.W = latest.W / keyDataYesterday.length
     latest.G = latest.G / keyDataYesterday.length
 
-    await this.appendTrackLocation(
-      date.format(this.DAY_FORMAT),
-      latest,
-      this.WFH_TWO_WEEKS,
-    )
+    await this.appendTrackLocation(date.format(this.DAY_FORMAT), latest, this.WFH_TWO_WEEKS)
   }
 
   /***
@@ -236,10 +215,7 @@ export class StoreLocationHistoryService {
     const byOlderFirst = (a, b): number => +(a.key > b.key) || -(a.key < b.key)
 
     const newObj: { [s: string]: any } = {}
-    const transformed = Object.keys(data)
-      .map(toKeyValue)
-      .sort(byOlderFirst)
-      .slice(-limit)
+    const transformed = Object.keys(data).map(toKeyValue).sort(byOlderFirst).slice(-limit)
     transformed.forEach((element) => (newObj[element.key] = element.value))
 
     if (last) {
@@ -312,30 +288,13 @@ export class StoreLocationHistoryService {
     const homes = homeLocation ? JSON.parse(homeLocation) : []
     const officeLocation = await AsyncStorage.getItem('OFFICE-LIST')
     const offices = officeLocation ? JSON.parse(officeLocation) : []
-    const isHome =
-      homes.length > 0
-        ? distance(latitude, longitude, homes[0].latitude, homes[0].longitude) <
-          0.1
-        : false
+    const isHome = homes.length > 0 ? distance(latitude, longitude, homes[0].latitude, homes[0].longitude) < 0.1 : false
     const isOffice =
-      offices.length > 0
-        ? distance(
-            latitude,
-            longitude,
-            offices[0].latitude,
-            offices[0].longitude,
-          ) < 0.1
-        : false
-    return isHome
-      ? LOCATION_TYPE.HOME
-      : isOffice
-      ? LOCATION_TYPE.OFFICE
-      : LOCATION_TYPE.OTHER
+      offices.length > 0 ? distance(latitude, longitude, offices[0].latitude, offices[0].longitude) < 0.1 : false
+    return isHome ? LOCATION_TYPE.HOME : isOffice ? LOCATION_TYPE.OFFICE : LOCATION_TYPE.OTHER
   }
 
-  public static async calculatePreviousDataByCount(
-    count: number,
-  ): Promise<LocationField> {
+  public static async calculatePreviousDataByCount(count: number): Promise<LocationField> {
     const dataTwoWeek = await StoreLocationHistoryService.getDataTwoWeek()
     let item: LocationField = { H: 0, O: 0, W: 0, G: 0, N: 0 }
     if (dataTwoWeek) {
@@ -369,10 +328,7 @@ export class StoreLocationHistoryService {
 
   public static calculatePriority(data: LocationField): LOCATION_TYPE | null {
     const keys: (keyof LocationField)[] = ['H', 'W', 'O', 'H']
-    const max: keyof LocationField = keys.reduce(
-      (acc, v) => (data[v] > data[acc] ? v : acc),
-      'H',
-    )
+    const max: keyof LocationField = keys.reduce((acc, v) => (data[v] > data[acc] ? v : acc), 'H')
     if (data[max] === 0) {
       return null
     }

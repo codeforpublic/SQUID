@@ -106,7 +106,7 @@ const QRImage = ({ qr, qrState, onRefreshQR }: { qr?: SelfQR | null; qrState?: Q
             {qrState && <QRStateText qrState={qrState} refreshQR={onRefreshQR} />}
           </Fragment>
         ) : (
-          <ActivityIndicator size="large" />
+          <ActivityIndicator size='large' />
         )
       }}
     </Sizer>

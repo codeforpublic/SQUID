@@ -25,7 +25,7 @@ import { FormHeader } from '../../components/Form/FormHeader'
 import I18n from '../../../i18n/i18n'
 
 const MUTATE_USER = gql`
-  mutation($image: String) {
+  mutation ($image: String) {
     updateUser(data: { image: $image }) @client
   }
 `

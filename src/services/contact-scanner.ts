@@ -6,18 +6,26 @@ import _ from 'lodash'
 class ScanManager {
   ttl?: number
   list: string[] = []
-  timeout?: NodeJS.Timeout
+  timeout?: number
   locationAccuracy?: number
   latestUploadTS?: number
   oldestItemTS?: number
   oldestBeaconFoundTS?: number
   type: 'bluetooth' | 'qrscan'
-  constructor({ ttl, locationAccuracy, type }: { ttl?: number, locationAccuracy?: number, type: 'bluetooth' | 'qrscan' }) {
+  constructor({
+    ttl,
+    locationAccuracy,
+    type,
+  }: {
+    ttl?: number
+    locationAccuracy?: number
+    type: 'bluetooth' | 'qrscan'
+  }) {
     this.locationAccuracy = locationAccuracy
     this.ttl = ttl
     this.type = type
     let prevState
-    AppState.addEventListener('change', state => {
+    AppState.addEventListener('change', (state) => {
       if (prevState !== state) {
         if (state === 'background') {
           this.upload() // trigger upload immediately when user go to background
@@ -33,13 +41,13 @@ class ScanManager {
   }
 
   maskBeaconFound() {
-    if (!this.oldestBeaconFoundTS || (Date.now() - this.oldestBeaconFoundTS) > (30 * 1000)) {
+    if (!this.oldestBeaconFoundTS || Date.now() - this.oldestBeaconFoundTS > 30 * 1000) {
       this.oldestBeaconFoundTS = Date.now()
     }
   }
 
   add(anonymousId: string): boolean {
-    if (this.list.find(id => id === anonymousId)) {
+    if (this.list.find((id) => id === anonymousId)) {
       return false
     }
     this.list.push(anonymousId)
@@ -64,11 +72,15 @@ class ScanManager {
         const location = await backgroundTracking.getLocation({
           desiredAccuracy: this.locationAccuracy,
         })
-        await scan(uploadList, {
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-          accuracy: location.coords.accuracy,
-        }, this.type)
+        await scan(
+          uploadList,
+          {
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            accuracy: location.coords.accuracy,
+          },
+          this.type,
+        )
         this.latestUploadTS = Date.now()
       } catch (err) {
         console.log(err)

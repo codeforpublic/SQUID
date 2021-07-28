@@ -11,7 +11,7 @@ import { useHUD } from '../../HudView'
 import { Button, normalize } from 'react-native-elements'
 import { applicationState } from '../../state/app-state'
 import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../styles'
-import { getDataInputTable } from './form-input'
+import { getDataInputTable, DataInput } from './form-input'
 
 import I18n from '../../../i18n/i18n'
 

@@ -31,11 +31,7 @@ class UserPrivateData extends HookState {
   }
   save() {
     super.save()
-    return SInfo.setItem(
-      USER_DATA_KEY,
-      JSON.stringify(this.data),
-      SINFO_OPTIONS,
-    ).catch(() => {
+    return SInfo.setItem(USER_DATA_KEY, JSON.stringify(this.data), SINFO_OPTIONS).catch(() => {
       console.log('save failed')
     })
   }
@@ -65,7 +61,7 @@ class UserPrivateData extends HookState {
       await register()
     } else {
       /* just sync, if failed, stil fine  */
-      await register().catch(err => {
+      await register().catch((err) => {
         console.log('register failed', err)
       })
     }

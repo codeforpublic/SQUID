@@ -15,8 +15,7 @@ const payload = {
   message: 'แบบสอบถามสำหรับคุณ',
   data: {
     type: 'OPEN',
-    url:
-      'https://app.morchana.in.th/q/q1?x=1&token=eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbm9ueW1vdXNJZCI6Il9MdW1HNlBjRzMxNCIsImlhdCI6MTU4OTAxMjEwOSwiZXhwIjoxNTg5MDk4NTA5fQ.HbGjD1oS8Y0b5GAgyBNh3Zk-D0nI2MLBdjOgPkkRyjsck2xT6OBO2pOArann9w34m0ho32w3dT45JJNNvhKMyw',
+    url: 'https://app.morchana.in.th/q/q1?x=1&token=eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbm9ueW1vdXNJZCI6Il9MdW1HNlBjRzMxNCIsImlhdCI6MTU4OTAxMjEwOSwiZXhwIjoxNTg5MDk4NTA5fQ.HbGjD1oS8Y0b5GAgyBNh3Zk-D0nI2MLBdjOgPkkRyjsck2xT6OBO2pOArann9w34m0ho32w3dT45JJNNvhKMyw',
   },
 }
 

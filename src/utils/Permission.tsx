@@ -1,33 +1,30 @@
-import {Platform} from 'react-native';
+import { Platform } from 'react-native'
 
-var PermissionsAndroid;
+var PermissionsAndroid
 if (Platform.OS == 'android') {
-  PermissionsAndroid = require('react-native').PermissionsAndroid;
+  PermissionsAndroid = require('react-native').PermissionsAndroid
 }
 
 export async function requestLocationPermission() {
   if (Platform.OS != 'android') {
-    return true;
+    return true
   }
   try {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      {
-        title: 'Location Permission',
-        message: 'Location permission is needed to ' + 'enable bluetooth.',
-        buttonNeutral: 'Ask Me Later',
-        buttonNegative: 'Cancel',
-        buttonPositive: 'OK',
-      },
-    );
+    const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION, {
+      title: 'Location Permission',
+      message: 'Location permission is needed to ' + 'enable bluetooth.',
+      buttonNeutral: 'Ask Me Later',
+      buttonNegative: 'Cancel',
+      buttonPositive: 'OK',
+    })
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log('You can use the location');
+      console.log('You can use the location')
     } else {
-      console.log('Location permission denied');
+      console.log('Location permission denied')
     }
-    return granted === PermissionsAndroid.RESULTS.GRANTED;
+    return granted === PermissionsAndroid.RESULTS.GRANTED
   } catch (err) {
-    console.warn(err);
+    console.warn(err)
   }
-  return false;
+  return false
 }

@@ -1,10 +1,7 @@
 import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import {
-  BarProgressQuarantine,
-  ProgressLabel,
-} from '../../components/BarProgressQuarantine'
+import { BarProgressQuarantine, ProgressLabel } from '../../components/BarProgressQuarantine'
 import { PieChart } from 'react-native-chart-kit'
 import {
   LocationField,
@@ -89,17 +86,12 @@ export const QuarantineOverview = () => {
           const label = hour > 9 ? `${hour}` : `0${hour}`
           const findKey = keys.find((key) => key.includes(`${label}:00`))
           if (findKey) {
-            const data = StoreLocationHistoryService.calculatePriority(
-              response[findKey] as LocationField,
-            )
+            const data = StoreLocationHistoryService.calculatePriority(response[findKey] as LocationField)
             dataToday.push({ label, color: getColorData(data) })
           } else {
             dataToday.push({
               label,
-              color:
-                currentHour >= hour
-                  ? COLORS.WFH_CLOSED_GPS
-                  : COLORS.WFH_NOT_TIME,
+              color: currentHour >= hour ? COLORS.WFH_CLOSED_GPS : COLORS.WFH_NOT_TIME,
             })
           }
         })
@@ -196,9 +188,7 @@ export const QuarantineOverview = () => {
         {three.length > 0 || seven.length > 0 || fourTeen.length > 0 ? (
           <Text style={styles.textTitle}>{I18n.t('history')}</Text>
         ) : (
-          <Text style={styles.textNoData}>
-            {I18n.t('no_information_found')}
-          </Text>
+          <Text style={styles.textNoData}>{I18n.t('no_information_found')}</Text>
         )}
         <View style={styles.pieChartList}>
           {three.length > 0 && (
@@ -208,9 +198,9 @@ export const QuarantineOverview = () => {
                 width={100}
                 height={100}
                 chartConfig={chartConfig}
-                accessor="count"
-                backgroundColor="transparent"
-                paddingLeft="25"
+                accessor='count'
+                backgroundColor='transparent'
+                paddingLeft='25'
                 hasLegend={false}
                 absolute
               />
@@ -224,9 +214,9 @@ export const QuarantineOverview = () => {
                 width={100}
                 height={100}
                 chartConfig={chartConfig}
-                accessor="count"
-                backgroundColor="transparent"
-                paddingLeft="25"
+                accessor='count'
+                backgroundColor='transparent'
+                paddingLeft='25'
                 hasLegend={false}
                 absolute
               />
@@ -240,9 +230,9 @@ export const QuarantineOverview = () => {
                 width={100}
                 height={100}
                 chartConfig={chartConfig}
-                accessor="count"
-                backgroundColor="transparent"
-                paddingLeft="25"
+                accessor='count'
+                backgroundColor='transparent'
+                paddingLeft='25'
                 hasLegend={false}
                 absolute
               />
@@ -264,10 +254,7 @@ export const QuarantineOverview = () => {
                     fontFamily: FONT_FAMILY,
                   },
                 ])
-                const iconStyle = StyleSheet.flatten([
-                  styles.iconMeaning,
-                  { backgroundColor: item.color },
-                ])
+                const iconStyle = StyleSheet.flatten([styles.iconMeaning, { backgroundColor: item.color }])
                 return (
                   <>
                     {index > 0 && <View style={{ flex: 0.1 }} />}

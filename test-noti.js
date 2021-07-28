@@ -11,8 +11,7 @@ const options = {
 
 const apnProvider = new apn.Provider(options)
 
-let deviceToken =
-  '4983aa07fd358fcb1a29d9c777b82e8c514ffdc0a0628a255e1242fae6d1c904'
+let deviceToken = '4983aa07fd358fcb1a29d9c777b82e8c514ffdc0a0628a255e1242fae6d1c904'
 
 var note = new apn.Notification()
 
@@ -30,7 +29,7 @@ note.payload = {
 }
 note.topic = 'com.cleverse.thaialert'
 
-apnProvider.send(note, deviceToken).then(result => {
+apnProvider.send(note, deviceToken).then((result) => {
   console.log('result', result, JSON.stringify(result))
   // see documentation for an explanation of result
 })

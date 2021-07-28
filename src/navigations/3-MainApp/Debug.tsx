@@ -9,16 +9,10 @@ export const Debug = () => {
   const { statusText } = useContactTracer()
 
   return (
-    <MyBackground variant="light">
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor={COLORS.PRIMARY_LIGHT}
-      />
+    <MyBackground variant='light'>
+      <StatusBar barStyle='dark-content' backgroundColor={COLORS.PRIMARY_LIGHT} />
       <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}
-        >
+        <ScrollView contentInsetAdjustmentBehavior='automatic' style={styles.scrollView}>
           <Text>{statusText}</Text>
         </ScrollView>
       </SafeAreaView>

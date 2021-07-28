@@ -25,7 +25,7 @@ export const UpdateProfileButton: React.FC<{
       <TouchableHighlight
         hitSlop={{ top: 48, left: 48, right: 24, bottom: 24 }}
         activeOpacity={0.6}
-        underlayColor="#DDDDDD"
+        underlayColor='#DDDDDD'
         style={[
           styles.container,
           {

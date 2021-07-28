@@ -61,7 +61,7 @@ function Pagination({
 }
 
 type CarouselType<T> = {
-  renderItem: (obj: T) => JSX.Element
+  renderItem: (obj: T) => React.ReactElement
   data: T[]
   pageIndex: number
   setPageIndex: (index: number) => void

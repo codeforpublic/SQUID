@@ -118,7 +118,7 @@ export const LocationHistory = ({ navigation, route }) => {
     return result
   }
 
-  const getPinComponent = (selected: boolean): JSX.Element => {
+  const getPinComponent = (selected: boolean): React.ReactElement => {
     if (selected) {
       return <Image resizeMode='contain' style={{ height: 40 }} source={require('../../assets/icons/pin-blue.png')} />
     }
@@ -131,7 +131,7 @@ export const LocationHistory = ({ navigation, route }) => {
     return moment(timestamp).format('DD/MM/YYYY')
   }
 
-  const getTitleLocation = (index: number): JSX.Element => {
+  const getTitleLocation = (index: number): React.ReactElement => {
     if (index === 0) {
       return (
         <Text style={styles.textTitleLastPin}>

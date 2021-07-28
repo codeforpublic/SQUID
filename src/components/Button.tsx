@@ -13,14 +13,7 @@ interface PropTypes {
   containerStyle?: any
 }
 
-export const PrimaryButton = ({
-  onPress,
-  title,
-  style = {},
-  disabled,
-  titleStyle={},
-  ...props
-}: PropTypes) => {
+export const PrimaryButton = ({ onPress, title, style = {}, disabled, titleStyle = {}, ...props }: PropTypes) => {
   return (
     <RButton
       buttonStyle={{
@@ -47,13 +40,7 @@ export const PrimaryButton = ({
   )
 }
 
-export const DangerButton = ({
-  onPress,
-  title,
-  style = {},
-  disabled,
-  ...props
-}: PropTypes) => {
+export const DangerButton = ({ onPress, title, style = {}, disabled, ...props }: PropTypes) => {
   return (
     <RButton
       buttonStyle={{
@@ -79,13 +66,7 @@ export const DangerButton = ({
   )
 }
 
-export const RectButton = ({
-  onPress,
-  title,
-  style = {},
-  disabled,
-  ...props
-}: PropTypes) => {
+export const RectButton = ({ onPress, title, style = {}, disabled, ...props }: PropTypes) => {
   return (
     <RButton
       buttonStyle={{

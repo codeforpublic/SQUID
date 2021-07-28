@@ -3,16 +3,36 @@ import { Text, View, Image, StyleSheet } from 'react-native'
 import { QRResult } from '../../state/qr'
 import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
 
-import I18n from '../../../i18n/i18n';
+import I18n from '../../../i18n/i18n'
 
 const Label = ({ label, color, role }) => {
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-      <View style={{ marginTop: 6, backgroundColor: color, paddingVertical: 4, paddingHorizontal: 8, borderRadius: 6, alignSelf: 'flex-start' }}>        
-        <Text style={{ color: color? 'white': 'black', fontFamily: FONT_FAMILY, fontSize: FONT_SIZES[500] }}>{role}</Text>
+    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+      <View
+        style={{
+          marginTop: 6,
+          backgroundColor: color,
+          paddingVertical: 4,
+          paddingHorizontal: 8,
+          borderRadius: 6,
+          alignSelf: 'flex-start',
+        }}
+      >
+        <Text style={{ color: color ? 'white' : 'black', fontFamily: FONT_FAMILY, fontSize: FONT_SIZES[500] }}>
+          {role}
+        </Text>
       </View>
       <View>
-        <Text style={{ fontFamily: FONT_FAMILY, fontSize: FONT_SIZES[600], textDecorationLine: 'underline', textDecorationColor: color }}>{label}</Text>
+        <Text
+          style={{
+            fontFamily: FONT_FAMILY,
+            fontSize: FONT_SIZES[600],
+            textDecorationLine: 'underline',
+            textDecorationColor: color,
+          }}
+        >
+          {label}
+        </Text>
       </View>
     </View>
   )
@@ -25,9 +45,9 @@ export const QRPopupContent = (props: any) => {
   const age = qrResult.getAge()
   const createdData = qrResult.getCreatedDate()
   const body = `${createdData.fromNow()}`
-  let bodyStyle = { }
+  let bodyStyle = {}
   const time = Date.now() - createdData
- 
+
   if (time > 3 * 60 * 1000) {
     bodyStyle = { color: COLORS.YELLOW }
   }
@@ -37,24 +57,23 @@ export const QRPopupContent = (props: any) => {
 
   return (
     <View style={[styles.popupContentContainer]}>
-      <View
-        style={[
-          styles.popupHeaderContainer,
-          { backgroundColor: qrResult.getStatusColor() },
-        ]}
-      >
+      <View style={[styles.popupHeaderContainer, { backgroundColor: qrResult.getStatusColor() }]}>
         <View style={styles.headerTextContainer}>
           <Text style={styles.headerText} numberOfLines={1}>
             {appTitle || ''}
           </Text>
         </View>
         <View>
-          <Text style={{
-            fontFamily: FONT_FAMILY,
-            fontSize: FONT_SIZES[500],
-            color: 'white',
-            paddingRight: 16,
-          }}>{I18n.t('already_registered')} {age}</Text>
+          <Text
+            style={{
+              fontFamily: FONT_FAMILY,
+              fontSize: FONT_SIZES[500],
+              color: 'white',
+              paddingRight: 16,
+            }}
+          >
+            {I18n.t('already_registered')} {age}
+          </Text>
         </View>
       </View>
       <View style={styles.contentContainer}>
@@ -62,9 +81,10 @@ export const QRPopupContent = (props: any) => {
           <Text style={[styles.contentTitle, { color: qrResult.getStatusColor() }]}>{title || ''}</Text>
         </View>
         <View style={styles.contentTextContainer}>
-          <Text style={styles.contentText}>{I18n.t('last_update')} </Text><Text style={[styles.contentText, bodyStyle]}>{body}</Text>
+          <Text style={styles.contentText}>{I18n.t('last_update')} </Text>
+          <Text style={[styles.contentText, bodyStyle]}>{body}</Text>
         </View>
-        {tag?.title? <Label color={tag.tagRole?.color} label={tag.title} role={tag.tagRole?.title}/>: void 0}
+        {tag?.title ? <Label color={tag.tagRole?.color} label={tag.title} role={tag.tagRole?.title} /> : void 0}
       </View>
     </View>
   )
@@ -139,7 +159,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   contentTextContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   contentText: {
     fontFamily: FONT_FAMILY,

@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  Alert,
-  Image,
-  StatusBar,
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native'
+import { Alert, Image, StatusBar, TouchableOpacity, StyleSheet, Text, View } from 'react-native'
 import CodePush from 'react-native-code-push'
 import { PrimaryButton } from '../../components/Button'
 import { DebugTouchable } from '../../components/DebugTouchable'
@@ -35,23 +27,16 @@ export const Home = ({ navigation }) => {
         backgroundColor: COLORS.PRIMARY_DARK,
       }}
     >
-      <StatusBar
-        backgroundColor={COLORS.PRIMARY_DARK}
-        barStyle="light-content"
-      />
+      <StatusBar backgroundColor={COLORS.PRIMARY_DARK} barStyle='light-content' />
       <View style={styles.content}>
         <DebugTouchable
           onDebug={() => {
-            CodePush.getUpdateMetadata().then(result => {
+            CodePush.getUpdateMetadata().then((result) => {
               Alert.alert(API_URL)
             })
           }}
         >
-          <Image
-            source={require('../../assets/Logo.png')}
-            resizeMode="contain"
-            style={{ width: 300 }}
-          />
+          <Image source={require('../../assets/Logo.png')} resizeMode='contain' style={{ width: 300 }} />
         </DebugTouchable>
         <Text style={styles.description}>
           {I18n.t('load_use_fight')}

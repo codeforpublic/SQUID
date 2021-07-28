@@ -1,9 +1,4 @@
-export const distance = (
-  lat1: number,
-  lon1: number,
-  lat2: number,
-  lon2: number,
-) => {
+export const distance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
   if (lat1 === lat2 && lon1 === lon2) {
     return 0
   } else {
@@ -11,9 +6,7 @@ export const distance = (
     var rad_lat2 = (Math.PI * lat2) / 180
     var theta = lon1 - lon2
     var rad_theta = (Math.PI * theta) / 180
-    var dist =
-      Math.sin(rad_lat1) * Math.sin(rad_lat2) +
-      Math.cos(rad_lat1) * Math.cos(rad_lat2) * Math.cos(rad_theta)
+    var dist = Math.sin(rad_lat1) * Math.sin(rad_lat2) + Math.cos(rad_lat1) * Math.cos(rad_lat2) * Math.cos(rad_theta)
     if (dist > 1) {
       dist = 1
     }

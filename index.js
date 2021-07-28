@@ -8,8 +8,7 @@ import { backgroundTracking } from './src/services/background-tracking'
 
 Text.defaultProps = Text.defaultProps || {}
 Text.defaultProps.allowFontScaling = false
-KeyboardAvoidingView.defaultProps.behavior =
-  Platform.OS === 'ios' ? 'padding' : null
+KeyboardAvoidingView.defaultProps.behavior = Platform.OS === 'ios' ? 'padding' : null
 
 // if (process.env.NODE_ENV === 'production') {
 //   Sentry.init({
@@ -41,10 +40,7 @@ let BackgroundGeolocationHeadlessTask = async (event) => {
           triggerType: 'headlessTask',
         },
       })
-      console.log(
-        '[BackgroundGeolocation HeadlessTask] - getCurrentPosition:',
-        location,
-      )
+      console.log('[BackgroundGeolocation HeadlessTask] - getCurrentPosition:', location)
       break
   }
 }

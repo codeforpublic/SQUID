@@ -1,11 +1,5 @@
 import React, { useCallback } from 'react'
-import {
-  StatusBar,
-  StyleSheet,
-  View,
-  ScrollView,
-  SafeAreaView,
-} from 'react-native'
+import { StatusBar, StyleSheet, View, ScrollView, SafeAreaView } from 'react-native'
 
 import { COLORS } from '../../styles'
 import { FormHeader } from '../../components/Form/FormHeader'

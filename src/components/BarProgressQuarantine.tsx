@@ -23,9 +23,7 @@ export interface BarProgressQuarantine {
   marginRight?: number
 }
 
-export const BarProgressQuarantine: React.FC<BarProgressQuarantine> = (
-  props,
-) => {
+export const BarProgressQuarantine: React.FC<BarProgressQuarantine> = (props) => {
   const [progressHeight, setProgressHeight] = useState<number>(12)
   const [progressRadius, setProgressRadius] = useState<number>(6)
   const [progresses, setProgresses] = useState<number[]>([])
@@ -57,10 +55,7 @@ export const BarProgressQuarantine: React.FC<BarProgressQuarantine> = (
     ])
   }, [progressHeight, progressRadius, props.progressBackgroundColor])
   const barOverflowStyle = useMemo(() => {
-    return StyleSheet.flatten([
-      styles.barOverflow,
-      { borderRadius: progressRadius },
-    ])
+    return StyleSheet.flatten([styles.barOverflow, { borderRadius: progressRadius }])
   }, [progressRadius])
 
   useEffect(() => {
@@ -69,13 +64,7 @@ export const BarProgressQuarantine: React.FC<BarProgressQuarantine> = (
     setProgresses(props.progresses || [])
     setGridLabel(props.gridLabel || [])
     setProgressLabel(props.progressLabel || [])
-  }, [
-    props.progressHeight,
-    props.progressRadius,
-    props.progresses,
-    props.gridLabel,
-    props.progressLabel,
-  ])
+  }, [props.progressHeight, props.progressRadius, props.progresses, props.gridLabel, props.progressLabel])
 
   return (
     <View style={containerStyle}>
