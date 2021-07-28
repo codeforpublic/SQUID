@@ -1,19 +1,18 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Image, StatusBar, Text, View, SafeAreaView } from 'react-native'
-import { useNavigation } from 'react-navigation-hooks'
+import { useNavigation } from '@react-navigation/native'
 import { PrimaryButton } from '../../components/Button'
-import { Button } from 'react-native-elements'
 import { COLORS, FONT_FAMILY } from '../../styles'
 import { doctorSize, styles } from '../2-Onboarding/const'
 import { OnboardHeader } from '../2-Onboarding/OnboadHeader'
-import I18n from '../../../i18n/i18n';
+import I18n from '../../../i18n/i18n'
 
-export const OnboardPhone = () => {
+export const OnboardPhone = ({ route }) => {
   const navigation = useNavigation()
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     navigation.navigate('AuthPhone')
   }
-  const onBack = navigation.getParam('onBack')
+  const onBack = route.params.onBack
 
   return (
     <>
@@ -24,7 +23,7 @@ export const OnboardPhone = () => {
           // paddingHorizontal: 20
         }}
       >
-        <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
+        <StatusBar backgroundColor={COLORS.WHITE} barStyle='dark-content' />
         <OnboardHeader
           style={{
             backgroundColor: COLORS.BLUE,
@@ -47,15 +46,9 @@ export const OnboardPhone = () => {
               alignItems: 'center',
             }}
           >
-            <Image
-              source={require('./onboard-phone.png')}
-              resizeMode="contain"
-              style={{ height: doctorSize }}
-            />
+            <Image source={require('./onboard-phone.png')} resizeMode='contain' style={{ height: doctorSize }} />
             <Text style={styles.title}>{I18n.t('confirm_phone_no')}</Text>
-            <Text style={styles.subtitle}>
-              {I18n.t('confirm_phone_no_so_we_can_take_car')}
-            </Text>
+            <Text style={styles.subtitle}>{I18n.t('confirm_phone_no_so_we_can_take_car')}</Text>
           </View>
 
           <PrimaryButton
@@ -69,9 +62,9 @@ export const OnboardPhone = () => {
             style={{
               marginTop: 30,
               alignSelf: 'center',
-              width: '100%'
+              width: '100%',
             }}
-            onPress={() => handleSubmit()}
+            onPress={handleSubmit}
           />
           <PrimaryButton
             containerStyle={{

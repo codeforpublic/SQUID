@@ -1,23 +1,15 @@
 import React, { useEffect } from 'react'
-import {
-  Linking,
-  Alert,
-  Platform,
-  AppState,
-  View,
-  StyleSheet,
-} from 'react-native'
+import { Linking, Alert, Platform, AppState, View, StyleSheet } from 'react-native'
 
-import I18n from '../../i18n/i18n';
+import I18n from '../../i18n/i18n'
 
-export const withEnforceUpdate = isEnforced => Component => props => {
+export const withEnforceUpdate = (isEnforced) => (Component) => (props) => {
   useEffect(() => {
     const check = () => {
       if (isEnforced) {
         Alert.alert(
           I18n.t('important_update'),
-          I18n.t('pls_update_latest_version_from') +
-            (Platform.OS === 'ios' ? 'App Store' : 'Play Store'),
+          I18n.t('pls_update_latest_version_from') + (Platform.OS === 'ios' ? 'App Store' : 'Play Store'),
           [
             {
               text: I18n.t('ok'),
@@ -35,7 +27,7 @@ export const withEnforceUpdate = isEnforced => Component => props => {
       }
     }
     let prevState
-    AppState.addEventListener('change', state => {
+    AppState.addEventListener('change', (state) => {
       if (state === 'active' && prevState !== state) {
         check()
       }

@@ -1,37 +1,29 @@
-import React, { useState } from 'react'
-import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
-import { useNavigation } from 'react-navigation-hooks'
-import { MyBackground } from '../../components/MyBackground'
+import React from 'react'
+import { StatusBar, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StatusBar, View, Text, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
+import I18n from '../../../i18n/i18n'
 import { PrimaryButton } from '../../components/Button'
+import { COLORS, FONT_BOLD, FONT_SIZES } from '../../styles'
 import { useResetTo } from '../../utils/navigation'
-import { applicationState } from '../../state/app-state'
-
-import I18n from '../../../i18n/i18n';
 
 export const OnboardComplete = () => {
-  
   const STRING = {
     TITLE: I18n.t('register_successfully'),
     SUB_TITLE: I18n.t('can_start_using_now'),
     NEXT_BUTTON: I18n.t('start'),
   }
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
   const resetTo = useResetTo()
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar
-        backgroundColor={COLORS.WHITE}
-        barStyle="dark-content"
-      />      
+      <StatusBar backgroundColor={COLORS.WHITE} barStyle='dark-content' />
       <View style={styles.header}>
         <Text style={styles.title}>{STRING.TITLE}</Text>
         <Text style={styles.subtitle}>{STRING.SUB_TITLE}</Text>
       </View>
-      <View style={styles.content}>        
-          <Icon name="checkcircleo" color={COLORS.GREEN} size={250} />
+      <View style={styles.content}>
+        <Icon name='checkcircleo' color={COLORS.GREEN} size={250} />
       </View>
       <View style={styles.footer}>
         <PrimaryButton
@@ -46,7 +38,7 @@ export const OnboardComplete = () => {
             // } else {
             //   resetTo({ routeName: 'Questionaire' })
             // }
-            resetTo({ routeName: 'MainApp' })
+            resetTo({ name: 'MainApp' })
           }}
         />
       </View>
@@ -85,6 +77,6 @@ const styles = StyleSheet.create({
   footer: {
     alignItems: 'center',
     marginBottom: 16,
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
   },
 })

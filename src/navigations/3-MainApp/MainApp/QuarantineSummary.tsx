@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { useNavigation } from 'react-navigation-hooks'
+import { useNavigation } from '@react-navigation/native'
 import { StoreLocationHistoryService } from '../../../services/store-location-history.service'
 import { BarProgressQuarantine } from '../../../components/BarProgressQuarantine'
-import {
-  BASE_LINE,
-  COLORS,
-  FONT_BOLD,
-  FONT_FAMILY,
-  FONT_SIZES,
-  GUTTER,
-} from '../../../styles'
+import { BASE_LINE, COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES, GUTTER } from '../../../styles'
 import I18n from '../../../../i18n/i18n'
 
 export const QuarantineSummary: React.FC = () => {
@@ -29,27 +22,17 @@ export const QuarantineSummary: React.FC = () => {
   }
 
   useEffect(() => {
-    StoreLocationHistoryService.calculatePreviousDataByCount(14).then(
-      (data) => {
-        setProgresses([data.H, data.W, data.O, data.G])
-      },
-    )
+    StoreLocationHistoryService.calculatePreviousDataByCount(14).then((data) => {
+      setProgresses([data.H, data.W, data.O, data.G])
+    })
   }, [])
 
   return (
     <View style={styles.container}>
       <View style={styles.titleBox}>
-        <TouchableOpacity
-          style={styles.buttonNext}
-          onPress={goToQuarantinePage}
-        >
-          <Text style={styles.title}>
-            {I18n.t('quarantine_work_from_home')}
-          </Text>
-          <Image
-            style={styles.titleIcon}
-            source={require('../../../assets/icons/arrow_right_black.png')}
-          />
+        <TouchableOpacity style={styles.buttonNext} onPress={goToQuarantinePage}>
+          <Text style={styles.title}>{I18n.t('quarantine_work_from_home')}</Text>
+          <Image style={styles.titleIcon} source={require('../../../assets/icons/arrow_right_black.png')} />
         </TouchableOpacity>
       </View>
       <View style={styles.barBox}>
@@ -58,20 +41,11 @@ export const QuarantineSummary: React.FC = () => {
           <Text style={styles.barTitleUnit}> {I18n.t('quarantine_day')}</Text>
         </View>
         <View style={{ flex: 1 }}>
-          <BarProgressQuarantine
-            progressLabel={items}
-            progresses={progresses}
-          />
+          <BarProgressQuarantine progressLabel={items} progresses={progresses} />
           <View style={styles.labelBox}>
             {items.map((item, i) => {
-              const textLabelStyle = StyleSheet.flatten([
-                styles.textLabel,
-                { color: item.color },
-              ])
-              const iconLabel = StyleSheet.flatten([
-                styles.iconLabel,
-                { backgroundColor: item.color },
-              ])
+              const textLabelStyle = StyleSheet.flatten([styles.textLabel, { color: item.color }])
+              const iconLabel = StyleSheet.flatten([styles.iconLabel, { backgroundColor: item.color }])
               return (
                 <>
                   {i > 0 && <View style={{ flex: 0.2 }} />}

@@ -5,7 +5,7 @@ import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { PrimaryButton } from '../../components/Button'
 import BackgroundGeolocation from 'react-native-background-geolocation'
-import { useNavigation } from 'react-navigation-hooks'
+import { useNavigation } from '@react-navigation/native'
 import { normalize } from 'react-native-elements'
 import I18n from '../../../i18n/i18n'
 
@@ -17,31 +17,31 @@ export const DebugBackgroundLocation = () => {
     let interval = setInterval(() => {
       BackgroundGeolocation.logger.getLog().then((log) => {
         setLogs(log)
-      });
-    }, (1000))
+      })
+    }, 1000)
     return () => clearInterval(interval)
   })
 
   return (
-    <MyBackground variant="light">
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor={COLORS.PRIMARY_LIGHT}
-      />
+    <MyBackground variant='light'>
+      <StatusBar barStyle='dark-content' backgroundColor={COLORS.PRIMARY_LIGHT} />
       <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}
-        >
-          <Text style={{
-            fontSize: FONT_SIZES[200] * 0.75
-          }}>{logs}</Text>
+        <ScrollView contentInsetAdjustmentBehavior='automatic' style={styles.scrollView}>
+          <Text
+            style={{
+              fontSize: FONT_SIZES[200] * 0.75,
+            }}
+          >
+            {logs}
+          </Text>
         </ScrollView>
-        <View style={{
-          alignItems: 'center',
-          paddingHorizontal: normalize(16),
-          marginBottom: 16,
-        }}>
+        <View
+          style={{
+            alignItems: 'center',
+            paddingHorizontal: normalize(16),
+            marginBottom: 16,
+          }}
+        >
           <PrimaryButton
             title={I18n.t('close')}
             style={{ width: '100%' }}
@@ -115,4 +115,3 @@ const styles = StyleSheet.create({
     marginRight: 24,
   },
 })
- 

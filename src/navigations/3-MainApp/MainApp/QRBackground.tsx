@@ -1,8 +1,5 @@
 import React from 'react'
-import {
-  View,
-  StyleSheet,
-} from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { SelfQR } from '../../../state/qr'
 import Color from 'color'
 
@@ -16,11 +13,7 @@ export const QRBackground = ({ qr }: { qr: SelfQR }) => {
       style={[
         StyleSheet.absoluteFill,
         {
-          backgroundColor: tagColor
-            ? tagColor
-            : Color(qr.getStatusColor())
-                .alpha(0.1)
-                .toString(),
+          backgroundColor: tagColor ? tagColor : Color(qr.getStatusColor()).alpha(0.1).toString(),
           height: '50%',
         },
       ]}

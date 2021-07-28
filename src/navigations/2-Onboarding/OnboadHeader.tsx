@@ -8,9 +8,7 @@ interface PropTypes {
   backIcon?: string
 }
 
-export const OnboardHeader = ({
-  style,
-}: PropTypes) => {
+export const OnboardHeader = ({ style }: PropTypes) => {
   if (Dimensions.get('window').height < 600) {
     return null
   }
@@ -22,7 +20,7 @@ export const OnboardHeader = ({
         <Image
           source={require('../../assets/logo_white.png')}
           style={{ height: logoHeight, width: logoWidth }}
-          resizeMode="contain"
+          resizeMode='contain'
         />
       </View>
     </View>

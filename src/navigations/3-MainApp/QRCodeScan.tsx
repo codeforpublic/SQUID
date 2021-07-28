@@ -3,7 +3,7 @@ import { Alert, Dimensions, StatusBar } from 'react-native'
 import NotificationPopup from 'react-native-push-notification-popup'
 import QRCodeScanner from 'react-native-qrcode-scanner'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { useIsFocused } from 'react-navigation-hooks'
+import { useIsFocused, CommonActions } from '@react-navigation/native'
 import I18n from '../../../i18n/i18n'
 import { Header, Subtitle, Title } from '../../components/Base'
 import { backgroundTracking } from '../../services/background-tracking'
@@ -14,6 +14,7 @@ import { COLORS } from '../../styles'
 import { decodeJWT, verifyToken } from '../../utils/jwt'
 import PopupImportVaccine from './NewMainApp/PopupImportVaccine'
 import { QRPopupContent } from './QRPopupContent'
+import { useApplicationState } from '../../state/app-state'
 
 export const QRCodeScan = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false)
@@ -21,6 +22,7 @@ export const QRCodeScan = ({ navigation }) => {
   const isFocused = useIsFocused()
   const [qrResult, setQRResult] = useState<QRResult>(null)
   const popupRef = useRef<NotificationPopup>()
+  const [, setData] = useApplicationState()
 
   useEffect(() => {
     tagManager.update()
@@ -38,7 +40,7 @@ export const QRCodeScan = ({ navigation }) => {
   }, [qrResult])
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#F9F9F9' }}>
-      <StatusBar barStyle="dark-content" backgroundColor={COLORS.WHITE} />
+      <StatusBar barStyle='dark-content' backgroundColor={COLORS.WHITE} />
       {isFocused ? (
         <QRCodeScanner
           showMarker
@@ -77,7 +79,7 @@ export const QRCodeScan = ({ navigation }) => {
 
                   setModalVisible(true)
                 } catch (err) {
-                  console.error('qr scan catch', err)
+                  console.warn('qr scan catch', err)
                 }
               } else {
                 await verifyToken(e?.data)
@@ -113,7 +115,8 @@ export const QRCodeScan = ({ navigation }) => {
           setModalVisible={setModalVisible}
           onSelect={(status) => {
             if (status === 'ok') {
-              navigation.navigate('MainApp', { card: 1 })
+              setData('card', 1)
+              navigation.navigate('Home')
             } else {
               resetVaccine && resetVaccine()
             }

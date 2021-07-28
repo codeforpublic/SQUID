@@ -6,25 +6,10 @@ import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
 import styled, { css } from '@emotion/native'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import {
-  StatusBar,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-  Platform,
-  BackHandler,
-  Text,
-} from 'react-native'
-import {
-  Title,
-  Subtitle,
-  Header,
-  WhiteText,
-  ColorText,
-} from '../../components/Base'
+import { StatusBar, View, StyleSheet, TouchableOpacity, Alert, Platform, BackHandler, Text } from 'react-native'
+import { Title, Subtitle, Header, WhiteText, ColorText } from '../../components/Base'
 import { PrimaryButton } from '../../components/Button'
-import { useNavigation, useNavigationParam } from 'react-navigation-hooks'
+import { useNavigation, useNavigationParam } from '@react-navigation/native'
 import { BackButton } from '../../components/BackButton'
 import { useMutation } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
@@ -37,10 +22,10 @@ import { SelfieCaptureGuideline } from '../../components/SelfieCaptureGuideline'
 import { RELATIVE_FACE_PATH } from '../const'
 import { FormHeader } from '../../components/Form/FormHeader'
 
-import I18n from '../../../i18n/i18n';
+import I18n from '../../../i18n/i18n'
 
 const MUTATE_USER = gql`
-  mutation($image: String) {
+  mutation ($image: String) {
     updateUser(data: { image: $image }) @client
   }
 `
@@ -50,7 +35,7 @@ export const OnboardFace = () => {
 
   useEffect(() => {
     if (uri) {
-      RNFS.exists(uri).then(exists => {
+      RNFS.exists(uri).then((exists) => {
         if (!exists) {
           setUri(null)
         }
@@ -73,7 +58,7 @@ export const OnboardFace = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
+      <StatusBar backgroundColor={COLORS.WHITE} barStyle='dark-content' />
       <FormHeader>
         <View style={styles.header}>
           <Text style={styles.title}>{I18n.t('profile_picture')}</Text>
@@ -103,7 +88,7 @@ export const OnboardFace = () => {
           }}
           onPress={navigateToCamera}
         >
-          <FeatherIcon name="camera" color={COLORS.BLUE} size={20} />
+          <FeatherIcon name='camera' color={COLORS.BLUE} size={20} />
           <ColorText color={COLORS.BLUE} style={{ marginLeft: 12, fontSize: FONT_SIZES[700] }}>
             {uri ? I18n.t('retake_photo') : I18n.t('take_photo')}
           </ColorText>
@@ -112,7 +97,7 @@ export const OnboardFace = () => {
       <View style={styles.footer}>
         <PrimaryButton
           style={{ width: '100%' }}
-          containerStyle={{ width: '100%'}}
+          containerStyle={{ width: '100%' }}
           title={I18n.t('next')}
           onPress={onSubmit}
           disabled={!uri}

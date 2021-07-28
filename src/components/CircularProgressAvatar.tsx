@@ -1,13 +1,6 @@
 import React from 'react'
 import { AnimatedCircularProgress } from 'react-native-circular-progress'
-import {
-  Text,
-  View,
-  StyleSheet,
-  Dimensions,
-  Image,
-  ImageSourcePropType,
-} from 'react-native'
+import { Text, View, StyleSheet, Dimensions, Image, ImageSourcePropType } from 'react-native'
 import { FONT_FAMILY, COLORS } from '../styles'
 
 export const CircularProgressAvatar = ({
@@ -50,7 +43,7 @@ export const CircularProgressAvatar = ({
           backgroundColor={COLORS.GRAY_1}
           arcSweepAngle={360}
           rotation={0}
-          lineCap="round"
+          lineCap='round'
         />
         <View style={styles.imageWrapper}>
           {image ? (

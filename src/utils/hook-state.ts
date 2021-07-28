@@ -17,26 +17,27 @@ export class HookState {
     EventRegister.emit(this.changeEventName, this.data)
   }
   subscribeToChange(callback): Unsubscriber {
-    const eventId = EventRegister.addEventListener(
-      this.changeEventName,
-      callback,
-    )
+    const eventId = EventRegister.addEventListener(this.changeEventName, callback)
 
     return () => EventRegister.removeEventListener(eventId as string)
   }
 }
 type valueof<T> = T[keyof T]
 
-export const createUseHookState = <DataType>(hookStateInstance: HookState) => (): [DataType, any] => {
-  const [data, _setData] = useState<DataType>(hookStateInstance.data)
-  useEffect(() => {
-    const unsubscribe = hookStateInstance.subscribeToChange(_setData)
-    return () => unsubscribe()
-  }, [])
-  
-  const setData = useCallback((key: keyof DataType, value: valueof<DataType>) => {
-    hookStateInstance.setData(key, value)
-  }, [])
+export function createUseHookState<DataType>(hookStateInstance: HookState) {
+  return (): [DataType, any] => {
+    const [data, _setData] = useState<DataType>(hookStateInstance.data)
+    useEffect(() => {
+      const unsubscribe = hookStateInstance.subscribeToChange((props: DataType) => {
+        _setData({ ...props })
+      })
+      return () => unsubscribe()
+    }, [])
 
-  return [data, setData]
+    const setData = useCallback((key: keyof DataType, value: valueof<DataType>) => {
+      hookStateInstance.setData(key, value)
+    }, [])
+
+    return [data, setData]
+  }
 }

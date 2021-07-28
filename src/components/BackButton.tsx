@@ -1,18 +1,12 @@
 import React from 'react'
 import { TouchableOpacity, Text } from 'react-native'
-import { useNavigation } from 'react-navigation-hooks'
+import { useNavigation } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD } from '../styles'
 
-import I18n from '../../i18n/i18n';
+import I18n from '../../i18n/i18n'
 
-export const BackButton = ({
-  onPress,
-  backIcon = 'arrow-left',
-}: {
-  onPress?: any
-  backIcon?: string
-}) => {
+export const BackButton = ({ onPress, backIcon = 'arrow-left' }: { onPress?: any; backIcon?: string }) => {
   const navigation = useNavigation()
   return (
     <TouchableOpacity

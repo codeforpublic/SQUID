@@ -30,10 +30,7 @@ interface ContactTracerState {
   statusText: string
 }
 
-export class ContactTracer extends React.Component<
-  ContactTracerProps,
-  ContactTracerState
-> {
+export class ContactTracer extends React.Component<ContactTracerProps, ContactTracerState> {
   statusText = ''
   advertiserEventSubscription = null
   nearbyDeviceFoundEventSubscription = null
@@ -58,11 +55,11 @@ export class ContactTracer extends React.Component<
     // TODO: Use the global userId instead of the local one. Remove User.tsx file if done
     const userId = nanoid().substr(0, 20)
     this.setState({ userId: userId })
-    NativeModules.ContactTracerModule.setUserId(userId).then(userId => {})
+    NativeModules.ContactTracerModule.setUserId(userId).then((userId) => {})
 
     // Check if Tracer Service has been enabled
     NativeModules.ContactTracerModule.isTracerServiceEnabled()
-      .then(enabled => {
+      .then((enabled) => {
         this.setState({
           isServiceEnabled: enabled,
         })
@@ -73,11 +70,11 @@ export class ContactTracer extends React.Component<
 
     // Check if BLE is available
     NativeModules.ContactTracerModule.initialize()
-      .then(result => {
+      .then((result) => {
         return NativeModules.ContactTracerModule.isBLEAvailable()
       })
       // For NativeModules.ContactTracerModule.isBLEAvailable()
-      .then(isBLEAvailable => {
+      .then((isBLEAvailable) => {
         if (isBLEAvailable) {
           this.appendStatusText('BLE is available')
           // BLE is available, continue requesting Location Permission
@@ -88,7 +85,7 @@ export class ContactTracer extends React.Component<
         }
       })
       // For requestLocationPermission()
-      .then(locationPermissionGranted => {
+      .then((locationPermissionGranted) => {
         this.setState({
           isLocationPermissionGranted: locationPermissionGranted,
         })
@@ -102,7 +99,7 @@ export class ContactTracer extends React.Component<
         }
       })
       // For NativeModules.ContactTracerModule.tryToTurnBluetoothOn()
-      .then(bluetoothOn => {
+      .then((bluetoothOn) => {
         this.setState({
           isBluetoothOn: bluetoothOn,
         })
@@ -118,18 +115,14 @@ export class ContactTracer extends React.Component<
         }
       })
       // For NativeModules.ContactTracerModule.isMultipleAdvertisementSupported()
-      .then(supported => {
-        if (supported)
-          this.appendStatusText('Multitple Advertisement is supported')
+      .then((supported) => {
+        if (supported) this.appendStatusText('Multitple Advertisement is supported')
         else this.appendStatusText('Multitple Advertisement is NOT supported')
       })
 
     // Register Event Emitter
     if (Platform.OS == 'ios') {
-      this.advertiserEventSubscription = eventEmitter.addListener(
-        'AdvertiserMessage',
-        this.onAdvertiserMessageReceived,
-      )
+      this.advertiserEventSubscription = eventEmitter.addListener('AdvertiserMessage', this.onAdvertiserMessageReceived)
 
       this.nearbyDeviceFoundEventSubscription = eventEmitter.addListener(
         'NearbyDeviceFound',
@@ -184,52 +177,39 @@ export class ContactTracer extends React.Component<
    * Event Emitting Handler
    */
 
-  onAdvertiserMessageReceived = e => {
-    this.appendStatusText(e['message'])
+  onAdvertiserMessageReceived = (e) => {
+    this.appendStatusText(e.message)
   }
 
-  onNearbyDeviceFoundReceived = e => {
+  onNearbyDeviceFoundReceived = (e) => {
     this.appendStatusText('')
-    this.appendStatusText('***** RSSI: ' + e['rssi'])
-    this.appendStatusText('***** Found Nearby Device: ' + e['name'])
+    this.appendStatusText('***** RSSI: ' + e.rssi)
+    this.appendStatusText('***** Found Nearby Device: ' + e.name)
     this.appendStatusText('')
   }
 
   render() {
     return (
-      <MyBackground variant="light">
-        <StatusBar
-          barStyle="dark-content"
-          backgroundColor={COLORS.PRIMARY_LIGHT}
-        />
+      <MyBackground variant='light'>
+        <StatusBar barStyle='dark-content' backgroundColor={COLORS.PRIMARY_LIGHT} />
         <SafeAreaView style={{ flex: 1 }}>
           <View>
             <View style={styles.body}>
               <View>
-                <Text style={styles.mediumText}>
-                  User ID: {this.state.userId}
-                </Text>
+                <Text style={styles.mediumText}>User ID: {this.state.userId}</Text>
               </View>
               <View style={styles.horizontalRow}>
                 <Text style={styles.normalText}>Service: </Text>
                 <Switch
                   trackColor={{ false: '#767577', true: '#81b0ff' }}
-                  thumbColor={
-                    this.state.isServiceEnabled ? '#f5dd4b' : '#f4f3f4'
-                  }
-                  ios_backgroundColor="#3e3e3e"
+                  thumbColor={this.state.isServiceEnabled ? '#f5dd4b' : '#f4f3f4'}
+                  ios_backgroundColor='#3e3e3e'
                   onValueChange={this.onServiceSwitchChanged}
                   value={this.state.isServiceEnabled}
-                  disabled={
-                    !this.state.isLocationPermissionGranted ||
-                    !this.state.isBluetoothOn
-                  }
+                  disabled={!this.state.isLocationPermissionGranted || !this.state.isBluetoothOn}
                 />
               </View>
-              <ScrollView
-                contentInsetAdjustmentBehavior="automatic"
-                style={styles.scrollView}
-              >
+              <ScrollView contentInsetAdjustmentBehavior='automatic' style={styles.scrollView}>
                 <Text>{this.state.statusText}</Text>
               </ScrollView>
             </View>

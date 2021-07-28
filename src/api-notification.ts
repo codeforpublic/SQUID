@@ -4,17 +4,12 @@ import { getAnonymousHeaders } from './api'
 import { NOTIFICATION_API_URL, SSL_PINNING_CERT_NAME } from './config'
 import { NotificationHistoryModel } from './navigations/3-MainApp/NotificationHistory'
 
-export const getNotifications = async (param: {
-  skip?: number
-  limit?: number
-}) => {
+export const getNotifications = async (param: { skip?: number; limit?: number }) => {
   try {
     const res = await fetch(
       NOTIFICATION_API_URL +
         '/notifications' +
-        (param
-          ? `?${new URLSearchParams(param as Record<string, string>)}`
-          : ''),
+        (param ? `?${new URLSearchParams(param as Record<string, string>)}` : ''),
       {
         sslPinning: {
           certs: [SSL_PINNING_CERT_NAME],
@@ -29,7 +24,7 @@ export const getNotifications = async (param: {
       return json as NotificationHistoryModel[]
     }
   } catch (error) {
-    // console.error('Failed', json);
+    // console.warn('Failed', json);
   }
 
   return []
@@ -49,7 +44,7 @@ export const patchNotifications = async () => {
     console.log('patchNotifications', text)
 
   } catch (error) {
-    // console.error('Failed', json);
+    // console.warn('Failed', json);
     return 'failed' as const
   }
 

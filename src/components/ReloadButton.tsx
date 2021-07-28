@@ -1,13 +1,13 @@
 import React from 'react'
-import { Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native'
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 
 const ReloadButton: React.FC<{ onClick?: () => void }> = ({ onClick }) => {
   return (
-    <TouchableWithoutFeedback onPress={onClick}>
+    <TouchableOpacity onPress={onClick}>
       <View style={styles.reloadButton}>
         <Image source={require('../assets/reload.png')} />
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   )
 }
 

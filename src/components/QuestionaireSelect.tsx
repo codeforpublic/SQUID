@@ -7,7 +7,7 @@ import { normalize } from 'react-native-elements'
 
 const padding = normalize(16)
 const Container = styled(View)({
-  padding: padding,  
+  padding: padding,
 })
 
 const SelectItemContainer = styled(View)(({ isSelected }) => ({
@@ -18,12 +18,12 @@ const SelectItemContainer = styled(View)(({ isSelected }) => ({
   borderWidth: isSelected ? 2 : 1,
   borderRadius: 5,
   marginBottom: isSelected ? 6 : 7,
-  shadowOffset:{  width: 1, height: 2,  },
+  shadowOffset: { width: 1, height: 2 },
   shadowColor: 'black',
   shadowOpacity: 0.1,
   flexDirection: 'row',
   // justifyContent: 'space-between',
-  alignItems: 'center'
+  alignItems: 'center',
 }))
 const SelectItemLabel = styled(Text)({
   fontFamily: FONT_MED,
@@ -42,41 +42,40 @@ interface Props {
   onChange: (value: any) => void
 }
 
-const SelectItem = ({ label, value, isSelected, onSelect }) => { 
+const SelectItem = ({ label, value, isSelected, onSelect }) => {
   return (
     <TouchableOpacity onPress={() => onSelect(value)} activeOpacity={0.6}>
       <SelectItemContainer isSelected={isSelected}>
-        <SelectItemLabel style={{ color: isSelected? '#216DB8': '#0C2641', flex: 1 }}>{label}</SelectItemLabel>
-        <FeatherIcon name={isSelected? "check-circle": "circle"} size={20} color={isSelected? '#216DB8': '#0C2641'} />
+        <SelectItemLabel style={{ color: isSelected ? '#216DB8' : '#0C2641', flex: 1 }}>{label}</SelectItemLabel>
+        <FeatherIcon
+          name={isSelected ? 'check-circle' : 'circle'}
+          size={20}
+          color={isSelected ? '#216DB8' : '#0C2641'}
+        />
       </SelectItemContainer>
     </TouchableOpacity>
   )
 }
 
-export const QuestionaireSelect = ({
-  multiple,
-  style,
-  options,
-  value,
-  defaultValue,
-  onChange,
-}: Props) => {
-  const onSelect = useCallback((itemValue) => {
-    
-    if (multiple) {
-      if (!value || itemValue === 'none') {
-        onChange([itemValue])
-      } else if (value.includes(itemValue)) {
-        onChange(value.filter((v) => v !== itemValue && v !== 'none'))
+export const QuestionaireSelect = ({ multiple, style, options, value, defaultValue, onChange }: Props) => {
+  const onSelect = useCallback(
+    (itemValue) => {
+      if (multiple) {
+        if (!value || itemValue === 'none') {
+          onChange([itemValue])
+        } else if (value.includes(itemValue)) {
+          onChange(value.filter((v) => v !== itemValue && v !== 'none'))
+        } else {
+          onChange(value.filter((v) => v !== 'none').concat(itemValue))
+        }
       } else {
-        onChange(value.filter(v => v !== 'none').concat(itemValue))
+        console.log('onChange', itemValue)
+        onChange(itemValue)
       }
-    } else {
-      console.log('onChange', itemValue)
-      onChange(itemValue)
-    }
-  }, [multiple, value])
-  
+    },
+    [multiple, value],
+  )
+
   return (
     <Container style={style}>
       {options.map((option) => {
@@ -85,8 +84,8 @@ export const QuestionaireSelect = ({
           <SelectItem
             key={option.label}
             label={option.label}
-            value={option.value || (defaultValue || option.value)}
-            isSelected={multiple? value && value.includes(option.value): value === option.value}
+            value={option.value || defaultValue || option.value}
+            isSelected={multiple ? value && value.includes(option.value) : value === option.value}
             onSelect={(itemValue) => onSelect(itemValue)}
           />
         )

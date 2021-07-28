@@ -1,13 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import {
-  View,
-  StyleSheet,
-  StatusBar,
-  ScrollView,
-  SafeAreaView,
-  Image,
-} from 'react-native'
+import { View, StyleSheet, StatusBar, ScrollView, SafeAreaView, Image } from 'react-native'
 import { COLORS, FONT_BOLD, FONT_MED, FONT_SIZES } from '../../styles'
 import { FormHeader } from '../../components/Form/FormHeader'
 import WebView from 'react-native-webview'
@@ -31,15 +24,17 @@ export interface ListCoordinate {
   latitude: number
   longitude: number
 }
-export const SetLocationMapWebView = ({ navigation }: any) => {
+export const SetLocationMapWebView = ({ navigation, route }: any) => {
   const webviewRef = useRef<WebView>()
-  const [coordinate, setCoordinate] = useState<Coordinate>({
-    latitude: 13.852423,
-    longitude: 100.5803335,
-  })
   const [homeList, setHomeList] = useState<ListCoordinate[]>([])
   const [officeList, setOfficeList] = useState<ListCoordinate[]>([])
-  const [mode, setMode] = useState<LocationMode>('HOME-LIST')
+  const mode = route.params.mode || 'HOME-LIST'
+  const [coordinate, setCoordinate] = React.useState(
+    route.params.coordinate || {
+      latitude: 13.852423,
+      longitude: 100.5803335,
+    },
+  )
 
   const onBack = useCallback(() => {
     navigation.pop()
@@ -50,20 +45,14 @@ export const SetLocationMapWebView = ({ navigation }: any) => {
   }, [])
 
   useEffect(() => {
-    const { mode = 'HOME-LIST' }: any = navigation.state.params
-    setMode(mode)
-  }, [navigation.state.params.mode])
-
-  useEffect(() => {
-    if (navigation.state.params.coordinate) {
-      const { longitude, latitude } = navigation.state.params.coordinate
-      setCoordinate(navigation.state.params.coordinate)
+    if (route.params.coordinate) {
+      const { longitude, latitude } = route.params.coordinate
+      setCoordinate(route.params.coordinate)
       setDefaultMapLocation(latitude, longitude)
     }
-  }, [navigation.state.params.coordinate])
+  }, [route.params.coordinate])
 
   const getLocationList = useCallback(() => {
-    const { mode = 'HOME-LIST' }: any = navigation.state.params
     AsyncStorage.getItem(mode).then((locationsJson) => {
       const locations = locationsJson ? JSON.parse(locationsJson) : []
       if (mode === 'HOME-LIST') {
@@ -72,12 +61,11 @@ export const SetLocationMapWebView = ({ navigation }: any) => {
         setOfficeList(locations)
       }
     })
-  }, [])
+  }, [mode])
 
   const save = () => {
     const no = new Date().getTime()
-    const concatLocations = (item: any, previous: any[]) =>
-      [{ no, ...item }, ...(previous || [])].slice(0, 10)
+    const concatLocations = (item: any, previous: any[]) => [{ no, ...item }, ...(previous || [])].slice(0, 10)
     let list = []
     if (mode === 'HOME-LIST') {
       list = concatLocations(coordinate, homeList)
@@ -164,9 +152,7 @@ export const SetLocationMapWebView = ({ navigation }: any) => {
           white
           whiteLogo
           style={[styles.flexContainer, styles.paddingTop]}
-          title={
-            coordinate.name || navigation.state.params.title || 'ระบุตำแหน่ง'
-          }
+          title={coordinate.name || route.params.title || 'ระบุตำแหน่ง'}
         >
           <View style={styles.container} />
           <View style={styles.formContainer}>
@@ -180,21 +166,10 @@ export const SetLocationMapWebView = ({ navigation }: any) => {
           </View>
         </FormHeader>
       </ScrollView>
-      <TouchableOpacity
-        style={styles.buttonCurrentLocation}
-        onPress={getCurrentLocation}
-      >
-        <Image
-          source={require('./assets/location.png')}
-          resizeMode="contain"
-          style={styles.iconCurrentLocation}
-        />
+      <TouchableOpacity style={styles.buttonCurrentLocation} onPress={getCurrentLocation}>
+        <Image source={require('./assets/location.png')} resizeMode='contain' style={styles.iconCurrentLocation} />
       </TouchableOpacity>
-      <PrimaryButton
-        containerStyle={[styles.button]}
-        title={I18n.t('save_location')}
-        onPress={save}
-      />
+      <PrimaryButton containerStyle={[styles.button]} title={I18n.t('save_location')} onPress={save} />
     </View>
   )
 }

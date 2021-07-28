@@ -1,19 +1,17 @@
-import { createStackNavigator } from 'react-navigation'
-import { AuthPhone } from './AuthPhone'
+import React from 'react'
+import { createStackNavigator } from '@react-navigation/stack'
 import { AuthOTP } from './AuthOTP'
+import { AuthPhone } from './AuthPhone'
 import { OnboardPhone } from './OnboardPhone'
-/*
-  handle deeplink
-  morchana://app/:appId
-*/
-export const AuthStack = createStackNavigator(
-  {
-    OnboardPhone,
-    AuthPhone,
-    AuthOTP,
-  },
-  {
-    headerMode: 'none',
-    mode: 'modal'
-  },
-)
+
+const Stack = createStackNavigator()
+
+export const AuthStack = () => {
+  return (
+    <Stack.Navigator headerMode='none' mode='modal'>
+      <Stack.Screen name='OnboardPhone' component={OnboardPhone} />
+      <Stack.Screen name='AuthPhone' component={AuthPhone} />
+      <Stack.Screen name='AuthOTP' component={AuthOTP} />
+    </Stack.Navigator>
+  )
+}

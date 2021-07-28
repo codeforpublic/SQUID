@@ -5,7 +5,7 @@
  * @format
  */
 
-const path = require('path');
+const path = require('path')
 module.exports = {
   projectRoot: path.resolve(__dirname),
   transformer: {
@@ -16,4 +16,4 @@ module.exports = {
       },
     }),
   },
-};
+}

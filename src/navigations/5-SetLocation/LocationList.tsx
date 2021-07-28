@@ -1,12 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableHighlight,
-  TouchableOpacity,
-  Image,
-} from 'react-native'
+import { StyleSheet, View, Text, TouchableHighlight, TouchableOpacity, Image } from 'react-native'
 import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import AsyncStorage from '@react-native-community/async-storage'
 import { LocationMode, LocationType } from './const'
@@ -28,17 +21,16 @@ export const LocationList = ({ navigation }) => {
   ]
 
   const loadLocation = useCallback(() => {
-    Promise.all([
-      AsyncStorage.getItem('HOME-LIST'),
-      AsyncStorage.getItem('OFFICE-LIST'),
-    ]).then(([homeLocation, officeLocation]) => {
-      if (homeLocation) {
-        setHome(JSON.parse(homeLocation))
-      }
-      if (officeLocation) {
-        setOffice(JSON.parse(officeLocation))
-      }
-    })
+    Promise.all([AsyncStorage.getItem('HOME-LIST'), AsyncStorage.getItem('OFFICE-LIST')]).then(
+      ([homeLocation, officeLocation]) => {
+        if (homeLocation) {
+          setHome(JSON.parse(homeLocation))
+        }
+        if (officeLocation) {
+          setOffice(JSON.parse(officeLocation))
+        }
+      },
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [home, office])
 
@@ -72,11 +64,7 @@ export const LocationList = ({ navigation }) => {
     if (hasLocation(items)) {
       return <Text style={styles.textEdit}>{I18n.t('edit')}</Text>
     } else {
-      return (
-        <Text style={styles.textAddLocation}>
-          {I18n.t('please_add_location')}
-        </Text>
-      )
+      return <Text style={styles.textAddLocation}>{I18n.t('please_add_location')}</Text>
     }
   }
 
@@ -87,16 +75,10 @@ export const LocationList = ({ navigation }) => {
     })
   }
 
-  const locationComp = (
-    index: number,
-    location: LocationItem,
-  ): React.ReactNode => {
+  const locationComp = (index: number, location: LocationItem): React.ReactNode => {
     const locationItems = getLocation(location.mode) || []
     const mode = location.mode
-    const title =
-      mode === 'HOME-LIST'
-        ? I18n.t('set_your_home_location')
-        : I18n.t('set_your_office_location')
+    const title = mode === 'HOME-LIST' ? I18n.t('set_your_home_location') : I18n.t('set_your_office_location')
     const locationStyled = StyleSheet.flatten([
       styles.locations,
       {
@@ -110,9 +92,7 @@ export const LocationList = ({ navigation }) => {
 
     const displayEditTimes = (editedLocations: LocationType[]) => {
       const editCount = editedLocations?.length - 1
-      return `${editCount} ${I18n.t('time')}${
-        I18n.currentLocale() === 'en' && editCount > 1 ? 's' : ''
-      }`
+      return `${editCount} ${I18n.t('time')}${I18n.currentLocale() === 'en' && editCount > 1 ? 's' : ''}`
     }
 
     return (
@@ -120,12 +100,9 @@ export const LocationList = ({ navigation }) => {
         <View style={styles.locationType}>
           <View style={{ flex: 1, flexDirection: 'row' }}>
             <Text style={styles.locationTextLabel}>{location.label}</Text>
-            {!hasLocation(locationItems) && (
-              <Text style={styles.asterisk}>*</Text>
-            )}
+            {!hasLocation(locationItems) && <Text style={styles.asterisk}>*</Text>}
           </View>
-          {(!hasLocation(locationItems) ||
-            (hasLocation(locationItems) && locationItems.length < 10)) && (
+          {(!hasLocation(locationItems) || (hasLocation(locationItems) && locationItems.length < 10)) && (
             <TouchableHighlight
               activeOpacity={1}
               underlayColor={'rgba(0,0,0,0.1)'}
@@ -134,9 +111,7 @@ export const LocationList = ({ navigation }) => {
                   title,
                   label: location.label,
                   mode: location.mode,
-                  coordinate: hasLocation(locationItems)
-                    ? locationItems[0]
-                    : null,
+                  coordinate: hasLocation(locationItems) ? locationItems[0] : null,
                   onBack: () => {
                     navigation.pop()
                   },
@@ -146,10 +121,7 @@ export const LocationList = ({ navigation }) => {
             >
               <View style={styles.addLocation}>
                 {addLocationText(locationItems)}
-                <Image
-                  style={styles.iconAddLocation}
-                  source={require('../../assets/icons/arrow_right_black.png')}
-                />
+                <Image style={styles.iconAddLocation} source={require('../../assets/icons/arrow_right_black.png')} />
               </View>
             </TouchableHighlight>
           )}
@@ -158,32 +130,20 @@ export const LocationList = ({ navigation }) => {
         {hasLocation(locationItems) && (
           <>
             <Text numberOfLines={1} style={styles.textLocationName}>
-              {locationItems[0]?.name ||
-                displayLatitudeLongitude(locationItems[0])}
+              {locationItems[0]?.name || displayLatitudeLongitude(locationItems[0])}
             </Text>
             {locationItems.length > 1 && (
               <View style={styles.locationHistoryDate}>
-                <Text style={styles.textLocationCountLabel}>
-                  {I18n.t('edited')}
-                </Text>
+                <Text style={styles.textLocationCountLabel}>{I18n.t('edited')}</Text>
                 <View style={{ flex: 0.05 }} />
                 <TouchableOpacity onPress={goToLocationHistory(location)}>
-                  <Text style={styles.textLocationCount}>
-                    {displayEditTimes(locationItems)}
-                  </Text>
+                  <Text style={styles.textLocationCount}>{displayEditTimes(locationItems)}</Text>
                 </TouchableOpacity>
                 <View style={{ flex: 0.05 }} />
-                <Text style={styles.textLocationDateLabel}>
-                  {I18n.t('edit_lasted')}{' '}
-                </Text>
+                <Text style={styles.textLocationDateLabel}>{I18n.t('edit_lasted')} </Text>
                 <Text style={styles.textLocationDate}>
-                  {moment(locationItems[0].no)
-                    .locale(I18n.currentLocale())
-                    .format('D MMM')}{' '}
-                  {(
-                    moment(locationItems[0].no).year() +
-                    (I18n.currentLocale() === 'th' ? 543 : 0)
-                  ).toString()}
+                  {moment(locationItems[0].no).locale(I18n.currentLocale()).format('D MMM')}{' '}
+                  {(moment(locationItems[0].no).year() + (I18n.currentLocale() === 'th' ? 543 : 0)).toString()}
                 </Text>
               </View>
             )}

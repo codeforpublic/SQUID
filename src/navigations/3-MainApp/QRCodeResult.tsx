@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigationParam } from 'react-navigation-hooks'
+import { useNavigationParam } from '@react-navigation/native'
 import { CircularProgressAvatar } from '../../components/CircularProgressAvatar'
 import { View, Text, Image, Dimensions } from 'react-native'
 import { Title, Header, Subtitle } from '../../components/Base'
@@ -12,7 +12,7 @@ import moment from 'moment-timezone'
 import 'moment/locale/th'
 import { QRResult } from '../../state/qr'
 
-import I18n from '../../../i18n/i18n';
+import I18n from '../../../i18n/i18n'
 
 const Content = styled(View)({
   flex: 1,
@@ -55,29 +55,19 @@ const RiskLabel = ({ label, color, style }) => {
   )
 }
 
-export const QRCodeResult = ({
-  qrResult,
-  onRescan,
-}: {
-  qrResult: QRResult
-  onRescan: (e: any) => any
-}) => {
+export const QRCodeResult = ({ qrResult, onRescan }: { qrResult: QRResult; onRescan: (e: any) => any }) => {
   // console.log('qrResult', qrResult)
   return (
-    <MyBackground variant="light">
+    <MyBackground variant='light'>
       <SafeAreaView style={{ flex: 1 }}>
         <Header>
           <Title>{I18n.t('scan_result')}</Title>
         </Header>
         <Content>
           <CircularProgressAvatar
-            text="เสี่ยงน้อย"
+            text='เสี่ยงน้อย'
             CustomComponent={({ style }) => (
-              <RiskLabel
-                style={style}
-                label={qrResult.getLabel()}
-                color={qrResult.getStatusColor()}
-              />
+              <RiskLabel style={style} label={qrResult.getLabel()} color={qrResult.getStatusColor()} />
             )}
             color={qrResult.getStatusColor()}
             progress={80}

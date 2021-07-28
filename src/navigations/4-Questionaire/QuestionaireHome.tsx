@@ -1,19 +1,12 @@
 import React, { useEffect } from 'react'
 import styled from '@emotion/native'
-import {
-  View,
-  StyleSheet,
-  Text,
-  Image,
-  Dimensions,
-  StatusBar,
-} from 'react-native'
+import { View, StyleSheet, Text, Image, Dimensions, StatusBar } from 'react-native'
 import { FONT_FAMILY, COLORS, FONT_BOLD, FONT_SIZES } from '../../styles'
 import { Button, normalize } from 'react-native-elements'
 import { useSafeArea } from 'react-native-safe-area-view'
 import { PrimaryButton } from '../../components/Button'
 
-import I18n from '../../../i18n/i18n';
+import I18n from '../../../i18n/i18n'
 
 const Container = styled(View)({
   backgroundColor: '#00A0D7',
@@ -38,9 +31,7 @@ const HomeListItem = ({ source, title, subtitle }) => {
     >
       <Image source={source} style={{ marginRight: 30 }} />
       <View>
-        <Text style={{ fontFamily: FONT_BOLD, fontSize: FONT_SIZES[600] }}>
-          {title}
-        </Text>
+        <Text style={{ fontFamily: FONT_BOLD, fontSize: FONT_SIZES[600] }}>{title}</Text>
         <Text
           style={{
             fontFamily: FONT_FAMILY,
@@ -88,13 +79,8 @@ export const QuestionaireHome = ({ navigation }) => {
   )
   return (
     <Container>
-      <StatusBar
-        backgroundColor={COLORS.PRIMARY_DARK}
-        barStyle="light-content"
-      />
-      <View
-        style={{ paddingTop: inset.top, flex: 1, justifyContent: 'flex-end' }}
-      >
+      <StatusBar backgroundColor={COLORS.PRIMARY_DARK} barStyle='light-content' />
+      <View style={{ paddingTop: inset.top, flex: 1, justifyContent: 'flex-end' }}>
         <View
           style={{
             justifyContent: 'center',
@@ -105,7 +91,7 @@ export const QuestionaireHome = ({ navigation }) => {
         >
           <Image
             style={{ width: 150, height: 83, marginRight: 0 }}
-            resizeMode="contain"
+            resizeMode='contain'
             source={require('./assets/logo_white.png')}
           />
           <Image
@@ -123,7 +109,8 @@ export const QuestionaireHome = ({ navigation }) => {
           }}
         >
           <Text style={styles.title}>
-            {I18n.t('let_dr_chana_check_symptoms')}{largeScreen ? I18n.t('of_you') : ''}
+            {I18n.t('let_dr_chana_check_symptoms')}
+            {largeScreen ? I18n.t('of_you') : ''}
           </Text>
           <Text style={styles.subtitle}>
             {I18n.t('hello_dr_chana_come_to_eval_u')}

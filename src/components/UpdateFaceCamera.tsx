@@ -15,11 +15,8 @@ export const UpdateFaceCamera = ({ onCapture, ...props }) => {
       const data: TakePictureResponse = await camera.takePictureAsync()
       console.log('ImageEditor', ImageEditor)
       if (NativeModules.RNCImageEditor) {
-        const scale =
-          Math.max(data.width, data.height) / Dimensions.get('screen').height
-        const width = Math.floor(
-          scale * (70 / 100) * Dimensions.get('screen').width,
-        )
+        const scale = Math.max(data.width, data.height) / Dimensions.get('screen').height
+        const width = Math.floor(scale * (70 / 100) * Dimensions.get('screen').width)
         // const width = Math.floor((70 / 100) * Math.min(data.width, data.height))
         const height = width
         const offsetX = Math.floor((data.width - width) / 2)
@@ -44,7 +41,7 @@ export const UpdateFaceCamera = ({ onCapture, ...props }) => {
   }
 
   return (
-    <Camera onCapture={onCameraCapture} defaultType="front" {...props}>
+    <Camera onCapture={onCameraCapture} defaultType='front' {...props}>
       <SelfieCaptureGuideline />
     </Camera>
   )

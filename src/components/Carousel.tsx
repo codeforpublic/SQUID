@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useRef, useState } from 'react'
+import React, { memo, useCallback, useRef, useState, useEffect } from 'react'
 import { Dimensions, FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
 
 const { width: windowWidth } = Dimensions.get('window')
@@ -45,7 +45,7 @@ function Pagination({
   setPageIndex: (index: number) => void
 }) {
   return (
-    <View style={styles.pagination} pointerEvents="none">
+    <View style={styles.pagination} pointerEvents='none'>
       {data.map((_, i) => {
         return (
           <TouchableOpacity onPress={() => setPageIndex(i)}>
@@ -61,31 +61,38 @@ function Pagination({
 }
 
 type CarouselType<T> = {
-  renderItem: (obj: T) => JSX.Element
+  renderItem: (obj: T) => React.ReactElement
   data: T[]
-  defaultIndex?: number
+  pageIndex: number
+  setPageIndex: (index: number) => void
 }
 
-export default function Carousel<T>({ renderItem, data, defaultIndex }: CarouselType<T>) {
-  const [pageIndex, setPageIndex] = useState(defaultIndex)
-  const indexRef = useRef(pageIndex)
-  indexRef.current = pageIndex
+export default function Carousel<T>({ renderItem, data, pageIndex, setPageIndex }: CarouselType<T>) {
+  const indexRef = useRef({ pageIndex, setPageIndex, scrolling: 0 })
+  indexRef.current.setPageIndex = setPageIndex
+  const listRef = useRef<FlatList>(null)
 
   const onScroll = useCallback((event) => {
-    const slideSize = event.nativeEvent.layoutMeasurement.width
+    const slideSize = windowWidth //event.nativeEvent.layoutMeasurement.width
     const idx = event.nativeEvent.contentOffset.x / slideSize
     const roundIndex = Math.round(idx)
 
     const distance = Math.abs(roundIndex - idx)
+    console.log('onScroll', idx, roundIndex, slideSize)
 
     // Prevent one pixel triggering setIndex in the middle
     // of the transition. With this we have to scroll a bit
     // more to trigger the index change.
     const isNoMansLand = distance > 0.4
 
-    if (roundIndex !== indexRef.current && !isNoMansLand) {
-      setPageIndex(roundIndex)
+    if (roundIndex !== indexRef.current.pageIndex && !isNoMansLand) {
+      indexRef.current.pageIndex = roundIndex
+      indexRef.current.setPageIndex(roundIndex)
     }
+    if (indexRef.current.scrolling) clearTimeout(indexRef.current.scrolling)
+    indexRef.current.scrolling = setTimeout(() => {
+      indexRef.current.scrolling = 0
+    }, 500)
   }, [])
 
   const render = useCallback(
@@ -94,12 +101,17 @@ export default function Carousel<T>({ renderItem, data, defaultIndex }: Carousel
     },
     [renderItem],
   )
-  // console.log('data', data)
+
+  useEffect(() => {
+    if (indexRef.current.scrolling) return
+    listRef.current?.scrollToOffset({ offset: pageIndex * windowWidth })
+  }, [pageIndex])
 
   return (
     <View style={styles.carouselView}>
       <Pagination index={pageIndex} data={data} setPageIndex={setPageIndex} />
       <FlatList
+        ref={listRef}
         data={data}
         style={styles.carousel}
         renderItem={render}

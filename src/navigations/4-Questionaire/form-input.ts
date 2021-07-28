@@ -1,6 +1,6 @@
 import I18n from '../../../i18n/i18n'
 
-export const getDataInputTable = (): DataInput[] => [
+export const getDataInputTable = () => [
   {
     id: 'one_uri_symp',
     name: 'data:covid:one_uri_symp',
@@ -80,3 +80,5 @@ export const getDataInputTable = (): DataInput[] => [
   //   ],
   // }
 ]
+
+export type DataInput = ReturnType<typeof getDataInputTable>
