@@ -61,17 +61,17 @@ export const MainApp = () => {
   const gpsRef = React.useRef({ triggerGps })
 
   React.useEffect(() => {
-    const timer = setInterval(
-      () =>
-        GPSState.getStatus().then((status: number) => {
-          if (gpsRef.current.triggerGps !== status) {
-            gpsRef.current.triggerGps = status
+    const updateGPS = async () => {
+      const status = GPSState.getStatus()
+      if (gpsRef.current.triggerGps !== status) {
+        gpsRef.current.triggerGps = status
 
-            setTriggerGps(status)
-          }
-        }),
-      2000,
-    )
+        setTriggerGps(status)
+      }
+    }
+
+    updateGPS()
+    const timer = setInterval(updateGPS, 2000)
     return () => clearInterval(timer)
   }, [])
 
