@@ -57,57 +57,60 @@ export const OnboardFace = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={COLORS.WHITE} barStyle='dark-content' />
-      <FormHeader>
-        <View style={styles.header}>
-          <Text style={styles.title}>{I18n.t('profile_picture')}</Text>
-          <Text style={styles.subtitle}>{I18n.t('straight_and_clear_face_portrait')}</Text>
+    <View style={styles.background}>
+      <SafeAreaView style={styles.container}>
+        <StatusBar backgroundColor={COLORS.WHITE} barStyle='dark-content' />
+        <FormHeader>
+          <View style={styles.header}>
+            <Text style={styles.title}>{I18n.t('profile_picture')}</Text>
+            <Text style={styles.subtitle}>{I18n.t('straight_and_clear_face_portrait')}</Text>
+          </View>
+        </FormHeader>
+        <View style={styles.content}>
+          <TouchableOpacity onPress={navigateToCamera}>
+            <Avatar
+              size={250}
+              rounded
+              overlayContainerStyle={{ backgroundColor: '#E6F2FA' }}
+              source={uri ? { uri } : require('./camera-mask.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              borderStyle: 'dashed',
+              borderWidth: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingVertical: 8,
+              borderColor: COLORS.BLUE,
+              paddingHorizontal: 16,
+              marginTop: 12,
+              borderRadius: 8,
+            }}
+            onPress={navigateToCamera}
+          >
+            <FeatherIcon name='camera' color={COLORS.BLUE} size={20} />
+            <ColorText color={COLORS.BLUE} style={{ marginLeft: 12, fontSize: FONT_SIZES[700] }}>
+              {uri ? I18n.t('retake_photo') : I18n.t('take_photo')}
+            </ColorText>
+          </TouchableOpacity>
         </View>
-      </FormHeader>
-      <View style={styles.content}>
-        <TouchableOpacity onPress={navigateToCamera}>
-          <Avatar
-            size={250}
-            rounded
-            overlayContainerStyle={{ backgroundColor: '#E6F2FA' }}
-            source={uri ? { uri } : require('./camera-mask.png')}
+        <View style={styles.footer}>
+          <PrimaryButton
+            style={{ width: '100%' }}
+            containerStyle={{ width: '100%' }}
+            title={I18n.t('next')}
+            onPress={onSubmit}
+            disabled={!uri}
           />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            borderStyle: 'dashed',
-            borderWidth: 1,
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingVertical: 8,
-            borderColor: COLORS.BLUE,
-            paddingHorizontal: 16,
-            marginTop: 12,
-            borderRadius: 8,
-          }}
-          onPress={navigateToCamera}
-        >
-          <FeatherIcon name='camera' color={COLORS.BLUE} size={20} />
-          <ColorText color={COLORS.BLUE} style={{ marginLeft: 12, fontSize: FONT_SIZES[700] }}>
-            {uri ? I18n.t('retake_photo') : I18n.t('take_photo')}
-          </ColorText>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.footer}>
-        <PrimaryButton
-          style={{ width: '100%' }}
-          containerStyle={{ width: '100%' }}
-          title={I18n.t('next')}
-          onPress={onSubmit}
-          disabled={!uri}
-        />
-      </View>
-    </SafeAreaView>
+        </View>
+      </SafeAreaView>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
+  background: { flex: 1, backgroundColor: COLORS.WHITE },
   container: { flex: 1, backgroundColor: COLORS.WHITE, marginHorizontal: 24 },
   content: {
     flex: 1,

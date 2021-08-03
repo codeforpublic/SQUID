@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { UpdateFaceCamera } from '../../components/UpdateFaceCamera'
 
@@ -13,15 +13,17 @@ export const OnboardFaceCamera = ({ route }) => {
     navigation.goBack()
   }
   return (
-    <SafeAreaView style={styles.container}>
-      <UpdateFaceCamera
-        onClose={() => {
-          navigation.goBack()
-        }}
-        onSelectImage={onCapture}
-        onCapture={onCapture}
-      />
-    </SafeAreaView>
+    <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
+        <UpdateFaceCamera
+          onClose={() => {
+            navigation.goBack()
+          }}
+          onSelectImage={onCapture}
+          onCapture={onCapture}
+        />
+      </SafeAreaView>
+    </View>
   )
 }
 
