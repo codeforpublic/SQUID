@@ -17,6 +17,7 @@ import {
 import RNFS from 'react-native-fs'
 import GPSState from 'react-native-gps-state'
 import NotificationPopup from 'react-native-push-notification-popup'
+import { useSafeArea } from 'react-native-safe-area-view'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Carousel from '../../../../src/components/Carousel'
 import { CircularProgressAvatar } from '../../../../src/components/CircularProgressAvatar'
@@ -33,9 +34,9 @@ import QRCard from './QRCard'
 import { UpdateProfileButton } from './UpdateProfileButton'
 import VaccineCard from './VaccineCard'
 import WorkFromHomeCard from './WorkFromHomeCard'
-import { useSafeArea } from 'react-native-safe-area-view'
 
 const carouselItems = ['qr', 'vaccine'] //, 'wfh']
+
 // Can change up to 3 picture a week.
 export const MAX_CHANGE_PROFILE_LIMIT = 3
 const mapQrStatusColor = (qr?: SelfQR, qrState?: QR_STATE) =>
@@ -173,52 +174,28 @@ export const MainApp = () => {
     marginLeft: inset.left,
     marginRight: inset.right,
     backgroundColor: '#F9F9F9',
-    height: '100%',
-    width: '100%',
+    flex: 1,
   }
 
   return (
-    <SafeAreaView style={{ backgroundColor: '#F9F9F9' }}>
-      <StatusBar barStyle='dark-content' backgroundColor={COLORS.WHITE} />
+    <SafeAreaView style={styles.safeAreaView}>
       <View style={containerStyle}>
-        {
-          // <StatusBar
-          //   barStyle={qrData?.getTagColor() ? 'light-content' : 'dark-content'}
-          //   backgroundColor={
-          //     qrData?.getTagColor() ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT
-          //   }
-          // />
-        }
+        <StatusBar barStyle='dark-content' backgroundColor={COLORS.WHITE} />
         <View style={styles.containerTop}>
           <View style={styles.containerHeader}>
-            {
-              // <TouchableOpacity style={styles.circularButton} onPress={refreshQR}>
-              //   <FontAwesome
-              //     name="refresh"
-              //     color={COLORS.GRAY_4}
-              //     size={24}
-              //     style={{ marginLeft: 10 }}
-              //   />
-              // </TouchableOpacity>
-              // <Text style={styles.textHeader}>
-              //   {qrData &&
-              //     `${qrData.getCreatedDate().format(I18n.t('fully_date'))}`}
-              // </Text>
-            }
-            <View style={{ flexDirection: 'row', paddingTop: 16, height: 45 }}>
+            <View style={styles.iconStatusContainer}>
               <FontAwesome
                 name='map-marker'
                 color={triggerGps === 3 ? '#10A7DC' : '#C1C1C1'}
                 size={24}
-                style={{ marginRight: 10 }}
+                style={styles.iconStatusButton}
               />
               <FontAwesome
                 name='bluetooth-b'
                 color={isBluetoothOn ? '#10A7DC' : '#C1C1C1'}
                 size={24}
-                style={{ marginRight: 10 }}
+                style={styles.iconStatusButton}
               />
-              {/* {isServiceEnabled ? <View style={styles.greenDot} /> : null} */}
             </View>
           </View>
           <View style={[styles.profileHeader, profileStyle]}>
@@ -273,17 +250,23 @@ export const MainApp = () => {
               }}
             />
           )}
+          <NotificationPopup
+            ref={popupRef}
+            renderPopupContent={(props) => <BeaconFoundPopupContent {...props} result={location} />}
+          />
         </View>
-        <NotificationPopup
-          ref={popupRef}
-          renderPopupContent={(props) => <BeaconFoundPopupContent {...props} result={location} />}
-        />
       </View>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  safeAreaView: {
+    backgroundColor: '#F9F9F9',
+    flex: 1,
+  },
+  iconStatusContainer: { flexDirection: 'row', paddingTop: 16, height: 45 },
+  iconStatusButton: { marginRight: 10 },
   containerTop: { flex: 1, flexDirection: 'column' },
   containerHeader: {
     flexDirection: 'column',
