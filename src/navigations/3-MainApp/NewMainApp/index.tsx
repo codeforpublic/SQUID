@@ -1,24 +1,27 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
+import I18n from 'i18n-js'
+import moment from 'moment'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
-  ActivityIndicator,
   Alert,
+  Animated,
   Dimensions,
-  Image,
+  Easing,
+  SafeAreaView,
   StatusBar,
   StyleSheet,
-  TouchableOpacity,
+  Text,
   TouchableWithoutFeedback,
   View,
 } from 'react-native'
-import DeviceInfo from 'react-native-device-info'
-import { Text } from 'react-native-elements'
 import RNFS from 'react-native-fs'
+import GPSState from 'react-native-gps-state'
 import NotificationPopup from 'react-native-push-notification-popup'
-import { SafeAreaView, useSafeArea } from 'react-native-safe-area-context'
-import Sizer from 'react-native-size'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import I18n from '../../../../i18n/i18n'
+import Carousel from '../../../../src/components/Carousel'
 import { CircularProgressAvatar } from '../../../../src/components/CircularProgressAvatar'
+import { useVaccine } from '../../../../src/services/use-vaccine'
+import { applicationState, useApplicationState } from '../../../../src/state/app-state'
 import { userPrivateData } from '../../../../src/state/userPrivateData'
 import { useResetTo } from '../../../../src/utils/navigation'
 import { useContactTracer } from '../../../services/contact-tracing-provider'
@@ -26,22 +29,52 @@ import { pushNotification } from '../../../services/notification'
 import { QR_STATE, SelfQR, useSelfQR } from '../../../state/qr'
 import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../../styles'
 import { BeaconFoundPopupContent } from '../BeaconFoundPopup'
-import { QRStateText } from './QRStateText'
+import QRCard from './QRCard'
 import { UpdateProfileButton } from './UpdateProfileButton'
+import VaccineCard from './VaccineCard'
+import WorkFromHomeCard from './WorkFromHomeCard'
+import { useSafeArea } from 'react-native-safe-area-view'
+
+const carouselItems = ['qr', 'vaccine'] //, 'wfh']
+// Can change up to 3 picture a week.
+export const MAX_CHANGE_PROFILE_LIMIT = 3
+const mapQrStatusColor = (qr?: SelfQR, qrState?: QR_STATE) =>
+  qr
+    ? qr.getStatusColor()
+    : qrState === QR_STATE.NOT_VERIFIED || qrState === QR_STATE.FAILED
+    ? COLORS.ORANGE_2
+    : COLORS.GRAY_2
 
 export const MainApp = () => {
   const inset = useSafeArea()
-  const { qrData, qrState, refreshQR } = useSelfQR()
-  const {
-    beaconLocationName,
-    enable,
-    disable,
-    isServiceEnabled,
-  } = useContactTracer()
-  const appVersion = DeviceInfo.getVersion()
+  const { qrData, qrState } = useSelfQR()
+  const { beaconLocationName, isBluetoothOn } = useContactTracer()
   const [location, setLocation] = useState('')
   const popupRef = useRef<NotificationPopup | any>()
-  const smallDevice = Dimensions.get('window').height < 600
+  const activeDotAnim = useRef(new Animated.Value(0)).current
+  const { vaccineList, getVaccineUserName } = useVaccine()
+  const [{ updateProfileDate, changeCount, card }] = useApplicationState()
+
+  const windowWidth = Dimensions.get('window').width
+
+  const [triggerGps, setTriggerGps] = useState<number>(0)
+  const gpsRef = React.useRef({ triggerGps })
+
+  React.useEffect(() => {
+    const updateGPS = async () => {
+      const status = await GPSState.getStatus()
+
+      if (gpsRef.current.triggerGps !== status) {
+        gpsRef.current.triggerGps = status
+
+        setTriggerGps(status)
+      }
+    }
+
+    updateGPS()
+    const timer = setInterval(updateGPS, 2000)
+    return () => clearInterval(timer)
+  }, [])
 
   useEffect(() => {
     setLocation(beaconLocationName.name)
@@ -52,124 +85,198 @@ export const MainApp = () => {
     }
   }, [beaconLocationName, location])
 
+  const startAnimated = useCallback(
+    () =>
+      Animated.timing(activeDotAnim, {
+        toValue: 1,
+        duration: 10000,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }).start(() => {
+        activeDotAnim.setValue(0)
+        startAnimated()
+      }),
+    [activeDotAnim],
+  )
+
   useEffect(() => {
     pushNotification.requestPermissions()
-  }, [])
+    startAnimated()
+  }, [startAnimated])
+
+  const vac = vaccineList && vaccineList[0]
+  let firstName = null
+  let lastName = null
+  if (vac) {
+    const name = getVaccineUserName ? getVaccineUserName(vac) : ''
+    const names = name.split(' ')
+
+    lastName = names.pop() || ''
+    firstName = names.join(' ')
+  }
+
+  let profileStyle = { justifyContent: firstName || lastName ? 'flex-start' : 'center' } as const
+
+  const vaccineNumber = vaccineList?.length
+
+  const generateCircularTransform = (
+    snapshot = 500,
+    radius = 50,
+  ): [
+    {
+      translateX: Animated.AnimatedInterpolation
+      translateY: Animated.AnimatedInterpolation
+    },
+  ] => {
+    let target = 1.8 //per round
+    let rounds = 5
+    let snapshotPerRound = snapshot / rounds
+
+    let k = snapshotPerRound / target
+    const inputRangeX = []
+    const outputRangeX = []
+    var value = 0
+    for (let i = 0; i <= snapshot; ++i) {
+      value += (Math.sin(-Math.PI / 2 + (i * 2 * Math.PI) / snapshotPerRound) + 1) / k
+      let move = Math.sin(value * Math.PI * 2) * radius
+      inputRangeX.push(i / snapshot)
+      outputRangeX.push(move)
+    }
+
+    const translateX = activeDotAnim.interpolate({
+      inputRange: inputRangeX,
+      outputRange: outputRangeX,
+    })
+
+    const inputRangeY = []
+    const outputRangeY = []
+    value = 0
+    for (let i = 0; i <= snapshot; ++i) {
+      value += (Math.sin(-Math.PI / 2 + (i * 2 * Math.PI) / snapshotPerRound) + 1) / k
+      let move = -Math.cos(value * Math.PI * 2) * radius
+      inputRangeY.push(i / snapshot)
+      outputRangeY.push(move)
+    }
+
+    const translateY = activeDotAnim.interpolate({
+      inputRange: inputRangeY,
+      outputRange: outputRangeY,
+    })
+
+    return [{ translateX, translateY }]
+  }
+
+  const transform = generateCircularTransform()
+
+  const containerStyle = {
+    marginTop: inset.top,
+    marginLeft: inset.left,
+    marginRight: inset.right,
+    backgroundColor: '#F9F9F9',
+    height: '100%',
+    width: '100%',
+  }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#F9F9F9' }}>
-      <View
-        style={[
-          styles.container,
-          { paddingTop: inset.top, paddingBottom: inset.bottom },
-        ]}
-      >
-        <StatusBar
-          barStyle={qrData?.getTagColor() ? 'light-content' : 'dark-content'}
-          backgroundColor={
-            qrData?.getTagColor() ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT
-          }
-        />
+    <SafeAreaView style={{ backgroundColor: '#F9F9F9' }}>
+      <StatusBar barStyle='dark-content' backgroundColor={COLORS.WHITE} />
+      <View style={containerStyle}>
+        {
+          // <StatusBar
+          //   barStyle={qrData?.getTagColor() ? 'light-content' : 'dark-content'}
+          //   backgroundColor={
+          //     qrData?.getTagColor() ? COLORS.BLACK_1 : COLORS.PRIMARY_LIGHT
+          //   }
+          // />
+        }
         <View style={styles.containerTop}>
           <View style={styles.containerHeader}>
-            <TouchableOpacity style={styles.circularButton} onPress={refreshQR}>
+            {
+              // <TouchableOpacity style={styles.circularButton} onPress={refreshQR}>
+              //   <FontAwesome
+              //     name="refresh"
+              //     color={COLORS.GRAY_4}
+              //     size={24}
+              //     style={{ marginLeft: 10 }}
+              //   />
+              // </TouchableOpacity>
+              // <Text style={styles.textHeader}>
+              //   {qrData &&
+              //     `${qrData.getCreatedDate().format(I18n.t('fully_date'))}`}
+              // </Text>
+            }
+            <View style={{ flexDirection: 'row', paddingTop: 16, height: 45 }}>
               <FontAwesome
-                name="refresh"
-                color={COLORS.GRAY_4}
+                name='map-marker'
+                color={triggerGps === 3 ? '#10A7DC' : '#C1C1C1'}
                 size={24}
-                style={{ marginLeft: 10 }}
+                style={{ marginRight: 10 }}
               />
-            </TouchableOpacity>
-            <Text style={styles.textHeader}>
-              {qrData &&
-                `${qrData.getCreatedDate().format(I18n.t('fully_date'))}`}
-            </Text>
-            <View style={{ flexDirection: 'row' }}>
-              <TouchableOpacity
-                style={{ position: 'relative' }}
-                onPress={() => {
-                  if (isServiceEnabled) {
-                    Alert.alert(
-                      I18n.t('bluetooth_disable_alert_title'),
-                      I18n.t('bluetooth_disable_alert_message'),
-                      [
-                        {
-                          text: I18n.t('cancel'),
-                          onPress: () => console.log('Cancel Pressed'),
-                          style: 'cancel',
-                        },
-                        {
-                          text: I18n.t('bluetooth_disable_alert_accept'),
-                          onPress: disable,
-                        },
-                      ],
-                    )
-                  } else {
-                    enable()
-                  }
-                }}
-              >
-                <FontAwesome
-                  name="bluetooth-b"
-                  color={COLORS.GRAY_4}
-                  size={24}
-                  style={{ marginRight: 10 }}
-                />
-                {isServiceEnabled ? <View style={styles.greenDot} /> : null}
-              </TouchableOpacity>
+              <FontAwesome
+                name='bluetooth-b'
+                color={isBluetoothOn ? '#10A7DC' : '#C1C1C1'}
+                size={24}
+                style={{ marginRight: 10 }}
+              />
+              {/* {isServiceEnabled ? <View style={styles.greenDot} /> : null} */}
             </View>
           </View>
-          <View style={styles.containerCard}>
-            <View style={styles.card}>
-              <View style={styles.cardHeader}>
-                <View style={{ flex: 1, padding: 10 }}>
-                  <AvatarProfile qr={qrData} qrState={qrState} />
-                </View>
-                <View style={{ flex: 2, alignContent: 'flex-start' }}>
-                  <RiskLabel
+          <View style={[styles.profileHeader, profileStyle]}>
+            <View style={styles.profileContainer}>
+              {qrData && qrState && (
+                <>
+                  <Animated.View style={[{ transform }]}>
+                    <UserActiveDot color={mapQrStatusColor(qrData, qrState)} />
+                  </Animated.View>
+                  <AvatarProfile
                     qr={qrData}
                     qrState={qrState}
-                    onRefreshQR={refreshQR}
+                    changeCount={changeCount}
+                    updateProfileDate={updateProfileDate}
                   />
-                </View>
-              </View>
-              <View style={{ flex: 2 }}>
-                <QRImage
-                  qr={qrData}
-                  qrState={qrState}
-                  onRefreshQR={refreshQR}
-                />
-              </View>
-              <View style={styles.cardFooter}>
-                <Image
-                  source={require('./logo-pin-morchana.png')}
-                  style={{
-                    height: smallDevice ? 20 : 30,
-                    width: (smallDevice ? 20 : 30) * (260 / 140),
-                  }}
-                  resizeMode="contain"
-                />
-                <Text style={styles.textVersion}>
-                  แอปพลิเคชันหมอชนะ{' '}
-                  <Text
-                    style={{
-                      color: '#0FA7DC',
-                      fontSize: FONT_SIZES[600] * 0.85,
-                      fontFamily: FONT_FAMILY,
-                    }}
-                  >
-                    V{appVersion}
-                  </Text>
+                </>
+              )}
+            </View>
+            <View style={styles.w100}>
+              {firstName ? (
+                <Text style={styles.firstNameText} numberOfLines={1}>
+                  {firstName}
                 </Text>
+              ) : null}
+              {lastName ? (
+                <Text style={styles.lastNameText} numberOfLines={1}>
+                  {lastName}
+                </Text>
+              ) : null}
+              <View style={styles.w100}>
+                {vaccineNumber ? <Text style={styles.vaccineText}>{vaccineNumber}</Text> : null}
               </View>
             </View>
           </View>
+          {windowWidth && (
+            <Carousel
+              data={carouselItems}
+              pageIndex={card || 0}
+              setPageIndex={(index) => {
+                applicationState.setData('card', index)
+              }}
+              renderItem={(index) => {
+                switch (index) {
+                  case 'qr':
+                    return <QRCard key={index} />
+                  case 'vaccine':
+                    return <VaccineCard key={index} />
+                  case 'wfh':
+                    return <WorkFromHomeCard key={index} />
+                }
+                return <View />
+              }}
+            />
+          )}
         </View>
         <NotificationPopup
           ref={popupRef}
-          renderPopupContent={(props) => (
-            <BeaconFoundPopupContent {...props} result={location} />
-          )}
+          renderPopupContent={(props) => <BeaconFoundPopupContent {...props} result={location} />}
         />
       </View>
     </SafeAreaView>
@@ -177,20 +284,15 @@ export const MainApp = () => {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F9F9F9',
-    justifyContent: 'center',
-  },
   containerTop: { flex: 1, flexDirection: 'column' },
   containerHeader: {
-    justifyContent: 'space-between',
-    flexDirection: 'row',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
     paddingTop: 0,
     paddingLeft: 15,
     paddingRight: 15,
-    height: 68,
-    alignItems: 'center',
+    height: 0,
   },
   circularButton: {
     height: 40,
@@ -215,51 +317,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: COLORS.BLACK_1,
   },
-
-  containerCard: {
-    flex: 1,
-    maxHeight: 550,
-    padding: 10,
-    margin: 15,
-    borderRadius: 14,
-    backgroundColor: '#FFF',
-    borderColor: 'rgba(16, 170, 174, 0.2)',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 2.84,
-    elevation: 1,
-  },
-  card: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  cardHeader: {
-    flex: 1,
-    height: 128,
-    flexDirection: 'row',
-    alignContent: 'center',
-    alignItems: 'center',
-  },
-  cardFooter: {
-    flex: 0,
+  profileHeader: {
+    height: 180,
+    marginLeft: 15,
+    marginRight: 15,
+    marginBottom: 15,
     marginTop: 5,
-    marginBottom: 5,
-    width: '100%',
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
   },
-  textVersion: {
-    lineHeight: FONT_SIZES[600],
-    fontFamily: FONT_FAMILY,
-    fontSize: FONT_SIZES[600] * 0.85,
-    color: COLORS.BLACK_1,
-    textAlign: 'center',
+  profileContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   greenDot: {
     width: 10,
@@ -270,116 +338,56 @@ const styles = StyleSheet.create({
     borderTopWidth: Math.floor((4 / 100) * 24),
     right: Math.floor((8 / 100) * 50),
   },
+  userActiveDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 100 / 2,
+    position: 'absolute',
+    top: 45,
+    left: 45,
+  },
+  firstNameText: {
+    color: '#222222',
+    fontFamily: FONT_BOLD,
+    fontSize: 40,
+    paddingTop: 3,
+    width: '100%',
+  },
+  lastNameText: {
+    color: '#222222',
+    fontFamily: FONT_FAMILY,
+    fontSize: 28,
+    fontWeight: 'normal',
+    width: '100%',
+  },
+  w100: {
+    width: '100%',
+  },
+  vaccineText: {
+    fontFamily: FONT_BOLD,
+    position: 'absolute',
+    color: '#26C8FF',
+    opacity: 0.2,
+    fontSize: 135,
+    right: 0,
+    bottom: -40,
+  },
+  flex1: {
+    flex: 1,
+  },
 })
 
-const QRImage = ({
+const AvatarProfile = ({
   qr,
   qrState,
-  onRefreshQR,
+  changeCount,
+  updateProfileDate,
 }: {
   qr: SelfQR
   qrState: QR_STATE
-  onRefreshQR: any
+  updateProfileDate?: string
+  changeCount?: number
 }) => {
-  const qrUri = qr?.getQRImageURL()
-  return (
-    <Sizer
-      style={{
-        alignItems: 'center',
-        flex: 1,
-        justifyContent: 'center',
-        backgroundColor: COLORS.WHITE,
-        borderColor: COLORS.GRAY_1,
-        borderStyle: 'solid',
-        maxHeight: 350,
-      }}
-    >
-      {({ height }: any) => {
-        const size = height ? Math.min(350, height) : 0
-        const qrPadding = (20 / 300) * size
-        return size ? (
-          <Fragment>
-            {qr ? (
-              <Image
-                style={{
-                  width: size,
-                  height: size,
-                  opacity: qrState === QR_STATE.EXPIRE ? 0.05 : 1,
-                }}
-                source={{
-                  uri: qrUri,
-                }}
-              />
-            ) : (
-              <Image
-                style={{
-                  width: size - qrPadding * 2,
-                  height: size - qrPadding * 2,
-                  padding: qrPadding,
-                }}
-                source={require('../../../assets/qr-placeholder.png')}
-              />
-            )}
-            <QRStateText qrState={qrState} refreshQR={onRefreshQR} />
-          </Fragment>
-        ) : (
-          <ActivityIndicator size="large" />
-        )
-      }}
-    </Sizer>
-  )
-}
-
-const RiskLabel = ({
-  qr,
-  qrState,
-}: {
-  qr: SelfQR
-  qrState: QR_STATE
-  onRefreshQR: any
-}) => {
-  const color = qr
-    ? qr.getStatusColor()
-    : qrState === QR_STATE.NOT_VERIFIED || qrState === QR_STATE.FAILED
-    ? COLORS.ORANGE_2
-    : COLORS.GRAY_2
-  const label = qr
-    ? qr.getLabel()
-    : qrState === QR_STATE.NOT_VERIFIED
-    ? I18n.t('undetermined_risk')
-    : qrState === QR_STATE.LOADING
-    ? I18n.t('wait_a_moment')
-    : qrState === QR_STATE.FAILED
-    ? I18n.t('undetermined_risk')
-    : ''
-
-  return (
-    <View style={{ backgroundColor: 'white' }}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <View>
-          <Text
-            style={{
-              fontFamily: FONT_BOLD,
-              fontSize: FONT_SIZES[700],
-              color,
-              alignSelf: 'center',
-            }}
-          >
-            {label}
-          </Text>
-        </View>
-      </View>
-    </View>
-  )
-}
-
-const AvatarProfile = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE }) => {
   const [faceURI, setFaceURI] = useState(userPrivateData.getFace())
   const resetTo = useResetTo()
 
@@ -397,43 +405,86 @@ const AvatarProfile = ({ qr, qrState }: { qr: SelfQR; qrState: QR_STATE }) => {
   const avatarWidth = 100
   useEffect(() => {
     RNFS.exists(faceURI).then((exists) => {
-      console.log('exists', exists)
       if (!exists) {
         resetTo({
-          routeName: 'Onboarding',
+          name: 'Onboarding',
         })
       }
     })
-  }, [])
+  }, [faceURI, resetTo])
 
+  const buttonStyle = {
+    position: 'absolute',
+    bottom: Math.floor((4 / 100) * avatarWidth),
+    right: Math.floor((4 / 100) * avatarWidth),
+  } as const
+  const navigation = useNavigation()
+
+  const today = moment()
+  const isSameWeek = today.isSame(updateProfileDate || new Date().toISOString(), 'weeks')
+  const days = moment().endOf('weeks').diff(today, 'days')
+  const isLock = (changeCount || 0) >= MAX_CHANGE_PROFILE_LIMIT && isSameWeek
   return (
-    <TouchableWithoutFeedback>
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'flex-start',
-          marginTop: 10,
-        }}
-      >
-        <View>
-          <CircularProgressAvatar
-            key={qr ? qr.getCreatedDate() : 0}
-            image={faceURI ? { uri: faceURI } : void 0}
-            color={color}
-            progress={100}
-            width={avatarWidth}
-          />
-          <UpdateProfileButton
-            width={Math.floor(avatarWidth / 4)}
-            style={{
-              position: 'absolute',
-              bottom: Math.floor((4 / 100) * avatarWidth),
-              right: Math.floor((4 / 100) * avatarWidth),
-            }}
-            onChange={setFaceURI}
-          />
-        </View>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        if (isLock) {
+          Alert.alert(
+            I18n.t('can_not_change_picture'),
+            I18n.t('can_change_pic_again_in') + (days || 1) + I18n.t('day_s'),
+          )
+        } else {
+          navigation.navigate('MainAppFaceCamera', {
+            setUri: (uri: string) => {
+              applicationState.setData2({
+                changeCount: (changeCount || 0) + 1,
+                updateProfileDate: new Date().toISOString(),
+              })
+              setFaceURI(uri)
+            },
+            // setUri: (uri) => {
+            //   if (daySinceCreated >= 3) {
+            //     Alert.alert(
+            //       I18n.t('are_you_sure'),
+            //       `${I18n.t(
+            //         'after_changed_pic_you_will_not_be_able_to_change_until',
+            //       )} ${DEFAULT_PERIODS} ${I18n.t('day_s_have_passed')}`,
+            //       [
+            //         { text: I18n.t('cancel'), style: 'cancel' },
+            //         {
+            //           text: I18n.t('confirm'),
+            //           onPress: () => {
+            //             onChange(uri)
+            //           },
+            //         },
+            //       ],
+            //     )
+            //   } else {
+            //     onChange(uri)
+            //   }
+            // },
+          })
+        }
+      }}
+    >
+      <View>
+        <CircularProgressAvatar
+          key={qr ? qr.getCreatedDate() : 0}
+          image={faceURI ? { uri: faceURI } : undefined}
+          color={color}
+          progress={100}
+          width={avatarWidth}
+        />
+        <UpdateProfileButton width={Math.floor(avatarWidth / 4)} style={buttonStyle} onChange={setFaceURI} />
       </View>
     </TouchableWithoutFeedback>
   )
 }
+
+const UserActiveDot: React.FC<{ color: string }> = ({ color }) => (
+  <View
+    style={{
+      ...styles.userActiveDot,
+      backgroundColor: color,
+    }}
+  />
+)

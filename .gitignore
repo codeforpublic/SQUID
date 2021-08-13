@@ -48,3 +48,5 @@ ios/Pods/
 .env
 ThaiAlert.app.dSYM.zip
 # sentry.properties
+
+.eslintcache

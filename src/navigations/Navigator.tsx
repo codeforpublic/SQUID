@@ -1,24 +1,23 @@
+import { createStackNavigator } from '@react-navigation/stack'
 import React, { useEffect } from 'react'
 import { View } from 'react-native'
-
-import {
-  createStackNavigator,
-  StackActions,
-  NavigationActions,
-} from 'react-navigation'
-import { COLORS } from '../styles'
-import { AuthStack } from './1-Auth/AuthStack'
-import { OnboardingStack } from './2-Onboarding/OnboardingStack'
-import { MainAppStack } from './3-MainApp/MainAppStack'
 import { applicationState } from '../state/app-state'
-import { QuestionaireStack } from './4-Questionaire/QuestionaireStack'
-import { PrivacyPolicy } from './PrivacyPolicy'
+import { COLORS } from '../styles'
+import { useResetTo } from '../utils/navigation'
 import { HomeStack } from './0-Home/HomeStack'
-import { WebviewScreen } from './Webview'
+import { OnboardingStack } from './2-Onboarding/OnboardingStack'
+import { MainAppFaceCamera } from './3-MainApp/MainAppFaceCamera'
+import MainAppTab from './3-MainApp/MainAppTab'
+import { QuestionaireStack } from './4-Questionaire/QuestionaireStack'
+import { SetLocationHome } from './5-SetLocation/SetLocationHome'
+import { SetLocationMapWebView } from './5-SetLocation/SetLocationMapWebView'
+import { SetLocationStack } from './5-SetLocation/SetLocationStack'
 import { ChangeLanguageScreen } from './ChangeLanguage'
-import { Debug } from './3-MainApp/Debug'
+import { PrivacyPolicy } from './PrivacyPolicy'
+import { WebviewScreen } from './Webview'
 
-const Root = ({ navigation }) => {
+const Root = () => {
+  const resetTo = useResetTo()
   useEffect(() => {
     const redirect = async () => {
       const isSkipRegistration = applicationState.getData('skipRegistration')
@@ -33,63 +32,46 @@ const Root = ({ navigation }) => {
       //       : 'Questionaire'
       //     : 'Onboarding'
       //   : 'Home'
-      
-      const routeName = isSkipRegistration
-        ? onboarded
-          ? 'MainApp'
-          : 'Onboarding'
-        : 'Home'
 
-      const action = StackActions.reset({
-        index: 0,
-        actions: [
-          NavigationActions.navigate({
-            routeName,
-          }),
-        ],
-        key: null,
-      })
-      navigation.dispatch(action)
+      const routeName = isSkipRegistration ? (onboarded ? 'MainApp' : 'Onboarding') : 'Home'
+
+      // const action = StackActions.navigate(routeName)
+      resetTo({ name: routeName })
     }
     redirect()
-  }, [])
+  }, [resetTo])
 
   return <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY_DARK }} />
 }
 
-export default createStackNavigator(
-  {
-    Root: {
-      screen: Root,
-    },
-    Home: {
-      screen: HomeStack,
-    },
-    Auth: {
-      screen: AuthStack,
-    },
-    Onboarding: {
-      screen: OnboardingStack,
-    },
-    MainApp: {
-      screen: MainAppStack,
-    },
-    Questionaire: {
-      screen: QuestionaireStack,
-    },
-    Webview: {
-      screen: WebviewScreen,
-    },
-    PrivacyPolicy: {
-      screen: PrivacyPolicy,
-    },
-    ChangeLanguage: {
-      screen: ChangeLanguageScreen,
-    },
-  },
-  {
-    initialRouteName: 'Root',
-    mode: 'modal',
-    headerMode: 'none',
-  },
-)
+const Stack = createStackNavigator()
+
+export const Navigator = () => {
+  return (
+    <Stack.Navigator
+      initialRouteName='Root'
+      mode='modal'
+      headerMode='none'
+      screenOptions={{
+        headerBackground: () => null,
+        headerStyle: {
+          backgroundColor: COLORS.BACKGROUND,
+        },
+      }}
+    >
+      <Stack.Screen name='Root' component={Root} />
+      <Stack.Screen name='Home' component={HomeStack} />
+      <Stack.Screen name='Onboarding' component={OnboardingStack} />
+      <Stack.Screen name='MainApp' component={MainAppTab} />
+      <Stack.Screen name='MainAppFaceCamera' component={MainAppFaceCamera} />
+      <Stack.Screen name='Questionaire' component={QuestionaireStack} />
+      <Stack.Screen name='Webview' component={WebviewScreen} />
+      <Stack.Screen name='PrivacyPolicy' component={PrivacyPolicy} />
+      <Stack.Screen name='ChangeLanguage' component={ChangeLanguageScreen} />
+      <Stack.Screen name='SetLocationHome' component={SetLocationHome} />
+      <Stack.Screen name='SetLocationMapWebView' component={SetLocationMapWebView} />
+      <Stack.Screen name='SetLocationStack' component={SetLocationStack} />
+    </Stack.Navigator>
+  )
+}
+export default Navigator

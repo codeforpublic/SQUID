@@ -1,22 +1,17 @@
 import React from 'react'
-import { createStackNavigator } from 'react-navigation'
-import { MockScreen } from '../MockScreen'
+import { createStackNavigator } from '@react-navigation/stack'
 import { QuestionaireForm } from './QuestionaireForm'
-import { QuestionaireSummary } from './QuestionaireSummary'
 import { QuestionaireHome } from './QuestionaireHome'
+import { QuestionaireSummary } from './QuestionaireSummary'
 
-export const QuestionaireStack = createStackNavigator(
-  {
-    QuestionaireHome: QuestionaireHome,
-    QuestionaireForm: {
-      screen: QuestionaireForm,
-      navigationOptions: {
-        gesturesEnabled: false,
-      },
-    },
-    QuestionaireSummary: QuestionaireSummary
-  },
-  {
-    headerMode: 'none',
-  },
-)
+const Stack = createStackNavigator()
+
+export const QuestionaireStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name='QuestionaireHome' component={QuestionaireHome} />
+      <Stack.Screen name='QuestionaireForm' component={QuestionaireForm} options={{ gesturesEnabled: false }} />
+      <Stack.Screen name='QuestionaireSummary' component={QuestionaireSummary} />
+    </Stack.Navigator>
+  )
+}

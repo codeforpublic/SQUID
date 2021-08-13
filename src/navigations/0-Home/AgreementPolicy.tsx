@@ -2,14 +2,8 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar, View, Text, StyleSheet, ScrollView } from 'react-native'
 import { PrimaryButton } from '../../components/Button'
-import { useNavigation } from 'react-navigation-hooks'
-import {
-  COLORS,
-  FONT_FAMILY,
-  FONT_SIZES,
-  FONT_BOLD,
-  FONT_MED,
-} from '../../styles'
+import { useNavigation } from '@react-navigation/native'
+import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD, FONT_MED } from '../../styles'
 import { normalize, Button } from 'react-native-elements'
 import { FormHeader } from '../../components/Form/FormHeader'
 import { getAgreementText } from '../const'
@@ -21,7 +15,7 @@ export const AgreementPolicy = () => {
   const navigation = useNavigation()
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={'white'} barStyle="light-content" />
+      <StatusBar backgroundColor={'white'} barStyle='light-content' />
       <FormHeader>
         <View style={styles.header}>
           <Text style={styles.title}>{I18n.t('term_and_conditions')}</Text>
@@ -66,7 +60,7 @@ export const AgreementPolicy = () => {
           }}
         />
         <Button
-          type="outline"
+          type='outline'
           title={I18n.t('deny')}
           style={{ width: '100%' }}
           titleStyle={{

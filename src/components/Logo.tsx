@@ -18,7 +18,7 @@ export const Logo = ({ uri, size }) => {
       source={{
         uri,
       }}
-      resizeMode="contain"
+      resizeMode='contain'
       width={size}
       height={size}
     />

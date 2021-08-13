@@ -12,13 +12,7 @@ interface PropTypes {
   whiteLogo?: boolean
 }
 
-export const FormHeader = ({
-  style,
-  children,
-  onBack,
-  backIcon,
-  whiteLogo,
-}: PropTypes) => {
+export const FormHeader = ({ style, children, onBack, backIcon, whiteLogo }: PropTypes) => {
   const logoHeight = Dimensions.get('window').height < 600 ? 40 : 60
   const logoWidth = (logoHeight * 101) / 54
   return (
@@ -27,13 +21,9 @@ export const FormHeader = ({
         {onBack ? <BackButton onPress={onBack} backIcon={backIcon} /> : null}
         <View style={styles.space} />
         <Image
-          source={
-            whiteLogo
-              ? require('./form-logo-white.png')
-              : require('./form-logo.png')
-          }
+          source={whiteLogo ? require('./form-logo-white.png') : require('./form-logo.png')}
           style={{ height: logoHeight, width: logoWidth }}
-          resizeMode="contain"
+          resizeMode='contain'
         />
       </View>
       {children}

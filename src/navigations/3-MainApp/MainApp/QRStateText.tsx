@@ -1,25 +1,13 @@
 import React from 'react'
 import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../../styles'
-import {
-  View,
-  StyleSheet,
-  Text,
-  ActivityIndicator,
-  TouchableOpacity,
-} from 'react-native'
+import { View, StyleSheet, Text, ActivityIndicator, TouchableOpacity } from 'react-native'
 import { QR_STATE } from '../../../state/qr'
-import { useNavigation } from 'react-navigation-hooks'
+import { useNavigation } from '@react-navigation/native'
 import { useResetTo } from '../../../utils/navigation'
 
-import I18n from '../../../../i18n/i18n';
+import I18n from '../../../../i18n/i18n'
 
-export const QRStateText = ({
-  qrState,
-  refreshQR,
-}: {
-  qrState: QR_STATE
-  refreshQR: () => void
-}) => {
+export const QRStateText = ({ qrState, refreshQR }: { qrState: QR_STATE; refreshQR: () => void }) => {
   const navigation = useNavigation()
   const resetTo = useResetTo()
 
@@ -32,18 +20,14 @@ export const QRStateText = ({
           style={[styles.qrOverlay, { borderColor: COLORS.RED }]}
         >
           <Text style={[styles.title, { color: COLORS.RED }]}>{I18n.t('can_not_generate_qr')}</Text>
-          <Text
-            style={styles.subtitle}
-          >
-            {I18n.t('connect_internet_to_generate_qr')}
-          </Text>
+          <Text style={styles.subtitle}>{I18n.t('connect_internet_to_generate_qr')}</Text>
           <Text style={styles.link}>{I18n.t('try_again')}</Text>
         </TouchableOpacity>
       )
     case QR_STATE.LOADING:
       return (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color={COLORS.BLACK_1} />
+          <ActivityIndicator size='large' color={COLORS.BLACK_1} />
         </View>
       )
     case QR_STATE.EXPIRE:
@@ -53,9 +37,7 @@ export const QRStateText = ({
           onPress={refreshQR}
           style={[styles.qrOverlay, { borderColor: COLORS.RED }]}
         >
-          <Text style={[styles.title, { color: COLORS.RED }]}>
-            {I18n.t('qr_expired')}
-          </Text>
+          <Text style={[styles.title, { color: COLORS.RED }]}>{I18n.t('qr_expired')}</Text>
           <Text style={styles.subtitle}>{I18n.t('connect_internet_to_update')}</Text>
           <Text style={styles.link}>{I18n.t('try_again')}</Text>
         </TouchableOpacity>
@@ -66,10 +48,10 @@ export const QRStateText = ({
           activeOpacity={0.5}
           onPress={() => {
             navigation.navigate({
-              routeName: 'Onboarding',
+              name: 'Onboarding',
               params: {
                 backIcon: 'close',
-                onBack: () => resetTo({ routeName: 'MainApp' }),
+                onBack: () => resetTo({ name: 'MainApp' }),
               },
             })
           }}

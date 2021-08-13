@@ -1,28 +1,29 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { UpdateFaceCamera } from '../../components/UpdateFaceCamera'
-import { useNavigation } from 'react-navigation-hooks'
+import { StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet } from 'react-native'
-import { COLORS } from '../../styles'
+import { UpdateFaceCamera } from '../../components/UpdateFaceCamera'
 
-export const OnboardFaceCamera = () => {
+export const OnboardFaceCamera = ({ route }) => {
   const navigation = useNavigation()
-  const onCapture = uri => {
-    if (navigation.state.params.setUri) {
-      navigation.state.params.setUri(uri)
+  const onCapture = (uri) => {
+    if (route.params.setUri) {
+      route.params.setUri(uri)
     }
     navigation.goBack()
   }
   return (
-    <SafeAreaView style={styles.container}>
-      <UpdateFaceCamera
-        onClose={() => {
-          navigation.goBack()
-        }}
-        onSelectImage={onCapture}
-        onCapture={onCapture}
-      />
-    </SafeAreaView>
+    <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
+        <UpdateFaceCamera
+          onClose={() => {
+            navigation.goBack()
+          }}
+          onSelectImage={onCapture}
+          onCapture={onCapture}
+        />
+      </SafeAreaView>
+    </View>
   )
 }
 

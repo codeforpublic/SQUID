@@ -1,23 +1,28 @@
-import React, { useState, useRef, useEffect } from 'react'
-import QRCodeScanner from 'react-native-qrcode-scanner'
-import { Dimensions, StatusBar, Platform } from 'react-native'
-import { COLORS, FONT_MED } from '../../styles'
-import { Title, Subtitle, Header } from '../../components/Base'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { verifyToken, decodeJWT } from '../../utils/jwt'
-import { useIsFocused } from 'react-navigation-hooks'
-import { QRResult, tagManager } from '../../state/qr'
+import React, { useEffect, useRef, useState } from 'react'
+import { Alert, Dimensions, StatusBar } from 'react-native'
 import NotificationPopup from 'react-native-push-notification-popup'
-import { QRPopupContent } from './QRPopupContent'
-import { scanManager } from '../../services/contact-scanner'
-
+import QRCodeScanner from 'react-native-qrcode-scanner'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { useIsFocused, CommonActions } from '@react-navigation/native'
 import I18n from '../../../i18n/i18n'
+import { Header, Subtitle, Title } from '../../components/Base'
 import { backgroundTracking } from '../../services/background-tracking'
+import { scanManager } from '../../services/contact-scanner'
+import { useVaccine } from '../../services/use-vaccine'
+import { QRResult, tagManager } from '../../state/qr'
+import { COLORS } from '../../styles'
+import { decodeJWT, verifyToken } from '../../utils/jwt'
+import PopupImportVaccine from './NewMainApp/PopupImportVaccine'
+import { QRPopupContent } from './QRPopupContent'
+import { useApplicationState } from '../../state/app-state'
 
 export const QRCodeScan = ({ navigation }) => {
+  const [modalVisible, setModalVisible] = useState(false)
+  const { requestVaccine, resetVaccine, isVaccineURL } = useVaccine()
   const isFocused = useIsFocused()
   const [qrResult, setQRResult] = useState<QRResult>(null)
   const popupRef = useRef<NotificationPopup>()
+  const [, setData] = useApplicationState()
 
   useEffect(() => {
     tagManager.update()
@@ -25,7 +30,7 @@ export const QRCodeScan = ({ navigation }) => {
 
   useEffect(() => {
     if (qrResult) {
-      popupRef.current.show({
+      popupRef.current?.show({
         appTitle: I18n.t('risk_level'),
         title: qrResult.getLabel(),
         timeText: qrResult.getTag()?.title,
@@ -35,7 +40,7 @@ export const QRCodeScan = ({ navigation }) => {
   }, [qrResult])
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#F9F9F9' }}>
-      <StatusBar barStyle="dark-content" backgroundColor={COLORS.WHITE} />
+      <StatusBar barStyle='dark-content' backgroundColor={COLORS.WHITE} />
       {isFocused ? (
         <QRCodeScanner
           showMarker
@@ -51,11 +56,10 @@ export const QRCodeScan = ({ navigation }) => {
           }}
           onRead={async (e) => {
             try {
-              if (e?.data?.startsWith('https://qr.thaichana.com/?appId')) {
+              const url = e?.data
+              if (url?.startsWith('https://qr.thaichana.com/?appId')) {
                 const closeStr = 'closeBtn=true'
-                const uri = e?.data?.includes('?')
-                  ? e?.data + '&' + closeStr
-                  : e?.data + '?' + closeStr
+                const uri = e?.data?.includes('?') ? e?.data + '&' + closeStr : e?.data + '?' + closeStr
                 navigation.navigate('Webview', {
                   uri,
                   onClose: () => {
@@ -65,16 +69,28 @@ export const QRCodeScan = ({ navigation }) => {
                 backgroundTracking.getLocation({
                   extras: { triggerType: 'thaichana', url: e.data },
                 })
-                return
+              } else if (requestVaccine && isVaccineURL && (await isVaccineURL(url))) {
+                const result = await requestVaccine(url)
+                try {
+                  if (result.status === 'ERROR') {
+                    Alert.alert(result.errorTitle || '', result.errorMessage || '')
+                    return
+                  }
+
+                  setModalVisible(true)
+                } catch (err) {
+                  console.warn('qr scan catch', err)
+                }
+              } else {
+                await verifyToken(e?.data)
+                const decoded = decodeJWT(e?.data)
+                if (!decoded?._) {
+                  throw new Error('Invalid')
+                }
+                setQRResult(new QRResult(decoded))
               }
-              await verifyToken(e?.data)
-              const decoded = decodeJWT(e?.data)
-              if (!decoded?._) {
-                throw new Error('Invalid')
-              }
-              setQRResult(new QRResult(decoded))
             } catch (err) {
-              alert(I18n.t('wrong_data'))
+              Alert.alert(I18n.t('wrong_data'))
             }
           }}
           fadeIn={false}
@@ -84,21 +100,29 @@ export const QRCodeScan = ({ navigation }) => {
           topContent={
             <Header>
               <Title>{I18n.t('scan_qr')}</Title>
-              <Subtitle>
-                {I18n.t('record_contact_and_estimate_risk')}
-              </Subtitle>
+              <Subtitle>{I18n.t('record_contact_and_estimate_risk')}</Subtitle>
             </Header>
           }
         />
-      ) : (
-        void 0
-      )}
+      ) : null}
       <NotificationPopup
-        ref={popupRef}
-        renderPopupContent={(props) => (
-          <QRPopupContent {...props} qrResult={qrResult} />
-        )}
+        ref={popupRef as any}
+        renderPopupContent={(props) => <QRPopupContent {...props} qrResult={qrResult} />}
       />
+      {modalVisible ? (
+        <PopupImportVaccine
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          onSelect={(status) => {
+            if (status === 'ok') {
+              setData('card', 1)
+              navigation.navigate('Home')
+            } else {
+              resetVaccine && resetVaccine()
+            }
+          }}
+        />
+      ) : null}
     </SafeAreaView>
   )
 }

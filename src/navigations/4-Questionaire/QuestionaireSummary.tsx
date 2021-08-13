@@ -1,13 +1,6 @@
 import styled from '@emotion/native'
 import React from 'react'
-import {
-  ActivityIndicator,
-  Dimensions,
-  Image,
-  StatusBar,
-  Text,
-  View,
-} from 'react-native'
+import { ActivityIndicator, Dimensions, Image, StatusBar, Text, View } from 'react-native'
 import { useSafeArea } from 'react-native-safe-area-view'
 import Icon from 'react-native-vector-icons/Entypo'
 import { WhiteText } from '../../components/Base'
@@ -19,7 +12,7 @@ import { useResetTo } from '../../utils/navigation'
 import { isSmallDevice } from '../../utils/responsive'
 import { Button } from 'react-native-elements'
 
-import I18n from '../../../i18n/i18n';
+import I18n from '../../../i18n/i18n'
 
 const Container = styled(View)({
   backgroundColor: '#00A0D7',
@@ -44,7 +37,7 @@ const Card = styled.View`
 const risks = [
   { text: I18n.t('very_low'), color: COLORS.GREEN },
   { text: I18n.t('low'), color: COLORS.YELLOW },
-  { text: Dimensions.get('window').width < 360? I18n.t('medium'): I18n.t('med_panklang'), color: COLORS.ORANGE },
+  { text: Dimensions.get('window').width < 360 ? I18n.t('medium') : I18n.t('med_panklang'), color: COLORS.ORANGE },
   { text: I18n.t('very_high'), color: COLORS.RED },
 ]
 
@@ -61,7 +54,7 @@ const RiskLevel = ({ level }) => {
           overflow: 'hidden',
         }}
       >
-        {risks.map(risk => (
+        {risks.map((risk) => (
           <View
             key={risk.text}
             style={{
@@ -70,9 +63,7 @@ const RiskLevel = ({ level }) => {
               alignItems: 'center',
             }}
           >
-            <WhiteText style={{ fontSize: FONT_SIZES[600] }}>
-              {risk.text}
-            </WhiteText>
+            <WhiteText style={{ fontSize: FONT_SIZES[600] }}>{risk.text}</WhiteText>
           </View>
         ))}
       </View>
@@ -90,7 +81,7 @@ const RiskLevel = ({ level }) => {
             alignItems: 'center',
           }}
         >
-          <Icon name="triangle-up" color="black" size={24} />
+          <Icon name='triangle-up' color='black' size={24} />
         </View>
       </View>
     </View>
@@ -102,11 +93,11 @@ export const QuestionaireSummary = ({ navigation }) => {
   const inset = useSafeArea()
   const { qrData, qrState, error, refreshQR } = useSelfQR()
   // useEffect(() => {
-  //   resetTo({ routeName: 'MainApp' })
+  //   resetTo({ name: 'MainApp' })
   // }, [])
   return (
     <Container>
-      <StatusBar backgroundColor="#00A0D7" barStyle="light-content" />
+      <StatusBar backgroundColor='#00A0D7' barStyle='light-content' />
       <FormHeader whiteLogo style={{ paddingTop: inset.top }} />
       {qrState === QR_STATE.LOADING ? (
         <ActivityIndicator />
@@ -116,16 +107,14 @@ export const QuestionaireSummary = ({ navigation }) => {
             source={require('./assets/smile-doctor.png')}
             style={{
               width: Math.floor(Dimensions.get('window').width * 0.5),
-              height: Math.floor(
-                (1578 / 1370) * Dimensions.get('window').width * 0.5,
-              ),
+              height: Math.floor((1578 / 1370) * Dimensions.get('window').width * 0.5),
             }}
-            resizeMode="cover"
+            resizeMode='cover'
           />
           <Card>
             <Text
               style={{
-                fontSize: isSmallDevice? FONT_SIZES[800]:FONT_SIZES[900],
+                fontSize: isSmallDevice ? FONT_SIZES[800] : FONT_SIZES[900],
                 fontFamily: FONT_BOLD,
                 color: qrData.getStatusColor(),
               }}
@@ -177,7 +166,7 @@ export const QuestionaireSummary = ({ navigation }) => {
                   width: '100%',
                 }}
                 onPress={async () => {
-                  resetTo({ routeName: 'MainApp' })
+                  resetTo({ name: 'MainApp' })
                 }}
               />
               <Button
@@ -185,17 +174,17 @@ export const QuestionaireSummary = ({ navigation }) => {
                 style={{
                   width: '100%',
                 }}
-                type="clear"
+                type='clear'
                 titleStyle={{
                   fontFamily: FONT_FAMILY,
-                  fontSize: FONT_SIZES[600]
+                  fontSize: FONT_SIZES[600],
                 }}
                 containerStyle={{
                   marginTop: 4,
                   width: '100%',
                 }}
                 onPress={async () => {
-                  resetTo({ routeName: 'Questionaire' })
+                  resetTo({ name: 'Questionaire' })
                 }}
               />
             </View>

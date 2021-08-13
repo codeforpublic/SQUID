@@ -25,7 +25,7 @@ export const refetchDDCPublicKey = async () => {
   }
 }
 
-export const encryptMessage = message => {
+export const encryptMessage = (message) => {
   if (!publicKey) {
     throw new Error('Public key not found')
   }

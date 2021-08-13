@@ -1,9 +1,6 @@
 import React from 'react'
 import { FONT_FAMILY, FONT_SIZES } from '../../../styles'
-import {
-  View,
-  Text,
-} from 'react-native'
+import { View, Text } from 'react-native'
 import { SelfQR } from '../../../state/qr'
 
 export const QRTagLabel = ({ qr }: { qr: SelfQR }) => {
@@ -17,17 +14,27 @@ export const QRTagLabel = ({ qr }: { qr: SelfQR }) => {
     <View
       style={{
         marginTop: 12,
-        backgroundColor: color,                
+        backgroundColor: color,
         alignSelf: 'center',
       }}
     >
       <Text
-        style={{ textAlign: 'center', color: color ? 'white' : 'black', fontFamily: FONT_FAMILY, fontSize: FONT_SIZES[700] }}
+        style={{
+          textAlign: 'center',
+          color: color ? 'white' : 'black',
+          fontFamily: FONT_FAMILY,
+          fontSize: FONT_SIZES[700],
+        }}
       >
         {title}
       </Text>
       <Text
-        style={{ textAlign: 'center', color: color ? 'white' : 'black', fontFamily: FONT_FAMILY, fontSize: FONT_SIZES[500] }}
+        style={{
+          textAlign: 'center',
+          color: color ? 'white' : 'black',
+          fontFamily: FONT_FAMILY,
+          fontSize: FONT_SIZES[500],
+        }}
       >
         {description}
       </Text>

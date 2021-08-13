@@ -2,7 +2,7 @@ import JwtUtils from 'react-native-jwt-verifier'
 import jwtDecode from 'jwt-decode'
 import { fetchJWKs } from '../api'
 
-import I18n from '../../i18n/i18n';
+import I18n from '../../i18n/i18n'
 
 let jwks
 export const refetchJWKs = async () => {
@@ -12,11 +12,11 @@ export const refetchJWKs = async () => {
   }
 }
 
-export const verifyToken = token => {
+export const verifyToken = (token) => {
   return JwtUtils.verify(token, jwks.x, jwks.y)
 }
 
-export const decodeJWT = token => {
+export const decodeJWT = (token) => {
   try {
     return jwtDecode(token)
   } catch (e) {

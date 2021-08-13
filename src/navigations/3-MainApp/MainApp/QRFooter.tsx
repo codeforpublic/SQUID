@@ -4,11 +4,10 @@ import { View, Text, Image, Dimensions, TouchableOpacity } from 'react-native'
 import moment from 'moment-timezone'
 import 'moment/locale/th'
 import { Link } from '../../../components/Base'
-import { useNavigation } from 'react-navigation-hooks'
+import { useNavigation } from '@react-navigation/native'
 import { userPrivateData } from '../../../state/userPrivateData'
 
-import I18n from '../../../../i18n/i18n';
-
+import I18n from '../../../../i18n/i18n'
 
 export const QRFooter = () => {
   const isRegistered = Boolean(userPrivateData.getData('authToken'))
@@ -66,12 +65,12 @@ export const QRFooter = () => {
               textAlign: 'right',
             }}
           >
-            {date.format('D MMMM​')} {date.year() + (I18n.currentLocale() == 'th' ? 543:0)}
+            {date.format('D MMMM​')} {date.year() + (I18n.currentLocale() == 'th' ? 543 : 0)}
           </Text>
         </View>
         <Image
           source={require('../../../assets/logo_header.png')}
-          resizeMode="contain"
+          resizeMode='contain'
           style={{
             height: smallDevice ? 30 : 40,
             width: (smallDevice ? 30 : 40) * (260 / 140),

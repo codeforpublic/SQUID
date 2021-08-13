@@ -1,9 +1,13 @@
 import BackgroundGeolocation from 'react-native-background-geolocation'
 import { getAnonymousHeaders } from '../api'
 import { Platform } from 'react-native'
+import DeviceInfo from 'react-native-device-info'
+import { StoreLocationHistoryService } from './store-location-history.service'
+import BackgroundTimer from 'react-native-background-timer'
+import GetLocation from 'react-native-get-location'
 import { API_URL } from '../config'
 import I18n from '../../i18n/i18n'
-import DeviceInfo from 'react-native-device-info'
+
 class BackgroundTracking {
   setup(startImmediately?: boolean) {
     if (startImmediately) {
@@ -16,7 +20,7 @@ class BackgroundTracking {
     return BackgroundGeolocation.ready({
       // iOS
       desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
-      stationaryRadius: 50,
+      stationaryRadius: 25,
 
       // Android
       enableHeadless: false,
@@ -44,9 +48,7 @@ class BackgroundTracking {
       locationAuthorizationAlert: {
         titleWhenNotEnabled: I18n.t('pls_set_loc_serv_as_always'),
         titleWhenOff: I18n.t('pls_set_loc_serv_as_always'),
-        instructions: I18n.t(
-          'help_notify_if_you_get_near_risky_person_or_area',
-        ),
+        instructions: I18n.t('help_notify_if_you_get_near_risky_person_or_area'),
         cancelButton: 'Cancel',
         settingsButton: 'Settings',
       },
@@ -61,6 +63,19 @@ class BackgroundTracking {
     if (!this.canUseGeoLocation) {
       return Promise.resolve()
     }
+
+    BackgroundGeolocation.onLocation(({ coords }) => {
+      this.saveLocationWFH(coords)
+    }, console.log)
+    BackgroundTimer.runBackgroundTimer(() => {
+      GetLocation.getCurrentPosition({
+        enableHighAccuracy: true,
+        timeout: 1000,
+      }).then((coords) => {
+        this.saveLocationWFH(coords)
+      })
+    }, 60000)
+
     return this.registerGeoLocation().then((state) => {
       if (!state.enabled) {
         BackgroundGeolocation.start().catch(console.log)
@@ -92,6 +107,12 @@ class BackgroundTracking {
         samples: 1,
         ...extras,
       })
+    })
+  }
+
+  saveLocationWFH(location: { latitude: number; longitude: number }) {
+    StoreLocationHistoryService.calculateDistance(location.latitude, location.longitude).then((type) => {
+      StoreLocationHistoryService.callStackData(type)
     })
   }
 

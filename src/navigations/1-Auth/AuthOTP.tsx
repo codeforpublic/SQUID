@@ -1,28 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigation } from 'react-navigation-hooks'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import {
-  StatusBar,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-  KeyboardAvoidingView,
-} from 'react-native'
-import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD } from '../../styles'
-import { PrimaryButton } from '../../components/Button'
-import AntIcon from 'react-native-vector-icons/AntDesign'
-import { requestOTP, mobileParing } from '../../api'
-import { useHUD } from '../../HudView'
-import { useResetTo } from '../../utils/navigation'
-import { applicationState } from '../../state/app-state'
+import { useNavigation } from '@react-navigation/native'
 import OTPInputView from '@twotalltotems/react-native-otp-input'
+import React, { useEffect, useState } from 'react'
+import { Alert, KeyboardAvoidingView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import AntIcon from 'react-native-vector-icons/AntDesign'
+import I18n from '../../../i18n/i18n'
+import { mobileParing, requestOTP } from '../../api'
 import { Link } from '../../components/Base'
-import { userPrivateData } from '../../state/userPrivateData'
+import { PrimaryButton } from '../../components/Button'
 import { FormHeader } from '../../components/Form/FormHeader'
-
-import I18n from '../../../i18n/i18n';
+import { useHUD } from '../../HudView'
+import { applicationState } from '../../state/app-state'
+import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../styles'
+import { useResetTo } from '../../utils/navigation'
 
 function formatPhoneNumber(phoneNumberString) {
   var cleaned = ('' + phoneNumberString).replace(/\D/g, '')
@@ -33,20 +23,19 @@ function formatPhoneNumber(phoneNumberString) {
   return null
 }
 
-export const AuthOTP = () => {
+export const AuthOTP = ({ route }) => {
   const { showSpinner, hide } = useHUD()
   const navigation = useNavigation()
-  const phone = navigation.getParam('phone')
-  const triggerOTP = navigation.getParam('triggerOTP')
-  const onBack = navigation.getParam('onBack')
-  const backIcon = navigation.getParam('backIcon')
+  const phone = route.params?.phone
+  const triggerOTP = route.params?.triggerOTP
+  const onBack = route.params?.onBack
+  const backIcon = route.params?.backIcon
   const [otp, setOtp] = useState('')
   const resetTo = useResetTo()
-  const mobileNumber = navigation.state.params.phone
   const onSubmit = async () => {
     showSpinner()
     try {
-      const bool = await mobileParing(mobileNumber.replace(/-/g, ''), otp)
+      const bool = await mobileParing(phone.replace(/-/g, ''), otp)
       if (!bool) {
         Alert.alert(I18n.t('wrong_pwd'))
         hide()
@@ -55,9 +44,9 @@ export const AuthOTP = () => {
       hide()
       applicationState.setData('isRegistered', true)
       if (applicationState.getData('isPassedOnboarding')) {
-        resetTo({ routeName: 'MainApp' })
+        resetTo({ name: 'MainApp' })
       } else {
-        resetTo({ routeName: 'Onboarding' })
+        resetTo({ name: 'Onboarding' })
       }
     } catch (err) {
       console.log(err)
@@ -89,12 +78,12 @@ export const AuthOTP = () => {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={{ flex: 1, width: '100%' }}>
-        <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
+        <StatusBar backgroundColor={COLORS.WHITE} barStyle='dark-content' />
         <FormHeader onBack={onBack} backIcon={backIcon}>
           <View style={styles.header}>
             <Text style={styles.title}>{I18n.t('enter_otp_from_sms')}</Text>
             <Text style={styles.subtitle}>
-              {I18n.t('send_to_phone_no')} {formatPhoneNumber(mobileNumber)}
+              {I18n.t('send_to_phone_no')} {formatPhoneNumber(phone)}
             </Text>
           </View>
         </FormHeader>
@@ -122,7 +111,7 @@ export const AuthOTP = () => {
                 width: 60,
               }}
               style={{ height: 60 }}
-              onCodeFilled={code => setOtp(code)}
+              onCodeFilled={(code) => setOtp(code)}
               pinCount={4}
             />
           </View>
@@ -134,7 +123,7 @@ export const AuthOTP = () => {
               marginTop: 32,
             }}
           >
-            <AntIcon name="reload1" size={24} color={COLORS.BLACK_1} />
+            <AntIcon name='reload1' size={24} color={COLORS.BLACK_1} />
             <Text style={styles.text}>{I18n.t('resend_the_code')}</Text>
           </TouchableOpacity>
         </View>
@@ -151,17 +140,17 @@ export const AuthOTP = () => {
             onPress={() => {
               applicationState.setData('skipRegistration', true)
               if (applicationState.getData('isPassedOnboarding')) {
-                resetTo({ routeName: 'MainApp' })
+                resetTo({ name: 'MainApp' })
               } else {
                 navigation.navigate({
-                  routeName: 'Onboarding',
+                  name: 'Onboarding',
                   params: { phone },
                 })
               }
             }}
           >
             <Link style={{ color: '#576675', textDecorationLine: 'underline' }}>
-              {I18n.t('use_without_iden_confirm')} >
+              {I18n.t('use_without_iden_confirm') + ' >'}
             </Link>
           </TouchableOpacity>
         </View>

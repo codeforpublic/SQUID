@@ -1,43 +1,31 @@
-import React, { useState, useMemo } from 'react'
-import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD } from '../../styles'
-import { useNavigation } from 'react-navigation-hooks'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import {
-  StatusBar,
-  View,
-  Text,
-  StyleSheet,
-  Alert,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-} from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import React, { useMemo, useState } from 'react'
+import { Alert, KeyboardAvoidingView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { TextInputMask } from 'react-native-masked-text'
-import { PrimaryButton } from '../../components/Button'
-import { BackButton } from '../../components/BackButton'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import I18n from '../../../i18n/i18n'
 import { requestOTP } from '../../api'
-import { useHUD } from '../../HudView'
 import { Link } from '../../components/Base'
-import { applicationState } from '../../state/app-state'
-import { useResetTo } from '../../utils/navigation'
+import { PrimaryButton } from '../../components/Button'
 import { FormHeader } from '../../components/Form/FormHeader'
-import I18n from '../../../i18n/i18n';
+import { useHUD } from '../../HudView'
+import { applicationState } from '../../state/app-state'
+import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../styles'
+import { useResetTo } from '../../utils/navigation'
 
-export const AuthPhone = () => {
+export const AuthPhone = ({ route }) => {
   const navigation = useNavigation()
   const { showSpinner, hide } = useHUD()
   const [phone, setPhone] = useState('')
-  const isValidPhone = useMemo(
-    () => phone.replace(/-/g, '').match(/^(0|1)[0-9]{9}$/),
-    [phone],
-  )
+  const isValidPhone = useMemo(() => phone.replace(/-/g, '').match(/^(0|1)[0-9]{9}$/), [phone])
   const resetTo = useResetTo()
-  const onBack = navigation.getParam('onBack')
-  const backIcon = navigation.getParam('backIcon')
+  const onBack = route.params.onBack
+  const backIcon = route.params.backIcon
 
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={{ flex: 1, width: '100%' }}>
-        <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
+        <StatusBar backgroundColor={COLORS.WHITE} barStyle='dark-content' />
         <FormHeader onBack={onBack} backIcon={backIcon}>
           <View style={styles.header}>
             <Text style={styles.title}>{I18n.t('pls_input_phone_no')}</Text>
@@ -57,11 +45,11 @@ export const AuthPhone = () => {
             }}
           >
             <TextInputMask
-              type="custom"
+              type='custom'
               options={{
                 mask: '999-999-9999',
               }}
-              onChangeText={text => {
+              onChangeText={(text) => {
                 setPhone(text.trim())
               }}
               value={phone}
@@ -91,7 +79,7 @@ export const AuthPhone = () => {
                 await requestOTP(mobileNumber)
                 hide()
                 navigation.navigate({
-                  routeName: 'AuthOTP',
+                  name: 'AuthOTP',
                   params: { phone: mobileNumber },
                 })
               } catch (err) {
@@ -105,10 +93,10 @@ export const AuthPhone = () => {
             onPress={() => {
               applicationState.setData('skipRegistration', true)
               if (applicationState.getData('isPassedOnboarding')) {
-                resetTo({ routeName: 'MainApp' })
+                resetTo({ name: 'MainApp' })
               } else {
                 navigation.navigate({
-                  routeName: 'Onboarding',
+                  name: 'Onboarding',
                   params: { phone },
                 })
               }

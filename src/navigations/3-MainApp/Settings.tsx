@@ -1,18 +1,10 @@
 import React from 'react'
-import {
-  StatusBar,
-  StyleSheet,
-  View,
-  Text,
-  Switch,
-  ScrollView,
-  TouchableHighlight,
-} from 'react-native'
+import { StatusBar, StyleSheet, View, Text, Switch, ScrollView, TouchableHighlight } from 'react-native'
 import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useContactTracer } from '../../services/contact-tracing-provider'
-import { useNavigation } from 'react-navigation-hooks'
+import { useNavigation } from '@react-navigation/native'
 import { userPrivateData } from '../../state/userPrivateData'
 import I18n from '../../../i18n/i18n'
 
@@ -25,61 +17,49 @@ export const Settings = () => {
   }
 
   return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#F9F9F9' }}>
-        <StatusBar
-          barStyle="dark-content"
-          backgroundColor={COLORS.PRIMARY_LIGHT}
-        />
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}
-        >
-          <View>
-            <View style={styles.sectionHeader}>
-              <Text style={styles.sectionHeaderText}>{I18n.t('tracking')}</Text>
-            </View>
-            <View style={styles.settingsSection}>
-              <View style={[styles.section]}>
-                <View style={styles.horizontalRow}>
-                  <View style={styles.leftArea}>
-                    <Text style={styles.sectionText}>
-                      {I18n.t('track_with_bluetooth')}{' '}
-                    </Text>
-                  </View>
-                  <View style={styles.rightArea}>
-                    <Switch
-                      trackColor={{
-                        false: '#767577',
-                        true: COLORS.PRIMARY_DARK,
-                      }}
-                      ios_backgroundColor="#3e3e3e"
-                      onValueChange={() =>
-                        isServiceEnabled ? disable() : enable()
-                      }
-                      value={isServiceEnabled}
-                    />
-                  </View>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#F9F9F9' }}>
+      <StatusBar barStyle='dark-content' backgroundColor={COLORS.PRIMARY_LIGHT} />
+      <ScrollView contentInsetAdjustmentBehavior='automatic' style={styles.scrollView}>
+        <View>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionHeaderText}>{I18n.t('tracking')}</Text>
+          </View>
+          <View style={styles.settingsSection}>
+            <View style={[styles.section]}>
+              <View style={styles.horizontalRow}>
+                <View style={styles.leftArea}>
+                  <Text style={styles.sectionText}>{I18n.t('track_with_bluetooth')} </Text>
                 </View>
-                <Text style={styles.sectionDescription}>
-                  {I18n.t('auto_turn_on_bluetooth_tracing')}
-                  {I18n.t('may_cause_phone_to_consume_higher_energy')}
-                  {I18n.t('you_can_choose_to_turn_off')}
-                  {I18n.t('but_sys_will_not_auto_trace')}
-                </Text>
+                <View style={styles.rightArea}>
+                  <Switch
+                    trackColor={{
+                      false: '#767577',
+                      true: COLORS.PRIMARY_DARK,
+                    }}
+                    ios_backgroundColor='#3e3e3e'
+                    onValueChange={() => (isServiceEnabled ? disable() : enable())}
+                    value={isServiceEnabled}
+                  />
+                </View>
               </View>
+              <Text style={styles.sectionDescription}>
+                {I18n.t('auto_turn_on_bluetooth_tracing')}
+                {I18n.t('may_cause_phone_to_consume_higher_energy')}
+                {I18n.t('you_can_choose_to_turn_off')}
+                {I18n.t('but_sys_will_not_auto_trace')}
+              </Text>
             </View>
-            <View style={styles.sectionHeader}>
-              <Text style={styles.sectionHeaderText}>{I18n.t('general')}</Text>
-            </View>
-            <View style={styles.settingsSection}>
-              <TouchableHighlight onPress={_onPrivacyPolicyClicked}>
-                <View style={styles.section}>
-                  <Text style={styles.sectionText}>
-                    {I18n.t('privacy_policy')}
-                  </Text>
-                </View>
-              </TouchableHighlight>
-              {/* <TouchableHighlight
+          </View>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionHeaderText}>{I18n.t('general')}</Text>
+          </View>
+          <View style={styles.settingsSection}>
+            <TouchableHighlight onPress={_onPrivacyPolicyClicked}>
+              <View style={styles.section}>
+                <Text style={styles.sectionText}>{I18n.t('privacy_policy')}</Text>
+              </View>
+            </TouchableHighlight>
+            {/* <TouchableHighlight
                 onPress={() => navigation.navigate('Questionaire')}
               >
                 <View style={styles.section}>
@@ -88,37 +68,31 @@ export const Settings = () => {
                   </Text>
                 </View>
               </TouchableHighlight> */}
+            <TouchableHighlight onPress={() => navigation.navigate('ChangeLanguage')}>
+              <View style={styles.section}>
+                <Text style={styles.sectionText}>{I18n.t('change_lang')}</Text>
+              </View>
+            </TouchableHighlight>
+            {!isRegistered && (
               <TouchableHighlight
-                onPress={() => navigation.navigate('ChangeLanguage')}
+                onPress={() =>
+                  navigation.navigate('OnboardPhone', {
+                    onBack: () => {
+                      navigation.pop()
+                    },
+                    backIcon: 'close',
+                  })
+                }
               >
                 <View style={styles.section}>
-                  <Text style={styles.sectionText}>
-                    {I18n.t('change_lang')}
-                  </Text>
+                  <Text style={styles.sectionText}>{I18n.t('identity_confirm')}</Text>
                 </View>
               </TouchableHighlight>
-              {!isRegistered && (
-                <TouchableHighlight
-                  onPress={() =>
-                    navigation.navigate('OnboardPhone', {
-                      onBack: () => {
-                        navigation.pop()
-                      },
-                      backIcon: 'close',
-                    })
-                  }
-                >
-                  <View style={styles.section}>
-                    <Text style={styles.sectionText}>
-                      {I18n.t('identity_confirm')}
-                    </Text>
-                  </View>
-                </TouchableHighlight>
-              )}
-            </View>
+            )}
           </View>
-        </ScrollView>
-      </SafeAreaView>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
