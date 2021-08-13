@@ -6,7 +6,7 @@ import I18n from '../../../../i18n/i18n'
 import MainCard from '../../../components/MainCard'
 import ReloadButton from '../../../components/ReloadButton'
 import { useVaccine, Vaccination } from '../../../services/use-vaccine'
-import { FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../../styles'
+import { FONT_BOLD, FONT_FAMILY, FONT_SIZES, COLORS } from '../../../styles'
 
 const VaccineCard: React.FC = () => {
   const navigation = useNavigation()
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   textUpdate: {
     marginVertical: 10,
     marginRight: 10,
-    color: '#222222',
+    color: COLORS.TEXT,
     fontFamily: FONT_FAMILY,
     fontSize: 20,
   },

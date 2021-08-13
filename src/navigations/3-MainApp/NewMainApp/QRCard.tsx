@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   textVersionNumber: {
-    color: '#222222',
+    color: COLORS.TEXT,
     fontSize: FONT_SIZES[600] * 0.85,
     fontFamily: FONT_FAMILY,
   },
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY,
     fontSize: 20,
     marginRight: 5,
-    color: '#222222',
+    color: COLORS.TEXT,
   },
 })
 export default QRCard

@@ -1,18 +1,15 @@
-import React from 'react'
-import { useNavigationParam } from '@react-navigation/native'
-import { CircularProgressAvatar } from '../../components/CircularProgressAvatar'
-import { View, Text, Image, Dimensions } from 'react-native'
-import { Title, Header, Subtitle } from '../../components/Base'
 import styled from '@emotion/native'
-import { FONT_FAMILY, COLORS, FONT_SIZES } from '../../styles'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { MyBackground } from '../../components/MyBackground'
-import { PrimaryButton } from '../../components/Button'
-import moment from 'moment-timezone'
 import 'moment/locale/th'
-import { QRResult } from '../../state/qr'
-
+import React from 'react'
+import { Dimensions, Image, Text, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import I18n from '../../../i18n/i18n'
+import { Header, Subtitle, Title } from '../../components/Base'
+import { PrimaryButton } from '../../components/Button'
+import { CircularProgressAvatar } from '../../components/CircularProgressAvatar'
+import { MyBackground } from '../../components/MyBackground'
+import { QRResult } from '../../state/qr'
+import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
 
 const Content = styled(View)({
   flex: 1,

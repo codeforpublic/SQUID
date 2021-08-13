@@ -1,20 +1,20 @@
+import { useIsFocused } from '@react-navigation/native'
 import React, { useEffect, useRef, useState } from 'react'
 import { Alert, Dimensions, StatusBar } from 'react-native'
 import NotificationPopup from 'react-native-push-notification-popup'
 import QRCodeScanner from 'react-native-qrcode-scanner'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { useIsFocused, CommonActions } from '@react-navigation/native'
 import I18n from '../../../i18n/i18n'
 import { Header, Subtitle, Title } from '../../components/Base'
 import { backgroundTracking } from '../../services/background-tracking'
 import { scanManager } from '../../services/contact-scanner'
 import { useVaccine } from '../../services/use-vaccine'
+import { useApplicationState } from '../../state/app-state'
 import { QRResult, tagManager } from '../../state/qr'
 import { COLORS } from '../../styles'
 import { decodeJWT, verifyToken } from '../../utils/jwt'
 import PopupImportVaccine from './NewMainApp/PopupImportVaccine'
 import { QRPopupContent } from './QRPopupContent'
-import { useApplicationState } from '../../state/app-state'
 
 export const QRCodeScan = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false)
@@ -69,7 +69,7 @@ export const QRCodeScan = ({ navigation }) => {
                 backgroundTracking.getLocation({
                   extras: { triggerType: 'thaichana', url: e.data },
                 })
-              } else if (requestVaccine && isVaccineURL && (await isVaccineURL(url))) {
+              } else if (requestVaccine && isVaccineURL && isVaccineURL(url)) {
                 const result = await requestVaccine(url)
                 try {
                   if (result.status === 'ERROR') {

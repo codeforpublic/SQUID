@@ -330,14 +330,14 @@ const styles = StyleSheet.create({
     left: 45,
   },
   firstNameText: {
-    color: '#222222',
+    color: COLORS.TEXT,
     fontFamily: FONT_BOLD,
     fontSize: 40,
     paddingTop: 3,
     width: '100%',
   },
   lastNameText: {
-    color: '#222222',
+    color: COLORS.TEXT,
     fontFamily: FONT_FAMILY,
     fontSize: 28,
     fontWeight: 'normal',

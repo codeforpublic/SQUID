@@ -1,34 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { MockScreen } from '../MockScreen'
+import { useNavigation } from '@react-navigation/native'
+import React, { useEffect, useState } from 'react'
+import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Avatar } from 'react-native-elements'
-import { Camera, TakePictureResponse, RNCamera } from '../../components/Camera'
-import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../../styles'
-import styled, { css } from '@emotion/native'
-import { MyBackground } from '../../components/MyBackground'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { StatusBar, View, StyleSheet, TouchableOpacity, Alert, Platform, BackHandler, Text } from 'react-native'
-import { Title, Subtitle, Header, WhiteText, ColorText } from '../../components/Base'
-import { PrimaryButton } from '../../components/Button'
-import { useNavigation, useNavigationParam } from '@react-navigation/native'
-import { BackButton } from '../../components/BackButton'
-import { useMutation } from '@apollo/react-hooks'
-import { gql } from 'apollo-boost'
-import AsyncStorage from '@react-native-community/async-storage'
 import RNFS from 'react-native-fs'
-import { userPrivateData } from '../../state/userPrivateData'
-import { useHUD } from '../../HudView'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import FeatherIcon from 'react-native-vector-icons/Feather'
-import { SelfieCaptureGuideline } from '../../components/SelfieCaptureGuideline'
-import { RELATIVE_FACE_PATH } from '../const'
-import { FormHeader } from '../../components/Form/FormHeader'
-
 import I18n from '../../../i18n/i18n'
-
-const MUTATE_USER = gql`
-  mutation ($image: String) {
-    updateUser(data: { image: $image }) @client
-  }
-`
+import { ColorText } from '../../components/Base'
+import { PrimaryButton } from '../../components/Button'
+import { FormHeader } from '../../components/Form/FormHeader'
+import { userPrivateData } from '../../state/userPrivateData'
+import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../styles'
 
 export const OnboardFace = () => {
   const [uri, setUri] = useState(userPrivateData.getFace())
@@ -37,11 +19,11 @@ export const OnboardFace = () => {
     if (uri) {
       RNFS.exists(uri).then((exists) => {
         if (!exists) {
-          setUri(null)
+          setUri('')
         }
       })
     }
-  }, [])
+  }, [uri])
 
   const navigation = useNavigation()
 
