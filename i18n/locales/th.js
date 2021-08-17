@@ -35,6 +35,12 @@ export default {
   straight_and_clear_face_portrait: 'ถ่ายรูปหน้าตรง เห็นหน้าชัดเจน',
   retake_photo: 'ถ่ายใหม่',
   take_photo: 'ถ่ายรูป',
+  camera: 'Camera',
+  gallery: 'Gallery',
+  photo_description:
+    'Please take your photo or select your formal image. This will be used for creating engagement feeling and being self-proven that the app is yours.',
+  add_image: 'Add image',
+  change_profile_image: 'Change profile image',
   pls_grant_permission: 'ขอสิทธิ์เข้าถึงข้อมูล',
   let_doc_estimate_your_risk: 'เพื่อให้หมอประเมินความเสี่ยงของคุณ',
   your_position: 'ตำแหน่งของคุณ',
