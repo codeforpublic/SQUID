@@ -65,7 +65,7 @@ export const OnboardCoeChecking = () => {
         <View style={styles.inputContainer}>
           <Input
             value={coeNo}
-            label={<InputLabel label={I18n.t('coe')} />}
+            label={<InputLabel label={I18n.t('coe')} onPress={() => navigation.navigate('OnboardCoeEx')} />}
             placeholder={I18n.t('coe_ex')}
             onChangeText={(value) => onChangeTextInput('coe', value)}
             inputContainerStyle={styles.textInput}
@@ -83,7 +83,9 @@ export const OnboardCoeChecking = () => {
         <View style={styles.inputContainer}>
           <Input
             value={rfNo}
-            label={<InputLabel label={I18n.t('coe_reference_id')} />}
+            label={
+              <InputLabel label={I18n.t('coe_reference_id')} onPress={() => navigation.navigate('OnboardRefIdEx')} />
+            }
             placeholder={I18n.t('coe_reference_id_ex')}
             onChangeText={(value) => onChangeTextInput('rf', value)}
             inputContainerStyle={styles.textInput}
@@ -108,12 +110,12 @@ type InputLabelType = {
   onPress?: () => void
 }
 
-const InputLabel = ({ label }: InputLabelType) => {
+const InputLabel = ({ label, onPress }: InputLabelType) => {
   return (
     <View style={styles.textInputLabel}>
       <Text style={styles.requireMark}>*</Text>
       <Text style={styles.inputLabel}>{label}</Text>
-      <TouchableOpacity style={{ paddingHorizontal: 4 }}>
+      <TouchableOpacity style={{ paddingHorizontal: 4 }} onPress={onPress}>
         <FeatherIcon name='info' size={16} color='#000' />
       </TouchableOpacity>
     </View>

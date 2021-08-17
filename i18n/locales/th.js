@@ -279,5 +279,9 @@ export default {
   coe_reference_id_error_message: 'กรุณากรอก Reference ID',
   coe_checking_error_message: 'ข้อมูลไม่ถูกต้อง',
   scan_qr_code: 'สแกน QR',
+  coe_prepare_reference_id: 'Reference ID',
+  coe_reference_id_exam: 'คัดลอกหมายเลข 6 หลักหลังจากบันทึกข้อมูลลงในระบบ COE  สมบูรณ์เพื่อทำการยืนยันหมายเลข COE ',
+  coe_prepare_title: 'หมายเลข COE',
+  coe_exam_text: 'คัดลอกหมายเลขจากเอกสาร Certificate Of Entry หรือ สแกน QR code ในเอกสาร เพื่อกรอกข้อมูล',
   save: 'บันทึก',
 }

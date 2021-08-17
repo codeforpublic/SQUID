@@ -283,5 +283,11 @@ export default {
   coe_reference_id_error_message: 'Please enter Reference ID',
   coe_checking_error_message: 'Invalid Coe number Or Ref number',
   scan_qr_code: 'Scan QR Code',
+  coe_prepare_reference_id: 'Please prepare Reference ID',
+  coe_reference_id_exam:
+    'You can find your Certificate of entry(COE) number on the COE certificate issued to you or scan QR code.',
+  coe_prepare_title: 'Please prepare COE Code',
+  coe_exam_text:
+    'You can find your Certificate of entry(COE) number on the COE certificate issued to you or scan QR code.',
   save: 'Save',
 }
