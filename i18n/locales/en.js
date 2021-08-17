@@ -71,8 +71,8 @@ export default {
   after_changed_pic_you_will_not_be_able_to_change_until:
     'After you changed picture, you will not be able to change the picture again until',
   day_s_have_passed: 'day(s) have passed',
-  cancel: 'cancel',
-  confirm: 'confirm',
+  cancel: 'Cancel',
+  confirm: 'Confirm',
   data: 'Data',
   scan_qr: 'Scan QR',
   settings: 'Settings',
@@ -273,4 +273,14 @@ export default {
   planning_to_enter_thailand_question:
     'Are you planing to enter, entering to Thailand or have just arrived in Thailand?',
   select_image_profile: 'Set Profile Image',
+  research: 'Research',
+  personal_information: 'Personal Information',
+  coe: 'COE',
+  coe_reference_id: 'Reference ID',
+  coe_ex: 'Ex. AAA123456',
+  coe_reference_id_ex: 'Ex. 123456',
+  coe_error_message: 'Please enter COE',
+  coe_reference_id_error_message: 'Please enter Reference ID',
+  coe_checking_error_message: 'Invalid Coe number Or Ref number',
+  save: 'Save',
 }

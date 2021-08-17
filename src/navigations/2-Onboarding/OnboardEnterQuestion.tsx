@@ -1,10 +1,11 @@
 import I18n from 'i18n-js'
 import React, { useCallback, useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native'
 import { normalize } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { PrimaryButton } from '../../components/Button'
-import { FONT_BOLD, FONT_MED, FONT_SIZES } from '../../styles'
+import { FONT_BOLD, FONT_MED, FONT_SIZES, COLORS } from '../../styles'
+import { useNavigation } from '@react-navigation/native'
 
 type SelectValueType = boolean | string
 
@@ -16,11 +17,13 @@ type RadioButtonType = {
 }
 
 const padding = normalize(16)
-const PRIMARY_COLOR = '#216DB8'
-const SECONDARY_COLOR = '#222222'
+const PRIMARY_COLOR = COLORS.BLUE_BUTTON
+const SECONDARY_COLOR = COLORS.BLACK_2
+
 export const OnboardEnterQuestion = () => {
   const [selected, setSelected] = useState<SelectValueType>(true)
   const onChange = (value: SelectValueType) => setSelected(value)
+  const navigation = useNavigation()
 
   const onSelect = useCallback((itemValue: SelectValueType) => {
     onChange(itemValue)
@@ -33,10 +36,10 @@ export const OnboardEnterQuestion = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.flexRow}>
+      <TouchableOpacity style={styles.flexRow} onPress={() => navigation.goBack()}>
         <Icon name='arrow-circle-left' size={20} color={PRIMARY_COLOR} style={{ paddingRight: 4 }} />
-        <Text>{I18n.t('select_image_profile')}</Text>
-      </View>
+        <Text style={{ color: PRIMARY_COLOR }}>{I18n.t('select_image_profile')}</Text>
+      </TouchableOpacity>
       <View style={styles.contentContainer}>
         <View style={{ ...styles.flexRow, padding }}>
           <Text style={styles.textQuestion}>{I18n.t('planning_to_enter_thailand_question')}</Text>
@@ -57,9 +60,9 @@ export const OnboardEnterQuestion = () => {
         <PrimaryButton
           style={styles.fullWidth}
           containerStyle={styles.fullWidth}
-          title={I18n.t('next')}
+          title={I18n.t('confirm')}
           disabled={!selected}
-          onPress={() => console.log('next')}
+          onPress={() => navigation.navigate('OnboardCoeChecking')}
         />
       </View>
     </View>
@@ -81,7 +84,7 @@ const RadioButton = (props: RadioButtonType) => {
     <TouchableOpacity onPress={() => onSelect(value)}>
       <View style={buttonContainerStyle()}>
         <Text style={buttonTextStyle()}>{label}</Text>
-        <Icon name={isSelected ? 'check' : ''} size={20} color={isSelected ? PRIMARY_COLOR : SECONDARY_COLOR} />
+        {isSelected ? <Icon name='check' size={20} color={PRIMARY_COLOR} /> : null}
       </View>
     </TouchableOpacity>
   )
