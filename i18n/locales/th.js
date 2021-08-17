@@ -267,4 +267,6 @@ export default {
   vaccine_record_not_found_message: '',
   vaccine_connection_failed_title: 'เชื่อมต่อระบบไม่สำเร็จ',
   vaccine_connection_failed_message: 'กรุณาลองใหม่อีกครั้ง',
+  planning_to_enter_thailand_question: 'คุณกำลังเดินทางไปประเทศไทยหรือเพิ่งถึงประเทศไทย ภายในไม่กี่วันนี้หรือไม่?',
+  select_image_profile: 'เลือกรูปโปรไฟล์',
 }

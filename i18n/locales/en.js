@@ -270,4 +270,7 @@ export default {
   vaccine_record_not_found_message: '',
   vaccine_connection_failed_title: 'Connection failed.',
   vaccine_connection_failed_message: 'Try again later',
+  planning_to_enter_thailand_question:
+    'Are you planing to enter, entering to Thailand or have just arrived in Thailand?',
+  select_image_profile: 'Set Profile Image',
 }

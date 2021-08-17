@@ -34,7 +34,8 @@ export const OnboardFace = () => {
   const onSubmit = async () => {
     if (uri) {
       await userPrivateData.setFace(uri, { isTempUri: true })
-      navigation.navigate('OnboardLocation')
+      // navigation.navigate('OnboardLocation')
+      navigation.navigate('OnboardEnterQuestion')
     }
   }
 
