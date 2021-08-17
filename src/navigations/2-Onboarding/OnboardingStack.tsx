@@ -9,6 +9,7 @@ import { OnboardBluetooth } from './OnboardBluetooth'
 import { OnboardNotification } from './OnboardNotification'
 import { OnboardEnterQuestion } from './OnboardEnterQuestion'
 import { OnboardCoeChecking } from './OnboardCoeChecking'
+import { OnboardQrScanner } from './OnboardQrScanner'
 
 const Stack1 = createStackNavigator()
 const OnboardFaceStack = () => {
@@ -32,6 +33,7 @@ export const OnboardingStack = () => {
       <Stack.Screen name='OnboardComplete' component={OnboardComplete} options={{ gesturesEnabled: false }} />
       <Stack.Screen name='OnboardEnterQuestion' component={OnboardEnterQuestion} />
       <Stack.Screen name='OnboardCoeChecking' component={OnboardCoeChecking} />
+      <Stack.Screen name='OnboardQrScanner' component={OnboardQrScanner} />
     </Stack.Navigator>
   )
 }

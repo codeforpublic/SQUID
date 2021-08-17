@@ -1,6 +1,6 @@
 import I18n from 'i18n-js'
 import React, { useCallback, useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { normalize } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { PrimaryButton } from '../../components/Button'
@@ -36,10 +36,7 @@ export const OnboardEnterQuestion = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.flexRow} onPress={() => navigation.goBack()}>
-        <Icon name='arrow-circle-left' size={20} color={PRIMARY_COLOR} style={{ paddingRight: 4 }} />
-        <Text style={{ color: PRIMARY_COLOR }}>{I18n.t('select_image_profile')}</Text>
-      </TouchableOpacity>
+      <PageBackButton label={I18n.t('select_image_profile')} />
       <View style={styles.contentContainer}>
         <View style={{ ...styles.flexRow, padding }}>
           <Text style={styles.textQuestion}>{I18n.t('planning_to_enter_thailand_question')}</Text>
@@ -86,6 +83,23 @@ const RadioButton = (props: RadioButtonType) => {
         <Text style={buttonTextStyle()}>{label}</Text>
         {isSelected ? <Icon name='check' size={20} color={PRIMARY_COLOR} /> : null}
       </View>
+    </TouchableOpacity>
+  )
+}
+
+type PageBackButtonPropsType = {
+  onPress?: () => void
+  label: string | I18n.TranslateOptions | undefined
+}
+
+export const PageBackButton = (props: PageBackButtonPropsType) => {
+  const { onPress, label } = props
+  const navigation = useNavigation()
+
+  return (
+    <TouchableOpacity style={styles.flexRow} onPress={() => onPress || navigation.goBack()}>
+      <Icon name='arrow-circle-left' size={20} color={PRIMARY_COLOR} style={{ paddingRight: 4 }} />
+      <Text style={{ color: PRIMARY_COLOR }}>{label}</Text>
     </TouchableOpacity>
   )
 }

@@ -1,6 +1,6 @@
 import I18n from 'i18n-js'
-import React, { useCallback, useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View, Button, TextInput } from 'react-native'
+import React, { useState } from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { normalize, Input } from 'react-native-elements'
 import FeatherIcon from 'react-native-vector-icons/Feather'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -8,8 +8,7 @@ import { PrimaryButton } from '../../components/Button'
 import { FONT_BOLD, FONT_MED, FONT_SIZES, COLORS } from '../../styles'
 import { useNavigation } from '@react-navigation/native'
 import { coeChecking } from '../../services/coe-checking'
-
-type SelectValueType = boolean | string
+import { PageBackButton } from './OnboardEnterQuestion'
 
 const padding = normalize(16)
 const PRIMARY_COLOR = COLORS.BLUE_BUTTON
@@ -40,7 +39,11 @@ export const OnboardCoeChecking = () => {
         return
       }
       const result = await coeChecking({ coeNo, rfNo })
-      setCoeCheckingResultError(!result)
+      if (result) {
+        // navigation.navigate('MainApp')
+      } else {
+        setCoeCheckingResultError(true)
+      }
       console.log(result)
     } catch (error) {
       console.log(error)
@@ -49,10 +52,7 @@ export const OnboardCoeChecking = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.flexRow} onPress={() => navigation.goBack()}>
-        <Icon name='arrow-circle-left' size={20} color={PRIMARY_COLOR} style={{ paddingRight: 4 }} />
-        <Text style={{ color: PRIMARY_COLOR }}>{I18n.t('research')}</Text>
-      </TouchableOpacity>
+      <PageBackButton label={I18n.t('research')} />
       <View style={styles.contentContainer}>
         <View style={styles.textInputLabel}>
           <Text style={styles.title}>{I18n.t('personal_information')}</Text>
@@ -71,7 +71,10 @@ export const OnboardCoeChecking = () => {
             inputContainerStyle={styles.textInput}
             errorMessage={coeNoError ? I18n.t('coe_error_message') : ''}
             rightIcon={
-              <TouchableOpacity style={{ paddingHorizontal: padding }}>
+              <TouchableOpacity
+                style={{ paddingHorizontal: padding }}
+                onPress={() => navigation.navigate('OnboardQrScanner')}
+              >
                 <Icon name='qrcode' size={24} color='#000' />
               </TouchableOpacity>
             }
@@ -105,7 +108,7 @@ type InputLabelType = {
   onPress?: () => void
 }
 
-const InputLabel = ({ label, onPress }: InputLabelType) => {
+const InputLabel = ({ label }: InputLabelType) => {
   return (
     <View style={styles.textInputLabel}>
       <Text style={styles.requireMark}>*</Text>

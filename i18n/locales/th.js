@@ -278,5 +278,6 @@ export default {
   coe_error_message: 'กรุณากรอก COE',
   coe_reference_id_error_message: 'กรุณากรอก Reference ID',
   coe_checking_error_message: 'ข้อมูลไม่ถูกต้อง',
+  scan_qr_code: 'สแกน QR',
   save: 'บันทึก',
 }
