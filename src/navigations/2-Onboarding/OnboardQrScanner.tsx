@@ -3,8 +3,8 @@ import { COLORS, FONT_BOLD, FONT_SIZES } from '../../styles'
 import QRCodeScanner from 'react-native-qrcode-scanner'
 import { Dimensions, StyleSheet, View, Text } from 'react-native'
 import I18n from 'i18n-js'
-import { PageBackButton } from './OnboardEnterQuestion'
 import { normalize } from 'react-native-elements'
+import { PageBackButton } from './components/PageBackButton'
 
 const padding = normalize(16)
 

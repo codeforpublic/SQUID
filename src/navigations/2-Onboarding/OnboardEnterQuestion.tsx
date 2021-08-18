@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { PrimaryButton } from '../../components/Button'
 import { FONT_BOLD, FONT_MED, FONT_SIZES, COLORS } from '../../styles'
 import { useNavigation } from '@react-navigation/native'
+import { PageBackButton } from './components/PageBackButton'
 
 type SelectValueType = boolean | string
 
@@ -83,23 +84,6 @@ const RadioButton = (props: RadioButtonType) => {
         <Text style={buttonTextStyle()}>{label}</Text>
         {isSelected ? <Icon name='check' size={20} color={PRIMARY_COLOR} /> : null}
       </View>
-    </TouchableOpacity>
-  )
-}
-
-type PageBackButtonPropsType = {
-  onPress?: () => void
-  label: string | I18n.TranslateOptions | undefined
-}
-
-export const PageBackButton = (props: PageBackButtonPropsType) => {
-  const { onPress, label } = props
-  const navigation = useNavigation()
-
-  return (
-    <TouchableOpacity style={styles.flexRow} onPress={() => onPress || navigation.goBack()}>
-      <Icon name='arrow-circle-left' size={20} color={PRIMARY_COLOR} style={{ paddingRight: 4 }} />
-      <Text style={{ color: PRIMARY_COLOR }}>{label}</Text>
     </TouchableOpacity>
   )
 }

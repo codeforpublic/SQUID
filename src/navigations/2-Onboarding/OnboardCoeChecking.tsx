@@ -8,7 +8,7 @@ import { PrimaryButton } from '../../components/Button'
 import { FONT_BOLD, FONT_MED, FONT_SIZES, COLORS } from '../../styles'
 import { useNavigation } from '@react-navigation/native'
 import { coeChecking } from '../../services/coe-checking'
-import { PageBackButton } from './OnboardEnterQuestion'
+import { PageBackButton } from './components/PageBackButton'
 
 const padding = normalize(16)
 const PRIMARY_COLOR = COLORS.BLUE_BUTTON
@@ -40,11 +40,10 @@ export const OnboardCoeChecking = () => {
       }
       const result = await coeChecking({ coeNo, rfNo })
       if (result) {
-        // navigation.navigate('MainApp')
+        navigation.navigate('MainApp')
       } else {
         setCoeCheckingResultError(true)
       }
-      console.log(result)
     } catch (error) {
       console.log(error)
     }

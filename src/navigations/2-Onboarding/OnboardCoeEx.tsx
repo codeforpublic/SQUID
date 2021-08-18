@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, View, Text, Image, Dimensions } from 'react-native'
 import { normalize } from 'react-native-elements'
-import { PageBackButton } from './OnboardEnterQuestion'
 import I18n from 'i18n-js'
 import { COLORS, FONT_BOLD, FONT_SIZES } from '../../styles'
+import { PageBackButton } from './components/PageBackButton'
 
 const padding = normalize(16)
 
