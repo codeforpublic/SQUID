@@ -6,8 +6,8 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { PrimaryButton } from '../../components/Button'
 import { FONT_BOLD, FONT_MED, FONT_SIZES, COLORS } from '../../styles'
 import { useNavigation } from '@react-navigation/native'
-import { PageBackButton } from './components/PageBackButton'
 import { WhiteBackground } from '../../components/WhiteBackground'
+import { PageBackButton } from './components/PageBackButton'
 
 type SelectValueType = boolean | string
 
@@ -57,7 +57,7 @@ export const OnboardEnterQuestion = () => {
       </View>
       <View style={styles.footer}>
         <PrimaryButton
-          style={styles.fullWidth}
+          style={styles.primaryButton}
           containerStyle={styles.fullWidth}
           title={I18n.t('confirm')}
           disabled={!selected}
@@ -128,6 +128,13 @@ const styles = StyleSheet.create({
     color: PRIMARY_COLOR,
     fontFamily: FONT_BOLD,
     fontSize: FONT_SIZES[600],
+  },
+  primaryButton: {
+    width: '100%',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: COLORS.DARK_BLUE,
+    backgroundColor: COLORS.DARK_BLUE,
   },
   footer: {
     alignItems: 'center',

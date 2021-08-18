@@ -286,7 +286,7 @@ export default {
   coe_ex: 'Ex. AAA123456',
   coe_reference_id_ex: 'Ex. 123456',
   coe_error_message: 'Please enter COE',
-  coe_reference_id_error_message: 'Please enter Reference ID',
+  coe_reference_id_error_message: 'Please enter Reference ID with only 6 digits',
   coe_checking_error_message: 'Invalid Coe number Or Ref number',
   scan_qr_code: 'Scan QR Code',
   coe_prepare_reference_id: 'Please prepare Reference ID',

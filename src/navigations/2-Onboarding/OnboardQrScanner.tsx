@@ -3,8 +3,8 @@ import { COLORS, FONT_BOLD, FONT_SIZES } from '../../styles'
 import QRCodeScanner from 'react-native-qrcode-scanner'
 import { Dimensions, StyleSheet, Text } from 'react-native'
 import I18n from 'i18n-js'
-import { PageBackButton } from './components/PageBackButton'
 import { WhiteBackground } from '../../components/WhiteBackground'
+import { PageBackButton } from './components/PageBackButton'
 
 export const OnboardQrScanner = () => {
   const onScan = () => console.log('on scan naja')

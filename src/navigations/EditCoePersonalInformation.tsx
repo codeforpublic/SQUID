@@ -2,10 +2,10 @@ import I18n from 'i18n-js'
 import React, { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { coeChecking, coeCheckingType } from '../services/coe-checking'
-import { PageBackButton } from '../navigations/2-Onboarding/components/PageBackButton'
 import { CoeCheckingForm } from '../components/CoeCheckingForm'
 import { WhiteBackground } from '../components/WhiteBackground'
 import { Alert } from 'react-native'
+import { PageBackButton } from './2-Onboarding/components/PageBackButton'
 
 export const EditCoePersonalInformation = () => {
   const [coeCheckingResultError, setCoeCheckingResultError] = useState<boolean>(false)

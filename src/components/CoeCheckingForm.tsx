@@ -28,14 +28,17 @@ export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = 
   const [rfNoError, setrfNoError] = useState<boolean>(false)
   const navigation = useNavigation()
 
+  const numberRegex = new RegExp(/^\d{6}$/)
+
   const onChangeTextInput = (type: 'coe' | 'rf', value: string) => {
-    if (type === 'coe') {
-      setCoeNo(value)
-      setcoeNoError(!value)
-    } else {
+    if (type === 'rf') {
+      const validateResult = numberRegex.test(value)
       setRfNo(value)
-      setrfNoError(!value)
+      setrfNoError(!validateResult)
+      return
     }
+    setCoeNo(value)
+    setcoeNoError(!value)
   }
 
   const onFinishForm = async () => {
@@ -90,7 +93,7 @@ export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = 
             }
             placeholder={I18n.t('coe_ex')}
             onChangeText={(value) => onChangeTextInput('coe', value)}
-            inputContainerStyle={styles.textInput}
+            inputContainerStyle={{ ...styles.textInput, borderColor: coeNoError ? COLORS.DANGER : COLORS.GRAY_6 }}
             disabled={isLinked}
             errorMessage={coeNoError ? I18n.t('coe_error_message') : ''}
             rightIcon={
@@ -106,6 +109,7 @@ export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = 
         <View style={styles.inputContainer}>
           <Input
             value={rfNo}
+            keyboardType='number-pad'
             label={
               <InputLabel
                 label={I18n.t('coe_reference_id')}
@@ -116,7 +120,7 @@ export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = 
             }
             placeholder={I18n.t('coe_reference_id_ex')}
             onChangeText={(value) => onChangeTextInput('rf', value)}
-            inputContainerStyle={styles.textInput}
+            inputContainerStyle={{ ...styles.textInput, borderColor: rfNoError ? COLORS.DANGER : COLORS.GRAY_6 }}
             disabled={isLinked}
             errorMessage={rfNoError ? I18n.t('coe_reference_id_error_message') : ''}
           />
@@ -125,7 +129,7 @@ export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = 
       <View style={styles.footer}>
         {isLinked ? null : (
           <PrimaryButton
-            style={styles.fullWidth}
+            style={styles.primaryButton}
             containerStyle={styles.fullWidth}
             title={I18n.t('save')}
             onPress={onFinishForm}
@@ -190,9 +194,15 @@ const styles = StyleSheet.create({
     color: COLORS.BLACK_2,
   },
   textInput: {
-    borderColor: COLORS.GRAY_6,
     borderWidth: 1,
     borderRadius: 5,
+  },
+  primaryButton: {
+    width: '100%',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: COLORS.DARK_BLUE,
+    backgroundColor: COLORS.DARK_BLUE,
   },
   label: {
     fontFamily: FONT_MED,

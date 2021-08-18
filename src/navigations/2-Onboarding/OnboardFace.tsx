@@ -9,7 +9,7 @@ import { PrimaryButton } from '../../components/Button'
 import Texts from '../../components/Texts'
 import { userPrivateData } from '../../state/userPrivateData'
 import { COLORS } from '../../styles'
-import { PageBackButton } from './OnboardEnterQuestion'
+import { PageBackButton } from './components/PageBackButton'
 
 const ListItem = ({ source, label, onPress }: { source: ImageURISource; label: string; onPress: () => void }) => {
   return (
@@ -151,7 +151,7 @@ export const OnboardFace = () => {
 
 const styles = StyleSheet.create({
   background: { flex: 1, backgroundColor: COLORS.WHITE },
-  container: { flex: 1, backgroundColor: COLORS.WHITE, marginHorizontal: 24 },
+  container: { flex: 1, backgroundColor: COLORS.WHITE },
   button: {
     borderStyle: 'dashed',
     borderWidth: 1,
@@ -181,6 +181,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginTop: 24,
     marginBottom: 16,
+    marginHorizontal: 24,
   },
   title: {
     color: COLORS.DARK_BLUE,
@@ -214,7 +215,6 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderColor: COLORS.DARK_BLUE,
     backgroundColor: COLORS.DARK_BLUE,
-    color: COLORS.WHITE,
     marginTop: 8,
   },
   footerPopup: {
