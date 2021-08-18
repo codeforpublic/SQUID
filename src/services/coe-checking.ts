@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-type coeCheckingType = {
+export type coeCheckingType = {
   coeNo: string
   rfNo: string
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import I18n from 'i18n-js'
 import { useNavigation } from '@react-navigation/native'
-import { Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { Text, TouchableOpacity, StyleSheet, View, StyleProp } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { COLORS, FONT_MED, FONT_SIZES } from '../../../styles'
 
@@ -17,10 +17,12 @@ export const PageBackButton = (props: PageBackButtonPropsType) => {
   const navigation = useNavigation()
 
   return (
-    <TouchableOpacity style={styles.flexRow} onPress={() => onPress || navigation.goBack()}>
-      <Icon name='arrow-circle-left' size={20} color={PRIMARY_COLOR} style={{ paddingRight: 4 }} />
-      <Text style={{ color: PRIMARY_COLOR }}>{label}</Text>
-    </TouchableOpacity>
+    <View style={{ padding: 16 }}>
+      <TouchableOpacity style={styles.flexRow} onPress={() => onPress || navigation.goBack()}>
+        <Icon name='arrow-circle-left' size={20} color={PRIMARY_COLOR} style={{ paddingRight: 4 }} />
+        <Text style={{ color: PRIMARY_COLOR }}>{label}</Text>
+      </TouchableOpacity>
+    </View>
   )
 }
 

@@ -7,6 +7,7 @@ import { PrimaryButton } from '../../components/Button'
 import { FONT_BOLD, FONT_MED, FONT_SIZES, COLORS } from '../../styles'
 import { useNavigation } from '@react-navigation/native'
 import { PageBackButton } from './components/PageBackButton'
+import { WhiteBackground } from '../../components/WhiteBackground'
 
 type SelectValueType = boolean | string
 
@@ -36,7 +37,7 @@ export const OnboardEnterQuestion = () => {
   ]
 
   return (
-    <View style={styles.container}>
+    <WhiteBackground>
       <PageBackButton label={I18n.t('select_image_profile')} />
       <View style={styles.contentContainer}>
         <View style={{ ...styles.flexRow, padding }}>
@@ -63,7 +64,7 @@ export const OnboardEnterQuestion = () => {
           onPress={() => navigation.navigate('OnboardCoeChecking')}
         />
       </View>
-    </View>
+    </WhiteBackground>
   )
 }
 
@@ -95,14 +96,10 @@ const styles = StyleSheet.create({
   fullWidth: {
     width: '100%',
   },
-  container: {
-    backgroundColor: '#fff',
-    padding,
-    height: '100%',
-  },
   contentContainer: {
     flex: 1,
     justifyContent: 'center',
+    padding,
   },
   buttonContainerIsSelected: {
     borderColor: PRIMARY_COLOR,
@@ -135,5 +132,6 @@ const styles = StyleSheet.create({
   footer: {
     alignItems: 'center',
     marginBottom: 12,
+    paddingHorizontal: padding,
   },
 })

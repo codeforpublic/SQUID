@@ -1,18 +1,16 @@
 import React from 'react'
 import { COLORS, FONT_BOLD, FONT_SIZES } from '../../styles'
 import QRCodeScanner from 'react-native-qrcode-scanner'
-import { Dimensions, StyleSheet, View, Text } from 'react-native'
+import { Dimensions, StyleSheet, Text } from 'react-native'
 import I18n from 'i18n-js'
-import { normalize } from 'react-native-elements'
 import { PageBackButton } from './components/PageBackButton'
-
-const padding = normalize(16)
+import { WhiteBackground } from '../../components/WhiteBackground'
 
 export const OnboardQrScanner = () => {
   const onScan = () => console.log('on scan naja')
 
   return (
-    <View style={styles.container}>
+    <WhiteBackground>
       <PageBackButton label={I18n.t('personal_information')} />
       <QRCodeScanner
         showMarker
@@ -26,19 +24,14 @@ export const OnboardQrScanner = () => {
         reactivate
         reactivateTimeout={5000}
       />
-    </View>
+    </WhiteBackground>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-    padding,
-    height: '100%',
-  },
   cameraStyle: {
     height: Dimensions.get('window').height / 2,
-    width: Dimensions.get('window').width - 36,
+    width: Dimensions.get('window').width,
     overflow: 'hidden',
   },
   title: {
