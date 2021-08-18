@@ -5,6 +5,7 @@ import { coeChecking, coeCheckingType } from '../../services/coe-checking'
 import { PageBackButton } from './components/PageBackButton'
 import { CoeCheckingForm } from '../../components/CoeCheckingForm'
 import { WhiteBackground } from '../../components/WhiteBackground'
+import { Alert } from 'react-native'
 
 export const OnboardCoeChecking = () => {
   const [coeCheckingResultError, setCoeCheckingResultError] = useState<boolean>(false)
@@ -19,6 +20,7 @@ export const OnboardCoeChecking = () => {
         setCoeCheckingResultError(true)
       }
     } catch (error) {
+      Alert.alert(I18n.t('error'), I18n.t('system_error'))
       console.log(error)
     }
   }

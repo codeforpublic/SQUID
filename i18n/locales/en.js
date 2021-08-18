@@ -290,4 +290,5 @@ export default {
   coe_exam_text:
     'You can find your Certificate of entry(COE) number on the COE certificate issued to you or scan QR code.',
   save: 'Save',
+  system_error: 'System error please try again',
 }

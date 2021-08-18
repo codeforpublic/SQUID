@@ -284,4 +284,5 @@ export default {
   coe_prepare_title: 'หมายเลข COE',
   coe_exam_text: 'คัดลอกหมายเลขจากเอกสาร Certificate Of Entry หรือ สแกน QR code ในเอกสาร เพื่อกรอกข้อมูล',
   save: 'บันทึก',
+  system_error: 'ระบบขัดข้องกรุณาลองใหม่อีกครั้ง',
 }
