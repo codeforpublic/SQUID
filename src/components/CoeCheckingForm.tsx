@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { normalize, Input, Text } from 'react-native-elements'
 import { View, TouchableOpacity, StyleSheet, ActivityIndicator, Dimensions } from 'react-native'
 import I18n from 'i18n-js'
@@ -11,11 +11,16 @@ import { useNavigation } from '@react-navigation/native'
 import { PrimaryButton } from './Button'
 
 type CoeCheckingFormPropTypes = {
+  formValues?: {
+    coeNo: string
+    rfNo: string
+  }
+  isLinked?: boolean
   isFormError: boolean
   onSubmit: any
 }
 
-export const CoeCheckingForm = ({ isFormError, onSubmit }: CoeCheckingFormPropTypes) => {
+export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = false }: CoeCheckingFormPropTypes) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [coeNo, setCoeNo] = useState<string>('')
   const [rfNo, setRfNo] = useState<string>('')
@@ -49,6 +54,13 @@ export const CoeCheckingForm = ({ isFormError, onSubmit }: CoeCheckingFormPropTy
     }
   }
 
+  useEffect(() => {
+    if (formValues) {
+      setCoeNo(formValues.coeNo)
+      setRfNo(formValues.rfNo)
+    }
+  }, [formValues])
+
   return (
     <>
       {isLoading ? (
@@ -68,10 +80,18 @@ export const CoeCheckingForm = ({ isFormError, onSubmit }: CoeCheckingFormPropTy
         <View style={styles.inputContainer}>
           <Input
             value={coeNo}
-            label={<InputLabel label={I18n.t('coe')} onPress={() => navigation.navigate('OnboardCoeEx')} />}
+            label={
+              <InputLabel
+                label={I18n.t('coe')}
+                onPress={() => navigation.navigate('OnboardCoeEx')}
+                requireMark={!isLinked}
+                tipButton={!formValues}
+              />
+            }
             placeholder={I18n.t('coe_ex')}
             onChangeText={(value) => onChangeTextInput('coe', value)}
             inputContainerStyle={styles.textInput}
+            disabled={isLinked}
             errorMessage={coeNoError ? I18n.t('coe_error_message') : ''}
             rightIcon={
               <TouchableOpacity
@@ -87,22 +107,30 @@ export const CoeCheckingForm = ({ isFormError, onSubmit }: CoeCheckingFormPropTy
           <Input
             value={rfNo}
             label={
-              <InputLabel label={I18n.t('coe_reference_id')} onPress={() => navigation.navigate('OnboardRefIdEx')} />
+              <InputLabel
+                label={I18n.t('coe_reference_id')}
+                onPress={() => navigation.navigate('OnboardRefIdEx')}
+                requireMark={!isLinked}
+                tipButton={!formValues}
+              />
             }
             placeholder={I18n.t('coe_reference_id_ex')}
             onChangeText={(value) => onChangeTextInput('rf', value)}
             inputContainerStyle={styles.textInput}
+            disabled={isLinked}
             errorMessage={rfNoError ? I18n.t('coe_reference_id_error_message') : ''}
           />
         </View>
       </View>
       <View style={styles.footer}>
-        <PrimaryButton
-          style={styles.fullWidth}
-          containerStyle={styles.fullWidth}
-          title={I18n.t('save')}
-          onPress={onFinishForm}
-        />
+        {isLinked ? null : (
+          <PrimaryButton
+            style={styles.fullWidth}
+            containerStyle={styles.fullWidth}
+            title={I18n.t('save')}
+            onPress={onFinishForm}
+          />
+        )}
       </View>
     </>
   )
@@ -111,16 +139,20 @@ export const CoeCheckingForm = ({ isFormError, onSubmit }: CoeCheckingFormPropTy
 type InputLabelType = {
   label: string
   onPress?: () => void
+  requireMark?: boolean
+  tipButton?: boolean
 }
 
-const InputLabel = ({ label, onPress }: InputLabelType) => {
+const InputLabel = ({ label, onPress, requireMark = true, tipButton = true }: InputLabelType) => {
   return (
     <View style={styles.textInputLabel}>
-      <Text style={styles.requireMark}>*</Text>
+      {requireMark ? <Text style={styles.requireMark}>*</Text> : null}
       <Text style={styles.inputLabel}>{label}</Text>
-      <TouchableOpacity style={{ paddingHorizontal: 4 }} onPress={onPress}>
-        <FeatherIcon name='info' size={16} color='#000' />
-      </TouchableOpacity>
+      {tipButton ? (
+        <TouchableOpacity style={{ paddingHorizontal: 4 }} onPress={onPress}>
+          <FeatherIcon name='info' size={16} color='#000' />
+        </TouchableOpacity>
+      ) : null}
     </View>
   )
 }

@@ -1,7 +1,6 @@
 import React from 'react'
 import { StatusBar, StyleSheet, View, Text, Switch, ScrollView, TouchableHighlight } from 'react-native'
 import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
-import { MyBackground } from '../../components/MyBackground'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useContactTracer } from '../../services/contact-tracing-provider'
 import { useNavigation } from '@react-navigation/native'
@@ -15,6 +14,7 @@ export const Settings = () => {
   const _onPrivacyPolicyClicked = () => {
     navigation.navigate('PrivacyPolicy')
   }
+  const _onEditCoePersonalInformationClicked = () => navigation.navigate('EditCoePersonalInformation')
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#F9F9F9' }}>
@@ -54,6 +54,11 @@ export const Settings = () => {
             <Text style={styles.sectionHeaderText}>{I18n.t('general')}</Text>
           </View>
           <View style={styles.settingsSection}>
+            <TouchableHighlight onPress={_onEditCoePersonalInformationClicked}>
+              <View style={styles.section}>
+                <Text style={styles.sectionText}>{I18n.t('personal_information')}</Text>
+              </View>
+            </TouchableHighlight>
             <TouchableHighlight onPress={_onPrivacyPolicyClicked}>
               <View style={styles.section}>
                 <Text style={styles.sectionText}>{I18n.t('privacy_policy')}</Text>
