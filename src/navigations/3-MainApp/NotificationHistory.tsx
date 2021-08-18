@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   titleInfo: {
-    color: COLORS.BLUE_INFO,
+    color: COLORS.DARK_BLUE,
     fontSize: FONT_SIZES[500],
     fontFamily: FONT_FAMILY,
     fontWeight: '500',

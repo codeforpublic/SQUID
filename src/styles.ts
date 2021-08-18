@@ -23,10 +23,10 @@ export const COLORS = {
   SECONDARY_NORMAL: '#296EB7',
   SECONDARY_DARK: '#0C2641',
   SECONDARY_DIM: '#576675',
+  DARK_BLUE: '#1E4E87',
   LIGHT_BLUE: '#FAFDFF',
   BORDER_LIGHT_BLUE: '#E6F2FA',
   RED_WARNING: '#C41F03',
-  BLUE_INFO: '#1E4E87',
   WFH_HOME: '#3663D7',
   WFH_WORK: '#8DB4EF',
   WFH_OTHER: '#070C38',
@@ -45,7 +45,7 @@ export const FONT_SIZES = {
   200: 10,
   300: 12,
   400: 16,
-  500: 21, // 16px
+  500: 20, // 16px
   600: 24,
   700: 28,
   800: 37,

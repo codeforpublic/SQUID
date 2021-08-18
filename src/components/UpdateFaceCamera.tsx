@@ -1,11 +1,10 @@
-import React from 'react'
-import { useHUD } from '../HudView'
-import { RNCamera, TakePictureResponse, Camera } from './Camera'
-import RNFS from 'react-native-fs'
-import { Platform, Alert, NativeModules, Dimensions } from 'react-native'
-import { SelfieCaptureGuideline } from './SelfieCaptureGuideline'
 import ImageEditor from '@react-native-community/image-editor'
+import React from 'react'
+import { Alert, Dimensions, NativeModules } from 'react-native'
+import { useHUD } from '../HudView'
 import { applicationState } from '../state/app-state'
+import { Camera, RNCamera, TakePictureResponse } from './Camera'
+import { SelfieCaptureGuideline } from './SelfieCaptureGuideline'
 
 export const UpdateFaceCamera = ({ onCapture, ...props }) => {
   const { showSpinner, hide } = useHUD()

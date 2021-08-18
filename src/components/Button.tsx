@@ -1,16 +1,17 @@
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { TextStyle, ViewStyle } from 'react-native'
 import { Button as RButton } from 'react-native-elements'
-import { COLORS, FONT_FAMILY, FONT_MED, FONT_SIZES } from '../styles'
+import { COLORS, FONT_MED, FONT_SIZES } from '../styles'
 
 interface PropTypes {
   title: string
-  style?: Object
+  titleStyle?: TextStyle
+  style?: ViewStyle
   onPress: (e: any) => any
   disabled?: boolean
   icon?: any
   iconRight?: boolean
-  containerStyle?: any
+  containerStyle?: ViewStyle
 }
 
 export const PrimaryButton = ({ onPress, title, style = {}, disabled, titleStyle = {}, ...props }: PropTypes) => {
