@@ -6,6 +6,7 @@ import { CoeCheckingForm } from '../../components/CoeCheckingForm'
 import { WhiteBackground } from '../../components/WhiteBackground'
 import { Alert } from 'react-native'
 import { PageBackButton } from './components/PageBackButton'
+import { userPrivateData } from '../../state/userPrivateData'
 
 export const OnboardCoeChecking = () => {
   const [coeCheckingResultError, setCoeCheckingResultError] = useState<boolean>(false)
@@ -15,6 +16,8 @@ export const OnboardCoeChecking = () => {
     try {
       const result = await coeChecking({ coeNo, rfNo })
       if (result) {
+        userPrivateData.setData('coeNo', coeNo)
+        userPrivateData.setData('coeRfNo', rfNo)
         navigation.navigate('MainApp')
       } else {
         setCoeCheckingResultError(true)

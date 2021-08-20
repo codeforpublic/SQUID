@@ -97,12 +97,17 @@ export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = 
             disabled={isLinked}
             errorMessage={coeNoError ? I18n.t('coe_error_message') : ''}
             rightIcon={
-              <TouchableOpacity
-                style={{ paddingHorizontal: padding }}
-                onPress={() => navigation.navigate('OnboardQrScanner')}
-              >
-                <Icon name='qrcode' size={24} color='#000' />
-              </TouchableOpacity>
+              isLinked ? (
+                <View />
+              ) : (
+                // <TouchableOpacity
+                //   style={{ paddingHorizontal: padding }}
+                //   onPress={() => navigation.navigate('OnboardQrScanner')}
+                // >
+                //   <Icon name='qrcode' size={24} color='#000' />
+                // </TouchableOpacity>
+                <View />
+              )
             }
           />
         </View>

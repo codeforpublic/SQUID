@@ -11,6 +11,8 @@ type valueof<T> = T[keyof T]
 interface UserData {
   id: string
   anonymousId: string
+  coeNo: string
+  coeRfNo: string
   faceURI?: string
   version?: number
   authToken?: string
