@@ -15,13 +15,15 @@ export const EditCoePersonalInformation = () => {
   const navigation = useNavigation()
   const getUserLinkStateFromAnonymousId = async (aId: string) => {
     console.log('anonymous id: ', aId)
-    setIsLinked(true)
+    setIsLinked(false)
   }
 
   const onSubmit = async ({ coeNo, rfNo }: coeCheckingType) => {
     try {
       const result = await coeChecking({ coeNo, rfNo })
       if (result) {
+        userPrivateData.setData('coeNo', coeNo)
+        userPrivateData.setData('coeRfNo', rfNo)
         navigation.goBack()
       } else {
         setCoeCheckingResultError(true)

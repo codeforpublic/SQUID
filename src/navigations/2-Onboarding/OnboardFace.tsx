@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { Image, ImageURISource, StatusBar, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Image, ImageURISource, StatusBar, StyleSheet, TouchableOpacity, View, Button } from 'react-native'
 import { Avatar } from 'react-native-elements'
 import RNFS from 'react-native-fs'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -9,7 +9,6 @@ import { PrimaryButton } from '../../components/Button'
 import Texts from '../../components/Texts'
 import { userPrivateData } from '../../state/userPrivateData'
 import { COLORS } from '../../styles'
-import { PageBackButton } from './components/PageBackButton'
 
 const ListItem = ({ source, label, onPress }: { source: ImageURISource; label: string; onPress: () => void }) => {
   return (
@@ -78,7 +77,7 @@ export const OnboardFace = () => {
     <View style={styles.background}>
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor={COLORS.WHITE} barStyle='dark-content' />
-        <PageBackButton label={I18n.t('term_and_conditions')} />
+        {/* <PageBackButton label={I18n.t('term_and_conditions')} /> */}
         <View style={styles.header}>
           <Texts.Bold style={styles.title}>{I18n.t('select_image_profile')}</Texts.Bold>
         </View>

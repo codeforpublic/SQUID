@@ -6,9 +6,9 @@ const PRIMARY_COLOR = COLORS.BLUE_BUTTON
 const padding = normalize(16)
 import { FONT_BOLD, FONT_MED, FONT_SIZES, COLORS } from '../styles'
 import FeatherIcon from 'react-native-vector-icons/Feather'
-import Icon from 'react-native-vector-icons/FontAwesome'
 import { useNavigation } from '@react-navigation/native'
 import { PrimaryButton } from './Button'
+import { userPrivateData } from '../state/userPrivateData'
 
 type CoeCheckingFormPropTypes = {
   formValues?: {

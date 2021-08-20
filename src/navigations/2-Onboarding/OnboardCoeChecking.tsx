@@ -7,6 +7,7 @@ import { WhiteBackground } from '../../components/WhiteBackground'
 import { Alert } from 'react-native'
 import { PageBackButton } from './components/PageBackButton'
 import { userPrivateData } from '../../state/userPrivateData'
+import { applicationState } from '../../state/app-state'
 
 export const OnboardCoeChecking = () => {
   const [coeCheckingResultError, setCoeCheckingResultError] = useState<boolean>(false)
@@ -18,7 +19,8 @@ export const OnboardCoeChecking = () => {
       if (result) {
         userPrivateData.setData('coeNo', coeNo)
         userPrivateData.setData('coeRfNo', rfNo)
-        navigation.navigate('MainApp')
+        applicationState.setData('isPassedOnboarding', true)
+        navigation.navigate('OnboardComplete')
       } else {
         setCoeCheckingResultError(true)
       }
