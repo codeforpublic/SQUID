@@ -1,13 +1,12 @@
 import I18n from 'i18n-js'
 import React, { useCallback, useState, useEffect } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View, AsyncStorage } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { normalize } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { PrimaryButton } from '../../components/Button'
 import { FONT_BOLD, FONT_MED, FONT_SIZES, COLORS } from '../../styles'
 import { useNavigation } from '@react-navigation/native'
 import { WhiteBackground } from '../../components/WhiteBackground'
-import { changeLangTo } from '../../utils/change-lang'
 
 const SelectLanguageOption = [
   {
@@ -38,7 +37,7 @@ const SECONDARY_COLOR = COLORS.BLACK_2
 export const SelectLanguageScreen = () => {
   const [selected, setSelected] = useState<LangOptions>('en')
   const [title, setTitle] = useState(I18n.t('choose_lang'))
-  const [confirmButtonLabel, setConfirmButtonLabel] = useState(I18n.t('confirm'))
+  const [confirmButtonLabel, setConfirmButtonLabel] = useState(I18n.t('next'))
   const navigation = useNavigation()
 
   const onSelect = useCallback((itemValue: LangOptions) => {
@@ -52,7 +51,7 @@ export const SelectLanguageScreen = () => {
   useEffect(() => {
     I18n.locale = selected
     setTitle(I18n.t('choose_lang'))
-    setConfirmButtonLabel(I18n.t('confirm'))
+    setConfirmButtonLabel(I18n.t('next'))
   }, [selected])
 
   return (

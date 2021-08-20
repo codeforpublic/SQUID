@@ -10,11 +10,13 @@ import { getAgreementText } from '../const'
 import { applicationState } from '../../state/app-state'
 
 import I18n from '../../../i18n/i18n'
+import { PageBackButton } from '../2-Onboarding/components/PageBackButton'
 
 export const AgreementPolicy = () => {
   const navigation = useNavigation()
   return (
     <SafeAreaView style={styles.container}>
+      <PageBackButton label={I18n.t('choose_lang')} />
       <StatusBar backgroundColor={'white'} barStyle='light-content' />
       <FormHeader>
         <View style={styles.header}>
