@@ -53,26 +53,9 @@ export const Home = ({ navigation }) => {
             backgroundColor: 'white',
           }}
           onPress={async () => {
-            navigation.navigate('AgreementPolicy')
+            navigation.navigate('SelectLanguageScreen')
           }}
         />
-      </View>
-      <View style={[styles.footer, { bottom: inset.bottom }]}>
-        <TouchableOpacity
-          onPress={() => {
-            changeLangTo('th')
-          }}
-        >
-          <Text style={styles.changeLang}>ไทย</Text>
-        </TouchableOpacity>
-        <Text style={styles.changeLangSeparator}>/</Text>
-        <TouchableOpacity
-          onPress={() => {
-            changeLangTo('en')
-          }}
-        >
-          <Text style={styles.changeLang}>English</Text>
-        </TouchableOpacity>
       </View>
     </View>
   )

@@ -254,6 +254,7 @@ export default {
   privacy_policy_version: 'Version 2020.2',
   back: 'BACK',
   change_lang: 'Change Language',
+  choose_lang: 'Choose Language',
   beacon_header: 'Found Beacon',
   notification_history: 'Notification',
   notification_history_empty: 'This list is empty.',
