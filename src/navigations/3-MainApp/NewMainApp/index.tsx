@@ -19,6 +19,7 @@ import GPSState from 'react-native-gps-state'
 import NotificationPopup from 'react-native-push-notification-popup'
 import { useSafeArea } from 'react-native-safe-area-view'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import FeatherIcon from 'react-native-vector-icons/Feather'
 import Carousel from '../../../../src/components/Carousel'
 import { CircularProgressAvatar } from '../../../../src/components/CircularProgressAvatar'
 import { useVaccine } from '../../../../src/services/use-vaccine'
@@ -34,6 +35,7 @@ import QRCard from './QRCard'
 import { UpdateProfileButton } from './UpdateProfileButton'
 import VaccineCard from './VaccineCard'
 import WorkFromHomeCard from './WorkFromHomeCard'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const carouselItems = ['qr', 'vaccine'] //, 'wfh']
 
@@ -55,11 +57,14 @@ export const MainApp = () => {
   const activeDotAnim = useRef(new Animated.Value(0)).current
   const { vaccineList, getVaccineUserName } = useVaccine()
   const [{ updateProfileDate, changeCount, card }] = useApplicationState()
+  const navigation = useNavigation()
 
   const windowWidth = Dimensions.get('window').width
 
   const [triggerGps, setTriggerGps] = useState<number>(0)
   const gpsRef = React.useRef({ triggerGps })
+
+  const isLinked = true
 
   React.useEffect(() => {
     const updateGPS = async () => {
@@ -198,7 +203,7 @@ export const MainApp = () => {
               />
             </View>
           </View>
-          <View style={[styles.profileHeader, profileStyle]}>
+          <View style={[styles.profileHeader, profileStyle, isLinked ? { alignItems: 'flex-start' } : {}]}>
             <View style={styles.profileContainer}>
               {qrData && qrState && (
                 <>
@@ -211,6 +216,30 @@ export const MainApp = () => {
                     changeCount={changeCount}
                     updateProfileDate={updateProfileDate}
                   />
+                  {isLinked ? (
+                    <View style={{ marginLeft: 8 }}>
+                      <View style={styles.flexRow}>
+                        <Text style={styles.textDarkBlue}>COE CODE</Text>
+                        <TouchableOpacity>
+                          <FeatherIcon name='alert-circle' style={[styles.textDarkBlue, styles.iconPadding]} />
+                        </TouchableOpacity>
+                      </View>
+                      <View>
+                        <Text style={[styles.coeTitle, styles.textDarkBlue]}>{userPrivateData.getData('coeNo')}</Text>
+                      </View>
+                      <View>
+                        <TouchableOpacity
+                          style={styles.flexRow}
+                          onPress={() => navigation.navigate('EditCoePersonalInformation')}
+                        >
+                          <Text style={styles.textBlue}>Edit</Text>
+                          <FontAwesome name='edit' style={[styles.textBlue, styles.iconPadding]} />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  ) : (
+                    <View />
+                  )}
                 </>
               )}
             </View>
@@ -300,6 +329,21 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: COLORS.BLACK_1,
   },
+  flexRow: { flexDirection: 'row' },
+  coeTitle: {
+    fontFamily: FONT_BOLD,
+    fontSize: FONT_SIZES[800],
+  },
+  textVerticalBottom: {
+    textAlignVertical: 'bottom',
+  },
+  textDarkBlue: {
+    color: COLORS.DARK_BLUE,
+  },
+  textBlue: {
+    color: COLORS.BLUE,
+  },
+  iconPadding: { marginLeft: 4, marginTop: 4 },
   profileHeader: {
     height: 180,
     marginLeft: 15,
@@ -309,7 +353,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileContainer: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'center',
   },
   greenDot: {
