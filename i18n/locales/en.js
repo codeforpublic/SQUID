@@ -298,4 +298,8 @@ export default {
     'You can find your Certificate of entry(COE) number on the COE certificate issued to you or scan QR code.',
   save: 'Save',
   system_error: 'System error please try again',
+  landing_welcome_title: 'Welcome to Thailand',
+  landing_welcome_text:
+    'This application help you to verification and notification about your COVID 19 status for protect yourself from patient under investigation.',
+  landing_enjoy: 'Hope you enjoy.',
 }

@@ -12,6 +12,7 @@ import { OnboardCoeChecking } from './OnboardCoeChecking'
 import { OnboardQrScanner } from './OnboardQrScanner'
 import { OnboardRefIdEx } from './OnboardRefIdEx'
 import { OnboardCoeEx } from './OnboardCoeEx'
+import { OnboardCoeLanding } from './OnboardCoeLanding'
 
 const Stack1 = createStackNavigator()
 const OnboardFaceStack = () => {
@@ -38,6 +39,7 @@ export const OnboardingStack = () => {
       <Stack.Screen name='OnboardQrScanner' component={OnboardQrScanner} />
       <Stack.Screen name='OnboardRefIdEx' component={OnboardRefIdEx} />
       <Stack.Screen name='OnboardCoeEx' component={OnboardCoeEx} />
+      <Stack.Screen name='OnboardCoeLanding' component={OnboardCoeLanding} />
     </Stack.Navigator>
   )
 }
