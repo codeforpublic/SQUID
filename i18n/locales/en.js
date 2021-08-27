@@ -302,4 +302,8 @@ export default {
   landing_welcome_text:
     'This application help you to verification and notification about your COVID 19 status for protect yourself from patient under investigation.',
   landing_enjoy: 'Hope you enjoy.',
+  no_coe_alert_title: 'No Coe Alert Title',
+  no_coe_alert_text: 'No Coe Alert Text',
+  coe_alert_title: 'Coe Alert Title',
+  coe_alert_text: 'Coe Alert Text',
 }

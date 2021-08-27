@@ -13,7 +13,9 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
+  Modal,
 } from 'react-native'
+import { Button } from 'react-native-elements'
 import RNFS from 'react-native-fs'
 import GPSState from 'react-native-gps-state'
 import NotificationPopup from 'react-native-push-notification-popup'
@@ -36,6 +38,7 @@ import { UpdateProfileButton } from './UpdateProfileButton'
 import VaccineCard from './VaccineCard'
 import WorkFromHomeCard from './WorkFromHomeCard'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { string } from 'yup'
 
 const carouselItems = ['qr', 'vaccine'] //, 'wfh']
 
@@ -58,13 +61,36 @@ export const MainApp = () => {
   const { vaccineList, getVaccineUserName } = useVaccine()
   const [{ updateProfileDate, changeCount, card }] = useApplicationState()
   const navigation = useNavigation()
+  const [modalValue, setModalValue] = useState<boolean>(false)
+  const [alertModalData, SetAlertModalData] = useState<{ title: string; text: string }>({
+    title: '',
+    text: '',
+  })
 
   const windowWidth = Dimensions.get('window').width
 
   const [triggerGps, setTriggerGps] = useState<number>(0)
   const gpsRef = React.useRef({ triggerGps })
 
-  const isLinked = true
+  const isLinked = false
+  const initALertData = () => {
+    if (applicationState.getData('coeAutoAlert')) {
+      setModalValue(true)
+    }
+    const coeNo = userPrivateData.getData('coeNo')
+    const coeRfNo = userPrivateData.getData('coeRfNo')
+    if (!coeNo && !coeRfNo) {
+      SetAlertModalData({
+        title: I18n.t('no_coe_alert_title'),
+        text: I18n.t('no_coe_alert_text'),
+      })
+    } else if (coeNo && coeRfNo) {
+      SetAlertModalData({
+        title: I18n.t('coe_alert_title'),
+        text: I18n.t('coe_alert_text'),
+      })
+    }
+  }
 
   React.useEffect(() => {
     const updateGPS = async () => {
@@ -76,7 +102,7 @@ export const MainApp = () => {
         setTriggerGps(status)
       }
     }
-
+    initALertData()
     updateGPS()
     const timer = setInterval(updateGPS, 2000)
     return () => clearInterval(timer)
@@ -90,6 +116,10 @@ export const MainApp = () => {
       })
     }
   }, [beaconLocationName, location])
+
+  const isLeftAvatar = () => {
+    return !isLinked && userPrivateData.getData('coeRfNo') && userPrivateData.getData('coeNo')
+  }
 
   const startAnimated = useCallback(
     () =>
@@ -203,7 +233,7 @@ export const MainApp = () => {
               />
             </View>
           </View>
-          <View style={[styles.profileHeader, profileStyle, isLinked ? { alignItems: 'flex-start' } : {}]}>
+          <View style={[styles.profileHeader, profileStyle, isLeftAvatar() ? { alignItems: 'flex-start' } : {}]}>
             <View style={styles.profileContainer}>
               {qrData && qrState && (
                 <>
@@ -216,27 +246,29 @@ export const MainApp = () => {
                     changeCount={changeCount}
                     updateProfileDate={updateProfileDate}
                   />
-                  {isLinked ? (
-                    <View style={{ marginLeft: 8 }}>
-                      <View style={styles.flexRow}>
-                        <Text style={styles.textDarkBlue}>COE CODE</Text>
-                        <TouchableOpacity>
-                          <FeatherIcon name='alert-circle' style={[styles.textDarkBlue, styles.iconPadding]} />
-                        </TouchableOpacity>
+                  {isLeftAvatar() ? (
+                    <>
+                      <View style={{ marginLeft: 8 }}>
+                        <View style={styles.flexRow}>
+                          <Text style={styles.textDarkBlue}>COE CODE</Text>
+                          <TouchableOpacity onPress={() => setModalValue(true)}>
+                            <FeatherIcon name='alert-circle' style={[styles.textDarkBlue, styles.iconPadding]} />
+                          </TouchableOpacity>
+                        </View>
+                        <View>
+                          <Text style={[styles.coeTitle, styles.textDarkBlue]}>{userPrivateData.getData('coeNo')}</Text>
+                        </View>
+                        <View>
+                          <TouchableOpacity
+                            style={styles.flexRow}
+                            onPress={() => navigation.navigate('EditCoePersonalInformation')}
+                          >
+                            <Text style={styles.textBlue}>Edit</Text>
+                            <FontAwesome name='edit' style={[styles.textBlue, styles.iconPadding]} />
+                          </TouchableOpacity>
+                        </View>
                       </View>
-                      <View>
-                        <Text style={[styles.coeTitle, styles.textDarkBlue]}>{userPrivateData.getData('coeNo')}</Text>
-                      </View>
-                      <View>
-                        <TouchableOpacity
-                          style={styles.flexRow}
-                          onPress={() => navigation.navigate('EditCoePersonalInformation')}
-                        >
-                          <Text style={styles.textBlue}>Edit</Text>
-                          <FontAwesome name='edit' style={[styles.textBlue, styles.iconPadding]} />
-                        </TouchableOpacity>
-                      </View>
-                    </View>
+                    </>
                   ) : (
                     <View />
                   )}
@@ -285,6 +317,29 @@ export const MainApp = () => {
           />
         </View>
       </View>
+      <Modal visible={modalValue} transparent>
+        <View style={styles.modalStyle}>
+          <View style={styles.modalContainer}>
+            <View>
+              <Text>{alertModalData.title}</Text>
+              <Text>{alertModalData.text}</Text>
+            </View>
+            <View style={{ bottom: 32, left: 0, right: 0, position: 'absolute' }}>
+              <Button
+                type='outline'
+                title={I18n.t('close')}
+                containerStyle={{ alignItems: 'center' }}
+                onPress={() => {
+                  if (applicationState.getData('coeAutoAlert')) {
+                    applicationState.setData('coeAutoAlert', false)
+                  }
+                  setModalValue(false)
+                }}
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   )
 }
@@ -342,6 +397,20 @@ const styles = StyleSheet.create({
   },
   textBlue: {
     color: COLORS.BLUE,
+  },
+  modalStyle: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContainer: {
+    borderRadius: 20,
+    borderColor: COLORS.GRAY_3,
+    borderWidth: 1,
+    backgroundColor: '#fff',
+    width: Dimensions.get('window').width - 64,
+    height: Dimensions.get('window').height / 2,
   },
   iconPadding: { marginLeft: 4, marginTop: 4 },
   profileHeader: {

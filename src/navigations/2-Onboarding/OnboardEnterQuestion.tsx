@@ -8,6 +8,7 @@ import { FONT_BOLD, FONT_MED, FONT_SIZES, COLORS } from '../../styles'
 import { useNavigation } from '@react-navigation/native'
 import { WhiteBackground } from '../../components/WhiteBackground'
 import { PageBackButton } from './components/PageBackButton'
+import { applicationState } from '../../state/app-state'
 
 type SelectValueType = boolean | string
 
@@ -30,6 +31,16 @@ export const OnboardEnterQuestion = () => {
   const onSelect = useCallback((itemValue: SelectValueType) => {
     onChange(itemValue)
   }, [])
+
+  const onSubmit = () => {
+    if (selected) {
+      console.log('selected:', selected)
+      navigation.navigate('OnboardCoeChecking')
+      return
+    }
+    applicationState.setData('isPassedOnboarding', true)
+    navigation.navigate('MainApp')
+  }
 
   const selectOptions = [
     { value: true, label: I18n.t('yes') },
@@ -60,8 +71,7 @@ export const OnboardEnterQuestion = () => {
           style={styles.primaryButton}
           containerStyle={styles.fullWidth}
           title={I18n.t('confirm')}
-          disabled={!selected}
-          onPress={() => navigation.navigate('OnboardCoeChecking')}
+          onPress={onSubmit}
         />
       </View>
     </WhiteBackground>

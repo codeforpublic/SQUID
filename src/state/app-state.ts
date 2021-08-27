@@ -8,6 +8,7 @@ interface ApplicationStateData {
   isRegistered?: boolean
   isVerified?: boolean
   skipRegistration?: boolean
+  coeAutoAlert?: boolean
   filledQuestionaireV2?: boolean
   isAllowNotification?: boolean
   createdDate?: string
@@ -32,6 +33,7 @@ class ApplicationState extends HookState {
         isPassedOnboarding: false,
         isRegistered: false,
         skipRegistration: false,
+        coeAutoAlert: true,
       }
     }
     if (!this.data.createdDate) {

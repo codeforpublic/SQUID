@@ -7,12 +7,14 @@ import { WhiteBackground } from '../components/WhiteBackground'
 import { Alert } from 'react-native'
 import { PageBackButton } from './2-Onboarding/components/PageBackButton'
 import { userPrivateData } from '../state/userPrivateData'
+import { useResetTo } from '../utils/navigation'
 
 export const EditCoePersonalInformation = () => {
   const [coeCheckingResultError, setCoeCheckingResultError] = useState<boolean>(false)
   const [formValues, setFormValues] = useState<{ coeNo: string; rfNo: string }>({ coeNo: '', rfNo: '' })
   const [isLinked, setIsLinked] = useState<boolean>(false)
-  const navigation = useNavigation()
+  const resetTo = useResetTo()
+
   const getUserLinkStateFromAnonymousId = async (aId: string) => {
     console.log('anonymous id: ', aId)
     setIsLinked(false)
@@ -24,7 +26,7 @@ export const EditCoePersonalInformation = () => {
       if (result) {
         userPrivateData.setData('coeNo', coeNo)
         userPrivateData.setData('coeRfNo', rfNo)
-        navigation.goBack()
+        resetTo({ name: 'MainApp' })
       } else {
         setCoeCheckingResultError(true)
       }
@@ -44,7 +46,7 @@ export const EditCoePersonalInformation = () => {
 
   return (
     <WhiteBackground>
-      <PageBackButton label={I18n.t('settings')} />
+      <PageBackButton label={I18n.t('back')} />
       <CoeCheckingForm
         isFormError={coeCheckingResultError}
         onSubmit={onSubmit}
