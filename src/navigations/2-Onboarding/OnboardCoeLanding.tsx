@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     position: 'absolute',
-    bottom: 16,
+    bottom: (Dimensions.get('window').height * 10) / 100,
     left: 0,
     right: 0,
     alignItems: 'center',

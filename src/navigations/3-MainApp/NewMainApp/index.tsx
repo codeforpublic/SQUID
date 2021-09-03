@@ -263,7 +263,7 @@ export const MainApp = () => {
                             style={styles.flexRow}
                             onPress={() => navigation.navigate('EditCoePersonalInformation')}
                           >
-                            <Text style={styles.textBlue}>Edit</Text>
+                            <Text style={styles.textBlue}>{I18n.t('edit')}</Text>
                             <FontAwesome name='edit' style={[styles.textBlue, styles.iconPadding]} />
                           </TouchableOpacity>
                         </View>
@@ -320,14 +320,15 @@ export const MainApp = () => {
       <Modal visible={modalValue} transparent>
         <View style={styles.modalStyle}>
           <View style={styles.modalContainer}>
-            <View>
-              <Text>{alertModalData.title}</Text>
-              <Text>{alertModalData.text}</Text>
+            <View style={{ alignItems: 'center', paddingTop: 32, paddingHorizontal: 32 }}>
+              <Text style={{ fontSize: FONT_SIZES[600], color: COLORS.DARK_BLUE }}>{alertModalData.title}</Text>
+              <Text style={{ textAlign: 'center', marginTop: 24 }}>{alertModalData.text}</Text>
             </View>
             <View style={{ bottom: 32, left: 0, right: 0, position: 'absolute' }}>
               <Button
                 type='outline'
                 title={I18n.t('close')}
+                buttonStyle={{ width: 80 }}
                 containerStyle={{ alignItems: 'center' }}
                 onPress={() => {
                   if (applicationState.getData('coeAutoAlert')) {

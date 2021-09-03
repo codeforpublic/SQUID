@@ -282,7 +282,7 @@ export default {
   select_image_profile: 'Set Profile Image',
   research: 'Research',
   personal_information: 'Personal Information',
-  coe: 'COE',
+  coe: 'COE Code',
   coe_reference_id: 'Reference ID',
   coe_ex: 'Ex. AAA123456',
   coe_reference_id_ex: 'Ex. 123456',
@@ -297,13 +297,14 @@ export default {
   coe_exam_text:
     'You can find your Certificate of entry(COE) number on the COE certificate issued to you or scan QR code.',
   save: 'Save',
+  edit: 'Edit',
   system_error: 'System error please try again',
   landing_welcome_title: 'Welcome to Thailand',
   landing_welcome_text:
-    'This application help you to verification and notification about your COVID 19 status for protect yourself from patient under investigation.',
+    'This application helps you and local health officers assess COVID-19 related risks. Relevant information will be delivered to you to protect yourself while staying in Thailand.',
   landing_enjoy: 'Hope you enjoy.',
-  no_coe_alert_title: 'No Coe Alert Title',
-  no_coe_alert_text: 'No Coe Alert Text',
-  coe_alert_title: 'Coe Alert Title',
-  coe_alert_text: 'Coe Alert Text',
+  no_coe_alert_title: 'To register',
+  no_coe_alert_text: 'To register, please go to \n setting menu > personal information.',
+  coe_alert_title: 'Registered ',
+  coe_alert_text: 'Please make sure that the COE displayed is accurate.',
 }

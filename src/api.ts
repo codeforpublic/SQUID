@@ -159,6 +159,22 @@ export const scan = async (
   })
 }
 
+export const getUserLinkedStatus = async (aId: string) => {
+  const resp = await fetch(API_URL + '/get-user-linked-status', {
+    method: 'POST',
+    sslPinning: {
+      certs: [SSL_PINNING_CERT_NAME],
+    },
+    headers: getAnonymousHeaders(),
+    body: JSON.stringify({
+      aId,
+    }),
+  })
+  const result = await resp.json()
+
+  return result as any
+}
+
 export const beaconinfo = async (uuid: string, major: string, minor: string) => {
   const resp = await fetch(
     SHOP_API_URL +

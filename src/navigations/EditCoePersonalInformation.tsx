@@ -8,6 +8,7 @@ import { Alert } from 'react-native'
 import { PageBackButton } from './2-Onboarding/components/PageBackButton'
 import { userPrivateData } from '../state/userPrivateData'
 import { useResetTo } from '../utils/navigation'
+import { getUserLinkedStatus } from '../api'
 
 export const EditCoePersonalInformation = () => {
   const [coeCheckingResultError, setCoeCheckingResultError] = useState<boolean>(false)
@@ -16,8 +17,10 @@ export const EditCoePersonalInformation = () => {
   const resetTo = useResetTo()
 
   const getUserLinkStateFromAnonymousId = async (aId: string) => {
-    console.log('anonymous id: ', aId)
-    setIsLinked(false)
+    const {
+      data: { linked },
+    } = await getUserLinkedStatus(aId)
+    setIsLinked(linked)
   }
 
   const onSubmit = async ({ coeNo, rfNo }: coeCheckingType) => {
