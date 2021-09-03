@@ -88,7 +88,7 @@ export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = 
                 label={I18n.t('coe')}
                 onPress={() => navigation.navigate('OnboardCoeEx')}
                 requireMark={!isLinked}
-                tipButton={!formValues}
+                tipButton={!isLinked}
               />
             }
             placeholder={I18n.t('coe_ex')}
@@ -120,7 +120,7 @@ export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = 
                 label={I18n.t('coe_reference_id')}
                 onPress={() => navigation.navigate('OnboardRefIdEx')}
                 requireMark={!isLinked}
-                tipButton={!formValues}
+                tipButton={!isLinked}
               />
             }
             placeholder={I18n.t('coe_reference_id_ex')}

@@ -38,7 +38,7 @@ import { UpdateProfileButton } from './UpdateProfileButton'
 import VaccineCard from './VaccineCard'
 import WorkFromHomeCard from './WorkFromHomeCard'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { string } from 'yup'
+import { getUserLinkedStatus } from '../../../api'
 
 const carouselItems = ['qr', 'vaccine'] //, 'wfh']
 
@@ -66,13 +66,13 @@ export const MainApp = () => {
     title: '',
     text: '',
   })
+  const [isLinked, setIsLinked] = useState<boolean>(false)
 
   const windowWidth = Dimensions.get('window').width
 
   const [triggerGps, setTriggerGps] = useState<number>(0)
   const gpsRef = React.useRef({ triggerGps })
 
-  const isLinked = false
   const initALertData = () => {
     if (applicationState.getData('coeAutoAlert')) {
       setModalValue(true)
@@ -92,6 +92,13 @@ export const MainApp = () => {
     }
   }
 
+  const updateUserLinkedStatus = async () => {
+    const {
+      data: { linked },
+    } = await getUserLinkedStatus(userPrivateData.getAnonymousId())
+    setIsLinked(linked)
+  }
+
   React.useEffect(() => {
     const updateGPS = async () => {
       const status = await GPSState.getStatus()
@@ -105,6 +112,7 @@ export const MainApp = () => {
     initALertData()
     updateGPS()
     const timer = setInterval(updateGPS, 2000)
+    setInterval(updateUserLinkedStatus, 150000)
     return () => clearInterval(timer)
   }, [])
 
