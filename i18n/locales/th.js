@@ -300,4 +300,6 @@ export default {
   no_coe_alert_text: 'หากท่านต้องการลงทะเบียน สามารถทำได้โดยไปที่ \n เมนูตั้งค่า > ข้อมูลผู้ใช้งาน',
   coe_alert_title: 'ลงทะเบียนสำเร็จ',
   coe_alert_text: 'กรุณาตรวจสอบว่าหมายเลข COE ที่แสดงถูกต้อง',
+  coe_alert_title_error: 'ผิดพลาด',
+  coe_alert_text_error: 'กรุณาตรวจสอบข้อมูลใหม่อีกครั้ง',
 }

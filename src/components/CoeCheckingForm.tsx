@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { normalize, Input, Text } from 'react-native-elements'
-import { View, TouchableOpacity, StyleSheet, ActivityIndicator, Dimensions } from 'react-native'
+import { View, TouchableOpacity, StyleSheet, ActivityIndicator, Dimensions, Modal } from 'react-native'
 import I18n from 'i18n-js'
 const PRIMARY_COLOR = COLORS.BLUE_BUTTON
 const padding = normalize(16)
@@ -8,7 +8,7 @@ import { FONT_BOLD, FONT_MED, FONT_SIZES, COLORS } from '../styles'
 import FeatherIcon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native'
 import { PrimaryButton } from './Button'
-import { userPrivateData } from '../state/userPrivateData'
+import { Button } from 'react-native-elements'
 
 type CoeCheckingFormPropTypes = {
   formValues?: {
@@ -27,6 +27,7 @@ export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = 
   const [coeNoError, setcoeNoError] = useState<boolean>(false)
   const [rfNoError, setrfNoError] = useState<boolean>(false)
   const navigation = useNavigation()
+  const [modalValue, setModalValue] = useState<boolean>(false)
 
   const numberRegex = new RegExp(/^\d{6}$/)
 
@@ -51,6 +52,7 @@ export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = 
       setIsLoading(true)
       await onSubmit({ coeNo, rfNo })
     } catch (error) {
+      setModalValue(true)
       console.log(error)
     } finally {
       setIsLoading(false)
@@ -64,6 +66,12 @@ export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = 
     }
   }, [formValues])
 
+  useEffect(() => {
+    setModalValue(isFormError)
+  }, [isFormError])
+
+  useEffect(() => {}, [modalValue])
+
   return (
     <>
       {isLoading ? (
@@ -75,11 +83,6 @@ export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = 
         <View style={styles.textInputLabel}>
           <Text style={styles.title}>{I18n.t('personal_information')}</Text>
         </View>
-        {isFormError ? (
-          <View style={styles.textInputLabel}>
-            <Text style={{ ...styles.title, color: COLORS.RED_WARNING }}>{I18n.t('coe_checking_error_message')}</Text>
-          </View>
-        ) : null}
         <View style={styles.inputContainer}>
           <Input
             value={coeNo}
@@ -141,6 +144,33 @@ export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = 
           />
         )}
       </View>
+      <Modal onDismiss={() => setModalValue(false)} visible={modalValue} transparent>
+        <View style={styles.modalStyle}>
+          <View style={styles.modalContainer}>
+            <View style={{ alignItems: 'center', paddingTop: 32, paddingHorizontal: 32 }}>
+              <FeatherIcon name='x-circle' size={48} color={COLORS.RED_WARNING} />
+              <Text style={{ fontSize: FONT_SIZES[600], color: COLORS.RED_WARNING }}>
+                {I18n.t('coe_alert_title_error')}
+              </Text>
+              <Text style={{ textAlign: 'center', marginTop: 24, fontSize: FONT_SIZES[400] }}>
+                {I18n.t('coe_alert_text_error')}
+              </Text>
+            </View>
+            <View style={{ bottom: 32, left: 0, right: 0, position: 'absolute' }}>
+              <Button
+                type='outline'
+                titleStyle={{ color: COLORS.DARK_BLUE }}
+                title={I18n.t('close')}
+                buttonStyle={{ width: 80, borderColor: COLORS.DARK_BLUE }}
+                containerStyle={{ alignItems: 'center' }}
+                onPress={() => {
+                  setModalValue(false)
+                }}
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
     </>
   )
 }
@@ -226,5 +256,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 12,
     paddingHorizontal: 16,
+  },
+  modalStyle: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContainer: {
+    borderRadius: 20,
+    borderColor: COLORS.GRAY_3,
+    borderWidth: 1,
+    backgroundColor: '#fff',
+    width: Dimensions.get('window').width - 64,
+    height: Dimensions.get('window').height / 2,
   },
 })

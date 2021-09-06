@@ -307,4 +307,6 @@ export default {
   no_coe_alert_text: 'To register, please go to \n setting menu > personal information.',
   coe_alert_title: 'Registered ',
   coe_alert_text: 'Please make sure that the COE displayed is accurate.',
+  coe_alert_title_error: 'Error',
+  coe_alert_text_error: 'Please double check information entered',
 }
