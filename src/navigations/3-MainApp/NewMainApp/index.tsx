@@ -329,14 +329,17 @@ export const MainApp = () => {
         <View style={styles.modalStyle}>
           <View style={styles.modalContainer}>
             <View style={{ alignItems: 'center', paddingTop: 32, paddingHorizontal: 32 }}>
-              <Text style={{ fontSize: FONT_SIZES[600], color: COLORS.DARK_BLUE }}>{alertModalData.title}</Text>
+              <Text style={{ fontSize: FONT_SIZES[700], color: COLORS.DARK_BLUE, fontFamily: FONT_BOLD }}>
+                {alertModalData.title}
+              </Text>
               <Text style={{ textAlign: 'center', marginTop: 24 }}>{alertModalData.text}</Text>
             </View>
-            <View style={{ bottom: 32, left: 0, right: 0, position: 'absolute' }}>
+            <View style={styles.bottomContainer}>
               <Button
                 type='outline'
                 title={I18n.t('close')}
-                buttonStyle={{ width: 80 }}
+                titleStyle={styles.buttonTitleStyle}
+                buttonStyle={styles.buttonStyle}
                 containerStyle={{ alignItems: 'center' }}
                 onPress={() => {
                   if (applicationState.getData('coeAutoAlert')) {
@@ -479,6 +482,19 @@ const styles = StyleSheet.create({
   },
   flex1: {
     flex: 1,
+  },
+  bottomContainer: {
+    bottom: 32,
+    left: 0,
+    right: 0,
+    position: 'absolute',
+  },
+  buttonStyle: {
+    width: 80,
+    borderColor: COLORS.DARK_BLUE,
+  },
+  buttonTitleStyle: {
+    color: COLORS.DARK_BLUE,
   },
 })
 

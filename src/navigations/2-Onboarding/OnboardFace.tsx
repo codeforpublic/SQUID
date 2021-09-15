@@ -8,7 +8,8 @@ import I18n from '../../../i18n/i18n'
 import { PrimaryButton } from '../../components/Button'
 import Texts from '../../components/Texts'
 import { userPrivateData } from '../../state/userPrivateData'
-import { COLORS } from '../../styles'
+import { COLORS, FONT_SIZES } from '../../styles'
+import { PageBackButton } from './components/PageBackButton'
 
 const ListItem = ({ source, label, onPress }: { source: ImageURISource; label: string; onPress: () => void }) => {
   return (
@@ -87,12 +88,6 @@ export const OnboardFace = () => {
               <Avatar size={128} rounded source={uri ? { uri } : require('../../assets/profile_placeholder.png')} />
             </View>
             <Texts.Normal style={styles.photoDescription}>{I18n.t('photo_description')}</Texts.Normal>
-            {/* <TouchableOpacity style={styles.button} onPress={setPopupCameraSelector}>
-                        <FeatherIcon name='camera' color={COLORS.BLUE} size={20} />
-                        <ColorText color={COLORS.BLUE} style={{ marginLeft: 12, fontSize: FONT_SIZES[700] }}>
-                        {uri ? I18n.t('retake_photo') : I18n.t('take_photo')}
-                        </ColorText>
-                        </TouchableOpacity> */}
           </View>
         </TouchableOpacity>
       </SafeAreaView>
@@ -119,10 +114,10 @@ export const OnboardFace = () => {
           <React.Fragment>
             <View style={styles.footerButtonContainer}>
               <PrimaryButton
-                style={{ ...styles.primaryButton, ...footerButtonStyle }}
+                style={uri ? styles.primaryButtonChangProfile : { ...styles.primaryButton, ...footerButtonStyle }}
                 containerStyle={styles.primaryButtonContainer}
-                titleStyle={footerTitleButtonStyle}
-                title={I18n.t('change_profile_image')}
+                titleStyle={uri ? { color: COLORS.DARK_BLUE } : footerTitleButtonStyle}
+                title={uri ? I18n.t('change_profile_image') : I18n.t('add_image')}
                 onPress={setPopupCameraSelector}
               />
               {uri ? (
@@ -183,6 +178,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 24,
   },
   title: {
+    fontSize: FONT_SIZES[500],
     color: COLORS.DARK_BLUE,
   },
   photoDescription: {
@@ -208,6 +204,13 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderColor: COLORS.DARK_BLUE,
   },
+  primaryButtonChangProfile: {
+    width: '100%',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: COLORS.DARK_BLUE,
+    backgroundColor: COLORS.WHITE,
+  },
   nextButton: {
     width: '100%',
     borderWidth: 1,
@@ -217,7 +220,6 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   footerPopup: {
-    backgroundColor: COLORS.WHITE,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     shadowColor: '#000',
@@ -227,7 +229,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    elevation: 8,
+    elevation: 2,
     paddingTop: 24,
   },
   listItem: {

@@ -21,7 +21,6 @@ type RadioButtonType = {
 
 const padding = normalize(16)
 const PRIMARY_COLOR = COLORS.BLUE_BUTTON
-const SECONDARY_COLOR = COLORS.BLACK_2
 
 export const OnboardEnterQuestion = () => {
   const [selected, setSelected] = useState<SelectValueType>(true)
@@ -87,7 +86,7 @@ const RadioButton = (props: RadioButtonType) => {
   }
   const buttonTextStyle = () => {
     const coreStyle = { ...styles.label, flex: 1 }
-    return { ...coreStyle, color: isSelected ? PRIMARY_COLOR : SECONDARY_COLOR }
+    return { ...coreStyle, color: PRIMARY_COLOR }
   }
   return (
     <TouchableOpacity onPress={() => onSelect(value)}>
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     paddingVertical: 12,
-    borderColor: '#E6F2FA',
+    borderColor: COLORS.DARK_BLUE,
     borderWidth: 1,
     marginBottom: 6,
     paddingHorizontal: padding,

@@ -81,7 +81,7 @@ export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = 
       ) : null}
       <View style={styles.contentContainer}>
         <View style={styles.textInputLabel}>
-          <Text style={styles.title}>{I18n.t('personal_information')}</Text>
+          <Text style={styles.title}>{I18n.t('personal_information_low_i')}</Text>
         </View>
         <View style={styles.inputContainer}>
           <Input
@@ -149,7 +149,7 @@ export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = 
           <View style={styles.modalContainer}>
             <View style={{ alignItems: 'center', paddingTop: 32, paddingHorizontal: 32 }}>
               <FeatherIcon name='x-circle' size={48} color={COLORS.RED_WARNING} />
-              <Text style={{ fontSize: FONT_SIZES[600], color: COLORS.RED_WARNING }}>
+              <Text style={{ fontSize: FONT_SIZES[600], color: COLORS.RED_WARNING, fontFamily: FONT_BOLD }}>
                 {I18n.t('coe_alert_title_error')}
               </Text>
               <Text style={{ textAlign: 'center', marginTop: 24, fontSize: FONT_SIZES[400] }}>

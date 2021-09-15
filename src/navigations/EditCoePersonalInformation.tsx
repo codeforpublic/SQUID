@@ -49,7 +49,7 @@ export const EditCoePersonalInformation = () => {
 
   return (
     <WhiteBackground>
-      <PageBackButton label={I18n.t('back')} />
+      <PageBackButton label={I18n.t('settings')} />
       <CoeCheckingForm
         isFormError={coeCheckingResultError}
         onSubmit={onSubmit}

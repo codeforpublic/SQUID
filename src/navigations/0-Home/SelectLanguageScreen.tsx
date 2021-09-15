@@ -15,7 +15,7 @@ const SelectLanguageOption = [
     title: 'Choose Language',
   },
   {
-    label: 'ไทย',
+    label: 'ภาษาไทย',
     value: 'th',
     title: 'เลือกภาษา',
   },
@@ -32,11 +32,9 @@ type RadioButtonType = {
 
 const padding = normalize(16)
 const PRIMARY_COLOR = COLORS.BLUE_BUTTON
-const SECONDARY_COLOR = COLORS.BLACK_2
 
 export const SelectLanguageScreen = () => {
   const [selected, setSelected] = useState<LangOptions>('en')
-  const [title, setTitle] = useState(I18n.t('choose_lang'))
   const [confirmButtonLabel, setConfirmButtonLabel] = useState(I18n.t('next'))
   const navigation = useNavigation()
 
@@ -50,15 +48,15 @@ export const SelectLanguageScreen = () => {
 
   useEffect(() => {
     I18n.locale = selected
-    setTitle(I18n.t('choose_lang'))
     setConfirmButtonLabel(I18n.t('next'))
   }, [selected])
 
   return (
     <WhiteBackground key={selected}>
       <View style={styles.contentContainer}>
-        <View style={{ ...styles.flexRow, padding }}>
-          <Text style={styles.textQuestion}>{title}</Text>
+        <View style={{ padding }}>
+          <Text style={styles.textQuestion}>Choose Language</Text>
+          <Text style={styles.textQuestion}>เลือกภาษา</Text>
         </View>
         {SelectLanguageOption.map((option) => {
           return (
@@ -94,7 +92,7 @@ const RadioButton = (props: RadioButtonType) => {
   }
   const buttonTextStyle = () => {
     const coreStyle = { ...styles.label, flex: 1 }
-    return { ...coreStyle, color: isSelected ? PRIMARY_COLOR : SECONDARY_COLOR }
+    return { ...coreStyle, color: PRIMARY_COLOR }
   }
   return (
     <TouchableOpacity onPress={() => onSelect(value)}>
@@ -107,9 +105,6 @@ const RadioButton = (props: RadioButtonType) => {
 }
 
 const styles = StyleSheet.create({
-  flexRow: {
-    flexDirection: 'row',
-  },
   fullWidth: {
     width: '100%',
   },
@@ -125,7 +120,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     paddingVertical: 12,
-    borderColor: '#E6F2FA',
+    borderColor: COLORS.DARK_BLUE,
     borderWidth: 1,
     marginBottom: 6,
     paddingHorizontal: padding,

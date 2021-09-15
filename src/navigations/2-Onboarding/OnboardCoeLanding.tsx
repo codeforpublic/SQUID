@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     fontSize: FONT_SIZES[400],
     color: COLORS.WHITE,
+    lineHeight: 30,
   },
   detailText: {
     marginTop: 24,
