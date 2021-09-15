@@ -18,14 +18,21 @@ type CoeCheckingFormPropTypes = {
   isLinked?: boolean
   isFormError: boolean
   onSubmit: any
+  setIsFormError: any
 }
 
-export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = false }: CoeCheckingFormPropTypes) => {
+export const CoeCheckingForm = ({
+  isFormError,
+  onSubmit,
+  formValues,
+  isLinked,
+  setIsFormError = false,
+}: CoeCheckingFormPropTypes) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [coeNo, setCoeNo] = useState<string>('')
   const [rfNo, setRfNo] = useState<string>('')
-  const [coeNoError, setcoeNoError] = useState<boolean>(false)
-  const [rfNoError, setrfNoError] = useState<boolean>(false)
+  const [coeNoError, setCoeNoError] = useState<boolean>(false)
+  const [rfNoError, setRfNoError] = useState<boolean>(false)
   const navigation = useNavigation()
   const [modalValue, setModalValue] = useState<boolean>(false)
 
@@ -35,18 +42,26 @@ export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = 
     if (type === 'rf') {
       const validateResult = numberRegex.test(value)
       setRfNo(value)
-      setrfNoError(!validateResult)
+      setRfNoError(!validateResult)
       return
     }
     setCoeNo(value)
-    setcoeNoError(!value)
+    setCoeNoError(!value)
+  }
+  const onCloseModal = () => {
+    setModalValue(false)
+    setIsFormError(false)
   }
 
   const onFinishForm = async () => {
     try {
       if (!coeNo || !rfNo) {
-        setcoeNoError(true)
-        setrfNoError(true)
+        if (!coeNo) {
+          setCoeNoError(true)
+        }
+        if (!rfNo) {
+          setRfNoError(true)
+        }
         return
       }
       setIsLoading(true)
@@ -163,9 +178,7 @@ export const CoeCheckingForm = ({ isFormError, onSubmit, formValues, isLinked = 
                 title={I18n.t('close')}
                 buttonStyle={{ width: 80, borderColor: COLORS.DARK_BLUE }}
                 containerStyle={{ alignItems: 'center' }}
-                onPress={() => {
-                  setModalValue(false)
-                }}
+                onPress={() => onCloseModal()}
               />
             </View>
           </View>

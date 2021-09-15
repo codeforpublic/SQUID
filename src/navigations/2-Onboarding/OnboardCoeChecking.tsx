@@ -31,7 +31,11 @@ export const OnboardCoeChecking = () => {
   return (
     <WhiteBackground>
       <PageBackButton label={I18n.t('research')} />
-      <CoeCheckingForm isFormError={coeCheckingResultError} onSubmit={onSubmit} />
+      <CoeCheckingForm
+        isFormError={coeCheckingResultError}
+        onSubmit={onSubmit}
+        setIsFormError={setCoeCheckingResultError}
+      />
     </WhiteBackground>
   )
 }

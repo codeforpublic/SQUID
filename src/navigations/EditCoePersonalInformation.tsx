@@ -55,6 +55,7 @@ export const EditCoePersonalInformation = () => {
         onSubmit={onSubmit}
         isLinked={isLinked}
         formValues={formValues}
+        setIsFormError={setCoeCheckingResultError}
       />
     </WhiteBackground>
   )
