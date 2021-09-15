@@ -16,6 +16,8 @@ import { ChangeLanguageScreen } from './ChangeLanguage'
 import { PrivacyPolicy } from './PrivacyPolicy'
 import { WebviewScreen } from './Webview'
 import { EditCoePersonalInformation } from './EditCoePersonalInformation'
+import { OnboardRefIdEx } from './OnboardRefIdEx'
+import { OnboardCoeEx } from './OnboardCoeEx'
 
 const Root = () => {
   const resetTo = useResetTo()
@@ -73,6 +75,8 @@ export const Navigator = () => {
       <Stack.Screen name='SetLocationHome' component={SetLocationHome} />
       <Stack.Screen name='SetLocationMapWebView' component={SetLocationMapWebView} />
       <Stack.Screen name='SetLocationStack' component={SetLocationStack} />
+      <Stack.Screen name='OnboardRefIdEx' component={OnboardRefIdEx} />
+      <Stack.Screen name='OnboardCoeEx' component={OnboardCoeEx} />
     </Stack.Navigator>
   )
 }
