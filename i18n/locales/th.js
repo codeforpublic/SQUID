@@ -281,7 +281,7 @@ export default {
   coe_reference_id: 'Reference ID',
   coe_ex: 'ตัวอย่าง AAA123456',
   coe_reference_id_ex: 'ตัวอย่าง 123456',
-  coe_error_message: 'กรุณากรอก COE',
+  coe_error_message: 'กรุณากรอก COE ให้ถูกต้อง',
   coe_reference_id_error_message: 'กรุณากรอก Reference ID ด้วยตัวเลข 6 ตัวอักษร',
   coe_checking_error_message: 'ข้อมูลไม่ถูกต้อง',
   scan_qr_code: 'สแกน QR',

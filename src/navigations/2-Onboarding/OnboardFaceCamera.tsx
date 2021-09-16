@@ -7,10 +7,10 @@ import { UpdateFaceCamera } from '../../components/UpdateFaceCamera'
 export const OnboardFaceCamera = ({ route }) => {
   const navigation = useNavigation()
   const onCapture = (uri) => {
-    if (route.params.setUri) {
+    if (route.params.setUri && uri) {
       route.params.setUri(uri)
+      navigation.goBack()
     }
-    navigation.goBack()
   }
   return (
     <View style={styles.container}>
