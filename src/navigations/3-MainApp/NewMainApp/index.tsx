@@ -526,11 +526,11 @@ const AvatarProfile = ({
   const avatarWidth = 100
   useEffect(() => {
     RNFS.exists(faceURI).then((exists) => {
-      if (!exists) {
-        resetTo({
-          name: 'Onboarding',
-        })
-      }
+      // if (!exists) {
+      //   resetTo({
+      //     name: 'Onboarding',
+      //   })
+      // }
     })
   }, [faceURI, resetTo])
 
