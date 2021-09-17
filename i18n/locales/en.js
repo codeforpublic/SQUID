@@ -242,6 +242,26 @@ export default {
     '    We may occasionally make changes to the Data Protection Policy. Therefore, we encourage you to periodically review this page for the latest information on our Policy. If you continue to use the App after the Policy has been revised and updated, we will assume that you have agreed with all the terms of our Policy including all subsequent changes. ',
   privacy_policy_body_10: '10. Contact Us',
   privacy_policy_body_10_00: '    If you have any concerns or queries regarding personal data, please contact:  ',
+  privacy_policy_table_01_header_01: 'Sources/Methods of Collection',
+  privacy_policy_table_01_header_02: 'List of Personal Data',
+  privacy_policy_table_01_body_01_01:
+    '1. Directly collect data from you via registration and while using the application (Camera)',
+  privacy_policy_table_01_body_01_02:
+    'In case of all users:\n * The photo of yourself by selfie without sending out from your smartphone. \n * Certificate of Entry (COE) \n * Certificate of Entry (COE) 6-digit reference code from COE Online system (for ID verification only)',
+  privacy_policy_table_01_body_02_01: '2. Collect via GPS/Bluetooth/Motion tracking technology',
+  privacy_policy_table_01_body_02_02:
+    '* Your check-in or location data \n * Data of being physically close to others collected and calculated by the application',
+  privacy_policy_table_02_header_01: 'Purposes of Using Data',
+  privacy_policy_table_02_header_02: 'List of Personal Data Used',
+  privacy_policy_table_02_body_01_01:
+    '1. To register and verify identity for the application log-in in case of the travelers',
+  privacy_policy_table_02_body_01_02:
+    '* Certificate of Entry (COE) \n * 6-digit reference code from COE Online system (for ID verification only)',
+  privacy_policy_table_02_body_02_01: '2. To build the participation and ownership of the application',
+  privacy_policy_table_02_body_02_02: '* The photo of yourself by selfie without sending out from your smartphone',
+  privacy_policy_table_02_body_03_01: '3. To analyze the risk or possibility of being in contact with COVID-19 disease',
+  privacy_policy_table_02_body_03_02:
+    '* Your check-in or location data \n * Data of being physically close to others collected and calculated by the application',
   privacy_policy_dga_contact_name: '    Digital Government Development Agency (Public Organization) (DGA)',
   privacy_policy_dga_contact_address_01: '    17th Floor, Bangkok Thai Tower Building 108 Rangnam Rd. Phayathai, ',
   privacy_policy_dga_contact_address_02: '    Ratchatewi, Bangkok 10400',

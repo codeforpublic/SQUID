@@ -1,6 +1,7 @@
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar, View, Text, StyleSheet, ScrollView } from 'react-native'
+import { Table, Row } from 'react-native-table-component'
 import { PrimaryButton } from '../../components/Button'
 import { useNavigation } from '@react-navigation/native'
 import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD, FONT_MED } from '../../styles'
@@ -34,6 +35,23 @@ export const AgreementPolicy = () => {
         >
           <View style={{ paddingHorizontal: 24 }}>
             <Text style={styles.agreement}>{getAgreementText()} </Text>
+            <ConsentTable
+              row={2}
+              headerData={[I18n.t('privacy_policy_table_01_header_01'), I18n.t('privacy_policy_table_01_header_02')]}
+              rowData={[
+                [I18n.t('privacy_policy_table_01_body_01_01'), I18n.t('privacy_policy_table_01_body_01_02')],
+                [I18n.t('privacy_policy_table_01_body_02_01'), I18n.t('privacy_policy_table_01_body_02_02')],
+              ]}
+            />
+            <ConsentTable
+              row={2}
+              headerData={[I18n.t('privacy_policy_table_02_header_01'), I18n.t('privacy_policy_table_02_header_02')]}
+              rowData={[
+                [I18n.t('privacy_policy_table_02_body_01_01'), I18n.t('privacy_policy_table_02_body_01_02')],
+                [I18n.t('privacy_policy_table_02_body_02_01'), I18n.t('privacy_policy_table_02_body_02_02')],
+                [I18n.t('privacy_policy_table_02_body_03_01'), I18n.t('privacy_policy_table_02_body_03_02')],
+              ]}
+            />
           </View>
         </ScrollView>
       </View>
@@ -79,6 +97,23 @@ export const AgreementPolicy = () => {
     </SafeAreaView>
   )
 }
+type ConsentTablePropsType = {
+  row: number
+  rowData: any
+  headerData: string[]
+}
+const ConsentTable = (props: ConsentTablePropsType) => {
+  return (
+    <View style={styles.tableContainer}>
+      <Table>
+        <Row style={styles.tableHead} data={props.headerData} />
+        {props.rowData.map((rowData: []) => {
+          return <Row textStyle={styles.tableText} data={rowData} />
+        })}
+      </Table>
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: 'white' },
@@ -87,7 +122,9 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginHorizontal: 24,
   },
-
+  tableContainer: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
+  tableHead: { padding: 8, backgroundColor: '#f1f8ff' },
+  tableText: { margin: 6 },
   title: {
     fontFamily: FONT_BOLD,
     fontSize: FONT_SIZES[700],
