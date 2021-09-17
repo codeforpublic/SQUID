@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD, FONT_MED } from '../../styles'
 import { normalize, Button } from 'react-native-elements'
 import { FormHeader } from '../../components/Form/FormHeader'
-import { getAgreementText } from '../const'
+import { getAgreementText, getAgreementTextBody } from '../const'
 import { applicationState } from '../../state/app-state'
 
 import I18n from '../../../i18n/i18n'
@@ -34,6 +34,8 @@ export const AgreementPolicy = () => {
         >
           <View style={{ paddingHorizontal: 24 }}>
             <Text style={styles.agreement}>{getAgreementText()} </Text>
+            {/* <Text style={styles.agreement}>{getAgreementText()} </Text> */}
+            <Text style={styles.agreement}>{getAgreementTextBody()} </Text>
           </View>
         </ScrollView>
       </View>

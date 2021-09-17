@@ -176,41 +176,50 @@ export default {
   ok: 'OK',
   incorrect_qr: 'Incorrect QR Code',
   privacy_policy_intro_01:
-    '    The Application “MorChana” (hereinafter referred to as the “App”) is owned and operated by the Digital Government Development Agency (Public Organization) (hereinafter referred to as “We”) under the project concerning the development of a monitoring system for handling the country’s emergency situations (hereinafter referred to as the “Project”) to support doctors, nurses, medical personnel, government authorities handling the COVID-19 pandemic, and private agencies, as well as App users in looking after and preventing potential COVID-19 infection. ',
+    '    This privacy notice (“the Notice”) was made for you as the user of Morchana application (hereinafter called “processing activity”) to learn and understand the forms of collecting, using and disclosing (“processing”) personal data operated by National Telecom Public Company Limited (hereinafter called “NT”, “we”, “us”) as the data processor of the personal data collected from you to operate under this processing activity. ',
   privacy_policy_intro_02:
-    '    This App collects, uses, and discloses personal data (hereinafter referred to as “Processing”) as necessary to protect the vital interests of App users, those in their immediate vicinity, and the public in general. It tracks infection and potential risk and monitors the spread of the COVID-19 virus through information provided by App users.',
+    '    “Morchana” Application is a tool to help monitoring the pandemic of coronavirus disease 2019 (“COVID-19”) more extensively by collecting the user’s travel data via Global Positioning System (GPS) and Bluetooth technologies for data processing and alerting the people when they are near of in contact with COVID-19 patients to monitor their own symptoms and meet the concerned authorities in time. ',
   privacy_policy_intro_03:
-    '    Before using the App, we request that you (the user) carefully read this Data Protection Policy and its amendments (hereinafter referred to as the “Policy”), including any terms and agreements referred in the App. You will be legally bound by these terms and agreements if you begin to use this App.',
+    '    Department of Disease Control (DDC) is the main agency to collect and analyze Thailand’s dispersion situation information as a result of COVID-19 infection under the Order of Department of Disease Control No. 397/2564 on the Appointment of COVID-19 Data Governance Commission which needs the data analysis and data synthesis from Department of Disease Control before disclosing to the public as well as the request of using and accessing data from the authorities outside of Department of Disease Control with the Ministry of Digital Economy and Society (“MDES”) as the application administrator and MDES assigning such administration to be under the responsibility of NT while NT would operate the data processing as per the request of Department of Disease Control and send the notifications to the group of “Morchana” application users who used to stay in the infection-risk areas as well as the correct self-regulation guideline.',
   privacy_policy_intro_04:
-    "    Upon reading this Policy and clicking the accept button below, you have given consent to the Processing of your personal data in accordance with this Policy. However, please do not use this App if you disagree with this Policy's Processing of your personal data.",
+    '    We will operate the work of collecting, using or disclosing your personal data as follows: ',
+  // privacy_policy_intro_05:
+  //   '    If you have questions regarding this Policy, please contact us through the channels mentioned below.',
   privacy_policy_intro_05:
-    '    If you have questions regarding this Policy, please contact us through the channels mentioned below.',
-  privacy_policy_body_01: '1. How does the App help?',
+    '1. The Legal Basis for the Processing of Personal Data We will operate the processing and disclosing of personal data with related authorities under the legal basis for the processing of personal data as follows: ',
+  privacy_policy_body_01:
+    '    •  In case it is necessary in our operation as stated by the law, that is, Emergency Decree on Public Administration in Emergency Situations B.E. 2558 (2015) and Communication Disease Act B.E. 2558 (2015)',
   privacy_policy_body_01_01:
-    '1.1	It Provides self-observation information to determine whether you have entered a potential COVID-19 risk area to protect yourself and those around you.',
+    '    •  In case it is necessary to prevent or suppress a danger to life, body or health of the person as well as to monitor, prevent and control COVID-19 dispersion.',
   privacy_policy_body_01_02:
-    '1.2	It assists doctors, nurses, and hospital personnel during the patient admission procedure and expedites the medical history interview and patient treatment processes.',
+    '    •  In case it is necessary to perform the duty of operating the mission for public benefits or using the granted power or perform the duty of using the assigned state power under the power of COVID-19 Situation Administration Commission, Department of Disease Control, Ministry of Health and under the policy of or being assigned by Ministry of Digital Economy and Society which includes the data submission for the related government authorities to give advices or determine the self-care and prevention measures e.g. seeing the doctors, being quarantined, self-monitoring and behavior observation and to give information to doctors, nurses or healthcare personnel concerning the records of accessing risk areas or COVID-19 infection possibilities as well as the symptoms within the scope of COVID-19 disease.',
   privacy_policy_body_01_03:
-    '1.3	It provides an infection risk alert when it detects a nearby infected person and issues recommendations such as seeking immediate medical attention.',
+    '    •  In case it is necessary for our legal benefits without excessively affecting your fundamental rights to personal data while such benefit has no lesser importance than the data owner’s fundamental rights to personal data in order to analyze and process data as well as to link the data received from a person, legal person or government authority in the monitoring, prevention and control of COVID-19 dispersion.',
   privacy_policy_body_01_04:
-    '1.4	It provides essential information necessary to screen infected or at-risk persons when visiting crowded areas such as shopping malls, stores, or local markets.',
-  privacy_policy_body_02: '2. How do we collect your personal data?',
+    '    We will collect personal data according to Section 26 which falls within the condition of not necessary to request explicit consent for the following purposes:',
+  privacy_policy_body_02:
+    '        • The necessity for public health benefits by collecting the user’s travel data to comply with the Emergency Decree on Public Administration in Emergency Situations B.E. 2558 (2015) and Communication Disease Act B.E. 2558 (2015) in the operation of the public mission on the prevention of danger from epidemic diseases.',
   privacy_policy_body_02_01:
-    '    We collect your personal data directly from you. The collection commences on the day you use the App and continues throughout the usage period. We will not collect your personal data from other sources. ',
-  privacy_policy_body_03: '3. What information do we collect?',
+    '        • The necessity for important public benefits by determining appropriate measures to protect the basic rights and benefits of the personal data owner.',
+  privacy_policy_body_03: '2. The Purposes of Collecting Your Personal Data',
   privacy_policy_body_03_00:
-    '    The information we gather from you is necessary for this App to monitor and prevent the spread of COVID-19. The following information will be collected from you.',
-  privacy_policy_body_03_01: '    3.1        Mobile number which is registered through the App',
-  privacy_policy_body_03_02: '    3.2        Selfie photograph(s)',
-  privacy_policy_body_03_03: '    3.3        Age',
-  privacy_policy_body_03_04: '    3.4        Address, only district and province (city) ',
-  privacy_policy_body_03_05: '    3.5        Check-in or location information',
-  privacy_policy_body_03_06: '    3.6        Contact tracing information which is determined and collected by the App ',
+    '    We will directly collect data from you by collecting your data since the day you start using and all the time that you use the app. However, we will not collect your personal data from other sources apart from other related authorities according to the legally-operated regulations and missions only. The purposes of our data collection are as follow:',
+  privacy_policy_body_03_01:
+    '        1. To monitor, suppress and restrain COVID-19 dispersion by processing from the data of Anonymous ID to find the activities with the risk or the possibility of contact with COVID-19 diseases.',
+  privacy_policy_body_03_02:
+    '        2. To alert the users considered as a risk group as well as to support the public health officials and related authorities to quickly analyze the situations in each area.',
+  privacy_policy_body_03_03:
+    '        3. To be the information facilitating the observation of one’s own behavior concerning the access to the risk area as well as the public areas with many people coming in and out such as department stores, shops or markets so that they can watch out for themselves and take care of the people around them. Moreover, there will be the information to help screening the patients or risked persons and taking care of others entering the same places.',
+  privacy_policy_body_03_04:
+    '        4. To help the doctors, nurses and healthcare personnel in the history taking in order to take history and give medical treatment faster.',
+  privacy_policy_body_03_05:
+    '        5. To alert the risked person as soon as the patient is found without wasting the time searching and give appropriate advices in time, for example, to come to the hospital to see the doctor as soon as possible. For the benefits in economics, tourism or other activities according to the government policies, for example, Phuket Sandbox, Samui Plus Model. However, once you receive the permission to enter the areas designated as pilot provinces for tourism, there will be the data for monitoring or tracking you while staying in the area.',
+  privacy_policy_body_03_06: '    2. The Personal Data We Collect and Use',
   privacy_policy_body_03_07:
-    '    3.7        COVID-19 exposure risk such as traveling to high risk areas or being in close contact with an infected individual according to a hospital self-assessment form.',
+    '    We will collect and use your personal data for the purposes as mentioned in Item 2. However, we will collect and use the personal data as per necessity by mainly using the Anonymous ID in the data processing of the app according to their purposes. ',
   privacy_policy_body_03_08:
-    '    3.8        COVID-19 symptoms such as a fever according to a hospital self-assessment form.',
-  privacy_policy_body_04: '4. Purpose of collecting this information ',
+    '    In case of the necessity to collect your personal data, we will collect your personal data as follows:',
+  privacy_policy_body_04: '        1. The data sources and list of personal data to be collected are as follow:',
   privacy_policy_body_04_00:
     '    The Processing of your personal data will be based on your consent as stipulated in the Personal Data Protection Act B.E. 2562 (2019). Your personal data will be used by the developer team of the Project to analyze, process, and display your behavioral information, e.g., likely risk exposure to COVID-19 areas, activities or persons, to allow you to exercise avoidance measures such as refraining from entering an area where an infected individual has been recently. (See APP developer list at www.dga.or.th). In addition, we may share your personal data with other relevant authorities under other legal basis in the following cases    .',
   privacy_policy_body_04_01:

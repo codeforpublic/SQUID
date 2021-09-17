@@ -277,6 +277,7 @@ export default {
   select_image_profile: 'เลือกรูปโปรไฟล์',
   research: 'แบบสำรวจ',
   personal_information: 'ข้อมูลผู้ใช้งาน',
+  personal_information_low_i: 'ข้อมูลผู้ใช้งาน',
   coe: 'COE Code',
   coe_reference_id: 'Reference ID',
   coe_ex: 'ตัวอย่าง AAA123456',
