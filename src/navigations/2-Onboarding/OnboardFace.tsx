@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { Image, ImageURISource, StatusBar, StyleSheet, TouchableOpacity, View, Button } from 'react-native'
+import { Image, ImageURISource, StatusBar, StyleSheet, TouchableOpacity, View, Button, Text } from 'react-native'
 import { Avatar } from 'react-native-elements'
 import RNFS from 'react-native-fs'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -8,7 +8,7 @@ import I18n from '../../../i18n/i18n'
 import { PrimaryButton } from '../../components/Button'
 import Texts from '../../components/Texts'
 import { userPrivateData } from '../../state/userPrivateData'
-import { COLORS, FONT_SIZES } from '../../styles'
+import { COLORS, FONT_SIZES, FONT_BOLD } from '../../styles'
 import { PageBackButton } from './components/PageBackButton'
 
 const ListItem = ({ source, label, onPress }: { source: ImageURISource; label: string; onPress: () => void }) => {
@@ -31,12 +31,12 @@ export const OnboardFace = () => {
   React.useEffect(() => {
     if (uri) {
       RNFS.exists(uri).then((exists) => {
-        // if (!exists) {
-        //   setUri('')
-        // }
+        if (!exists) {
+          setUri('')
+        }
       })
     }
-  }, [uri])
+  }, [])
 
   const navigateToCamera = () => {
     setPopupCamera(false)
@@ -80,7 +80,7 @@ export const OnboardFace = () => {
         <StatusBar backgroundColor={COLORS.WHITE} barStyle='dark-content' />
         {/* <PageBackButton label={I18n.t('term_and_conditions')} /> */}
         <View style={styles.header}>
-          <Texts.Bold style={styles.title}>{I18n.t('select_image_profile')}</Texts.Bold>
+          <Text style={styles.title}>{I18n.t('select_image_profile')}</Text>
         </View>
         <TouchableOpacity style={styles.contentContainer} onPress={() => setPopupCamera(false)}>
           <View style={styles.content}>
@@ -178,8 +178,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 24,
   },
   title: {
-    fontSize: FONT_SIZES[500],
+    fontSize: FONT_SIZES[600],
     color: COLORS.DARK_BLUE,
+    fontFamily: FONT_BOLD,
   },
   photoDescription: {
     color: COLORS.DARK_BLUE,

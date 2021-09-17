@@ -262,6 +262,7 @@ export default {
   privacy_policy_ending02: 'This Data Protection Policy became effective on 27 April 2020',
   privacy_policy_version: 'Version 2020.2',
   back: 'BACK',
+  back_lower: 'Back',
   change_lang: 'Change Language',
   choose_lang: 'Choose language',
   beacon_header: 'Found Beacon',

@@ -1,4 +1,4 @@
-import { getQRData, getTagData } from '../api'
+import { getQRData, getTagData, getUserLinkedStatus } from '../api'
 import { useEffect, useReducer, useRef, useCallback } from 'react'
 import moment from 'moment-timezone'
 import 'moment/locale/th'
@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import _ from 'lodash'
 
 import I18n from '../../i18n/i18n'
+import { userPrivateData } from './userPrivateData'
 
 interface QRData {
   data: {
@@ -34,6 +35,7 @@ enum QR_ACTION {
 }
 
 type SelfQRType = {
+  isLinked: boolean
   qrData?: SelfQR | null
   qrState?: QR_STATE
   error?: any
@@ -52,6 +54,7 @@ export const useSelfQR = () => {
       }
     },
     {
+      isLinked: false,
       qrData: null,
       qrState: QR_STATE.LOADING,
       error: null,
@@ -66,18 +69,19 @@ export const useSelfQR = () => {
         type: QR_ACTION.LOADING,
       })
       const _qrData = (await getQRData()) as QRData
+      const isLinked = await getUserLinkedStatus(userPrivateData.getAnonymousId())
       const qrData = await SelfQR.setCurrentQRFromQRData(_qrData)
       const qrState = SelfQR.getCurrentState()
       dispatch({
         type: QR_ACTION.UPDATE,
-        payload: { qrData, qrState, error: null },
+        payload: { qrData, qrState, error: null, isLinked },
       })
       tlRef.current = +setTimeout(refreshQR, 2 * 60 * 1000) // Update after 2 min
     } catch (error) {
       const qrState = SelfQR.getCurrentState()
       dispatch({
         type: QR_ACTION.UPDATE,
-        payload: { qrState, error },
+        payload: { qrState, error, isLinked: false },
       })
       tlRef.current = +setTimeout(refreshQR, 10 * 1000) // Retry after 10 sec
     }
@@ -88,7 +92,6 @@ export const useSelfQR = () => {
       const qrData = await SelfQR.getCurrentQR()
       dispatch({ type: QR_ACTION.UPDATE, payload: { qrData } })
     }
-
     setQRFromStorage().then(() => refreshQR())
     return () => {
       clearTimeout(tlRef.current)

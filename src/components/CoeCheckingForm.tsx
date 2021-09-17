@@ -9,13 +9,13 @@ import FeatherIcon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native'
 import { PrimaryButton } from './Button'
 import { Button } from 'react-native-elements'
+import { useSelfQR } from '../state/qr'
 
 type CoeCheckingFormPropTypes = {
   formValues?: {
     coeNo: string
     rfNo: string
   }
-  isLinked?: boolean
   isFormError: boolean
   onSubmit: any
   setIsFormError: any
@@ -25,7 +25,6 @@ export const CoeCheckingForm = ({
   isFormError,
   onSubmit,
   formValues,
-  isLinked,
   setIsFormError = false,
 }: CoeCheckingFormPropTypes) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -35,6 +34,7 @@ export const CoeCheckingForm = ({
   const [rfNoError, setRfNoError] = useState<boolean>(false)
   const navigation = useNavigation()
   const [modalValue, setModalValue] = useState<boolean>(false)
+  const { isLinked } = useSelfQR()
 
   const numberRegex = new RegExp(/^\d{6}$/)
 
@@ -85,8 +85,6 @@ export const CoeCheckingForm = ({
     setModalValue(isFormError)
   }, [isFormError])
 
-  useEffect(() => {}, [modalValue])
-
   return (
     <>
       {isLoading ? (
@@ -110,10 +108,12 @@ export const CoeCheckingForm = ({
               />
             }
             placeholder={I18n.t('coe_ex')}
+            inputStyle={{ fontFamily: FONT_MED, fontSize: FONT_SIZES[600] }}
             onChangeText={(value) => onChangeTextInput('coe', value)}
             inputContainerStyle={{ ...styles.textInput, borderColor: coeNoError ? COLORS.DANGER : COLORS.GRAY_6 }}
             disabled={isLinked}
             errorMessage={coeNoError ? I18n.t('coe_error_message') : ''}
+            errorStyle={{ fontFamily: FONT_MED, fontSize: FONT_SIZES[500] }}
             rightIcon={
               isLinked ? (
                 <View />
@@ -142,10 +142,12 @@ export const CoeCheckingForm = ({
               />
             }
             placeholder={I18n.t('coe_reference_id_ex')}
+            inputStyle={{ fontFamily: FONT_MED, fontSize: FONT_SIZES[600] }}
             onChangeText={(value) => onChangeTextInput('rf', value)}
             inputContainerStyle={{ ...styles.textInput, borderColor: rfNoError ? COLORS.DANGER : COLORS.GRAY_6 }}
             disabled={isLinked}
             errorMessage={rfNoError ? I18n.t('coe_reference_id_error_message') : ''}
+            errorStyle={{ fontFamily: FONT_MED, fontSize: FONT_SIZES[500] }}
           />
         </View>
       </View>
@@ -163,18 +165,18 @@ export const CoeCheckingForm = ({
         <View style={styles.modalStyle}>
           <View style={styles.modalContainer}>
             <View style={{ alignItems: 'center', paddingTop: 32, paddingHorizontal: 32 }}>
-              <FeatherIcon name='x-circle' size={48} color={COLORS.RED_WARNING} />
+              <FeatherIcon name='alert-circle' size={48} color={COLORS.RED_WARNING} />
               <Text style={{ fontSize: FONT_SIZES[600], color: COLORS.RED_WARNING, fontFamily: FONT_BOLD }}>
                 {I18n.t('coe_alert_title_error')}
               </Text>
-              <Text style={{ textAlign: 'center', marginTop: 24, fontSize: FONT_SIZES[400] }}>
+              <Text style={{ textAlign: 'center', marginTop: 24, fontSize: FONT_SIZES[500], fontFamily: FONT_MED }}>
                 {I18n.t('coe_alert_text_error')}
               </Text>
             </View>
             <View style={{ bottom: 32, left: 0, right: 0, position: 'absolute' }}>
               <Button
                 type='outline'
-                titleStyle={{ color: COLORS.DARK_BLUE }}
+                titleStyle={{ color: COLORS.DARK_BLUE, fontFamily: FONT_MED, fontSize: FONT_SIZES[500] }}
                 title={I18n.t('close')}
                 buttonStyle={{ width: 80, borderColor: COLORS.DARK_BLUE }}
                 containerStyle={{ alignItems: 'center' }}
@@ -202,7 +204,7 @@ const InputLabel = ({ label, onPress, requireMark = true, tipButton = true }: In
       <Text style={styles.inputLabel}>{label}</Text>
       {tipButton ? (
         <TouchableOpacity style={{ paddingHorizontal: 4 }} onPress={onPress}>
-          <FeatherIcon name='info' size={16} color='#000' />
+          <FeatherIcon name='info' size={16} color={COLORS.DARK_BLUE} />
         </TouchableOpacity>
       ) : null}
     </View>

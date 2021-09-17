@@ -20,7 +20,7 @@ export const PageBackButton = (props: PageBackButtonPropsType) => {
     <View style={{ padding: 16 }}>
       <TouchableOpacity style={styles.flexRow} onPress={() => onPress || navigation.goBack()}>
         <Icon name='arrow-circle-left' size={20} color={PRIMARY_COLOR} style={{ paddingRight: 4 }} />
-        <Text style={{ color: PRIMARY_COLOR }}>{label}</Text>
+        <Text style={{ color: PRIMARY_COLOR, fontFamily: FONT_MED, fontSize: FONT_SIZES[500] }}>{label}</Text>
       </TouchableOpacity>
     </View>
   )

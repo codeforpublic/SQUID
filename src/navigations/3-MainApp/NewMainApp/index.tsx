@@ -31,14 +31,13 @@ import { useResetTo } from '../../../../src/utils/navigation'
 import { useContactTracer } from '../../../services/contact-tracing-provider'
 import { pushNotification } from '../../../services/notification'
 import { QR_STATE, SelfQR, useSelfQR } from '../../../state/qr'
-import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../../styles'
+import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_MED, FONT_SIZES } from '../../../styles'
 import { BeaconFoundPopupContent } from '../BeaconFoundPopup'
 import QRCard from './QRCard'
 import { UpdateProfileButton } from './UpdateProfileButton'
 import VaccineCard from './VaccineCard'
 import WorkFromHomeCard from './WorkFromHomeCard'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { getUserLinkedStatus } from '../../../api'
 
 const carouselItems = ['qr', 'vaccine'] //, 'wfh']
 
@@ -53,7 +52,7 @@ const mapQrStatusColor = (qr?: SelfQR, qrState?: QR_STATE) =>
 
 export const MainApp = () => {
   const inset = useSafeArea()
-  const { qrData, qrState } = useSelfQR()
+  const { qrData, qrState, isLinked } = useSelfQR()
   const { beaconLocationName, isBluetoothOn } = useContactTracer()
   const [location, setLocation] = useState('')
   const popupRef = useRef<NotificationPopup | any>()
@@ -66,7 +65,6 @@ export const MainApp = () => {
     title: '',
     text: '',
   })
-  const [isLinked, setIsLinked] = useState<boolean>(false)
 
   const windowWidth = Dimensions.get('window').width
 
@@ -92,13 +90,6 @@ export const MainApp = () => {
     }
   }
 
-  const updateUserLinkedStatus = async () => {
-    const {
-      data: { linked },
-    } = await getUserLinkedStatus(userPrivateData.getAnonymousId())
-    setIsLinked(linked)
-  }
-
   React.useEffect(() => {
     const updateGPS = async () => {
       const status = await GPSState.getStatus()
@@ -112,7 +103,6 @@ export const MainApp = () => {
     initALertData()
     updateGPS()
     const timer = setInterval(updateGPS, 2000)
-    setInterval(updateUserLinkedStatus, 150000)
     return () => clearInterval(timer)
   }, [])
 
@@ -260,7 +250,7 @@ export const MainApp = () => {
                         <View style={styles.flexRow}>
                           <Text style={styles.textDarkBlue}>COE CODE</Text>
                           <TouchableOpacity onPress={() => setModalValue(true)}>
-                            <FeatherIcon name='alert-circle' style={[styles.textDarkBlue, styles.iconPadding]} />
+                            <FeatherIcon name='help-circle' style={[styles.textDarkBlue, styles.iconPadding]} />
                           </TouchableOpacity>
                         </View>
                         <View>
@@ -272,7 +262,7 @@ export const MainApp = () => {
                             onPress={() => navigation.navigate('EditCoePersonalInformation')}
                           >
                             <Text style={styles.textBlue}>{I18n.t('edit')}</Text>
-                            <FontAwesome name='edit' style={[styles.textBlue, styles.iconPadding]} />
+                            <FontAwesome name='edit' style={[styles.textBlueIcon, styles.iconPadding]} />
                           </TouchableOpacity>
                         </View>
                       </View>
@@ -332,7 +322,9 @@ export const MainApp = () => {
               <Text style={{ fontSize: FONT_SIZES[700], color: COLORS.DARK_BLUE, fontFamily: FONT_BOLD }}>
                 {alertModalData.title}
               </Text>
-              <Text style={{ textAlign: 'center', marginTop: 24 }}>{alertModalData.text}</Text>
+              <Text style={{ textAlign: 'center', marginTop: 24, fontFamily: FONT_MED, fontSize: FONT_SIZES[500] }}>
+                {alertModalData.text}
+              </Text>
             </View>
             <View style={styles.bottomContainer}>
               <Button
@@ -400,6 +392,7 @@ const styles = StyleSheet.create({
   coeTitle: {
     fontFamily: FONT_BOLD,
     fontSize: FONT_SIZES[800],
+    textTransform: 'uppercase',
   },
   textVerticalBottom: {
     textAlignVertical: 'bottom',
@@ -409,6 +402,13 @@ const styles = StyleSheet.create({
   },
   textBlue: {
     color: COLORS.BLUE,
+    fontFamily: FONT_MED,
+    fontSize: FONT_SIZES[500],
+  },
+  textBlueIcon: {
+    color: COLORS.BLUE,
+    fontFamily: FONT_MED,
+    fontSize: FONT_SIZES[400],
   },
   modalStyle: {
     flex: 1,
@@ -495,6 +495,8 @@ const styles = StyleSheet.create({
   },
   buttonTitleStyle: {
     color: COLORS.DARK_BLUE,
+    fontFamily: FONT_MED,
+    fontSize: FONT_SIZES[500],
   },
 })
 
