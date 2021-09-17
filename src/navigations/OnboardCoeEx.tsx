@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, View, Text, Image, Dimensions } from 'react-native'
 import { normalize } from 'react-native-elements'
 import I18n from 'i18n-js'
-import { COLORS, FONT_BOLD, FONT_SIZES } from '../styles'
+import { COLORS, FONT_BOLD, FONT_SIZES, FONT_MED } from '../styles'
 import { WhiteBackground } from '../components/WhiteBackground'
 import { PageBackButton } from './2-Onboarding/components/PageBackButton'
 
@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
     color: COLORS.BLUE_BUTTON,
   },
   content: {
-    fontSize: FONT_SIZES[400],
+    fontSize: FONT_SIZES[500],
+    fontFamily: FONT_MED,
     color: COLORS.BLUE_BUTTON,
   },
   contentContainer: {
