@@ -16,7 +16,7 @@ export const OnboardCoeChecking = () => {
     try {
       const result = await coeChecking({ coeNo, rfNo })
       if (result) {
-        userPrivateData.setData('coeNo', coeNo)
+        userPrivateData.setData('coeNo', coeNo.toUpperCase())
         userPrivateData.setData('coeRfNo', rfNo)
         navigation.navigate('OnboardCoeLanding')
       } else {

@@ -9,13 +9,13 @@ import FeatherIcon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native'
 import { PrimaryButton } from './Button'
 import { Button } from 'react-native-elements'
+import { useSelfQR } from '../state/qr'
 
 type CoeCheckingFormPropTypes = {
   formValues?: {
     coeNo: string
     rfNo: string
   }
-  isLinked?: boolean
   isFormError: boolean
   onSubmit: any
   setIsFormError: any
@@ -25,7 +25,6 @@ export const CoeCheckingForm = ({
   isFormError,
   onSubmit,
   formValues,
-  isLinked,
   setIsFormError = false,
 }: CoeCheckingFormPropTypes) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -35,6 +34,7 @@ export const CoeCheckingForm = ({
   const [rfNoError, setRfNoError] = useState<boolean>(false)
   const navigation = useNavigation()
   const [modalValue, setModalValue] = useState<boolean>(false)
+  const { isLinked } = useSelfQR()
 
   const numberRegex = new RegExp(/^\d{6}$/)
 
@@ -84,8 +84,6 @@ export const CoeCheckingForm = ({
   useEffect(() => {
     setModalValue(isFormError)
   }, [isFormError])
-
-  useEffect(() => {}, [modalValue])
 
   return (
     <>

@@ -38,8 +38,6 @@ import { UpdateProfileButton } from './UpdateProfileButton'
 import VaccineCard from './VaccineCard'
 import WorkFromHomeCard from './WorkFromHomeCard'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { getUserLinkedStatus } from '../../../api'
-import { upperCase } from 'lodash'
 
 const carouselItems = ['qr', 'vaccine'] //, 'wfh']
 
@@ -54,7 +52,7 @@ const mapQrStatusColor = (qr?: SelfQR, qrState?: QR_STATE) =>
 
 export const MainApp = () => {
   const inset = useSafeArea()
-  const { qrData, qrState } = useSelfQR()
+  const { qrData, qrState, isLinked } = useSelfQR()
   const { beaconLocationName, isBluetoothOn } = useContactTracer()
   const [location, setLocation] = useState('')
   const popupRef = useRef<NotificationPopup | any>()
@@ -67,7 +65,6 @@ export const MainApp = () => {
     title: '',
     text: '',
   })
-  const [isLinked, setIsLinked] = useState<boolean>(false)
 
   const windowWidth = Dimensions.get('window').width
 
@@ -93,13 +90,6 @@ export const MainApp = () => {
     }
   }
 
-  const updateUserLinkedStatus = async () => {
-    const {
-      data: { linked },
-    } = await getUserLinkedStatus(userPrivateData.getAnonymousId())
-    setIsLinked(linked)
-  }
-
   React.useEffect(() => {
     const updateGPS = async () => {
       const status = await GPSState.getStatus()
@@ -113,7 +103,6 @@ export const MainApp = () => {
     initALertData()
     updateGPS()
     const timer = setInterval(updateGPS, 2000)
-    setInterval(updateUserLinkedStatus, 150000)
     return () => clearInterval(timer)
   }, [])
 
