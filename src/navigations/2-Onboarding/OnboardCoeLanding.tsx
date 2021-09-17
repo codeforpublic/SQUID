@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { StyleSheet, View, Text, Dimensions, Image } from 'react-native'
 import { normalize } from 'react-native-elements'
 import I18n from 'i18n-js'
-import { COLORS, FONT_BOLD, FONT_SIZES } from '../../styles'
+import { COLORS, FONT_BOLD, FONT_SIZES, FONT_MED } from '../../styles'
 import { applicationState } from '../../state/app-state'
 import { PrimaryButton } from '../../components/Button'
 import { useResetTo } from '../../utils/navigation'
@@ -66,13 +66,15 @@ const styles = StyleSheet.create({
   },
   content: {
     marginTop: 16,
-    fontSize: FONT_SIZES[400],
+    fontSize: FONT_SIZES[500],
+    fontFamily: FONT_MED,
     color: COLORS.WHITE,
     lineHeight: 30,
   },
   detailText: {
     marginTop: 24,
-    fontSize: FONT_SIZES[400],
+    fontSize: FONT_SIZES[500],
+    fontFamily: FONT_MED,
     color: COLORS.WHITE,
   },
   container: {

@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import I18n from '../../../i18n/i18n'
 import { getNotifications } from '../../api-notification'
 import { ContractTracerContext } from '../../services/contact-tracing-provider'
-import { COLORS, FONT_FAMILY, FONT_SIZES } from '../../styles'
+import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD } from '../../styles'
 
 export interface NotificationHistoryModel {
   title: string
@@ -155,10 +155,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   emptyText: {
-    fontSize: 18,
+    fontSize: FONT_SIZES[600],
+    fontFamily: FONT_BOLD,
     textAlign: 'center',
     textAlignVertical: 'center',
-    fontWeight: 'bold',
     flex: 1,
     color: '#A0A4B1',
   },

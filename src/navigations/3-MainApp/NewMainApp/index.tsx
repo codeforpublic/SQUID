@@ -31,7 +31,7 @@ import { useResetTo } from '../../../../src/utils/navigation'
 import { useContactTracer } from '../../../services/contact-tracing-provider'
 import { pushNotification } from '../../../services/notification'
 import { QR_STATE, SelfQR, useSelfQR } from '../../../state/qr'
-import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_SIZES } from '../../../styles'
+import { COLORS, FONT_BOLD, FONT_FAMILY, FONT_MED, FONT_SIZES } from '../../../styles'
 import { BeaconFoundPopupContent } from '../BeaconFoundPopup'
 import QRCard from './QRCard'
 import { UpdateProfileButton } from './UpdateProfileButton'
@@ -333,7 +333,9 @@ export const MainApp = () => {
               <Text style={{ fontSize: FONT_SIZES[700], color: COLORS.DARK_BLUE, fontFamily: FONT_BOLD }}>
                 {alertModalData.title}
               </Text>
-              <Text style={{ textAlign: 'center', marginTop: 24 }}>{alertModalData.text}</Text>
+              <Text style={{ textAlign: 'center', marginTop: 24, fontFamily: FONT_MED, fontSize: FONT_SIZES[500] }}>
+                {alertModalData.text}
+              </Text>
             </View>
             <View style={styles.bottomContainer}>
               <Button
@@ -411,6 +413,8 @@ const styles = StyleSheet.create({
   },
   textBlue: {
     color: COLORS.BLUE,
+    fontFamily: FONT_MED,
+    fontSize: FONT_SIZES[400],
   },
   modalStyle: {
     flex: 1,
@@ -497,6 +501,8 @@ const styles = StyleSheet.create({
   },
   buttonTitleStyle: {
     color: COLORS.DARK_BLUE,
+    fontFamily: FONT_MED,
+    fontSize: FONT_SIZES[500],
   },
 })
 
