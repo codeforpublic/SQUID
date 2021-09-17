@@ -39,6 +39,7 @@ import VaccineCard from './VaccineCard'
 import WorkFromHomeCard from './WorkFromHomeCard'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { getUserLinkedStatus } from '../../../api'
+import { upperCase } from 'lodash'
 
 const carouselItems = ['qr', 'vaccine'] //, 'wfh']
 
@@ -260,7 +261,7 @@ export const MainApp = () => {
                         <View style={styles.flexRow}>
                           <Text style={styles.textDarkBlue}>COE CODE</Text>
                           <TouchableOpacity onPress={() => setModalValue(true)}>
-                            <FeatherIcon name='alert-circle' style={[styles.textDarkBlue, styles.iconPadding]} />
+                            <FeatherIcon name='help-circle' style={[styles.textDarkBlue, styles.iconPadding]} />
                           </TouchableOpacity>
                         </View>
                         <View>
@@ -400,6 +401,7 @@ const styles = StyleSheet.create({
   coeTitle: {
     fontFamily: FONT_BOLD,
     fontSize: FONT_SIZES[800],
+    textTransform: 'uppercase',
   },
   textVerticalBottom: {
     textAlignVertical: 'bottom',

@@ -31,12 +31,12 @@ export const OnboardFace = () => {
   React.useEffect(() => {
     if (uri) {
       RNFS.exists(uri).then((exists) => {
-        // if (!exists) {
-        //   setUri('')
-        // }
+        if (!exists) {
+          setUri('')
+        }
       })
     }
-  }, [uri])
+  }, [])
 
   const navigateToCamera = () => {
     setPopupCamera(false)
