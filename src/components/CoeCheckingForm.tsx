@@ -171,14 +171,14 @@ export const CoeCheckingForm = ({
               <Text style={{ fontSize: FONT_SIZES[600], color: COLORS.RED_WARNING, fontFamily: FONT_BOLD }}>
                 {I18n.t('coe_alert_title_error')}
               </Text>
-              <Text style={{ textAlign: 'center', marginTop: 24, fontSize: FONT_SIZES[400] }}>
+              <Text style={{ textAlign: 'center', marginTop: 24, fontSize: FONT_SIZES[500], fontFamily: FONT_MED }}>
                 {I18n.t('coe_alert_text_error')}
               </Text>
             </View>
             <View style={{ bottom: 32, left: 0, right: 0, position: 'absolute' }}>
               <Button
                 type='outline'
-                titleStyle={{ color: COLORS.DARK_BLUE }}
+                titleStyle={{ color: COLORS.DARK_BLUE, fontFamily: FONT_MED, fontSize: FONT_SIZES[500] }}
                 title={I18n.t('close')}
                 buttonStyle={{ width: 80, borderColor: COLORS.DARK_BLUE }}
                 containerStyle={{ alignItems: 'center' }}
