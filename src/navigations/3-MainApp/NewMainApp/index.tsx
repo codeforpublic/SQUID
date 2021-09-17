@@ -273,7 +273,7 @@ export const MainApp = () => {
                             onPress={() => navigation.navigate('EditCoePersonalInformation')}
                           >
                             <Text style={styles.textBlue}>{I18n.t('edit')}</Text>
-                            <FontAwesome name='edit' style={[styles.textBlue, styles.iconPadding]} />
+                            <FontAwesome name='edit' style={[styles.textBlueIcon, styles.iconPadding]} />
                           </TouchableOpacity>
                         </View>
                       </View>
@@ -412,6 +412,11 @@ const styles = StyleSheet.create({
     color: COLORS.DARK_BLUE,
   },
   textBlue: {
+    color: COLORS.BLUE,
+    fontFamily: FONT_MED,
+    fontSize: FONT_SIZES[500],
+  },
+  textBlueIcon: {
     color: COLORS.BLUE,
     fontFamily: FONT_MED,
     fontSize: FONT_SIZES[400],
