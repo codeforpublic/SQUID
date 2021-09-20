@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native'
 import { COLORS, FONT_FAMILY, FONT_SIZES, FONT_BOLD, FONT_MED } from '../../styles'
 import { normalize, Button } from 'react-native-elements'
 import { FormHeader } from '../../components/Form/FormHeader'
-import { getAgreementText } from '../const'
+import { getAgreementTextBody1, getAgreementTextBody2, getAgreementTextBody3 } from '../const'
 import { applicationState } from '../../state/app-state'
 
 import I18n from '../../../i18n/i18n'
@@ -34,8 +34,9 @@ export const AgreementPolicy = () => {
           }}
         >
           <View style={{ paddingHorizontal: 24 }}>
-            <Text style={styles.agreement}>{getAgreementText()} </Text>
+            <Text style={styles.agreement}>{getAgreementTextBody1()} </Text>
             <ConsentTable
+              key={1}
               row={2}
               headerData={[I18n.t('privacy_policy_table_01_header_01'), I18n.t('privacy_policy_table_01_header_02')]}
               rowData={[
@@ -43,7 +44,9 @@ export const AgreementPolicy = () => {
                 [I18n.t('privacy_policy_table_01_body_02_01'), I18n.t('privacy_policy_table_01_body_02_02')],
               ]}
             />
+            <Text style={styles.agreement}>{getAgreementTextBody2()} </Text>
             <ConsentTable
+              key={2}
               row={2}
               headerData={[I18n.t('privacy_policy_table_02_header_01'), I18n.t('privacy_policy_table_02_header_02')]}
               rowData={[
@@ -52,6 +55,7 @@ export const AgreementPolicy = () => {
                 [I18n.t('privacy_policy_table_02_body_03_01'), I18n.t('privacy_policy_table_02_body_03_02')],
               ]}
             />
+            <Text style={styles.agreement}>{getAgreementTextBody3()} </Text>
           </View>
         </ScrollView>
       </View>

@@ -176,92 +176,142 @@ export default {
   ok: 'OK',
   incorrect_qr: 'Incorrect QR Code',
   privacy_policy_intro_01:
-    '    The Application “MorChana” (hereinafter referred to as the “App”) is owned and operated by the Digital Government Development Agency (Public Organization) (hereinafter referred to as “We”) under the project concerning the development of a monitoring system for handling the country’s emergency situations (hereinafter referred to as the “Project”) to support doctors, nurses, medical personnel, government authorities handling the COVID-19 pandemic, and private agencies, as well as App users in looking after and preventing potential COVID-19 infection. ',
+    '    This privacy notice (“the Notice”) was made for you as the user of Morchana application (hereinafter called “processing activity”) to learn and understand the forms of collecting, using and disclosing (“processing”) personal data operated by National Telecom Public Company Limited (hereinafter called “NT”, “we”, “us”) as the data processor of the personal data collected from you to operate under this processing activity.',
   privacy_policy_intro_02:
-    '    This App collects, uses, and discloses personal data (hereinafter referred to as “Processing”) as necessary to protect the vital interests of App users, those in their immediate vicinity, and the public in general. It tracks infection and potential risk and monitors the spread of the COVID-19 virus through information provided by App users.',
+    '    “Morchana” Application is a tool to help monitoring the pandemic of coronavirus disease 2019 (“COVID-19”) more extensively by collecting the user’s travel data via Global Positioning System (GPS) and Bluetooth technologies for data processing and alerting the people when they are near of incontact with COVID-19 patients to monitor their own symptoms and meet the concerned authorities in time.',
   privacy_policy_intro_03:
-    '    Before using the App, we request that you (the user) carefully read this Data Protection Policy and its amendments (hereinafter referred to as the “Policy”), including any terms and agreements referred in the App. You will be legally bound by these terms and agreements if you begin to use this App.',
+    '    Department of Disease Control (DDC) is the main agency to collect and analyze Thailand’s dispersion situation information as a result of COVID-19 infection under the Order of Department of Disease Control No. 397/2564 on the Appointment of COVID-19 Data Governance Commission which needs the data analysis and data synthesis from Department of Disease Control before disclosing to the public as well as the request of using and accessing data from the authoritiesoutside of Department of Disease Control with the Ministry of Digital Economy and Society (“MDES”) as the application administrator and MDES assigning such administration to be under the responsibility of NT while NT would operate the data processing as per the request of Department of Disease Control and send the notifications to the group of “Morchana” application users who used to stay in the infectionrisk areas as well as the correct self-regulation guideline.',
   privacy_policy_intro_04:
-    "    Upon reading this Policy and clicking the accept button below, you have given consent to the Processing of your personal data in accordance with this Policy. However, please do not use this App if you disagree with this Policy's Processing of your personal data.",
-  privacy_policy_intro_05:
-    '    If you have questions regarding this Policy, please contact us through the channels mentioned below.',
-  privacy_policy_body_01: '1. How does the App help?',
+    '    We will operate the work of collecting, using or disclosing your personal data as follows:',
+  // privacy_policy_intro_05:
+  //   '    If you have questions regarding this Policy, please contact us through the channels mentioned below.',
+  privacy_policy_body_01: '1. The Legal Basis for the Processing of Personal Data',
   privacy_policy_body_01_01:
-    '1.1	It Provides self-observation information to determine whether you have entered a potential COVID-19 risk area to protect yourself and those around you.',
+    '    We will operate the processing and disclosing of personal data with related authorities under the legal basis for the processing of personal data as follows:',
   privacy_policy_body_01_02:
-    '1.2	It assists doctors, nurses, and hospital personnel during the patient admission procedure and expedites the medical history interview and patient treatment processes.',
+    '    • In case it is necessary in our operation as stated by the law, that is, Emergency Decree on Public Administration in Emergency Situations B.E. 2558 (2015) and Communication Disease Act B.E. 2558 (2015)',
   privacy_policy_body_01_03:
-    '1.3	It provides an infection risk alert when it detects a nearby infected person and issues recommendations such as seeking immediate medical attention.',
+    '    • In case it is necessary to prevent or suppress a danger to life, body or health of the person as well as to monitor, prevent and control COVID-19 dispersion.',
   privacy_policy_body_01_04:
-    '1.4	It provides essential information necessary to screen infected or at-risk persons when visiting crowded areas such as shopping malls, stores, or local markets.',
-  privacy_policy_body_02: '2. How do we collect your personal data?',
+    '    • In case it is necessary to perform the duty of operating the mission for public benefits or using the granted power or perform the duty of using the assigned state power under the power of COVID-19 Situation Administration Commission, Department of Disease Control, Ministry of Health and under the policy of or being assigned by Ministry of Digital Economy and Society which includes the data submission for the related government authorities to give advices or determine the self-care and prevention measures e.g. seeing the doctors, being quarantined, selfmonitoring and behavior observation and to give information to doctors, nurses or healthcare personnel concerning the records of accessing risk areas or COVID-19 infection possibilities as well as the symptoms within the scope of COVID-19 disease.',
+  privacy_policy_body_01_05:
+    '    • In case it is necessary for our legal benefits without excessively affecting your fundamental rights to personal data while such benefit has no lesser importance than the data owner’s fundamental rights to personal data in order to analyze and process data as well as to link the data received from a person, legal person or government authority in the monitoring, prevention and control of COVID-19 dispersion',
+  privacy_policy_body_01_06:
+    '    We will collect personal data according to Section 26 which falls within the condition of not necessary to request explicit consent for the following purposes:',
+  privacy_policy_body_01_07:
+    '    • The necessity for public health benefits by collecting the user’s travel data to comply with the Emergency Decree on Public Administrationin Emergency Situations B.E. 2558 (2015) and Communication Disease Act B.E. 2558 (2015) in the operation of the public mission on the prevention of danger from epidemic diseases.',
+  privacy_policy_body_01_08:
+    '    • The necessity for important public benefits by determining appropriate measures to protect the basic rights and benefits of the personal data owner.',
+  privacy_policy_body_02: '2. The Purposes of Collecting Your Personal Data',
   privacy_policy_body_02_01:
-    '    We collect your personal data directly from you. The collection commences on the day you use the App and continues throughout the usage period. We will not collect your personal data from other sources. ',
-  privacy_policy_body_03: '3. What information do we collect?',
+    '    We will directly collect data from you by collecting your data since the day you start using and all the time that you use the app. However, we will not collect your personal data from other sources apart from other related authorities according to the legallyoperated regulations and missions only. The purposes of our data collection are as follow:',
+  privacy_policy_body_02_02:
+    '    2.1 To monitor, suppress and restrain COVID-19 dispersion by processing from the data of Anonymous ID to find the activities with the risk or the possibility of contact with COVID-19 diseases.',
+  privacy_policy_body_02_03:
+    '    2.2 To alert the users considered as a risk group as well as to support the public health officials and related authorities to quickly analyze the situations in each area.',
+  privacy_policy_body_02_04:
+    '    2.3 To be the information facilitating the observation of one’s own behavior concerning the access to the risk area as well as the public areas with many people coming in and out such as department stores, shops or markets sothat they can watch out for themselves and take care of the people around them. Moreover, there will be the information to help screening the patients or risked persons and taking care of others entering the same places.',
+  privacy_policy_body_02_05:
+    '    2.4 To help the doctors, nurses and healthcare personnel in the history taking in order to take history and give medical treatment faster',
+  privacy_policy_body_02_06:
+    '    2.5 To alert the risked person as soon as the patient is found without wasting the time searching and give appropriate advices in time, for example, to come to the hospital to see the doctor as soon as possible. For the benefits in economics, tourism or other activities according to the government policies, for example, Phuket Sandbox, Samui Plus Model. However, once you receive the permission to enter the areas designated as pilot provinces for tourism, there will be the data for monitoring or tracking you while staying in the area.',
+  privacy_policy_body_03: '3. The Personal Data We Collect and Use',
   privacy_policy_body_03_00:
-    '    The information we gather from you is necessary for this App to monitor and prevent the spread of COVID-19. The following information will be collected from you.',
-  privacy_policy_body_03_01: '    3.1        Mobile number which is registered through the App',
-  privacy_policy_body_03_02: '    3.2        Selfie photograph(s)',
-  privacy_policy_body_03_03: '    3.3        Age',
-  privacy_policy_body_03_04: '    3.4        Address, only district and province (city) ',
-  privacy_policy_body_03_05: '    3.5        Check-in or location information',
-  privacy_policy_body_03_06: '    3.6        Contact tracing information which is determined and collected by the App ',
-  privacy_policy_body_03_07:
-    '    3.7        COVID-19 exposure risk such as traveling to high risk areas or being in close contact with an infected individual according to a hospital self-assessment form.',
-  privacy_policy_body_03_08:
-    '    3.8        COVID-19 symptoms such as a fever according to a hospital self-assessment form.',
-  privacy_policy_body_04: '4. Purpose of collecting this information ',
+    '    We will collect and use your personal data for the purposes as mentioned in Item 2. However, we will collect and use the personal data as per necessity by mainly using the Anonymous ID in the data processing of the app according to their purposes.',
+  privacy_policy_body_03_01:
+    '    In case of the necessity to collect your personal data, we will collect your personal data as follows:',
+  privacy_policy_body_03_02: '    3.1        The data sources and listof personal data to be collected are as follow:',
+  privacy_policy_body_03_03: '    3.2        The Purposes of Using Personal Data',
+  privacy_policy_body_04: '4. Disclosing Your Personal Data ',
   privacy_policy_body_04_00:
-    '    The Processing of your personal data will be based on your consent as stipulated in the Personal Data Protection Act B.E. 2562 (2019). Your personal data will be used by the developer team of the Project to analyze, process, and display your behavioral information, e.g., likely risk exposure to COVID-19 areas, activities or persons, to allow you to exercise avoidance measures such as refraining from entering an area where an infected individual has been recently. (See APP developer list at www.dga.or.th). In addition, we may share your personal data with other relevant authorities under other legal basis in the following cases    .',
+    '    In general case, we will not publicize, sell, share, exchange or transfer any of your personal data we collect to the outsiders or non-related authorities except being granted permission from Department of Disease Control only. By this sharing of data, we will discreetly send out the data as per necessity only to achieve the purposes of those asking for the shared data and such purposes must fall within the purpose framework being granted consent by the user. We disclose your personal data to the person(s) or legal person(s) as follow:',
   privacy_policy_body_04_01:
-    '•	When it is necessary to prevent or reduce a threat to a person’s life, physical well-being or health.',
+    '    4.1 The Geo-Informatics and Space Technology Development Agency (Public Organization) to integrate data with COVID-19 iMAP Platform according to the Order from the Daily Briefing of Operation Center, Covid-19 Situation Administration Center on January 14, 2021.4',
   privacy_policy_body_04_02:
-    '•	When it is necessary to carry out a task in the public interest or the exercise of official authority vested in the Project. This includes disclosing to the relevant public authorities for their use of personal data to provide proper preventive measures and self-care suggestions, for example, a hospital visit, self-quarantine procedures, or self-monitoring (see relevant public authorities list at www.dga.or.th). Moreover, your information concerning a visit to a place which is at risk of potential exposure to COVID-19, including those individuals with suspected symptoms of COVID-19, may be disclosed to doctors, nurses and other medical personnel (see relevant public health authorities list at www.dga.or.th).',
+    '    4.2 The government authorities whose duty is related with the management of coronavirus disease 2019 pandemic situation as regulated by Department of Disease Control.',
   privacy_policy_body_04_03:
-    '•	When it is necessary for the legitimate purposes of the Project, person or juristic persons, providing that your fundamental rights remain protected.',
-  privacy_policy_body_04_04:
     '    Additionally, we have implemented information security measures to protect your personal data from misuse and unauthorized disclosure.',
-  privacy_policy_body_05: '5. Sharing of information ',
+  privacy_policy_body_05: '5. Your Rights according to Personal Data Protection Act B.E. 2562 (2019)',
   privacy_policy_body_05_00:
     '    We will not publish, sell, distribute, exchange, or transfer your personal data to a third party without your explicit consent to do so.  ',
-  privacy_policy_body_06: '6. Process and transfer information internationally',
+  privacy_policy_body_05_01:
+    '    5.1 The right to access, obtain copy and request the disclosure of the sources of your personal data we obtained, except for the case that we have the right to reject your request where it is permitted by law or pursuant to a court order, or the case that your request might affect the rights and freedoms of others.',
+  privacy_policy_body_05_02:
+    '    5.2 The right to edit your incorrect or incomplete personal data to be correct, updated, complete and causing no misunderstanding.',
+  privacy_policy_body_05_03:
+    '    5.3 The right to request to suppress the use of your personal data in any of the following cases:',
+  privacy_policy_body_05_03_01:
+    '    5.3.1 While we are in the process of checking as per your request to edit your personal data to be correct, complete and updated.',
+  privacy_policy_body_05_03_02: '    5.3.2 When your personal data is illegally collected, used or disclosed.',
+  privacy_policy_body_05_03_03:
+    '    5.3.3 When your personal data is no longer necessary to be kept according to the purposes we previously informed for data collection but you want us to continue keeping the data to support your legal use of rights.',
+  privacy_policy_body_05_03_04:
+    '    5.3.4 While we are in the process of proving the legal causes of collecting your personal data or determining the necessity of collecting, using or disclosing your personal data for public benefits caused by your use of the right to object the collection, use or disclosure of your personal data',
+  privacy_policy_body_05_04:
+    'The right to object the collection, use or disclosure of your personal data, except for the case that we have the causes to legally reject your request (for example, we can prove that the collection, use or disclosure of your personal data is for a more legal cause; or for establishing, following or using the legal of claim; or for the public benefits according to our missions)',
+  privacy_policy_body_05_05:
+    'The right to revoke the consent to the collection, use and processing of your personal data while the consent revocation may cause you to use the application less conveniently, for example, you might not get the alert when going to the places of COVID-19 dispersion. However, the consent revocation will not affect the personal data processing that has already finished before the consent revocation.',
+  privacy_policy_body_06: '6. Sending or Transferring Your Personal Data Abroad',
   privacy_policy_body_06_00:
-    '    The Project utilizes cloud services from Amazon Web Services (AWS) (see the AWS Privacy Policy at https://aws.amazon.com/privacy/?nc1=f_pr) without sending or transferring personal data abroad (refer to Guideline on Cross-border Data Transfer (Section F), Thailand Data Protection Guidelines 2.0). In addition, we have appropriate information security measures to protect your personal data from misuse and unauthorized disclosure.',
-  privacy_policy_body_07: '7. Data retention period',
+    '    We collect your personal data for cloud storage provider abroad for processing by using the data processing via AWS’s cloud system (see AWS’s Personal Data Protection Policy at https://aws.amazon.com/th/compliance/gdpr-center/) with appropriate data security measures to prevent the illegal disclosure or the abuse of data apart from the agreed purposes, except for the following cases:',
+  privacy_policy_body_06_01: '    To abide by the law regulated that we must send or transfer personal data abroad.',
+  privacy_policy_body_06_02:
+    '    We have informed you and received your consent in case that the destination country has insufficient personal data protection measures, in accordance with the list of countries as announced by the Personal Data Protection Commission.',
+  privacy_policy_body_06_03:
+    '    To prevent or suppress a danger to life, body or health of yours or others’ while being incapable of giving consent at the time or to operate the mission for important public benefits.',
+  privacy_policy_body_07: '7. The Duration of Keeping Personal Data',
   privacy_policy_body_07_00:
-    '    We will retain your personal data only for as long as necessary for lawful purposes and as needed to provide you with an effective App service. Within 30 days after the end of COVID-19 pandemic and enforcement of a declaration that the Emergency Situation for COVID-19 has been repealed, we will erase, destroy or anonymize your personal data by appropriate methods and in accordance with international standards to ensure your anonymity.',
-  privacy_policy_body_07_01:
-    '    Moreover, upon your request, we will erase, destroy or anonymize your personal data, unless if retention of such data is necessary for legal purposes. In such circumstance, we will ensure that throughout the retention period personal data will be protected under strict security measures.',
-  privacy_policy_body_08: '8. Your personal data rights',
+    '    Within 30 days upon the date of the termination of COVID-19 pandemic situation together with the annulment of the Declaration of an Emergency Situation and the termination of Office of the Permanent Secretary of Ministry of Digital Economy and Society’s COVID-19 iMAP Platform, we will erase and destroy when the use of personal data it is nolonger necessary or make your personal data to be incapable of ID verification for the use in other purposes, for example, the statistical analysis, the performance improvement or the important public benefits, except for the case of legal requirements that we need to operate in order to keep certain data and, all through the time of collecting data, we will keep and care for the data under the strict security measures.',
+  privacy_policy_body_08: '8. Keeping the Security of Personal Data',
   privacy_policy_body_08_00:
-    '    The Personal Data Protection Act B.E. 2562 (2019) entitles you to access the personal data which is collected and processed by us and request a copy, including the right to rectification, the right to erasure, the right to restrict or object to processing of your personal data, and the right to withdraw your consent.',
+    '    We have the appropriate measures for the security of your personal data, both technically and administratively, to prevent the unauthorized loss, access to, destruction, use, alteration, correction or disclosure of personal data which is in accordance with our Information Security Policy.',
   privacy_policy_body_08_01:
-    '    To exercise any of the rights mentioned, please contact us through the channel mentioned below. We will act on your request within 30 days from the receiving of notice.',
-  privacy_policy_body_09: '9. Changes to this Data Protection Policy',
+    '    We also regulate the data security policy by declaring it for the mutual awareness all over the organization, together with the practice guideline for the security in the collection, use and disclosure of personal data while keeping the confidentiality, integrity and availability of personal data. Such policy and requirements will be reviewed at an appropriate time.',
+  privacy_policy_body_08_02:
+    '    However, you may be redirected to the service channels of other authorities or persons to facilitate you while visiting those channels, for example, “Thaichana” QR Code Scanning. These channels may collect your personal data. We accept no liability for the processing of your personal data by those channels. You should discreetly check the personal data protection standards of these channels before using their services.',
+  privacy_policy_body_08_03:
+    '    Moreover, we issue the data security measures to protect personal data from misuse or unauthorized disclosure and to bring efficiency and transparency to the data collection and processing. We will evaluate the use of those collected, shared and processed data whether and how it helps achieving the purposes in order to improve the collection, processing and sharing of data to be more beneficial according to the purposes while still protecting the user’s data. However, we will send the reports of data collecting, data processing, data transferring and data sharing with external persons or authorities, including Office of Personal Data Protection Commission and Office of the Official Information Commission as being legally requested or investigated. The report is, at the very least, composed of the types of collected data, the amount of collected data, the types of shared data, the amountof shared data, the purposes of sharing, the authorities being shared with, the one-time sharing or the continuous sharing (for example, by pulling data via an API), the date and time of starting sharing, the date and time of stopping sharing, the reasons for stopping sharing, the report summary concerning the use of data received from those we shared data with, the data violation and complaints, and the case concerning the misuse of data from the application. We will publicize the reports through the website of Morchana application as well as the online social media administrated by us and the application controllers plus the hyperlink to the reports from inside the application.',
+  privacy_policy_body_09: '9. Participation of Personal Data Owner',
   privacy_policy_body_09_00:
-    '    We may occasionally make changes to the Data Protection Policy. Therefore, we encourage you to periodically review this page for the latest information on our Policy. If you continue to use the App after the Policy has been revised and updated, we will assume that you have agreed with all the terms of our Policy including all subsequent changes. ',
-  privacy_policy_body_10: '10. Contact Us',
-  privacy_policy_body_10_00: '    If you have any concerns or queries regarding personal data, please contact:  ',
+    '    We may disclose the personal data when being requested from the owner of personal data, the successor, the heir, the legal representative or the legal guardian by filing the request through the Department of Disease Control at 88/21 Tiwanon Road, Talat Kwan, Muang Nonthaburi, Nonthaburi 11000. Contact Center: (+66) 0 2590 3000 E-mail: ddc.moph@ddc.mail.go.th',
+  privacy_policy_body_09_01:
+    '    In case the owner of personal data, the successor, the heir, the legal representative or the legal guardian object the collection, the accuracy or any other actions, for example, reporting to revise the personal data, we will record the objectionas an evidence.',
+  privacy_policy_body_09_02:
+    '    However, we may reject the right in Paragraph 2 as it is stated by the law or in case that your personal data was made to reveal no names or characteristics that can be used for personal identification',
+  privacy_policy_body_10: '10. Liability of the Person Doing the Personal Data Processing',
+  privacy_policy_body_10_00:
+    '    We assign that only the staffs with the duty relating to the collection, use and disclosure of personal data of this processing activity can access to your personal data and we will manage to make sure that our staffs follow this regulation strictly.',
+  privacy_policy_body_11: '11. Changes of the Privacy Requirements',
+  privacy_policy_body_11_00:
+    '    These requirements may be revised or improved occasionally. You should come to check these requirements regularly to make sure that you acknowledge the latest version. We will also inform you through Morchana application by stating the name of the latest version at the end of the message.',
+  privacy_policy_body_11_01:
+    '    By logging in to use the product or service under this processing activity, you acknowledge the terms of these requirements. Please refrain from using if you disagree with the terms of these requirements. If you continue using after these requirements have been revised and posted in the afro-mentioned channels, it is regarded that you acknowledge the changes',
+  privacy_policy_body_12: '12. Contact for Information',
+  privacy_policy_body_12_00: '    If you have any doubts or inquiries about personal data, please contact',
+  privacy_policy_body_12_01: '    Data Controller',
+  privacy_policy_body_12_02:
+    '    - Department of Disease Control \n    88/21 Tiwanon Road, Talat Kwan, Muang Nonthaburi, Nonthaburi 11000',
+  privacy_policy_body_12_03: '    - Contact Center (+66) 0 2590 3000; or \n    E-mail: ddc.moph@ddc.mail.go.th',
   privacy_policy_table_01_header_01: 'Sources/Methods of Collection',
   privacy_policy_table_01_header_02: 'List of Personal Data',
   privacy_policy_table_01_body_01_01:
     '1. Directly collect data from you via registration and while using the application (Camera)',
   privacy_policy_table_01_body_01_02:
-    'In case of all users:\n * The photo of yourself by selfie without sending out from your smartphone. \n * Certificate of Entry (COE) \n * Certificate of Entry (COE) 6-digit reference code from COE Online system (for ID verification only)',
+    'In case of all users:\n • The photo of yourself by selfie without sending out from your smartphone. \n • Certificate of Entry (COE) \n • Certificate of Entry (COE) 6-digit reference code from COE Online system (for ID verification only)',
   privacy_policy_table_01_body_02_01: '2. Collect via GPS/Bluetooth/Motion tracking technology',
   privacy_policy_table_01_body_02_02:
-    '* Your check-in or location data \n * Data of being physically close to others collected and calculated by the application',
+    '• Your check-in or location data \n • Data of being physically close to others collected and calculated by the application',
   privacy_policy_table_02_header_01: 'Purposes of Using Data',
   privacy_policy_table_02_header_02: 'List of Personal Data Used',
   privacy_policy_table_02_body_01_01:
     '1. To register and verify identity for the application log-in in case of the travelers',
   privacy_policy_table_02_body_01_02:
-    '* Certificate of Entry (COE) \n * 6-digit reference code from COE Online system (for ID verification only)',
+    '• Certificate of Entry (COE) \n • 6-digit reference code from COE Online system (for ID verification only)',
   privacy_policy_table_02_body_02_01: '2. To build the participation and ownership of the application',
-  privacy_policy_table_02_body_02_02: '* The photo of yourself by selfie without sending out from your smartphone',
+  privacy_policy_table_02_body_02_02: '• The photo of yourself by selfie without sending out from your smartphone',
   privacy_policy_table_02_body_03_01: '3. To analyze the risk or possibility of being in contact with COVID-19 disease',
   privacy_policy_table_02_body_03_02:
-    '* Your check-in or location data \n * Data of being physically close to others collected and calculated by the application',
+    '• Your check-in or location data \n • Data of being physically close to others collected and calculated by the application',
   privacy_policy_dga_contact_name: '    Digital Government Development Agency (Public Organization) (DGA)',
   privacy_policy_dga_contact_address_01: '    17th Floor, Bangkok Thai Tower Building 108 Rangnam Rd. Phayathai, ',
   privacy_policy_dga_contact_address_02: '    Ratchatewi, Bangkok 10400',
@@ -271,7 +321,7 @@ export default {
     '    If you have any problems with the App, please call: 1111 (Government Contact Center: GCC)  ',
   privacy_policy_ending01: '    We will try our best to help or resolve your problems.',
   privacy_policy_ending02: 'This Data Protection Policy became effective on 27 April 2020',
-  privacy_policy_version: 'Version 2020.2',
+  privacy_policy_version: 'Document Version: 2564.08',
   back: 'BACK',
   back_lower: 'Back',
   change_lang: 'Change Language',
