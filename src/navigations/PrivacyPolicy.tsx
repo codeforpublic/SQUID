@@ -7,7 +7,8 @@ import { useNavigation } from '@react-navigation/native'
 import { COLORS, FONT_FAMILY, FONT_BOLD, FONT_SIZES } from '../styles'
 import { CheckBox, normalize } from 'react-native-elements'
 import { FormHeader } from '../components/Form/FormHeader'
-import { getAgreementText } from './const'
+import { getAgreementText, getAgreementTextBody1, getAgreementTextBody2, getAgreementTextBody3 } from './const'
+import { Row, Table } from 'react-native-table-component'
 
 import I18n from '../../i18n/i18n'
 
@@ -36,7 +37,28 @@ export const PrivacyPolicy = () => {
           }}
         >
           <View style={{ padding: 16 }}>
-            <Text style={styles.agreement}>{getAgreementText()} </Text>
+            <Text style={styles.agreement}>{getAgreementTextBody1()} </Text>
+            <ConsentTable
+              key={1}
+              row={2}
+              headerData={[I18n.t('privacy_policy_table_01_header_01'), I18n.t('privacy_policy_table_01_header_02')]}
+              rowData={[
+                [I18n.t('privacy_policy_table_01_body_01_01'), I18n.t('privacy_policy_table_01_body_01_02')],
+                [I18n.t('privacy_policy_table_01_body_02_01'), I18n.t('privacy_policy_table_01_body_02_02')],
+              ]}
+            />
+            <Text style={styles.agreement}>{getAgreementTextBody2()} </Text>
+            <ConsentTable
+              key={2}
+              row={2}
+              headerData={[I18n.t('privacy_policy_table_02_header_01'), I18n.t('privacy_policy_table_02_header_02')]}
+              rowData={[
+                [I18n.t('privacy_policy_table_02_body_01_01'), I18n.t('privacy_policy_table_02_body_01_02')],
+                [I18n.t('privacy_policy_table_02_body_02_01'), I18n.t('privacy_policy_table_02_body_02_02')],
+                [I18n.t('privacy_policy_table_02_body_03_01'), I18n.t('privacy_policy_table_02_body_03_02')],
+              ]}
+            />
+            <Text style={styles.agreement}>{getAgreementTextBody3()} </Text>
           </View>
         </ScrollView>
       </View>
@@ -54,10 +76,43 @@ export const PrivacyPolicy = () => {
   )
 }
 
+type ConsentTablePropsType = {
+  row: number
+  rowData: any
+  headerData: string[]
+}
+
+const ConsentTable = (props: ConsentTablePropsType) => {
+  return (
+    <View style={styles.tableContainer}>
+      <Table>
+        <Row style={styles.tableHead} data={props.headerData} />
+        {props.rowData.map((rowData: []) => {
+          return <Row textStyle={styles.tableText} data={rowData} />
+        })}
+      </Table>
+    </View>
+  )
+}
+
 const padding = normalize(16)
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: 'white' },
+  tableText: { margin: 6 },
+  tableContainer: {
+    flex: 1,
+    padding: 16,
+    paddingTop: 30,
+    backgroundColor: '#fff',
+  },
+  tableHead: {
+    padding: 8,
+    backgroundColor: '#f1f8ff',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   header: {
     alignItems: 'flex-start',
     marginBottom: 16,
