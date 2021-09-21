@@ -88,7 +88,7 @@ const ConsentTable = (props: ConsentTablePropsType) => {
       <Table>
         <Row style={styles.tableHead} data={props.headerData} />
         {props.rowData.map((rowData: []) => {
-          return <Row textStyle={styles.tableText} data={rowData} />
+          return <Row textStyle={styles.tableText} data={rowData} style={{ alignItems: 'flex-start' }} />
         })}
       </Table>
     </View>

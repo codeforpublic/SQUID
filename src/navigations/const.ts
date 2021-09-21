@@ -89,8 +89,6 @@ export const getAgreementTextBody3 = () => {
     '\n' +
     I18n.t('privacy_policy_body_04_02') +
     '\n' +
-    I18n.t('privacy_policy_body_04_03') +
-    '\n' +
     '\n' +
     I18n.t('privacy_policy_body_05') +
     '\n' +

@@ -240,12 +240,12 @@ export default {
   privacy_policy_body_05_03:
     '    5.3 The right to request to suppress the use of your personal data in any of the following cases:',
   privacy_policy_body_05_03_01:
-    '    5.3.1 While we are in the process of checking as per your request to edit your personal data to be correct, complete and updated.',
+    '        5.3.1 While we are in the process of checking as per your request to edit your personal data to be correct, complete and updated.',
   privacy_policy_body_05_03_02: '    5.3.2 When your personal data is illegally collected, used or disclosed.',
   privacy_policy_body_05_03_03:
-    '    5.3.3 When your personal data is no longer necessary to be kept according to the purposes we previously informed for data collection but you want us to continue keeping the data to support your legal use of rights.',
+    '        5.3.3 When your personal data is no longer necessary to be kept according to the purposes we previously informed for data collection but you want us to continue keeping the data to support your legal use of rights.',
   privacy_policy_body_05_03_04:
-    '    5.3.4 While we are in the process of proving the legal causes of collecting your personal data or determining the necessity of collecting, using or disclosing your personal data for public benefits caused by your use of the right to object the collection, use or disclosure of your personal data',
+    '        5.3.4 While we are in the process of proving the legal causes of collecting your personal data or determining the necessity of collecting, using or disclosing your personal data for public benefits caused by your use of the right to object the collection, use or disclosure of your personal data',
   privacy_policy_body_05_04:
     '    5.4 The right to object the collection, use or disclosure of your personal data, except for the case that we have the causes to legally reject your request (for example, we can prove that the collection, use or disclosure of your personal data is for a more legal cause; or for establishing, following or using the legal of claim; or for the public benefits according to our missions)',
   privacy_policy_body_05_05:
