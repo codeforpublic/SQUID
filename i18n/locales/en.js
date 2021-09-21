@@ -241,7 +241,7 @@ export default {
     '    5.3 The right to request to suppress the use of your personal data in any of the following cases:',
   privacy_policy_body_05_03_01:
     '        5.3.1 While we are in the process of checking as per your request to edit your personal data to be correct, complete and updated.',
-  privacy_policy_body_05_03_02: '    5.3.2 When your personal data is illegally collected, used or disclosed.',
+  privacy_policy_body_05_03_02: '        5.3.2 When your personal data is illegally collected, used or disclosed.',
   privacy_policy_body_05_03_03:
     '        5.3.3 When your personal data is no longer necessary to be kept according to the purposes we previously informed for data collection but you want us to continue keeping the data to support your legal use of rights.',
   privacy_policy_body_05_03_04:
