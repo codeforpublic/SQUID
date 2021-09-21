@@ -221,8 +221,8 @@ export default {
     '    We will collect and use your personal data for the purposes as mentioned in Item 2. However, we will collect and use the personal data as per necessity by mainly using the Anonymous ID in the data processing of the app according to their purposes.',
   privacy_policy_body_03_01:
     '    In case of the necessity to collect your personal data, we will collect your personal data as follows:',
-  privacy_policy_body_03_02: '    3.1        The data sources and listof personal data to be collected are as follow:',
-  privacy_policy_body_03_03: '    3.2        The Purposes of Using Personal Data',
+  privacy_policy_body_03_02: '    3.1 The data sources and listof personal data to be collected are as follow:',
+  privacy_policy_body_03_03: '    3.2 The Purposes of Using Personal Data',
   privacy_policy_body_04: '4. Disclosing Your Personal Data ',
   privacy_policy_body_04_00:
     '    In general case, we will not publicize, sell, share, exchange or transfer any of your personal data we collect to the outsiders or non-related authorities except being granted permission from Department of Disease Control only. By this sharing of data, we will discreetly send out the data as per necessity only to achieve the purposes of those asking for the shared data and such purposes must fall within the purpose framework being granted consent by the user. We disclose your personal data to the person(s) or legal person(s) as follow:',
