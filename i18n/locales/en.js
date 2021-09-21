@@ -292,6 +292,13 @@ export default {
   privacy_policy_body_12_02:
     '    - Department of Disease Control \n    88/21 Tiwanon Road, Talat Kwan, Muang Nonthaburi, Nonthaburi 11000',
   privacy_policy_body_12_03: '    - Contact Center (+66) 0 2590 3000; or \n    E-mail: ddc.moph@ddc.mail.go.th',
+  privacy_policy_body_13_00: 'Consent Form for the Use of Morchana Application',
+  privacy_policy_body_13_01:
+    '    “I have read the details of “Privacy Notice” of Morchana application and intend to use Morchana application by giving consent to the activity of gathering, collecting, using, disclosing and processing my private data according to the terms and conditions of Morchana application as stated in this Privacy Notice without being forced or coerced.',
+  privacy_policy_body_13_02:
+    '    However, I fully aware that I can revoke this consent anytime by deleting Morchana application installed on my device.” ',
+  privacy_policy_body_13_03:
+    '    * Click “Acknowledge and Consent” if you intend to use Morchana application or click “Decline” if you do not intend to use Morchana application for the activity of gathering, collecting, using, disclosing and processing your private data. *',
   privacy_policy_table_01_header_01: 'Sources/Methods of Collection',
   privacy_policy_table_01_header_02: 'List of Personal Data',
   privacy_policy_table_01_body_01_01:

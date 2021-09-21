@@ -172,6 +172,15 @@ export const getAgreementTextBody3 = () => {
     I18n.t('privacy_policy_body_12_03') +
     '\n' +
     '\n' +
+    I18n.t('privacy_policy_body_13_00') +
+    '\n' +
+    I18n.t('privacy_policy_body_13_01') +
+    '\n' +
+    I18n.t('privacy_policy_body_13_02') +
+    '\n' +
+    I18n.t('privacy_policy_body_13_03') +
+    '\n' +
+    '\n' +
     I18n.t('privacy_policy_version')
   )
 }
