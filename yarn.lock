@@ -6193,9 +6193,9 @@ locate-path@^5.0.0:
     p-locate "^4.1.0"
 
 lodash-es@^4.17.11, lodash-es@^4.17.14:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.15.tgz#21bd96839354412f23d7a10340e5eac6ee455d78"
-  integrity sha512-rlrc3yU3+JNOpZ9zj5pQtxnx2THmvRykwL4Xlxoa8I9lHBlVbbyPhgyPMioxVZ4NqyxaVVtaJnzsyOidQIhyyQ==
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
 
 lodash.curry@^4.0.1:
   version "4.1.1"
@@ -7972,10 +7972,10 @@ react-native-confirm@^0.0.1:
     react-native-input-xg "^0.0.2"
     react-native-stylesheet-xg "^1.1.0"
 
-react-native-contact-tracer@1.2.0:
+"react-native-contact-tracer@git://github.com/Morchana/contact-tracer.git":
   version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-contact-tracer/-/react-native-contact-tracer-1.2.0.tgz#a9baf0bd5f7b63051519a8d4dd240778edf89832"
-  integrity sha512-2U1J+w/+r5qdK2jT0fH5OhmHaZSrjLbwWE7B63eeTYrchvDrqVYTVup1EpxhEFHutvsAkFDLbHNt4cO3+vpIzQ==
+  uid "36e5fb728405318c27d8429569c08d8a65a85b22"
+  resolved "git://github.com/Morchana/contact-tracer.git#36e5fb728405318c27d8429569c08d8a65a85b22"
 
 react-native-datepicker@^1.4.4:
   version "1.7.2"
