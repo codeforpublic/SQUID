@@ -6843,10 +6843,10 @@ mkdirp@^1.0.0:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.3.tgz#4cf2e30ad45959dddea53ad97d518b6c8205e1ea"
   integrity sha512-6uCP4Qc0sWsgMLy1EOqqS/3rjDHOEnsStVr/4vtAIK2Y5i2kA7lFFejYrpIyiN9w0pYf4ckeCYT9f1r1P9KX5g==
 
-moment-timezone@^0.5.28:
-  version "0.5.28"
-  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.28.tgz#f093d789d091ed7b055d82aa81a82467f72e4338"
-  integrity sha512-TDJkZvAyKIVWg5EtVqRzU97w0Rb0YVbfpqyjgu6GwXCAohVRqwZjf4fOzDE6p1Ch98Sro/8hQQi65WDXW5STPw==
+moment-timezone@^0.5.35:
+  version "0.5.35"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.35.tgz#6fa2631bdbe8ff04f6b8753f7199516be6dc9839"
+  integrity sha512-cY/pBOEXepQvlgli06ttCTKcIf8cD1nmNwOKQQAdHBqYApQSpAqotBMX0RJZNgMp6i0PlZuf1mFtnlyEkwyvFw==
   dependencies:
     moment ">= 2.9.0"
 
@@ -7972,10 +7972,10 @@ react-native-confirm@^0.0.1:
     react-native-input-xg "^0.0.2"
     react-native-stylesheet-xg "^1.1.0"
 
-react-native-contact-tracer@1.2.0:
+"react-native-contact-tracer@git://github.com/Morchana/contact-tracer.git":
   version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-contact-tracer/-/react-native-contact-tracer-1.2.0.tgz#a9baf0bd5f7b63051519a8d4dd240778edf89832"
-  integrity sha512-2U1J+w/+r5qdK2jT0fH5OhmHaZSrjLbwWE7B63eeTYrchvDrqVYTVup1EpxhEFHutvsAkFDLbHNt4cO3+vpIzQ==
+  uid "36e5fb728405318c27d8429569c08d8a65a85b22"
+  resolved "git://github.com/Morchana/contact-tracer.git#36e5fb728405318c27d8429569c08d8a65a85b22"
 
 react-native-datepicker@^1.4.4:
   version "1.7.2"
