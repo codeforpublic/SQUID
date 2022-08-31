@@ -63,7 +63,7 @@
     "lodash": "^4.17.15",
     "lodash.isequal": "^4.5.0",
     "moment": "^2.24.0",
-    "moment-timezone": "^0.5.28",
+    "moment-timezone": "^0.5.35",
     "nanoid": "git://github.com/skaldo/nanoid.git#2ebcc6e",
     "react": "16.13.1",
     "react-fetch-hook": "^1.8.0",
