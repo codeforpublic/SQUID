@@ -3338,9 +3338,9 @@ convert-source-map@^1.4.0, convert-source-map@^1.5.0, convert-source-map@^1.6.0,
     safe-buffer "~5.1.1"
 
 cookiejar@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/cookiejar/-/cookiejar-2.1.2.tgz#dd8a235530752f988f9a0844f3fc589e3111125c"
-  integrity sha512-Mw+adcfzPxcPeI+0WlvRrr/3lGVO0bD75SxX6811cxSh1Wbxx7xZBGK1eVtDf6si8rg2lhnUjsVLMFMfbRIuwA==
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/cookiejar/-/cookiejar-2.1.4.tgz#ee669c1fea2cf42dc31585469d193fef0d65771b"
+  integrity sha512-LDx6oHrK+PhzLKJU9j5S7/Y3jM/mUHvD/DeI1WQmJn652iPC5Y4TBzC9l+5OMOXlyTTA+SmVUPm0HQUwpD5Jqw==
 
 copy-descriptor@^0.1.0:
   version "0.1.1"
@@ -7972,10 +7972,10 @@ react-native-confirm@^0.0.1:
     react-native-input-xg "^0.0.2"
     react-native-stylesheet-xg "^1.1.0"
 
-react-native-contact-tracer@1.2.0:
+"react-native-contact-tracer@git://github.com/Morchana/contact-tracer.git":
   version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-contact-tracer/-/react-native-contact-tracer-1.2.0.tgz#a9baf0bd5f7b63051519a8d4dd240778edf89832"
-  integrity sha512-2U1J+w/+r5qdK2jT0fH5OhmHaZSrjLbwWE7B63eeTYrchvDrqVYTVup1EpxhEFHutvsAkFDLbHNt4cO3+vpIzQ==
+  uid "36e5fb728405318c27d8429569c08d8a65a85b22"
+  resolved "git://github.com/Morchana/contact-tracer.git#36e5fb728405318c27d8429569c08d8a65a85b22"
 
 react-native-datepicker@^1.4.4:
   version "1.7.2"
